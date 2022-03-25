@@ -47,6 +47,7 @@ private:
         // Math
         //
         problem_1_main,  // sum of naturals divisible by 3 and 5
+/*
         problem_2_main,  // greatest common divisor
         problem_3_main,  // least common multiple
         problem_4_main,  // largest prime smaller than given number
@@ -60,7 +61,7 @@ private:
         problem_12_main,  // largest Collatz sequence
         problem_13_main,  // computing the value of Pi
         problem_14_main,  // validating ISBNs
-
+*/
 /*
         // Language features
         //

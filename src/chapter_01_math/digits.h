@@ -2,6 +2,7 @@
 #define DIGITS_H
 
 #include <deque>
+#include <limits>  // numeric_limits
 
 template <typename T>
 requires std::numeric_limits<T>::is_integer && (!std::numeric_limits<T>::is_signed)

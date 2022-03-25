@@ -1,7 +1,0 @@
-#pragma once
-
-#include <vector>
-
-std::vector<size_t> naturals_divisible_by_3_and_5_up_to_limit_v1(size_t limit);
-std::vector<size_t> naturals_divisible_by_3_and_5_up_to_limit_v2(size_t limit);
-void problem_1_main();
