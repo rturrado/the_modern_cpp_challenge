@@ -1,4 +1,4 @@
-#include "problem_001_sum_of_naturals_divisible_by_3_or_5.h"
+#include "chapter_01_math/problem_001_sum_of_naturals_divisible_by_3_or_5.h"
 
 #include "rtc/console_read.h"  // read_positive_number
 
@@ -23,6 +23,7 @@ std::vector<size_t> naturals_divisible_by_3_or_5_up_to_limit_v1(size_t limit) {
     }
     return ret;
 }
+
 
 std::vector<size_t> naturals_divisible_by_3_or_5_up_to_limit_v2(size_t limit) {
     return ranges::views::iota(0)
