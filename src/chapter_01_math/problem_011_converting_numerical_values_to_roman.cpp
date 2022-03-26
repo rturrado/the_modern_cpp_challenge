@@ -1,5 +1,4 @@
-#include "problem_011_converting_numerical_values_to_roman.h"
-
+#include "chapter_01_math/problem_011_converting_numerical_values_to_roman.h"
 #include "rtc/console_read.h"  // read_positive_number
 #include "rtc/print.h"
 #include "rtc/timer.h"  // function_timer
@@ -319,7 +318,7 @@ namespace P11
 void problem_11_main()
 {
     // Read a positive number
-    size_t n{ rtc::console::read_positive_number("Please enter a number (between 0 and 3999): ", 0, 4000) };
+    auto n{ rtc::console::read_positive_number("Please enter a number (between 0 and 3999): ", 0, 4000) };
 
     // Print the prime factors of that number
     std::cout << "Number\tRoman numeral equivalent\n";

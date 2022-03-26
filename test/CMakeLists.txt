@@ -1,8 +1,8 @@
 include(FetchContent)
 FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG "af29db7ec28d6df1c7f0f745186884091e602e07"
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG "af29db7ec28d6df1c7f0f745186884091e602e07"
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)

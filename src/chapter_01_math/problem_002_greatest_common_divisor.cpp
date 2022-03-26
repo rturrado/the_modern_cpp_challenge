@@ -1,5 +1,4 @@
-#include "problem_002_greatest_common_divisor.h"
-
+#include "chapter_01_math/problem_002_greatest_common_divisor.h"
 #include "rtc/console_read.h"  // read_positive_number
 
 #include <iostream>  // cout
@@ -25,8 +24,8 @@ size_t gcd(const size_t m, const size_t n)
 void problem_2_main()
 {
     // Read two positive integers
-    auto m{ rtc::console::read_positive_number("Please enter a number (starting from 1): ", 1) };
-    auto n{ rtc::console::read_positive_number("Please enter a number (starting from 1): ", 1) };
+    auto m{ rtc::console::read_positive_number("Please enter a first number (starting from 1): ", 1) };
+    auto n{ rtc::console::read_positive_number("Please enter a second number (starting from 1): ", 1) };
 
     // Sort m and n so that m >= n
     if (m < n)

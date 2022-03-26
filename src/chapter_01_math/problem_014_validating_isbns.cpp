@@ -1,5 +1,4 @@
-#include "problem_014_validating_isbns.h"
-
+#include "chapter_01_math/problem_014_validating_isbns.h"
 #include "rtc/console_read.h"  // clear_istream
 
 #include <algorithm>  // count_if, remove_if
@@ -67,7 +66,6 @@ bool validate_13_digit_isbn(const std::string& str)
     constexpr size_t number_of_digits{ 13 };
     assert(str.size() == number_of_digits);
 
-    std::cout << str << "\n";
     auto sum = std::accumulate(str.begin(), str.end(), static_cast<size_t>(0),
         [i = 3](size_t sum, size_t c) mutable { i = (i == 1 ? 3 : 1); return sum + (c - '0') * i; });
 

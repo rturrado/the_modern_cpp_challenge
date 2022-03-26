@@ -1,5 +1,4 @@
 #include "chapter_01_math/problem_001_sum_of_naturals_divisible_by_3_or_5.h"
-
 #include "rtc/console_read.h"  // read_positive_number
 
 #include <fmt/core.h>
@@ -33,7 +32,7 @@ std::vector<size_t> naturals_divisible_by_3_or_5_up_to_limit_v2(size_t limit) {
 }
 
 
-// Sum of naturals divisible by 3 and 5
+// Sum of naturals divisible by 3 or 5
 //
 // Write a program that calculates and prints the sum of all natural numbers divisible by either 3 or 5,
 // up to a given limit entered by the user

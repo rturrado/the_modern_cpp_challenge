@@ -1,6 +1,5 @@
-#include "problem_009_prime_factors.h"
-#include "math.h"  // prime_factors
-
+#include "chapter_01_math/problem_009_prime_factors.h"
+#include "chapter_01_math/math.h"  // prime_factors
 #include "rtc/console_read.h"  // read_positive_number
 #include "rtc/print.h"
 

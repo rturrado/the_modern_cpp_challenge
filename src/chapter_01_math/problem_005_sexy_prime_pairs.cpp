@@ -1,6 +1,5 @@
-#include "problem_005_sexy_prime_pairs.h"
-#include "math.h"  // is_prime
-
+#include "chapter_01_math/problem_005_sexy_prime_pairs.h"
+#include "chapter_01_math/math.h"  // is_prime
 #include "rtc/console_read.h"  // read_positive_number
 
 #include <iostream>  // cout
@@ -16,7 +15,7 @@ void problem_5_main()
 
     // Print sexy prime pairs up to the limit
     std::cout << "Sexy prime pairs up to " << limit << ":\n";
-    for (auto i = 7u; i <= limit; ++i)
+    for (auto i{7}; i <= limit; ++i)
     {
         if (is_prime(i) && is_prime(i - 6))
         {

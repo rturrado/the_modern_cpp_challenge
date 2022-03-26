@@ -1,36 +1,25 @@
-#include "problem_003_least_common_multiple.h"
-
+#include "chapter_01_math/problem_003_least_common_multiple.h"
 #include "rtc/console_read.h"  // read_list_of_positive_numbers
 #include "rtc/print.h"
 
-#include <algorithm>  // sort
+#include <algorithm>  // all_of, sort
 #include <iostream>  // cout
-#include <numeric>  // accumulate
 #include <vector>
 
 using namespace rtc::print;
 
 
-size_t lcm(const std::vector<size_t>& v)
+long lcm(const std::vector<int>& v)
 {
-    auto biggest_number = v[v.size() - 1];
-    auto possible_lcm{ biggest_number };
-    for (size_t i = 1; ; ++i)
-    {
-        possible_lcm = biggest_number * i;
-
-        auto accum_plus_possible_lcm_mod_n = [&possible_lcm](size_t accum, size_t n) {
-            return accum + possible_lcm % n;
-        };
-
-        size_t sum_of_mods = std::accumulate(std::next(v.crbegin()), v.crend(), static_cast<size_t>(0), accum_plus_possible_lcm_mod_n);
-
-        if (sum_of_mods == 0)
-        {
-            break;
+    auto bigger_number = v[v.size() - 1];
+    for (auto i{1}; ; ++i) {
+        long possible_lcm{ bigger_number * i };
+        if (std::all_of(std::cbegin(v), std::prev(cend(v)), [&possible_lcm](int n) {
+                return possible_lcm % n == 0; })) {
+            return possible_lcm;
         }
     }
-    return possible_lcm;
+    return -1;
 };
 
 
@@ -47,8 +36,8 @@ void problem_3_main()
 
     // Calculate the least common multiple
     //
-    // I sort the input numbers, and take the biggest one
-    // Then, I find the number that is 1, 2... i times bigger than the biggest one,
+    // I sort the input numbers, and take the bigger one
+    // Then, I find the number that is 1, 2... i times bigger than the bigger one,
     // such that it is multiple of all the other numbers in the list
     std::cout << "The least common multiple of " << v << " is: " << lcm(v) << "\n\n";
 }

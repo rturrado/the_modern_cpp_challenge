@@ -1,7 +1,6 @@
-#include "problem_008_armstrong_numbers.h"
-#include "digits.h"
-#include "math.h"  // is_prime
-
+#include "chapter_01_math/problem_008_armstrong_numbers.h"
+#include "chapter_01_math/digits.h"
+#include "chapter_01_math/math.h"  // is_prime
 #include "rtc/console_read.h"  // read_positive_number
 #include "rtc/timer.h"  // function_timer
 

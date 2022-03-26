@@ -1,7 +1,7 @@
 #include "problems.h"
-
 #include "rtc/console_read.h"
 
+#include <fmt/format.h>
 #include <iostream>  // cout
 
 
@@ -11,8 +11,9 @@ int main()
 
     while (true)
     {
-        auto n{ rtc::console::read_positive_number(
-            "Please enter a number (starting from 1): ", 1, problems.size() + static_cast<size_t>(1)) };
+        auto message{fmt::format("What problem do you want to run? Please enter a number (between {} and {}): ",
+            1, problems.size())};
+        auto n{ rtc::console::read_positive_number(message, 1, static_cast<int>(problems.size() + 1)) };
 
         std::cout << "\n[PROBLEM " << n << "]\n";
         problems.execute(n);

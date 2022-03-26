@@ -1,5 +1,5 @@
-#include "problem_007_amicable_numbers.h"
-#include "math.h"  // divisors_sum, TMP
+#include "chapter_01_math/problem_007_amicable_numbers.h"
+#include "chapter_01_math/math.h"  // divisors_sum, TMP
 
 #include <iostream>  // cout
 

@@ -1,6 +1,5 @@
-set (chapter_01_test_sources
+set(chapter_01_test_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_001_sum_of_naturals_divisible_by_3_or_5.cpp"
-#[[
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_002_greatest_common_divisor.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_003_least_common_multiple.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_004_largest_prime_smaller_than_given_number.cpp"
@@ -14,6 +13,5 @@ set (chapter_01_test_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_012_largest_collatz_sequence.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_013_computing_the_value_of_pi.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_014_validating_isbns.cpp"
-]]
     PARENT_SCOPE
 )

@@ -1,6 +1,5 @@
-#include "problem_006_abundant_numbers.h"
-#include "math.h"  // divisors
-
+#include "chapter_01_math/problem_006_abundant_numbers.h"
+#include "chapter_01_math/math.h"  // divisors
 #include "rtc/console_read.h"  // read_positive_number
 #include "rtc/print.h"
 
@@ -20,10 +19,10 @@ void problem_6_main()
 
     // Print abundant numbers up to the limit and their abundance
     std::cout << "Abudant numbers up to " << limit << ", {list of divisors}, (and their abundance):\n";
-    for (auto i = 1u; i <= limit; ++i)
+    for (auto i{1}; i <= limit; ++i)
     {
         auto d = divisors(i);
-        auto sum = std::accumulate(d.cbegin(), d.cend(), 0u);
+        auto sum = std::accumulate(d.cbegin(), d.cend(), 0);
         if (sum > i)
         {
             std::cout << "\t"<< i << " " << d << " (" << sum - i << ")\n";
