@@ -11,7 +11,7 @@ add_subdirectory(chapter_01_math)
 
 add_executable(${PROJECT_NAME}_test ${chapter_01_test_sources})
 target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_23)
-target_link_libraries(${PROJECT_NAME}_test lib_${PROJECT_NAME} gtest_main gmock)
+target_link_libraries(${PROJECT_NAME}_test lib_${PROJECT_NAME} gmock gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME}_test)
