@@ -8,25 +8,25 @@
 
 
 TEST(sum_of_naturals_divisible_by_3_and_5, v1_with_number_0) {
-    size_t limit{ 0 };
+    constexpr size_t limit{ 0 };
     auto ret{ naturals_divisible_by_3_or_5_up_to_limit_v1(limit) };
     EXPECT_EQ(ret, std::vector<size_t>{ 0 });
 }
 
 TEST(sum_of_naturals_divisible_by_3_and_5, v2_with_number_0) {
-    size_t limit{ 0 };
+    constexpr size_t limit{ 0 };
     auto ret{ naturals_divisible_by_3_or_5_up_to_limit_v2(limit) };
     EXPECT_EQ(ret, std::vector<size_t>{ 0 });
 }
 
 TEST(sum_of_naturals_divisible_by_3_and_5, v1_with_number_47) {
-    size_t limit{ 47 };
+    constexpr size_t limit{ 47 };
     auto ret{ naturals_divisible_by_3_or_5_up_to_limit_v1(limit) };
     ASSERT_THAT(ret, ::testing::ElementsAre(0, 3, 5, 6, 9, 10, 12, 15, 18, 20, 21, 24, 25, 27, 30, 33, 35, 36, 39, 40, 42, 45));
 }
 
 TEST(sum_of_naturals_divisible_by_3_and_5, v2_with_number_47) {
-    size_t limit{ 47 };
+    constexpr size_t limit{ 47 };
     auto ret{ naturals_divisible_by_3_or_5_up_to_limit_v2(limit) };
     ASSERT_THAT(ret, ::testing::ElementsAre(0, 3, 5, 6, 9, 10, 12, 15, 18, 20, 21, 24, 25, 27, 30, 33, 35, 36, 39, 40, 42, 45));
 }

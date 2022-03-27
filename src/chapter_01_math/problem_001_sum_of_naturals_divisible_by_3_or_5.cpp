@@ -3,7 +3,7 @@
 
 #include <fmt/ranges.h>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
+#include <iostream>  // cin, cout
 #include <istream>
 #include <numeric>  // accumulate
 #include <ostream>
@@ -18,7 +18,7 @@
 std::vector<size_t> naturals_divisible_by_3_or_5_up_to_limit_v1(size_t limit) {
     std::vector<size_t> ret{};
     for (size_t i{0}; i <= limit; ++i) {
-        if ((i % 3 == 0) || (i % 5 == 0)) {
+        if ((i % 3 == 0) or (i % 5 == 0)) {
             ret.push_back(i);
         }
     }
