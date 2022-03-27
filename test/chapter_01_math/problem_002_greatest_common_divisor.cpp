@@ -6,6 +6,7 @@
 #include <limits>  // numeric_limits
 #include <sstream>  // istringstream, ostringstream
 
+
 TEST(gcd, zero_and_zero) {
     constexpr size_t m{ 0 };
     constexpr size_t n{ 0 };

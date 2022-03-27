@@ -6,8 +6,10 @@
 
 #include <cmath>  // pow
 #include <chrono>  // duration, milli
-#include <iostream>  // cout
+#include <iostream>  // cin, cout
+#include <istream>
 #include <numeric>  // accumulate
+#include <ostream>
 #include <string>  // to_string
 
 
@@ -29,6 +31,7 @@ void print_armstrong_numbers_with_three_digits()
         }
     }
 }
+
 
 // Write a function that determines the Armstrong numbers up to a limit, regardless of their number of digits
 // v1: using a std::string for converting a number to a container of digits
@@ -58,6 +61,7 @@ void print_armstrong_numbers_up_to_a_limit_v1(size_t n, bool print_results)
     }
 }
 
+
 // Write a function that determines the Armstrong numbers up to a limit, regardless of their number of digits
 // v2: using Digits class for converting a number to a container of digits
 void print_armstrong_numbers_up_to_a_limit_v2(size_t n, bool print_results)
@@ -85,6 +89,7 @@ void print_armstrong_numbers_up_to_a_limit_v2(size_t n, bool print_results)
         }
     }
 }
+
 
 // Write a function that determines the Armstrong numbers up to a limit, regardless of their number of digits
 // v3: book's version
@@ -118,6 +123,7 @@ void print_armstrong_numbers_up_to_a_limit_v3(int const n, bool print_results)
         }
     }
 }
+
 
 namespace P8
 {
@@ -155,19 +161,26 @@ namespace P8
     }
 }
 
-// Armstrong numbers
-//
-// Write a program that prints all Armstrong numbers with three digits
-void problem_8_main()
+
+void problem_8_main(std::istream& is, std::ostream& os)
 {
     print_armstrong_numbers_with_three_digits();
 
     // Read limit
-    auto n{ rtc::console::read_positive_number("Please enter a number (starting from 0): ", 0) };
+    auto n{ rtc::console::read_positive_number(is, os, "Please enter a number (starting from 0): ", 0) };
     // Print Armstrong numbers up to the limit
     print_armstrong_numbers_up_to_a_limit_v1(n, true);
 
     //P8::test_function_performance();
 
-    std::cout << "\n";
+    os << "\n";
+}
+
+
+// Armstrong numbers
+//
+// Write a program that prints all Armstrong numbers with three digits
+void problem_8_main()
+{
+    problem_8_main(std::cin, std::cout);
 }

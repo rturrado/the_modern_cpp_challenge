@@ -3,8 +3,10 @@
 
 #include <algorithm>  // count_if, remove_if
 #include <cassert>  // assert
-#include <iostream>  // cout
+#include <iostream>  // cin, cout
+#include <istream>
 #include <numeric>  // accumulate
+#include <ostream>
 #include <string>  // getline
 
 
@@ -73,22 +75,28 @@ bool validate_13_digit_isbn(const std::string& str)
 }
 
 
-// Validating ISBNs
-// Write a program that validates that 10-digit values entered by the user,
-// as a string, represent valid ISBN-10 numbers
-void problem_14_main()
+void problem_14_main(std::istream& is, std::ostream& os)
 {
     // Read 10-digit ISBN
     auto str = read_n_digit_isbn(10);
 
     // Validate 10-digit ISBN
     auto valid = validate_10_digit_isbn(str);
-    std::cout << str << " is" << (valid ? " " : " NOT ") << "a valid ISBN\n";
+    os << str << " is" << (valid ? " " : " NOT ") << "a valid ISBN\n";
 
     // Read 13-digit ISBN
     str = read_n_digit_isbn(13);
 
     // Validate 13-digit ISBN
     valid = validate_13_digit_isbn(str);
-    std::cout << str << " is" << (valid ? " " : " NOT ") << "a valid ISBN\n\n";
+    os << str << " is" << (valid ? " " : " NOT ") << "a valid ISBN\n\n";
+}
+
+
+// Validating ISBNs
+// Write a program that validates that 10-digit values entered by the user,
+// as a string, represent valid ISBN-10 numbers
+void problem_14_main()
+{
+    problem_14_main(std::cin, std::cout);
 }

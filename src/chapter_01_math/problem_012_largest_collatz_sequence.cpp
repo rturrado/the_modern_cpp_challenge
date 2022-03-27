@@ -1,8 +1,10 @@
 #include "chapter_01_math/problem_012_largest_collatz_sequence.h"
 #include "rtc/timer.h"  // function_timer
 
-#include <iostream>  // cout
+#include <iostream>  // cin, cout
+#include <istream>
 #include <map>
+#include <ostream>
 #include <utility>  // pair
 #include <vector>
 
@@ -134,10 +136,7 @@ namespace P12
 }
 
 
-// Largest Collatz sequence
-// Write a program that determines and prints which number up to 1 million
-// produces the longest Collatz sequence and what length is
-void problem_12_main()
+void problem_12_main(std::istream& is, std::ostream& os)
 {
     constexpr size_t limit{ 1'000'000 };
 
@@ -148,10 +147,20 @@ void problem_12_main()
     auto result = get_longest_collatz_sequence_v1(limit);
 
     // Print results
-    std::cout << "\tn: " << result.first << "\n";
-    std::cout << "\tCollatz sequence (" << result.first << ") size: " << result.second << "\n";
+    os << "\tn: " << result.first << "\n";
+    os << "\tCollatz sequence (" << result.first << ") size: " << result.second << "\n";
 
     //P12::test_function_performance(limit);
 
-    std::cout << "\n";
+    os << "\n";
+}
+
+
+// Largest Collatz sequence
+//
+// Write a program that determines and prints which number up to 1 million
+// produces the longest Collatz sequence and what length is
+void problem_12_main()
+{
+    problem_12_main(std::cin, std::cout);
 }

@@ -2,7 +2,9 @@
 #include "chapter_01_math/math.h"  // is_prime
 #include "rtc/console_read.h"  // read_positive_number
 
-#include <iostream>  // cout
+#include <iostream>  // cin, cout
+#include <istream>
+#include <ostream>
 
 
 size_t biggest_prime_smaller_than(const size_t n)
@@ -11,15 +13,21 @@ size_t biggest_prime_smaller_than(const size_t n)
 };
 
 
+void problem_4_main(std::istream& is, std::ostream& os)
+{
+    // Read limit
+    auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (starting from 2): ", 2) };
+
+    // Calculate biggest prime smaller than limit
+    os << "Biggest prime number smaller than " << limit << " is: " << biggest_prime_smaller_than(limit) << "\n\n";
+}
+
+
 // Largest prime smaller than given number
 //
 // Write a program that computes and prints the largest prime number
 // that is smaller than a number provided by the user, which must be a positive integer
 void problem_4_main()
 {
-    // Read limit
-    auto limit{ rtc::console::read_positive_number("Please enter a number (starting from 2): ", 2) };
-
-    // Calculate biggest prime smaller than limit
-    std::cout << "Biggest prime number smaller than " << limit << " is: " << biggest_prime_smaller_than(limit) << "\n\n";
+    problem_4_main(std::cin, std::cout);
 }

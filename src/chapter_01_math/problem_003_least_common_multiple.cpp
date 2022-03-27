@@ -3,7 +3,9 @@
 #include "rtc/print.h"
 
 #include <algorithm>  // all_of, sort
-#include <iostream>  // cout
+#include <iostream>  // cin, cout
+#include <istream>
+#include <ostream>
 #include <vector>
 
 using namespace rtc::print;
@@ -23,10 +25,7 @@ long lcm(const std::vector<int>& v)
 };
 
 
-// Least common multiple
-//
-// Write a program that will, given two or more positive integers, calculate and print the least common multiple of them all
-void problem_3_main()
+void problem_3_main(std::istream& is, std::ostream& os)
 {
     // Read a list of positive numbers
     auto v{ rtc::console::read_list_of_positive_numbers(2, 0) };
@@ -39,5 +38,14 @@ void problem_3_main()
     // I sort the input numbers, and take the bigger one
     // Then, I find the number that is 1, 2... i times bigger than the bigger one,
     // such that it is multiple of all the other numbers in the list
-    std::cout << "The least common multiple of " << v << " is: " << lcm(v) << "\n\n";
+    os << "The least common multiple of " << v << " is: " << lcm(v) << "\n\n";
+}
+
+
+// Least common multiple
+//
+// Write a program that will, given two or more positive integers, calculate and print the least common multiple of them all
+void problem_3_main()
+{
+    problem_3_main(std::cin, std::cout);
 }

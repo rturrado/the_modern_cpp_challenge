@@ -1,6 +1,8 @@
 #include "chapter_01_math/problem_013_computing_the_value_of_pi.h"
 
-#include <iostream>  // cout
+#include <iostream>  // cin, cout
+#include <istream>
+#include <ostream>
 #include <random>
 
 
@@ -32,14 +34,20 @@ double compute_pi(size_t number_of_iterations)
 }
 
 
+void problem_13_main(std::istream& is, std::ostream& os)
+{
+    for (size_t number_of_iterations : {10, 100, 1'000, 10'000, 100'000, 1'000'000, 10'000'000 })
+    {
+        os << "Estimated value of pi: " << compute_pi(number_of_iterations) << "\n";
+    }
+    os << "\n";
+}
+
+
 // Computing the value of Pi
 //
 // Write a program that computes the value of Pi with a precision of two decimal digits
 void problem_13_main()
 {
-    for (size_t number_of_iterations : {10, 100, 1'000, 10'000, 100'000, 1'000'000, 10'000'000 })
-    {
-        std::cout << "Estimated value of pi: " << compute_pi(number_of_iterations) << "\n";
-    }
-    std::cout << "\n";
+    problem_13_main(std::cin, std::cout);
 }

@@ -5,11 +5,13 @@
 
 #include <cassert>  // assert
 #include <chrono>  // duration, milli
-#include <iostream>  // cout
+#include <iostream>  // cin, cout
+#include <istream>
 #include <map>
-#include <tuple>
+#include <ostream>
 #include <string>
 #include <string_view>
+#include <tuple>
 #include <utility>  // pair
 #include <vector>
 
@@ -312,19 +314,25 @@ namespace P11
 }
 
 
+void problem_11_main(std::istream& is, std::ostream& os)
+{
+    // Read a positive number
+    auto n{ rtc::console::read_positive_number(is, os, "Please enter a number (between 0 and 3999): ", 0, 4000) };
+
+    // Print the prime factors of that number
+    os << "Number\tRoman numeral equivalent\n";
+    os << n << "\t" << to_roman(n, 1) << "\n";
+
+    //P11::test_function_performance();
+
+    os << "\n";
+}
+
+
 // Converting numerical values to Roman
 //
 // Write a program that, given a number entered by the user, prints its Roman numeral equivalent
 void problem_11_main()
 {
-    // Read a positive number
-    auto n{ rtc::console::read_positive_number("Please enter a number (between 0 and 3999): ", 0, 4000) };
-
-    // Print the prime factors of that number
-    std::cout << "Number\tRoman numeral equivalent\n";
-    std::cout << n << "\t" << to_roman(n, 1) << "\n";
-
-    //P11::test_function_performance();
-
-    std::cout << "\n";
+    problem_11_main(std::cin, std::cout);
 }

@@ -1,7 +1,9 @@
 #include "chapter_01_math/problem_007_amicable_numbers.h"
 #include "chapter_01_math/math.h"  // divisors_sum, TMP
 
-#include <iostream>  // cout
+#include <iostream>  // cin, cout
+#include <istream>
+#include <ostream>
 
 constinit const size_t limit{ 1'000'000 };
 
@@ -21,10 +23,7 @@ void playing_with_TMP()
 }
 
 
-// Amicable numbers
-//
-// Write a program that prints the list of all pairs of amicable numbers smaller than 1,000,000
-void problem_7_main()
+void problem_7_main(std::istream& is, std::ostream& os)
 {
     for (auto i = 1u; i < limit; ++i)
     {
@@ -35,11 +34,20 @@ void problem_7_main()
 
         if (i == k)
         {
-            std::cout << "\t{ " << i << ", " << j << " }\n";
+            os << "\t{ " << i << ", " << j << " }\n";
         }
     }
 
     playing_with_TMP();
 
-    std::cout << "\n";
+    os << "\n";
+}
+
+
+// Amicable numbers
+//
+// Write a program that prints the list of all pairs of amicable numbers smaller than 1,000,000
+void problem_7_main()
+{
+    problem_7_main(std::cin, std::cout);
 }
