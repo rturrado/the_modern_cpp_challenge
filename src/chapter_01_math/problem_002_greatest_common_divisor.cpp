@@ -9,7 +9,7 @@
 #include <utility>  // exchange
 
 
-size_t gcd(size_t m, size_t n)
+int gcd(int m, int n)
 {
     if (m == 0 or n == 0) {
         return 1;
@@ -20,22 +20,19 @@ size_t gcd(size_t m, size_t n)
         n = std::exchange(m, n);
     }
 
-    for (auto i{n}; i > 1; --i) {
+    for (auto i{ n > 0 ? n : -n }; i > 0; --i) {
         if ((m % i == 0) and (n % i == 0)) {
             return i;
         }
     }
-    return 1;
 }
 
 
 void problem_2_main(std::istream& is, std::ostream& os)
 {
-    // Read two positive integers
-    auto m{ rtc::console::read_positive_number(is, os, "Please enter a first number (starting from 1): ", 1) };
-    auto n{ rtc::console::read_positive_number(is, os, "Please enter a second number (starting from 1): ", 1) };
+    auto m{ rtc::console::read_positive_number(is, os, "Please enter a first number (>= 1): ", 1) };
+    auto n{ rtc::console::read_positive_number(is, os, "Please enter a second number (>= 1): ", 1) };
 
-    // Calculate the greatest common divisor
     fmt::print(os, "The greatest common divisor of {} and {} is: {}\n\n", m, n, gcd(m, n));
 }
 

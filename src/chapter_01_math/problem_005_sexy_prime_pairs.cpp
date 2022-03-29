@@ -10,7 +10,7 @@
 void problem_5_main(std::istream& is, std::ostream& os)
 {
     // Read limit
-    auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (starting from 1): ", 1) };
+    auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 1): ", 1) };
 
     // Print sexy prime pairs up to the limit
     os << "Sexy prime pairs up to " << limit << ":\n";

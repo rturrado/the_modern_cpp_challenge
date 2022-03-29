@@ -167,7 +167,7 @@ void problem_8_main(std::istream& is, std::ostream& os)
     print_armstrong_numbers_with_three_digits();
 
     // Read limit
-    auto n{ rtc::console::read_positive_number(is, os, "Please enter a number (starting from 0): ", 0) };
+    auto n{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 0): ", 0) };
     // Print Armstrong numbers up to the limit
     print_armstrong_numbers_up_to_a_limit_v1(n, true);
 

@@ -7,82 +7,19 @@
 #include <sstream>  // istringstream, ostringstream
 
 
-TEST(gcd, zero_and_zero) {
-    constexpr size_t m{ 0 };
-    constexpr size_t n{ 0 };
-    auto ret{ gcd(m, n) };
-    EXPECT_EQ(ret, 1);
-}
-
-TEST(gcd, zero_and_max_size_t) {
-    constexpr size_t m{ 0 };
-    constexpr size_t n{ std::numeric_limits<size_t>::max() };
-    auto ret{ gcd(m, n) };
-    EXPECT_EQ(ret, 1);
-}
-
-TEST(gcd, max_size_t_and_zero) {
-    constexpr size_t m{ std::numeric_limits<size_t>::max() };
-    constexpr size_t n{ 0 };
-    auto ret{ gcd(m, n) };
-    EXPECT_EQ(ret, 1);
-}
-
-TEST(gcd, one_and_max_size_t) {
-    constexpr size_t m{ 1 };
-    constexpr size_t n{ std::numeric_limits<size_t>::max() };
-    auto ret{ gcd(m, n) };
-    EXPECT_EQ(ret, 1);
-}
-
-TEST(gcd, max_size_t_and_one) {
-    constexpr size_t m{ std::numeric_limits<size_t>::max() };
-    constexpr size_t n{ 1 };
-    auto ret{ gcd(m, n) };
-    EXPECT_EQ(ret, 1);
-}
-
-TEST(gcd, ten_and_max_size_t) {
-    constexpr size_t m{ 10 };
-    constexpr size_t n{ std::numeric_limits<size_t>::max() };
-    auto ret{ gcd(m, n) };
-    EXPECT_EQ(ret, 5);
-}
-
-TEST(gcd, max_size_t_and_ten) {
-    constexpr size_t m{ std::numeric_limits<size_t>::max() };
-    constexpr size_t n{ 10 };
-    auto ret{ gcd(m, n) };
-    EXPECT_EQ(ret, 5);
-}
-
-TEST(gcd, fifty_and_ten) {
-    constexpr size_t m{ 50 };
-    constexpr size_t n{ 10 };
-    auto ret{ gcd(m, n) };
-    EXPECT_EQ(ret, 10);
-}
-
-TEST(gcd, ten_and_fifty) {
-    constexpr size_t m{ 10 };
-    constexpr size_t n{ 50 };
-    auto ret{ gcd(m, n) };
-    EXPECT_EQ(ret, 10);
-}
-
-TEST(gcd, fifty_and_fifteen) {
-    constexpr size_t m{ 50 };
-    constexpr size_t n{ 15 };
-    auto ret{ gcd(m, n) };
-    EXPECT_EQ(ret, 5);
-}
-
-TEST(gcd, fifteen_and_fifty) {
-    constexpr size_t m{ 15 };
-    constexpr size_t n{ 50 };
-    auto ret{ gcd(m, n) };
-    EXPECT_EQ(ret, 5);
-}
+TEST(gcd, minus_ten_and_ten) { EXPECT_EQ(gcd(-10, 10), 10); }
+TEST(gcd, ten_and_minus_ten) { EXPECT_EQ(gcd(10, -10), 10); }
+TEST(gcd, zero_and_zero) { EXPECT_EQ(gcd(0, 0), 1); }
+TEST(gcd, zero_and_max_int) { EXPECT_EQ(gcd(0, std::numeric_limits<int>::max()), 1); }
+TEST(gcd, max_int_and_zero) { EXPECT_EQ(gcd(std::numeric_limits<int>::max(), 0), 1); }
+TEST(gcd, one_and_max_int) { EXPECT_EQ(gcd(1, std::numeric_limits<int>::max()), 1); }
+TEST(gcd, max_int_and_one) { EXPECT_EQ(gcd(std::numeric_limits<int>::max(), 1), 1); }
+TEST(gcd, ten_and_max_int) { EXPECT_EQ(gcd(10, std::numeric_limits<int>::max()), 1); }
+TEST(gcd, max_int_and_ten) { EXPECT_EQ(gcd(std::numeric_limits<int>::max(), 10), 1); }
+TEST(gcd, fifty_and_ten) { EXPECT_EQ(gcd(50, 10), 10); }
+TEST(gcd, ten_and_fifty) { EXPECT_EQ(gcd(10, 50), 10); }
+TEST(gcd, fifty_and_fifteen) { EXPECT_EQ(gcd(50, 15), 5); }
+TEST(gcd, fifteen_and_fifty) { EXPECT_EQ(gcd(15, 50), 5); }
 
 TEST(problem_2_main, fifteen_and_fifty) {
     std::istringstream iss{ "15\n50\n" };

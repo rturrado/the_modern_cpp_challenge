@@ -14,7 +14,7 @@ using namespace rtc::print;
 void problem_6_main(std::istream& is, std::ostream& os)
 {
     // Read limit
-    auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (starting from 1): ", 1) };
+    auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 1): ", 1) };
 
     // Print abundant numbers up to the limit and their abundance
     os << "Abudant numbers up to " << limit << ", {list of divisors}, (and their abundance):\n";

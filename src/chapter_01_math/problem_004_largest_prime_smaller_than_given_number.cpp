@@ -16,7 +16,7 @@ size_t biggest_prime_smaller_than(const size_t n)
 void problem_4_main(std::istream& is, std::ostream& os)
 {
     // Read limit
-    auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (starting from 2): ", 2) };
+    auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 2): ", 2) };
 
     // Calculate biggest prime smaller than limit
     os << "Biggest prime number smaller than " << limit << " is: " << biggest_prime_smaller_than(limit) << "\n\n";

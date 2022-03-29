@@ -2,7 +2,9 @@
 #include "rtc/console_read.h"  // read_list_of_positive_numbers
 #include "rtc/print.h"
 
-#include <algorithm>  // all_of, sort
+#include <algorithm>  // all_of, any_of, sort
+#include <fmt/ranges.h>
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
 #include <istream>
 #include <ostream>
@@ -11,13 +13,24 @@
 using namespace rtc::print;
 
 
-long lcm(const std::vector<int>& v)
+// Note this function doesn't check for overflows
+long lcm(std::vector<int> v)
 {
+    if (v.size() == 0) {
+        return -1;
+    }
+
+    // Sort the vector of numbers
+    std::sort(v.begin(), v.end());
+
+    // Take the bigger number
+    // Then, find the number that is 1, 2... i times the bigger one,
+    // such that it is multiple of all the other numbers in the list
     auto bigger_number = v[v.size() - 1];
     for (auto i{1}; ; ++i) {
         long possible_lcm{ bigger_number * i };
-        if (std::all_of(std::cbegin(v), std::prev(cend(v)), [&possible_lcm](int n) {
-                return possible_lcm % n == 0; })) {
+        if (std::all_of(std::cbegin(v), std::prev(cend(v)),
+            [&possible_lcm](int n) { return n == 0 or possible_lcm % n == 0; })) {
             return possible_lcm;
         }
     }
@@ -27,18 +40,10 @@ long lcm(const std::vector<int>& v)
 
 void problem_3_main(std::istream& is, std::ostream& os)
 {
-    // Read a list of positive numbers
-    auto v{ rtc::console::read_list_of_positive_numbers(2, 0) };
+    auto v{ rtc::console::read_list_of_positive_numbers(is, os,
+        "Please enter 2 or more numbers (>= 1) ('quit' to finish the list): ", 2, 0) };
 
-    // Sort list
-    std::sort(v.begin(), v.end());
-
-    // Calculate the least common multiple
-    //
-    // I sort the input numbers, and take the bigger one
-    // Then, I find the number that is 1, 2... i times bigger than the bigger one,
-    // such that it is multiple of all the other numbers in the list
-    os << "The least common multiple of " << v << " is: " << lcm(v) << "\n\n";
+    fmt::print(os, "The least common multiple of {} is: {}\n\n", v, lcm(v));
 }
 
 
