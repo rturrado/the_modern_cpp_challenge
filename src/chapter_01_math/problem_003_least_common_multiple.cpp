@@ -3,8 +3,8 @@
 #include "rtc/print.h"
 
 #include <algorithm>  // all_of, any_of, sort
-#include <fmt/ranges.h>
 #include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cin, cout
 #include <istream>
 #include <ostream>

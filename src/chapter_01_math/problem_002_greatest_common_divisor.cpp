@@ -1,8 +1,8 @@
 #include "chapter_01_math/problem_002_greatest_common_divisor.h"
 #include "rtc/console_read.h"  // read_positive_number
 
-#include <fmt/ranges.h>
 #include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cin, cout
 #include <istream>
 #include <ostream>
