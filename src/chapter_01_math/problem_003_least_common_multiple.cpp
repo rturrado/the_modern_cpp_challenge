@@ -1,6 +1,5 @@
 #include "chapter_01_math/problem_003_least_common_multiple.h"
 #include "rtc/console_read.h"  // read_list_of_positive_numbers
-#include "rtc/print.h"
 
 #include <algorithm>  // all_of, any_of, sort
 #include <fmt/ostream.h>
@@ -9,8 +8,6 @@
 #include <istream>
 #include <ostream>
 #include <vector>
-
-using namespace rtc::print;
 
 
 // Note this function doesn't check for overflows

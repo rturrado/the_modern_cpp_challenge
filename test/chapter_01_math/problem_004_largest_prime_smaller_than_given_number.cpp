@@ -5,6 +5,7 @@
 
 #include <sstream>  // istringstream, ostringstream
 
+
 TEST(biggest_prime_smaller_than, zero) { EXPECT_EQ(biggest_prime_smaller_than(0), 0); }
 TEST(biggest_prime_smaller_than, one) { EXPECT_EQ(biggest_prime_smaller_than(1), 0); }
 TEST(biggest_prime_smaller_than, two) { EXPECT_EQ(biggest_prime_smaller_than(2), 1); }

@@ -2,24 +2,34 @@
 #include "chapter_01_math/math.h"  // is_prime
 #include "rtc/console_read.h"  // read_positive_number
 
+#include <fmt/ranges.h>
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
 #include <istream>
 #include <ostream>
+#include <utility>  // pair
+#include <vector>
+
+
+std::vector<std::pair<size_t, size_t>> sexy_prime_pairs_up_to(size_t limit)
+{
+    std::vector<std::pair<size_t, size_t>> ret{};
+    for (auto i{ 7 }; i <= limit; ++i) {
+        if (is_prime(i) && is_prime(i - 6)) {
+            ret.push_back({ i - 6, i });
+        }
+    }
+    return ret;
+}
 
 
 void problem_5_main(std::istream& is, std::ostream& os)
 {
-    // Read limit
     auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 1): ", 1) };
 
-    // Print sexy prime pairs up to the limit
-    os << "Sexy prime pairs up to " << limit << ":\n";
-    for (auto i{7}; i <= limit; ++i)
-    {
-        if (is_prime(i) && is_prime(i - 6))
-        {
-            os << "\t{" << i - 6 << ", " << i << "}\n";
-        }
+    fmt::print(os, "Sexy prime pairs up to {}:\n", limit);
+    for (auto&& p : sexy_prime_pairs_up_to(limit)) {
+        fmt::print(os, "\t({}, {})\n", p.first, p.second);
     }
     os << "\n";
 }

@@ -1,31 +1,37 @@
 #include "chapter_01_math/problem_006_abundant_numbers.h"
 #include "chapter_01_math/math.h"  // divisors
 #include "rtc/console_read.h"  // read_positive_number
-#include "rtc/print.h"
 
+#include <fmt/ranges.h>
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
 #include <istream>
 #include <numeric>  // accumulate
 #include <ostream>
+#include <vector>
 
-using namespace rtc::print;
+
+std::vector<AbundantNumberResult> abundant_numbers_up_to(size_t limit)
+{
+    std::vector<AbundantNumberResult> ret{};
+    for (size_t i{ 1 }; i <= limit; ++i) {
+        auto d{ divisors(i) };
+        auto sum_of_divisors{ std::accumulate(d.cbegin(), d.cend(), static_cast<size_t>(0)) };
+        if (sum_of_divisors > i) {
+            ret.emplace_back(i, sum_of_divisors - i, std::move(d));
+        }
+    }
+    return ret;
+}
 
 
 void problem_6_main(std::istream& is, std::ostream& os)
 {
-    // Read limit
     auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 1): ", 1) };
 
-    // Print abundant numbers up to the limit and their abundance
-    os << "Abudant numbers up to " << limit << ", {list of divisors}, (and their abundance):\n";
-    for (auto i{1}; i <= limit; ++i)
-    {
-        auto d = divisors(i);
-        auto sum = std::accumulate(d.cbegin(), d.cend(), 0);
-        if (sum > i)
-        {
-            os << "\t"<< i << " " << d << " (" << sum - i << ")\n";
-        }
+    fmt::print(os, "Abundant numbers up to {} [list of divisors] (and their abundance):\n", limit);
+    for (auto&& result : abundant_numbers_up_to(limit)) {
+        fmt::print(os, "\t{} {} ({})\n", result.number, result.divisors, result.abundance);
     }
     os << "\n";
 }

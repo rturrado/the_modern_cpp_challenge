@@ -7,6 +7,7 @@
 #include <sstream>  // istringstream, ostringstream
 #include <vector>
 
+
 TEST(lcm, empty_v) {
     std::vector<int> v{};
     EXPECT_EQ(lcm(v), -1);
