@@ -7,11 +7,31 @@
 #include <sstream>  // istringstream, ostringstream
 
 
-TEST(gcd, minus_ten_and_ten) { EXPECT_EQ(gcd(-10, 10), 10); }
-TEST(gcd, ten_and_minus_ten) { EXPECT_EQ(gcd(10, -10), 10); }
-TEST(gcd, zero_and_zero) { EXPECT_EQ(gcd(0, 0), 1); }
-TEST(gcd, zero_and_max_int) { EXPECT_EQ(gcd(0, std::numeric_limits<int>::max()), 1); }
-TEST(gcd, max_int_and_zero) { EXPECT_EQ(gcd(std::numeric_limits<int>::max(), 0), 1); }
+TEST(gcd, minus_ten_and_ten) {
+    std::ostringstream oss{};
+    EXPECT_EQ(gcd(oss, -10, 10), -1);
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling gcd(m, n) with a negative or zero value.\n"));
+}
+TEST(gcd, ten_and_minus_ten) {
+    std::ostringstream oss{};
+    EXPECT_EQ(gcd(oss, 10, -10), -1);
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling gcd(m, n) with a negative or zero value.\n"));
+}
+TEST(gcd, zero_and_zero) {
+    std::ostringstream oss{};
+    EXPECT_EQ(gcd(oss, 0, 0), -1);
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling gcd(m, n) with a negative or zero value.\n"));
+}
+TEST(gcd, zero_and_max_int) {
+    std::ostringstream oss{};
+    EXPECT_EQ(gcd(oss, 0, std::numeric_limits<int>::max()), -1);
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling gcd(m, n) with a negative or zero value.\n"));
+}
+TEST(gcd, max_int_and_zero) {
+    std::ostringstream oss{};
+    EXPECT_EQ(gcd(oss, std::numeric_limits<int>::max(), 0), -1);
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling gcd(m, n) with a negative or zero value.\n"));
+}
 TEST(gcd, one_and_max_int) { EXPECT_EQ(gcd(1, std::numeric_limits<int>::max()), 1); }
 TEST(gcd, max_int_and_one) { EXPECT_EQ(gcd(std::numeric_limits<int>::max(), 1), 1); }
 TEST(gcd, ten_and_max_int) { EXPECT_EQ(gcd(10, std::numeric_limits<int>::max()), 1); }

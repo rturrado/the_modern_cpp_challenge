@@ -3,7 +3,7 @@
 
 #include <fmt/ranges.h>
 #include <fmt/ostream.h>
-#include <iostream>  // cin, cout
+#include <iostream>  // cout
 #include <istream>
 #include <ostream>
 #include <utility>  // pair

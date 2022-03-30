@@ -11,9 +11,14 @@
 
 
 // Note this function doesn't check for overflows
-long lcm(std::vector<int> v)
+long lcm(std::ostream& os, std::vector<int> v)
 {
     if (v.size() == 0) {
+        os << "Error: calling lcm(v) with an empty list.\n";
+        return -1;
+    }
+    if (std::any_of(std::cbegin(v), std::cend(v), [](int n) { return n <= 0;  })) {
+        os << "Error: calling lcm(v) with a negative or zero value.\n";
         return -1;
     }
 
@@ -27,12 +32,18 @@ long lcm(std::vector<int> v)
     for (auto i{1}; ; ++i) {
         long possible_lcm{ bigger_number * i };
         if (std::all_of(std::cbegin(v), std::prev(cend(v)),
-            [&possible_lcm](int n) { return n == 0 or possible_lcm % n == 0; })) {
+            [&possible_lcm](int n) { return possible_lcm % n == 0; })) {
             return possible_lcm;
         }
     }
     return -1;
 };
+
+
+long lcm(std::vector<int> v)
+{
+    return lcm(std::cerr, v);
+}
 
 
 void problem_3_main(std::istream& is, std::ostream& os)

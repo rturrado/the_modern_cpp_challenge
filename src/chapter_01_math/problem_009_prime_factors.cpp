@@ -1,22 +1,19 @@
 #include "chapter_01_math/problem_009_prime_factors.h"
 #include "chapter_01_math/math.h"  // prime_factors
 #include "rtc/console_read.h"  // read_positive_number
-#include "rtc/print.h"
 
+#include <fmt/ranges.h>
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
 #include <istream>
 #include <ostream>
 
-using namespace rtc::print;
-
 
 void problem_9_main(std::istream& is, std::ostream& os)
 {
-    // Read a positive number
     auto n{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 0): ", 0) };
 
-    // Print the prime factors of that number
-    os << "The prime factors of " << n << " are: " << rtc::math::prime_factors(n) << "\n\n";
+    fmt::print(os, "The prime factors of {} are: {}\n\n", n, rtc::math::prime_factors(n));
 }
 
 
