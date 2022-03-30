@@ -16,7 +16,7 @@ void problem_9_main(std::istream& is, std::ostream& os)
     auto n{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 0): ", 0) };
 
     // Print the prime factors of that number
-    os << "The prime factors of " << n << " are: " << prime_factors(n) << "\n\n";
+    os << "The prime factors of " << n << " are: " << rtc::math::prime_factors(n) << "\n\n";
 }
 
 

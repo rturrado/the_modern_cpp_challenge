@@ -6,83 +6,86 @@
 #include <vector>
 
 
-// Check if a number is prime or not
-template <typename T>
-bool is_prime(const T n)
+namespace rtc::math
 {
-    for (T i = 2; i < n; ++i)
+    // Check if a number is prime or not
+    template <typename T>
+    bool is_prime(const T n)
     {
-        if (n % i == 0)
+        for (T i = 2; i < n; ++i)
         {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-// Return the list of prime factors of a given number
-template <typename T>
-auto prime_factors(T n)
-{
-    std::vector<T> ret{ 1 };
-    while (n > 1)
-    {
-        T i = 2;
-        for (; i < n; ++i)
-        {
-            if ((n % i == 0) && is_prime(i))
+            if (n % i == 0)
             {
-                break;
+                return false;
             }
         }
-        ret.push_back(i);
-        n /= i;
+        return true;
     }
-    return ret;
-}
 
 
-// Return the list of divisors of a given number
-template <typename T>
-auto divisors(const T n)
-{
-    std::vector<T> ret{ 1 };
-    for (T i = 2; i <= std::sqrt(n); ++i)
+    // Return the list of prime factors of a given number
+    template <typename T>
+    auto prime_factors(T n)
     {
-        if (n % i == 0)
+        std::vector<T> ret{ 1 };
+        while (n > 1)
         {
-            T j{ n / i };
+            T i = 2;
+            for (; i < n; ++i)
+            {
+                if ((n % i == 0) && is_prime(i))
+                {
+                    break;
+                }
+            }
             ret.push_back(i);
-            if (i != j)
+            n /= i;
+        }
+        return ret;
+    }
+
+
+    // Return the list of divisors of a given number
+    template <typename T>
+    auto divisors(const T n)
+    {
+        std::vector<T> ret{ 1 };
+        for (T i = 2; i <= std::sqrt(n); ++i)
+        {
+            if (n % i == 0)
             {
-                ret.push_back(j);
+                T j{ n / i };
+                ret.push_back(i);
+                if (i != j)
+                {
+                    ret.push_back(j);
+                }
             }
         }
+        std::sort(ret.begin(), ret.end());
+        return ret;
     }
-    std::sort(ret.begin(), ret.end());
-    return ret;
-}
 
 
-// Return the list of divisors of a given number
-template <typename T>
-T divisors_sum(const T n)
-{
-    T ret{ 1 };
-    for (T i = 2; i <= std::sqrt(n); ++i)
+    // Return the sum of the divisors of a given number
+    template <typename T>
+    T divisors_sum(const T n)
     {
-        if (n % i == 0)
+        T ret{ 1 };
+        for (T i = 2; i <= std::sqrt(n); ++i)
         {
-            T j{ n / i };
-            ret += (i == j) ? i : (i + j);
+            if (n % i == 0)
+            {
+                T j{ n / i };
+                ret += (i == j) ? i : (i + j);
+            }
         }
+        return ret;
     }
-    return ret;
-}
+}  // namespace rtc::math
 
 
-namespace TMP
+namespace rtc::math::tmp
 {
     // I couldn't use the more efficient version of divisors starting from sqrt(N) and adding j=N/I when I!=j
     // <--- std::sqrt is not constexpr
@@ -111,6 +114,7 @@ namespace TMP
         static constexpr bool has_amicable = (N == p);
         static constexpr size_t value = m;
     };
-}  // namespace TMP
+}  // namespace rtc::math::tmp
+
 
 #endif  // MATH_H

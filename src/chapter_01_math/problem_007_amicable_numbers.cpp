@@ -1,45 +1,43 @@
 #include "chapter_01_math/problem_007_amicable_numbers.h"
-#include "chapter_01_math/math.h"  // divisors_sum, TMP
+#include "chapter_01_math/math.h"  // amicable, divisors_sum
 
+#include <fmt/ranges.h>
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
 #include <istream>
 #include <ostream>
+#include <utility>  // pair
+#include <vector>
 
-constinit const size_t limit{ 1'000'000 };
 
-
-void playing_with_TMP()
+std::vector<std::pair<size_t, size_t>> amicable_numbers_up_to(size_t limit)
 {
-    std::cout << "Playing with TMP:\n";
-    std::cout << "\tDivisors sum of 220: " << TMP::divisors_sum<220>::value << "\n";
-    // fatal error C1202: recursive type or function dependency context too complex
-    // std::cout << "\tDivisors sum of 898216: " << TMP::divisors_sum<898216>::value << "\n";
-    if (TMP::amicable<220>::has_amicable)
-    {
-        std::cout << "\tAmicable number of 220: {" << 220 << ", " << TMP::amicable<220>::value << "}\n";
-        // fatal error C1202: recursive type or function dependency context too complex
-        // std::cout << "\tAmicable number of 898216: {" << 220 << ", " << TMP::amicable<898216>::value << "}\n";
-    }
-}
+    using namespace rtc::math;
 
+    std::vector<std::pair<size_t, size_t>> ret{};
 
-void problem_7_main(std::istream& is, std::ostream& os)
-{
-    for (auto i = 1u; i < limit; ++i)
-    {
+    for (size_t i{ 1 }; i < limit; ++i) {
         auto j{ divisors_sum(i) };
         // Both pairs of amicable numbers have to be smaller than limit
-        // And we only print {i, j} pairs where i < j
-        auto k{ (j < limit && i < j) ? divisors_sum(j) : 0 };
+        // And we only print (i, j) pairs where i < j
+        auto k{ (j < limit and i < j) ? divisors_sum(j) : 0 };
 
-        if (i == k)
-        {
-            os << "\t{ " << i << ", " << j << " }\n";
+        if (i == k) {
+            ret.push_back({ i, j });
         }
     }
 
-    playing_with_TMP();
+    return ret;
+}
 
+
+void problem_7_main(std::ostream& os)
+{
+    const size_t limit{ 1'000'000 };
+    fmt::print(os, "Amicable numbers up to {} is:\n", limit);
+    for (auto&& p : amicable_numbers_up_to(limit)) {
+        fmt::print(os, "\t{}\n", p);
+    }
     os << "\n";
 }
 
@@ -49,5 +47,27 @@ void problem_7_main(std::istream& is, std::ostream& os)
 // Write a program that prints the list of all pairs of amicable numbers smaller than 1,000,000
 void problem_7_main()
 {
-    problem_7_main(std::cin, std::cout);
+    problem_7_main(std::cout);
+}
+
+
+void playing_with_tmp(std::ostream& os)
+{
+    using namespace rtc::math::tmp;
+
+    fmt::print(os, "Divisors sum of 220: {}\n", divisors_sum<220>::value);
+    // fatal error C1202: recursive type or function dependency context too complex
+    // fmt::print("Divisors sum of 898216: {}\n", divisors_sum<898216>::value);
+    if (amicable<220>::has_amicable)
+    {
+        fmt::print(os, "Amicable number of 220: {}\n", amicable<220>::value);
+        // fatal error C1202: recursive type or function dependency context too complex
+        // fmt::print(os, "Amicable number of 898216: {}\n", amicable<898216>::value);
+    }
+}
+
+
+void playing_with_tmp()
+{
+    playing_with_tmp(std::cout);
 }

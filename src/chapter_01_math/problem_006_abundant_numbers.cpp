@@ -15,7 +15,7 @@ std::vector<AbundantNumberResult> abundant_numbers_up_to(size_t limit)
 {
     std::vector<AbundantNumberResult> ret{};
     for (size_t i{ 1 }; i <= limit; ++i) {
-        auto d{ divisors(i) };
+        auto d{ rtc::math::divisors(i) };
         auto sum_of_divisors{ std::accumulate(d.cbegin(), d.cend(), static_cast<size_t>(0)) };
         if (sum_of_divisors > i) {
             ret.emplace_back(i, sum_of_divisors - i, std::move(d));

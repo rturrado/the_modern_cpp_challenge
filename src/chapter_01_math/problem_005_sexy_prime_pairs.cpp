@@ -15,7 +15,7 @@ std::vector<std::pair<size_t, size_t>> sexy_prime_pairs_up_to(size_t limit)
 {
     std::vector<std::pair<size_t, size_t>> ret{};
     for (auto i{ 7 }; i <= limit; ++i) {
-        if (is_prime(i) && is_prime(i - 6)) {
+        if (rtc::math::is_prime(i) and rtc::math::is_prime(i - 6)) {
             ret.push_back({ i - 6, i });
         }
     }
@@ -29,7 +29,7 @@ void problem_5_main(std::istream& is, std::ostream& os)
 
     fmt::print(os, "Sexy prime pairs up to {}:\n", limit);
     for (auto&& p : sexy_prime_pairs_up_to(limit)) {
-        fmt::print(os, "\t({}, {})\n", p.first, p.second);
+        fmt::print(os, "\t{}\n", p);
     }
     os << "\n";
 }
