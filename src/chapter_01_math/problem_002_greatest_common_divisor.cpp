@@ -26,6 +26,7 @@ int gcd(std::ostream& os, int m, int n)
             return i;
         }
     }
+    return -1;
 }
 
 

@@ -178,7 +178,7 @@ namespace P11_V4
 {
     std::string to_roman(size_t value)
     {
-        std::vector<std::pair<size_t, char const*>> roman
+        std::vector<std::pair<size_t, const char*>> roman
         {
             { 1000, "M" }, { 900, "CM" },
             { 500, "D" }, { 400, "CD" },
@@ -190,7 +190,7 @@ namespace P11_V4
         };
 
         std::string result;
-        for (auto const& kvp : roman)
+        for (const auto& kvp : roman)
         {
             while (value >= kvp.first)
             {
@@ -265,22 +265,18 @@ namespace P11
         std::cout << "Test function performance:\n";
         auto t1 = function_timer<>::duration(
             []() {
-                for (int i = 0; i < 10000; ++i)
-                {
-                    for (size_t j : { 99, 999, 1999 })
-                    {
+                for (int i = 0; i < 10000; ++i) {
+                    for (size_t j : { 99, 999, 1999 }) {
                         to_roman(j, 1);
-                    }                    
+                    }
                 }
             });
         std::cout << "\tv1: " << std::chrono::duration<double, std::milli>(t1).count() << " ms" << std::endl;
 
         auto t2 = function_timer<>::duration(
             []() {
-                for (int i = 0; i < 10000; ++i)
-                {
-                    for (size_t j : { 99, 999, 1999 })
-                    {
+                for (int i = 0; i < 10000; ++i) {
+                    for (size_t j : { 99, 999, 1999 }) {
                         to_roman(j, 2);
                     }
                 }
@@ -289,10 +285,8 @@ namespace P11
 
         auto t3 = function_timer<>::duration(
             []() {
-                for (int i = 0; i < 10000; ++i)
-                {
-                    for (size_t j : { 99, 999, 1999 })
-                    {
+                for (int i = 0; i < 10000; ++i) {
+                    for (size_t j : { 99, 999, 1999 }) {
                         to_roman(j, 3);
                     }
                 }
@@ -301,10 +295,8 @@ namespace P11
 
         auto t4 = function_timer<>::duration(
             []() {
-                for (int i = 0; i < 10000; ++i)
-                {
-                    for (size_t j : { 99, 999, 1999 })
-                    {
+                for (int i = 0; i < 10000; ++i) {
+                    for (size_t j : { 99, 999, 1999 }) {
                         to_roman(j, 4);
                     }
                 }
@@ -316,16 +308,10 @@ namespace P11
 
 void problem_11_main(std::istream& is, std::ostream& os)
 {
-    // Read a positive number
     auto n{ rtc::console::read_positive_number(is, os, "Please enter a number (between 0 and 3999): ", 0, 4000) };
 
-    // Print the prime factors of that number
     os << "Number\tRoman numeral equivalent\n";
-    os << n << "\t" << to_roman(n, 1) << "\n";
-
-    //P11::test_function_performance();
-
-    os << "\n";
+    os << n << "\t" << to_roman(n, 1) << "\n\n";
 }
 
 
