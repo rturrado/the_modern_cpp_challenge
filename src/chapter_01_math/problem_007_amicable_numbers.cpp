@@ -34,11 +34,11 @@ std::vector<std::pair<size_t, size_t>> amicable_numbers_up_to(size_t limit)
 void problem_7_main(std::ostream& os)
 {
     const size_t limit{ 1'000'000 };
-    fmt::print(os, "Amicable numbers up to {} is:\n", limit);
+    fmt::print(os, "Amicable numbers up to {}:\n", limit);
     for (auto&& p : amicable_numbers_up_to(limit)) {
         fmt::print(os, "\t{}\n", p);
     }
-    os << "\n";
+    fmt::print(os, "\n");
 }
 
 

@@ -13,12 +13,10 @@
 
 // Write a function that determines the Armstrong numbers up to a limit, regardless of their number of digits
 // v1: using a std::string for converting a number to a container of digits
-void print_armstrong_numbers_up_to_a_limit_v1(std::ostream& os, size_t n, bool print_results)
+std::vector<size_t> armstrong_numbers_up_to_a_limit_v1(size_t n)
 {
-    // Print Armstrong numbers
-    if (print_results) {
-        fmt::print(os, "Armstrong numbers up to {}:\n", n);
-    }
+    std::vector<size_t> ret{};
+
     for (size_t i{ 0 }; i <= n; ++i) {
         // Turn current number into a string
         std::string digits{ std::to_string(i) };
@@ -28,109 +26,96 @@ void print_armstrong_numbers_up_to_a_limit_v1(std::ostream& os, size_t n, bool p
                 return total + static_cast<size_t>(std::pow(digit - '0', digits_size));
             });
         if (i == sum_of_powers) {
-            if (print_results) {
-                fmt::print(os, "\t{}\n", i);
-            }
+            ret.push_back(i);
         }
     }
-}
 
-void print_armstrong_numbers_up_to_a_limit_v1(size_t n, bool print_results) {
-    print_armstrong_numbers_up_to_a_limit_v1(std::cout, n, print_results);
+    return ret;
 }
 
 
 // Write a function that determines the Armstrong numbers up to a limit, regardless of their number of digits
 // v2: using digits class for converting a number to a container of digits
-void print_armstrong_numbers_up_to_a_limit_v2(std::ostream& os, size_t n, bool print_results)
+std::vector<size_t> armstrong_numbers_up_to_a_limit_v2(size_t n)
 {
-    // Turn current number into a deque of numbers
-    rtc::math::digits<size_t> digits{};
+    std::vector<size_t> ret{};
 
-    // Print Armstrong numbers
-    if (print_results) {
-        fmt::print(os, "Armstrong numbers up to {}:\n", n);
-    }
+    rtc::math::digits<size_t> digits{};
     for (size_t i{ 0 }; i <= n; ++i, ++digits) {
         auto sum_of_powers = std::accumulate(digits.cbegin(), digits.cend(), static_cast<size_t>(0),
             [digits_size = digits.size()](size_t total, size_t digit) {
                 return total + static_cast<size_t>(std::pow(digit, digits_size));
             });
         if (i == sum_of_powers) {
-            if (print_results) {
-                fmt::print(os, "\t{}\n", i);
-            }
+            ret.push_back(i);
         }
     }
-}
 
-void print_armstrong_numbers_up_to_a_limit_v2(size_t n, bool print_results) {
-    print_armstrong_numbers_up_to_a_limit_v2(std::cout, n, print_results);
+    return ret;
 }
 
 
 // Write a function that determines the Armstrong numbers up to a limit, regardless of their number of digits
 // v3: book's version
-void print_armstrong_numbers_up_to_a_limit_v3(std::ostream& os, const int n, bool print_results)
+std::vector<int> armstrong_numbers_up_to_a_limit_v3(const int n)
 {
-    if (print_results) {
-        fmt::print(os, "Armstrong numbers up to {}:\n", n);
-    }
+    std::vector<int> ret{};
+
     for (int i{ 0 }; i <= n; ++i) {
         std::vector<int> digits;
-        int n = i;
+        int n{ i };
         while (n > 0) {
             digits.push_back(n % 10);
             n = n / 10;
         }
 
-        int arm = std::accumulate(
-            std::begin(digits), std::end(digits),
-            0,
-            [s = digits.size()](const int sum, const int digit) {return sum + static_cast<int>(std::pow(digit, s)); });
-
+        int arm = std::accumulate(std::begin(digits), std::end(digits), 0,
+            [s = digits.size()](const int sum, const int digit) {
+                return sum + static_cast<int>(std::pow(digit, s));
+            });
         if (i == arm) {
-            if (print_results) {
-                fmt::print(os, "\t{}\n", i);
-            }
+            ret.push_back(i);
         }
     }
+
+    return ret;
 }
 
-void print_armstrong_numbers_up_to_a_limit_v3(const int n, bool print_results) {
-    print_armstrong_numbers_up_to_a_limit_v3(std::cout, n, print_results);
-}
 
-
-
-void print_armstrong_numbers_with_three_digits(std::ostream& os)
+std::vector<size_t> armstrong_numbers_with_three_digits()
 {
-    fmt::print(os, "Armstrong numbers with three digits:\n");
-    for (int i{ 1 }; i <= 9; ++i) {
-        for (int j{ 0 }; j <= 9; ++j) {
-            for (int k{ 0 }; k <= 9; ++k) {
-                int n{ i * 100 + j * 10 + k };
+    std::vector<size_t> ret{};
+
+    for (size_t i{ 1 }; i <= 9; ++i) {
+        for (size_t j{ 0 }; j <= 9; ++j) {
+            for (size_t k{ 0 }; k <= 9; ++k) {
+                size_t n{ i * 100 + j * 10 + k };
                 if (n == i * i * i + j * j * j + k * k * k) {
-                    std::cout << "\t" << n << "\n";
+                    ret.push_back(n);
                 }
             }
         }
     }
+
+    return ret;
 }
 
-void print_armstrong_numbers_with_three_digits() {
-    print_armstrong_numbers_with_three_digits(std::cout);
-}
 
+void problem_8_main(std::ostream& os)
+{
+    fmt::print(os, "Armstrong numbers with three digits:\n");
 
-void problem_8_main(std::ostream& os) {
-    print_armstrong_numbers_with_three_digits(os);
-    os << "\n";
+    for (auto&& n : armstrong_numbers_with_three_digits()) {
+        fmt::print(os, "\t{}\n", n);
+    }
+
+    fmt::print(os, "\n");
 }
 
 // Armstrong numbers
 //
 // Write a program that prints all Armstrong numbers with three digits
-void problem_8_main() {
+void problem_8_main()
+{
     problem_8_main(std::cout);
 }

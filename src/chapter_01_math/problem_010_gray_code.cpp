@@ -1,7 +1,9 @@
 #include "chapter_01_math/problem_010_gray_code.h"
 
+#include <fmt/ranges.h>
+#include <fmt/ostream.h>
 #include <bitset>
-#include <iostream>  // cin, cout
+#include <iostream>  // cout
 #include <istream>
 #include <ostream>
 
@@ -23,19 +25,17 @@ size_t gray_to_binary(size_t gray)
 }
 
 
-void problem_10_main(std::istream& is, std::ostream& os)
+void problem_10_main(std::ostream& os)
 {
-    os << "Number\tBinary\tGray code\tDecoded Gray code\n";
+    fmt::print(os, "Number\tBinary\tGray code\tDecoded Gray code\n");
     for (size_t binary = 0b00000; binary <= 0b11111; ++binary)
     {
         size_t gray{ binary_to_gray(binary) };
         size_t decoded_gray{ gray_to_binary(gray) };
-        os << binary << "\t"
-            << std::bitset<5>{binary} << "\t"
-            << std::bitset<5>{gray} << "\t\t"
-            << decoded_gray << "\n";
+        fmt::print(os, "{}\t{}\t{}\t\t{}\n",
+            binary, std::bitset<5>{binary}.to_string(), std::bitset<5>{gray}.to_string(), decoded_gray);
     }
-    os << "\n";
+    fmt::print(os, "\n");
 }
 
 
@@ -45,5 +45,5 @@ void problem_10_main(std::istream& is, std::ostream& os)
 // Gray code representations, and decoded Gray code values for all 5-bit numbers
 void problem_10_main()
 {
-    problem_10_main(std::cin, std::cout);
+    problem_10_main(std::cout);
 }

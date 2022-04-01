@@ -26,7 +26,7 @@ TEST(problem_7_main, limit_1000000) {
     std::ostringstream oss{};
     problem_7_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "Amicable numbers up to 1000000 is:\n"
+        "Amicable numbers up to 1000000:\n"
         "\t(220, 284)\n"
         "\t(1184, 1210)\n"
         "\t(2620, 2924)\n"

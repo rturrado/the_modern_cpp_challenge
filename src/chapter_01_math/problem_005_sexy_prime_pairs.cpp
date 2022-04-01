@@ -31,7 +31,7 @@ void problem_5_main(std::istream& is, std::ostream& os)
     for (auto&& p : sexy_prime_pairs_up_to(limit)) {
         fmt::print(os, "\t{}\n", p);
     }
-    os << "\n";
+    fmt::print(os, "\n");
 }
 
 

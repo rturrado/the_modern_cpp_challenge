@@ -33,7 +33,7 @@ void problem_6_main(std::istream& is, std::ostream& os)
     for (auto&& result : abundant_numbers_up_to(limit)) {
         fmt::print(os, "\t{} {} ({})\n", result.number, result.divisors, result.abundance);
     }
-    os << "\n";
+    fmt::print(os, "\n");
 }
 
 
