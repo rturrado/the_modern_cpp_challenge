@@ -1,5 +1,4 @@
-#ifndef MATH_H
-#define MATH_H
+#pragma once
 
 #include <algorithm>  // sort
 #include <cmath>  // sqrt
@@ -12,10 +11,8 @@ namespace rtc::math
     template <typename T>
     bool is_prime(const T n)
     {
-        for (T i = 2; i < n; ++i)
-        {
-            if (n % i == 0)
-            {
+        for (T i = 2; i < n; ++i) {
+            if (n % i == 0) {
                 return false;
             }
         }
@@ -28,13 +25,10 @@ namespace rtc::math
     auto prime_factors(T n)
     {
         std::vector<T> ret{ 1 };
-        while (n > 1)
-        {
+        while (n > 1) {
             T i = 2;
-            for (; i < n; ++i)
-            {
-                if ((n % i == 0) && is_prime(i))
-                {
+            for (; i < n; ++i) {
+                if ((n % i == 0) && is_prime(i)) {
                     break;
                 }
             }
@@ -50,14 +44,11 @@ namespace rtc::math
     auto divisors(const T n)
     {
         std::vector<T> ret{ 1 };
-        for (T i = 2; i <= std::sqrt(n); ++i)
-        {
-            if (n % i == 0)
-            {
+        for (T i = 2; i <= std::sqrt(n); ++i) {
+            if (n % i == 0) {
                 T j{ n / i };
                 ret.push_back(i);
-                if (i != j)
-                {
+                if (i != j) {
                     ret.push_back(j);
                 }
             }
@@ -72,10 +63,8 @@ namespace rtc::math
     T divisors_sum(const T n)
     {
         T ret{ 1 };
-        for (T i = 2; i <= std::sqrt(n); ++i)
-        {
-            if (n % i == 0)
-            {
+        for (T i = 2; i <= std::sqrt(n); ++i) {
+            if (n % i == 0) {
                 T j{ n / i };
                 ret += (i == j) ? i : (i + j);
             }
@@ -115,6 +104,3 @@ namespace rtc::math::tmp
         static constexpr size_t value = m;
     };
 }  // namespace rtc::math::tmp
-
-
-#endif  // MATH_H

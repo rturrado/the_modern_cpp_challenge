@@ -2,8 +2,8 @@
 #include "chapter_01_math/math.h"  // is_prime
 #include "rtc/console_read.h"  // read_positive_number
 
-#include <fmt/ranges.h>
 #include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cin, cout
 #include <istream>
 #include <ostream>

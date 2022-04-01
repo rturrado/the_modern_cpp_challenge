@@ -1,5 +1,4 @@
-#ifndef DIGITS_H
-#define DIGITS_H
+#pragma once
 
 #include <deque>
 #include <limits>  // numeric_limits
@@ -72,6 +71,3 @@ namespace rtc::math
     };
 
 }  // namespace rtc::math
-
-
-#endif  // DIGITS_H
