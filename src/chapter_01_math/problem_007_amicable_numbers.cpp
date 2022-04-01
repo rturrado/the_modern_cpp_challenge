@@ -1,8 +1,8 @@
 #include "chapter_01_math/problem_007_amicable_numbers.h"
 #include "chapter_01_math/math.h"  // amicable, divisors_sum
 
-#include <fmt/ranges.h>
 #include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <istream>
 #include <ostream>

@@ -1,9 +1,9 @@
 #include "chapter_01_math/problem_008_armstrong_numbers.h"
 #include "chapter_01_math/digits.h"
 
-#include <fmt/ranges.h>
-#include <fmt/ostream.h>
 #include <cmath>  // pow
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <numeric>  // accumulate
 #include <ostream>
