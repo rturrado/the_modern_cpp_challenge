@@ -1,7 +1,9 @@
 #pragma once
 
 #include <cassert>  // assert
+#include <fmt/core.h>
 #include <map>
+#include <stdexcept>  // out_of_range
 #include <string>
 #include <string_view>
 #include <tuple>
@@ -82,8 +84,9 @@ namespace rtc::date
 
     inline std::string to_roman_v1(size_t n)
     {
-        if (n > max_roman_numeral) {
-            throw std::out_of_range("Trying to convert to Roman numeral a number bigger than " + max_roman_numeral);
+        if (n == 0 or n > max_roman_numeral) {
+            auto error_message{ fmt::format("Error: number is out of the Roman numeral range [1, {}].", max_roman_numeral) };
+            throw std::out_of_range(error_message.c_str());
         }
 
         size_t thousands{ n / 1000 };
@@ -99,12 +102,12 @@ namespace rtc::date
 
 
     // v2: one function for all digit positions
+    //
     // We use a map for knowing what 3 possible letters are used for each digit position
     // We use a tuple for getting the letter that means one unit, five units, and ten units for each digit position
-    //
     inline std::string to_roman_v2(size_t n, digit_position dp)
     {
-        const std::map<digit_position, std::tuple<char, char, char>> roman_letters_for_digit_position{
+        static const std::map<digit_position, std::tuple<char, char, char>> roman_letters_for_digit_position{
             {digit_position::thousands, {'M', ' ', ' '}},
             {digit_position::hundreds, {'C', 'D', 'M'}},
             {digit_position::tens, {'X', 'L', 'C'}},
@@ -132,8 +135,9 @@ namespace rtc::date
 
     inline std::string to_roman_v2(size_t n)
     {
-        if (n > max_roman_numeral) {
-            throw std::out_of_range("Trying to convert to Roman numeral a number bigger than " + max_roman_numeral);
+        if (n == 0 or n > max_roman_numeral) {
+            auto error_message{ fmt::format("number is out of the Roman numeral range [1, {}].", max_roman_numeral) };
+            throw std::out_of_range(error_message.c_str());
         }
 
         size_t thousands{ n / 1000 };
@@ -149,13 +153,13 @@ namespace rtc::date
 
 
     // v3: one function for all digit positions
+    //
     // We use a string_view for knowing what 3 possible letters are used for each digit position
     // We use a string_view substring for getting the letter that means one unit, five units, and ten units for each digit position
-    //
-    constinit std::string_view roman_numeral_letters{ "IVXLCDM  " };
-    
     inline std::string_view get_roman_letters_for_digit_position(const digit_position& dp)
     {
+        static std::string_view roman_numeral_letters{ "IVXLCDM  " };
+
         size_t pos{ static_cast<size_t>(dp) * 2 };
         size_t count{ 3u };
         return roman_numeral_letters.substr(pos, count);
@@ -184,8 +188,9 @@ namespace rtc::date
 
     inline std::string to_roman_v3(size_t n)
     {
-        if (n > max_roman_numeral) {
-            throw std::out_of_range("Trying to convert to Roman numeral a number bigger than " + max_roman_numeral);
+        if (n == 0 or n > max_roman_numeral) {
+            auto error_message{ fmt::format("number is out of the Roman numeral range [1, {}].", max_roman_numeral) };
+            throw std::out_of_range(error_message.c_str());
         }
 
         size_t thousands{ n / 1000 };
@@ -204,8 +209,9 @@ namespace rtc::date
     //
     inline std::string to_roman_v4(size_t n)
     {
-        if (n > max_roman_numeral) {
-            throw std::out_of_range("Trying to convert to Roman numeral a number bigger than " + max_roman_numeral);
+        if (n == 0 or n > max_roman_numeral) {
+            auto error_message{ fmt::format("number is out of the Roman numeral range [1, {}].", max_roman_numeral) };
+            throw std::out_of_range(error_message.c_str());
         }
 
         std::vector<std::pair<size_t, const char*>> roman{
@@ -218,15 +224,15 @@ namespace rtc::date
             { 1, "I" }
         };
 
-        std::string result;
+        std::string ret{};
         for (const auto& kvp : roman) {
             while (n >= kvp.first) {
-                result += kvp.second;
+                ret += kvp.second;
                 n -= kvp.first;
             }
         }
 
-        return result;
+        return ret;
     }
 
 }  // namespace rtc::date

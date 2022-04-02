@@ -13,8 +13,8 @@ void problem_11_main(std::istream& is, std::ostream& os)
 {
     using namespace rtc::date;
 
-    auto message{ fmt::format("Please enter a number (between 0 and {}): ", max_roman_numeral) };
-    auto n{ rtc::console::read_positive_number(is, os, message, 0, max_roman_numeral + 1) };
+    auto message{ fmt::format("Please enter a number (between 1 and {}): ", max_roman_numeral) };
+    auto n{ rtc::console::read_positive_number(is, os, message, 1, max_roman_numeral + 1) };
 
     fmt::print(os, "Number\tRoman numeral equivalent\n");
     fmt::print(os, "{}\t{}\n\n", n, to_roman_v1(n));
