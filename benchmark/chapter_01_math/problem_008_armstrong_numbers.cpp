@@ -9,7 +9,7 @@
 
 // Custom benchmark
 //
-void armstrong_numbers_up_to_a_limit_custom_benchmark()
+void cb_armstrong_numbers_up_to_a_limit()
 {
     using namespace rtc::timer;
 
@@ -46,27 +46,27 @@ void armstrong_numbers_up_to_a_limit_custom_benchmark()
 
 // Google benchmark
 //
-static void bm_armstrong_numbers_up_to_a_limit_v1(benchmark::State& state) {
+static void gb_armstrong_numbers_up_to_a_limit_v1(benchmark::State& state) {
     for (auto _ : state) {
         auto ret{ armstrong_numbers_up_to_a_limit_v1(1000) };
         assert(ret.size() == 6);
     }
 }
 
-static void bm_armstrong_numbers_up_to_a_limit_v2(benchmark::State& state) {
+static void gb_armstrong_numbers_up_to_a_limit_v2(benchmark::State& state) {
     for (auto _ : state) {
         auto ret{ armstrong_numbers_up_to_a_limit_v2(1000) };
         assert(ret.size() == 6);
     }
 }
 
-static void bm_armstrong_numbers_up_to_a_limit_v3(benchmark::State& state) {
+static void gb_armstrong_numbers_up_to_a_limit_v3(benchmark::State& state) {
     for (auto _ : state) {
         auto ret{ armstrong_numbers_up_to_a_limit_v3(1000) };
         assert(ret.size() == 6);
     }
 }
 
-BENCHMARK(bm_armstrong_numbers_up_to_a_limit_v1);
-BENCHMARK(bm_armstrong_numbers_up_to_a_limit_v2);
-BENCHMARK(bm_armstrong_numbers_up_to_a_limit_v3);
+BENCHMARK(gb_armstrong_numbers_up_to_a_limit_v1);
+BENCHMARK(gb_armstrong_numbers_up_to_a_limit_v2);
+BENCHMARK(gb_armstrong_numbers_up_to_a_limit_v3);

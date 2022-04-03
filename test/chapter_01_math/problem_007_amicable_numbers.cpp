@@ -8,18 +8,10 @@
 #include <vector>
 
 
-TEST(amicable_numbers_up_to, limit_0) {
-    auto ret{ amicable_numbers_up_to(0) };
-    EXPECT_EQ(ret.size(), 0);
-}
-
-TEST(amicable_numbers_up_to, limit_250) {
-    auto ret{ amicable_numbers_up_to(0) };
-    EXPECT_EQ(ret.size(), 0);
-}
-
-TEST(amicable_numbers_up_to, limit_300) {
-    EXPECT_THAT(amicable_numbers_up_to(300), ::testing::ElementsAre(std::pair<size_t, size_t>{220, 284}));
+TEST(amicable_numbers_up_to, limit_0) { EXPECT_THAT(amicable_numbers_up_to(0), ::testing::IsEmpty()); }
+TEST(amicable_numbers_up_to, limit_250) { EXPECT_THAT(amicable_numbers_up_to(0), ::testing::IsEmpty()); }
+TEST(amicable_numbers_up_to, limit_300) { EXPECT_THAT(amicable_numbers_up_to(300), ::testing::ElementsAre(
+    ::testing::Pair(220, 284)));
 }
 
 TEST(problem_7_main, limit_1000000) {

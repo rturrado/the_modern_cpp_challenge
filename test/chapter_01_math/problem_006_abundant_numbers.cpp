@@ -7,7 +7,7 @@
 #include <vector>
 
 
-TEST(abundant_numbers_up_to, zero) { auto ret{ abundant_numbers_up_to(0) }; EXPECT_EQ(ret.size(), 0); }
+TEST(abundant_numbers_up_to, zero) { EXPECT_THAT(abundant_numbers_up_to(0), ::testing::IsEmpty()); }
 
 TEST(abundant_numbers_up_to, thirty) {
     EXPECT_THAT(abundant_numbers_up_to(30), ::testing::ElementsAre(

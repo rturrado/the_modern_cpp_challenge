@@ -1,6 +1,8 @@
 #include "chapter_01_math/problem_013_computing_the_value_of_pi.h"
 
-#include <iostream>  // cin, cout
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
+#include <iostream>  // cout
 #include <istream>
 #include <ostream>
 #include <random>
@@ -18,13 +20,11 @@ double compute_pi(size_t number_of_iterations)
 
     size_t dots_within_circle_count{ 0 };
     size_t dots_within_square_count{ 0 };
-    for (size_t i = 0; i < number_of_iterations; ++i)
-    {
+    for (size_t i = 0; i < number_of_iterations; ++i) {
         double x = die();  // roll the die: x becomes a value in [0.0:1.0]
         double y = die();  // roll the die: x becomes a value in [0.0:1.0]
 
-        if (x * x + y * y <= 1)
-        {
+        if (x * x + y * y <= 1) {
             dots_within_circle_count++;
         }
         dots_within_square_count++;
@@ -34,13 +34,12 @@ double compute_pi(size_t number_of_iterations)
 }
 
 
-void problem_13_main(std::istream& is, std::ostream& os)
+void problem_13_main(std::ostream& os)
 {
-    for (size_t number_of_iterations : {10, 100, 1'000, 10'000, 100'000, 1'000'000, 10'000'000 })
-    {
-        os << "Estimated value of pi: " << compute_pi(number_of_iterations) << "\n";
+    for (size_t number_of_iterations : {10, 100, 1'000, 10'000, 100'000, 1'000'000, 10'000'000 }) {
+        fmt::print(os, "Estimated value of pi: {}\n", compute_pi(number_of_iterations));
     }
-    os << "\n";
+    fmt::print(os, "\n");
 }
 
 
@@ -49,5 +48,5 @@ void problem_13_main(std::istream& is, std::ostream& os)
 // Write a program that computes the value of Pi with a precision of two decimal digits
 void problem_13_main()
 {
-    problem_13_main(std::cin, std::cout);
+    problem_13_main(std::cout);
 }

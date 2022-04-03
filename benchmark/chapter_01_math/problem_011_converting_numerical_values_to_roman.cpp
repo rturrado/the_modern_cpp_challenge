@@ -9,7 +9,7 @@
 
 // Custom benchmark
 //
-void to_roman_custom_benchmark()
+void cb_to_roman()
 {
     using namespace rtc::timer;
     using namespace rtc::date;
@@ -54,37 +54,37 @@ void to_roman_custom_benchmark()
                 }
             }
         });
-    fmt::print("\tv4: {} ms\n", std::chrono::duration<double, std::milli>(t4).count());
+    fmt::print("\tv4: {} ms\n\n", std::chrono::duration<double, std::milli>(t4).count());
 }
 
 
 // Google benchmark
 //
-static void bm_to_roman_v1(benchmark::State& state) {
+static void gb_to_roman_v1(benchmark::State& state) {
     for (auto _ : state) {
         rtc::date::to_roman_v1(1000);
     }
 }
 
-static void bm_to_roman_v2(benchmark::State& state) {
+static void gb_to_roman_v2(benchmark::State& state) {
     for (auto _ : state) {
         rtc::date::to_roman_v2(1000);
     }
 }
 
-static void bm_to_roman_v3(benchmark::State& state) {
+static void gb_to_roman_v3(benchmark::State& state) {
     for (auto _ : state) {
         rtc::date::to_roman_v3(1000);
     }
 }
 
-static void bm_to_roman_v4(benchmark::State& state) {
+static void gb_to_roman_v4(benchmark::State& state) {
     for (auto _ : state) {
         rtc::date::to_roman_v4(1000);
     }
 }
 
-BENCHMARK(bm_to_roman_v1);
-BENCHMARK(bm_to_roman_v2);
-BENCHMARK(bm_to_roman_v3);
-BENCHMARK(bm_to_roman_v4);
+BENCHMARK(gb_to_roman_v1);
+BENCHMARK(gb_to_roman_v2);
+BENCHMARK(gb_to_roman_v3);
+BENCHMARK(gb_to_roman_v4);

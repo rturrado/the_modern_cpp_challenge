@@ -12,7 +12,7 @@ set(chapter_01_test_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_009_prime_factors.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_010_gray_code.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_011_converting_numerical_values_to_roman.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/problem_012_largest_collatz_sequence.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_012_longest_collatz_sequence.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_013_computing_the_value_of_pi.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_014_validating_isbns.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/roman.cpp"

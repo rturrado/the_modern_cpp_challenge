@@ -11,6 +11,6 @@
 #include "problem_009_prime_factors.h"
 #include "problem_010_gray_code.h"
 #include "problem_011_converting_numerical_values_to_roman.h"
-#include "problem_012_largest_collatz_sequence.h"
+#include "problem_012_longest_collatz_sequence.h"
 #include "problem_013_computing_the_value_of_pi.h"
 #include "problem_014_validating_isbns.h"

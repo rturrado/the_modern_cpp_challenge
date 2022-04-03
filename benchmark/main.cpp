@@ -6,8 +6,9 @@
 
 void run_custom_benchmark()
 {
-    armstrong_numbers_up_to_a_limit_custom_benchmark();
-    to_roman_custom_benchmark();
+    cb_armstrong_numbers_up_to_a_limit();
+    cb_to_roman();
+    cb_get_longest_collatz_sequence();
 }
 
 

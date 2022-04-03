@@ -1,8 +1,10 @@
 #include "chapter_01_math/problem_014_validating_isbns.h"
 #include "rtc/console_read.h"  // clear_istream
 
-#include <algorithm>  // count_if, remove_if
+#include <algorithm>  // count_if, erase_if
 #include <cassert>  // assert
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cin, cout
 #include <istream>
 #include <numeric>  // accumulate
@@ -10,7 +12,7 @@
 #include <string>  // getline
 
 
-std::string read_n_digit_isbn(size_t n)
+std::string read_n_digit_isbn(std::istream& is, std::ostream& os, size_t n)
 {
     std::string ret{};
 
@@ -19,33 +21,26 @@ std::string read_n_digit_isbn(size_t n)
     bool valid_input{ false };
     while (!valid_input)
     {
-        std::cout << "Please enter a " << n << " digit ISBN (may include hyphens and/or spaces): ";
+        fmt::print(os, "Please enter a {}-digit ISBN (may include hyphens and/or spaces): ", n);
         
-        std::getline(std::cin, ret);
+        std::getline(is, ret);
         
         auto number_of_digits{ std::count_if(ret.begin(), ret.end(), [](auto& n) { return std::isdigit(n) != 0; }) };
         auto number_of_separators{ std::count_if(ret.begin(), ret.end(),
             [&separators](char c) { return separators.find(c) != std::string::npos; }) };
         
-        if (number_of_digits != n ||
-            ret.size() != number_of_digits + number_of_separators)
-        {
-            std::cout << "\tError: invalid input\n";
+        if (number_of_digits != n or
+            ret.size() != number_of_digits + number_of_separators) {
+            fmt::print(os, "\tError: invalid input\n");
         }
-        else
-        {
+        else {
             valid_input = true;
         }
-        if (!valid_input)
-        {
+        if (!valid_input) {
             rtc::console::clear_istream(std::cin);
         }
     }
-    // Erase-remove idiom
-    ret.erase(
-        std::remove_if(ret.begin(), ret.end(),
-            [&separators](char c) { return separators.find(c) != std::string::npos; }),
-        ret.end());
+    std::erase_if(ret, [&separators](char c) { return separators.find(c) != std::string::npos; });
 
     return ret;
 }
@@ -77,19 +72,13 @@ bool validate_13_digit_isbn(const std::string& str)
 
 void problem_14_main(std::istream& is, std::ostream& os)
 {
-    // Read 10-digit ISBN
-    auto str = read_n_digit_isbn(10);
-
-    // Validate 10-digit ISBN
+    auto str = read_n_digit_isbn(is, os, 10);
     auto valid = validate_10_digit_isbn(str);
-    os << str << " is" << (valid ? " " : " NOT ") << "a valid ISBN\n";
+    fmt::print(os, "{} is {} a valid 10-digit ISBN\n", str, (valid ? " " : " NOT "));
 
-    // Read 13-digit ISBN
-    str = read_n_digit_isbn(13);
-
-    // Validate 13-digit ISBN
+    str = read_n_digit_isbn(is, os, 13);
     valid = validate_13_digit_isbn(str);
-    os << str << " is" << (valid ? " " : " NOT ") << "a valid ISBN\n\n";
+    fmt::print(os, "{} is {} a valid 13-digit ISBN\n", str, (valid ? " " : " NOT "));
 }
 
 
