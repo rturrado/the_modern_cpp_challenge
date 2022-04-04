@@ -4,6 +4,9 @@
 #include <ostream>
 #include <string>
 
+
+std::string read_n_digit_isbn(std::istream& is, std::ostream& os, size_t n);
+
 bool validate_10_digit_isbn(const std::string& str);
 bool validate_13_digit_isbn(const std::string& str);
 

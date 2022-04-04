@@ -3,13 +3,16 @@
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
 #include <iostream>  // cout
-#include <istream>
 #include <ostream>
 #include <random>
 
 
 double compute_pi(size_t number_of_iterations)
 {
+    if (number_of_iterations == 0) {
+        return 0;
+    }
+
     using my_engine = std::default_random_engine;  // type of engine
     using my_distribution = std::uniform_real_distribution<>;  // type of distribution
 
@@ -19,15 +22,14 @@ double compute_pi(size_t number_of_iterations)
     auto die = [&]() { return dist(re); };  // make a generator
 
     size_t dots_within_circle_count{ 0 };
-    size_t dots_within_square_count{ 0 };
-    for (size_t i = 0; i < number_of_iterations; ++i) {
+    size_t dots_within_square_count{ number_of_iterations };
+    for (size_t i{ 0 }; i < number_of_iterations; ++i) {
         double x = die();  // roll the die: x becomes a value in [0.0:1.0]
         double y = die();  // roll the die: x becomes a value in [0.0:1.0]
 
         if (x * x + y * y <= 1) {
             dots_within_circle_count++;
         }
-        dots_within_square_count++;
     }
 
     return (4.0 * dots_within_circle_count) / dots_within_square_count;
