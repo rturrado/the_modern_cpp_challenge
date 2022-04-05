@@ -1,6 +1,7 @@
 #include "chapter_02_language_features/ipv4.h"
 
 #include <algorithm>
+#include <cstdint>  // uint32_t
 #include <ios>
 #include <numeric>
 #include <regex>

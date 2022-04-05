@@ -1,7 +1,6 @@
-#ifndef IPV4_RANGE_H
-#define IPV4_RANGE_H
+#pragma once
 
-#include "IPv4.h"
+#include "ipv4.h"
 
 class IPv4Iterator
 {
@@ -42,5 +41,3 @@ private:
     IPv4 _start;
     IPv4 _end;
 };
-
-#endif  // IPV4_RANGE_H

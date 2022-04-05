@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cstdint>  // uint32_t
 #include <iostream>  // cout
 #include <string>
 

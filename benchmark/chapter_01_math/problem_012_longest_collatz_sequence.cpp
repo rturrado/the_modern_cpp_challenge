@@ -26,7 +26,7 @@ void cb_get_longest_collatz_sequence()
         []() {
             get_longest_collatz_sequence_v2(limit);
         });
-    fmt::print("\tv2: {} ms\n\n", std::chrono::duration<double, std::milli>(t2).count());
+    fmt::print("\tv2: {} ms\n", std::chrono::duration<double, std::milli>(t2).count());
 }
 
 
