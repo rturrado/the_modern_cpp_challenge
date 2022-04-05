@@ -9,11 +9,11 @@ project("the_modern_c++_challenge"
 
 add_subdirectory(src)
 
-if(BUILD_TESTS)
+if(THE_MODERN_C++_CHALLENGE_BUILD_TESTS)
     enable_testing()
     add_subdirectory(test)
 endif()
 
-if(BUILD_BENCHMARKS)
+if(THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS)
     add_subdirectory(benchmark)
 endif()

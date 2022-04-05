@@ -11,7 +11,7 @@ FetchContent_Declare(range-v3
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "b745ffce2e76ced996a5ad81958d7f62eaa79311"
+    GIT_TAG "ef1952b961eb0a28940c319b76df5e65e9ae790b"
 )
 FetchContent_MakeAvailable(fmt range-v3 rtc)
 
