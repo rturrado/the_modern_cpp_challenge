@@ -14,7 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Configure CMake
-      shell: bash
       run: cmake -B ${{github.workspace}}/build -G"Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Debug -DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config Debug
@@ -28,7 +27,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Configure CMake
-      shell: bash
       run: cmake -B ${{github.workspace}}/build -G"Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release -DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config Release
