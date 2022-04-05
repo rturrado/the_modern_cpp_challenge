@@ -1,7 +1,7 @@
 #include "chapter_02_language_features/ipv4.h"
 
 #include <algorithm>
-#include <cstdint>  // uint32_t
+#include <cstdint>  // uint8_t, uint32_t
 #include <ios>
 #include <numeric>
 #include <regex>
@@ -39,14 +39,14 @@ constexpr IPv4::IPv4(uint8_t o0, uint8_t o1, uint8_t o2, uint8_t o3)
 {
 }
 
-std::string IPv4::to_string() const
+[[nodiscard]] std::string IPv4::to_string() const
 {
     std::ostringstream oss;
     oss << *this;
     return oss.str();
 }
 
-constexpr uint32_t IPv4::to_ulong() const noexcept
+[[nodiscard]] constexpr uint32_t IPv4::to_ulong() const noexcept
 {
     return (_octets[0] << 24) | (_octets[1] << 16) | (_octets[2] << 8) | _octets[3];
 }

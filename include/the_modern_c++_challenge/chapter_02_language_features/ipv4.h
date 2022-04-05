@@ -24,8 +24,8 @@ public:
     explicit constexpr IPv4(uint32_t address);
     constexpr IPv4(uint8_t o0, uint8_t o1, uint8_t o2, uint8_t o3);
 
-    std::string to_string() const;
-    constexpr uint32_t to_ulong() const noexcept;
+    [[nodiscard]] std::string to_string() const;
+    [[nodiscard]] constexpr uint32_t to_ulong() const noexcept;
 
     IPv4& operator++();
     IPv4 operator++(int);
