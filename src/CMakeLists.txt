@@ -16,8 +16,19 @@ FetchContent_Declare(rtc
 FetchContent_MakeAvailable(fmt range-v3 rtc)
 
 add_subdirectory(chapter_01_math)
+add_subdirectory(chapter_02_language_features)
 
-add_executable(${PROJECT_NAME} main.cpp problems.h ${chapter_01_sources})
+set(app_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problems.h"
+)
+set(lib_sources
+    ${chapter_01_sources}
+    ${chapter_02_sources}
+)
+list(APPEND app_sources ${lib_sources})
+
+add_executable(${PROJECT_NAME} ${app_sources})
 target_include_directories(${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${include_dir}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
@@ -25,7 +36,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
 target_link_libraries(${PROJECT_NAME} fmt range-v3 rtc)
 
-add_library(lib_${PROJECT_NAME} ${headers} ${chapter_01_sources})
+add_library(lib_${PROJECT_NAME} ${lib_sources})
 target_include_directories(lib_${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${include_dir}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"

@@ -121,7 +121,7 @@ void problem_12_main(std::ostream& os)
     auto result = get_longest_collatz_sequence_v1(limit);
 
     // Print results
-    fmt::print(os, "Number between 1 and {0} with longest Collatz sequence ({2} elements) is: {1}\n",
+    fmt::print(os, "Number between 1 and {0} with longest Collatz sequence ({2} elements) is: {1}\n\n",
         limit, result.first, result.second);
 }
 

@@ -74,11 +74,11 @@ void problem_14_main(std::istream& is, std::ostream& os)
 {
     auto str = read_n_digit_isbn(is, os, 10);
     auto valid = validate_10_digit_isbn(str);
-    fmt::print(os, "{} is {}a valid 10-digit ISBN\n", str, (valid ? "" : "NOT "));
+    fmt::print(os, "\t{} is {}a valid 10-digit ISBN\n\n", str, (valid ? "" : "NOT "));
 
     str = read_n_digit_isbn(is, os, 13);
     valid = validate_13_digit_isbn(str);
-    fmt::print(os, "{} is {}a valid 13-digit ISBN\n", str, (valid ? "" : "NOT "));
+    fmt::print(os, "\t{} is {}a valid 13-digit ISBN\n\n", str, (valid ? "" : "NOT "));
 }
 
 

@@ -11,6 +11,6 @@ TEST(problem_11_main, n_2022) {
     std::ostringstream oss{};
     problem_11_main(iss, oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "Number\tRoman numeral equivalent\n2022\tMMXXII\n\n"
+        "Number\tRoman numeral equivalent\n2022\tMMXXII"
     ));
 }

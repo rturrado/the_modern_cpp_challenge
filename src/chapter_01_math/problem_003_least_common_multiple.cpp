@@ -49,7 +49,7 @@ long lcm(std::vector<int> v)
 void problem_3_main(std::istream& is, std::ostream& os)
 {
     auto v{ rtc::console::read_list_of_positive_numbers(is, os,
-        "Please enter 2 or more numbers (>= 1) ('quit' to finish the list): ", 2, 0) };
+        "Please enter 2 or more numbers (>= 1) ('quit' to finish the list): ", 2, 1) };
 
     fmt::print(os, "The least common multiple of {} is: {}\n\n", v, lcm(v));
 }

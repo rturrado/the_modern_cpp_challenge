@@ -12,21 +12,21 @@ TEST(lcm, empty_v) {
     std::ostringstream oss{};
     std::vector<int> v{};
     EXPECT_EQ(lcm(oss, v), -1);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with an empty list.\n"));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with an empty list."));
 }
 
 TEST(lcm, zero_element) {
     std::ostringstream oss{};
     std::vector<int> v{ 10, 0 };
     EXPECT_EQ(lcm(oss, v), -1);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with a negative or zero value.\n"));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with a negative or zero value."));
 }
 
 TEST(lcm, negative_element) {
     std::ostringstream oss{};
     std::vector<int> v{ -5, 10 };
     EXPECT_EQ(lcm(oss, v), -1);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with a negative or zero value.\n"));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with a negative or zero value."));
 }
 
 TEST(lcm, fifteen_and_fifty) {

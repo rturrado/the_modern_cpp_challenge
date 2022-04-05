@@ -28,6 +28,6 @@ TEST(problem_12_main, n_1_000_000) {
     std::ostringstream oss{};
     problem_12_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "Number between 1 and 1000000 with longest Collatz sequence (525 elements) is: 837799\n"
+        "Number between 1 and 1000000 with longest Collatz sequence (525 elements) is: 837799"
     ));
 }

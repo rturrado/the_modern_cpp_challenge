@@ -1,8 +1,8 @@
 #pragma once
 
 #include "chapter_01_math/problems.h"
-/*
 #include "chapter_02_language_features/problems.h"
+/*
 #include "chapter_03_strings_and_regular_expressions/problems.h"
 #include "chapter_04_streams_and_filesystems/problems.h"
 #include "chapter_05_date_and_time/problems.h"
@@ -60,18 +60,18 @@ private:
         []() { problem_12_main(); },  // largest Collatz sequence
         []() { problem_13_main(); },  // computing the value of Pi
         []() { problem_14_main(); },  // validating ISBNs
-/*
+
         // Language features
         //
-        []() { problem_15_main(); },  
-        []() { problem_16_main(); },
-        []() { problem_17_main(); },
-        []() { problem_18_main(); },
-        []() { problem_19_main(); },
-        []() { problem_20_main(); },
-        []() { problem_21_main(); },
-        []() { problem_22_main(); },
-
+        []() { problem_15_main(); },  // IPv4 data type
+        []() { problem_16_main(); },  // enumerating IPv4 addresses in a range
+        []() { problem_17_main(); },  // 2D array
+        []() { problem_18_main(); },  // variadic minimum function
+        []() { problem_19_main(); },  // adding a range of values to a container
+        []() { problem_20_main(); },  // contains any, all, or none from a range
+        []() { problem_21_main(); },  // system handle wrapper (Windows specific)
+        []() { problem_22_main(); },  // temperature scales literals
+/*
         // Strings and regular expressions
         //
         []() { problem_23_main(); },
