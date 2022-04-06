@@ -8,7 +8,7 @@ These exercises were initially implemented as a project within a bigger Visual S
 
 However, should you download that solution, you'd need to:
 - First, make sure you have installed all the libraries used in the project.
-- And then, update the Visual Studio project properties that contain absolute paths to those libraries (e.g., C/C++ > General > Additional Include Directories and Linker > Input > Additional Dependencies).
+- And then, update the Visual Studio project properties that contain absolute paths to those libraries (e.g., C/C++ > General > Additional Include Directories, and Linker > Input > Additional Dependencies).
 
 The goal behind The Modern C++ Challenge project is to be downloaded, built, and executed with a minimal effort and without having to install any library.
 And, in order to do that, to get some hands-on experience with _CMake_.
