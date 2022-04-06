@@ -32,4 +32,4 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config Release
     - name: Benchmark
       working-directory: ${{github.workspace}}/build/benchmark/Release
-      run: the_modern_c++_challenge_benchmark.exe
+      run: .\the_modern_c++_challenge_benchmark.exe
