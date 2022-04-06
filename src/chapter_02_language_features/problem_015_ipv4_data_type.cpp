@@ -16,6 +16,7 @@ void problem_15_main()
     while (true)
     {
         // Read an IPv4 address from the console
+        std::cout << "Please enter an IPv4 address (e.g. 127.0.0.1): ";
         IPv4 address{};
         if (std::cin >> address)
         {

@@ -1,7 +1,6 @@
 #include "chapter_02_language_features/ipv4.h"
 
 #include <algorithm>
-#include <cstdint>  // uint8_t, uint32_t
 #include <ios>
 #include <numeric>
 #include <regex>
@@ -11,13 +10,13 @@
 
 // Notes
 // 
-// uint8_t is an alias for unsigned char and thus treated as char by streams
+// unsigned char is an alias for unsigned char and thus treated as char by streams
 // We use a temporary string in the string constructor, and a std::to_string conversion in the octets constructor
 IPv4::IPv4(const std::string& address)
 {
     std::istringstream iss{ address };
     std::for_each(_octets.begin(), _octets.end(),
-        [&iss, temp = std::string{}](uint8_t& n) mutable {
+        [&iss, temp = std::string{}](unsigned char& n) mutable {
             std::getline(iss, temp, '.');
             n = std::stoi(temp);
         }
@@ -29,12 +28,12 @@ IPv4::IPv4(const char* address)
 {
 }
 
-constexpr IPv4::IPv4(uint32_t address)
+constexpr IPv4::IPv4(unsigned long address)
     : _octets{ (address >> 24) & 0xff, (address >> 16) & 0xff, (address >> 8) & 0xff, address & 0xff }
 {
 }
 
-constexpr IPv4::IPv4(uint8_t o0, uint8_t o1, uint8_t o2, uint8_t o3)
+constexpr IPv4::IPv4(unsigned char o0, unsigned char o1, unsigned char o2, unsigned char o3)
     : _octets{ o0, o1, o2, o3 }
 {
 }
@@ -46,7 +45,7 @@ constexpr IPv4::IPv4(uint8_t o0, uint8_t o1, uint8_t o2, uint8_t o3)
     return oss.str();
 }
 
-[[nodiscard]] constexpr uint32_t IPv4::to_ulong() const noexcept
+[[nodiscard]] constexpr unsigned long IPv4::to_ulong() const noexcept
 {
     return (_octets[0] << 24) | (_octets[1] << 16) | (_octets[2] << 8) | _octets[3];
 }
@@ -79,7 +78,7 @@ bool operator<(const IPv4& lhs, const IPv4& rhs)
 std::ostream& operator<<(std::ostream& os, const IPv4& ipv4)
 {
     std::for_each(ipv4._octets.cbegin(), ipv4._octets.cend(),
-        [&os, first = true](uint8_t n) mutable {
+        [&os, first = true](unsigned char n) mutable {
             os << (first ? "" : ".") << std::to_string(n);
             first = false;
         }

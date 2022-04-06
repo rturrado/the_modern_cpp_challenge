@@ -1,7 +1,6 @@
 #pragma once
 
 #include <array>
-#include <cstdint>  // uint32_t
 #include <iostream>  // cout
 #include <string>
 
@@ -21,11 +20,11 @@ public:
     IPv4() = default;
     explicit IPv4(const std::string& address);
     explicit IPv4(const char* address);
-    explicit constexpr IPv4(uint32_t address);
-    constexpr IPv4(uint8_t o0, uint8_t o1, uint8_t o2, uint8_t o3);
+    explicit constexpr IPv4(unsigned long address);
+    constexpr IPv4(unsigned char o0, unsigned char o1, unsigned char o2, unsigned char o3);
 
     [[nodiscard]] std::string to_string() const;
-    [[nodiscard]] constexpr uint32_t to_ulong() const noexcept;
+    [[nodiscard]] constexpr unsigned long to_ulong() const noexcept;
 
     IPv4& operator++();
     IPv4 operator++(int);
@@ -35,5 +34,5 @@ private:
     friend std::ostream& operator<<(std::ostream& os, const IPv4& ipv4);
     friend std::istream& operator>>(std::istream& is, IPv4& ipv4);
 
-    std::array<uint8_t, 4> _octets{};
+    std::array<unsigned char, 4> _octets{};
 };
