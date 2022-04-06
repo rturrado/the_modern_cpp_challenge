@@ -7,8 +7,21 @@ on:
     branches: [ main ]
 
 jobs:
+  windows-debug-test:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v3
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config Debug
+    - name: Test
+      working-directory: ${{github.workspace}}/build
+      run: ctest -C Debug --output-on-failure
   windows-release-benchmark:
-    runs-on: windows-2019
+    runs-on: windows-latest
     strategy:
       fail-fast: false
     steps:
@@ -19,4 +32,4 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config Release
     - name: Benchmark
       working-directory: ${{github.workspace}}/build
-      run: the_modern_c++_challenge_benchmark
+      run: the_modern_c++_challenge_benchmark.exe
