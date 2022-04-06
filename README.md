@@ -1,4 +1,4 @@
-[![Continuous Integration](https://github.com/rturrado/the_modern_cpp_challenge/actions?query=workflow%3ACI)
+[![main CI](https://github.com/rturrado/the_modern_cpp_challenge/actions/workflows/main_ci.yml/badge.svg)](https://github.com/rturrado/the_modern_cpp_challenge/actions/workflows/main_ci.yml)
 
 # The Modern C++ Challenge
 
