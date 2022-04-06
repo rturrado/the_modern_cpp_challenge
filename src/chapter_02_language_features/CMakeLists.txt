@@ -1,5 +1,4 @@
 set(chapter_02_sources
-    "${CMAKE_CURRENT_SOURCE_DIR}/ipv4.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_015_ipv4_data_type.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_016_enumerating_ipv4_addresses_in_a_range.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_017_array_2d.cpp"
