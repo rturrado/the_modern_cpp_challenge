@@ -17,6 +17,7 @@ FetchContent_MakeAvailable(fmt range-v3 rtc)
 
 add_subdirectory(chapter_01_math)
 add_subdirectory(chapter_02_language_features)
+add_subdirectory(chapter_03_strings_and_regular_expressions)
 
 set(app_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp"
@@ -25,6 +26,7 @@ set(app_sources
 set(lib_sources
     ${chapter_01_sources}
     ${chapter_02_sources}
+    ${chapter_03_sources}
 )
 list(APPEND app_sources ${lib_sources})
 
