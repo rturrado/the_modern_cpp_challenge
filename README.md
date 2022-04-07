@@ -18,9 +18,11 @@ Also, while working on this project, I've taken the chance to complete the origi
   - _Benchmarks_ (google benchmarks).
   - _Continuous integration_ (GitHub actions).
 
-## Requirements
-- cmake
-- git
+## Requirements [TODO]
+My idea is to provide a docker with all the required software already installed (even this project). While creating that docker, I will properly document this section as well.
+
+- cmake.
+- git.
 
 ## Installation
 ### Clone
@@ -40,6 +42,17 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
 ```
 
+### Binaries
+All successful builds will generate:
+- `the_modern_c++_challenge.exe`: the main binary, a console application that interacts with the user to execute the different problems from the book.
+- `the_modern_c++_challenge.lib`: a static library, used, for example, by the test and benchmark binaries.
+
+Debug builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON` will also generate:
+- `the_modern_c++_challenge_test.exe`: a console application to test the code.
+
+Release builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON` will also generate:
+- `the_modern_c++_challenge_benchmark.exe`: a console application to benchmark the code.
+
 ### Run
 ```bash
 cd build\src\Release
@@ -53,7 +66,20 @@ cmake --build build --config Debug
 cd build
 ctest -C Debug --output-on-failure
 ```
-      
+
+Alternatively, if you want a less verbose ouptut, you can run:
+
+```bash
+ctest -C Debug --output-on-failure --progress
+```
+
+Or:
+
+```bash
+cd build\test\Debug
+.\the_modern_c++_challenge_test.exe --gtest_brief=1
+```
+
 ### Benchmarks
 ```bash
 cmake -B build -DCMAKE_BUILD_TYPE=Release -DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON
