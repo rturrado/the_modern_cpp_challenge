@@ -18,13 +18,14 @@ Also, while working on this project, I've taken the chance to complete the origi
   - _Benchmarks_ (google benchmarks).
   - _Continuous integration_ (GitHub actions).
 
-## Requirements [TODO]
+## Installation
+
+### Requirements [TODO]
 My idea is to provide a docker with all the required software already installed (even this project). While creating that docker, I will properly document this section as well.
 
-- cmake.
+- cmake 3.20.
 - git.
 
-## Installation
 ### Clone
 ```bash
 git clone https://github.com/rturrado/the_modern_cpp_challenge.git
@@ -42,7 +43,7 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release
 ```
 
-### Binaries
+#### Output binaries
 All successful builds will generate:
 - `the_modern_c++_challenge.exe`: the main binary, a console application that interacts with the user to execute the different problems from the book.
 - `the_modern_c++_challenge.lib`: a static library, used, for example, by the test and benchmark binaries.
