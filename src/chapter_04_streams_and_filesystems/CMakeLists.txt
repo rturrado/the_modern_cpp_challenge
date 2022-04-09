@@ -1,0 +1,10 @@
+set(chapter_04_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_032_pascal_triangle.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_033_tabular_printing_of_a_list_of_processes.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_034_removing_empty_lines_from_a_text_file.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_035_computing_the_size_of_a_directory.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_036_deleting_files_older_than_a_given_date.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_037_regex_find_files_in_a_directory.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_038_temporary_log_files.cpp"
+    PARENT_SCOPE
+)

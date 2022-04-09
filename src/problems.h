@@ -3,8 +3,8 @@
 #include "chapter_01_math/problems.h"
 #include "chapter_02_language_features/problems.h"
 #include "chapter_03_strings_and_regular_expressions/problems.h"
-/*
 #include "chapter_04_streams_and_filesystems/problems.h"
+/*
 #include "chapter_05_date_and_time/problems.h"
 #include "chapter_06_algorithms_and_data_structures/problems.h"
 #include "chapter_07_concurrency/problems.h"
@@ -84,17 +84,17 @@ private:
         []() { problem_30_main(); },  // extracting URL parts
         []() { problem_31_main(); },  // transforming dates in strings
 
-/*
         // Streams and filesystems
         //
-        []() { problem_32_main(); },  // 
-        []() { problem_33_main(); },  // 
-        []() { problem_34_main(); },  // 
-        []() { problem_35_main(); },  // 
-        []() { problem_36_main(); },  // 
-        []() { problem_37_main(); },  // 
-        []() { problem_38_main(); },  // 
+        []() { problem_32_main(); },  // Pascal's triangle
+        []() { problem_33_main(); },  // tabular printing of a list of processes
+        []() { problem_34_main(); },  // removing empty lines from a text file
+        []() { problem_35_main(); },  // computing the size of a directory
+        []() { problem_36_main(); },  // deleting files older than a given date
+        []() { problem_37_main(); },  // regex find files in a directory
+        []() { problem_38_main(); },  // temporary log files
 
+/*
         // Date and time
         //
         []() { problem_39_main(); },  // 

@@ -15,9 +15,13 @@ FetchContent_Declare(rtc
 )
 FetchContent_MakeAvailable(fmt range-v3 rtc)
 
+find_package(Boost 1.78.0 REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+
 add_subdirectory(chapter_01_math)
 add_subdirectory(chapter_02_language_features)
 add_subdirectory(chapter_03_strings_and_regular_expressions)
+add_subdirectory(chapter_04_streams_and_filesystems)
 
 set(app_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp"
@@ -27,6 +31,7 @@ set(lib_sources
     ${chapter_01_sources}
     ${chapter_02_sources}
     ${chapter_03_sources}
+    ${chapter_04_sources}
 )
 list(APPEND app_sources ${lib_sources})
 
