@@ -8,7 +8,7 @@ on:
 
 env:
   BOOST_ROOT: ${{github.workspace}}/3rdparty/boost
-  BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.72.0/boost_1_72_0.tar.bz2/download
+  BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download
 
 jobs:
   windows-debug-test:
