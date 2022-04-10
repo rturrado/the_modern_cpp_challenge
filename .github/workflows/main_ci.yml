@@ -43,8 +43,9 @@ jobs:
     - uses: actions/checkout@v3
     - name: Configure CMake
       run: |
+        CMAKE_BUILD_DIRECTORY=$(echo ${{github.workspace}}/build | sed 's/\\/\//g')
         BOOST_ROOT=$(echo $BOOST_ROOT | sed 's/\\/\//g')
-        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON -DBOOST_ROOT=$BOOST_ROOT
+        cmake -B $CMAKE_BUILD_DIRECTORY -DCMAKE_BUILD_TYPE=Debug -DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON -DBOOST_ROOT=$BOOST_ROOT
       shell: bash
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config Debug
@@ -60,8 +61,9 @@ jobs:
     - uses: actions/checkout@v3
     - name: Configure CMake
       run: |
+        CMAKE_BUILD_DIRECTORY=$(echo ${{github.workspace}}/build | sed 's/\\/\//g')
         BOOST_ROOT=$(echo $BOOST_ROOT | sed 's/\\/\//g')
-        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release -DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON -DBOOST_ROOT=$BOOST_ROOT
+        cmake -B $CMAKE_BUILD_DIRECTORY -DCMAKE_BUILD_TYPE=Release -DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON -DBOOST_ROOT=$BOOST_ROOT
       shell: bash
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config Release
