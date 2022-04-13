@@ -2,42 +2,42 @@
 
 #include "ipv4.h"
 
-class IPv4Iterator
+class ipv4_iterator
 {
 private:
     using iterator_category = std::forward_iterator_tag;
     using difference_type = std::ptrdiff_t;
-    using value_type = IPv4;
-    using pointer = IPv4*;
-    using reference = const IPv4&;
+    using value_type = ipv4;
+    using pointer = ipv4*;
+    using reference = const ipv4&;
 
 public:
-    explicit IPv4Iterator(const value_type& value) : _value{ value } {}
+    explicit ipv4_iterator(const value_type& value) : value_{ value } {}
 
-    auto operator*() const { return _value; }
-    auto operator->() const { return &_value; }
+    auto operator*() const { return value_; }
+    auto operator->() const { return &value_; }
 
-    IPv4Iterator& operator++() { ++_value; return *this; }
-    IPv4Iterator operator++(int) { IPv4Iterator tmp{ *this }; ++(*this); return tmp; }
+    ipv4_iterator& operator++() { ++value_; return *this; }
+    ipv4_iterator operator++(int) { ipv4_iterator tmp{ *this }; ++(*this); return tmp; }
 
-    bool operator==(const IPv4Iterator& other) const { return _value == other._value; }
-    bool operator!=(const IPv4Iterator& other) const { return _value != other._value; }
+    bool operator==(const ipv4_iterator& other) const { return value_ == other.value_; }
+    bool operator!=(const ipv4_iterator& other) const { return value_ != other.value_; }
 
 private:
-    value_type _value;
+    value_type value_;
 };
 
-class IPv4Range
+class ipv4_range
 {
 public:
-    IPv4Range(const IPv4& start, const IPv4& end) : _start{ start }, _end{ end } { ++_end; }
-    auto begin() { return IPv4Iterator{ _start }; }
-    auto end() { return IPv4Iterator{ _end }; }
-    auto cbegin() const { return IPv4Iterator{ _start }; };
-    auto cend() const { return IPv4Iterator{ _end }; }
-    auto begin() const { return IPv4Iterator{ _start }; };
-    auto end() const { return IPv4Iterator{ _end }; }
+    ipv4_range(const ipv4& start, const ipv4& end) : start_{ start }, end_{ end } { ++end_; }
+    auto begin() { return ipv4_iterator{ start_ }; }
+    auto end() { return ipv4_iterator{ end_ }; }
+    auto begin() const { return ipv4_iterator{ start_ }; };
+    auto end() const { return ipv4_iterator{ end_ }; }
+    auto cbegin() const { return ipv4_iterator{ start_ }; };
+    auto cend() const { return ipv4_iterator{ end_ }; }
 private:
-    IPv4 _start;
-    IPv4 _end;
+    ipv4 start_;
+    ipv4 end_;
 };

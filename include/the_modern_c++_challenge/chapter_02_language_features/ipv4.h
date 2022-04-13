@@ -3,13 +3,25 @@
 #include <algorithm>
 #include <array>
 #include <cstdint>  // uint8_t, uint32_t
+#include <fmt/format.h>
 #include <ios>
 #include <istream>
 #include <numeric>
 #include <ostream>
 #include <regex>
 #include <sstream>
+#include <stdexcept>  // runtime_error
 #include <string>
+
+
+struct invalid_ipv4_address_error : public std::runtime_error {
+    invalid_ipv4_address_error(const std::string& address) : std::runtime_error{ "" } {
+        message_ = fmt::format("{}: {}", message_, address);
+    }
+    const char* what() const noexcept { return message_.c_str(); }
+private:
+    std::string message_{ "invalid IPv4 address" };
+};
 
 
 // Notes
@@ -23,110 +35,124 @@
 // Copy construction, copy assignment operator and destructor are also unnecesary
 // 
 // operator<< and operator>> implemented as non-member functions and friends
-
-class IPv4
+class ipv4
 {
 public:
-    IPv4() = default;
+    ipv4() = default;
 
-    explicit IPv4(const std::string& address) {
-        std::istringstream iss{ address };
-        std::for_each(_octets.begin(), _octets.end(),
-            [&iss, temp = std::string{}](std::uint8_t& n) mutable {
-            std::getline(iss, temp, '.');
-            n = std::stoi(temp);
+    explicit ipv4(const std::string& address) {
+        if (not validate_ipv4_address(address, *this)) {
+            throw invalid_ipv4_address_error{ address };
         }
-        );
     }
 
-    explicit IPv4(const char* address)
-        : IPv4{ std::string(address) }
+    explicit ipv4(const char* address)
+        : ipv4{ std::string(address) }
     {}
 
-    explicit constexpr IPv4(std::uint32_t address)
-        : _octets{ (address >> 24) & 0xff, (address >> 16) & 0xff, (address >> 8) & 0xff, address & 0xff }
+    explicit constexpr ipv4(std::uint32_t address)
+        : octets_{ (address >> 24) & 0xff, (address >> 16) & 0xff, (address >> 8) & 0xff, address & 0xff }
     {}
 
-    constexpr IPv4(std::uint8_t o0, std::uint8_t o1, std::uint8_t o2, std::uint8_t o3)
-        : _octets{ o0, o1, o2, o3 }
+    constexpr ipv4(std::uint8_t o0, std::uint8_t o1, std::uint8_t o2, std::uint8_t o3)
+        : octets_{ o0, o1, o2, o3 }
     {}
 
     [[nodiscard]] std::string to_string() const {
-        std::ostringstream oss;
+        std::ostringstream oss{};
         oss << *this;
         return oss.str();
     }
 
     [[nodiscard]] constexpr unsigned long to_ulong() const noexcept {
-        return static_cast<unsigned long>((_octets[0] << 24) | (_octets[1] << 16) | (_octets[2] << 8) | _octets[3]);
+        return static_cast<unsigned long>((octets_[0] << 24) | (octets_[1] << 16) | (octets_[2] << 8) | octets_[3]);
     }
 
-    IPv4& operator++() {
-        *this = IPv4{ this->to_ulong() + 1 };
+    ipv4& operator++() {
+        *this = ipv4{ this->to_ulong() + 1 };
         return *this;
     }
 
-    IPv4 operator++(int) {
-        IPv4 tmp{ *this }; ++(*this);
+    ipv4 operator++(int) {
+        ipv4 tmp{ *this };
+        ++(*this);
         return tmp;
     }
 
 private:
-    friend bool operator==(const IPv4& lhs, const IPv4& rhs) {
-        return lhs._octets == rhs._octets;
+    friend bool operator==(const ipv4& lhs, const ipv4& rhs) {
+        return lhs.octets_ == rhs.octets_;
     }
 
-    friend bool operator<(const IPv4& lhs, const IPv4& rhs) {
+    friend bool operator<(const ipv4& lhs, const ipv4& rhs) {
         return lhs.to_ulong() < rhs.to_ulong();
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const IPv4& ipv4) {
-        std::for_each(ipv4._octets.cbegin(), ipv4._octets.cend(),
+    friend std::ostream& operator<<(std::ostream& os, const ipv4& address) {
+        std::for_each(address.octets_.cbegin(), address.octets_.cend(),
             [&os, first = true](std::uint8_t n) mutable {
-            os << (first ? "" : ".") << std::to_string(n);
-            first = false;
-        }
-        );
+               os << (first ? "" : ".") << std::to_string(n);
+                first = false;
+        });
         return os;
     }
 
-    friend std::istream& operator>>(std::istream& is, IPv4& ipv4) {
+    friend std::istream& operator>>(std::istream& is, ipv4& address) {
         bool error{ false };
 
-        // Read stream into a string
         std::string str{};
         is >> str;
 
-        // Check string is a valid IPv4 address
-        std::regex pattern{ R"(^([[:digit:]]{1,3})\.([[:digit:]]{1,3})\.([[:digit:]]{1,3})\.([[:digit:]]{1,3})$)" };
-        std::smatch matches;
-        if (std::regex_search(str, matches, pattern))
-        {
-            int i{ 0 };
-            for (auto match = std::next(cbegin(matches)); match != cend(matches); ++match)
-            {
-                int octet = std::stoi(*match);
-                if (octet > 255)
-                {
-                    error = true;  // an octet is bigger than 255
-                    break;
-                }
-                ipv4._octets[i++] = octet;
-            }
-        }
-        else
-        {
-            error = true;  // string format is not correct
-        }
-
-        if (error)
-        {
+        if (not validate_ipv4_address(str, address)) {
             is.setstate(std::ios_base::failbit);
-            ipv4._octets.fill(0);
+            address.octets_.fill(0);
         }
 
         return is;
     }
 
-    std::array<std::uint8_t, 4> _octets{};
+    [[nodiscard]] friend bool validate_ipv4_address(const std::string& str, ipv4& address) {
+        bool ret{ true };
+        std::regex pattern{ R"(^([[:digit:]]{1,3})\.([[:digit:]]{1,3})\.([[:digit:]]{1,3})\.([[:digit:]]{1,3})$)" };
+        std::smatch matches;
+        if (std::regex_search(str, matches, pattern)) {
+            int i{ 0 };
+            for (auto match{ std::next(cbegin(matches)) }; match != cend(matches); ++match) {
+                int octet{ std::stoi(*match) };
+                if (octet > 255) {
+                    ret = false;
+                    break;
+                }
+                address.octets_[i++] = octet;
+            }
+        }
+        else {
+            ret = false;
+        }
+        if (not ret) {
+            address.octets_.fill(0);
+        }
+        return ret;
+    }
+
+private:
+    friend struct fmt::formatter<ipv4>;
+
+    std::array<std::uint8_t, 4> octets_{};
+};
+
+
+template <>
+struct fmt::formatter<ipv4>
+{
+    template <typename ParseContext>
+    constexpr auto parse(ParseContext& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const ipv4& address, FormatContext& ctx) {
+        return fmt::format_to(ctx.out(), "{}.{}.{}.{}",
+            address.octets_[0], address.octets_[1], address.octets_[2], address.octets_[3]);
+    }
 };

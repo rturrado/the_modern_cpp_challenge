@@ -1,12 +1,16 @@
 #pragma once
 
 #include <algorithm>
+#include <fmt/format.h>
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <format>
 #include <iostream>  // cout
 #include <iterator>
 #include <ranges>
 #include <sstream>
 #include <stdexcept>
+#include <utility>  // exchange
 #include <vector>
 
 
@@ -14,10 +18,8 @@ template <typename T>
 concept printable = requires(std::ostream& os, T t) { os << t; };
 
 template <printable T>
-class Array2D
-{
-    class ConstIterator
-    {
+class array_2d {
+    class const_iterator {
     public:
         using difference_type = std::ptrdiff_t;
         using iterator_category = std::random_access_iterator_tag;
@@ -25,31 +27,30 @@ class Array2D
         using reference = const T&;
         using value_type = T;
 
-        using _TPtr = T*;
+        using TPtr_ = T*;
 
-        constexpr ConstIterator() noexcept : _ptr{} {}
-        constexpr ConstIterator(_TPtr ptr) noexcept : _ptr{ ptr } {}
-        constexpr reference operator*() const noexcept { return *_ptr; }
-        constexpr pointer operator->() const noexcept { return _ptr; }
-        constexpr ConstIterator& operator++() noexcept { ++_ptr; return *this; }
-        constexpr ConstIterator operator++(int) noexcept { ConstIterator tmp{ *this }; ++(*this); return tmp; }
-        constexpr ConstIterator& operator--() noexcept { --_ptr; return *this; }
-        constexpr ConstIterator operator--(int) noexcept { ConstIterator tmp{ *this }; --(*this); return tmp; }
-        constexpr ConstIterator& operator+=(const difference_type offset) noexcept { _ptr += offset; return *this; }
-        constexpr ConstIterator operator+(const difference_type offset) const noexcept { ConstIterator tmp{ *this }; tmp += offset; return tmp; }
-        constexpr ConstIterator& operator-=(const difference_type offset) noexcept { *this += -offset; return *this; }
-        constexpr ConstIterator operator-(const difference_type offset) const noexcept { ConstIterator tmp{ *this }; tmp -= offset; return tmp; }
-        constexpr difference_type operator-(const ConstIterator& other) const noexcept { return _ptr - other._ptr; }
-        constexpr bool operator==(const ConstIterator& other) const noexcept { return _ptr == other._ptr; }
-        constexpr bool operator<=>(const ConstIterator& other) const noexcept { return _ptr <=> other._ptr; }
+        constexpr const_iterator() noexcept : ptr_{} {}
+        constexpr const_iterator(TPtr_ ptr) noexcept : ptr_{ ptr } {}
+        constexpr reference operator*() const noexcept { return *ptr_; }
+        constexpr pointer operator->() const noexcept { return ptr_; }
+        constexpr const_iterator& operator++() noexcept { ++ptr_; return *this; }
+        constexpr const_iterator operator++(int) noexcept { const_iterator tmp{ *this }; ++(*this); return tmp; }
+        constexpr const_iterator& operator--() noexcept { --ptr_; return *this; }
+        constexpr const_iterator operator--(int) noexcept { const_iterator tmp{ *this }; --(*this); return tmp; }
+        constexpr const_iterator& operator+=(const difference_type offset) noexcept { ptr_ += offset; return *this; }
+        constexpr const_iterator operator+(const difference_type offset) const noexcept { const_iterator tmp{ *this }; tmp += offset; return tmp; }
+        constexpr const_iterator& operator-=(const difference_type offset) noexcept { *this += -offset; return *this; }
+        constexpr const_iterator operator-(const difference_type offset) const noexcept { const_iterator tmp{ *this }; tmp -= offset; return tmp; }
+        constexpr difference_type operator-(const const_iterator& other) const noexcept { return ptr_ - other.ptr_; }
+        constexpr bool operator==(const const_iterator& other) const noexcept { return ptr_ == other.ptr_; }
+        constexpr bool operator<=>(const const_iterator& other) const noexcept { return ptr_ <=> other.ptr_; }
 
     protected:
-        _TPtr _ptr{ nullptr };
+        TPtr_ ptr_{ nullptr };
     };
 
-    class Iterator : public ConstIterator
-    {
-        using _MyBase = ConstIterator;
+    class iterator : public const_iterator {
+        using MyBase_ = const_iterator;
 
     public:
         using difference_type = std::ptrdiff_t;
@@ -58,22 +59,21 @@ class Array2D
         using reference = T&;
         using value_type = T;
     
-        constexpr reference operator*() const noexcept { return const_cast<reference>(_MyBase::operator*()); }
-        constexpr pointer operator->() const noexcept { return this->_ptr; }
-        constexpr Iterator& operator++() noexcept { _MyBase::operator++(); return *this; }
-        constexpr Iterator operator++(int) noexcept { Iterator tmp{ *this }; _MyBase::operator++(); return tmp; }
-        constexpr Iterator& operator--() noexcept { _MyBase::operator--(); return *this; }
-        constexpr Iterator operator--(int) noexcept { Iterator tmp{ *this }; _MyBase::operator--(); return tmp; }
-        constexpr Iterator& operator+=(const difference_type offset) noexcept { _MyBase::operator+=(offset); return *this; }
-        constexpr Iterator operator+(const difference_type offset) const noexcept { Iterator tmp{ *this }; tmp += offset; return tmp; }
-        constexpr Iterator& operator-=(const difference_type offset) noexcept { _MyBase::operator-=(offset); return *this; }
-        constexpr Iterator operator-(const difference_type offset) const noexcept { Iterator tmp{ *this }; tmp -= offset; return tmp; }
-        constexpr difference_type operator-(const Iterator& other) const noexcept { return this->_ptr - other._ptr; }
+        constexpr reference operator*() const noexcept { return const_cast<reference>(MyBase_::operator*()); }
+        constexpr pointer operator->() const noexcept { return this->ptr_; }
+        constexpr iterator& operator++() noexcept { MyBase_::operator++(); return *this; }
+        constexpr iterator operator++(int) noexcept { iterator tmp{ *this }; MyBase_::operator++(); return tmp; }
+        constexpr iterator& operator--() noexcept { MyBase_::operator--(); return *this; }
+        constexpr iterator operator--(int) noexcept { iterator tmp{ *this }; MyBase_::operator--(); return tmp; }
+        constexpr iterator& operator+=(const difference_type offset) noexcept { MyBase_::operator+=(offset); return *this; }
+        constexpr iterator operator+(const difference_type offset) const noexcept { iterator tmp{ *this }; tmp += offset; return tmp; }
+        constexpr iterator& operator-=(const difference_type offset) noexcept { MyBase_::operator-=(offset); return *this; }
+        constexpr iterator operator-(const difference_type offset) const noexcept { iterator tmp{ *this }; tmp -= offset; return tmp; }
+        constexpr difference_type operator-(const iterator& other) const noexcept { return this->ptr_ - other.ptr_; }
     };
 
     template <typename Iter>
-    class ReverseIterator
-    {
+    class reverse_iterator {
     public:
         using difference_type = Iter::difference_type;
         using iterator_category = Iter::iterator_category;
@@ -82,39 +82,37 @@ class Array2D
         using value_type = Iter::value_type;
 
         template <typename>
-        friend class ReverseIterator;
+        friend class reverse_iterator;
 
-        constexpr ReverseIterator(Iter it) noexcept : _current{ std::move(it) } {}
+        constexpr reverse_iterator(Iter it) noexcept : current_{ std::move(it) } {}
         template <typename OtherIter>
-        constexpr ReverseIterator(const ReverseIterator<OtherIter>& other) noexcept : _current{ other._current } {}
-        constexpr reference operator*() const noexcept { Iter tmp{ _current }; return *(--tmp); }
-        constexpr pointer operator->() const noexcept { Iter tmp{ _current }; --tmp; return tmp->operator->(); }
-        constexpr ReverseIterator& operator++() noexcept { --_current; return *this; }
-        constexpr ReverseIterator operator++(int) noexcept { ReverseIterator tmp{ *this }; --_current; return tmp; }
-        constexpr ReverseIterator& operator--() noexcept { ++_current; return *this; }
-        constexpr ReverseIterator operator--(int) noexcept { ReverseIterator tmp{ *this }; ++_current; return tmp; }
-        constexpr ReverseIterator& operator+=(const difference_type offset) noexcept { _current -= offset; return *this; }
-        constexpr ReverseIterator operator+(const difference_type offset) const noexcept { return ReverseIterator{ _current - offset }; }
-        constexpr ReverseIterator& operator-=(const difference_type offset) noexcept { _current += offset; return *this; }
-        constexpr ReverseIterator operator-(const difference_type offset) const noexcept { return ReverseIterator{ _current + offset }; }
+        constexpr reverse_iterator(const reverse_iterator<OtherIter>& other) noexcept : current_{ other.current_ } {}
+        constexpr reference operator*() const noexcept { Iter tmp{ current_ }; return *(--tmp); }
+        constexpr pointer operator->() const noexcept { Iter tmp{ current_ }; --tmp; return tmp->operator->(); }
+        constexpr reverse_iterator& operator++() noexcept { --current_; return *this; }
+        constexpr reverse_iterator operator++(int) noexcept { reverse_iterator tmp{ *this }; --current_; return tmp; }
+        constexpr reverse_iterator& operator--() noexcept { ++current_; return *this; }
+        constexpr reverse_iterator operator--(int) noexcept { reverse_iterator tmp{ *this }; ++current_; return tmp; }
+        constexpr reverse_iterator& operator+=(const difference_type offset) noexcept { current_ -= offset; return *this; }
+        constexpr reverse_iterator operator+(const difference_type offset) const noexcept { return reverse_iterator{ current_ - offset }; }
+        constexpr reverse_iterator& operator-=(const difference_type offset) noexcept { current_ += offset; return *this; }
+        constexpr reverse_iterator operator-(const difference_type offset) const noexcept { return reverse_iterator{ current_ + offset }; }
         template <typename OtherIter>
-        constexpr difference_type operator-(const ReverseIterator<OtherIter>& other) const noexcept { return _current - other._current; }
+        constexpr difference_type operator-(const reverse_iterator<OtherIter>& other) const noexcept { return current_ - other.current_; }
         template <typename OtherIter>
-        constexpr bool operator==(const ReverseIterator<OtherIter>& other) const noexcept { return _current == other._current; }
+        constexpr bool operator==(const reverse_iterator<OtherIter>& other) const noexcept { return current_ == other.current_; }
         template <typename OtherIter>
-        constexpr bool operator<=>(const ReverseIterator<OtherIter>& other) const noexcept { return _current <=> other._current; }
+        constexpr bool operator<=>(const reverse_iterator<OtherIter>& other) const noexcept { return current_ <=> other.current_; }
 
     protected:
-        Iter _current{};
+        Iter current_{};
     };
 
 public:
-    using const_iterator = ConstIterator;
     using const_reference = const T&;
-    using const_reverse_iterator = ReverseIterator<ConstIterator>;
-    using iterator = Iterator;
+    using const_reverse_iterator = reverse_iterator<const_iterator>;
     using reference = T&;
-    using reverse_iterator = ReverseIterator<iterator>;
+    using reverse_iterator_t = reverse_iterator<iterator>;
     using size_type = std::vector<T>::size_type;
     using value_type = T;
 
@@ -123,11 +121,9 @@ private:
         size_type index,
         size_type num_elems,
         const std::string& index_text,
-        const std::string& num_elems_text) const
-    {
+        const std::string& num_elems_text) const {
 
-        if (index >= num_elems)
-        {
+        if (index >= num_elems) {
             std::ostringstream oss{};
             oss << index_text << " (zero based index) = " << index << " and " << num_elems_text << " = " << num_elems << ".";
             throw std::out_of_range{ oss.str() };
@@ -135,172 +131,184 @@ private:
     };
 
 public:
-    Array2D() : _width{ 0 }, _height{ 0 } {}
-    Array2D(size_type width, size_type height) : _width{ width }, _height{ height } { _data.resize(width * height); }
-    Array2D(std::initializer_list<std::initializer_list<T>>&& data)
-    {
-        _height = data.size();
-        _width = (_height ? (*data.begin()).size() : 0);
+    array_2d() : width_{ 0 }, height_{ 0 } {}
+    array_2d(size_type width, size_type height) : width_{ width }, height_{ height } { data_.resize(width * height); }
+    array_2d(std::initializer_list<std::initializer_list<T>>&& data) {
+        height_ = data.size();
+        width_ = (height_ ? data.begin()->size() : 0);
 
-        for (auto&& v : data)
-        {
-            for (auto&& t : v)
-            {
-                _data.emplace_back(t);
+        for (auto&& v : data) {
+            for (auto&& t : v) {
+                data_.emplace_back(t);
             }
         }
     }
+    array_2d(const array_2d& other) = default;
+    array_2d& operator=(const array_2d& other) = default;
+    array_2d(array_2d&& other) noexcept {
+        data_ = std::move(other.data_);
+        width_ = other.width_;
+        height_ = other.height_;
+        other.width_ = 0;
+        other.height_ = 0;
+    }
+    array_2d& operator=(array_2d&& other) noexcept {
+        data_ = std::move(other.data_);
+        width_ = other.width_;
+        height_ = other.height_;
+        other.width_ = 0;
+        other.height_ = 0;
+        return *this;
+    }
+    ~array_2d() = default;
 
-    [[nodiscard]] constexpr reference at(size_type row, size_type col)
-    {
-        verify_indexed_access(row, _height, "row", "height");
-        verify_indexed_access(col, _width, "left_col", "width");
+    [[nodiscard]] constexpr reference at(size_type row, size_type col) {
+        verify_indexed_access(row, height_, "row", "height");
+        verify_indexed_access(col, width_, "left_col", "width");
 
-        return _data.at(row * _width + col);
+        return data_.at(row * width_ + col);
     }
 
-    [[nodiscard]] constexpr const_reference at(size_type row, size_type col) const
-    {
-        verify_indexed_access(row, _height, "row", "height");
-        verify_indexed_access(col, _width, "left_col", "width");
+    [[nodiscard]] constexpr const_reference at(size_type row, size_type col) const {
+        verify_indexed_access(row, height_, "row", "height");
+        verify_indexed_access(col, width_, "left_col", "width");
 
-        return _data.at(row * _width + col);
+        return data_.at(row * width_ + col);
     }
 
-    [[nodiscard]] constexpr T* data() noexcept { return const_cast<T*>(_data.data()); }
-    [[nodiscard]] constexpr const T* data() const noexcept { return _data.data(); }
+    [[nodiscard]] constexpr T* data() noexcept { return data_.data(); }
+    [[nodiscard]] constexpr const T* data() const noexcept { return data_.data(); }
     
-    [[nodiscard]] constexpr size_type height() const noexcept { return _height; }
-    [[nodiscard]] constexpr size_type width() const noexcept { return _width; }
+    [[nodiscard]] constexpr bool empty() const noexcept { return data_.empty(); }
+    [[nodiscard]] constexpr size_type height() const noexcept { return height_; }
+    [[nodiscard]] constexpr size_type width() const noexcept { return width_; }
 
-    [[nodiscard]] constexpr iterator begin() const noexcept { return iterator(const_cast<T*>(_data.data())); }
-    [[nodiscard]] constexpr iterator end() const noexcept { return iterator(const_cast<T*>(_data.data()) + _data.size()); }
+    [[nodiscard]] constexpr iterator begin() noexcept { return iterator(data_.data()); }
+    [[nodiscard]] constexpr iterator end() noexcept { return iterator(data_.data() + data_.size()); }
+    [[nodiscard]] constexpr const_iterator begin() const noexcept { return const_iterator(const_cast<T*>(data_.data())); }
+    [[nodiscard]] constexpr const_iterator end() const noexcept { return const_iterator(const_cast<T*>(data_.data()) + data_.size()); }
+    [[nodiscard]] constexpr reverse_iterator_t rbegin() noexcept { return reverse_iterator_t(end()); }
+    [[nodiscard]] constexpr reverse_iterator_t rend() noexcept { return reverse_iterator_t(begin()); }
+    [[nodiscard]] constexpr const_reverse_iterator rbegin() const noexcept { return const_reverse_iterator(end()); }
+    [[nodiscard]] constexpr const_reverse_iterator rend() const noexcept { return const_reverse_iterator(begin()); }
     [[nodiscard]] constexpr const_iterator cbegin() const noexcept { return begin(); }
     [[nodiscard]] constexpr const_iterator cend() const noexcept { return end(); }
-    [[nodiscard]] constexpr reverse_iterator rbegin() const noexcept { return reverse_iterator(end()); }
-    [[nodiscard]] constexpr reverse_iterator rend() const noexcept { return reverse_iterator(begin()); }
     [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept { return rbegin(); }
     [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept { return rend(); }
 
-    constexpr void swap(size_type left_row, size_type left_col, size_type right_row, size_type right_col)
-    {
-        verify_indexed_access(left_row, _height, "left_row", "height");
-        verify_indexed_access(right_row, _height, "right_row", "height");
-        verify_indexed_access(left_col, _width, "left_col", "width");
-        verify_indexed_access(right_col, _width, "right_col", "width");
+    [[nodiscard]] constexpr auto operator<=>(const array_2d& other) const = default;
 
-        auto left_it{ begin() + left_row * _width + left_col };
-        auto right_it{ begin() + right_row * _width + right_col };
-        T tmp{ *left_it }; *left_it = *right_it; *right_it = tmp;
+    constexpr void swap(size_type left_row, size_type left_col, size_type right_row, size_type right_col) {
+        verify_indexed_access(left_row, height_, "left_row", "height");
+        verify_indexed_access(right_row, height_, "right_row", "height");
+        verify_indexed_access(left_col, width_, "left_col", "width");
+        verify_indexed_access(right_col, width_, "right_col", "width");
+
+        auto left_it{ begin() + left_row * width_ + left_col };
+        auto right_it{ begin() + right_row * width_ + right_col };
+        *right_it = std::exchange(*left_it, *right_it);
     }
 
     [[nodiscard]] constexpr auto sub_array(
         size_type begin_row,
         size_type begin_col,
         size_type sub_array_width,
-        size_type sub_array_height) const
-    {
-        verify_indexed_access(begin_row, _height, "begin_row", "height");
-        verify_indexed_access(begin_row + sub_array_height, _height, "begin_row + sub_array_height", "height");
-        verify_indexed_access(begin_col, _width, "begin_col", "width");
-        verify_indexed_access(begin_col + sub_array_width, _width, "begin_col + sub_array_width", "width");
+        size_type sub_array_height) const {
 
-        Array2D sub_array(sub_array_width, sub_array_height);
-        for (auto row = begin_row; row < begin_row + sub_array_height; ++row)
-        {
-            for (auto col = begin_col; col < begin_col + sub_array_width; ++col)
-            {
-                sub_array.at(row - begin_row, col - begin_col) = _data[row * _width + col];
+        auto end_row{ begin_row + sub_array_height - 1 };
+        auto end_col{ begin_col + sub_array_width - 1 };
+
+        verify_indexed_access(begin_row, height_, "begin_row", "height");
+        verify_indexed_access(end_row, height_, "end_row", "height");
+        verify_indexed_access(begin_col, width_, "begin_col", "width");
+        verify_indexed_access(end_col, width_, "end_col", "width");
+
+        array_2d sub_array(sub_array_width, sub_array_height);
+        for (auto row{ begin_row }; row <= end_row; ++row) {
+            for (auto col{ begin_col }; col <= end_col; ++col) {
+                sub_array.at(row - begin_row, col - begin_col) = data_[row * width_ + col];
             }
         }
 
         return sub_array;
     }
 
-    [[nodiscard]] constexpr auto row_as_vector(size_type row) const
-    {
-        verify_indexed_access(row, _height, "row", "height");
+    [[nodiscard]] constexpr auto row_as_vector(size_type row) const {
+        verify_indexed_access(row, height_, "row", "height");
 
-        return std::vector<T>(begin() + row * _width, begin() + (row + 1) * _width);
+        return std::vector<T>(begin() + row * width_, begin() + (row + 1) * width_);
     }
 
-    [[nodiscard]] constexpr auto column_as_vector(size_type column) const
-    {
-        verify_indexed_access(column, _width, "column", "width");
+    [[nodiscard]] constexpr auto column_as_vector(size_type column) const {
+        verify_indexed_access(column, width_, "column", "width");
 
         std::vector<T> column_vector{};
-        for (auto row = 0; row < _height; ++row)
-        {
-            column_vector.emplace_back(_data[row * _width + column]);
+        for (auto row{ 0 }; row < height_; ++row) {
+            column_vector.emplace_back(data_[row * width_ + column]);
         }
         return column_vector;
     }
 
-    friend auto get_column_width(const Array2D& arr, size_type column)
-    {
-        auto column_vector = arr.column_as_vector(column);
+    friend auto get_column_width(const array_2d& arr, size_type column) {
+        auto column_vector{ arr.column_as_vector(column) };
         std::ostringstream oss{};
         std::for_each(column_vector.cbegin(), column_vector.cend(),
             [&oss](const auto& val) { oss << val; oss.seekp(0); });
         return oss.str().size();
     }
 
-    friend auto get_column_widths(const Array2D& arr)
-    {
-        std::vector<size_t> column_widths{};
-
-        for (auto col{0}; col < arr._height; ++col)
-        {
-            column_widths.push_back(get_column_width(arr, col));
+    friend auto get_column_widths(const array_2d& arr) {
+        if (arr.empty()) {
+            return std::vector<size_t>{};
         }
-
+        std::vector<size_t> column_widths(arr.width_);
+        for (auto col{ 0 }; col < arr.width_; ++col) {
+            column_widths[col] = get_column_width(arr, col);
+        }
         return column_widths;
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const Array2D& arr)
-    {
-        auto print_left_border = [&os](auto row, auto num_rows) {
-            char c{ static_cast<char>(179) };
-            if (row == 0) { c = static_cast<char>(218); }
-            else if (row == num_rows - 1) { c = static_cast<char>(192); }
-            os << c;
-        };
-
-        auto print_right_border = [&os](auto row, auto num_rows) {
-            char c{ static_cast<char>(179) };
-            if (row == 0) { c = static_cast<char>(191); }
-            else if (row == num_rows - 1) { c = static_cast<char>(217); }
-            os << " " << c;
-        };
-
-        auto column_widths = get_column_widths(arr);
-
-        for (auto row = 0; row < arr._height; ++row)
-        {
-            print_left_border(row, arr._height);
-            for (auto col = 0; col < arr._width; ++col)
-            {
-                os << (col == 0 ? " " : ", ") << std::format("{1:>{0}}", column_widths[col], arr.at(row, col));
-            }
-            print_right_border(row, arr._height);
-            os << "\n";
-        }
-        return os << "\n";
+    friend std::ostream& operator<<(std::ostream& os, const array_2d& arr) {
+        fmt::print(os, "{}", arr);
+        return os;
     }
 
 private:
-    std::vector<T> _data;
-    size_type _width{ 0 };
-    size_type _height{ 0 };
+    friend struct fmt::formatter<array_2d>;
+
+    std::vector<T> data_;
+    size_type width_;
+    size_type height_;
 };
 
+
 template <printable T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T>& v)
-{
-    os << "[";
-    std::for_each(v.cbegin(), v.cend(), [ &os, first = true ](const auto& e) mutable {
-        os << (first ? " " : ", ") << e;
-        first = false;
-    });
-    return os << " ]\n\n";
-}
+struct fmt::is_range<array_2d<T>, char> : std::false_type {};
+
+
+template <printable T>
+struct fmt::formatter<array_2d<T>> {
+    template<typename ParseContext>
+    constexpr auto parse(ParseContext& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const array_2d<T>& arr, FormatContext& ctx) {
+        if (arr.empty()) {
+            fmt::format_to(ctx.out(), "{}", "[]");
+        }
+        else {
+            auto column_widths{ get_column_widths(arr) };
+
+            for (auto row{ 0 }; row < arr.height_; ++row) {
+                fmt::format_to(ctx.out(), "{}{}", (row == 0 ? "" : "\n"), "[ ");
+                for (auto col{ 0 }; col < arr.width_; ++col) {
+                    fmt::format_to(ctx.out(), "{0}{2:>{1}}", (col == 0 ? "" : ", "), column_widths[col], arr.at(row, col));
+                }
+                fmt::format_to(ctx.out(), "{}", " ]");
+            }
+        }
+        return ctx.out();
+    }
+};

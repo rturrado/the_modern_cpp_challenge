@@ -7,8 +7,18 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_subdirectory(chapter_01_math)
+add_subdirectory(chapter_02_language_features)
+add_subdirectory(chapter_03_strings_and_regular_expressions)
+add_subdirectory(chapter_04_streams_and_filesystems)
 
-add_executable(${PROJECT_NAME}_test ${chapter_01_test_sources})
+set(test_sources
+    ${chapter_01_test_sources}
+    ${chapter_02_test_sources}
+    ${chapter_03_test_sources}
+    ${chapter_04_test_sources}
+)
+
+add_executable(${PROJECT_NAME}_test ${test_sources})
 target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_23)
 target_link_libraries(${PROJECT_NAME}_test lib_${PROJECT_NAME} gmock gtest_main)
 
