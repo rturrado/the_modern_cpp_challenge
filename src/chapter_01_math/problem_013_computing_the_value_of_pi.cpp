@@ -7,8 +7,7 @@
 #include <random>
 
 
-double compute_pi(size_t number_of_iterations)
-{
+double compute_pi(size_t number_of_iterations) {
     if (number_of_iterations == 0) {
         return 0;
     }
@@ -48,7 +47,6 @@ void problem_13_main(std::ostream& os)
 // Computing the value of Pi
 //
 // Write a program that computes the value of Pi with a precision of two decimal digits
-void problem_13_main()
-{
+void problem_13_main() {
     problem_13_main(std::cout);
 }

@@ -11,8 +11,7 @@
 #include <vector>
 
 
-std::vector<std::pair<size_t, size_t>> sexy_prime_pairs_up_to(size_t limit)
-{
+std::vector<std::pair<size_t, size_t>> sexy_prime_pairs_up_to(size_t limit) {
     std::vector<std::pair<size_t, size_t>> ret{};
     for (auto i{ 7 }; i <= limit; ++i) {
         if (rtc::math::is_prime(i) and rtc::math::is_prime(i - 6)) {
@@ -23,8 +22,7 @@ std::vector<std::pair<size_t, size_t>> sexy_prime_pairs_up_to(size_t limit)
 }
 
 
-void problem_5_main(std::istream& is, std::ostream& os)
-{
+void problem_5_main(std::istream& is, std::ostream& os) {
     auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 1): ", 1) };
 
     fmt::print(os, "Sexy prime pairs up to {}:\n", limit);
@@ -38,7 +36,6 @@ void problem_5_main(std::istream& is, std::ostream& os)
 // Sexy prime pairs
 //
 // Write a program that prints all sexy prime pairs up to a limit entered by the user
-void problem_5_main()
-{
+void problem_5_main() {
     problem_5_main(std::cin, std::cout);
 }

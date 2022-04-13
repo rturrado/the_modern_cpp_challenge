@@ -10,16 +10,14 @@ using HANDLE = void*;
 // In C++, a traits class is commonly used to provide information about a given type.
 // In this way I can write a single class template for handles and provide different traits classes for the different types of handles in the Windows API.
 // A handle's traits class also needs to define how a handle is released so that the handle class template can automatically release it if needed.
-struct handle_traits
-{
+struct handle_traits {
     static HANDLE invalid() noexcept;
     static void close(HANDLE hdl) noexcept;
 };
 
 
 template <typename Type, typename Traits>
-class unique_hdl
-{
+class unique_hdl {
 public:
     explicit unique_hdl(Type hdl = Traits::invalid()) noexcept : hdl_{ hdl } {}
 
@@ -39,18 +37,15 @@ public:
     // It then makes sense to provide the familiar get, reset and release member functions to manage the underlying handle.
     [[nodiscard]] Type get() const noexcept { return hdl_; }
 
-    [[nodiscard]] bool reset(Type hdl = Traits::invalid()) noexcept
-    {
-        if (hdl_ != hdl)
-        {
+    [[nodiscard]] bool reset(Type hdl = Traits::invalid()) noexcept {
+        if (hdl_ != hdl) {
             close();
             hdl_ = hdl;
         }
         return static_cast<bool>(*this);
     }
 
-    [[nodiscard]] Type release() noexcept
-    {
+    [[nodiscard]] Type release() noexcept {
         auto tmp_hdl{ hdl_ };
         hdl_ = Traits::invalid();
         return tmp_hdl;

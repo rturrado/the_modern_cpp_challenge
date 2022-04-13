@@ -1,5 +1,6 @@
 #pragma once
 
+#include <ostream>
 #include <utility>  // forward
 
 
@@ -24,4 +25,5 @@ void push_back_list_v2(ContainerWithPushBack& c, Args... args) {
 }
 
 
+void problem_19_main(std::ostream& os);
 void problem_19_main();

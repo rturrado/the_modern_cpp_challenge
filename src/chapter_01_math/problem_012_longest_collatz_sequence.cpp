@@ -10,8 +10,7 @@
 #include <vector>
 
 
-size_t get_collatz_sequence_size(size_t n)
-{
+size_t get_collatz_sequence_size(size_t n) {
     static std::map<size_t, size_t> collatz_sequence_sizes{};
 
     if (n == 0) {  // safety check
@@ -36,8 +35,7 @@ size_t get_collatz_sequence_size(size_t n)
 }
 
 
-std::vector<size_t> get_collatz_sequence(size_t n)
-{
+std::vector<size_t> get_collatz_sequence(size_t n) {
     if (n == 0) {
         return {};
     }
@@ -60,8 +58,7 @@ std::vector<size_t> get_collatz_sequence(size_t n)
 //
 // It's slower because it makes use of a get_collatz_sequence_size function that:
 // it is recursive, and it caches values over the limit
-std::pair<size_t, size_t> get_longest_collatz_sequence_v1(size_t limit)
-{
+std::pair<size_t, size_t> get_longest_collatz_sequence_v1(size_t limit) {
     std::size_t n{ 0 };
     std::size_t n_size{ 0 };
 
@@ -79,8 +76,7 @@ std::pair<size_t, size_t> get_longest_collatz_sequence_v1(size_t limit)
 
 
 // v2: book's version
-std::pair<size_t, size_t> get_longest_collatz_sequence_v2(size_t limit)
-{
+std::pair<size_t, size_t> get_longest_collatz_sequence_v2(size_t limit) {
     size_t number{ 0 };
     size_t length{ 0 };
 
@@ -110,8 +106,7 @@ std::pair<size_t, size_t> get_longest_collatz_sequence_v2(size_t limit)
 }
 
 
-void problem_12_main(std::ostream& os)
-{
+void problem_12_main(std::ostream& os) {
     constexpr size_t limit{ 1'000'000 };
 
     // Determine n and Collatz sequence size for n
@@ -130,7 +125,6 @@ void problem_12_main(std::ostream& os)
 //
 // Write a program that determines and prints which number up to 1 million
 // produces the longest Collatz sequence and what length is
-void problem_12_main()
-{
+void problem_12_main() {
     problem_12_main(std::cout);
 }

@@ -9,8 +9,7 @@
 #include <ostream>
 
 
-void problem_11_main(std::istream& is, std::ostream& os)
-{
+void problem_11_main(std::istream& is, std::ostream& os) {
     using namespace rtc::date;
 
     auto message{ fmt::format("Please enter a number (between 1 and {}): ", max_roman_numeral) };
@@ -24,7 +23,6 @@ void problem_11_main(std::istream& is, std::ostream& os)
 // Converting numerical values to Roman
 //
 // Write a program that, given a number entered by the user, prints its Roman numeral equivalent
-void problem_11_main()
-{
+void problem_11_main() {
     problem_11_main(std::cin, std::cout);
 }

@@ -7,14 +7,12 @@
 #include <ostream>
 
 
-size_t binary_to_gray(size_t binary)
-{
+size_t binary_to_gray(size_t binary) {
     return binary ^ (binary >> 1);
 }
 
 
-size_t gray_to_binary(size_t gray)
-{
+size_t gray_to_binary(size_t gray) {
     size_t binary{ 0 };
     while (gray != 0) {
         binary ^= gray;
@@ -24,8 +22,7 @@ size_t gray_to_binary(size_t gray)
 }
 
 
-void problem_10_main(std::ostream& os)
-{
+void problem_10_main(std::ostream& os) {
     fmt::print(os, "Number\tBinary\tGray code\tDecoded Gray code\n");
     for (size_t binary = 0b00000; binary <= 0b11111; ++binary)
     {
@@ -42,7 +39,6 @@ void problem_10_main(std::ostream& os)
 //
 // Write a program that displays the normal binary representations,
 // Gray code representations, and decoded Gray code values for all 5-bit numbers
-void problem_10_main()
-{
+void problem_10_main() {
     problem_10_main(std::cout);
 }

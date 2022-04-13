@@ -11,8 +11,7 @@
 
 
 // Note this function doesn't check for overflows
-long lcm(std::ostream& os, std::vector<int> v)
-{
+long lcm(std::ostream& os, std::vector<int> v) {
     if (v.size() == 0) {
         os << "Error: calling lcm(v) with an empty list.\n";
         return -1;
@@ -46,8 +45,7 @@ long lcm(std::vector<int> v)
 }
 
 
-void problem_3_main(std::istream& is, std::ostream& os)
-{
+void problem_3_main(std::istream& is, std::ostream& os) {
     auto v{ rtc::console::read_list_of_positive_numbers(is, os,
         "Please enter 2 or more numbers (>= 1) ('quit' to finish the list): ", 2, 1) };
 
@@ -58,7 +56,6 @@ void problem_3_main(std::istream& is, std::ostream& os)
 // Least common multiple
 //
 // Write a program that will, given two or more positive integers, calculate and print the least common multiple of them all
-void problem_3_main()
-{
+void problem_3_main() {
     problem_3_main(std::cin, std::cout);
 }

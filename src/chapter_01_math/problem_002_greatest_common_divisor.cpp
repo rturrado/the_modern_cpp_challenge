@@ -9,8 +9,7 @@
 #include <utility>  // exchange
 
 
-int gcd(std::ostream& os, int m, int n)
-{
+int gcd(std::ostream& os, int m, int n) {
     if (m <= 0 or n <= 0) {
         os << "Error: calling gcd(m, n) with a negative or zero value.\n";
         return -1;
@@ -30,14 +29,12 @@ int gcd(std::ostream& os, int m, int n)
 }
 
 
-int gcd(int m, int n)
-{
+int gcd(int m, int n) {
     return gcd(std::cerr, m, n);
 }
 
 
-void problem_2_main(std::istream& is, std::ostream& os)
-{
+void problem_2_main(std::istream& is, std::ostream& os) {
     auto m{ rtc::console::read_positive_number(is, os, "Please enter a first number (>= 1): ", 1) };
     auto n{ rtc::console::read_positive_number(is, os, "Please enter a second number (>= 1): ", 1) };
 
@@ -48,7 +45,6 @@ void problem_2_main(std::istream& is, std::ostream& os)
 // Greatest common divisor
 //
 // Write a program that, given two positive integers, will calculate and print the greatest common divisor of the two
-void problem_2_main()
-{
+void problem_2_main() {
     problem_2_main(std::cin, std::cout);
 }

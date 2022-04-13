@@ -1,5 +1,7 @@
 #include "chapter_02_language_features/unique_hdl.h"
 
+#ifdef _WIN32
+
 #define WINDOWS_LEAN_AND_MEAN
 #include <windows.h>
 
@@ -16,3 +18,5 @@
         CloseHandle(hdl);
     }
 }
+
+#endif  // _WIN32

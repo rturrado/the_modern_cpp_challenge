@@ -7,14 +7,18 @@
 #include <vector>
 #include <stdexcept>  // runtime_error
 
+#ifdef _WIN32
 #include <windows.h>  // CreateFileW
+#endif  // _WIN32
 
 
-void function_that_throws() { throw std::runtime_error{"I'm a throwing function!\n"}; }
+void function_that_throws() {
+    throw std::runtime_error{"I'm a throwing function!\n"};
+}
 
 
-void test_unique_hdl()
-{
+void test_unique_hdl(std::ostream& os) {
+#ifdef _WIN32
     auto file_path{ std::filesystem::current_path() / "res" / "sample.txt" };
 
     using handle = unique_hdl<HANDLE, handle_traits>;
@@ -30,8 +34,7 @@ void test_unique_hdl()
             nullptr
     )};
 
-    if (!file_hdl)
-    {
+    if (!file_hdl) {
         std::wcout << L"Error " << GetLastError() << ": in unique_hdl constructor\n";
         return;
     }
@@ -47,17 +50,17 @@ void test_unique_hdl()
             buffer.data(),
             static_cast<DWORD>(buffer.size()),
             &bytesRead,
-            nullptr)
-        )
-    {
-        std::cout << "Error " << GetLastError() << ": in ReadFile\n";
+            nullptr)) {
+        os << "Error " << GetLastError() << ": in ReadFile\n";
     }
-    else
-    {
-        std::cout << "Read " << bytesRead << " from file\n";
+    else {
+        os << "Read " << bytesRead << " from file\n";
     }
 
     function_that_throws();
+#else
+    os << "Unimplemented\n";
+#endif  // _WIN32
 }
 
 
@@ -67,13 +70,16 @@ void test_unique_hdl()
 // Write a wrapper that handles the acquisition and release of the handle,
 // as well as other operations such as verifying the validity of the handle
 // and moving handle ownership from one object to another.
-void problem_21_main()
-{
+void problem_21_main(std::ostream& os) {
     try {
-        test_unique_hdl();
+        test_unique_hdl(os);
     }
     catch (const std::runtime_error& ex) {
-        std::cout << "Error: " << ex.what();
+        os << "Error: " << ex.what();
     }
     std::cout << "\n";
+}
+
+void problem_21_main() {
+    problem_21_main(std::cout);
 }

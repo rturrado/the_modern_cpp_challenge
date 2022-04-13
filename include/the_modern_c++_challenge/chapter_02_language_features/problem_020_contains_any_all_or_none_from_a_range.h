@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>  // find
+#include <ostream>
 
 
 template <typename C, typename... Args>
@@ -19,4 +20,5 @@ bool contains_none(C& c, Args&&... args) {
 }
 
 
+void problem_20_main(std::ostream& os);
 void problem_20_main();

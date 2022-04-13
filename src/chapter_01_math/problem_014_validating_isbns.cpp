@@ -12,15 +12,13 @@
 #include <string>  // getline
 
 
-std::string read_n_digit_isbn(std::istream& is, std::ostream& os, size_t n)
-{
+std::string read_n_digit_isbn(std::istream& is, std::ostream& os, size_t n) {
     std::string ret{};
 
     const std::string separators{ "- " };  // hyphens or spaces
 
     bool valid_input{ false };
-    while (!valid_input)
-    {
+    while (!valid_input) {
         fmt::print(os, "Please enter a {}-digit ISBN (may include hyphens and/or spaces): ", n);
         
         std::getline(is, ret);
@@ -46,8 +44,7 @@ std::string read_n_digit_isbn(std::istream& is, std::ostream& os, size_t n)
 }
 
 
-bool validate_10_digit_isbn(const std::string& str)
-{
+bool validate_10_digit_isbn(const std::string& str) {
     constexpr size_t number_of_digits{ 10 };
     assert(str.size() == number_of_digits);
 
@@ -58,8 +55,7 @@ bool validate_10_digit_isbn(const std::string& str)
 }
 
 
-bool validate_13_digit_isbn(const std::string& str)
-{
+bool validate_13_digit_isbn(const std::string& str) {
     constexpr size_t number_of_digits{ 13 };
     assert(str.size() == number_of_digits);
 
@@ -70,8 +66,7 @@ bool validate_13_digit_isbn(const std::string& str)
 }
 
 
-void problem_14_main(std::istream& is, std::ostream& os)
-{
+void problem_14_main(std::istream& is, std::ostream& os) {
     auto str = read_n_digit_isbn(is, os, 10);
     auto valid = validate_10_digit_isbn(str);
     fmt::print(os, "\t{} is {}a valid 10-digit ISBN\n\n", str, (valid ? "" : "NOT "));
@@ -85,7 +80,6 @@ void problem_14_main(std::istream& is, std::ostream& os)
 // Validating ISBNs
 // Write a program that validates that 10-digit values entered by the user,
 // as a string, represent valid ISBN-10 numbers
-void problem_14_main()
-{
+void problem_14_main() {
     problem_14_main(std::cin, std::cout);
 }

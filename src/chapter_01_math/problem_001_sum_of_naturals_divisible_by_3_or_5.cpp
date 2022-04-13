@@ -34,12 +34,10 @@ std::vector<size_t> naturals_divisible_by_3_or_5_up_to_limit_v2(size_t limit) {
 }
 
 
-void problem_1_main(std::istream& is, std::ostream& os)
-{
+void problem_1_main(std::istream& is, std::ostream& os) {
     auto n{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 0): ", 0) };
 
-    for (auto f : { naturals_divisible_by_3_or_5_up_to_limit_v1 , naturals_divisible_by_3_or_5_up_to_limit_v2 })
-    {
+    for (auto f : { naturals_divisible_by_3_or_5_up_to_limit_v1 , naturals_divisible_by_3_or_5_up_to_limit_v2 }) {
         auto v{ f(n) };
 
         fmt::print(os, "The sum of all natural numbers divisible by either 3 or 5 and up to {} is:\n\t{} {}\n\n",
@@ -52,7 +50,6 @@ void problem_1_main(std::istream& is, std::ostream& os)
 //
 // Write a program that calculates and prints the sum of all natural numbers divisible by either 3 or 5,
 // up to a given limit entered by the user
-void problem_1_main()
-{
+void problem_1_main() {
     problem_1_main(std::cin, std::cout);
 }

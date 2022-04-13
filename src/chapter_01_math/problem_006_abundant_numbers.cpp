@@ -11,8 +11,7 @@
 #include <vector>
 
 
-std::vector<AbundantNumberResult> abundant_numbers_up_to(size_t limit)
-{
+std::vector<AbundantNumberResult> abundant_numbers_up_to(size_t limit) {
     std::vector<AbundantNumberResult> ret{};
     for (size_t i{ 1 }; i <= limit; ++i) {
         auto d{ rtc::math::divisors(i) };
@@ -25,8 +24,7 @@ std::vector<AbundantNumberResult> abundant_numbers_up_to(size_t limit)
 }
 
 
-void problem_6_main(std::istream& is, std::ostream& os)
-{
+void problem_6_main(std::istream& is, std::ostream& os) {
     auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 1): ", 1) };
 
     fmt::print(os, "Abundant numbers up to {} [list of divisors] (and their abundance):\n", limit);
@@ -40,7 +38,6 @@ void problem_6_main(std::istream& is, std::ostream& os)
 // Abundant numbers
 //
 // Write a program that prints all abundant numbers and their abundance, up to a number entered by the user
-void problem_6_main()
-{
+void problem_6_main() {
     problem_6_main(std::cin, std::cout);
 }

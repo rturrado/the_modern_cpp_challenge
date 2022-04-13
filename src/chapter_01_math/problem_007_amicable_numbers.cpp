@@ -9,8 +9,7 @@
 #include <vector>
 
 
-std::vector<std::pair<size_t, size_t>> amicable_numbers_up_to(size_t limit)
-{
+std::vector<std::pair<size_t, size_t>> amicable_numbers_up_to(size_t limit) {
     using namespace rtc::math;
 
     std::vector<std::pair<size_t, size_t>> ret{};
@@ -30,8 +29,7 @@ std::vector<std::pair<size_t, size_t>> amicable_numbers_up_to(size_t limit)
 }
 
 
-void problem_7_main(std::ostream& os)
-{
+void problem_7_main(std::ostream& os) {
     const size_t limit{ 1'000'000 };
     fmt::print(os, "Amicable numbers up to {}:\n", limit);
     for (auto&& p : amicable_numbers_up_to(limit)) {
@@ -44,21 +42,18 @@ void problem_7_main(std::ostream& os)
 // Amicable numbers
 //
 // Write a program that prints the list of all pairs of amicable numbers smaller than 1,000,000
-void problem_7_main()
-{
+void problem_7_main() {
     problem_7_main(std::cout);
 }
 
 
-void playing_with_tmp(std::ostream& os)
-{
+void playing_with_tmp(std::ostream& os) {
     using namespace rtc::math::tmp;
 
     fmt::print(os, "Divisors sum of 220: {}\n", divisors_sum<220>::value);
     // fatal error C1202: recursive type or function dependency context too complex
     // fmt::print("Divisors sum of 898216: {}\n", divisors_sum<898216>::value);
-    if (amicable<220>::has_amicable)
-    {
+    if (amicable<220>::has_amicable) {
         fmt::print(os, "Amicable number of 220: {}\n", amicable<220>::value);
         // fatal error C1202: recursive type or function dependency context too complex
         // fmt::print(os, "Amicable number of 898216: {}\n", amicable<898216>::value);
@@ -66,7 +61,6 @@ void playing_with_tmp(std::ostream& os)
 }
 
 
-void playing_with_tmp()
-{
+void playing_with_tmp() {
     playing_with_tmp(std::cout);
 }
