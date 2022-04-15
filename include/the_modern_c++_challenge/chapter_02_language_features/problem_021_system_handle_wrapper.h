@@ -4,5 +4,5 @@
 #include <ostream>
 
 
-void problem_21_main(std::ostream& os);
+void problem_21_main(std::wostream& os);
 void problem_21_main();

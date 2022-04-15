@@ -7,6 +7,9 @@ project("the_modern_c++_challenge"
     LANGUAGES CXX
 )
 
+
+# Subdirectories
+# src, test, and benchmark
 add_subdirectory(src)
 
 if(THE_MODERN_C++_CHALLENGE_BUILD_TESTS)

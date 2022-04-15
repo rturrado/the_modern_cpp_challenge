@@ -1,3 +1,4 @@
+#Packages
 include(FetchContent)
 set(BENCHMARK_ENABLE_TESTING NO)
 FetchContent_Declare(googlebenchmark
@@ -6,8 +7,12 @@ FetchContent_Declare(googlebenchmark
 )
 FetchContent_MakeAvailable(googlebenchmark)
 
+
+# Subdirectories
 add_subdirectory(chapter_01_math)
 
+
+# Benchmark executable
 add_executable(${PROJECT_NAME}_benchmark main.cpp benchmark.h ${chapter_01_benchmark_sources})
 target_compile_features(${PROJECT_NAME}_benchmark PRIVATE cxx_std_23)
 target_link_libraries(${PROJECT_NAME}_benchmark lib_${PROJECT_NAME} benchmark::benchmark ${CMAKE_THREAD_LIBS_INIT})

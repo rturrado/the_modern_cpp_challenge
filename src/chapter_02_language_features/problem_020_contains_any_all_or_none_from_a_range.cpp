@@ -17,8 +17,8 @@ void problem_20_main(std::ostream& os) {
     assert(contains_all(a, 1, 3, 5, 6));
 
     std::list<int> l{ 1, 2, 3, 4, 5, 6 };
-    os << "Checking std::list<int> l{ 1, 2, 3, 4, 5, 6 } !contains_none of (0, 6)\n";
-    assert(!contains_none(l, 0, 6));
+    os << "Checking std::list<int> l{ 1, 2, 3, 4, 5, 6 } not contains_none of (0, 6)\n";
+    assert(not contains_none(l, 0, 6));
 
     os << "\n";
 }

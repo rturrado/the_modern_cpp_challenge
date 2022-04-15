@@ -10,13 +10,12 @@
 // 
 // temperature class is templated on a Scale parameter as well
 namespace rtc::temperature::v2 {
-    enum class Scale { Celsius, Fahrenheit, Kelvin };
+    enum class scale { celsius, fahrenheit, kelvin };
 
-    template <typename Rep_ = float, Scale = Scale::Celsius>
+    template <typename Rep_ = float, scale = scale::celsius>
     class temperature {
     public:
-        using type = Rep_;
-        using scale_ = Scale;
+        using scale_ = scale;
 
         temperature() = delete;
 
@@ -49,7 +48,7 @@ namespace rtc::temperature::v2 {
         }
 
         [[nodiscard]] Rep_ value() const noexcept { return value_; }
-        [[nodiscard]] Scale scale() const noexcept { return scale_; }
+        [[nodiscard]] scale scale() const noexcept { return scale_; }
 
     private:
         Rep_ value_{ 0.f };
@@ -58,68 +57,68 @@ namespace rtc::temperature::v2 {
     // Operator extraction
     //
     template <typename Rep_>
-    std::ostream& operator<<(std::ostream& os, const temperature<Rep_, Scale::Celsius>& t) {
+    std::ostream& operator<<(std::ostream& os, const temperature<Rep_, scale::celsius>& t) {
         return os << std::fixed << std::setprecision(2) << t.value() << " Celsius";
     }
     template <typename Rep_>
-    std::ostream& operator<<(std::ostream& os, const temperature<Rep_, Scale::Fahrenheit>& t) {
+    std::ostream& operator<<(std::ostream& os, const temperature<Rep_, scale::fahrenheit>& t) {
         return os << std::fixed << std::setprecision(2) << t.value() << " Fahrenheit";
     }
     template <typename Rep_>
-    std::ostream& operator<<(std::ostream& os, const temperature<Rep_, Scale::Kelvin>& t) {
+    std::ostream& operator<<(std::ostream& os, const temperature<Rep_, scale::kelvin>& t) {
         return os << std::fixed << std::setprecision(2) << t.value() << " Kelvin";
     }
 
     // Conversions
     //
-    template <typename Rep_, Scale S, typename Rep2_, Scale S2>
+    template <typename Rep_, scale S, typename Rep2_, scale S2>
     struct conversion_helper {
         static auto convert(const Rep_ v) = delete;
     };
 
     // C to F: (C * 9/5) + 32
     template <typename Rep_, typename Rep2_>
-    struct conversion_helper<Rep_, Scale::Celsius, Rep2_, Scale::Fahrenheit> {
+    struct conversion_helper<Rep_, scale::celsius, Rep2_, scale::fahrenheit> {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         static auto convert(const Rep_ c) noexcept { return static_cast<CT_>((c * 9.0 / 5.0) + 32.0); }
     };
 
     // F to C: (F - 32) * 5/9
     template <typename Rep_, typename Rep2_>
-    struct conversion_helper<Rep_, Scale::Fahrenheit, Rep2_, Scale::Celsius> {
+    struct conversion_helper<Rep_, scale::fahrenheit, Rep2_, scale::celsius> {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         static auto convert(const Rep_ f) noexcept { return static_cast<CT_>((f - 32.0) * 5.0 / 9.0); }
     };
 
     // C to K: C + 273.15
     template <typename Rep_, typename Rep2_>
-    struct conversion_helper<Rep_, Scale::Celsius, Rep2_, Scale::Kelvin> {
+    struct conversion_helper<Rep_, scale::celsius, Rep2_, scale::kelvin> {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         static auto convert(const Rep_ c) noexcept { return static_cast<CT_>(c + 273.15); }
     };
 
     // K to C: K - 273.15
     template <typename Rep_, typename Rep2_>
-    struct conversion_helper<Rep_, Scale::Kelvin, Rep2_, Scale::Celsius> {
+    struct conversion_helper<Rep_, scale::kelvin, Rep2_, scale::celsius> {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         static auto convert(const Rep_ k) noexcept { return static_cast<CT_>(k - 273.15); }
     };
 
     // F to K: (F - 32) * 5/9 + 273.15
     template <typename Rep_, typename Rep2_>
-    struct conversion_helper<Rep_, Scale::Fahrenheit, Rep2_, Scale::Kelvin> {
+    struct conversion_helper<Rep_, scale::fahrenheit, Rep2_, scale::kelvin> {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         static auto convert(const Rep_ f) noexcept { return static_cast<CT_>((f - 32.0) * 5.0 / 9.0 + 273.15); }
     };
 
     // K to F: (K - 273.15) * 9/5 + 32
     template <typename Rep_, typename Rep2_>
-    struct conversion_helper<Rep_, Scale::Kelvin, Rep2_, Scale::Fahrenheit> {
+    struct conversion_helper<Rep_, scale::kelvin, Rep2_, scale::fahrenheit> {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         static auto convert(const Rep_ k) noexcept { return static_cast<CT_>((k - 273.15) * 9.0 / 5.0 + 32.0); }
     };
 
-    template <typename Rep2_, Scale S2, typename Rep_, Scale S>
+    template <typename Rep2_, scale S2, typename Rep_, scale S>
     [[nodiscard]] constexpr auto temperature_cast(const temperature<Rep_, S>& t) noexcept {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         return temperature<CT_, S2>(conversion_helper<Rep_, S, Rep2_, S2>::convert(t.value()));
@@ -131,48 +130,48 @@ namespace rtc::temperature::v2 {
         return std::fabs(lhs - rhs) <= std::numeric_limits<long double>::epsilon();
     }
 
-    template <typename Rep_, Scale S, typename Rep2_>
+    template <typename Rep_, scale S, typename Rep2_>
     bool operator==(const temperature<Rep_, S>& lhs, const temperature<Rep2_, S>& rhs) {
         return simple_compare_long_doubles(
             static_cast<long double>(lhs.value()),
             static_cast<long double>(rhs.value()));
     }
 
-    template <typename Rep_, Scale S, typename Rep2_>
+    template <typename Rep_, scale S, typename Rep2_>
     bool operator!=(const temperature<Rep_, S>& lhs, const temperature<Rep2_, S>& rhs) {
         return not (lhs == rhs);
     }
 
-    template <typename Rep_, Scale S, typename Rep2_>
+    template <typename Rep_, scale S, typename Rep2_>
     constexpr bool operator<(const temperature<Rep_, S>& lhs, const temperature<Rep2_, S>& rhs) {
         return static_cast<long double>(lhs.value()) < static_cast<long double>(rhs.value());
     }
 
-    template <typename Rep_, Scale S, typename Rep2_>
+    template <typename Rep_, scale S, typename Rep2_>
     constexpr bool operator>(const temperature<Rep_, S>& lhs, const temperature<Rep2_, S>& rhs) {
         return rhs < lhs;
     }
 
-    template <typename Rep_, Scale S, typename Rep2_>
+    template <typename Rep_, scale S, typename Rep2_>
     constexpr bool operator<=(const temperature<Rep_, S>& lhs, const temperature<Rep2_, S>& rhs) {
         return not (lhs > rhs);
     }
 
-    template <typename Rep_, Scale S, typename Rep2_>
+    template <typename Rep_, scale S, typename Rep2_>
     constexpr bool operator>=(const temperature<Rep_, S>& lhs, const temperature<Rep2_, S>& rhs) {
         return not (lhs < rhs);
     }
 
     // Arithmetic
     //
-    template <typename Rep_, Scale S, typename Rep2_>
+    template <typename Rep_, scale S, typename Rep2_>
     constexpr auto operator+(const temperature<Rep_, S>& lhs, const temperature<Rep2_, S>& rhs) {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         return temperature<CT_, S>(
             static_cast<CT_>(lhs.value()) + static_cast<CT_>(rhs.value()));
     }
 
-    template <typename Rep_, Scale S, typename Rep2_>
+    template <typename Rep_, scale S, typename Rep2_>
     constexpr auto operator-(const temperature<Rep_, S>& lhs, const temperature<Rep2_, S>& rhs) {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         return temperature<CT_, S>(
@@ -182,8 +181,8 @@ namespace rtc::temperature::v2 {
     // User defined literals
     //
     namespace literals {
-        constexpr auto operator"" _deg(long double value) { return temperature<long double, Scale::Celsius>(value); }
-        constexpr auto operator"" _f(long double value) { return temperature<long double, Scale::Fahrenheit>(value); }
-        constexpr auto operator"" _K(long double value) { return temperature<long double, Scale::Kelvin>(value); }
+        constexpr auto operator"" _deg(long double value) { return temperature<long double, scale::celsius>(value); }
+        constexpr auto operator"" _f(long double value) { return temperature<long double, scale::fahrenheit>(value); }
+        constexpr auto operator"" _K(long double value) { return temperature<long double, scale::kelvin>(value); }
     }  // namespace literals
 }  // namespace rtc::temperature::v2

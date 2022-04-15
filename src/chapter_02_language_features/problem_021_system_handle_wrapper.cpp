@@ -17,7 +17,7 @@ void function_that_throws() {
 }
 
 
-void test_unique_hdl(std::ostream& os) {
+void test_unique_hdl(std::wostream& wos) {
 #ifdef _WIN32
     auto file_path{ std::filesystem::current_path() / "res" / "sample.txt" };
 
@@ -35,10 +35,10 @@ void test_unique_hdl(std::ostream& os) {
     )};
 
     if (!file_hdl) {
-        std::wcout << L"Error " << GetLastError() << ": in unique_hdl constructor\n";
+        wos << L"Error " << GetLastError() << ": in unique_hdl constructor\n";
         return;
     }
-    std::wcout << L"Opened: " << file_path << L"\n";
+    wos << L"Opened: " << file_path.generic_wstring() << L"\n";
 
     auto another_file_hdl{ std::move(file_hdl) };
     assert(another_file_hdl and another_file_hdl.get());
@@ -51,15 +51,15 @@ void test_unique_hdl(std::ostream& os) {
             static_cast<DWORD>(buffer.size()),
             &bytesRead,
             nullptr)) {
-        os << "Error " << GetLastError() << ": in ReadFile\n";
+        wos << "Error " << GetLastError() << ": in ReadFile\n";
     }
     else {
-        os << "Read " << bytesRead << " from file\n";
+        wos << "Read " << bytesRead << " from file\n";
     }
 
     function_that_throws();
 #else
-    os << "Unimplemented\n";
+    os << "Error: Unimplemented.\n";
 #endif  // _WIN32
 }
 
@@ -70,16 +70,16 @@ void test_unique_hdl(std::ostream& os) {
 // Write a wrapper that handles the acquisition and release of the handle,
 // as well as other operations such as verifying the validity of the handle
 // and moving handle ownership from one object to another.
-void problem_21_main(std::ostream& os) {
+void problem_21_main(std::wostream& wos) {
     try {
-        test_unique_hdl(os);
+        test_unique_hdl(wos);
     }
     catch (const std::runtime_error& ex) {
-        os << "Error: " << ex.what();
+        wos << "Error: " << ex.what();
     }
     std::cout << "\n";
 }
 
 void problem_21_main() {
-    problem_21_main(std::cout);
+    problem_21_main(std::wcout);
 }

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <algorithm>
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <ostream>
 #include <string>
@@ -74,13 +76,13 @@ T compare_with(Compare cmp, T&& head, Args&&... args) {
 // Helper functions
 //
 template <typename... Args>
-void test_minimum(Args&&... args) {
-    std::cout << "minimum(" << to_string(", ", args...) << ") = " << minimum(args...) << "\n";
+void test_minimum(std::ostream& os, Args&&... args) {
+    fmt::print(os, "minimum({}) = {}\n", to_string(", ", args...), minimum(args...));
 }
 
 template <typename Compare, typename... Args>
-void test_compare_with(const std::string& cmp_name, Compare cmp, Args&&... args) {
-    std::cout << "compare_with(" << cmp_name << ", " << to_string(", ", args...) << ") = " << compare_with(cmp, args...) << "\n";
+void test_compare_with(std::ostream& os, const std::string& cmp_name, Compare cmp, Args&&... args) {
+    fmt::print(os, "compare_with({}, {}) = {}\n", cmp_name, to_string(", ", args...), compare_with(cmp, args...));
 }
 
 

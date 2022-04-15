@@ -2,6 +2,8 @@
 #include "chapter_02_language_features/temperature/v1/temperature.h"
 #include "chapter_02_language_features/temperature/v2/temperature.h"
 
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <ios>  // boolalpha
 #include <iostream>  // cout
 
@@ -11,26 +13,26 @@ void test_temperature_v1(std::ostream& os)
     using namespace rtc::temperature::v1;
     using namespace rtc::temperature::v1::literals;
 
-    os << "Using my_temperature_v1:\n";
+    fmt::print(os, "{}", "Using temperature::v1:\n");
 
-    os << "\t" << 35.5_deg << " in Fahrenheit: " << to_fahrenheit(35.5_deg) << "\n";
-    os << "\t" << 35.5_deg << " in Kelvin: " << to_kelvin(35.5_deg) << "\n\n";
+    fmt::print(os, "\t{} in Fahrenheit: {:.2f} Fahrenheit\n", 35.5_deg, to_fahrenheit(35.5_deg));
+    fmt::print(os, "\t{} in Kelvin: {:.2f} Kelvin\n\n", 35.5_deg, to_kelvin(35.5_deg));
 
-    temperature t1{ 12.3, Scale::Celsius };
-    temperature t2{ 12.3, Scale::Fahrenheit };
-    temperature t3{ 12.3, Scale::Kelvin };
+    temperature t1{ 12.3, scale::celsius };
+    temperature t2{ 12.3, scale::fahrenheit };
+    temperature t3{ 12.3, scale::kelvin };
 
-    os << "\t" << t1 << " == " << t2 << "? " << std::boolalpha << (t1 == t2) << ". ";
-    os << t2 << " == " << to_celsius(t2) << " Celsius" << "\n";
-    os << "\t" << t1 << " < " << t2 << "? " << std::boolalpha << (t1 < t2) << ". ";
-    os << t2 << " == " << to_celsius(t2) << " Celsius" << "\n";
-    os << "\t" << t1 << " > " << t3 << "? " << std::boolalpha << (t1 > t3) << ". ";
-    os << t3 << " == " << to_celsius(t3) << " Celsius" << "\n\n";
+    fmt::print(os, "\t{} == {}? {}. ", t1, t2, t1 == t2);
+    fmt::print(os, "{} == {:.2f} Celsius\n", t2, to_celsius(t2));
+    fmt::print(os, "\t{} < {}? {}. ", t1, t2, t1 < t2);
+    fmt::print(os, "{} == {:.2f} Celsius\n", t2, to_celsius(t2));
+    fmt::print(os, "\t{} > {}? {}. ", t1, t3, t1 > t3);
+    fmt::print(os, "{} == {:.2f} Celsius\n\n", t3, to_celsius(t3));
 
-    os << "\t" << t1 << " + " << t2 << " = " << (t1 + t2) << ". ";
-    os << t2 << " == " << to_celsius(t2) << " Celsius" << "\n";
-    os << "\t" << t1 << " - " << t3 << " = " << (t1 - t3) << ". ";
-    os << t3 << " == " << to_celsius(t3) << " Celsius" << "\n\n";
+    fmt::print(os, "\t{} + {} = {}. ", t1, t2, t1 + t2);
+    fmt::print(os, "{} == {:.2f} Celsius\n", t2, to_celsius(t2));
+    fmt::print(os, "\t{} - {} = {}. ", t1, t3, t1 - t3);
+    fmt::print(os, "{} == {:.2f} Celsius\n\n", t3, to_celsius(t3));
 }
 
 
@@ -39,28 +41,28 @@ void test_temperature_v2(std::ostream& os)
     using namespace rtc::temperature::v2;
     using namespace rtc::temperature::v2::literals;
 
-    os << "Using my_temperature_v2:\n";
+    os << "Using temperature::v2:\n";
 
-    os << "\t" << 35.5_deg << " in Fahrenheit: " << temperature_cast<long double, Scale::Fahrenheit>(35.5_deg) << "\n";
-    os << "\t" << 35.5_deg << " in Kelvin: " << temperature_cast<long double, Scale::Kelvin>(35.5_deg) << "\n\n";
+    os << "\t" << 35.5_deg << " in Fahrenheit: " << temperature_cast<long double, scale::fahrenheit>(35.5_deg) << "\n";
+    os << "\t" << 35.5_deg << " in Kelvin: " << temperature_cast<long double, scale::kelvin>(35.5_deg) << "\n\n";
 
-    temperature<float, Scale::Celsius> t1{ static_cast<float>(12.3) };
-    temperature<float, Scale::Fahrenheit> t2{ static_cast<float>(12.3) };
-    temperature<float, Scale::Kelvin> t3{ static_cast<float>(12.3) };
+    temperature<float, scale::celsius> t1{ static_cast<float>(12.3) };
+    temperature<float, scale::fahrenheit> t2{ static_cast<float>(12.3) };
+    temperature<float, scale::kelvin> t3{ static_cast<float>(12.3) };
 
     // Now, we can only compare temperatures on the same scale
-    os << "\t" << t1 << " == " << t2 << "? " << std::boolalpha << (t1 == temperature_cast<float, Scale::Celsius>(t2)) << ". ";
-    os << t2 << " == " << temperature_cast<float, Scale::Celsius>(t2) << "\n";
-    os << "\t" << t1 << " < " << t2 << "? " << std::boolalpha << (t1 < temperature_cast<float, Scale::Celsius>(t2)) << ". ";
-    os << t2 << " == " << temperature_cast<float, Scale::Celsius>(t2) << "\n";
-    os << "\t" << t1 << " > " << t3 << "? " << std::boolalpha << (t1 > temperature_cast<float, Scale::Celsius>(t3)) << ". ";
-    os << t3 << " == " << temperature_cast<float, Scale::Celsius>(t3) << "\n\n";
+    os << "\t" << t1 << " == " << t2 << "? " << std::boolalpha << (t1 == temperature_cast<float, scale::celsius>(t2)) << ". ";
+    os << t2 << " == " << temperature_cast<float, scale::celsius>(t2) << "\n";
+    os << "\t" << t1 << " < " << t2 << "? " << std::boolalpha << (t1 < temperature_cast<float, scale::celsius>(t2)) << ". ";
+    os << t2 << " == " << temperature_cast<float, scale::celsius>(t2) << "\n";
+    os << "\t" << t1 << " > " << t3 << "? " << std::boolalpha << (t1 > temperature_cast<float, scale::celsius>(t3)) << ". ";
+    os << t3 << " == " << temperature_cast<float, scale::celsius>(t3) << "\n\n";
 
     // Same for arithmetic operations
-    os << "\t" << t1 << " + " << t2 << " = " << (t1 + temperature_cast<float, Scale::Celsius>(t2)) << ". ";
-    os << t2 << " == " << temperature_cast<float, Scale::Celsius>(t2) << "\n";
-    os << "\t" << t1 << " - " << t3 << " = " << (t1 - temperature_cast<float, Scale::Celsius>(t3)) << ". ";
-    os << t3 << " == " << temperature_cast<float, Scale::Celsius>(t3) << "\n\n";
+    os << "\t" << t1 << " + " << t2 << " = " << (t1 + temperature_cast<float, scale::celsius>(t2)) << ". ";
+    os << t2 << " == " << temperature_cast<float, scale::celsius>(t2) << "\n";
+    os << "\t" << t1 << " - " << t3 << " = " << (t1 - temperature_cast<float, scale::celsius>(t3)) << ". ";
+    os << t3 << " == " << temperature_cast<float, scale::celsius>(t3) << "\n\n";
 }
 
 

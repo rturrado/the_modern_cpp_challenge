@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fmt/format.h>
 #include <iomanip>  // setprecision
 #include <ios>  // fixed
 #include <iostream>  // ostream
@@ -11,10 +12,19 @@
 // 
 // temperature class is only templated on the representation type
 namespace rtc::temperature::v1 {
-    enum class Scale { Invalid = -1, Celsius, Fahrenheit, Kelvin };
+    enum class scale { invalid = -1, celsius, fahrenheit, kelvin };
 
-    struct InvalidTemperature : public std::runtime_error {
-        explicit InvalidTemperature() : std::runtime_error("invalid temperature") {}
+    [[nodiscard]] std::string to_string(const scale& s) {
+        switch (s) {
+            case scale::celsius: return "Celsius";
+            case scale::fahrenheit: return "Fahrenheit";
+            case scale::kelvin: return "Kelvin";
+        }
+        return "<invalid temperature>";
+    }
+
+    struct invalid_temperature_error : public std::runtime_error {
+        explicit invalid_temperature_error() : std::runtime_error("invalid temperature") {}
     };
 
     template <typename Rep_ = float>
@@ -22,9 +32,9 @@ namespace rtc::temperature::v1 {
     public:
         temperature() = delete;
 
-        constexpr temperature(const Rep_& value, const Scale& scale) noexcept
-            : value_{ value }
-            , scale_{ scale }
+        constexpr temperature(const Rep_& v, const scale& s) noexcept
+            : value_{ v }
+            , scale_{ s }
         {}
 
         template <typename Rep2_>
@@ -45,7 +55,7 @@ namespace rtc::temperature::v1 {
             : value_{ static_cast<Rep_>(other.value_) }
             , scale_{ other.scale_ } {
             other.value_ = 0.f;
-            other.scale_ = Scale::Invalid;
+            other.scale_ = scale::invalid;
         }
 
         template <typename Rep2_>
@@ -53,72 +63,65 @@ namespace rtc::temperature::v1 {
             value_ = static_cast<Rep_>(other.value_);
             scale_ = other.scale_;
             other.value_ = 0.f;
-            other.scale_ = Scale::Invalid;
+            other.scale_ = scale::invalid;
             return *this;
         }
 
         [[nodiscard]] Rep_ value() const noexcept { return value_; }
-        [[nodiscard]] Scale scale() const noexcept { return scale_; }
+        [[nodiscard]] scale scale() const noexcept { return scale_; }
 
     private:
+        friend struct fmt::formatter<temperature>;
+
         Rep_ value_{ 0.f };
-        Scale scale_{ Scale::Invalid };
+        enum class scale scale_{ scale::invalid };
     };
 
     // Operator extraction
     //
     template <typename Rep_>
     std::ostream& operator<<(std::ostream& os, const temperature<Rep_>& t) {
-        if (t.scale() == Scale::Invalid) {
-            os << "<invalid temperature>";
+        const auto& s{ t.scale() };
+        if (s == scale::invalid) {
+            return os << to_string(s);
         }
-        else {
-            os << std::fixed << std::setprecision(2) << t.value() << " ";
-
-            switch (t.scale()) {
-                case Scale::Celsius: os << "Celsius"; break;
-                case Scale::Fahrenheit: os << "Fahrenheit"; break;
-                case Scale::Kelvin: os << "Kelvin"; break;
-                default: break;
-            }
-        }
-        return os;
+        return os << std::fixed << std::setprecision(2) << t.value() << " " << to_string(s);
     }
 
     // Conversions
     //
     // C to F: (C * 9/5) + 32
     template <typename Rep_>
-    Rep_ celsius_to_fahrenheit(Rep_ c) { return (c * 9.0 / 5.0) + 32.0; }
+    constexpr Rep_ celsius_to_fahrenheit(Rep_ c) { return (c * 9.0 / 5.0) + 32.0; }
 
     // F to C: (F - 32) * 5/9
     template <typename Rep_>
-    Rep_ fahrenheit_to_celsius(Rep_ f) { return (f - 32.0) * 9.0 / 5.0; }
+    constexpr Rep_ fahrenheit_to_celsius(Rep_ f) { return (f - 32.0) * 5.0 / 9.0; }
 
-    // C to K: C - 273.15
+    // C to K: C + 273.15
     template <typename Rep_>
-    Rep_ celsius_to_kelvin(Rep_ c) { return c + 273.15; }
+    constexpr Rep_ celsius_to_kelvin(Rep_ c) { return c + 273.15; }
 
-    // K to C: K + 273.15
+    // K to C: K - 273.15
     template <typename Rep_>
-    Rep_ kelvin_to_celsius(Rep_ k) { return k - 273.15; }
+    constexpr Rep_ kelvin_to_celsius(Rep_ k) { return k - 273.15; }
 
     // F to K: (F - 32) * 5/9 + 273.15
     template <typename Rep_>
-    Rep_ fahrenheit_to_kelvin(Rep_ f) { return (f - 32.0) * 5.0 / 9.0 + 273.15; }
+    constexpr Rep_ fahrenheit_to_kelvin(Rep_ f) { return (f - 32.0) * 5.0 / 9.0 + 273.15; }
 
     // K to F: (K - 273.15) * 9/5 + 32
     template <typename Rep_>
-    Rep_ kelvin_to_fahrenheit(Rep_ k) { return (k - 273.15) * 9.0 / 5.0 + 32.0; }
+    constexpr Rep_ kelvin_to_fahrenheit(Rep_ k) { return (k - 273.15) * 9.0 / 5.0 + 32.0; }
 
     template <typename Rep_>
     [[nodiscard]] constexpr Rep_ to_celsius(const temperature<Rep_>& t) {
         Rep_ ret{};
         switch (t.scale()) {
-            case Scale::Invalid: throw InvalidTemperature{};
-            case Scale::Celsius: ret = ret = t.value(); break;
-            case Scale::Fahrenheit: ret = fahrenheit_to_celsius<Rep_>(t.value()); break;
-            case Scale::Kelvin: ret = kelvin_to_celsius<Rep_>(t.value()); break;
+            case scale::invalid: throw invalid_temperature_error{};
+            case scale::celsius: ret = ret = t.value(); break;
+            case scale::fahrenheit: ret = fahrenheit_to_celsius<Rep_>(t.value()); break;
+            case scale::kelvin: ret = kelvin_to_celsius<Rep_>(t.value()); break;
             default: break;
         }
         return ret;
@@ -128,10 +131,10 @@ namespace rtc::temperature::v1 {
     [[nodiscard]] constexpr Rep_ to_fahrenheit(const temperature<Rep_>& t) {
         Rep_ ret{};
         switch (t.scale()) {
-            case Scale::Invalid: throw InvalidTemperature{};
-            case Scale::Celsius: ret = celsius_to_fahrenheit<Rep_>(t.value()); break;
-            case Scale::Fahrenheit: ret = t.value(); break;
-            case Scale::Kelvin: ret = kelvin_to_fahrenheit<Rep_>(t.value()); break;
+            case scale::invalid: throw invalid_temperature_error{};
+            case scale::celsius: ret = celsius_to_fahrenheit<Rep_>(t.value()); break;
+            case scale::fahrenheit: ret = t.value(); break;
+            case scale::kelvin: ret = kelvin_to_fahrenheit<Rep_>(t.value()); break;
             default: break;
         }
         return ret;
@@ -141,10 +144,10 @@ namespace rtc::temperature::v1 {
     [[nodiscard]] constexpr Rep_ to_kelvin(const temperature<Rep_>& t) {
         Rep_ ret{};
         switch (t.scale()) {
-            case Scale::Invalid: throw InvalidTemperature{};
-            case Scale::Celsius: ret = celsius_to_kelvin<Rep_>(t.value()); break;
-            case Scale::Fahrenheit: ret = fahrenheit_to_kelvin<Rep_>(t.value()); break;
-            case Scale::Kelvin: ret = t.value(); break;
+            case scale::invalid: throw invalid_temperature_error{};
+            case scale::celsius: ret = celsius_to_kelvin<Rep_>(t.value()); break;
+            case scale::fahrenheit: ret = fahrenheit_to_kelvin<Rep_>(t.value()); break;
+            case scale::kelvin: ret = t.value(); break;
             default: break;
         }
         return ret;
@@ -194,21 +197,40 @@ namespace rtc::temperature::v1 {
     constexpr auto operator+(const temperature<Rep_>& lhs, const temperature<Rep2_>& rhs) {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         return temperature<CT_>(
-            static_cast<long double>(to_celsius(lhs)) + static_cast<long double>(to_celsius(rhs)), Scale::Celsius);
+            static_cast<long double>(to_celsius(lhs)) + static_cast<long double>(to_celsius(rhs)), scale::celsius);
     }
 
     template <typename Rep_, typename Rep2_>
     constexpr auto operator-(const temperature<Rep_>& lhs, const temperature<Rep2_>& rhs) {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         return temperature<CT_>(
-            static_cast<long double>(to_celsius(lhs)) - static_cast<long double>(to_celsius(rhs)), Scale::Celsius);
+            static_cast<long double>(to_celsius(lhs)) - static_cast<long double>(to_celsius(rhs)), scale::celsius);
     }
 
     // User defined literals
     //
     namespace literals {
-        constexpr auto operator"" _deg(long double value) { return temperature<long double>(value, Scale::Celsius); }
-        constexpr auto operator"" _f(long double value) { return temperature<long double>(value, Scale::Fahrenheit); }
-        constexpr auto operator"" _K(long double value) { return temperature<long double>(value, Scale::Kelvin); }
+        constexpr auto operator"" _deg(long double value) { return temperature<long double>(value, scale::celsius); }
+        constexpr auto operator"" _f(long double value) { return temperature<long double>(value, scale::fahrenheit); }
+        constexpr auto operator"" _K(long double value) { return temperature<long double>(value, scale::kelvin); }
     }  // namespace my_temperature_literals
+
 }  // namespace rtc::temperature::v1
+
+
+template <typename Rep_>
+struct fmt::formatter<rtc::temperature::v1::temperature<Rep_>> {
+    template<typename ParseContext>
+    constexpr auto parse(ParseContext& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const rtc::temperature::v1::temperature<Rep_>& t, FormatContext& ctx) {
+        const auto& s{ t.scale() };
+        if (s == rtc::temperature::v1::scale::invalid) {
+            return fmt::format_to(ctx.out(), "{}", to_string(s));
+        }
+        return fmt::format_to(ctx.out(), "{:.2f} {}", t.value(), to_string(s));
+    }
+};
