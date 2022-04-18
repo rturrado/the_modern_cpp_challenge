@@ -75,6 +75,6 @@ add_custom_command(
     TARGET resources POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E create_symlink ${res_native_source_dir} ${res_native_destination_dir}
     DEPENDS ${res_native_destination_dir}
-    COMMENT "symbolic link resources folder from ${res_native_source_dir} => ${res_native_destination_dir}"
+    COMMENT "symbolic link resources folder from ${res_native_source_dir} to ${res_native_destination_dir}"
 )
 add_dependencies(${PROJECT_NAME} resources)
