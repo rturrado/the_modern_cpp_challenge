@@ -1,29 +1,12 @@
 #include "chapter_03_strings_and_regular_expressions/problem_023_binary_to_string_conversion.h"
-#include "rtc/print.h"
 
-#include <algorithm>  // for_each
 #include <array>
-#include <iomanip>  // setfill, setw
-#include <ios>  // hex
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <numeric>  // iota
-#include <sstream>  // ostringstream
-#include <string>
-#include <type_traits>  // is_same_v
+#include <ostream>
 #include <vector>
-
-using namespace rtc::print;
-
-
-template <typename Container>
-std::string to_string(const Container& container)
-requires (std::is_same_v<typename Container::value_type, uint8_t>)
-{
-    std::ostringstream oss{};
-    std::for_each(cbegin(container), cend(container), [&oss](auto c) {
-        oss << std::hex << std::setw(2) << std::setfill('0') << static_cast<uint16_t>(c); });
-    return oss.str();
-}
 
 
 // Binary to string conversion
@@ -35,14 +18,16 @@ requires (std::is_same_v<typename Container::value_type, uint8_t>)
 // Here are some input and output examples:
 // Input: { 0xBA, 0xAD, 0xF0, 0x0D }, output: "BAADF00D" or "baadf00d"
 // Input: { 1, 2, 3, 4, 5, 6 }, output: "010203040506"
-void problem_23_main()
-{
+void problem_23_main(std::ostream& os) {
     std::vector<uint8_t> v{ 0xBA, 0xAD, 0xf0, 0x0d };
-    std::cout << "Converting vector " << v << " to string \"" << to_string(v) << "\"\n";
+    fmt::print(os, "Converting vector [{:#02x}] to string \"{}\"\n", fmt::join(v, ", "), to_string(v));
     
     std::array<uint8_t, 6> a{};
-    std::iota(begin(a), end(a), 1);
-    std::cout << "Converting array " << a << " to string \"" << to_string(a) << "\"\n";
+    std::iota(std::begin(a), std::end(a), 1);
+    fmt::print(os, "Converting array [{:#02x}] to string \"{}\"\n\n", fmt::join(a, ", "), to_string(a));
+}
 
-    std::cout << "\n";
+
+void problem_23_main() {
+    problem_23_main(std::cout);
 }
