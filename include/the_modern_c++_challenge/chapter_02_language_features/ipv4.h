@@ -143,8 +143,7 @@ private:
 
 
 template <>
-struct fmt::formatter<ipv4>
-{
+struct fmt::formatter<ipv4> {
     template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();

@@ -1,24 +1,28 @@
 #include "chapter_03_strings_and_regular_expressions/problem_026_joining_strings_with_delimiter.h"
-#include "rtc/print.h"
 
-#include <algorithm>  // for_each
 #include <array>
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <list>
 #include <string>
 #include <vector>
 
-using namespace rtc::print;
 
+void problem_26_main(std::ostream& os) {
+    const std::array<std::string, 0> a0{};
+    const std::array<std::string, 1> a1{ "Joe" };
+    const std::string d3{ "#" };
+    fmt::print(os, "Joining [{}] with delimiter \"{}\": {}\n", fmt::join(a0, ", "), d3, join(a0, d3));
+    fmt::print(os, "Joining [{}] with delimiter \"{}\": {}\n", fmt::join(a1, ", "), d3, join(a1, d3));
 
-template <typename Container>
-std::string join(const Container& c, const std::string& delimiter)
-{
-    std::string ret{};
-    std::for_each(cbegin(c), cend(c), [first=true, &ret, &delimiter](const std::string& s) mutable {
-        ret += (first ? "" : delimiter); first = false; ret += s;
-    });
-    return ret;
+    const std::vector<std::string> v{ "this", "is", "an", "example" };
+    const std::string d1{ " " };
+    fmt::print(os, "Joining [{}] with delimiter \"{}\": {}\n", fmt::join(v, ", "), d1, join(v, d1));
+
+    const std::list<std::string> l{ "yet", "another", "one!" };
+    const std::string d2{ "---" };
+    fmt::print(os, "Joining [{}] with delimiter \"{}\": {}\n\n", fmt::join(l, ", "), d2, join(l, d2));
 }
 
 
@@ -30,22 +34,6 @@ std::string join(const Container& c, const std::string& delimiter)
 // the function must return an empty string.
 //
 // Example: input { "this", "is", "an", "example" } and delimiter ' ' (space), output: "this is an example".
-void problem_26_main()
-{
-    const std::vector<std::string> v{ "this", "is", "an", "example" };
-    const std::list<std::string> l{ "yet", "another", "one!" };
-    const std::array<std::string, 0> a0{};
-    const std::array<std::string, 1> a1{ "Joe" };
-
-    const std::string d1{ " " };
-    std::cout << "Joining " << v << " with delimiter \"" << d1 << "\": " << join(v, d1) << "\n";
-
-    const std::string d2{ "---" };
-    std::cout << "Joining " << l << " with delimiter \"" << d2 << "\": " << join(l, d2) << "\n";
-
-    const std::string d3{ "#" };
-    std::cout << "Joining " << a0 << " with delimiter \"" << d3 << "\": " << join(a0, d3) << "\n";
-    std::cout << "Joining " << a1 << " with delimiter \"" << d3 << "\": " << join(a1, d3) << "\n";
-
-    std::cout << "\n";
+void problem_26_main() {
+    problem_26_main(std::cout);
 }
