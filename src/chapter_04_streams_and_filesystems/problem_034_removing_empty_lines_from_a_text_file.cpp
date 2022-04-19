@@ -4,14 +4,11 @@
 #include <fstream>
 #include <ios>  // in, out
 #include <iostream>  // cout
+#include <ostream>
 #include <regex>  // regex_search
 
 
-// Removing empty lines from a text file
-//
-// Write a program that, given the path to a text file, modifies the file by removing all empty lines.
-// Lines containing only whitespaces are considered empty.
-void problem_34_main()
+void problem_34_main(std::ostream& os)
 {
     const auto in_path{ std::filesystem::current_path() / "res" / "problem34.txt" };
     const auto temp_path{ std::filesystem::current_path() / "res" / "problem34-tmp.txt" };
@@ -37,4 +34,13 @@ void problem_34_main()
     //std::filesystem::rename(temp_path, in_path);  // commented out so that we don't really overwrite input file
 
     std::cout << "\n";
+}
+
+
+// Removing empty lines from a text file
+//
+// Write a program that, given the path to a text file, modifies the file by removing all empty lines.
+// Lines containing only whitespaces are considered empty.
+void problem_34_main() {
+    problem_34_main(std::cout);
 }

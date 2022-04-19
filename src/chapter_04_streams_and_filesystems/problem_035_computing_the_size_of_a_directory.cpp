@@ -5,6 +5,7 @@
 #include <iomanip>  // setprecision
 #include <ios>  // fixed
 #include <iostream>  // cout
+#include <ostream>
 #include <sstream>  // ostringstream
 #include <string>
 
@@ -55,11 +56,7 @@ std::string to_string(uintmax_t n)
 }
 
 
-// Computing the size of a directory
-//
-// Write a function that computes the size of a directory, in bytes, recursively.
-// It should be possible to indicate wheter symbolic links should be followed or not.
-void problem_35_main()
+void problem_35_main(std::ostream& os)
 {
     namespace fs = std::filesystem;
 
@@ -84,4 +81,13 @@ void problem_35_main()
     }
 
     std::cout << "\n";
+}
+
+
+// Computing the size of a directory
+//
+// Write a function that computes the size of a directory, in bytes, recursively.
+// It should be possible to indicate wheter symbolic links should be followed or not.
+void problem_35_main() {
+    problem_35_main(std::cout);
 }

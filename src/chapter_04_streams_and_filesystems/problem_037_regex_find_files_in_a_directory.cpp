@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <iostream>  // cout
 #include <iterator>  // back_inserter
+#include <ostream>
 #include <regex>  // regex_match
 #include <string>
 #include <vector>
@@ -28,11 +29,7 @@ std::vector<fs::directory_entry> get_directory_entries_matching(const fs::path& 
 }
 
 
-// Finding files in a directory that match a regular expression
-//
-// Write a function that, given the path to a directory and a regular expression,
-// returns a list of all the directory entries whose names match the regular expression.
-void problem_37_main()
+void problem_37_main(std::ostream& os)
 {
     const std::string pattern_str_1{ R"(.*\.txt$)" };  // txt extension
     const std::string pattern_str_2{ R"(.*@.*)" };  // contains whitespace
@@ -55,4 +52,13 @@ void problem_37_main()
     }
 
     std::cout << "\n";
+}
+
+
+// Finding files in a directory that match a regular expression
+//
+// Write a function that, given the path to a directory and a regular expression,
+// returns a list of all the directory entries whose names match the regular expression.
+void problem_37_main() {
+    problem_37_main(std::cout);
 }
