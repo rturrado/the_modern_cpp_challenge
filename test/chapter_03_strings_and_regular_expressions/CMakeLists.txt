@@ -8,5 +8,6 @@ set(chapter_03_test_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_029_license_plate_validation.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_030_extracting_url_parts.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_031_transforming_dates_in_strings.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/url.cpp"
     PARENT_SCOPE
 )

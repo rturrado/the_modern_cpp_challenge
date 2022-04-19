@@ -1,30 +1,34 @@
 #include "chapter_03_strings_and_regular_expressions/problem_027_splitting_a_string_into_tokens.h"
-#include "rtc/print.h"
 
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <string>
 #include <vector>
 
-using namespace rtc::print;
 
-
-std::vector<std::string> split(const std::string& s, const std::string& delimiters)
-{
+std::vector<std::string> split(const std::string& s, const std::string& delimiters) {
     std::vector<std::string> ret{};
-    for (size_t previous_pos{ 0 }, pos{ 0 }; pos < s.size(); )
-    {
+    for (size_t previous_pos{ 0 }, pos{ 0 }; pos < s.size(); ) {
         pos = s.find_first_of(delimiters, pos);
-        if (pos > previous_pos)
-        {
+        if (pos > previous_pos) {
             ret.push_back(s.substr(previous_pos, pos - previous_pos));
         }
-        if (pos != std::string::npos)
-        {
+        if (pos != std::string::npos) {
             ++pos;
             previous_pos = pos;
         }
     }
     return ret;
+}
+
+
+void problem_27_main(std::ostream& os) {
+    const std::string s{ "this,is.a sample!!" };
+    const std::string d1{ ",.! " };
+    const std::string d2{ "#" };
+    fmt::print(os, "Splitting string \"{}\" using any delimiter of \"{}\" into: [{}]\n", s, d1, fmt::join(split(s, d1), ", "));
+    fmt::print(os, "Splitting string \"{}\" using any delimiter of \"{}\" into: [{}]\n\n", s, d2, fmt::join(split(s, d2), ", "));
 }
 
 
@@ -34,13 +38,6 @@ std::vector<std::string> split(const std::string& s, const std::string& delimite
 // splits the string into tokens separated by any of the delimiters and returns them in a std::vector.
 //
 // Example: "this,is.a sample!!" with delimiters ",.! ", output: { "this", "is", "a", "sample" }.
-void problem_27_main()
-{
-    const std::string s{ "this,is.a sample!!" };
-    const std::string d1{ ",.! " };
-    const std::string d2{ "#" };
-    std::cout << "Splitting string \"" << s << "\" into: " << split(s, d1) << "\n";
-    std::cout << "Splitting string \"" << s << "\" into: " << split(s, d2) << "\n";
-
-    std::cout << "\n";
+void problem_27_main() {
+    problem_27_main(std::cout);
 }
