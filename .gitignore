@@ -30,6 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Others
 /.vs
 /out/build
 /CMakeSettings.json
+/res/problem_034_output.txt

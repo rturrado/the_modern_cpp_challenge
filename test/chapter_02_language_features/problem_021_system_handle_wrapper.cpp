@@ -16,7 +16,7 @@ TEST(problem_21_main, output) {
         [](wchar_t c) { return static_cast<char>(c); });
 #ifdef _WIN32
     EXPECT_THAT(oss_str, ::testing::ContainsRegex(
-        "Opened: .*res/sample.txt"
+        "Opened: .*res/sample_file.txt"
     ));
     EXPECT_THAT(oss_str, ::testing::HasSubstr(
         "Read 1024 from file\n"

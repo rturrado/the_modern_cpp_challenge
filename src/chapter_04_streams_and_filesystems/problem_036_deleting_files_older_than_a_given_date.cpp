@@ -7,52 +7,28 @@
 #include <ostream>
 
 
-template <typename Duration>
-void delete_directory_entries_older_than(const std::filesystem::path& path, const std::chrono::file_time<Duration>& tp)
-{
-    namespace fs = std::filesystem;
-    namespace ch = std::chrono;
-
-    for (const fs::directory_entry& entry : fs::directory_iterator{ path })
-    {
-        if (fs::is_directory(entry))
-        {
-            delete_directory_entries_older_than(entry.path(), tp);
-        }
-        else if (fs::is_regular_file(entry) and fs::last_write_time(entry) < tp)
-        {
-            //fs::remove(entry);  // commented out so that we don't really delete the file
-            
-            std::cout << "\t" << entry << "\n";
-        }
-    }
-}
-
-
-void problem_36_main(std::ostream& os)
-{
+void problem_36_main(std::ostream& os) {
     namespace fs = std::filesystem;
     namespace ch = std::chrono;
     using namespace std::chrono_literals;
 
-    const auto d1_path{ "C:\\Users\\Roberto\\Pictures" };
-    const auto d2_path{ "D:\\Programacion\\vim" };
+    const auto d1_path = std::filesystem::current_path() / "res" / "sample_folder";
+    const auto d2_path = std::filesystem::current_path() / "res" / "sample_subfolder";
 
-    const ch::years duration1{ 5 };
+    const ch::years duration1{ 500 };
     const ch::minutes duration2{ 12h + 30min };
     
-    for (const auto& path : { d1_path, d2_path })
-    {
+    for (const auto& path : { d1_path, d2_path }) {
         for (const auto& tp : {
             ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration1 },
-            ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration2 } })
-        {
-            std::cout << "Deleting entries older than " << std::format("{:%F %T}", tp) << " in " << path << ":\n";
-            delete_directory_entries_older_than(path, tp);
+            ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration2 } }) {
+
+            os << "(Not) deleting entries older than " << std::format("{:%F %T}", tp) << " in '" << path.generic_string() << "':\n";
+            delete_directory_entries_older_than(os, path, tp);
         }
     }
 
-    std::cout << "\n";
+    os << "\n";
 }
 
 

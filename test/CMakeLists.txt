@@ -7,6 +7,9 @@ FetchContent_Declare(googletest
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
+find_package(Boost 1.78.0 REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+
 
 # Subdirectories
 add_subdirectory(chapter_01_math)
@@ -36,14 +39,14 @@ gtest_discover_tests(${PROJECT_NAME}_test)
 # Resource dir
 # Create a symbolic link from <source dir>/res to <test binary dir>/res
 add_custom_target(resources_test)
-set(res_source_dir "${CMAKE_SOURCE_DIR}/res")
-set(res_destination_dir "${CMAKE_CURRENT_BINARY_DIR}/res")
-cmake_path(NATIVE_PATH res_source_dir NORMALIZE res_native_source_dir)
-cmake_path(NATIVE_PATH res_destination_dir NORMALIZE res_native_destination_dir)
+set(resources_source_dir "${CMAKE_SOURCE_DIR}/res")
+set(resources_destination_dir "${CMAKE_CURRENT_BINARY_DIR}/res")
+cmake_path(NATIVE_PATH resources_source_dir NORMALIZE resources_native_source_dir)
+cmake_path(NATIVE_PATH resources_destination_dir NORMALIZE resources_native_destination_dir)
 add_custom_command(
     TARGET resources_test POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E create_symlink ${res_native_source_dir} ${res_native_destination_dir}
-    DEPENDS ${res_native_destination_dir}
-    COMMENT "symbolic link resources folder from ${res_native_source_dir} to ${res_native_destination_dir}"
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${resources_native_source_dir} ${resources_native_destination_dir}
+    DEPENDS ${resources_native_destination_dir}
+    COMMENT "symbolic link resources folder from ${resources_native_source_dir} to ${resources_native_destination_dir}"
 )
 add_dependencies(${PROJECT_NAME}_test resources_test)

@@ -1,7 +1,7 @@
 #include "chapter_04_streams_and_filesystems/problem_033_tabular_printing_of_a_list_of_processes.h"
 
 #include <algorithm>  // max
-#include <format>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <numeric>  // accumulate
 #include <ostream>
@@ -11,113 +11,69 @@
 #include <vector>
 
 
-namespace Process
-{
-    enum class Status : bool { running, suspended };
-    enum class Platform : bool { x32, x64 };
+void print_process_infos(std::ostream& os, std::vector<rtc::process::info>& infos) {
+    using namespace rtc::process;
 
-    class Info
-    {
-    public:
-        Info(size_t id, std::string name, Status status, std::string account_name, size_t mem_size_b, Platform platform) noexcept
-            : id_{ id }, name_{ name }, status_{ status }, account_name_{ account_name }, mem_size_b_{ mem_size_b }, platform_{ platform }
-        {}
-
-        [[nodiscard]] size_t id() const noexcept { return id_; }
-        [[nodiscard]] std::string name() const noexcept { return name_; }
-        [[nodiscard]] Status status() const noexcept { return status_; }
-        [[nodiscard]] std::string account_name() const noexcept { return account_name_; }
-        [[nodiscard]] size_t mem_size_b() const noexcept { return mem_size_b_; }
-        [[nodiscard]] Platform platform() const noexcept { return platform_; }
-
-    private:
-        size_t id_{};
-        std::string name_{};
-        Status status_{};
-        std::string account_name_{};
-        size_t mem_size_b_{};
-        Platform platform_{};
-    };
-
-    std::ostream& operator<<(std::ostream& os, const Status& status)
-    {
-        os << (status == Status::running ? "Running" : "Suspended");
-        return os;
-    }
-
-    std::ostream& operator<<(std::ostream& os, const Platform& platform)
-    {
-        os << (platform == Platform::x32 ? "32-bit" : "64-bit");
-        return os;
-    }
-
-    std::string to_string(const Status& status)
-    {
-        std::ostringstream oss;
-        oss << status;
-        return oss.str();
-    }
-
-    std::string to_string(const Platform& platform)
-    {
-        std::ostringstream oss;
-        oss << platform;
-        return oss.str();
-    }
-}
-
-
-void print_process_infos(std::vector<Process::Info>& infos)
-{
-    using namespace Process;
-
-    auto id_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0), [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, std::to_string(info.id()).size()); return total_max; }) };
-    auto name_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0), [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, info.name().size()); return total_max; }) };
-    auto status_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0), [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, to_string(info.status()).size()); return total_max; }) };
-    auto account_name_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0), [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, info.account_name().size()); return total_max; }) };
-    auto mem_size_b_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0), [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, std::to_string(info.mem_size_b() / 1024).size()); return total_max; }) };
-    auto platform_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0), [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, to_string(info.platform()).size()); return total_max; }) };
+    auto id_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+        [](auto total_max, const auto& info) {
+            total_max = std::max(total_max, std::to_string(info.id()).size());
+            return total_max;
+        }) };
+    auto name_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+        [](auto total_max, const auto& info) {
+            total_max = std::max(total_max, info.name().size());
+            return total_max;
+        }) };
+    auto status_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+        [](auto total_max, const auto& info) {
+            total_max = std::max(total_max, to_string(info.status()).size());
+            return total_max;
+        }) };
+    auto account_name_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+        [](auto total_max, const auto& info) {
+            total_max = std::max(total_max, info.account_name().size());
+            return total_max;
+        }) };
+    auto mem_size_b_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+        [](auto total_max, const auto& info) {
+            total_max = std::max(total_max, std::to_string(info.mem_size_b() / 1024).size());
+            return total_max;
+        }) };
+    auto platform_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+        [](auto total_max, const auto& info) {
+            total_max = std::max(total_max, to_string(info.platform()).size());
+            return total_max;
+        }) };
 
     std::ranges::sort(infos, {}, [](const auto& info) { return info.name(); });
 
-    for (auto& info : infos)
-    {
-        std::cout
-            << std::format("{:<{}} {:{}} {:{}} {:{}} {:>{}} {:{}}",
-                info.id(), id_max_width,
-                info.name(), name_max_width,
-                to_string(info.status()), status_max_width,
-                info.account_name(), account_name_max_width,
-                info.mem_size_b() / 1024, mem_size_b_max_width,
-                to_string(info.status()), platform_max_width)
-            << "\n";
+    for (auto& info : infos) {
+        fmt::print(os, "{:<{}} {:{}} {:{}} {:{}} {:>{}} {:{}}\n",
+            info.id(), id_max_width,
+            info.name(), name_max_width,
+            to_string(info.status()), status_max_width,
+            info.account_name(), account_name_max_width,
+            info.mem_size_b() / 1024, mem_size_b_max_width,
+            to_string(info.status()), platform_max_width);
     }
 }
 
 
-void problem_33_main(std::ostream& os)
-{
+void problem_33_main(std::ostream& os) {
     using namespace std::string_literals;
-    using namespace Process;
+    using namespace rtc::process;
 
-    std::vector<Info> infos
-    {
-       { 512, "cmd.exe"s, Status::running, "SYSTEM"s, 148293, Platform::x64 },
-       { 1044, "chrome.exe"s, Status::running, "marius.bancila"s, 25180454, Platform::x32 },
-       { 7108, "explorer.exe"s, Status::running, "marius.bancila"s, 2952943, Platform::x64 },
-       { 10100, "chrome.exe"s, Status::running, "marius.bancila"s, 227756123, Platform::x32 },
-       { 22456, "skype.exe"s, Status::suspended, "marius.bancila"s, 16870123, Platform::x64 },
+    std::vector<info> infos{
+       { 512, "cmd.exe"s, status_t::running, "SYSTEM"s, 148293, platform_t::x64 },
+       { 1044, "chrome.exe"s, status_t::running, "marius.bancila"s, 25180454, platform_t::x32 },
+       { 7108, "explorer.exe"s, status_t::running, "marius.bancila"s, 2952943, platform_t::x64 },
+       { 10100, "chrome.exe"s, status_t::running, "marius.bancila"s, 227756123, platform_t::x32 },
+       { 22456, "skype.exe"s, status_t::suspended, "marius.bancila"s, 16870123, platform_t::x64 },
     };
 
-    print_process_infos(infos);
+    print_process_infos(os, infos);
 
-    std::cout << "\n";
+    fmt::print(os, "\n");
 }
 
 

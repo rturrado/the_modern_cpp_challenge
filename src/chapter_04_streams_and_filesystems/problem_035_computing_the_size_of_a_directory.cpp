@@ -2,6 +2,7 @@
 
 #include <cstdint>  // uintmax_t
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <iomanip>  // setprecision
 #include <ios>  // fixed
 #include <iostream>  // cout
@@ -10,27 +11,22 @@
 #include <string>
 
 
-std::uintmax_t directory_size_b(const std::filesystem::path& p, bool follow_symlinks = false)
-{
+std::uintmax_t directory_size_in_bytes(const std::filesystem::path& p, bool follow_symlinks = false) {
     namespace fs = std::filesystem;
 
     // Set up directory options
     fs::directory_options options = fs::directory_options::skip_permission_denied;
-    if (follow_symlinks)
-    {
+    if (follow_symlinks) {
         options |= fs::directory_options::follow_directory_symlink;
     }
 
     std::uintmax_t ret{ 0 };
 
-    for (const fs::directory_entry& entry : fs::recursive_directory_iterator{ p, options })
-    {
-        if (not follow_symlinks and fs::is_symlink(entry))
-        {
+    for (const fs::directory_entry& entry : fs::recursive_directory_iterator{ p, options }) {
+        if (not follow_symlinks and fs::is_symlink(entry)) {
             continue;
         }
-        if (fs::is_regular_file(entry))
-        {
+        if (fs::is_regular_file(entry)) {
             ret += fs::file_size(entry);
         }
     }
@@ -39,14 +35,11 @@ std::uintmax_t directory_size_b(const std::filesystem::path& p, bool follow_syml
 }
 
 
-std::string to_string(uintmax_t n)
-{
+std::string directory_size_in_bytes_to_string(uintmax_t n) {
     double d{ static_cast<double>(n) };
     std::ostringstream oss{};
-    for (auto& unit : { "b", "KB", "MB", "GB" })
-    {
-        if (d < 1024 or unit == "GB")
-        {
+    for (auto& unit : { "b", "KB", "MB", "GB" }) {
+        if (d < 1024 or unit == "GB") {
             oss << std::fixed << std::setprecision(2) << d << " " << unit;
             break;
         }
@@ -56,31 +49,25 @@ std::string to_string(uintmax_t n)
 }
 
 
-void problem_35_main(std::ostream& os)
-{
+void problem_35_main(std::ostream& os) {
     namespace fs = std::filesystem;
 
-    const auto d1_path{ "C:\\Users\\Roberto\\Pictures" };
-    const auto d2_path{ "C:\\Users\\Roberto\\.bash_history" };
-    const auto d3_path{ "D:\\Programacion\\vim" };
+    const auto d1_path = std::filesystem::current_path() / "res" / "sample_folder";
+    const auto d2_path = std::filesystem::current_path() / "res" / "sample_subfolder";
 
-    for (const auto& p : { d1_path, d2_path, d3_path })
-    {
-        for (auto follow_symlinks : { false, true })
-        {
-            std::cout << p << (follow_symlinks ? " (following symlinks)" : "") << ": ";
-            try
-            {
-                std::cout << to_string(directory_size_b(p, follow_symlinks)) << "\n";
+    for (const auto& p : { d1_path, d2_path }) {
+        for (auto follow_symlinks : { false, true }) {
+            fmt::print(os, "{}{}: ", p.generic_string(), (follow_symlinks ? " (following symlinks)" : ""));
+            try {
+                fmt::print(os, "{}\n", directory_size_in_bytes_to_string(directory_size_in_bytes(p, follow_symlinks)));
             }
-            catch (const std::filesystem::filesystem_error& ex)
-            {
-                std::cerr << "\n\tError: " << ex.what() << '\n';
+            catch (const std::filesystem::filesystem_error& ex) {
+                fmt::print(os, "\n\tError: {}\n", ex.what());
             }
         }
     }
 
-    std::cout << "\n";
+    fmt::print(os, "\n");
 }
 
 

@@ -19,7 +19,7 @@ void function_that_throws() {
 
 void test_unique_hdl(std::wostream& wos) {
 #ifdef _WIN32
-    auto file_path{ std::filesystem::current_path() / "res" / "sample.txt" };
+    auto file_path{ std::filesystem::current_path() / "res" / "sample_file.txt" };
 
     using handle = unique_hdl<HANDLE, handle_traits>;
 

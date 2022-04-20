@@ -1,10 +1,8 @@
 #include "chapter_04_streams_and_filesystems/problem_038_temporary_log_files.h"
 
-#include <boost/uuid/random_generator.hpp>  // random_generator
-#include <boost/uuid/uuid_io.hpp>  // to_string
 #include <exception>
 #include <filesystem>
-#include <fstream>  // ofstream
+#include <fmt/ostream.h>
 #include <ios>  // ios_base
 #include <iostream>  // cout
 #include <ostream>
@@ -13,102 +11,51 @@
 #include <string_view>
 
 
-namespace logger
-{
-    namespace
-    {
-        namespace fs = std::filesystem;
-        namespace uuids = boost::uuids;
-    }
+void problem_38_main(std::ostream& os) {
+    using namespace rtc::logger;
+    using namespace std::string_view_literals;
 
-    struct CouldNotOpenFile : public std::runtime_error { CouldNotOpenFile(std::string_view error) : std::runtime_error(error.data()) {} };
+    try {
+        auto trace_log = [&os](logger& logger, std::string_view sv) {
+            logger.log(sv);
+            fmt::print(os, "\t{}", sv);
+        };
 
-    class Logger
-    {
-    public:
-        Logger()
-            : file_path_{ fs::temp_directory_path() / fs::path{ uuids::to_string(uuids::random_generator{}()) + ".log" } }
-        { open_file(); }
+        fmt::print(os, "Creating logger_1 and logger_2 instances...\n");
+        logger logger_1{};
+        logger logger_2{};
 
-        [[nodiscard]] std::string get_file_path() const noexcept { return file_path_.string(); }
+        fmt::print(os, "Writing out to logger_1 and logger_2...\n");
+        trace_log(logger_1, "R u awake? Want 2 chat?\n"sv);
+        trace_log(logger_2, "O Rom. Where4 art thou?\n"sv);
+        trace_log(logger_1, "Outside yr window.\n"sv);
+        trace_log(logger_2, "Stalker! J/K.\n"sv);
+        trace_log(logger_1, "Had 2-feeln' romantc.\n"sv);
+        trace_log(logger_2, "B careful. My family h8 u.\n"sv);
+        trace_log(logger_1, "I no. What about u?\n"sv);
+        trace_log(logger_2, "'M up for marriage if u r. Is tht a bit fwd?\n"sv);
+        trace_log(logger_1, "No. Yes. No. Oh, dsnt mat-r. 2moro @ 9?\n"sv);
+        trace_log(logger_2, "Luv U xxxx\n"sv);
 
-        void log(std::string_view text) noexcept { file_ << text.data(); }
-
-        void move_file(std::string_view new_file_path)
-        {
-            if (new_file_path != file_path_.string())
-            {
-                close_file();  // close current file stream
-                fs::rename(file_path_, new_file_path);  // move current file; this operation may throw
-                file_path_ = new_file_path;
-                moved = true;
-                reopen_file();  // reopen moved file
-            }
-        }
-
-        ~Logger() noexcept { close_file(); if (not moved) { remove_file(); } }
-
-    private:
-        fs::path file_path_{};
-        std::ofstream file_{};
-        bool moved{ false };
-
-        void open_file(std::ios_base::openmode mode = std::ios_base::out)
-        {
-            file_.open(file_path_.string(), mode);
-            if (!file_)
-            {
-                throw CouldNotOpenFile{ file_path_.string() };
-            }
-        }
-        void reopen_file() { open_file(std::ios_base::app); }
-        void close_file() { file_.close(); }
-        void remove_file() { fs::remove(file_path_); }
-    };
-}
-
-
-void problem_38_main(std::ostream& os)
-{
-    using namespace logger;
-
-    try
-    {
-        std::cout << "Creating logger_1 and logger_2 instances...\n";
-        Logger logger_1{};
-        Logger logger_2{};
-
-        std::cout << "Writing out to logger_1 and logger_2...\n";
-        logger_1.log("R u awake? Want 2 chat?\n");
-        logger_2.log("O Rom. Where4 art thou?\n");
-        logger_1.log("Outside yr window.\n");
-        logger_2.log("Stalker! J/K.\n");
-        logger_1.log("Had 2—feeln’ romantc.\n");
-        logger_2.log("B careful. My family h8 u.\n");
-        logger_1.log("I no. What about u ?\n");
-        logger_2.log("'M up for marriage if u r. Is tht a bit fwd?\n");
-        logger_1.log("No. Yes. No. Oh, dsnt mat-r. 2moro @ 9?\n");
-        logger_2.log("Luv U xxxx\n");
-
-        std::string_view log_1_new_location{ "C:\\Users\\Roberto\\Desktop\\log_1.txt" };
-        std::cout << "Moving logger_1 from " << logger_1.get_file_path() << " to " << log_1_new_location << "\n";
+        const auto log_1_new_location{ std::filesystem::temp_directory_path() / "log_1.txt" };
+        fmt::print(os, "Moving logger_1 from '{}' to '{}'\n", logger_1.get_file_path(), log_1_new_location.generic_string());
         logger_1.move_file(log_1_new_location);
 
-        std::cout << "Writing out something else to logger_1...\n";
-        logger_1.log("CU then xxxx\n");
+        fmt::print(os, "Writing out something else to logger_1...\n");
+        trace_log(logger_1, "CU then xxxx\n"sv);
 
-        std::string_view log_1_second_new_location{ "C:\\Users\\Roberto\\Desktop\\log_1-new.txt" };
-        std::cout << "Moving logger_1 from " << log_1_new_location << " to " << log_1_second_new_location << "\n";
+        const auto log_1_second_new_location{ std::filesystem::temp_directory_path() / "log_1-new.txt" };
+        fmt::print(os, "Moving logger_1 from '{}' to '{}'\n",
+            log_1_new_location.generic_string(), log_1_second_new_location.generic_string());
         logger_1.move_file(log_1_second_new_location);
 
-        std::cout << "Asking for logger_1 location: " << logger_1.get_file_path() << "\n";
+        fmt::print(os, "Asking for logger_1 location: '{}'\n", logger_1.get_file_path());
     }
-    catch (const std::exception& err)
-    {
-        std::cout << "Error: " << err.what() << "\n";
+    catch (const std::exception& err) {
+        fmt::print(os, "Error: {}\n", err.what());
     }
 
-    std::cout << "\n";
+    fmt::print(os, "\n");
 }
 
 

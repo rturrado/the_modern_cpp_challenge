@@ -6,10 +6,11 @@
 #include <sstream>  // ostringstream
 
 
-TEST(problem_34_main, DISABLED_output) {
+TEST(problem_34_main, output) {
     std::ostringstream oss{};
     problem_34_main(oss);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "blah\n"
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "Removing empty lines from input file '.*res/problem_034_input.txt'\n"
+        "And writing the result to output file '.*res/problem_034_output.txt'\n"
     ));
 }
