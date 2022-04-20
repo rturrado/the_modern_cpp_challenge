@@ -16,7 +16,7 @@ void problem_36_main(std::ostream& os) {
     const auto d2_path = std::filesystem::current_path() / "res" / "sample_subfolder";
 
     const ch::years duration1{ 500 };
-    const ch::minutes duration2{ 12h + 30min };
+    const ch::milliseconds duration2{ 5 };
     
     for (const auto& path : { d1_path, d2_path }) {
         for (const auto& tp : {
