@@ -1,0 +1,10 @@
+set(chapter_05_test_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_039_measuring_function_execution_time.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_040_number_of_days_between_two_dates.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_041_day_of_the_week.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_042_day_and_week_of_the_year.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_043_meeting_time_for_multiple_time_zones.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_044_monthly_calendar.cpp"
+    PARENT_SCOPE
+)
+

@@ -1,0 +1,20 @@
+set(chapter_06_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_045_priority_queue.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_046_circular_buffer.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_047_double_buffer.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_048_most_frequent_element_in_a_range.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_049_text_histogram.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_050_filtering_a_list_of_phone_numbers.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_051_transforming_a_list_of_phone_numbers.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_052_generating_all_the_permutations_of_a_string.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_053_average_rating_of_movies.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_054_pairwise_algorithm.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_055_zip_algorithm.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_056_select_algorithm.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_057_quicksort.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_058_shortest_path_between_two_nodes.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_059_weasel_program.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_060_game_of_life.cpp"
+    PARENT_SCOPE
+)
+

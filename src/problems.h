@@ -97,49 +97,49 @@ private:
 /*
         // Date and time
         //
-        []() { problem_39_main(); },  // 
-        []() { problem_40_main(); },  // 
-        []() { problem_41_main(); },  // 
-        []() { problem_42_main(); },  // 
-        []() { problem_43_main(); },  // 
-        []() { problem_44_main(); },  // 
+        []() { problem_39_main(); },  // measuring function execution time
+        []() { problem_40_main(); },  // number of days between two dates
+        []() { problem_41_main(); },  // day of the week
+        []() { problem_42_main(); },  // day and week of the year
+        []() { problem_43_main(); },  // meeting time for multiple time zones
+        []() { problem_44_main(); },  // monthly calendar
 
         // Algorithms and data structures
         //
-        []() { problem_45_main(); },  // 
-        []() { problem_46_main(); },  // 
-        []() { problem_47_main(); },  // 
-        []() { problem_48_main(); },  // 
-        []() { problem_49_main(); },  // 
-        []() { problem_50_main(); },  // 
-        []() { problem_51_main(); },  // 
-        []() { problem_52_main(); },  // 
-        []() { problem_53_main(); },  // 
-        []() { problem_54_main(); },  // 
-        []() { problem_55_main(); },  // 
-        []() { problem_56_main(); },  // 
-        []() { problem_57_main(); },  // 
-        []() { problem_58_main(); },  // 
-        []() { problem_59_main(); },  // 
-        []() { problem_60_main(); },  // 
+        []() { problem_45_main(); },  // priority queue
+        []() { problem_46_main(); },  // circular buffer
+        []() { problem_47_main(); },  // double buffer
+        []() { problem_48_main(); },  // most frequent element in a range
+        []() { problem_49_main(); },  // text histogram
+        []() { problem_50_main(); },  // filtering a list of phone numbers
+        []() { problem_51_main(); },  // transforming a list of phone numbers
+        []() { problem_52_main(); },  // generating all the permutations of a string
+        []() { problem_53_main(); },  // average rating of movies
+        []() { problem_54_main(); },  // pairwise algorithm
+        []() { problem_55_main(); },  // zip algorithm
+        []() { problem_56_main(); },  // select algorithm
+        []() { problem_57_main(); },  // quicksort
+        []() { problem_58_main(); },  // shortest path between two nodes
+        []() { problem_59_main(); },  // Weasel program
+        []() { problem_60_main(); },  // game of life
 
         // Concurrency
         //
-        []() { problem_61_main(); },  // 
-        []() { problem_62_main(); },  // 
-        []() { problem_63_main(); },  // 
-        []() { problem_64_main(); },  // 
-        []() { problem_65_main(); },  // 
-        []() { problem_66_main(); },  // 
+        []() { problem_61_main(); },  // parallel transform algorithm
+        []() { problem_62_main(); },  // parallel minmax with threads
+        []() { problem_63_main(); },  // parallel minmax with async
+        []() { problem_64_main(); },  // parallel sort algorithm
+        []() { problem_65_main(); },  // thread safe logging
+        []() { problem_66_main(); },  // customer service system
 
         // Design patterns
         //
-        []() { problem_67_main(); },  // 
-        []() { problem_68_main(); },  // 
-        []() { problem_69_main(); },  // 
-        []() { problem_70_main(); },  // 
-        []() { problem_71_main(); },  // 
-        []() { problem_72_main(); },  // 
+        []() { problem_67_main(); },  // validating passwords
+        []() { problem_68_main(); },  // generating random passwords
+        []() { problem_69_main(); },  // generating social security numbers
+        []() { problem_70_main(); },  // approval system
+        []() { problem_71_main(); },  // observable vector container
+        []() { problem_72_main(); },  // computing order price with discounts
 
         // Data serialization
         //
