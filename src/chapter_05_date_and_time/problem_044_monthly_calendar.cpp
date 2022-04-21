@@ -1,32 +1,49 @@
-#include "Chapter5_DateAndTime.h"
+#include "chapter_05_date_and_time/problem_044_monthly_calendar.h"
 
 #include <chrono>
 #include <format>
 #include <iostream>  // cout
+#include <ostream>
 #include <utility>  // pair
 #include <vector>
 
 namespace ch = std::chrono; using namespace ch;
 
-void print_calendar_month(const ch::year& y, const ch::month& m)
-{
+
+void print_calendar_month(std::ostream& os, const ch::year& y, const ch::month& m) {
     // Header
-    std::cout << ch::year_month{ y / m } << "\n";
-    for (unsigned int i{ 1 }; i <= 7; ++i) { std::cout << std::format("{:>4}", ch::weekday{i}); }
-    std::cout << "\n";
+    os << ch::year_month{ y / m } << "\n";
+    for (unsigned int i{ 1 }; i <= 7; ++i) {
+        os << std::format("{:>4}", ch::weekday{i});
+    }
+    os << "\n";
 
     // Blank days
     unsigned int y_m_1_iso_wd{ (ch::weekday{y / m / 1}).iso_encoding() - 1 };
-    for (unsigned int i{ 0 }; i < y_m_1_iso_wd; ++i) { std::cout << std::format("{:>4}", ' '); }
+    for (unsigned int i{ 0 }; i < y_m_1_iso_wd; ++i) {
+        os << std::format("{:>4}", ' ');
+    }
 
     // Month days
     unsigned int y_m_d_last{ ch::year_month_day_last{y / m / ch::last}.day() };
-    for (unsigned int i{ 1 }; i <= y_m_d_last; ++i)
-    {
-        std::cout << std::format("{:>4}", i);
-        if ((i != y_m_d_last) and ((y_m_1_iso_wd + i) % 7 == 0)) { std::cout << "\n"; }
+    for (unsigned int i{ 1 }; i <= y_m_d_last; ++i) {
+        os << std::format("{:>4}", i);
+        if ((i != y_m_d_last) and ((y_m_1_iso_wd + i) % 7 == 0)) {
+            os << "\n";
+        }
     }
 }
+
+
+void problem_44_main(std::ostream& os) {
+    using vector_of_pairs_year_month = std::vector<std::pair<ch::year, ch::month>>;
+
+    for (const auto& [year, month] : vector_of_pairs_year_month{ {1970y, January}, {1977y, May}, {2012y, February} }) {
+        print_calendar_month(os, year, month);
+        os << "\n\n";
+    }
+}
+
 
 // Monthly calendar
 //
@@ -39,13 +56,6 @@ void print_calendar_month(const ch::year& y, const ch::month& m)
 //     11  12  13  14  15  16  17
 //     18  19  20  21  22  23  24
 //     25  26  27  28  29  30  31
-void problem_44_main()
-{
-    using vector_of_pairs_year_month = std::vector<std::pair<ch::year, ch::month>>;
-
-    for (const auto& [year, month] : vector_of_pairs_year_month{ {1970y, January}, {1977y, May}, {2012y, February} })
-    {
-        print_calendar_month(year, month);
-        std::cout << "\n\n";
-    }
+void problem_44_main() {
+    problem_44_main(std::cout);
 }

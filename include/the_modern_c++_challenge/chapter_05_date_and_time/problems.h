@@ -7,4 +7,3 @@
 #include "problem_042_day_and_week_of_the_year.h"
 #include "problem_043_meeting_time_for_multiple_time_zones.h"
 #include "problem_044_monthly_calendar.h"
-

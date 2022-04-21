@@ -17,4 +17,3 @@
 #include "problem_058_shortest_path_between_two_nodes.h"
 #include "problem_059_weasel_program.h"
 #include "problem_060_game_of_life.h"
-

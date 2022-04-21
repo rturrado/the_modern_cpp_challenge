@@ -4,8 +4,8 @@
 #include "chapter_02_language_features/problems.h"
 #include "chapter_03_strings_and_regular_expressions/problems.h"
 #include "chapter_04_streams_and_filesystems/problems.h"
-/*
 #include "chapter_05_date_and_time/problems.h"
+/*
 #include "chapter_06_algorithms_and_data_structures/problems.h"
 #include "chapter_07_concurrency/problems.h"
 #include "chapter_08_design_patterns/problems.h"
@@ -94,7 +94,6 @@ private:
         []() { problem_37_main(); },  // regex find files in a directory
         []() { problem_38_main(); },  // temporary log files
 
-/*
         // Date and time
         //
         []() { problem_39_main(); },  // measuring function execution time
@@ -104,6 +103,7 @@ private:
         []() { problem_43_main(); },  // meeting time for multiple time zones
         []() { problem_44_main(); },  // monthly calendar
 
+/*
         // Algorithms and data structures
         //
         []() { problem_45_main(); },  // priority queue

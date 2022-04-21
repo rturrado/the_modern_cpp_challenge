@@ -13,4 +13,3 @@ TEST(problem_60_main, DISABLED_output) {
         "blah"
     ));
 }
-
