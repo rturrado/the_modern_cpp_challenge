@@ -40,7 +40,7 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config Debug
     - name: Test
       working-directory: ${{github.workspace}}/build
-      run: ctest -C Debug --output-on-failure
+      run: ctest -C Debug --output-on-failure --gtest_also_run_disabled_tests
   windows-release-benchmark:
     runs-on: windows-latest
     strategy:
