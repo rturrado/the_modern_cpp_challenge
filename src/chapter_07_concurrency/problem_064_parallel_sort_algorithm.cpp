@@ -1,5 +1,5 @@
-#include "Chapter7_Concurrency.h"
-#include "RtcTimer.h"
+#include "chapter_07_concurrency/problem_064_parallel_sort_algorithm.h"
+#include "rtc/timer.h"
 
 #include <algorithm>  // generate_n, iter_swap, sort
 #include <future>  // async

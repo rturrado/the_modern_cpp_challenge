@@ -14,7 +14,7 @@
 std::vector<std::pair<size_t, size_t>> sexy_prime_pairs_up_to(size_t limit) {
     std::vector<std::pair<size_t, size_t>> ret{};
     for (auto i{ 7 }; i <= limit; ++i) {
-        if (rtc::math::is_prime(i) and rtc::math::is_prime(i - 6)) {
+        if (tmcppc::math::is_prime(i) and tmcppc::math::is_prime(i - 6)) {
             ret.push_back({ i - 6, i });
         }
     }

@@ -1,4 +1,4 @@
-#include "Chapter6_AlgorithmsAndDataStructures.h"
+#include "chapter_06_algorithms_and_data_structures/problem_049_text_histogram.h"
 
 #include <algorithm>  // for_each
 #include <cctype>  // isalpha

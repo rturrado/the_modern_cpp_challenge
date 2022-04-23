@@ -1,5 +1,5 @@
-#include "Chapter7_Concurrency.h"
-#include "RtcPrint.h"  // printable
+#include "chapter_07_concurrency/problem_066_customer_service_system.h"
+#include "rtc/print.h"  // printable
 
 #include <chrono>  // milliseconds
 #include <condition_variable>  // condition_variable_any

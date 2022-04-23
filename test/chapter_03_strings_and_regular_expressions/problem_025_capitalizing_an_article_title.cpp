@@ -6,23 +6,23 @@
 #include <sstream>  // ostringstream
 
 
-TEST(capitalize, empty_string) {
+TEST(capitalize, DISABLED_empty_string) {
     EXPECT_THAT(capitalize(""), ::testing::IsEmpty());
 }
-TEST(capitalize, all_lowercase) {
+TEST(capitalize, DISABLED_all_lowercase) {
     EXPECT_THAT(capitalize("the c++ challenger"), ::testing::StrEq("The C++ Challenger"));
 }
-TEST(capitalize, all_uppercase) {
+TEST(capitalize, DISABLED_all_uppercase) {
     EXPECT_THAT(capitalize("THE C++ CHALLENGER"), ::testing::StrEq("The C++ Challenger"));
 }
-TEST(capitalize, uppercase_and_lowercase) {
+TEST(capitalize, DISABLED_uppercase_and_lowercase) {
     EXPECT_THAT(capitalize("THIS IS an ExamplE, should wORk!"), ::testing::StrEq("This Is An Example, Should Work!"));
 }
-TEST(capitalize, all_letters) {
+TEST(capitalize, DISABLED_all_letters) {
     EXPECT_THAT(capitalize("SUPERCalIfragiListicoeSPialiDOSo"), ::testing::StrEq("Supercalifragilisticoespialidoso"));
 }
 
-TEST(problem_25_main, output) {
+TEST(problem_25_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_25_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

@@ -12,7 +12,7 @@
 void cb_to_roman()
 {
     using namespace rtc::timer;
-    using namespace rtc::date;
+    using namespace tmcppc::date;
 
     fmt::print("[to_roman custom benchmark]\n\n");
     fmt::print("Calling to_roman() from 0 to 9999:\n");
@@ -62,25 +62,25 @@ void cb_to_roman()
 //
 static void gb_to_roman_v1(benchmark::State& state) {
     for (auto _ : state) {
-        rtc::date::to_roman_v1(1000);
+        tmcppc::date::to_roman_v1(1000);
     }
 }
 
 static void gb_to_roman_v2(benchmark::State& state) {
     for (auto _ : state) {
-        rtc::date::to_roman_v2(1000);
+        tmcppc::date::to_roman_v2(1000);
     }
 }
 
 static void gb_to_roman_v3(benchmark::State& state) {
     for (auto _ : state) {
-        rtc::date::to_roman_v3(1000);
+        tmcppc::date::to_roman_v3(1000);
     }
 }
 
 static void gb_to_roman_v4(benchmark::State& state) {
     for (auto _ : state) {
-        rtc::date::to_roman_v4(1000);
+        tmcppc::date::to_roman_v4(1000);
     }
 }
 

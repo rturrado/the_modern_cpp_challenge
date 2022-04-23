@@ -38,7 +38,7 @@ std::vector<size_t> armstrong_numbers_up_to_a_limit_v1(size_t n) {
 std::vector<size_t> armstrong_numbers_up_to_a_limit_v2(size_t n) {
     std::vector<size_t> ret{};
 
-    rtc::math::digits<size_t> digits{};
+    tmcppc::math::digits<size_t> digits{};
     for (size_t i{ 0 }; i <= n; ++i, ++digits) {
         auto sum_of_powers = std::accumulate(digits.cbegin(), digits.cend(), static_cast<size_t>(0),
             [digits_size = digits.size()](size_t total, size_t digit) {

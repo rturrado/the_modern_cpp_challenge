@@ -1,5 +1,5 @@
-#include "Chapter6_AlgorithmsAndDataStructures.h"
-#include "RtcPrint.h"
+#include "chapter_06_algorithms_and_data_structures/problem_057_quicksort.h"
+#include "rtc/print.h"
 
 #include <algorithm>  // iter_swap
 #include <functional>  // less

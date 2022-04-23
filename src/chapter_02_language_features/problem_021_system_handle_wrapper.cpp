@@ -21,7 +21,7 @@ void test_unique_hdl(std::wostream& wos) {
 #ifdef _WIN32
     auto file_path{ std::filesystem::current_path() / "res" / "sample_file.txt" };
 
-    using handle = unique_hdl<HANDLE, handle_traits>;
+    using handle = tmcppc::unique_hdl<tmcppc::HANDLE, tmcppc::handle_traits>;
 
     handle file_hdl{
         CreateFileW(

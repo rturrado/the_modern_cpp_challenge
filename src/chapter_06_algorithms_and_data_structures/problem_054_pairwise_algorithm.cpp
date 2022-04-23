@@ -1,5 +1,5 @@
-#include "Chapter6_AlgorithmsAndDataStructures.h"
-#include "RtcPrint.h"
+#include "chapter_06_algorithms_and_data_structures/problem_054_pairwise_algorithm.h"
+#include "rtc/print.h"
 
 #include <functional>  // plus
 #include <iostream>  // cout

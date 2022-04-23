@@ -1,5 +1,5 @@
-#include "Chapter6_AlgorithmsAndDataStructures.h"
-#include "RtcRandom.h"
+#include "chapter_06_algorithms_and_data_structures/problem_059_weasel_program.h"
+#include "rtc/random.h"
 
 #include <algorithm>  // copy, max_element
 #include <functional>  // plus

@@ -13,7 +13,7 @@ size_t biggest_prime_smaller_than(const size_t n) {
     if (n == 0 or n == 1) {
         return 0;
     }
-    return (rtc::math::is_prime(n - 1) ? n - 1 : biggest_prime_smaller_than(n - 1));
+    return (tmcppc::math::is_prime(n - 1) ? n - 1 : biggest_prime_smaller_than(n - 1));
 };
 
 

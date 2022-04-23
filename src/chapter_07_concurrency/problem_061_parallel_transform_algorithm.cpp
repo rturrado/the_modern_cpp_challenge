@@ -1,5 +1,5 @@
-#include "Chapter7_Concurrency.h"
-#include "RtcTimer.h"
+#include "chapter_07_concurrency/problem_061_parallel_transform_algorithm.h"
+#include "rtc/timer.h"
 
 #include <algorithm>  // max, min, transform
 #include <cassert>  // assert

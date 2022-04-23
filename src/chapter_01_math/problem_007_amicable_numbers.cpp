@@ -10,7 +10,7 @@
 
 
 std::vector<std::pair<size_t, size_t>> amicable_numbers_up_to(size_t limit) {
-    using namespace rtc::math;
+    using namespace tmcppc::math;
 
     std::vector<std::pair<size_t, size_t>> ret{};
 
@@ -48,7 +48,7 @@ void problem_7_main() {
 
 
 void playing_with_tmp(std::ostream& os) {
-    using namespace rtc::math::tmp;
+    using namespace tmcppc::math::tmp;
 
     fmt::print(os, "Divisors sum of 220: {}\n", divisors_sum<220>::value);
     // fatal error C1202: recursive type or function dependency context too complex

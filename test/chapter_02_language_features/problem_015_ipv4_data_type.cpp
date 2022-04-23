@@ -6,7 +6,7 @@
 #include <sstream>  // istringstream, ostringstream
 
 
-TEST(problem_15_main, ip_127_0_0_1_and_abc) {
+TEST(problem_15_main, DISABLED_ip_127_0_0_1_and_abc) {
     std::istringstream iss{ "127.0.0.1\nabc\nquit\n" };
     std::ostringstream oss{};
     problem_15_main(iss, oss);

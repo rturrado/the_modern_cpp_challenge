@@ -9,7 +9,7 @@
 // v2: based on the book's answer; also similar to Boost.Unit's implementation
 // 
 // temperature class is templated on a Scale parameter as well
-namespace rtc::temperature::v2 {
+namespace tmcppc::temperature::v2 {
     enum class scale { celsius, fahrenheit, kelvin };
 
     template <typename Rep_ = float, scale = scale::celsius>
@@ -185,4 +185,4 @@ namespace rtc::temperature::v2 {
         constexpr auto operator"" _f(long double value) { return temperature<long double, scale::fahrenheit>(value); }
         constexpr auto operator"" _K(long double value) { return temperature<long double, scale::kelvin>(value); }
     }  // namespace literals
-}  // namespace rtc::temperature::v2
+}  // namespace tmcppc::temperature::v2

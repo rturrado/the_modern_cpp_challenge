@@ -5,7 +5,7 @@
 #include <vector>
 
 
-namespace rtc::math
+namespace tmcppc::math
 {
     // Check if a number is prime or not
     template <typename T>
@@ -71,10 +71,10 @@ namespace rtc::math
         }
         return ret;
     }
-}  // namespace rtc::math
+}  // namespace tmcppc::math
 
 
-namespace rtc::math::tmp
+namespace tmcppc::math::tmp
 {
     // I couldn't use the more efficient version of divisors starting from sqrt(N) and adding j=N/I when I!=j
     // <--- std::sqrt is not constexpr
@@ -103,4 +103,4 @@ namespace rtc::math::tmp
         static constexpr bool has_amicable = (N == p);
         static constexpr size_t value = m;
     };
-}  // namespace rtc::math::tmp
+}  // namespace tmcppc::math::tmp

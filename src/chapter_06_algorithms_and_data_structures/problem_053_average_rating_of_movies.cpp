@@ -1,4 +1,4 @@
-#include "Chapter6_AlgorithmsAndDataStructures.h"
+#include "chapter_06_algorithms_and_data_structures/problem_053_average_rating_of_movies.h"
 
 #include <algorithm>  // sort
 #include <iomanip>  // setprecision

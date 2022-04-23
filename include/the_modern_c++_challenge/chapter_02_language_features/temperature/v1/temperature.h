@@ -11,7 +11,7 @@
 // v1: my initial solution.
 // 
 // temperature class is only templated on the representation type
-namespace rtc::temperature::v1 {
+namespace tmcppc::temperature::v1 {
     enum class scale { invalid = -1, celsius, fahrenheit, kelvin };
 
     [[nodiscard]] std::string to_string(const scale& s) {
@@ -215,20 +215,20 @@ namespace rtc::temperature::v1 {
         constexpr auto operator"" _K(long double value) { return temperature<long double>(value, scale::kelvin); }
     }  // namespace my_temperature_literals
 
-}  // namespace rtc::temperature::v1
+}  // namespace tmcppc::temperature::v1
 
 
 template <typename Rep_>
-struct fmt::formatter<rtc::temperature::v1::temperature<Rep_>> {
+struct fmt::formatter<tmcppc::temperature::v1::temperature<Rep_>> {
     template<typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
 
     template <typename FormatContext>
-    auto format(const rtc::temperature::v1::temperature<Rep_>& t, FormatContext& ctx) {
+    auto format(const tmcppc::temperature::v1::temperature<Rep_>& t, FormatContext& ctx) {
         const auto& s{ t.scale() };
-        if (s == rtc::temperature::v1::scale::invalid) {
+        if (s == tmcppc::temperature::v1::scale::invalid) {
             return fmt::format_to(ctx.out(), "{}", to_string(s));
         }
         return fmt::format_to(ctx.out(), "{:.2f} {}", t.value(), to_string(s));

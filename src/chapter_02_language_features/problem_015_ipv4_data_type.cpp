@@ -19,7 +19,7 @@ void problem_15_main(std::istream& is, std::ostream& os) {
         }
 
         try {
-            ipv4 address{ s };
+            tmcppc::ipv4 address{ s };
             fmt::print(os, "\tYou've entered a valid IPv4 address: {}\n", s);
         }
         catch (const std::exception& ex) {

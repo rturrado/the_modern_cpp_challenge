@@ -1,4 +1,4 @@
-#include "Chapter8_DesignPatterns.h"
+#include "chapter_08_design_patterns/problem_067_validating_passwords.h"
 
 #include <algorithm>  // any_of
 #include <cctype>  // isdigit, islower, ispunct, isupper

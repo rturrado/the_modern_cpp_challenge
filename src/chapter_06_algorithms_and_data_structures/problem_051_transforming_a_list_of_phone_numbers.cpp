@@ -1,5 +1,5 @@
-#include "Chapter6_AlgorithmsAndDataStructures.h"
-#include "RtcPrint.h"
+#include "chapter_06_algorithms_and_data_structures/problem_051_transforming_a_list_of_phone_numbers.h"
+#include "rtc/print.h"
 
 #include <algorithm>  // remove_if, transform
 #include <functional>  // reference_wrapper

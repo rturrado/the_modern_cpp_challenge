@@ -1,4 +1,4 @@
-#include "Chapter6_AlgorithmsAndDataStructures.h"
+#include "chapter_06_algorithms_and_data_structures/problem_052_generating_all_the_permutations_of_a_string.h"
 
 #include <algorithm>  // for_each, next_permutation, sort
 #include <iostream>  // cout

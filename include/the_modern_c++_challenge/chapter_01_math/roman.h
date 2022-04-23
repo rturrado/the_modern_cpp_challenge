@@ -11,7 +11,7 @@
 #include <vector>
 
 
-namespace rtc::date
+namespace tmcppc::date
 {
     constinit const size_t max_roman_numeral{ 3999 };
 
@@ -235,4 +235,4 @@ namespace rtc::date
         return ret;
     }
 
-}  // namespace rtc::date
+}  // namespace tmcppc::date

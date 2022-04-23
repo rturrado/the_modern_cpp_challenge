@@ -8,19 +8,19 @@
 #include <vector>
 
 
-TEST(sexy_prime_pairs_up_to, zero) { EXPECT_THAT(sexy_prime_pairs_up_to(0), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, one) { EXPECT_THAT(sexy_prime_pairs_up_to(1), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, two) { EXPECT_THAT(sexy_prime_pairs_up_to(2), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, three) { EXPECT_THAT(sexy_prime_pairs_up_to(3), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, four) { EXPECT_THAT(sexy_prime_pairs_up_to(4), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, five) { EXPECT_THAT(sexy_prime_pairs_up_to(5), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, six) { EXPECT_THAT(sexy_prime_pairs_up_to(6), ::testing::IsEmpty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_zero) { EXPECT_THAT(sexy_prime_pairs_up_to(0), ::testing::IsEmpty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_one) { EXPECT_THAT(sexy_prime_pairs_up_to(1), ::testing::IsEmpty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_two) { EXPECT_THAT(sexy_prime_pairs_up_to(2), ::testing::IsEmpty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_three) { EXPECT_THAT(sexy_prime_pairs_up_to(3), ::testing::IsEmpty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_four) { EXPECT_THAT(sexy_prime_pairs_up_to(4), ::testing::IsEmpty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_five) { EXPECT_THAT(sexy_prime_pairs_up_to(5), ::testing::IsEmpty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_six) { EXPECT_THAT(sexy_prime_pairs_up_to(6), ::testing::IsEmpty()); }
 
-TEST(sexy_prime_pairs_up_to, seven) {
+TEST(sexy_prime_pairs_up_to, DISABLED_seven) {
     EXPECT_THAT(sexy_prime_pairs_up_to(7), ::testing::ElementsAre(::testing::Pair(1, 7)));
 }
 
-TEST(sexy_prime_pairs_up_to, forty_eight) {
+TEST(sexy_prime_pairs_up_to, DISABLED_forty_eight) {
     EXPECT_THAT(sexy_prime_pairs_up_to(48), ::testing::ElementsAre(
         ::testing::Pair(1, 7),
         ::testing::Pair(5, 11),
@@ -35,7 +35,7 @@ TEST(sexy_prime_pairs_up_to, forty_eight) {
     ));
 }
 
-TEST(program_5_main, seven) {
+TEST(program_5_main, DISABLED_seven) {
     std::istringstream iss{ "7\n" };
     std::ostringstream oss{};
     problem_5_main(iss, oss);

@@ -2,6 +2,7 @@ set(chapter_06_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_045_priority_queue.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_046_circular_buffer.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_047_double_buffer.cpp"
+#[[
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_048_most_frequent_element_in_a_range.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_049_text_histogram.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_050_filtering_a_list_of_phone_numbers.cpp"
@@ -15,6 +16,7 @@ set(chapter_06_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_058_shortest_path_between_two_nodes.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_059_weasel_program.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_060_game_of_life.cpp"
+]]
     PARENT_SCOPE
 )
 

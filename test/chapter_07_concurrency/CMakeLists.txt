@@ -7,4 +7,3 @@ set(chapter_07_test_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_066_customer_service_system.cpp"
     PARENT_SCOPE
 )
-

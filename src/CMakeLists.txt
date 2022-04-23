@@ -28,8 +28,8 @@ add_subdirectory(chapter_02_language_features)
 add_subdirectory(chapter_03_strings_and_regular_expressions)
 add_subdirectory(chapter_04_streams_and_filesystems)
 add_subdirectory(chapter_05_date_and_time)
-#[[
 add_subdirectory(chapter_06_algorithms_and_data_structures)
+#[[
 add_subdirectory(chapter_07_concurrency)
 add_subdirectory(chapter_08_design_patterns)
 ]]
@@ -46,8 +46,8 @@ set(lib_sources
     ${chapter_03_sources}
     ${chapter_04_sources}
     ${chapter_05_sources}
-#[[
     ${chapter_06_sources}
+#[[
     ${chapter_07_sources}
     ${chapter_08_sources}
 ]]

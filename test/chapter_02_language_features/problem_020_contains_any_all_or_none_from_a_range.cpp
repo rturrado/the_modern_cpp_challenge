@@ -6,7 +6,7 @@
 #include <sstream>  // ostringstream
 
 
-TEST(problem_20_main, output) {
+TEST(problem_20_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_20_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

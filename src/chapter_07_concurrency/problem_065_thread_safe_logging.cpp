@@ -1,5 +1,5 @@
-#include "Chapter7_Concurrency.h"
-#include "RtcPrint.h"  // printable
+#include "chapter_07_concurrency/problem_065_thread_safe_logging.h"
+#include "rtc/print.h"  // printable
 
 #include <chrono>  // chrono_literals
 #include <future>  // async

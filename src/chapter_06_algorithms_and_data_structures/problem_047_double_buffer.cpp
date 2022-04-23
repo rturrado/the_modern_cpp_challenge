@@ -1,13 +1,16 @@
-#include "Chapter6_AlgorithmsAndDataStructures.h"
-#include "Chapter6_AlgorithmsAndDataStructures/DoubleBuffer.h"
-#include "RtcPrint.h"
+#include "chapter_06_algorithms_and_data_structures/problem_047_double_buffer.h"
+#include "chapter_06_algorithms_and_data_structures/double_buffer.h"
 
 #include <algorithm>  // for_each
 #include <chrono>
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <numeric>  // iota
+#include <ostream>
 #include <thread>  // this_thread
 #include <vector>
+
 
 // This test shows that, if we don't update the full buffer on every write operation, we'll get unexpected results
 // This is due to the the fact that the double buffering technique swaps the read and write buffers after every write
@@ -38,30 +41,29 @@
 //
 // Buffer w: 1 0 3 0 5 0 7 0 9 0   // ... write 10, swap buffers, read 6, 0, 8, 0 and 10
 // Buffer r: 0 2 0 4 0 6 0 8 0 10
-void test_1()
-{
+void test_1(std::ostream& os) {
     using namespace std::chrono_literals;
 
+    fmt::print(os, "Test 1:\n\t");
+
     // We work over a double buffer of 10 elements, initially set to 0
-    DoubleBuffer<int> db{ 10 };
+    tmcppc::double_buffer<int> db{ 10 };
 
     // Thread 1 writes every 100ms
     // It writes a sequence of numbers starting from 1
-    auto thread_1_l = [&db]() {
-        std::cout << " (thread 1 writing)";
-        for (auto i{ 0 }; i < db.size(); ++i)
-        {
+    auto thread_1_l = [&os, &db]() {
+        fmt::print(os, "(thread 1 writing)");
+        for (auto i{ 0 }; i < db.size(); ++i) {
             db.write(i, i + 1);
-            std::cout << " w_" << i + 1;
+            fmt::print(os, " w_{}", i + 1);
             std::this_thread::sleep_for(100ms);
         }
     };
     // Thread 2 reads every 100ms
-    auto thread_2_l = [&db]() {
-        std::cout << " (thread 2 reading)";
-        for (auto i{ 0 }; i < db.size(); ++i)
-        {
-            std::cout << " r_" << db.read(i);
+    auto thread_2_l = [&os, &db]() {
+        fmt::print(os, " (thread 2 reading)");
+        for (auto i{ 0 }; i < db.size(); ++i) {
+            fmt::print(os, " r_{}", db.read(i));
             std::this_thread::sleep_for(100ms);
         }
     };
@@ -75,25 +77,26 @@ void test_1()
     thread_1.join();
     thread_2.join();
 
-    std::cout << "\n\n";
+    fmt::print(os, "\n\n");
 }
+
 
 // Book's example
 // There's no problem here as write operations update the full buffer
-void test_2()
-{
+void test_2(std::ostream& os) {
     using namespace std::chrono_literals;
 
-    DoubleBuffer<int> db{ 10 };
+    fmt::print(os, "Test 2:\n");
+
+    tmcppc::double_buffer<int> db{ 10 };
 
     // Thread 1 writes the full buffer 10 times, every 100ms
     // First time, it writes a sequence of numbers from 0 to 9
     // Every successive time it adds 10 to the the sequence of numbers
-    auto thread_1_l = [&db]() {
+    auto thread_1_l = [&os, &db]() {
         std::vector<int> v(db.size());
         std::iota(begin(v), end(v), 0);
-        for (auto i{ 0 }; i < 10; ++i)
-        {
+        for (auto i{ 0 }; i < 10; ++i) {
             db.write(0, v);
             std::this_thread::sleep_for(100ms);
             std::for_each(begin(v), end(v), [](auto& n) { n += 10; });
@@ -101,15 +104,14 @@ void test_2()
     };
 
     // Thread 2 reads and prints the full buffer 10 times, every 150ms
-    auto thread_2_l = [&db]() {
+    auto thread_2_l = [&os, &db]() {
         std::vector<int> v(db.size());
-        for (auto i{ 0 }; i < 10; ++i)
-        {
+        for (auto i{ 0 }; i < 10; ++i) {
             v = db.read(0, v.size());
-            std::cout << v << "\n";
+            fmt::print(os, "\t[{:2}]\n", fmt::join(v, ", "));
             std::this_thread::sleep_for(150ms);
         }
-        std::cout << "\n";
+        fmt::print(os, "\n");
     };
 
     // Thread 2 starts 50ms after thread 1
@@ -121,14 +123,19 @@ void test_2()
     thread_2.join();
 }
 
+
+void problem_47_main(std::ostream& os) {
+    test_1(os);
+    test_2(os);
+}
+
+
 // Double buffer
 //
 // Write a class that represents a buffer that could be written and read at the same time
 // without the two operations colliding.
 // A read operation must provide access to the old data while a write operation is in progress.
 // Newly written data must be available for reading upon completion of the write operation.
-void problem_47_main()
-{
-    test_1();
-    test_2();
+void problem_47_main() {
+    problem_47_main(std::cout);
 }

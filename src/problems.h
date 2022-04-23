@@ -5,8 +5,8 @@
 #include "chapter_03_strings_and_regular_expressions/problems.h"
 #include "chapter_04_streams_and_filesystems/problems.h"
 #include "chapter_05_date_and_time/problems.h"
-/*
 #include "chapter_06_algorithms_and_data_structures/problems.h"
+/*
 #include "chapter_07_concurrency/problems.h"
 #include "chapter_08_design_patterns/problems.h"
 #include "chapter_09_data_serialization/problems.h"
@@ -20,22 +20,18 @@
 #include <vector>
 
 
-class problems
-{
+class problems {
     using function_type = std::function<void()>;
 
 public:
-    static problems& get_instance()
-    {
+    static problems& get_instance() {
         static problems instance;
         return instance;
     }
-    constexpr size_t size()
-    {
+    constexpr size_t size() {
         return data_.size();
     }
-    void execute(size_t i)
-    {
+    void execute(size_t i) {
         assert((i > 0) && (i <= data_.size()));
         std::invoke(data_[i - 1]);
     }
@@ -103,12 +99,12 @@ private:
         []() { problem_43_main(); },  // meeting time for multiple time zones
         []() { problem_44_main(); },  // monthly calendar
 
-/*
         // Algorithms and data structures
         //
         []() { problem_45_main(); },  // priority queue
         []() { problem_46_main(); },  // circular buffer
         []() { problem_47_main(); },  // double buffer
+/*
         []() { problem_48_main(); },  // most frequent element in a range
         []() { problem_49_main(); },  // text histogram
         []() { problem_50_main(); },  // filtering a list of phone numbers

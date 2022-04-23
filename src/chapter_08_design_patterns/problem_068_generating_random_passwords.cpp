@@ -1,5 +1,5 @@
-#include "Chapter8_DesignPatterns.h"
-#include "RtcRandom.h"
+#include "chapter_08_design_patterns/problem_068_generating_random_passwords.h"
+#include "rtc/random.h"
 
 #include <algorithm>  // generate, shuffle
 #include <iostream>  // cout

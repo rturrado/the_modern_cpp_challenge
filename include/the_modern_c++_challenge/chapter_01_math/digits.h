@@ -6,7 +6,7 @@
 #include <string>
 
 
-namespace rtc::math
+namespace tmcppc::math
 {
     template <typename T>
     requires std::numeric_limits<T>::is_integer && (!std::numeric_limits<T>::is_signed)
@@ -83,4 +83,4 @@ namespace rtc::math
         std::deque<T> data_{};
     };
 
-}  // namespace rtc::math
+}  // namespace tmcppc::math

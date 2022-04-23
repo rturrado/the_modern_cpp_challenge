@@ -14,13 +14,13 @@ void problem_17_main(std::ostream& os) {
     try {
         // Array of ints initialized with width and height
         // Then modified using iota()
-        array_2d<int> arr1(3, 3);
+        tmcppc::array_2d<int> arr1(3, 3);
         std::iota(arr1.begin(), arr1.end(), 1);
         fmt::print(os, "arr1:\n{}\n\n", arr1);
 
         // Array of floats initialized with width and height
         // Then modified using at()
-        array_2d<float> arr2(3, 3);
+        tmcppc::array_2d<float> arr2(3, 3);
         float f{ 2.37f };
         for (auto row{ 0 }; row < arr2.height(); ++row) {
             for (auto col{ 0 }; col < arr2.width(); ++col) {
@@ -31,7 +31,7 @@ void problem_17_main(std::ostream& os) {
         fmt::print(os, "arr2:\n{}\n\n", arr2);
 
         // Array initialized with a initializer list of initializer lists
-        array_2d<std::string> arr3{
+        tmcppc::array_2d<std::string> arr3{
             { "En", "un", "lugar", "de" },
             { "la", "Mancha", "de", "cuyo" },
             { "nombre", "no", "quiero", "acordarme" },

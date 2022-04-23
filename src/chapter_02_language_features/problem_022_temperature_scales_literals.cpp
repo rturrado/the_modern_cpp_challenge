@@ -10,8 +10,8 @@
 
 void test_temperature_v1(std::ostream& os)
 {
-    using namespace rtc::temperature::v1;
-    using namespace rtc::temperature::v1::literals;
+    using namespace tmcppc::temperature::v1;
+    using namespace tmcppc::temperature::v1::literals;
 
     fmt::print(os, "{}", "Using temperature::v1:\n");
 
@@ -38,8 +38,8 @@ void test_temperature_v1(std::ostream& os)
 
 void test_temperature_v2(std::ostream& os)
 {
-    using namespace rtc::temperature::v2;
-    using namespace rtc::temperature::v2::literals;
+    using namespace tmcppc::temperature::v2;
+    using namespace tmcppc::temperature::v2::literals;
 
     os << "Using temperature::v2:\n";
 

@@ -6,20 +6,20 @@
 #include <sstream>  // ostringstream
 
 
-TEST(split, empty_string) {
+TEST(split, DISABLED_empty_string) {
     EXPECT_THAT(split("", " "), ::testing::IsEmpty());
 }
-TEST(split, delimiter_not_found) {
+TEST(split, DISABLED_delimiter_not_found) {
     EXPECT_THAT(split("a;b;c", "-"), ::testing::ElementsAre("a;b;c"));
 }
-TEST(split, delimiter_found) {
+TEST(split, DISABLED_delimiter_found) {
     EXPECT_THAT(split("a;b;c", ";"), ::testing::ElementsAre("a", "b", "c"));
 }
-TEST(split, many_delimiters) {
+TEST(split, DISABLED_many_delimiters) {
     EXPECT_THAT(split("a;b\tc", ";\t"), ::testing::ElementsAre("a", "b", "c"));
 }
 
-TEST(problem_27_main, output) {
+TEST(problem_27_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_27_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

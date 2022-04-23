@@ -8,33 +8,33 @@
 #include <vector>
 
 
-TEST(lcm, empty_v) {
+TEST(lcm, DISABLED_empty_v) {
     std::ostringstream oss{};
     std::vector<int> v{};
     EXPECT_EQ(lcm(oss, v), -1);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with an empty list."));
 }
 
-TEST(lcm, zero_element) {
+TEST(lcm, DISABLED_zero_element) {
     std::ostringstream oss{};
     std::vector<int> v{ 10, 0 };
     EXPECT_EQ(lcm(oss, v), -1);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with a negative or zero value."));
 }
 
-TEST(lcm, negative_element) {
+TEST(lcm, DISABLED_negative_element) {
     std::ostringstream oss{};
     std::vector<int> v{ -5, 10 };
     EXPECT_EQ(lcm(oss, v), -1);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with a negative or zero value."));
 }
 
-TEST(lcm, fifteen_and_fifty) {
+TEST(lcm, DISABLED_fifteen_and_fifty) {
     std::vector<int> v{ 15, 50 };
     EXPECT_EQ(lcm(v), 150);
 }
 
-TEST(problem_3_main, fifteen_and_fifty) {
+TEST(problem_3_main, DISABLED_fifteen_and_fifty) {
     std::istringstream iss{ "15 50 quit\n" };
     std::ostringstream oss{};
     problem_3_main(iss, oss);

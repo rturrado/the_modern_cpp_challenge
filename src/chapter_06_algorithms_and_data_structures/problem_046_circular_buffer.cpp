@@ -1,10 +1,65 @@
-#include "Chapter6_AlgorithmsAndDataStructures.h"
-#include "Chapter6_AlgorithmsAndDataStructures/CircularBuffer.h"
-#include "RtcPrint.h"
+#include "chapter_06_algorithms_and_data_structures/problem_046_circular_buffer.h"
+#include "chapter_06_algorithms_and_data_structures/circular_buffer.h"
 
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
+#include <ostream>
 #include <stdexcept>  // runtime_error
 #include <string_view>  // literals
+
+
+void problem_46_main(std::ostream& os) {
+    using namespace std::literals;
+
+    auto print_circular_buffer = [&os](const std::string_view cb_name, const auto& cb) -> void {
+        fmt::print(os, "\t{}: {}, capacity: {}, size: {}{}\n",
+            cb_name,
+            cb,
+            cb.capacity(),
+            cb.size(),
+            (cb.empty())
+                ? ""
+                : fmt::format(", front: {}, back: {}", cb.front(), cb.back())
+        );
+    };
+
+    // tmcppc::circular_buffer<int> cb_1{};  // wrong: default constructor is private
+
+    try {
+        tmcppc::circular_buffer<int> cb_2{ 0 };
+    }
+    catch (const std::runtime_error& err) {
+        fmt::print(os, "Error: {}\n", err.what());
+    }
+    fmt::print(os, "\n");
+
+    tmcppc::circular_buffer<double> cb_3{ 5 };
+    fmt::print(os, "tmcppc::circular_buffer<double> cb_3(5);\n");
+    print_circular_buffer("cb_3"sv, cb_3);
+    fmt::print(os, "\n");
+
+    for (auto i{ 1 }; i < static_cast<int>(1.5 * cb_3.capacity()); ++i) {
+        cb_3.push_back(i);
+        fmt::print(os, "cb_3.push_back({});\n", i);
+        print_circular_buffer("cb_3"sv, cb_3);
+    }
+    fmt::print(os, "\n");
+
+    cb_3.pop_front();
+    fmt::print(os, "cb_3.pop_front();\n");
+    print_circular_buffer("cb_3"sv, cb_3);
+    cb_3.pop_back();
+    fmt::print(os, "cb_3.pop_back();\n");
+    print_circular_buffer("cb_3"sv, cb_3);
+    fmt::print(os, "\n");
+
+    cb_3.clear();
+    fmt::print(os, "cb_3.clear();\n");
+    print_circular_buffer("cb_3"sv, cb_3);
+    fmt::print(os, "\n");
+}
+
 
 // Create a data structure that represents a circular buffer of a fixed size.
 // A circular buffer overwrites existing elements when the buffer is being filled beyond its fixed size.
@@ -17,48 +72,6 @@
 // - Add a new element, an operation that could potentially overwrite the oldest element in the buffer.
 // - Remove the oldest element from the buffer.
 // - Support iteration through its elements.
-void problem_46_main()
-{
-    using namespace std::literals;
-
-    auto print_circular_buffer = [](const std::string_view cb_name, const auto& cb) -> void {
-        std::cout << "\t" << cb_name.data() << ": " << cb << ", capacity: " << cb.capacity() << ", size: " << cb.size();
-        if (not cb.empty()) { std::cout << ", front: " << cb.front() << ", back: " << cb.back(); }
-        std::cout << "\n";
-    };
-
-    // CircularBuffer<int> cb_1{};  // wrong: default constructor is private
-
-    try
-    {
-        CircularBuffer<int> cb_2{ 0 };
-    }
-    catch (const std::runtime_error& err)
-    {
-        std::cout << "Error: " << err.what() << "\n";
-    }
-    std::cout << "\n";
-
-    CircularBuffer<double> cb_3{ 5 };
-    std::cout << "CircularBuffer<double> cb_3{ 5 };\n";
-    print_circular_buffer("cb_3"sv, cb_3);
-    std::cout << "\n";
-
-    for (auto i{ 1 }; i < static_cast<int>(1.5 * cb_3.capacity()); ++i)
-    {
-        cb_3.push_back(i);
-        std::cout << "cb_3.push_back(" << i << ");\n";
-        print_circular_buffer("cb_3"sv, cb_3);
-    }
-    std::cout << "\n";
-
-    cb_3.pop_front(); std::cout << "cb_3.pop_front()\n";
-    print_circular_buffer("cb_3"sv, cb_3);
-    cb_3.pop_back(); std::cout << "cb_3.pop_back()\n";
-    print_circular_buffer("cb_3"sv, cb_3);
-    std::cout << "\n";
-
-    cb_3.clear(); std::cout << "cb_3.clear()\n";
-    print_circular_buffer("cb_3"sv, cb_3);
-    std::cout << "\n";
+void problem_46_main() {
+    problem_46_main(std::cout);
 }

@@ -12,7 +12,7 @@ void problem_30_main(std::ostream& os) {
                            "http://example.com/animal/bird#wings",
                            "This is not a valid URL!" }) {
         try {
-            url u{ s };
+            tmcppc::url u{ s };
             fmt::print(os, "Parsing URL \"{}\":\n{}\n", s, u);
         }
         catch (const std::exception& err) {

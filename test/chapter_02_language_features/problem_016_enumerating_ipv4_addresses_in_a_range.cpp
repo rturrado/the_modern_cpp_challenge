@@ -6,7 +6,7 @@
 #include <sstream>  // istringstream, ostringstream
 
 
-TEST(problem_16_main, invalid_and_invalid_range_and_valid) {
+TEST(problem_16_main, DISABLED_invalid_and_invalid_range_and_valid) {
     std::istringstream iss{ "127.0.0.1\n300.300.300.300\n127.0.0.1 1.1.1.1\n127.0.0.1 127.0.0.5\n" };
     std::ostringstream oss{};
     problem_16_main(iss, oss);

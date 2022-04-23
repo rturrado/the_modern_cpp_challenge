@@ -1,5 +1,5 @@
-#include "Chapter6_AlgorithmsAndDataStructures.h"
-#include "RtcPrint.h"
+#include "chapter_06_algorithms_and_data_structures/problem_058_shortest_path_between_two_nodes.h"
+#include "rtc/print.h"
 
 #include <algorithm>  // for_each, minmax, transform
 #include <initializer_list>

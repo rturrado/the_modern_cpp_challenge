@@ -7,27 +7,27 @@
 #include <vector>
 
 
-TEST(sum_of_naturals_divisible_by_3_and_5, v1_with_number_0) {
+TEST(sum_of_naturals_divisible_by_3_and_5, DISABLED_v1_with_number_0) {
     EXPECT_EQ(naturals_divisible_by_3_or_5_up_to_limit_v1(0), std::vector<size_t>{ 0 });
 }
 
-TEST(sum_of_naturals_divisible_by_3_and_5, v2_with_number_0) {
+TEST(sum_of_naturals_divisible_by_3_and_5, DISABLED_v2_with_number_0) {
     EXPECT_EQ(naturals_divisible_by_3_or_5_up_to_limit_v2(0), std::vector<size_t>{ 0 });
 }
 
-TEST(sum_of_naturals_divisible_by_3_and_5, v1_with_number_47) {
+TEST(sum_of_naturals_divisible_by_3_and_5, DISABLED_v1_with_number_47) {
     EXPECT_THAT(
         naturals_divisible_by_3_or_5_up_to_limit_v1(47),
         ::testing::ElementsAre(0, 3, 5, 6, 9, 10, 12, 15, 18, 20, 21, 24, 25, 27, 30, 33, 35, 36, 39, 40, 42, 45));
 }
 
-TEST(sum_of_naturals_divisible_by_3_and_5, v2_with_number_47) {
+TEST(sum_of_naturals_divisible_by_3_and_5, DISABLED_v2_with_number_47) {
     EXPECT_THAT(
         naturals_divisible_by_3_or_5_up_to_limit_v2(47),
         ::testing::ElementsAre(0, 3, 5, 6, 9, 10, 12, 15, 18, 20, 21, 24, 25, 27, 30, 33, 35, 36, 39, 40, 42, 45));
 }
 
-TEST(problem_1_main, number_47) {
+TEST(problem_1_main, DISABLED_number_47) {
     std::istringstream iss{ "47\n" };
     std::ostringstream oss{};
     problem_1_main(iss, oss);
