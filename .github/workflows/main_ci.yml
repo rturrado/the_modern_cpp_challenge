@@ -40,7 +40,7 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config Debug
     - name: Test
       working-directory: ${{github.workspace}}/build/test
-      run: .Debug\the_modern_c++_challenge_test.exe --gtest_brief=1 --gtest_also_run_disabled_tests
+      run: .\Debug\the_modern_c++_challenge_test.exe --gtest_brief=1 --gtest_also_run_disabled_tests
   windows-release-benchmark:
     runs-on: windows-latest
     strategy:
