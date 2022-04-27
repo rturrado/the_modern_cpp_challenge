@@ -6,10 +6,12 @@
 #include <sstream>  // ostringstream
 
 
-TEST(problem_53_main, DISABLED_output) {
+TEST(problem_53_main, output) {
     std::ostringstream oss{};
     problem_53_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "blah"
-    ));
+        "Average rating of movies:\n"
+        "\tThe Godfather: 8.3\n"
+        "\tThe Godfather II: 7.7\n"
+        "\tThe Godfather III: 7.4\n"));
 }

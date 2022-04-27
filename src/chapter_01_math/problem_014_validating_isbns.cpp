@@ -1,5 +1,5 @@
 #include "chapter_01_math/problem_014_validating_isbns.h"
-#include "rtc/console_read.h"  // clear_istream
+#include "rtc/console.h"  // clear_istream
 
 #include <algorithm>  // count_if, erase_if
 #include <cassert>  // assert

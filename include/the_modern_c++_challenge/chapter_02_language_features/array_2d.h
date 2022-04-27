@@ -296,7 +296,7 @@ struct fmt::formatter<tmcppc::array_2d<T>> {
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::array_2d<T>& arr, FormatContext& ctx) {
+    auto format(const tmcppc::array_2d<T>& arr, FormatContext& ctx) const -> decltype(ctx.out()) {
         if (arr.empty()) {
             fmt::format_to(ctx.out(), "{}", "[]");
         }

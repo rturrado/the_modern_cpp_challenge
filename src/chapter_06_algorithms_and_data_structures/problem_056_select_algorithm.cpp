@@ -1,35 +1,33 @@
 #include "chapter_06_algorithms_and_data_structures/problem_056_select_algorithm.h"
-#include "rtc/print.h"
 
-#include <algorithm>  // transform
-#include <format>
-#include <iostream>  // cout
-#include <iterator>  // back_inserter
-#include <ostream>
-#include <string>
-#include <type_traits>  // invoke_result_t
-#include <utility>  // forward
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
+#include <iostream>
 #include <vector>
 
-struct book {
-    int id;
-    std::string title;
-    std::string author;
-};
 
-std::ostream& operator<<(std::ostream& os, const book& b)
-{
-    return os << std::format("[ id = {}, title = {}, author = {} ]", b.id, b.title, b.author);
+void problem_56_main(std::ostream& os) {
+    const std::vector<book> books{
+        { 101, "The C++ Programming Language", "Bjarne Stroustrup" },
+        { 203, "Effective Modern C++", "Scott Meyers" },
+        { 404, "The Modern C++ Programming Cookbook", "Marius Bancila" }
+    };
+    fmt::print(os, "List of books:\n");
+    fmt::print(os, "\t[{}]\n\n", fmt::join(books, ",\n\t"));
+
+    const auto ids = select(books, [](const book& b) { return b.id; });
+    fmt::print(os, "Selecting IDs:\n");
+    fmt::print(os, "\t{}\n\n", ids);
+
+    const auto titles = select(books, [](const book& b) { return b.title; });
+    fmt::print(os, "Selecting titles:\n");
+    fmt::print(os, "\t{}\n\n", titles);
+
+    const auto authors = select(books, [](const book& b) { return b.author; });
+    fmt::print(os, "Selecting authors:\n");
+    fmt::print(os, "\t{}\n\n", authors);
 }
 
-template <typename T, typename F>
-requires requires (const T& t, F f) { f(t); }
-auto select(const std::vector<T>& v, F&& f)
-{
-    std::vector<std::invoke_result_t<F, const T&>> ret{};
-    std::transform(cbegin(v), cend(v), std::back_inserter(ret), std::forward<F>(f));
-    return ret;
-}
 
 // Select algorithm
 //
@@ -53,25 +51,6 @@ auto select(const std::vector<T>& v, F&& f)
 //     };
 //
 //     auto titles = select(books, [](const book& b) { return b.title; });
-void problem_56_main()
-{
-    const std::vector<book> books {
-        { 101, "The C++ Programming Language", "Bjarne Stroustrup" },
-        { 203, "Effective Modern C++", "Scott Meyers" },
-        { 404, "The Modern C++ Programming Cookbook", "Marius Bancila" }
-    };
-    std::cout << "List of books:\n";
-    std::cout << "\t" << books << "\n\n";
-
-    auto ids = select(books, [](const book& b) { return b.id; });
-    std::cout << "Selecting IDs:\n";
-    std::cout << "\t" << ids << "\n\n";
-
-    auto titles = select(books, [](const book& b) { return b.title; });
-    std::cout << "Selecting titles:\n";
-    std::cout << "\t" << titles << "\n\n";
-
-    auto authors = select(books, [](const book& b) { return b.author; });
-    std::cout << "Selecting authors:\n";
-    std::cout << "\t" << authors << "\n\n";
+void problem_56_main() {
+    problem_56_main(std::cout);
 }

@@ -1,24 +1,17 @@
 #include "chapter_06_algorithms_and_data_structures/problem_051_transforming_a_list_of_phone_numbers.h"
+#include "chapter_06_algorithms_and_data_structures/phone_numbers.h"
 #include "rtc/print.h"
 
-#include <algorithm>  // remove_if, transform
+#include <algorithm>  // erase_if, transform
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <functional>  // reference_wrapper
 #include <iostream>  // cout
 #include <regex>  // regex_match, regex_replace, smatch
 #include <sstream>  // ostringstream
-#include <string>
-#include <vector>
 
-using phone_numbers = std::vector<std::string>;
 
-enum class country_code {
-    US = 1,
-    Spain = 34,
-    UK = 44
-};
-
-void format_phone_numbers(phone_numbers& ph_nos, const country_code& cc)
-{
+void format_phone_numbers(phone_numbers& ph_nos, const country_code& cc) {
     std::transform(begin(ph_nos), end(ph_nos), begin(ph_nos), [&cc](auto& ph_no) {
         // Remove whitespaces
         std::regex space_pattern{ R"([[:space:]])" };
@@ -36,8 +29,8 @@ void format_phone_numbers(phone_numbers& ph_nos, const country_code& cc)
         if (std::regex_match(ph_no, matches, ph_no_pattern) and
             ((not matches[1].matched and not matches[2].matched) or
              (matches[1].matched and stoi(matches[1]) == static_cast<int>(cc)) or
-             (matches[2].matched and stoi(matches[2]) == static_cast<int>(cc))))
-        {
+             (matches[2].matched and stoi(matches[2]) == static_cast<int>(cc)))) {
+
             oss << "+" << static_cast<int>(cc) << matches[3];  // outputs +, country code, 10-digit number
         }
 
@@ -46,23 +39,11 @@ void format_phone_numbers(phone_numbers& ph_nos, const country_code& cc)
     });
 
     // Removes empty strings from the list of phone numbers
-    ph_nos.erase(std::remove_if(begin(ph_nos), end(ph_nos), [](const auto& ph_no) { return ph_no.empty(); }), end(ph_nos));
+    std::erase_if(ph_nos, [](auto& ph_no) { return ph_no.empty(); });
 }
 
-// Transforming a list of phone numbers
-//
-// Write a function that, given a list of phone numbers, transforms them so they all start with a specified country code,
-// preceded by the + sign.
-// Any whitespaces from a phone number should be removed.
-// The following is a list of input and output examples:
-//
-// 07555 123456    => +447555123456
-// 07555123456     => +447555123456
-// +44 7555 123456 => +447555123456
-// 44 7555 123456  => +447555123456
-// 7555 123456     => +447555123456
-void problem_51_main()
-{
+
+void problem_51_main(std::ostream& os) {
     phone_numbers good_cases{
         "07555 111111",
         "07555222222",
@@ -77,10 +58,26 @@ void problem_51_main()
         "+02 1234567890"  // country code starts with 0
     };
 
-    for (auto& ph_nos : std::vector<std::reference_wrapper<phone_numbers>>{ good_cases, bad_cases })
-    {
-        std::cout << "List of phone numbers:\n\t" << ph_nos.get() << "\n";
+    for (auto& ph_nos : std::vector<std::reference_wrapper<phone_numbers>>{ good_cases, bad_cases }) {
+        fmt::print(os, "List of phone numbers:\n\t{}\n", ph_nos.get());
         format_phone_numbers(ph_nos.get(), country_code::UK);
-        std::cout << "List of UK phone numbers after formatting:\n\t" << ph_nos.get() << "\n\n";
+        fmt::print(os, "List of UK phone numbers after formatting:\n\t{}\n\n", ph_nos.get());
     }
+}
+
+
+// Transforming a list of phone numbers
+//
+// Write a function that, given a list of phone numbers, transforms them so they all start with a specified country code,
+// preceded by the + sign.
+// Any whitespaces from a phone number should be removed.
+// The following is a list of input and output examples:
+//
+// 07555 123456    => +447555123456
+// 07555123456     => +447555123456
+// +44 7555 123456 => +447555123456
+// 44 7555 123456  => +447555123456
+// 7555 123456     => +447555123456
+void problem_51_main() {
+    problem_51_main(std::cout);
 }

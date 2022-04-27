@@ -1,6 +1,6 @@
 #include "chapter_01_math/problem_006_abundant_numbers.h"
 #include "chapter_01_math/math.h"  // divisors
-#include "rtc/console_read.h"  // read_positive_number
+#include "rtc/console.h"  // read_positive_number
 
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>

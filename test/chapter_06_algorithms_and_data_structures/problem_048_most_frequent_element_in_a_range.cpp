@@ -6,10 +6,21 @@
 #include <sstream>  // ostringstream
 
 
-TEST(problem_48_main, DISABLED_output) {
+TEST(problem_48_main, output) {
     std::ostringstream oss{};
     problem_48_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "blah"
+        "Most frequent elements in:\n"
+        "\t[1, 1, 3, 5, 8, 13, 3, 5, 8, 8, 5]\n"
+        "\t\t(using v1): [[e=8, c=3], [e=5, c=3]]\n"
+        "\t\t(using v2): [(5, 3), (8, 3)]\n"
+        "\n"
+        "\t0aA@0A@@\n"
+        "\t\t(using v1): [[e=@, c=3]]\n"
+        "\t\t(using v2): [('@', 3)]\n"
+        "\n"
+        "\t[]\n"
+        "\t\t(using v1): []\n"
+        "\t\t(using v2): []\n"
     ));
 }

@@ -226,7 +226,7 @@ struct fmt::formatter<tmcppc::temperature::v1::temperature<Rep_>> {
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::temperature::v1::temperature<Rep_>& t, FormatContext& ctx) {
+    auto format(const tmcppc::temperature::v1::temperature<Rep_>& t, FormatContext& ctx) const -> decltype(ctx.out()) {
         const auto& s{ t.scale() };
         if (s == tmcppc::temperature::v1::scale::invalid) {
             return fmt::format_to(ctx.out(), "{}", to_string(s));

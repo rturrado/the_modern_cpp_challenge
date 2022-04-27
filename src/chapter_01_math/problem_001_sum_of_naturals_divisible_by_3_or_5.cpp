@@ -1,5 +1,5 @@
 #include "chapter_01_math/problem_001_sum_of_naturals_divisible_by_3_or_5.h"
-#include "rtc/console_read.h"  // read_positive_number
+#include "rtc/console.h"  // read_positive_number
 
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>

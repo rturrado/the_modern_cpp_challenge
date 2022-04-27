@@ -104,7 +104,6 @@ private:
         []() { problem_45_main(); },  // priority queue
         []() { problem_46_main(); },  // circular buffer
         []() { problem_47_main(); },  // double buffer
-/*
         []() { problem_48_main(); },  // most frequent element in a range
         []() { problem_49_main(); },  // text histogram
         []() { problem_50_main(); },  // filtering a list of phone numbers
@@ -121,6 +120,7 @@ private:
 
         // Concurrency
         //
+/*
         []() { problem_61_main(); },  // parallel transform algorithm
         []() { problem_62_main(); },  // parallel minmax with threads
         []() { problem_63_main(); },  // parallel minmax with async

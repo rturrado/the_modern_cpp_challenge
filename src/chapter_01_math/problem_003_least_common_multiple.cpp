@@ -1,5 +1,5 @@
 #include "chapter_01_math/problem_003_least_common_multiple.h"
-#include "rtc/console_read.h"  // read_list_of_positive_numbers
+#include "rtc/console.h"  // read_list_of_positive_numbers
 
 #include <algorithm>  // all_of, any_of, sort
 #include <fmt/ostream.h>

@@ -84,7 +84,7 @@ struct fmt::formatter<tmcppc::url> {
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::url& u, FormatContext& ctx) {
+    auto format(const tmcppc::url& u, FormatContext& ctx) const -> decltype(ctx.out()) {
         fmt::format_to(ctx.out(), "\tProtocol: {}\n", u.protocol_);
         if (u.login_.has_value()) {
             fmt::format_to(ctx.out(), "\tLogin: {}\n", u.login_.value());

@@ -177,7 +177,7 @@ struct fmt::formatter<tmcppc::circular_buffer<T>> {
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::circular_buffer<T>& cb, FormatContext& ctx) {
+    auto format(const tmcppc::circular_buffer<T>& cb, FormatContext& ctx) const -> decltype(ctx.out()) {
         return format_to(ctx.out(), "[{}]", fmt::join(cb.container_, ", "));
     }
 };

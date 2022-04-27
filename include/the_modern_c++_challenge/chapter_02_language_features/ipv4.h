@@ -151,7 +151,7 @@ struct fmt::formatter<tmcppc::ipv4> {
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::ipv4& address, FormatContext& ctx) {
+    auto format(const tmcppc::ipv4& address, FormatContext& ctx) const -> decltype(ctx.out()) {
         return fmt::format_to(ctx.out(), "{}.{}.{}.{}",
             address.octets_[0], address.octets_[1], address.octets_[2], address.octets_[3]);
     }

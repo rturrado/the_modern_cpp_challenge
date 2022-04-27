@@ -1,7 +1,9 @@
 #include "chapter_06_algorithms_and_data_structures/problem_050_filtering_a_list_of_phone_numbers.h"
-#include "rtc/print.h"
+#include "chapter_06_algorithms_and_data_structures/phone_numbers.h"
 
 #include <algorithm>  // copy_if
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <iterator>  // back_inserter
 #include <ostream>
@@ -9,28 +11,8 @@
 #include <string>  // stoi
 #include <vector>
 
-using phone_numbers = std::vector<std::string>;
 
-enum class country_code {
-    US = 1,
-    Spain = 34,
-    UK = 44
-};
-
-std::ostream& operator<<(std::ostream& os, const country_code& cc)
-{
-    switch (cc)
-    {
-        case country_code::US: os << "US"; break;
-        case country_code::Spain: os << "Spain"; break;
-        case country_code::UK: os << "UK"; break;
-        default: os << "Unknown country code"; break;
-    }
-    return os;
-}
-
-phone_numbers filter_phone_numbers_by_country_code(const phone_numbers& ph_nos, const country_code& cc)
-{
+phone_numbers filter_phone_numbers_by_country_code(const phone_numbers& ph_nos, const country_code& cc) {
     phone_numbers ret{};
     std::smatch matches{};
     // + is optional, country code should be followed by a 9-digit number
@@ -44,14 +26,8 @@ phone_numbers filter_phone_numbers_by_country_code(const phone_numbers& ph_nos, 
     return ret;
 }
 
-// Filtering a list of phone numbers
-//
-// Write a function that, given a list of phone numbers, returns only the numbers that are from a specified country.
-// The country is indicated by its phone country code, such as 44 for Great Britain.
-// Phone numbers may start with the country code, a + followed by the country code, or have no country code.
-// The ones from this last category must be ignored.
-void problem_50_main()
-{
+
+void problem_50_main(std::ostream& os) {
     const std::vector<std::string> phone_numbers{
         "555102030",
         "600111222",
@@ -64,11 +40,21 @@ void problem_50_main()
         "+44223344567"
     };
 
-    std::cout << "List of phone numbers:\n\t" << phone_numbers << "\n\n";
+    fmt::print(os, "List of phone numbers:\n\t{}\n\n", phone_numbers);
 
-    for (const country_code& cc : { country_code::US, country_code::Spain, country_code::UK })
-    {
-        std::cout << "Filtering numbers from: " << cc << "\n\t";
-        std::cout << filter_phone_numbers_by_country_code(phone_numbers, cc) << "\n\n";
+    for (const country_code& cc : { country_code::US, country_code::Spain, country_code::UK }) {
+        fmt::print(os, "Filtering numbers from: {}\n\t", cc);
+        fmt::print(os, "{}\n\n", filter_phone_numbers_by_country_code(phone_numbers, cc));
     }
+}
+
+
+// Filtering a list of phone numbers
+//
+// Write a function that, given a list of phone numbers, returns only the numbers that are from a specified country.
+// The country is indicated by its phone country code, such as 44 for Great Britain.
+// Phone numbers may start with the country code, a + followed by the country code, or have no country code.
+// The ones from this last category must be ignored.
+void problem_50_main() {
+    problem_50_main(std::cout);
 }
