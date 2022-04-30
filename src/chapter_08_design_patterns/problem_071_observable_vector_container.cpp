@@ -1,4 +1,5 @@
 #include "chapter_08_design_patterns/problem_071_observable_vector_container.h"
+
 #include "rtc/print.h"
 
 #include <algorithm>  // remove_if

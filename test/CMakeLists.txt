@@ -18,8 +18,8 @@ add_subdirectory(chapter_03_strings_and_regular_expressions)
 add_subdirectory(chapter_04_streams_and_filesystems)
 add_subdirectory(chapter_05_date_and_time)
 add_subdirectory(chapter_06_algorithms_and_data_structures)
-#[[
 add_subdirectory(chapter_07_concurrency)
+#[[
 add_subdirectory(chapter_08_design_patterns)
 ]]
 
@@ -32,8 +32,8 @@ set(test_sources
     ${chapter_04_test_sources}
     ${chapter_05_test_sources}
     ${chapter_06_test_sources}
-#[[
     ${chapter_07_test_sources}
+#[[
     ${chapter_08_test_sources}
 ]]
 )

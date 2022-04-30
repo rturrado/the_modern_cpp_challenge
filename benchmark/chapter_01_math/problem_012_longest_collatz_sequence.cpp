@@ -1,17 +1,17 @@
 #include "chapter_01_math/problem_012_longest_collatz_sequence.h"
+
 #include "rtc/timer.h"  // function_timer
 
 #include <benchmark/benchmark.h>  // google benchmark
 #include <chrono>  // duration, milli
 #include <fmt/ranges.h>
 
-constinit const size_t limit{ 1'000'000 };
 
+constinit const size_t limit{ 1'000'000 };
 
 // Custom benchmark
 //
-void cb_get_longest_collatz_sequence()
-{
+void cb_get_longest_collatz_sequence() {
     using namespace rtc::timer;
 
     fmt::print("[get_longest_collatz_sequence custom benchmark]\n\n");
@@ -26,20 +26,20 @@ void cb_get_longest_collatz_sequence()
         []() {
             get_longest_collatz_sequence_v2(limit);
         });
-    fmt::print("\tv2: {} ms\n", std::chrono::duration<double, std::milli>(t2).count());
+    fmt::print("\tv2: {} ms\n\n", std::chrono::duration<double, std::milli>(t2).count());
 }
 
 
 // Google benchmark
 //
 static void gb_get_longest_collatz_sequence_v1(benchmark::State& state) {
-    for (auto _ : state) {
+    while (state.KeepRunning()) {
         get_longest_collatz_sequence_v1(limit);
     }
 }
 
 static void gb_get_longest_collatz_sequence_v2(benchmark::State& state) {
-    for (auto _ : state) {
+    while (state.KeepRunning()) {
         get_longest_collatz_sequence_v2(limit);
     }
 }

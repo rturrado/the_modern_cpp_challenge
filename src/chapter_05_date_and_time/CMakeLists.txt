@@ -7,4 +7,3 @@ set(chapter_05_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_044_monthly_calendar.cpp"
     PARENT_SCOPE
 )
-

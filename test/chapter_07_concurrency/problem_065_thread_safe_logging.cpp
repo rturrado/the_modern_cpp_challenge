@@ -9,7 +9,7 @@
 TEST(problem_65_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_65_main(oss);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "blah"
-    ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("// This is 111\n"));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("!! 222 is here\n"));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("-- 333 THEY CALL ME\n"));
 }

@@ -1,4 +1,5 @@
 #include "chapter_01_math/problem_008_armstrong_numbers.h"
+
 #include "rtc/timer.h"  // function_timer
 
 #include <benchmark/benchmark.h>  // google benchmark
@@ -9,8 +10,7 @@
 
 // Custom benchmark
 //
-void cb_armstrong_numbers_up_to_a_limit()
-{
+void cb_armstrong_numbers_up_to_a_limit() {
     using namespace rtc::timer;
 
     fmt::print("[armstrong_numbers_up_to_a_limit custom benchmark]\n\n");
@@ -47,21 +47,21 @@ void cb_armstrong_numbers_up_to_a_limit()
 // Google benchmark
 //
 static void gb_armstrong_numbers_up_to_a_limit_v1(benchmark::State& state) {
-    for (auto _ : state) {
+    while (state.KeepRunning()) {
         auto ret{ armstrong_numbers_up_to_a_limit_v1(1000) };
         assert(ret.size() == 6);
     }
 }
 
 static void gb_armstrong_numbers_up_to_a_limit_v2(benchmark::State& state) {
-    for (auto _ : state) {
+    while (state.KeepRunning()) {
         auto ret{ armstrong_numbers_up_to_a_limit_v2(1000) };
         assert(ret.size() == 6);
     }
 }
 
 static void gb_armstrong_numbers_up_to_a_limit_v3(benchmark::State& state) {
-    for (auto _ : state) {
+    while (state.KeepRunning()) {
         auto ret{ armstrong_numbers_up_to_a_limit_v3(1000) };
         assert(ret.size() == 6);
     }

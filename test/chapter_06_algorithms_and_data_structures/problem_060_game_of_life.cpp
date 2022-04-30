@@ -7,7 +7,7 @@
 #include <sstream>  // ostringstream
 
 
-TEST(problem_60_main, output) {
+TEST(problem_60_main, DISABLED_output) {
     using namespace std::chrono_literals;
 
     std::ostringstream oss{};

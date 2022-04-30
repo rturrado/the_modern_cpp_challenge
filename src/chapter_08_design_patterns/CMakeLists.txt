@@ -7,4 +7,3 @@ set(chapter_08_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_072_computing_order_price_with_discounts.cpp"
     PARENT_SCOPE
 )
-

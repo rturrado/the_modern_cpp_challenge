@@ -1,4 +1,5 @@
 #include "chapter_08_design_patterns/problem_069_generating_social_security_numbers.h"
+
 #include "rtc/random.h"
 
 #include <algorithm>  // binary_search, sort

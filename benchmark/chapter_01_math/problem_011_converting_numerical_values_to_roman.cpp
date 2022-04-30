@@ -1,5 +1,6 @@
 #include "chapter_01_math/problem_011_converting_numerical_values_to_roman.h"
 #include "chapter_01_math/roman.h"
+
 #include "rtc/timer.h"  // function_timer
 
 #include <benchmark/benchmark.h>  // google benchmark
@@ -9,8 +10,7 @@
 
 // Custom benchmark
 //
-void cb_to_roman()
-{
+void cb_to_roman() {
     using namespace rtc::timer;
     using namespace tmcppc::date;
 
@@ -61,25 +61,25 @@ void cb_to_roman()
 // Google benchmark
 //
 static void gb_to_roman_v1(benchmark::State& state) {
-    for (auto _ : state) {
+    while (state.KeepRunning()) {
         tmcppc::date::to_roman_v1(1000);
     }
 }
 
 static void gb_to_roman_v2(benchmark::State& state) {
-    for (auto _ : state) {
+    while (state.KeepRunning()) {
         tmcppc::date::to_roman_v2(1000);
     }
 }
 
 static void gb_to_roman_v3(benchmark::State& state) {
-    for (auto _ : state) {
+    while (state.KeepRunning()) {
         tmcppc::date::to_roman_v3(1000);
     }
 }
 
 static void gb_to_roman_v4(benchmark::State& state) {
-    for (auto _ : state) {
+    while (state.KeepRunning()) {
         tmcppc::date::to_roman_v4(1000);
     }
 }

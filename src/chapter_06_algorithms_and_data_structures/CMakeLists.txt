@@ -17,4 +17,3 @@ set(chapter_06_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_060_game_of_life.cpp"
     PARENT_SCOPE
 )
-

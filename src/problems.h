@@ -6,8 +6,8 @@
 #include "chapter_04_streams_and_filesystems/problems.h"
 #include "chapter_05_date_and_time/problems.h"
 #include "chapter_06_algorithms_and_data_structures/problems.h"
-/*
 #include "chapter_07_concurrency/problems.h"
+/*
 #include "chapter_08_design_patterns/problems.h"
 #include "chapter_09_data_serialization/problems.h"
 #include "chapter_10_archives_images_and_databases/problems.h"
@@ -120,7 +120,6 @@ private:
 
         // Concurrency
         //
-/*
         []() { problem_61_main(); },  // parallel transform algorithm
         []() { problem_62_main(); },  // parallel minmax with threads
         []() { problem_63_main(); },  // parallel minmax with async
@@ -128,6 +127,7 @@ private:
         []() { problem_65_main(); },  // thread safe logging
         []() { problem_66_main(); },  // customer service system
 
+/*
         // Design patterns
         //
         []() { problem_67_main(); },  // validating passwords

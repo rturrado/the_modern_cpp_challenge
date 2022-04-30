@@ -13,7 +13,7 @@ FetchContent_Declare(range-v3
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "fb8c6d7274eb9b53efcd6f13b9c31a9b919b35bc"
+    GIT_TAG "4c7359fabf9bcb3d755742d015f02bef69276fc8"
 )
 FetchContent_MakeAvailable(fmt range-v3 rtc)
 
@@ -29,8 +29,8 @@ add_subdirectory(chapter_03_strings_and_regular_expressions)
 add_subdirectory(chapter_04_streams_and_filesystems)
 add_subdirectory(chapter_05_date_and_time)
 add_subdirectory(chapter_06_algorithms_and_data_structures)
-#[[
 add_subdirectory(chapter_07_concurrency)
+#[[
 add_subdirectory(chapter_08_design_patterns)
 ]]
 
@@ -47,8 +47,8 @@ set(lib_sources
     ${chapter_04_sources}
     ${chapter_05_sources}
     ${chapter_06_sources}
-#[[
     ${chapter_07_sources}
+#[[
     ${chapter_08_sources}
 ]]
 )
@@ -74,6 +74,24 @@ target_include_directories(lib_${PROJECT_NAME} PUBLIC
 set_target_properties(lib_${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME}-${PROJECT_VERSION})
 target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_23)
 target_link_libraries(lib_${PROJECT_NAME} fmt range-v3 rtc)
+
+
+# Target compile options
+if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+    if("${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC")
+        target_compile_options(${PROJECT_NAME} PRIVATE /WX /W3 /D _CRT_SECURE_NO_WARNINGS)
+        target_compile_options(lib_${PROJECT_NAME} PUBLIC /WX /W3 /D _CRT_SECURE_NO_WARNINGS)
+    else()
+        target_compile_options(${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
+        target_compile_options(lib_${PROJECT_NAME} PUBLIC -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
+    endif()
+elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    target_compile_options(${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
+    target_compile_options(lib_${PROJECT_NAME} PUBLIC -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
+elseif(MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE /WX /W3 /D _CRT_SECURE_NO_WARNINGS)
+    target_compile_options(lib_${PROJECT_NAME} PUBLIC /WX /W3 /D _CRT_SECURE_NO_WARNINGS)
+endif()
 
 
 # Resource dir

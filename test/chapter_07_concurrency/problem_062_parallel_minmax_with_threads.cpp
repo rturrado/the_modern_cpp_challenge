@@ -9,7 +9,14 @@
 TEST(problem_62_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_62_main(oss);
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex("v = \\[.*\\]\n\n"));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "blah"
+        "std::min_element(v) = -10\n"
+        "std::min_element(std::execution::par, v) = -10\n"
+        "parallel_min (using threads) = -10\n"
+        "\n"
+        "std::max_element(v) = 9\n"
+        "std::max_element(std::execution::par, v) = 9\n"
+        "parallel_max (using threads) = 9\n"
     ));
 }

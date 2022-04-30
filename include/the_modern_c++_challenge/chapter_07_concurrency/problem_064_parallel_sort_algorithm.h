@@ -1,5 +1,9 @@
 #pragma once
 
+#include "chapter_07_concurrency/quicksort.h"
+
+#include <algorithm>  // iter_swap
+#include <future>  // async
 #include <ostream>
 
 
