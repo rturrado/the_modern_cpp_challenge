@@ -4,6 +4,7 @@
 
 #include <benchmark/benchmark.h>  // google benchmark
 #include <chrono>  // duration, milli
+#include <fmt/chrono.h>
 #include <fmt/ranges.h>
 
 
@@ -20,13 +21,13 @@ void cb_get_longest_collatz_sequence() {
         []() {
             get_longest_collatz_sequence_v1(limit);
         });
-    fmt::print("\tv1: {} ms\n", std::chrono::duration<double, std::milli>(t1).count());
+    fmt::print("\tv1: {}\n", std::chrono::duration<double, std::milli>(t1));
 
     auto t2 = function_timer<>::duration(
         []() {
             get_longest_collatz_sequence_v2(limit);
         });
-    fmt::print("\tv2: {} ms\n\n", std::chrono::duration<double, std::milli>(t2).count());
+    fmt::print("\tv2: {}\n\n", std::chrono::duration<double, std::milli>(t2));
 }
 
 

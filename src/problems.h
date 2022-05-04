@@ -7,8 +7,8 @@
 #include "chapter_05_date_and_time/problems.h"
 #include "chapter_06_algorithms_and_data_structures/problems.h"
 #include "chapter_07_concurrency/problems.h"
-/*
 #include "chapter_08_design_patterns/problems.h"
+/*
 #include "chapter_09_data_serialization/problems.h"
 #include "chapter_10_archives_images_and_databases/problems.h"
 #include "chapter_11_cryptography/problems.h"
@@ -127,7 +127,6 @@ private:
         []() { problem_65_main(); },  // thread safe logging
         []() { problem_66_main(); },  // customer service system
 
-/*
         // Design patterns
         //
         []() { problem_67_main(); },  // validating passwords
@@ -137,6 +136,7 @@ private:
         []() { problem_71_main(); },  // observable vector container
         []() { problem_72_main(); },  // computing order price with discounts
 
+/*
         // Data serialization
         //
         []() { problem_73_main(); },  // 

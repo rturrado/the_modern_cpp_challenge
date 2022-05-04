@@ -45,7 +45,7 @@ void cb_parallel_binary_operation(F&& f, G&& g, H&& h, std::vector<std::string_v
                 f_ret = f(std::cbegin(v), std::cend(v));
             }
         ) };
-        fmt::print("\t{}, output = {}: {} ms\n", f_name, f_ret, std::chrono::duration<double, std::milli>(t).count());
+        fmt::print("\t{}, output = {}: {}\n", f_name, f_ret, std::chrono::duration<double, std::milli>(t));
     }
     // Parallel STL algorithm
     {
@@ -55,7 +55,7 @@ void cb_parallel_binary_operation(F&& f, G&& g, H&& h, std::vector<std::string_v
             }
         ) };
         assert(f_ret == g_ret);
-        fmt::print("\t{}(ex::par), output = {}: {} ms\n", g_name, g_ret, std::chrono::duration<double, std::milli>(t).count());
+        fmt::print("\t{}(ex::par), output = {}: {}\n", g_name, g_ret, std::chrono::duration<double, std::milli>(t));
     }
     // Custom parallel function
     fmt::print("\t{}:\n", h_name);
@@ -67,8 +67,8 @@ void cb_parallel_binary_operation(F&& f, G&& g, H&& h, std::vector<std::string_v
                 }
             ) };
             assert(f_ret == h_ret);
-            fmt::print("\t\tthread_pool_size = {:2}, block_size = {:6}, output = {}: {} ms\n",
-                thread_pool_size, block_size, h_ret, std::chrono::duration<double, std::milli>(t).count());
+            fmt::print("\t\tthread_pool_size = {:2}, block_size = {:6}, output = {}: {}\n",
+                thread_pool_size, block_size, h_ret, std::chrono::duration<double, std::milli>(t));
         }
     }
     fmt::print("\n");

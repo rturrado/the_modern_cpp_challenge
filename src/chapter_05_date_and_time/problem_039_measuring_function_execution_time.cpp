@@ -4,7 +4,8 @@
 #include <cassert>  // assert
 #include <chrono>
 #include <iostream>  // cout
-#include <format>
+#include <fmt/chrono.h>
+#include <fmt/ostream.h>
 #include <numeric>  // iota
 #include <random>  // mt19937, random_device
 #include <utility>  // forward, pair
@@ -41,16 +42,14 @@ void sort_shuffle_vector(size_t num_elems, size_t num_reps) {
 void problem_39_main(std::ostream& os) {
     namespace ch = std::chrono;
 
-    os << "Measuring times...\n";
+    fmt::print(os, "Measuring times...\n");
     using vector_of_elems_and_reps = std::vector<std::pair<size_t, size_t>>;
     for (const auto& [num_elems, num_reps] : vector_of_elems_and_reps{ {1'000'000, 1}, {1000, 1000} }) {
         auto duration_1{ measure_time<ch::milliseconds>(sort_iota_vector, num_elems, num_reps) };
         auto duration_2{ measure_time<ch::milliseconds>(sort_shuffle_vector, num_elems, num_reps) };
 
-        os << std::format("\tsort_iota_vector(num_elems = {}, num_reps = {}): {}\n", num_elems, num_reps, duration_1);
-        os << std::format("\tsort_shuffle_vector(num_elems = {}, num_reps = {}): {}\n", num_elems, num_reps, duration_2);
-
-        os << "\n";
+        fmt::print(os, "\tsort_iota_vector(num_elems = {}, num_reps = {}): {}\n", num_elems, num_reps, duration_1);
+        fmt::print(os, "\tsort_shuffle_vector(num_elems = {}, num_reps = {}): {}\n", num_elems, num_reps, duration_2);
     }
 }
 

@@ -6,6 +6,7 @@
 #include <algorithm>  // shuffle, sort
 #include <benchmark/benchmark.h>  // google benchmark
 #include <chrono>  // duration, milli
+#include <fmt/chrono.h>
 #include <fmt/ranges.h>
 #include <numeric>  // iota
 #include <random>  // default_random_engine, random_device
@@ -31,7 +32,7 @@ void cb_sort_algorithm() {
                     std::sort(std::begin(w), std::end(w));
                 })
             };
-            fmt::print("\tstd::sort: {} ms\n", std::chrono::duration<double, std::milli>(t).count());
+            fmt::print("\tstd::sort: {}\n", std::chrono::duration<double, std::milli>(t));
         }
         {
             auto w{ v };
@@ -40,7 +41,7 @@ void cb_sort_algorithm() {
                     quicksort(std::begin(w), std::end(w));
                 })
             };
-            fmt::print("\tquicksort: {} ms\n", std::chrono::duration<double, std::milli>(t).count());
+            fmt::print("\tquicksort: {}\n", std::chrono::duration<double, std::milli>(t));
         }
         {
             auto w{ v };
@@ -49,7 +50,7 @@ void cb_sort_algorithm() {
                     parallel_quicksort(std::begin(w), std::end(w));
                 })
             };
-            fmt::print("\tparallel_quicksort: {} ms\n", std::chrono::duration<double, std::milli>(t).count());
+            fmt::print("\tparallel_quicksort: {}\n", std::chrono::duration<double, std::milli>(t));
         }
     }
 }

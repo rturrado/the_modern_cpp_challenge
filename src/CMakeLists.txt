@@ -13,7 +13,7 @@ FetchContent_Declare(range-v3
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "4c7359fabf9bcb3d755742d015f02bef69276fc8"
+    GIT_TAG "3e7aa757466b550f54f643c8381f27d0da4a0505"
 )
 FetchContent_MakeAvailable(fmt range-v3 rtc)
 
@@ -30,9 +30,7 @@ add_subdirectory(chapter_04_streams_and_filesystems)
 add_subdirectory(chapter_05_date_and_time)
 add_subdirectory(chapter_06_algorithms_and_data_structures)
 add_subdirectory(chapter_07_concurrency)
-#[[
 add_subdirectory(chapter_08_design_patterns)
-]]
 
 
 # Sources
@@ -48,9 +46,7 @@ set(lib_sources
     ${chapter_05_sources}
     ${chapter_06_sources}
     ${chapter_07_sources}
-#[[
     ${chapter_08_sources}
-]]
 )
 list(APPEND app_sources ${lib_sources})
 

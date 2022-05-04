@@ -5,6 +5,7 @@
 #include <benchmark/benchmark.h>  // google benchmark
 #include <cassert>  // assert
 #include <chrono>  // duration, milli
+#include <fmt/chrono.h>
 #include <fmt/ranges.h>
 
 
@@ -22,7 +23,7 @@ void cb_armstrong_numbers_up_to_a_limit() {
                 assert(ret.size() == 6);
             }
         });
-    fmt::print("\tv1: {} ms\n", std::chrono::duration<double, std::milli>(t1).count());
+    fmt::print("\tv1: {}\n", std::chrono::duration<double, std::milli>(t1));
 
     auto t2 = function_timer<>::duration(
         []() {
@@ -31,7 +32,7 @@ void cb_armstrong_numbers_up_to_a_limit() {
                 assert(ret.size() == 6);
             }
         });
-    fmt::print("\tv2: {} ms\n", std::chrono::duration<double, std::milli>(t2).count());
+    fmt::print("\tv2: {}\n", std::chrono::duration<double, std::milli>(t2));
 
     auto t3 = function_timer<>::duration(
         []() {
@@ -40,7 +41,7 @@ void cb_armstrong_numbers_up_to_a_limit() {
                 assert(ret.size() == 6);
             }
         });
-    fmt::print("\tv3: {} ms\n\n", std::chrono::duration<double, std::milli>(t3).count());
+    fmt::print("\tv3: {}\n\n", std::chrono::duration<double, std::milli>(t3));
 }
 
 

@@ -4,6 +4,7 @@
 #include <benchmark/benchmark.h>
 #include <cstdint>  // int64_t
 #include <execution>
+#include <fmt/chrono.h>
 #include <fmt/core.h>
 
 using namespace tmcppc::parallel_minmax::thread;

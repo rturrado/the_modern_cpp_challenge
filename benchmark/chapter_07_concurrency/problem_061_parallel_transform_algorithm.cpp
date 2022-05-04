@@ -7,6 +7,7 @@
 #include <cassert>  // assert
 #include <chrono>
 #include <execution>  // par
+#include <fmt/chrono.h>
 #include <fmt/core.h>
 #include <numeric>  // iota
 #include <vector>
@@ -39,7 +40,7 @@ void cb_parallel_transform() {
                 std::transform(std::cbegin(v), std::cend(v), std::begin(v1), square);
             }
         ) };
-        fmt::print("\tstd::transform: {} ms\n", std::chrono::duration<double, std::milli>(t).count());
+        fmt::print("\tstd::transform: {}\n", std::chrono::duration<double, std::milli>(t));
     }
     // std::transform(std::execution::par)
     {
@@ -49,7 +50,7 @@ void cb_parallel_transform() {
             }
         ) };
         assert(v1 == v2);
-        fmt::print("\tstd::transform(ex::par): {} ms\n", std::chrono::duration<double, std::milli>(t).count());
+        fmt::print("\tstd::transform(ex::par): {}\n", std::chrono::duration<double, std::milli>(t));
     }
     // Parallel transform with different thread pool and block sizes
     fmt::print("\tparallel_transform:\n");
@@ -61,8 +62,8 @@ void cb_parallel_transform() {
                 }
             ) };
             assert(v1 == v3);
-            fmt::print("\t\tthread_pool_size = {:2}, block_size = {:6}: {} ms \n",
-                thread_pool_size, block_size, std::chrono::duration<double, std::milli>(t).count());
+            fmt::print("\t\tthread_pool_size = {:2}, block_size = {:6}: {}\n",
+                thread_pool_size, block_size, std::chrono::duration<double, std::milli>(t));
         }
     }
 

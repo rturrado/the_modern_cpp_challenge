@@ -5,6 +5,7 @@
 
 #include <benchmark/benchmark.h>  // google benchmark
 #include <chrono>  // duration, milli
+#include <fmt/chrono.h>
 #include <fmt/ranges.h>
 
 
@@ -24,7 +25,7 @@ void cb_to_roman() {
                 }
             }
         });
-    fmt::print("\tv1: {} ms\n", std::chrono::duration<double, std::milli>(t1).count());
+    fmt::print("\tv1: {}\n", std::chrono::duration<double, std::milli>(t1));
 
     auto t2 = function_timer<>::duration(
         []() {
@@ -34,7 +35,7 @@ void cb_to_roman() {
                 }
             }
         });
-    fmt::print("\tv2: {} ms\n", std::chrono::duration<double, std::milli>(t2).count());
+    fmt::print("\tv2: {}\n", std::chrono::duration<double, std::milli>(t2));
 
     auto t3 = function_timer<>::duration(
         []() {
@@ -44,7 +45,7 @@ void cb_to_roman() {
                 }
             }
         });
-    fmt::print("\tv3: {} ms\n", std::chrono::duration<double, std::milli>(t3).count());
+    fmt::print("\tv3: {}\n", std::chrono::duration<double, std::milli>(t3));
 
     auto t4 = function_timer<>::duration(
         []() {
@@ -54,7 +55,7 @@ void cb_to_roman() {
                 }
             }
         });
-    fmt::print("\tv4: {} ms\n\n", std::chrono::duration<double, std::milli>(t4).count());
+    fmt::print("\tv4: {}\n\n", std::chrono::duration<double, std::milli>(t4));
 }
 
 
