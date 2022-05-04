@@ -50,12 +50,12 @@ TEST(ipv4, DISABLED_equals) { EXPECT_EQ(tmcppc::ipv4{ "127.0.0.1" }, tmcppc::ipv
 TEST(ipv4_less_than, DISABLED_ok) { EXPECT_TRUE(tmcppc::ipv4{ "1.1.1.1" } < tmcppc::ipv4{ "1.2.1.1" }); }
 TEST(ipv4_less_than, DISABLED_error) { EXPECT_FALSE(tmcppc::ipv4{ "1.1.1.1" } < tmcppc::ipv4{ "1.1.1.1" }); }
 
-TEST(ipv4_operator_extraction, DISABLED_n_127_0_0_1) {
+TEST(ipv4_operator_insertion, DISABLED_n_127_0_0_1) {
     std::ostringstream oss{};
     oss << tmcppc::ipv4{ "127.0.0.1" };
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("127.0.0.1"));
 }
-TEST(ipv4_operator_insertion, DISABLED_n_127_0_0_1) {
+TEST(ipv4_operator_extraction, DISABLED_n_127_0_0_1) {
     std::istringstream iss{ "127.0.0.1" };
     tmcppc::ipv4 address{};
     iss >> address;

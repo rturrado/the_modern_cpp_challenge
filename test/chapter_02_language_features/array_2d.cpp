@@ -265,7 +265,7 @@ TEST(array_2d, DISABLED_get_column_widths) {
     EXPECT_THROW((void) ws.at(3), std::out_of_range);
 }
 
-TEST(array_2d, DISABLED_operator_extraction) {
+TEST(array_2d, DISABLED_operator_insertion) {
     const tmcppc::array_2d<std::string> arr{ { "En", "un", "lugar" }, { "de", "la", "Mancha" } };
     std::ostringstream oss{};
     oss << arr;

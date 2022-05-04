@@ -77,7 +77,7 @@ namespace tmcppc::temperature::v1 {
         enum class scale scale_{ scale::invalid };
     };
 
-    // Operator extraction
+    // Operator insertion
     //
     template <typename Rep_>
     std::ostream& operator<<(std::ostream& os, const temperature<Rep_>& t) {

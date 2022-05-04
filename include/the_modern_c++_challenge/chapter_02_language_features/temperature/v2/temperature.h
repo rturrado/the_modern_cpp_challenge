@@ -54,7 +54,7 @@ namespace tmcppc::temperature::v2 {
         Rep_ value_{ 0.f };
     };
 
-    // Operator extraction
+    // Operator insertion
     //
     template <typename Rep_>
     std::ostream& operator<<(std::ostream& os, const temperature<Rep_, scale::celsius>& t) {
