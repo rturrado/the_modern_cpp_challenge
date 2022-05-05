@@ -49,7 +49,7 @@ void problem_39_main(std::ostream& os) {
         auto duration_2{ measure_time<ch::milliseconds>(sort_shuffle_vector, num_elems, num_reps) };
 
         fmt::print(os, "\tsort_iota_vector(num_elems = {}, num_reps = {}): {}\n", num_elems, num_reps, duration_1);
-        fmt::print(os, "\tsort_shuffle_vector(num_elems = {}, num_reps = {}): {}\n", num_elems, num_reps, duration_2);
+        fmt::print(os, "\tsort_shuffle_vector(num_elems = {}, num_reps = {}): {}\n\n", num_elems, num_reps, duration_2);
     }
 }
 
