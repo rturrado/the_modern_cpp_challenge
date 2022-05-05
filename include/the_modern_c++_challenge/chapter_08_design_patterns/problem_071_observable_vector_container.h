@@ -10,6 +10,8 @@
 #include <numeric>  // accumulate
 #include <ostream>
 #include <string>
+#include <string_view>
+#include <type_traits>  // is_convertible_v
 #include <utility>  // forward, move
 #include <vector>
 
@@ -25,9 +27,9 @@ inline std::ostream& operator<<(std::ostream& os, const notification_type& nt) {
     return os;
 }
 
-template<>
+template <>
 struct fmt::formatter<notification_type> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
@@ -74,9 +76,9 @@ inline std::ostream& operator<<(std::ostream& os, const notification& n) {
     return os;
 }
 
-template<>
+template <>
 struct fmt::formatter<notification> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
@@ -84,7 +86,7 @@ struct fmt::formatter<notification> {
     template <typename FormatContext>
     auto format(const notification& n, FormatContext& ctx) const -> decltype(ctx.out()) {
         notification_type n_type{ n.get_type() };
-        return fmt::format_to(ctx.out(), "< id : {}, type : {}({})>",
+        return fmt::format_to(ctx.out(), "<id : {}, type : {}({})>",
             n.get_id(),
             n_type,
             (n_type == notification_type::push_back or n_type == notification_type::pop_back)
@@ -293,7 +295,10 @@ public:
     constexpr const_iterator end() const noexcept { return v_.end(); }
     constexpr const_iterator cend() const noexcept { return v_.cend(); }
 
-    friend std::ostream& operator<<(std::ostream& os, const observable_vector<T>& v) { return os << v.v_; }
+    friend std::ostream& operator<<(std::ostream& os, const observable_vector<T>& v) {
+        fmt::print(os, v);
+        return os;
+    }
 
 private:
     friend struct fmt::formatter<observable_vector>;
@@ -322,7 +327,7 @@ struct fmt::is_range<observable_vector<T>, char> : std::false_type {};
 
 template <typename T>
 struct fmt::formatter<observable_vector<T>> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
@@ -330,6 +335,27 @@ struct fmt::formatter<observable_vector<T>> {
     template <typename FormatContext>
     auto format(const observable_vector<T>& v, FormatContext& ctx) const -> decltype(ctx.out()) {
         return fmt::format_to(ctx.out(), "{}", v.v_);
+    }
+};
+
+
+template <typename T>
+requires std::is_convertible_v<std::vector<T>, std::string_view>
+struct fmt::formatter<observable_vector<T>> {
+    template <typename ParseContext>
+    constexpr auto parse(ParseContext& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const observable_vector<T>& v, FormatContext& ctx) const -> decltype(ctx.out()) {
+        fmt::format_to(ctx.out(), "[");
+        bool first{ true };
+        for (auto&& c : v.v_) {
+            fmt::format_to(ctx.out(), "{}'{}'", first ? "" : ", ", c);
+            first = false;
+        }
+        return fmt::format_to(ctx.out(), "]");
     }
 };
 

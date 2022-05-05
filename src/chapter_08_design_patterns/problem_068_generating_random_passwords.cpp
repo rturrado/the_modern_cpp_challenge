@@ -7,14 +7,14 @@
 
 
 void problem_68_main(std::ostream& os) {
-    auto g{ std::make_unique<composite_password_generator>() }; std::cout << "Creating a password ";
+    auto g{ std::make_unique<composite_password_generator>() };
 
-    g->add_generator(std::make_unique<symbol_generator>(2)); std::cout << "with 2 symbols, ";
-    g->add_generator(std::make_unique<contains_generator<digit_range>>(2)); std::cout << "2 digits, ";
-    g->add_generator(std::make_unique<contains_generator<lowercase_range>>(2)); std::cout << "2 lowercase letters, ";
-    g->add_generator(std::make_unique<contains_generator<uppercase_range>>(2)); std::cout << "and 2 uppercase letters: ";
+    g->add_generator(std::make_unique<symbol_generator>(2));
+    g->add_generator(std::make_unique<contains_generator<digit_range>>(2));
+    g->add_generator(std::make_unique<contains_generator<lowercase_range>>(2));
+    g->add_generator(std::make_unique<contains_generator<uppercase_range>>(2));
 
-   fmt::print(os, "{}\n\n", g->generate());
+    fmt::print(os, "Creating a password with 2 symbols, 2 digits, 2 lowercase letters, and 2 uppercase letters: {}\n\n", g->generate());
 }
 
 

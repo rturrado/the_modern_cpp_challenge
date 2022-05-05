@@ -220,7 +220,7 @@ namespace tmcppc::temperature::v1 {
 
 template <typename Rep_>
 struct fmt::formatter<tmcppc::temperature::v1::temperature<Rep_>> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }

@@ -1,6 +1,7 @@
 #include "chapter_08_design_patterns/problem_071_observable_vector_container.h"
 
 #include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <initializer_list>
 #include <iostream>  // cout
 #include <memory>  // make_shared
@@ -42,7 +43,7 @@ void problem_71_main(std::ostream& os) {
     sp_ov_4->attach(sp_co_4);
 
     // Test operations and notifications
-    fmt::print(os, "Pushing back on ov_0:\n");
+    fmt::print(os, "Pushing back to ov_0:\n");
     sp_ov_0->push_back("Tush! Never tell me;");
     sp_ov_0->push_back("I take it much unkindly.");
     fmt::print(os, "\n");
@@ -50,12 +51,14 @@ void problem_71_main(std::ostream& os) {
     fmt::print(os, "Copy assigning from ov_3:\n");
     observable_vector<char> ov_char{};  // copy operations don't copy the list of observers
     ov_char = *sp_ov_3;
+    fmt::print(os, "Popping back from the copied-to vector:\n");
     ov_char.pop_back();
     fmt::print(os, "\n");
 
     fmt::print(os, "Move assigning from ov_1:\n");
     observable_vector<float> ov_float{};  // move operations don't copy the list of observers
     ov_float = std::move(*sp_ov_1);
+    fmt::print(os, "Pushing back to the moved-to vector:\n");
     ov_float.push_back(3.14f);
     fmt::print(os, "\n");
 
@@ -67,8 +70,9 @@ void problem_71_main(std::ostream& os) {
     *sp_ov_4 = observable_vector<int>(std::initializer_list<int>{ 1, 1, 2, 3, 5 });
     fmt::print(os, "\n");
 
-    fmt::print(os, "Detaching from ov_1:\n");
+    fmt::print(os, "Detaching from ov_0:\n");
     sp_ov_0->detach(sp_co_0);
+    fmt::print(os, "Pushing back to ov_0:\n");
     sp_ov_0->push_back("That thou, Iago, who hast had my purse.");
     fmt::print(os, "\n");
 }

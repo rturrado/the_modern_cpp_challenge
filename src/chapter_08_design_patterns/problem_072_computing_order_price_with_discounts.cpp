@@ -32,7 +32,9 @@ void problem_72_main(std::ostream& os) {
     store.articles.push_back(a4);
     store.articles.push_back(a5);
 
-    std::cout << store << "\n\n";
+    fmt::print(os, "Store:\n");
+    store.print(os, indentation{ 1 });
+    fmt::print(os, "\n\n");
 
     // Customers
     auto c1{ std::make_shared<customer>(0, std::vector<std::shared_ptr<discount>>{}) };
@@ -59,8 +61,12 @@ void problem_72_main(std::ostream& os) {
         std::vector<std::shared_ptr<discount>>{ d4 }
     };
 
-    fmt::print(os, "{}\n\n", o1);
-    fmt::print(os, "{}\n\n", o2);
+    fmt::print(os, "Order 1:\n");
+    o1.print(os, indentation{ 1 });
+    fmt::print(os, "\n\n");
+    fmt::print(os, "Order 2:\n");
+    o2.print(os, indentation{ 1 });
+    fmt::print(os, "\n\n");
 
     auto equal = [](float a, float b) {
         return (std::abs(a - b) < std::numeric_limits<float>::epsilon());
@@ -70,17 +76,20 @@ void problem_72_main(std::ostream& os) {
     cumulative_price_calculator cpc{};
     non_cumulative_price_calculator ncpc{};
 
-    auto cp1{ cpc.calculate(o1) }; fmt::print(os, "Cumulative price for order 1: {}\n", cp1);
-    auto cp2{ cpc.calculate(o2) }; fmt::print(os, "Cumulative price for order 2: {}\n", cp2);
-    auto ncp1{ ncpc.calculate(o1) }; fmt::print(os, "Non cumulative price for order 1: {}\n", ncp1);
-    auto ncp2{ ncpc.calculate(o2) }; fmt::print(os, "Non cumulative price for order 2: {}\n", ncp2);
+    auto cp1{ cpc.calculate(o1) };
+    auto cp2{ cpc.calculate(o2) };
+    auto ncp1{ ncpc.calculate(o1) };
+    auto ncp2{ ncpc.calculate(o2) };
 
     assert(equal(cp1, 37.4f) and "Error: calculating cumulative price for order 1");
     assert(equal(cp2, 99.36f) and "Error: calculating cumulative price for order 2");
     assert(equal(ncp1, 37.4f) and "Error: calculating non cumulative price for order 1");
     assert(equal(ncp2, 108.0f) and "Error: calculating non cumulative price for order 2");
 
-    fmt::print(os, "\n");
+    fmt::print(os, "Cumulative price for order 1: {}\n", cp1);
+    fmt::print(os, "Cumulative price for order 2: {}\n", cp2);
+    fmt::print(os, "Non cumulative price for order 1: {}\n", ncp1);
+    fmt::print(os, "Non cumulative price for order 2: {}\n\n", ncp2);
 }
 
 

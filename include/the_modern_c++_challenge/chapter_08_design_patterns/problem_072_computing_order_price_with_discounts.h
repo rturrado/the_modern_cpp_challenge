@@ -26,9 +26,9 @@ inline std::ostream& operator<<(std::ostream& os, const discount& d) {
     return os;
 }
 
-template<>
+template <>
 struct fmt::formatter<discount> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
@@ -179,9 +179,9 @@ inline std::ostream& operator<<(std::ostream& os, const article& a) {
     return os;
 }
 
-template<>
+template <>
 struct fmt::formatter<article> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
@@ -224,9 +224,9 @@ inline std::ostream& operator<<(std::ostream& os, const store& s) {
     return os;
 }
 
-template<>
+template <>
 struct fmt::formatter<store> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
@@ -259,9 +259,9 @@ inline std::ostream& operator<<(std::ostream& os, const customer& c) {
     return os;
 }
 
-template<>
+template <>
 struct fmt::formatter<customer> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
@@ -297,9 +297,9 @@ inline std::ostream& operator<<(std::ostream& os, const order_line& order_line) 
     return os;
 }
 
-template<>
+template <>
 struct fmt::formatter<order_line> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
@@ -357,9 +357,9 @@ inline std::ostream& operator<<(std::ostream& os, const order& order) {
     return os;
 }
 
-template<>
+template <>
 struct fmt::formatter<order> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }

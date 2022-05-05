@@ -17,7 +17,7 @@ struct element_count {
     size_t count{};
 };
 
-template<typename T>
+template <typename T>
 std::ostream& operator<<(std::ostream& os, const element_count<T>& ec) {
     fmt::print(os, "{}", ec);
     return os;
@@ -25,7 +25,7 @@ std::ostream& operator<<(std::ostream& os, const element_count<T>& ec) {
 
 template <typename T>
 struct fmt::formatter<element_count<T>> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }

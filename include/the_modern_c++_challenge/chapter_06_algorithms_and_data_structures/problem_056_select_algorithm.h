@@ -25,7 +25,7 @@ inline std::ostream& operator<<(std::ostream& os, const book& b) {
 
 template <>
 struct fmt::formatter<book> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }

@@ -171,7 +171,7 @@ struct fmt::is_range<tmcppc::circular_buffer<T>, char> : std::false_type {};
 
 template <typename T>
 struct fmt::formatter<tmcppc::circular_buffer<T>> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }

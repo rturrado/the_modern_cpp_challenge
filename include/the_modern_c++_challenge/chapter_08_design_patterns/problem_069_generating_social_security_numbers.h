@@ -26,9 +26,9 @@ inline std::ostream& operator<<(std::ostream& os, const sex& s) {
     return os;
 }
 
-template<>
+template <>
 struct fmt::formatter<sex> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
@@ -50,9 +50,9 @@ inline std::ostream& operator<<(std::ostream& os, const person& p) {
     return os;
 }
 
-template<>
+template <>
 struct fmt::formatter<person> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }

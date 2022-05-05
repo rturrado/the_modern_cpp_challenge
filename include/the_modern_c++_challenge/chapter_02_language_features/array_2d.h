@@ -290,7 +290,7 @@ struct fmt::is_range<tmcppc::array_2d<T>, char> : std::false_type {};
 
 template <tmcppc::printable T>
 struct fmt::formatter<tmcppc::array_2d<T>> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }

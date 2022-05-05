@@ -61,7 +61,7 @@ void problem_67_main(std::ostream& os) {
             contains_lowercase_validator.set_next(&contains_uppercase_validator);
 
             if (auto error{ validator.validate(pw) }) {
-                fmt::print("\t'{}' is not valid: {}.\n", pw, error.value());
+                fmt::print(os, "\t'{}' is not valid: {}.\n", pw, error.value());
             }
             else {
                 fmt::print(os, "\t'{}' is a valid password.\n", pw);
@@ -95,7 +95,7 @@ void problem_67_main(std::ostream& os) {
                 : validate_error_message{ "password has to contain at least one 'uppercase'" };
         };
 
-        std::cout << "v2:\n";
+        fmt::print(os, "v2:\n");
         for (auto&& pw : { "hola"sv, "holaquetal"sv, "holaqueta!"sv, "h0laqueta!"sv, "H0LAQUETA!"sv, "h0laQueTa!"sv }) {
             auto validator(
                 std::make_unique<minimum_length_validator>(8,

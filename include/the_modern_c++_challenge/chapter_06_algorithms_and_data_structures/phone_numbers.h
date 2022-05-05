@@ -23,7 +23,7 @@ inline std::ostream& operator<<(std::ostream& os, const country_code& cc)
 
 template <>
 struct fmt::formatter<country_code> {
-    template<typename ParseContext>
+    template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
