@@ -57,9 +57,11 @@ Release builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON` 
 
 ### Run
 ```bash
-cd build\src\Release
-.\the_modern_c++_challenge.exe
+cd build\src
+.\Release\the_modern_c++_challenge.exe
 ```
+
+Notice some problems use the `res` folder within `build\src`, and expect the main binary to be executed from that directory.
 
 ### Tests
 ```bash
@@ -78,9 +80,11 @@ ctest -C Debug --output-on-failure --progress
 Or:
 
 ```bash
-cd build\test\Debug
-.\the_modern_c++_challenge_test.exe --gtest_brief=1
+cd build\test
+.\Debug\the_modern_c++_challenge_test.exe --gtest_brief=1
 ```
+
+Notice some problems use the `res` folder within `build\test`, and expect the test binary to be executed from that directory.
 
 ### Benchmarks
 ```bash
