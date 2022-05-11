@@ -10,7 +10,7 @@
 #include <vector>
 
 
-namespace tmcppc::parallel_transform {
+namespace tmcppc::algorithm {
     static const size_t THREAD_POOL_SIZE_DEFAULT{ std::thread::hardware_concurrency() };
     static const size_t THREAD_POOL_SIZE_MAX{ static_cast<size_t>(std::thread::hardware_concurrency()) * 2 };
     static const size_t BLOCK_SIZE_DEFAULT{ 10'000 };
@@ -60,7 +60,7 @@ namespace tmcppc::parallel_transform {
             future.get();
         }
     }
-}  // namespace tmcppc::parallel_transform
+}  // namespace tmcppc::algorithm
 
 
 void problem_61_main(std::ostream& os);

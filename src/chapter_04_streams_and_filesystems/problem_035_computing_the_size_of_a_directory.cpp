@@ -3,8 +3,6 @@
 #include <cstdint>  // uintmax_t
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <iomanip>  // setprecision
-#include <ios>  // fixed
 #include <iostream>  // cout
 #include <ostream>
 #include <sstream>  // ostringstream
@@ -40,7 +38,7 @@ std::string directory_size_in_bytes_to_string(uintmax_t n) {
     std::ostringstream oss{};
     for (auto& unit : { "b", "KB", "MB", "GB" }) {
         if (d < 1024 or unit == "GB") {
-            oss << std::fixed << std::setprecision(2) << d << " " << unit;
+            fmt::print(oss, "{:.2f} {}", d, unit);
             break;
         }
         d /= 1024;

@@ -5,12 +5,10 @@
 #include <vector>
 
 void problem_62_main(std::ostream& os) {
-    using namespace tmcppc::parallel_minmax::thread;
-
     parallel_minmax(
         os,
-        [](auto first, auto last) { return parallel_min(first, last); },
-        [](auto first, auto last) { return parallel_max(first, last); }
+        [](auto first, auto last) { return tmcppc::algorithm::thread::parallel_min(first, last); },
+        [](auto first, auto last) { return tmcppc::algorithm::thread::parallel_max(first, last); }
     );
 }
 

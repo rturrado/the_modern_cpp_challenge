@@ -1,8 +1,7 @@
 #pragma once
 
 #include <algorithm>  // for_each
-#include <iomanip>  // setfill, setw
-#include <ios>  // dec, hex
+#include <fmt/ostream.h>
 #include <ostream>
 #include <sstream>  // ostringstream
 #include <string>
@@ -10,12 +9,12 @@
 
 
 template <typename Container>
-std::string to_string(const Container& container)
-    requires (std::is_same_v<typename Container::value_type, uint8_t>)
-{
+requires (std::is_same_v<typename Container::value_type, uint8_t>)
+std::string to_string(const Container& container) {
     std::ostringstream oss{};
     std::for_each(cbegin(container), cend(container), [&oss](auto c) {
-        oss << std::hex << std::setw(2) << std::setfill('0') << static_cast<uint16_t>(c) << std::dec; });
+        fmt::print(oss, "{:02x}", static_cast<uint16_t>(c));
+    });
     return oss.str();
 }
 

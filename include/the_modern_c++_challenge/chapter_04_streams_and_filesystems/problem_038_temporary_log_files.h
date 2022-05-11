@@ -7,7 +7,7 @@
 #include <ostream>
 
 
-namespace rtc::logger {
+namespace tmcppc::logging::v1 {
     namespace {
         namespace fs = std::filesystem;
         namespace uuids = boost::uuids;
@@ -71,7 +71,8 @@ namespace rtc::logger {
             fs::remove(file_path_);
         }
     };
-}
+}  // namespace tmcppc::logging::v1
+
 
 void problem_38_main(std::ostream& os);
 void problem_38_main();

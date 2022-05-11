@@ -23,12 +23,12 @@ void problem_64_main(std::ostream& os) {
     }
     {
         auto w{ v };
-        quicksort(std::begin(w), std::end(w));
+        tmcppc::algorithm::quicksort(std::begin(w), std::end(w));
         fmt::print(os, "quicksort(v); v = {}\n", w);
     }
     {
         auto w{ v };
-        parallel_quicksort(std::begin(w), std::end(w));
+        tmcppc::algorithm::parallel_quicksort(std::begin(w), std::end(w));
         fmt::print(os, "parallel_quicksort; v = {}\n\n", w);
     }
 }

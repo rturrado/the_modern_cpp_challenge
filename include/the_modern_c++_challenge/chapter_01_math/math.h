@@ -5,12 +5,10 @@
 #include <vector>
 
 
-namespace tmcppc::math
-{
+namespace tmcppc::math {
     // Check if a number is prime or not
     template <typename T>
-    bool is_prime(const T n)
-    {
+    bool is_prime(const T n) {
         for (T i = 2; i < n; ++i) {
             if (n % i == 0) {
                 return false;
@@ -22,8 +20,7 @@ namespace tmcppc::math
 
     // Return the list of prime factors of a given number
     template <typename T>
-    auto prime_factors(T n)
-    {
+    auto prime_factors(T n) {
         std::vector<T> ret{ 1 };
         while (n > 1) {
             T i = 2;
@@ -41,8 +38,7 @@ namespace tmcppc::math
 
     // Return the list of divisors of a given number
     template <typename T>
-    auto divisors(const T n)
-    {
+    auto divisors(const T n) {
         std::vector<T> ret{ 1 };
         for (T i = 2; i <= std::sqrt(n); ++i) {
             if (n % i == 0) {
@@ -60,8 +56,7 @@ namespace tmcppc::math
 
     // Return the sum of the divisors of a given number
     template <typename T>
-    T divisors_sum(const T n)
-    {
+    T divisors_sum(const T n) {
         T ret{ 1 };
         for (T i = 2; i <= std::sqrt(n); ++i) {
             if (n % i == 0) {
@@ -80,22 +75,19 @@ namespace tmcppc::math::tmp
     // <--- std::sqrt is not constexpr
 
     template <size_t N, size_t I>
-    struct divisors_sum_helper
-    {
+    struct divisors_sum_helper {
     public:
         static constexpr size_t value = ((N % I == 0) ? I : 0) + divisors_sum_helper<N, I - 1>::value;
     };
     template <size_t N>
-    struct divisors_sum_helper<N, 1>
-    {
+    struct divisors_sum_helper<N, 1> {
         static constexpr size_t value = 1;
     };
     template <size_t N>
     struct divisors_sum : divisors_sum_helper<N, N / 2> {};
 
     template <size_t N>
-    struct amicable
-    {
+    struct amicable {
     private:
         static constexpr size_t m = divisors_sum<N>::value;
         static constexpr size_t p = divisors_sum<m>::value;

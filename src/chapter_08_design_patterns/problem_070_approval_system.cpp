@@ -7,6 +7,8 @@
 #include <memory>  // make_shared, make_unique
 #include <ostream>
 
+using namespace tmcppc::company;
+
 
 void test_approve_expense(std::ostream& os, std::shared_ptr<employee> employee) {
     for (auto [expense_value, expense_description] : std::initializer_list<std::pair<double, std::string>>{

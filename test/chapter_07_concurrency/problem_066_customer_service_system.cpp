@@ -8,16 +8,13 @@
 
 
 TEST(problem_66_main, DISABLED_output) {
-    auto& office{ office::get_instance() };
-    auto number_of_customers{ office.get_number_of_customers() };
-    auto number_of_desks{ office.get_number_of_desks() };
     std::ostringstream oss{};
     problem_66_main(oss);
-    for (auto i{ 1 }; i <= number_of_desks; ++i) {
+    for (auto i{ 1 }; i <= office::get_instance().get_number_of_desks(); ++i) {
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Desk {}: started\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Desk {}: finished\n", i)));
     }
-    for (auto i{ 1 }; i <= number_of_customers; ++i) {
+    for (auto i{ 1 }; i <= office::get_instance().get_number_of_customers(); ++i) {
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: started\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: got to the office\n", i)));
         EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Customer {}: got ticket number \\d\n", i)));

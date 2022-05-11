@@ -16,5 +16,3 @@ TEST(problem_35_main, DISABLED_output) {
         ".*res/sample_subfolder \\(following symlinks\\): 255.68 KB\n"
     ));
 }
-
-

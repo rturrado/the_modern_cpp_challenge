@@ -11,6 +11,9 @@
 #include <string>  // stoi
 #include <vector>
 
+using phone_numbers = tmcppc::phone_numbers;
+using country_code = tmcppc::country_code;
+
 
 phone_numbers filter_phone_numbers_by_country_code(const phone_numbers& ph_nos, const country_code& cc) {
     phone_numbers ret{};

@@ -19,7 +19,7 @@ TEST(problem_21_main, DISABLED_output) {
         "Opened: .*res/sample_file.txt"
     ));
     EXPECT_THAT(oss_str, ::testing::HasSubstr(
-        "Read 1024 from file\n"
+        "Read 1024 bytes from file\n"
         "Error: I'm a throwing function!\n"
     ));
 #endif

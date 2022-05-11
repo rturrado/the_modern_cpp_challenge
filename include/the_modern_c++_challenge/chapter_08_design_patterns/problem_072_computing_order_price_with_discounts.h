@@ -65,7 +65,8 @@ inline void print(std::ostream& os, const std::vector<std::shared_ptr<discount>>
 //
 struct article_fixed_discount : public discount {
     explicit article_fixed_discount(float p)
-        : percentage_{ p } {}
+        : percentage_{ p }
+    {}
 
     [[nodiscard]] virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
         fmt::print(os, "{}article_fixed_discount(percentage : {})", indentation, percentage_);

@@ -26,7 +26,7 @@ using validate_return_type = std::optional<validate_error_message>;
 //   - has to create the validators separately, then
 //   - chain them using the 'set_next' base class method (passing the address of each validator as argument), and, finally,
 //   - call 'validate' on the first of them
-namespace password_strength_validator_v1 {
+namespace tmcppc::password_strength_validator::v1 {
     class password_strength_validator {
     public:
         [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept = 0;
@@ -80,7 +80,7 @@ namespace password_strength_validator_v1 {
         Predicate pred_{};
         std::string error_message_{};
     };
-}  // namespace password_strength_validator_v1
+}  // namespace tmcppc::password_strength_validator::v1
 
 
 // This solution is a variant on the previous one, and a bit more similar to the book's solution
@@ -97,7 +97,7 @@ namespace password_strength_validator_v1 {
 // The client:
 //   - creates all the validators on the go, chaining them via their constructors, and
 //   - calls 'validate' on the outermost one
-namespace password_strength_validator_v2 {
+namespace tmcppc::password_strength_validator::v2 {
     class password_strength_validator     {
     public:
         [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept = 0;
@@ -156,7 +156,7 @@ namespace password_strength_validator_v2 {
     private:
         ContainsOrErrorF contains_or_error_f_{};
     };
-}  // namespace password_strength_validator_v2
+}  // namespace tmcppc::password_strength_validator::v2
 
 
 void problem_67_main(std::ostream& os);

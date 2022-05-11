@@ -2,7 +2,7 @@
 
 #include "rtc/console.h"
 
-#include <fmt/format.h>
+#include <fmt/core.h>
 #include <iostream>  // cout
 
 
@@ -16,7 +16,7 @@ int main()
             1, problems.size())};
         auto n{ rtc::console::read_positive_number(message, 1, static_cast<int>(problems.size() + 1)) };
 
-        std::cout << "\n[PROBLEM " << n << "]\n";
+        fmt::print("\n[PROBLEM {}]\n", n);
         problems.execute(n);
     }
 }

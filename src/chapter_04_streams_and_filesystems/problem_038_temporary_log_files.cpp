@@ -3,7 +3,6 @@
 #include <exception>
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <ios>  // ios_base
 #include <iostream>  // cout
 #include <ostream>
 #include <stdexcept>  // runtime_error
@@ -12,7 +11,7 @@
 
 
 void problem_38_main(std::ostream& os) {
-    using namespace rtc::logger;
+    using namespace tmcppc::logging::v1;
     using namespace std::string_view_literals;
 
     try {

@@ -10,10 +10,10 @@
 #include <string>  // string_literals, to_string
 #include <vector>
 
+using namespace tmcppc::process;
 
-void print_process_infos(std::ostream& os, std::vector<rtc::process::info>& infos) {
-    using namespace rtc::process;
 
+void print_process_infos(std::ostream& os, std::vector<info>& infos) {
     auto id_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
         [](auto total_max, const auto& info) {
             total_max = std::max(total_max, std::to_string(info.id()).size());
@@ -61,7 +61,6 @@ void print_process_infos(std::ostream& os, std::vector<rtc::process::info>& info
 
 void problem_33_main(std::ostream& os) {
     using namespace std::string_literals;
-    using namespace rtc::process;
 
     std::vector<info> infos{
        { 512, "cmd.exe"s, status_t::running, "SYSTEM"s, 148293, platform_t::x64 },

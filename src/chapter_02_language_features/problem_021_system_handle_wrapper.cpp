@@ -4,6 +4,7 @@
 #include <cassert>  // assert
 #include <iostream>  // cout
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <vector>
 #include <stdexcept>  // runtime_error
 
@@ -35,10 +36,10 @@ void test_unique_hdl(std::wostream& wos) {
     )};
 
     if (!file_hdl) {
-        wos << L"Error " << GetLastError() << ": in unique_hdl constructor\n";
+        fmt::print(wos, L"Error in unique_hdl constructor: {}\n", GetLastError());
         return;
     }
-    wos << L"Opened: " << file_path.generic_wstring() << L"\n";
+    fmt::print(wos, L"Opened: {}\n", file_path.generic_wstring());
 
     auto another_file_hdl{ std::move(file_hdl) };
     assert(another_file_hdl and another_file_hdl.get());
@@ -51,15 +52,15 @@ void test_unique_hdl(std::wostream& wos) {
             static_cast<DWORD>(buffer.size()),
             &bytesRead,
             nullptr)) {
-        wos << "Error " << GetLastError() << ": in ReadFile\n";
+        fmt::print(wos, L"Error in ReadFile: {}\n", GetLastError());
     }
     else {
-        wos << "Read " << bytesRead << " from file\n";
+        fmt::print(wos, L"Read {} bytes from file\n", bytesRead);
     }
 
     function_that_throws();
 #else
-    os << "Error: Unimplemented.\n";
+    fmt::print(wos, L"Error: Unimplemented.\n");
 #endif  // _WIN32
 }
 
@@ -75,9 +76,9 @@ void problem_21_main(std::wostream& wos) {
         test_unique_hdl(wos);
     }
     catch (const std::runtime_error& ex) {
-        wos << "Error: " << ex.what();
+        wos << L"Error: " << ex.what() << L"\n";
     }
-    std::cout << "\n";
+    fmt::print(wos, L"\n");
 }
 
 void problem_21_main() {

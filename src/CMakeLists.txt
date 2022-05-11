@@ -7,18 +7,32 @@ FetchContent_Declare(fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
     GIT_TAG "7ffe87c0bc8e69cd38941b92c0b33ab2e5cf3c57"
 )
+FetchContent_Declare(nlohmann-json
+    URL https://github.com/nlohmann/json/releases/download/v3.10.5/json.tar.xz
+)
+FetchContent_Declare(PDF-Writer
+    GIT_REPOSITORY https://github.com/galkahana/PDF-Writer
+    GIT_TAG "52300156971d4f02e698b17ddb2815f8b2414599"
+)
+FetchContent_Declare(pugixml
+    GIT_REPOSITORY https://github.com/zeux/pugixml
+    GIT_TAG "363ebdde91214e456943822ddf422860af8bb54d"
+)
 FetchContent_Declare(range-v3
     GIT_REPOSITORY https://github.com/ericniebler/range-v3.git
     GIT_TAG "d800a032132512a54c291ce55a2a43e0460591c7"
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "3e7aa757466b550f54f643c8381f27d0da4a0505"
+    GIT_TAG "87e28ae39708739e958af0a8c3e96050c5a3f756"
 )
-FetchContent_MakeAvailable(fmt range-v3 rtc)
+FetchContent_MakeAvailable(fmt nlohmann-json PDF-Writer pugixml range-v3 rtc)
 
 find_package(Boost 1.78.0 REQUIRED)
+
 include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${PDFHUMMUS_SOURCE_DIR})
+include_directories(${pugixml_SOURCE_DIR})
 
 
 # Subdirectories
@@ -31,13 +45,15 @@ add_subdirectory(chapter_05_date_and_time)
 add_subdirectory(chapter_06_algorithms_and_data_structures)
 add_subdirectory(chapter_07_concurrency)
 add_subdirectory(chapter_08_design_patterns)
+add_subdirectory(chapter_09_data_serialization)
+#[[
+add_subdirectory(chapter_10_archives_images_and_databases)
+add_subdirectory(chapter_11_cryptography)
+add_subdirectory(chapter_12_networking_and_services)
+]]
 
 
 # Sources
-set(app_sources
-    "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/problems.h"
-)
 set(lib_sources
     ${chapter_01_sources}
     ${chapter_02_sources}
@@ -47,18 +63,18 @@ set(lib_sources
     ${chapter_06_sources}
     ${chapter_07_sources}
     ${chapter_08_sources}
+    ${chapter_09_sources}
+#[[
+    ${chapter_10_sources}
+    ${chapter_11_sources}
+    ${chapter_11_sources}
+]]
+)
+set(app_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problems.h"
 )
 list(APPEND app_sources ${lib_sources})
-
-
-# Main executable
-add_executable(${PROJECT_NAME} ${app_sources})
-target_include_directories(${PROJECT_NAME} PUBLIC
-    "$<BUILD_INTERFACE:${include_dir}>"
-    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
-)
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
-target_link_libraries(${PROJECT_NAME} fmt range-v3 rtc)
 
 
 # Main library
@@ -69,7 +85,17 @@ target_include_directories(lib_${PROJECT_NAME} PUBLIC
 )
 set_target_properties(lib_${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME}-${PROJECT_VERSION})
 target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_23)
-target_link_libraries(lib_${PROJECT_NAME} fmt range-v3 rtc)
+target_link_libraries(lib_${PROJECT_NAME} fmt nlohmann_json::nlohmann_json PDFWriter pugixml::pugixml range-v3 rtc)
+
+
+# Main executable
+add_executable(${PROJECT_NAME} ${app_sources})
+target_include_directories(${PROJECT_NAME} PUBLIC
+    "$<BUILD_INTERFACE:${include_dir}>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
+target_link_libraries(${PROJECT_NAME} lib_${PROJECT_NAME})
 
 
 # Target compile options

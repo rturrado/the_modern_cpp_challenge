@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.20)
+# Version 3.4 needed by pugixml
+cmake_minimum_required(VERSION 3.4)
 
 project("the_modern_c++_challenge"
     VERSION 1.0.1

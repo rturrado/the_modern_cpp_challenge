@@ -9,7 +9,7 @@
 #include <vector>
 
 
-namespace tmcppc::parallel_minmax::async {
+namespace tmcppc::algorithm::async {
     static const size_t THREAD_POOL_SIZE_DEFAULT{ std::thread::hardware_concurrency() };
     static const size_t THREAD_POOL_SIZE_MAX{ static_cast<size_t>(std::thread::hardware_concurrency()) * 2 };
     static const size_t BLOCK_SIZE_DEFAULT{ 10'000 };
@@ -81,7 +81,7 @@ namespace tmcppc::parallel_minmax::async {
             [](auto first, auto last) { return *std::max_element(first, last); },
             thread_pool_size, block_size);
     }
-}  // namespace tmcppc::parallel_minmax::async
+}  // namespace tmcppc::algorithm::async
 
 
 void problem_63_main(std::ostream& os);

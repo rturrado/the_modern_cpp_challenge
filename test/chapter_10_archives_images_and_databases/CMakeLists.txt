@@ -1,0 +1,12 @@
+set(chapter_10_test_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_079_finding_files_in_a_zip_archive.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_080_zip_compression.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_081_zip_compression_with_password.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_082_national_flag_png.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_083_verification_text_png.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_084_ean_13_barcode_generator.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_085_reading_from_an_sqlite_db.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_086_inserting_into_an_sqlite_db.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_087_handling_images_in_an_sqlite_db.cpp"
+    PARENT_SCOPE
+)

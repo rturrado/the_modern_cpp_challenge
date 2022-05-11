@@ -11,8 +11,7 @@
 #include <vector>
 
 
-namespace tmcppc::date
-{
+namespace tmcppc::date {
     constinit const size_t max_roman_numeral{ 3999 };
 
     enum class digit_position { units, tens, hundreds, thousands };
@@ -20,19 +19,19 @@ namespace tmcppc::date
 
     // v1: one different function for each digit position
     //
-    inline std::string thousands_to_roman(size_t n)
-    {
+    inline std::string thousands_to_roman(size_t n) {
         switch (n) {
             case 0: return "";
             case 1: return "M";
             case 2: return "MM";
             case 3: return "MMM";
-            default: assert(0 <= n && n <= 3); return "";
+            default:
+                assert(0 <= n && n <= 3);
+                return "";
         }
     }
 
-    inline std::string hundreds_to_roman(size_t n)
-    {
+    inline std::string hundreds_to_roman(size_t n) {
         switch (n) {
             case 0: return "";
             case 1: return "C";
@@ -44,7 +43,9 @@ namespace tmcppc::date
             case 7: return "DCC";
             case 8: return "DCCC";
             case 9: return "CM";
-            default: assert(0 <= n && n <= 9); return "";
+            default:
+                assert(0 <= n && n <= 9);
+                return "";
         }
     }
 
@@ -61,12 +62,13 @@ namespace tmcppc::date
             case 7: return "LXX";
             case 8: return "LXXX";
             case 9: return "XC";
-            default: assert(0 <= n && n <= 9); return "";
+            default:
+                assert(0 <= n && n <= 9);
+                return "";
         }
     }
 
-    inline std::string units_to_roman(size_t n)
-    {
+    inline std::string units_to_roman(size_t n) {
         switch (n) {
             case 0: return "";
             case 1: return "I";
@@ -78,12 +80,13 @@ namespace tmcppc::date
             case 7: return "VII";
             case 8: return "VIII";
             case 9: return "IX";
-            default: assert(0 <= n && n <= 9); return "";
+            default:
+                assert(0 <= n && n <= 9);
+                return "";
         }
     }
 
-    inline std::string to_roman_v1(size_t n)
-    {
+    inline std::string to_roman_v1(size_t n) {
         if (n == 0 or n > max_roman_numeral) {
             auto error_message{ fmt::format("Error: number is out of the Roman numeral range [1, {}].", max_roman_numeral) };
             throw std::out_of_range(error_message.c_str());
@@ -105,8 +108,7 @@ namespace tmcppc::date
     //
     // We use a map for knowing what 3 possible letters are used for each digit position
     // We use a tuple for getting the letter that means one unit, five units, and ten units for each digit position
-    inline std::string to_roman_v2(size_t n, digit_position dp)
-    {
+    inline std::string to_roman_v2(size_t n, digit_position dp) {
         static const std::map<digit_position, std::tuple<char, char, char>> roman_letters_for_digit_position{
             {digit_position::thousands, {'M', ' ', ' '}},
             {digit_position::hundreds, {'C', 'D', 'M'}},
@@ -129,12 +131,13 @@ namespace tmcppc::date
             case 7: return five + one + one;
             case 8: return five + one + one + one;
             case 9: return one + ten;
-            default: assert(0 <= n && n <= 9); return "";
+            default:
+                assert(0 <= n && n <= 9);
+                return "";
         }
     };
 
-    inline std::string to_roman_v2(size_t n)
-    {
+    inline std::string to_roman_v2(size_t n) {
         if (n == 0 or n > max_roman_numeral) {
             auto error_message{ fmt::format("number is out of the Roman numeral range [1, {}].", max_roman_numeral) };
             throw std::out_of_range(error_message.c_str());
@@ -156,8 +159,7 @@ namespace tmcppc::date
     //
     // We use a string_view for knowing what 3 possible letters are used for each digit position
     // We use a string_view substring for getting the letter that means one unit, five units, and ten units for each digit position
-    inline std::string_view get_roman_letters_for_digit_position(const digit_position& dp)
-    {
+    inline std::string_view get_roman_letters_for_digit_position(const digit_position& dp) {
         static std::string_view roman_numeral_letters{ "IVXLCDM  " };
 
         size_t pos{ static_cast<size_t>(dp) * 2 };
@@ -165,8 +167,7 @@ namespace tmcppc::date
         return roman_numeral_letters.substr(pos, count);
     }
 
-    inline std::string to_roman(size_t n, digit_position dp)
-    {
+    inline std::string to_roman(size_t n, digit_position dp) {
         std::string one{ get_roman_letters_for_digit_position(dp)[0] };
         std::string five{ get_roman_letters_for_digit_position(dp)[1] };
         std::string ten{ get_roman_letters_for_digit_position(dp)[2] };
@@ -182,12 +183,13 @@ namespace tmcppc::date
             case 7: return five + one + one;
             case 8: return five + one + one + one;
             case 9: return one + ten;
-            default: assert(0 <= n && n <= 9); return "";
+            default:
+                assert(0 <= n && n <= 9);
+                return "";
         }
     };
 
-    inline std::string to_roman_v3(size_t n)
-    {
+    inline std::string to_roman_v3(size_t n) {
         if (n == 0 or n > max_roman_numeral) {
             auto error_message{ fmt::format("number is out of the Roman numeral range [1, {}].", max_roman_numeral) };
             throw std::out_of_range(error_message.c_str());
@@ -207,8 +209,7 @@ namespace tmcppc::date
 
     // v4: book's version
     //
-    inline std::string to_roman_v4(size_t n)
-    {
+    inline std::string to_roman_v4(size_t n) {
         if (n == 0 or n > max_roman_numeral) {
             auto error_message{ fmt::format("number is out of the Roman numeral range [1, {}].", max_roman_numeral) };
             throw std::out_of_range(error_message.c_str());
@@ -234,5 +235,4 @@ namespace tmcppc::date
 
         return ret;
     }
-
 }  // namespace tmcppc::date

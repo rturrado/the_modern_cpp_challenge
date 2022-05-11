@@ -5,15 +5,19 @@
 #include <string>
 
 
-namespace rtc::process
-{
+namespace tmcppc::process {
     enum class status_t : bool { running, suspended };
     enum class platform_t : bool { x32, x64 };
 
     class info {
     public:
         info(size_t id, std::string name, status_t status, std::string account_name, size_t mem_size_b, platform_t platform) noexcept
-            : id_{ id }, name_{ name }, status_{ status }, account_name_{ account_name }, mem_size_b_{ mem_size_b }, platform_{ platform }
+            : id_{ id }
+            , name_{ name }
+            , status_{ status }
+            , account_name_{ account_name }
+            , mem_size_b_{ mem_size_b }
+            , platform_{ platform }
         {}
 
         [[nodiscard]] size_t id() const noexcept { return id_; }
@@ -53,7 +57,7 @@ namespace rtc::process
         oss << platform;
         return oss.str();
     }
-}
+}  // namespace tmcppc::process
 
 
 void problem_33_main(std::ostream& os);

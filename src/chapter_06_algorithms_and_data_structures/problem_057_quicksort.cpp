@@ -1,4 +1,5 @@
 #include "chapter_06_algorithms_and_data_structures/problem_057_quicksort.h"
+#include "chapter_07_concurrency/quicksort.h"
 
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
@@ -9,12 +10,12 @@
 void problem_57_main(std::ostream& os) {
     std::vector<char> v_c{ 'z', 'A', '9', '!', 'm', 'o', 'N', '9' };
     fmt::print(os, "Quicksorting {}: ", v_c);
-    quicksort(begin(v_c), end(v_c));
+    tmcppc::algorithm::quicksort(begin(v_c), end(v_c));
     fmt::print(os, "{}\n", v_c);
 
     std::vector<int> v_i{ 10, 15, 20, 25, 30, 35, 40 };
     fmt::print(os, "Quicksorting {}: ", v_i);
-    quicksort(begin(v_i), end(v_i), [](int i, int j) { return (i % 10 - i / 10) < (j % 10 - j / 10); });
+    tmcppc::algorithm::quicksort(begin(v_i), end(v_i), [](int i, int j) { return (i % 10 - i / 10) < (j % 10 - j / 10); });
     fmt::print(os, "{}\n\n", v_i);
 }
 

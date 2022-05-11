@@ -12,8 +12,6 @@
 #include <numeric>  // iota
 #include <vector>
 
-using namespace tmcppc::parallel_transform;
-
 
 auto square = [](int n) { return n * n; };
 
@@ -58,7 +56,8 @@ void cb_parallel_transform() {
         for (size_t block_size : { 1'000, 10'000, 100'000 }) {
             auto t{ function_timer<>::duration(
                 [thread_pool_size, block_size, &v, &v3]() {
-                    parallel_transform(std::cbegin(v), std::cend(v), std::begin(v3), square, thread_pool_size, block_size);
+                    tmcppc::algorithm::parallel_transform(std::cbegin(v), std::cend(v), std::begin(v3),
+                        square, thread_pool_size, block_size);
                 }
             ) };
             assert(v1 == v3);
@@ -92,7 +91,7 @@ static void gb_parallel_transform(benchmark::State& state) {
     size_t block_size{ static_cast<size_t>(state.range(1)) };
 
     while (state.KeepRunning()) {
-        parallel_transform(std::begin(v), std::end(v), std::begin(v), square, thread_pool_size, block_size);
+        tmcppc::algorithm::parallel_transform(std::begin(v), std::end(v), std::begin(v), square, thread_pool_size, block_size);
         benchmark::DoNotOptimize(v.size());
     }
 }

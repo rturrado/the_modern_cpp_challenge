@@ -6,17 +6,14 @@
 #include <string>
 
 
-namespace tmcppc::math
-{
+namespace tmcppc::math {
     template <typename T>
     requires std::numeric_limits<T>::is_integer && (!std::numeric_limits<T>::is_signed)
-    class digits
-    {
+    class digits {
     public:
         digits() : data_{0} {}
 
-        digits(T n)
-        {
+        digits(T n) {
             if (n == 0) {
                 data_.push_back(0);
             }
@@ -29,16 +26,14 @@ namespace tmcppc::math
 
         [[nodiscard]] size_t size() const { return data_.size(); }
 
-        [[nodiscard]] std::string to_string() const
-        {
+        [[nodiscard]] std::string to_string() const {
             std::string ret(data_.size(), '0');
             std::transform(data_.cbegin(), data_.cend(), ret.begin(),
                 [](const auto& n) { return static_cast<char>(n) + '0'; });
             return ret;
         }
 
-        digits<T>& operator++()
-        {
+        digits<T>& operator++() {
             for (auto it = data_.rbegin(); it != data_.rend(); ++it) {
                 auto& digit = *it;
                 if (digit == 9) {
@@ -55,8 +50,7 @@ namespace tmcppc::math
             return *this;
         }
 
-        digits<T>& operator--()
-        {
+        digits<T>& operator--() {
             if (data_.size() == 1 and data_.front() == 0) {
                 return *this;
             }
@@ -82,5 +76,4 @@ namespace tmcppc::math
     private:
         std::deque<T> data_{};
     };
-
 }  // namespace tmcppc::math

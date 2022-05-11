@@ -8,8 +8,8 @@
 #include "chapter_06_algorithms_and_data_structures/problems.h"
 #include "chapter_07_concurrency/problems.h"
 #include "chapter_08_design_patterns/problems.h"
-/*
 #include "chapter_09_data_serialization/problems.h"
+/*
 #include "chapter_10_archives_images_and_databases/problems.h"
 #include "chapter_11_cryptography/problems.h"
 #include "chapter_12_networking_and_services/problems.h"
@@ -136,46 +136,46 @@ private:
         []() { problem_71_main(); },  // observable vector container
         []() { problem_72_main(); },  // computing order price with discounts
 
-/*
         // Data serialization
         //
-        []() { problem_73_main(); },  // 
-        []() { problem_74_main(); },  // 
-        []() { problem_75_main(); },  // 
-        []() { problem_76_main(); },  // 
-        []() { problem_77_main(); },  // 
-        []() { problem_78_main(); },  // 
+        []() { problem_73_main(); },  // XML serialization
+        []() { problem_74_main(); },  // using XPath
+        []() { problem_75_main(); },  // JSON serialization
+        []() { problem_76_main(); },  // JSON deserialization
+        []() { problem_77_main(); },  // printing a list of movies to a PDF
+        []() { problem_78_main(); },  // creating a PDF from a collection of images
 
+/*
         // Archives, images, and databases
         //
-        []() { problem_79_main(); },  // 
-        []() { problem_80_main(); },  // 
-        []() { problem_81_main(); },  // 
-        []() { problem_82_main(); },  // 
-        []() { problem_83_main(); },  // 
-        []() { problem_84_main(); },  // 
-        []() { problem_85_main(); },  // 
-        []() { problem_86_main(); },  // 
-        []() { problem_87_main(); },  // 
+        []() { problem_79_main(); },  // finding files in a ZIP archive
+        []() { problem_80_main(); },  // ZIP compression
+        []() { problem_81_main(); },  // zip compression with password
+        []() { problem_82_main(); },  // national flag PNG
+        []() { problem_83_main(); },  // verification text PNG
+        []() { problem_84_main(); },  // EAN-13 barcode generator
+        []() { problem_85_main(); },  // reading from an SQLite database
+        []() { problem_86_main(); },  // inserting into an SQLite database
+        []() { problem_87_main(); },  // handling images in an SQLite database
 
         // Cryptography
         //
-        []() { problem_88_main(); },  // 
-        []() { problem_89_main(); },  // 
-        []() { problem_90_main(); },  // 
-        []() { problem_91_main(); },  // 
-        []() { problem_92_main(); },  // 
-        []() { problem_93_main(); },  // 
-        []() { problem_94_main(); },  // 
+        []() { problem_88_main(); },  // Caesar cipher
+        []() { problem_89_main(); },  // Vigenere cipher
+        []() { problem_90_main(); },  // Base64 encoding
+        []() { problem_91_main(); },  // validating user credentials
+        []() { problem_92_main(); },  // computing file hashes
+        []() { problem_93_main(); },  // AES encryption
+        []() { problem_94_main(); },  // file signing
 
         // Networking and services
         //
-        []() { problem_95_main(); },  // 
-        []() { problem_96_main(); },  // 
-        []() { problem_97_main(); },  // 
-        []() { problem_98_main(); },  // 
-        []() { problem_99_main(); },  // 
-        []() { problem_100_main(); }  // 
+        []() { problem_95_main(); },  // finding the IP address of a host
+        []() { problem_96_main(); },  // Fizz-Buzz client server application
+        []() { problem_97_main(); },  // Bitcoin exchange rates
+        []() { problem_98_main(); },  // fetching emails using IMAP
+        []() { problem_99_main(); },  // translating text
+        []() { problem_100_main(); }  // detecting faces in a picture
 */
     };
 };

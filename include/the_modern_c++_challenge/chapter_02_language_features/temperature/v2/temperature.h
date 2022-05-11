@@ -1,7 +1,6 @@
 #pragma once
 
-#include <iomanip>  // setprecision
-#include <ios>  // fixed
+#include <fmt/ostream.h>
 #include <iostream>  // ostream
 #include <type_traits>  // common_type_t
 
@@ -58,15 +57,18 @@ namespace tmcppc::temperature::v2 {
     //
     template <typename Rep_>
     std::ostream& operator<<(std::ostream& os, const temperature<Rep_, scale::celsius>& t) {
-        return os << std::fixed << std::setprecision(2) << t.value() << " Celsius";
+        fmt::print(os, "{:.2f} Celsius", t.value());
+        return os;
     }
     template <typename Rep_>
     std::ostream& operator<<(std::ostream& os, const temperature<Rep_, scale::fahrenheit>& t) {
-        return os << std::fixed << std::setprecision(2) << t.value() << " Fahrenheit";
+        fmt::print(os, "{:.2f} Fahrenheit", t.value());
+        return os;
     }
     template <typename Rep_>
     std::ostream& operator<<(std::ostream& os, const temperature<Rep_, scale::kelvin>& t) {
-        return os << std::fixed << std::setprecision(2) << t.value() << " Kelvin";
+        fmt::print(os, "{:.2f} Kelvin", t.value());
+        return os;
     }
 
     // Conversions

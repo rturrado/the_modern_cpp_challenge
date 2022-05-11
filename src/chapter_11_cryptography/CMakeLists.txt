@@ -1,0 +1,10 @@
+set(chapter_11_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_088_caesar_cipher.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_089_vigenere_cipher.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_090_base64_encoding.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_091_validating_user_credentials.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_092_computing_file_hashes.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_093_aes_encryption.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/problem_094_file_signing.cpp"
+    PARENT_SCOPE
+)

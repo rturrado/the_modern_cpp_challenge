@@ -8,8 +8,6 @@
 
 
 void problem_61_main(std::ostream& os) {
-    using namespace tmcppc::parallel_transform;
-
     auto square = [](int n) { return n * n; };
 
     std::vector<int> v(10);
@@ -24,7 +22,7 @@ void problem_61_main(std::ostream& os) {
     std::transform(std::execution::par, std::cbegin(v), std::cend(v), std::begin(w), square);
     fmt::print(os, "std::transform(std::execution::par, v); v = {}\n", w);
 
-    parallel_transform(std::cbegin(v), std::cend(v), std::begin(w), square);
+    tmcppc::algorithm::parallel_transform(std::cbegin(v), std::cend(v), std::begin(w), square);
     fmt::print(os, "parallel_transform(v); v = {}\n\n", w);
 }
 

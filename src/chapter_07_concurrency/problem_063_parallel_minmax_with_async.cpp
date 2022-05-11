@@ -6,12 +6,10 @@
 
 
 void problem_63_main(std::ostream& os) {
-    using namespace tmcppc::parallel_minmax::async;
-
     parallel_minmax(
         os,
-        [](auto first, auto last) { return parallel_min(first, last); },
-        [](auto first, auto last) { return parallel_max(first, last); }
+        [](auto first, auto last) { return tmcppc::algorithm::async::parallel_min(first, last); },
+        [](auto first, auto last) { return tmcppc::algorithm::async::parallel_max(first, last); }
     );
 }
 

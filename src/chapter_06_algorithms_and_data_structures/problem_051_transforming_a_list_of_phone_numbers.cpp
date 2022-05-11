@@ -11,6 +11,9 @@
 #include <regex>  // regex_match, regex_replace, smatch
 #include <sstream>  // ostringstream
 
+using phone_numbers = tmcppc::phone_numbers;
+using country_code = tmcppc::country_code;
+
 
 void format_phone_numbers(phone_numbers& ph_nos, const country_code& cc) {
     std::transform(begin(ph_nos), end(ph_nos), begin(ph_nos), [&cc](auto& ph_no) {

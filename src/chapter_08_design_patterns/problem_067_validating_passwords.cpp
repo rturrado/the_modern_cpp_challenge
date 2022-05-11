@@ -33,7 +33,7 @@ void problem_67_main(std::ostream& os) {
 
     // v1
     {
-        using namespace password_strength_validator_v1;
+        using namespace tmcppc::password_strength_validator::v1;
 
         fmt::print(os, "v1:\n");
         for (auto&& pw : { "hola"sv, "holaquetal"sv, "holaqueta!"sv, "h0laqueta!"sv, "H0LAQUETA!"sv, "h0laQueTa!"sv }) {
@@ -72,7 +72,7 @@ void problem_67_main(std::ostream& os) {
 
     // v2
     {
-        using namespace password_strength_validator_v2;
+        using namespace tmcppc::password_strength_validator::v2;
 
         auto contains_symbol_or_error = [&contains_symbol](std::string_view sv) {
             return contains_symbol(sv)

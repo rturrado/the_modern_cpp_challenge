@@ -1,8 +1,6 @@
 #pragma once
 
-#include <fmt/format.h>
-#include <iomanip>  // setprecision
-#include <ios>  // fixed
+#include <fmt/ostream.h>
 #include <iostream>  // ostream
 #include <stdexcept>  // runtime_error
 #include <type_traits>  // common_type_t
@@ -81,11 +79,8 @@ namespace tmcppc::temperature::v1 {
     //
     template <typename Rep_>
     std::ostream& operator<<(std::ostream& os, const temperature<Rep_>& t) {
-        const auto& s{ t.scale() };
-        if (s == scale::invalid) {
-            return os << to_string(s);
-        }
-        return os << std::fixed << std::setprecision(2) << t.value() << " " << to_string(s);
+        fmt::print(os, t);
+        return os;
     }
 
     // Conversions
@@ -214,7 +209,6 @@ namespace tmcppc::temperature::v1 {
         constexpr auto operator"" _f(long double value) { return temperature<long double>(value, scale::fahrenheit); }
         constexpr auto operator"" _K(long double value) { return temperature<long double>(value, scale::kelvin); }
     }  // namespace my_temperature_literals
-
 }  // namespace tmcppc::temperature::v1
 
 
