@@ -38,7 +38,7 @@ void cb_sort_algorithm() {
             auto w{ v };
             auto t{ function_timer<>::duration(
                 [&w]() {
-                    quicksort(std::begin(w), std::end(w));
+                    tmcppc::algorithm::quicksort(std::begin(w), std::end(w));
                 })
             };
             fmt::print("\tquicksort: {}\n", std::chrono::duration<double, std::milli>(t));
@@ -47,7 +47,7 @@ void cb_sort_algorithm() {
             auto w{ v };
             auto t{ function_timer<>::duration(
                 [&w]() {
-                    parallel_quicksort(std::begin(w), std::end(w));
+                    tmcppc::algorithm::parallel_quicksort(std::begin(w), std::end(w));
                 })
             };
             fmt::print("\tparallel_quicksort: {}\n", std::chrono::duration<double, std::milli>(t));
@@ -76,11 +76,11 @@ BENCHMARK_CAPTURE(gb_sort_algorithm, std::sort, [](auto first, auto last) { std:
     ->Arg(100'000)
     ->Arg(250'000)
     ->Arg(500'000);
-BENCHMARK_CAPTURE(gb_sort_algorithm, quicksort, [](auto first, auto last) { quicksort(first, last); })
+BENCHMARK_CAPTURE(gb_sort_algorithm, quicksort, [](auto first, auto last) { tmcppc::algorithm::quicksort(first, last); })
     ->Arg(100'000)
     ->Arg(250'000)
     ->Arg(500'000);
-BENCHMARK_CAPTURE(gb_sort_algorithm, parallel_quicksort, [](auto first, auto last) { parallel_quicksort(first, last); })
+BENCHMARK_CAPTURE(gb_sort_algorithm, parallel_quicksort, [](auto first, auto last) { tmcppc::algorithm::parallel_quicksort(first, last); })
     ->Arg(100'000)
     ->Arg(250'000)
     ->Arg(500'000);

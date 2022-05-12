@@ -11,11 +11,11 @@ FetchContent_Declare(nlohmann-json
     URL https://github.com/nlohmann/json/releases/download/v3.10.5/json.tar.xz
 )
 FetchContent_Declare(PDF-Writer
-    GIT_REPOSITORY https://github.com/galkahana/PDF-Writer
-    GIT_TAG "52300156971d4f02e698b17ddb2815f8b2414599"
+    GIT_REPOSITORY https://github.com/rturrado/PDF-Writer.git
+    GIT_TAG "8e83634e0857a8500a904e34291b9a8bddb2c032"
 )
 FetchContent_Declare(pugixml
-    GIT_REPOSITORY https://github.com/zeux/pugixml
+    GIT_REPOSITORY https://github.com/zeux/pugixml.git
     GIT_TAG "363ebdde91214e456943822ddf422860af8bb54d"
 )
 FetchContent_Declare(range-v3
@@ -26,10 +26,18 @@ FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
     GIT_TAG "87e28ae39708739e958af0a8c3e96050c5a3f756"
 )
-FetchContent_MakeAvailable(fmt nlohmann-json PDF-Writer pugixml range-v3 rtc)
-
+FetchContent_MakeAvailable(
+    fmt
+    nlohmann-json
+    PDF-Writer
+    pugixml
+    range-v3
+    rtc
+)
 find_package(Boost 1.78.0 REQUIRED)
 
+
+# Includes
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${PDFHUMMUS_SOURCE_DIR})
 include_directories(${pugixml_SOURCE_DIR})
@@ -83,9 +91,18 @@ target_include_directories(lib_${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${include_dir}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
-set_target_properties(lib_${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME}-${PROJECT_VERSION})
+set_target_properties(lib_${PROJECT_NAME} PROPERTIES
+    OUTPUT_NAME ${PROJECT_NAME}-${PROJECT_VERSION}
+)
 target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_23)
-target_link_libraries(lib_${PROJECT_NAME} fmt nlohmann_json::nlohmann_json PDFWriter pugixml::pugixml range-v3 rtc)
+target_link_libraries(lib_${PROJECT_NAME}
+    fmt
+    nlohmann_json::nlohmann_json
+    PDFWriter
+    pugixml::pugixml
+    range-v3
+    rtc
+)
 
 
 # Main executable
