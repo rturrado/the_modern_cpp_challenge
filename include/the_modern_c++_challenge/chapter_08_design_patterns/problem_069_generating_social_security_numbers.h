@@ -6,6 +6,7 @@
 #include <chrono>
 #include <fmt/chrono.h>
 #include <fmt/core.h>
+#include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <initializer_list>
 #include <iostream>  // cout
@@ -95,9 +96,7 @@ private:
             : std::to_string(get_sex_male_code());
     }
     [[nodiscard]] std::string encode_birth_date(const ch::year_month_day& birth_date) const noexcept {
-        std::ostringstream oss{};
-        fmt::print(oss, "{:%Y%m%d}", ch::sys_days(birth_date));
-        return oss.str();
+        return fmt::format("{:%Y%m%d}", ch::sys_days(birth_date));
     }
     [[nodiscard]] std::string encode_random_number(const std::string& birth_date_str) const noexcept {
         rtc::random::random_int random_int{ 0, get_random_number_max() };
@@ -122,9 +121,7 @@ private:
         }
     }
     [[nodiscard]] std::string random_number_to_string(const int random_number) const noexcept {
-        std::ostringstream oss{};
-        fmt::print(oss, "{0:0{1}}", random_number, get_random_number_str_size());
-        return oss.str();
+        return fmt::format("{0:0{1}}", random_number, get_random_number_str_size());
     }
     [[nodiscard]] std::string encode_crc(const std::string& str) const noexcept {
         auto str_sum{ std::accumulate(std::cbegin(str), std::cend(str), 0,

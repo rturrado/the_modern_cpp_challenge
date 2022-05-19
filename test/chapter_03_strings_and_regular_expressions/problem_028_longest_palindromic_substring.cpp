@@ -4,10 +4,12 @@
 #include <gtest/gtest.h>
 
 #include <sstream>  // ostringstream
+#include <string>
 
 
 TEST(longest_palindromic_substring, DISABLED_empty_string) {
-    EXPECT_THAT(get_longest_palindromic_substring(""), ::testing::IsEmpty());
+    std::string result{};
+    EXPECT_EQ(get_longest_palindromic_substring(""), result);
 }
 TEST(longest_palindromic_substring, DISABLED_one_character_string) {
     EXPECT_THAT(get_longest_palindromic_substring("a"), ::testing::StrEq("a"));

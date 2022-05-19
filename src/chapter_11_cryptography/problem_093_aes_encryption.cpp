@@ -23,7 +23,7 @@ void problem_93_main()
     const auto decrypted_file_path{ std::filesystem::temp_directory_path() / "calibri.ttf.decrypted" };
     const std::string password{ "Super secret password" };
 
-    std::cout << std::format("Encrypting and decrypting file '{}'\n", input_file_path.string());
+    std::cout << std::format("Encrypting and decrypting file '{}'\n", input_file_path.generic_string());
     std::cout << std::format("Using AES and password '{}'\n", password);
 
     CryptoPP::FileSource input_file_source{

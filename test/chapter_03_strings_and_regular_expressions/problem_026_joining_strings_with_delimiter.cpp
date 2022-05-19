@@ -11,7 +11,8 @@
 
 
 TEST(join, DISABLED_empty_array) {
-    EXPECT_THAT(join(std::array<std::string, 0>{}, " "), ::testing::IsEmpty());
+    std::string result{};
+    EXPECT_EQ(join(std::array<std::string, 0>{}, " "), result);
 }
 TEST(join, DISABLED_one_element_array_with_pound_delimiter) {
     EXPECT_THAT(join(std::array<std::string, 1>{ "Joe" }, "#"), ::testing::StrEq("Joe"));

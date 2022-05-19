@@ -85,7 +85,7 @@ auto create_image_options_for_scaled_image(double scaled_image_width, double sca
 
 void save_folder_of_images_to_pdf(const std::filesystem::path& input_dir_path, const std::filesystem::path& output_file_path) {
     if (not std::filesystem::is_directory(input_dir_path)) {
-        throw rtc::filesystem::not_a_directory_error(input_dir_path.string());
+        throw rtc::filesystem::not_a_directory_error(input_dir_path.generic_string());
     }
 
     PDFWriter pdf_writer{};

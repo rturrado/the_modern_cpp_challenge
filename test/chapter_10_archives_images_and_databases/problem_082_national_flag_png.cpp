@@ -9,7 +9,5 @@
 TEST(problem_82_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_82_main(oss);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "blah"
-    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex("Creating .*/romania_flag.png..."));
 }

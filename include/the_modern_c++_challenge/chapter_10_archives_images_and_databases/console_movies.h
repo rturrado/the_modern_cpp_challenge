@@ -1,82 +1,81 @@
-#ifndef CONSOLE_MOVIES_H
-#define CONSOLE_MOVIES_H
+#pragma once
 
 #include "chapter_09_data_serialization/movies.h"
 
 #include "rtc/console.h"
 
 #include <chrono>
-#include <iostream>  // cout
+#include <fmt/ostream.h>
+#include <istream>
+#include <ostream>
 #include <string>  // getline
 
 
-namespace tmcppc::movies::console
-{
-    inline void from_console(cast& cast)
-    {
-        std::cout << "Cast? ('quit' to end the list)?\n";
-        for (;;)
-        {
-            std::cout << "Please enter a star's full name (e.g. Tom Hanks): ";
+namespace tmcppc::movies::console {
+    inline void from_console(std::istream& is, std::ostream& os, cast& cast) {
+        fmt::print(os, "Cast? ('quit' to end the list)\n");
+        for (;;) {
+            fmt::print(os, "Please enter a star's full name (e.g. Tom Hanks): ");
             std::string star{};
-            std::getline(std::cin, star);
-            if (star == "quit") { break; }
-            std::cout << "Please enter a role name (e.g. Forrest Gump): ";
+            std::getline(is, star);
+            if (star == "quit") {
+                break;
+            }
+            fmt::print(os, "Please enter a role name (e.g. Forrest Gump): ");
             std::string role{};
-            std::getline(std::cin, role);
-            if (role == "quit") { break; }
-            cast.cast.push_back({ star, role });
+            std::getline(is, role);
+            if (role == "quit") {
+                break;
+            }
+            cast.cast_.push_back({ star, role });
         }
     }
 
-    inline void from_console(writers& writers)
-    {
-        std::cout << "Writers? ('quit' to end the list)\n";
-        for (;;)
-        {
-            std::cout << "Please enter a writer's full name (e.g. Eric Roth): ";
+    inline void from_console(std::istream& is, std::ostream& os, writers& writers) {
+        fmt::print(os, "Writers? ('quit' to end the list)\n");
+        for (;;) {
+            fmt::print(os, "Please enter a writer's full name (e.g. Eric Roth): ");
             std::string writer{};
-            std::getline(std::cin, writer);
-            if (writer == "quit") { break; }
-            writers.writers.push_back({ writer });
+            std::getline(is, writer);
+            if (writer == "quit") {
+                break;
+            }
+            writers.writers_.push_back({ writer });
         }
     }
 
-    inline void from_console(directors& directors)
-    {
-        std::cout << "Directors? ('quit' to end the list)\n";
-        for (;;)
-        {
-            std::cout << "Please enter a director's full name (e.g. Robert Zemeckis): ";
+    inline void from_console(std::istream& is, std::ostream& os, directors& directors) {
+        fmt::print(os, "Directors? ('quit' to end the list)\n");
+        for (;;) {
+            fmt::print(os, "Please enter a director's full name (e.g. Robert Zemeckis): ");
             std::string director{};
-            std::getline(std::cin, director);
-            if (director == "quit") { break; }
-            directors.directors.push_back({ director });
+            std::getline(is, director);
+            if (director == "quit") {
+                break;
+            }
+            directors.directors_.push_back({ director });
         }
     }
 
-    inline void from_console(movie& movie)
-    {
+    inline void from_console(std::istream& is, std::ostream& os, movie& movie) {
         namespace ch = std::chrono;
 
-        std::cout << "ID?\n";
-        movie.id = read_positive_number("Please enter a number (starting from 0): ", 0);
+        fmt::print(os, "ID?\n");
+        movie.id = rtc::console::read_positive_number(is, os, "Please enter a number (>= 0): ", 0);
 
-        std::cout << "Title?\n";
-        std::getline(std::cin, movie.title);
+        fmt::print(os, "Title?\n");
+        std::getline(is, movie.title);
 
         auto current_year{ ch::year_month_day{ ch::floor<ch::days>(ch::system_clock::now()) }.year() };
-        std::cout << "Year?\n";
-        movie.year = ch::year{ static_cast<int>(read_positive_number("Please enter a number (starting from 1900): ", 1900, static_cast<int>(current_year))) };
+        fmt::print(os, "Year?\n");
+        movie.year = ch::year{static_cast<int>(rtc::console::read_positive_number(is, os,
+            "Please enter a number (>= 1900): ", 1900, static_cast<int>(current_year))) };
 
-        std::cout << "Length (in minutes)?\n";
-        movie.length = read_positive_number("Please enter a number (starting from 0): ", 0);
+        fmt::print(os, "Length (in minutes)?\n");
+        movie.length = rtc::console::read_positive_number(is, os, "Please enter a number (>= 0): ", 0);
 
-        from_console(movie.cast);
-        from_console(movie.directors);
-        from_console(movie.writers);
+        from_console(is, os, movie.cast);
+        from_console(is, os, movie.directors);
+        from_console(is, os, movie.writers);
     }
 };  // namespace tmcppc::movies::console
-
-
-#endif  // CONSOLE_MOVIES_H

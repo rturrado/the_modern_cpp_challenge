@@ -3,5 +3,5 @@
 #include <ostream>
 
 
-void problem_096_main(std::ostream& os);
-void problem_096_main();
+void problem_96_main(std::ostream& os);
+void problem_96_main();

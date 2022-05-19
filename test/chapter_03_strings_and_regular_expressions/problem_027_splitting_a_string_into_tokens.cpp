@@ -4,10 +4,13 @@
 #include <gtest/gtest.h>
 
 #include <sstream>  // ostringstream
+#include <string>
+#include <vector>
 
 
 TEST(split, DISABLED_empty_string) {
-    EXPECT_THAT(split("", " "), ::testing::IsEmpty());
+    std::vector<std::string> result{};
+    EXPECT_EQ(split("", " "), result);
 }
 TEST(split, DISABLED_delimiter_not_found) {
     EXPECT_THAT(split("a;b;c", "-"), ::testing::ElementsAre("a;b;c"));

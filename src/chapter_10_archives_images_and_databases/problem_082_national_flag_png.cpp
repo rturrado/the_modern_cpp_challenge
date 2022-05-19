@@ -1,15 +1,14 @@
-#include "chapter_10_archives_images_and_databases.h"
 #include "chapter_10_archives_images_and_databases/png_writer_wrapper.h"
 
 #include <filesystem>
-#include <format>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
 
-using namespace tmcppc::png_writer;
+using namespace tmcppc::png;
 
 
-void paint_romania_flag(PNGWriter& png_writer) {
+void paint_romania_flag(png_writer& png_writer) {
     const int image_width{ png_writer.get_width() };
     const int image_height{ png_writer.get_height() };
 
@@ -32,9 +31,9 @@ void paint_romania_flag(PNGWriter& png_writer) {
 void problem_82_main(std::ostream& os) {
     const auto image_file_path{ create_png_file_path(std::filesystem::temp_directory_path(), "romania_flag") };
 
-    std::cout << std::format("Creating {}...\n\n", image_file_path.string());
+    fmt::print(os, "Creating {}...\n\n", image_file_path.generic_string());
 
-    PNGWriter png_writer(300, 200, 0.0, image_file_path);
+    png_writer png_writer(300, 200, 0.0, image_file_path);
 
     paint_romania_flag(png_writer);
 }

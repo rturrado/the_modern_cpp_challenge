@@ -1,5 +1,4 @@
-#ifndef EAN_13_BARCODE_PNG_GENERATOR_H
-#define EAN_13_BARCODE_PNG_GENERATOR_H
+#pragma once
 
 #include "ean_13_barcode.h"
 #include "png_writer_wrapper.h"
@@ -9,165 +8,140 @@
 #include <memory>  // make_unique, unique_ptr
 
 
-namespace rtc::ean_13::barcode_png
-{
-    using namespace tmcppc::png_writer;
+namespace tmcppc::ean_13::barcode_png {
+    using namespace tmcppc::png;
 
 
-    namespace layout
-    {
+    namespace layout {
         static inline const int bounding_box_height{ 150 };
 
-        struct Margin
-        {
+        struct margin {
             static inline const int top{ 5 };
             static inline const int bottom{ 5 };
             static inline const int left{ 5 };
             static inline const int right{ 5 };
         };
-        struct Bar
-        {
+        struct bar {
             static inline const int width{ 2 };
         };
-        struct LeftQuietZone
-        {
-            static inline const Point2D start_position{ Margin::left, Margin::bottom };
+        struct left_quiet_zone {
+            static inline const point_2d start_position{ margin::left, margin::bottom };
             static inline const int width{ 20 };
             static inline const int height{ bounding_box_height };
         };
-        struct Digit
-        {
-            static inline const int width{ 5 * Bar::width };
+        struct digit {
+            static inline const int width{ 5 * bar::width };
             static inline const int height{ 15 };
-            static inline const int x_offset{ Bar::width };
+            static inline const int x_offset{ bar::width };
         };
-        struct DigitGroup
-        {
-            static inline const int element_width{ 2 * Digit::x_offset + Digit::width };
+        struct digit_group {
+            static inline const int element_width{ 2 * digit::x_offset + digit::width };
             static inline const int width{ 6 * element_width };
-            static inline const int height{ Digit::height };
+            static inline const int height{ digit::height };
         };
-        struct FirstDigit : public DigitGroup
-        {
-            static inline const Point2D start_position{ Margin::left, Margin::bottom };
-            static inline const int width{ Digit::width };
+        struct first_digit : public digit_group {
+            static inline const point_2d start_position{ margin::left, margin::bottom };
+            static inline const int width{ digit::width };
         };
-        struct Marker
-        {
+        struct marker {
             static inline const int height{ 145 };
             static inline const int y_offset{ bounding_box_height - height };
         };
-        struct StartMarker : public Marker
-        {
-            static inline const Point2D start_position{
-                LeftQuietZone::start_position.x + LeftQuietZone::width,
-                Margin::bottom + Marker::y_offset
+        struct start_marker : public marker {
+            static inline const point_2d start_position{
+                left_quiet_zone::start_position.x + left_quiet_zone::width,
+                margin::bottom + marker::y_offset
             };
-            static inline const int width{ 3 * Bar::width };
+            static inline const int width{ 3 * bar::width };
         };
-        struct DigitBar
-        {
-            static inline const int width{ 7 * Bar::width };
+        struct digit_bar {
+            static inline const int width{ 7 * bar::width };
             static inline const int height{ 135 };
             static inline const int y_offset{ bounding_box_height - height };
         };
-        struct DigitBarGroup
-        {
-            static inline const int width{ 6 * DigitBar::width };
+        struct digit_bar_group {
+            static inline const int width{ 6 * digit_bar::width };
         };
-        struct FirstDigitBarGroup : public DigitBarGroup
-        {
-            static inline const Point2D start_position{
-                StartMarker::start_position.x + StartMarker::width,
-                Margin::bottom + DigitBar::y_offset
+        struct first_digit_bar_group : public digit_bar_group {
+            static inline const point_2d start_position{
+                start_marker::start_position.x + start_marker::width,
+                margin::bottom + digit_bar::y_offset
             };
         };
-        struct FirstDigitGroup : public DigitGroup
-        {
+        struct first_digit_group : public digit_group {
             // First bar group starts with blank, and digits below look better with a 1-bar-width offset
-            static inline const Point2D start_position{
-                FirstDigitBarGroup::start_position.x + Bar::width,
-                Margin::bottom
+            static inline const point_2d start_position{
+                first_digit_bar_group::start_position.x + bar::width,
+                margin::bottom
             };
         };
-        struct CenterMarker
-        {
-            static inline const Point2D start_position{
-                FirstDigitBarGroup::start_position.x + FirstDigitBarGroup::width,
-                Margin::bottom + Marker::y_offset
+        struct center_marker {
+            static inline const point_2d start_position{
+                first_digit_bar_group::start_position.x + first_digit_bar_group::width,
+                margin::bottom + marker::y_offset
             };
-            static inline const int width{ 5 * layout::Bar::width };
+            static inline const int width{ 5 * layout::bar::width };
         };
-        struct SecondDigitBarGroup : public DigitBarGroup
-        {
-            static inline const Point2D start_position{
-                CenterMarker::start_position.x + CenterMarker::width,
-                Margin::bottom + DigitBar::y_offset
+        struct second_digit_bar_group : public digit_bar_group {
+            static inline const point_2d start_position{
+                center_marker::start_position.x + center_marker::width,
+                margin::bottom + digit_bar::y_offset
             };
         };
-        struct SecondDigitGroup : public DigitGroup
-        {
-            static inline const Point2D start_position{
-                SecondDigitBarGroup::start_position.x,
-                Margin::bottom
+        struct second_digit_group : public digit_group {
+            static inline const point_2d start_position{
+                second_digit_bar_group::start_position.x,
+                margin::bottom
             };
         };
-        struct EndMarker
-        {
-            static inline const Point2D start_position{
-                SecondDigitBarGroup::start_position.x + SecondDigitBarGroup::width,
-                Margin::bottom + Marker::y_offset
+        struct end_marker {
+            static inline const point_2d start_position{
+                second_digit_bar_group::start_position.x + second_digit_bar_group::width,
+                margin::bottom + marker::y_offset
             };
-            static inline const int width{ 3 * layout::Bar::width };
+            static inline const int width{ 3 * layout::bar::width };
         };
-        struct RightQuietZone
-        {
-            static inline const Point2D start_position{
-                EndMarker::start_position.x + EndMarker::width,
-                Margin::bottom
+        struct right_quite_zone {
+            static inline const point_2d start_position{
+                end_marker::start_position.x + end_marker::width,
+                margin::bottom
             };
             static inline const int width{ 15 };
             static inline const int height{ bounding_box_height };
         };
-        struct LMI
-        {
-            static inline const Point2D start_position{
-                EndMarker::start_position.x + EndMarker::width,
-                Margin::bottom
+        struct lmi {
+            static inline const point_2d start_position{
+                end_marker::start_position.x + end_marker::width,
+                margin::bottom
             };
-            static inline const int width{ 7 * Bar::width };
+            static inline const int width{ 7 * bar::width };
             static inline const int height{ 12 };
-            static inline const int x_offset{ Bar::width };
+            static inline const int x_offset{ bar::width };
         };
-        struct BoundingBox
-        {
-            static inline const Point2D start_position{ Margin::left, Margin::bottom };
-            static inline const int width{ RightQuietZone::start_position.x + RightQuietZone::width - Margin::left };
+        struct bounding_box {
+            static inline const point_2d start_position{ margin::left, margin::bottom };
+            static inline const int width{ right_quite_zone::start_position.x + right_quite_zone::width - margin::left };
             static inline const int height{ bounding_box_height };
         };
-        struct Image{
-            static inline const Point2D start_position{ 1, 1 };
-            static inline const int width{ BoundingBox::start_position.x + BoundingBox::width + Margin::right };
-            static inline const int height{ BoundingBox::start_position.y + BoundingBox::height + Margin::top };
+        struct image {
+            static inline const point_2d start_position{ 1, 1 };
+            static inline const int width{ bounding_box::start_position.x + bounding_box::width + margin::right };
+            static inline const int height{ bounding_box::start_position.y + bounding_box::height + margin::top };
         };
     }  // namespace layout
 
 
-    namespace controls
-    {
-        struct Base
-        {
-            virtual void paint(PNGWriter& png_writer) const = 0;
-            [[nodiscard]] virtual Point2D get_start_position() const = 0;
-            virtual ~Base() {}
+    namespace controls {
+        struct base {
+            virtual void paint(png_writer& png_writer) const = 0;
+            [[nodiscard]] virtual point_2d get_start_position() const = 0;
+            virtual ~base() {}
         };
 
         // Bar groups
         //
-        struct BarGroup : public Base
-        {
-            void paint_bar(PNGWriter& png_writer, const Point2D start_position, int width, int height) const
-            {
+        struct bar_group : public base {
+            void paint_bar(png_writer& png_writer, const point_2d start_position, int width, int height) const {
                 png_writer.plot_filled_rectangle(
                     rectangle_2d{
                         .bottom_left = { start_position.x, start_position.y },
@@ -177,12 +151,14 @@ namespace rtc::ean_13::barcode_png
             }
 
             template <size_t N>
-            Point2D paint_bar_group(PNGWriter& png_writer, const std::bitset<N>& bs, Point2D start_position, int width, int height) const
-            {
-                for (int i{ static_cast<int>(bs.size()) - 1 }; i >= 0; i--)
-                {
-                    if (bs[i])
-                    {
+            point_2d paint_bar_group(
+                png_writer& png_writer,
+                const std::bitset<N>& bs,
+                point_2d start_position,
+                int width, int height) const {
+
+                for (int i{ static_cast<int>(bs.size()) - 1 }; i >= 0; i--) {
+                    if (bs[i]) {
                         paint_bar(png_writer, start_position, width, height);
                     }
                     start_position.x += width;
@@ -190,139 +166,132 @@ namespace rtc::ean_13::barcode_png
                 return start_position;
             }
         };
-        struct StartMarker : public BarGroup
-        {
-            virtual void paint(PNGWriter& writer) const override
-            {
-                paint_bar_group(writer, barcode::start_marker, get_start_position(), layout::Bar::width, layout::Marker::height);
+        struct start_marker : public bar_group {
+            virtual void paint(png_writer& writer) const override {
+                paint_bar_group(writer, barcode::start_marker, get_start_position(), layout::bar::width, layout::marker::height);
             }
-            [[nodiscard]] virtual Point2D get_start_position() const override { return layout::StartMarker::start_position; };
+            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::start_marker::start_position; };
         };
-        struct CenterMarker : public BarGroup
-        {
-            virtual void paint(PNGWriter& writer) const override
-            {
-                paint_bar_group(writer, barcode::center_marker, get_start_position(), layout::Bar::width, layout::Marker::height);
+        struct center_marker : public bar_group {
+            virtual void paint(png_writer& writer) const override {
+                paint_bar_group(writer, barcode::center_marker, get_start_position(), layout::bar::width, layout::marker::height);
             }
-            [[nodiscard]] virtual Point2D get_start_position() const override { return layout::CenterMarker::start_position; };
+            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::center_marker::start_position; };
         };
-        struct EndMarker : public BarGroup
-        {
-            virtual void paint(PNGWriter& writer) const override
-            {
-                paint_bar_group(writer, barcode::end_marker, get_start_position(), layout::Bar::width, layout::Marker::height);
+        struct end_marker : public bar_group {
+            virtual void paint(png_writer& writer) const override {
+                paint_bar_group(writer, barcode::end_marker, get_start_position(), layout::bar::width, layout::marker::height);
             }
-            [[nodiscard]] virtual Point2D get_start_position() const override { return layout::EndMarker::start_position; };
+            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::end_marker::start_position; };
         };
-        struct DigitBarGroup : public BarGroup
-        {
-            explicit DigitBarGroup(const digit_group_bs& bs) : bs_{ bs } {}
-            virtual void paint(PNGWriter& writer) const override
-            {
+        struct digit_bar_group : public bar_group {
+            explicit digit_bar_group(const digit_group_bs& bs)
+                : bs_{ bs }
+            {}
+            virtual void paint(png_writer& writer) const override {
                 auto start_position{ get_start_position() };
-                for (const auto& digit_bs : bs_)
-                {
-                    paint_bar_group(writer, digit_bs, start_position, layout::Bar::width, layout::DigitBar::height);
-                    start_position.x += layout::DigitGroup::element_width;
+                for (const auto& digit_bs : bs_) {
+                    paint_bar_group(writer, digit_bs, start_position, layout::bar::width, layout::digit_bar::height);
+                    start_position.x += layout::digit_group::element_width;
                 }
             }
         private:
             digit_group_bs bs_{};
         };
-        struct FirstDigitBarGroup : public DigitBarGroup
-        {
-            explicit FirstDigitBarGroup(const digit_group_bs& bs) : DigitBarGroup{ bs } {}
-            [[nodiscard]] virtual Point2D get_start_position() const override { return layout::FirstDigitBarGroup::start_position; };
+        struct first_digit_bar_group : public digit_bar_group {
+            explicit first_digit_bar_group(const digit_group_bs& bs)
+                : digit_bar_group{ bs }
+            {}
+            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::first_digit_bar_group::start_position; };
         };
-        struct SecondDigitBarGroup : public DigitBarGroup
-        {
-            explicit SecondDigitBarGroup(const digit_group_bs& bs) : DigitBarGroup{ bs } {}
-            [[nodiscard]] virtual Point2D get_start_position() const override { return layout::SecondDigitBarGroup::start_position; };
+        struct second_digit_bar_group : public digit_bar_group {
+            explicit second_digit_bar_group(const digit_group_bs& bs)
+                : digit_bar_group{ bs }
+            {}
+            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::second_digit_bar_group::start_position; };
         };
 
         // Digit groups
         //
-        struct DigitGroup : public Base
+        struct digit_group : public base
         {
         public:
-            explicit DigitGroup(const std::string& digit_group) : digit_group_{ digit_group } {}
-            virtual void paint(PNGWriter& writer) const override
+            explicit digit_group(const std::string& digit_group)
+                : digit_group_{ digit_group }
+            {}
+            virtual void paint(png_writer& writer) const override
             {
                 const auto font_file_path{ std::filesystem::current_path() / "res" / "fonts" / "calibri.ttf" };
                 auto start_position{ get_start_position() };
-                for (auto&& digit : digit_group_)
-                {
+                for (auto&& digit : digit_group_) {
                     writer.plot_text(
                         font_file_path.string(),
-                        layout::Digit::height,
+                        layout::digit::height,
                         start_position,
                         0.0,  // angle
                         std::string{ digit },
                         rgb{});
 
-                    start_position.x += layout::DigitGroup::element_width;
+                    start_position.x += layout::digit_group::element_width;
                 }
             }
         private:
             std::string digit_group_{};
         };
-        struct FirstDigit : public DigitGroup
+        struct first_digit : public digit_group
         {
-            explicit FirstDigit(const std::string& digit) : DigitGroup{ digit } {}
-            [[nodiscard]] virtual Point2D get_start_position() const override { return layout::FirstDigit::start_position; };
+            explicit first_digit(const std::string& digit)
+                : digit_group{ digit }
+            {}
+            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::first_digit::start_position; };
         };
-        struct FirstDigitGroup : public DigitGroup
-        {
-            explicit FirstDigitGroup(const std::string& digit_group) : DigitGroup{ digit_group } {}
-            [[nodiscard]] virtual Point2D get_start_position() const override { return layout::FirstDigitGroup::start_position; };
+        struct first_digit_group : public digit_group {
+            explicit first_digit_group(const std::string& digit_group)
+                : digit_group{ digit_group }
+            {}
+            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::first_digit_group::start_position; };
         };
-        struct SecondDigitGroup : public DigitGroup
-        {
-            explicit SecondDigitGroup(const std::string& digit_group) : DigitGroup{ digit_group } {}
-            [[nodiscard]] virtual Point2D get_start_position() const override { return layout::SecondDigitGroup::start_position; };
+        struct second_digit_group : public digit_group {
+            explicit second_digit_group(const std::string& digit_group)
+                : digit_group{ digit_group }
+            {}
+            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::second_digit_group::start_position; };
         };
 
         // LMI
         //
-        struct LMI : public Base
-        {
-            virtual void paint(PNGWriter& writer) const override
-            {
+        struct lmi : public base {
+            virtual void paint(png_writer& writer) const override {
                 // It should be an angle, two lines, but I find a triangle more beautiful
                 writer.plot_filled_triangle(
-                    { layout::LMI::start_position.x + layout::LMI::x_offset, layout::LMI::start_position.y + layout::LMI::height },
-                    { layout::LMI::start_position.x + layout::LMI::width, layout::LMI::start_position.y + layout::LMI::height / 2 },
-                    { layout::LMI::start_position.x + layout::LMI::x_offset, layout::LMI::start_position.y },
+                    { layout::lmi::start_position.x + layout::lmi::x_offset, layout::lmi::start_position.y + layout::lmi::height },
+                    { layout::lmi::start_position.x + layout::lmi::width, layout::lmi::start_position.y + layout::lmi::height / 2 },
+                    { layout::lmi::start_position.x + layout::lmi::x_offset, layout::lmi::start_position.y },
                     rgb{}
                 );
             }
-            [[nodiscard]] virtual Point2D get_start_position() const override { return layout::LMI::start_position; };
+            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::lmi::start_position; };
         };
     }  // namespace controls
 
 
-    struct generator
-    {
-        void operator()(const barcode& code, double background_colour, const std::filesystem::path& image_path)
-        {
-            auto writer = PNGWriter{ layout::Image::width, layout::Image::height, background_colour, image_path.string() };
+    struct generator {
+        void operator()(const barcode& code, double background_colour, const std::filesystem::path& image_path) {
+            auto writer = png_writer{ layout::image::width, layout::image::height, background_colour, image_path.string() };
 
-            std::vector<std::unique_ptr<controls::Base>> vcontrols;
+            std::vector<std::unique_ptr<controls::base>> vcontrols;
 
-            vcontrols.push_back(std::make_unique<controls::StartMarker>());
-            vcontrols.push_back(std::make_unique<controls::CenterMarker>());
-            vcontrols.push_back(std::make_unique<controls::EndMarker>());
-            vcontrols.push_back(std::make_unique<controls::FirstDigitBarGroup>(code.get_first_digit_group_bs()));
-            vcontrols.push_back(std::make_unique<controls::SecondDigitBarGroup>(code.get_second_digit_group_bs()));
-            vcontrols.push_back(std::make_unique<controls::FirstDigit>(code.get_first_digit_str()));
-            vcontrols.push_back(std::make_unique<controls::FirstDigitGroup>(code.get_first_digit_group_str()));
-            vcontrols.push_back(std::make_unique<controls::SecondDigitGroup>(code.get_second_digit_group_str()));
-            vcontrols.push_back(std::make_unique<controls::LMI>());
+            vcontrols.push_back(std::make_unique<controls::start_marker>());
+            vcontrols.push_back(std::make_unique<controls::center_marker>());
+            vcontrols.push_back(std::make_unique<controls::end_marker>());
+            vcontrols.push_back(std::make_unique<controls::first_digit_bar_group>(code.get_first_digit_group_bs()));
+            vcontrols.push_back(std::make_unique<controls::second_digit_bar_group>(code.get_second_digit_group_bs()));
+            vcontrols.push_back(std::make_unique<controls::first_digit>(code.get_first_digit_str()));
+            vcontrols.push_back(std::make_unique<controls::first_digit_group>(code.get_first_digit_group_str()));
+            vcontrols.push_back(std::make_unique<controls::second_digit_group>(code.get_second_digit_group_str()));
+            vcontrols.push_back(std::make_unique<controls::lmi>());
 
             std::for_each(vcontrols.begin(), vcontrols.end(), [&writer](auto& control_up) { control_up->paint(writer); });
         }
     };
-}  // namespace rtc::ean_13::barcode_png
-
-
-#endif  // EAN_13_BARCODE_PNG_GENERATOR_H
+}  // namespace tmcppc::ean_13::barcode_png

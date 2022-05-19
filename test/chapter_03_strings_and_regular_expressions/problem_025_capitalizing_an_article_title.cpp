@@ -4,10 +4,12 @@
 #include <gtest/gtest.h>
 
 #include <sstream>  // ostringstream
+#include <string>
 
 
 TEST(capitalize, DISABLED_empty_string) {
-    EXPECT_THAT(capitalize(""), ::testing::IsEmpty());
+    std::string result{};
+    EXPECT_EQ(capitalize(""), result);
 }
 TEST(capitalize, DISABLED_all_lowercase) {
     EXPECT_THAT(capitalize("the c++ challenger"), ::testing::StrEq("The C++ Challenger"));

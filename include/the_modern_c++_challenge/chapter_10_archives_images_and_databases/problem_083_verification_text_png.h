@@ -1,7 +1,7 @@
 #pragma once
 
-#include <ostream>
+#include <iosfwd>
 
 
-void problem_083_main(std::ostream& os);
-void problem_083_main();
+void problem_83_main(std::ostream& os);
+void problem_83_main();

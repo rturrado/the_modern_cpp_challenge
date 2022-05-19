@@ -40,7 +40,7 @@ namespace tmcppc::pdf_writer {
 
     // PDF writer function wrappers
     inline auto start_pdf(PDFWriter& pdf_writer, const std::filesystem::path& output_file_path) {
-        auto output_file_path_str{ output_file_path.string() };
+        auto output_file_path_str{ output_file_path.generic_string() };
         if (pdf_writer.StartPDF(output_file_path_str, ePDFVersion17) != eSuccess) {
             throw tmcppc::pdf_writer::start_pdf_error{ output_file_path_str };
         }

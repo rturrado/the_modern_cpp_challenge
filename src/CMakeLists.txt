@@ -2,7 +2,25 @@ set(include_dir ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME})
 
 
 # Packages
+find_package(Threads REQUIRED)
+
 include(FetchContent)
+#[[
+FetchContent_Declare(asio
+    GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
+    GIT_TAG "f0a1e1c7c0387ad16358c81eb52528f190df625c"
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+)
+FetchContent_Declare(cpr
+    GIT_REPOSITORY https://github.com/libcpr/cpr.git
+    GIT_TAG "ee7f91f5566b6279aadf6d0b1aaf56b11963f527"
+)
+FetchContent_Declare(CryptoPP
+    GIT_REPOSITORY https://github.com/weidai11/cryptopp.git
+    GIT_TAG "c88e4bde0a9cb307f2be060f9e460541ca6f813a"
+)
+]]
 FetchContent_Declare(fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
     GIT_TAG "7ffe87c0bc8e69cd38941b92c0b33ab2e5cf3c57"
@@ -13,6 +31,10 @@ FetchContent_Declare(nlohmann-json
 FetchContent_Declare(PDF-Writer
     GIT_REPOSITORY https://github.com/rturrado/PDF-Writer.git
     GIT_TAG "8e83634e0857a8500a904e34291b9a8bddb2c032"
+)
+FetchContent_Declare(PNGwriter
+    GIT_REPOSITORY https://github.com/pngwriter/pngwriter.git
+    GIT_TAG "79bb3ef5ebd91996bc4cd02cdc031c5cd560b897"
 )
 FetchContent_Declare(pugixml
     GIT_REPOSITORY https://github.com/zeux/pugixml.git
@@ -26,13 +48,35 @@ FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
     GIT_TAG "87e28ae39708739e958af0a8c3e96050c5a3f756"
 )
+FetchContent_Declare(SqliteModernCpp
+    GIT_REPOSITORY https://github.com/SqliteModernCpp/sqlite_modern_cpp.git
+    GIT_TAG "34f9b076348d731e0f952a8ff264a26230ce287b"
+    SOURCE_SUBDIR "hdr"
+)
+FetchContent_Declare(sqlite
+    URL https://sqlite.org/2022/sqlite-amalgamation-3380500.zip
+    SOURCE_SUBDIR "sqlite-amalgamation-3380500"
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+)
+FetchContent_Declare(ZipLib
+    GIT_REPOSITORY https://github.com/rturrado/ZipLib.git
+    GIT_TAG "fca4077481af67a60b9230e262a704365e537b64"
+)
 FetchContent_MakeAvailable(
+    #asio
+    #cpr
+    #CryptoPP
     fmt
     nlohmann-json
     PDF-Writer
+    PNGwriter
     pugixml
     range-v3
     rtc
+    SqliteModernCpp
+    sqlite
+    ZipLib
 )
 find_package(Boost 1.78.0 REQUIRED)
 
@@ -40,7 +84,18 @@ find_package(Boost 1.78.0 REQUIRED)
 # Includes
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${PDFHUMMUS_SOURCE_DIR})
+include_directories(${pngwriter_SOURCE_DIR}/src)
 include_directories(${pugixml_SOURCE_DIR})
+include_directories(${sqlitemoderncpp_SOURCE_DIR}/hdr)
+include_directories(${sqlite_SOURCE_DIR})
+include_directories(${ziplib_SOURCE_DIR})
+message(status " * Include directories:")
+message(status "\t- PDF-Writer: " ${PDFHUMMUS_SOURCE_DIR})
+message(status "\t- PNGwriter: " ${pngwriter_SOURCE_DIR}/src)
+message(status "\t- pugixml " ${pugixml_SOURCE_DIR})
+message(status "\t- SqliteModernCpp: " ${sqlitemoderncpp_SOURCE_DIR}/hdr)
+message(status "\t- sqlite: " ${sqlite_SOURCE_DIR})
+message(status "\t- ZipLib: " ${ziplib_SOURCE_DIR})
 
 
 # Subdirectories
@@ -54,8 +109,8 @@ add_subdirectory(chapter_06_algorithms_and_data_structures)
 add_subdirectory(chapter_07_concurrency)
 add_subdirectory(chapter_08_design_patterns)
 add_subdirectory(chapter_09_data_serialization)
-#[[
 add_subdirectory(chapter_10_archives_images_and_databases)
+#[[
 add_subdirectory(chapter_11_cryptography)
 add_subdirectory(chapter_12_networking_and_services)
 ]]
@@ -72,8 +127,8 @@ set(lib_sources
     ${chapter_07_sources}
     ${chapter_08_sources}
     ${chapter_09_sources}
-#[[
     ${chapter_10_sources}
+#[[
     ${chapter_11_sources}
     ${chapter_11_sources}
 ]]
@@ -83,6 +138,14 @@ set(app_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problems.h"
 )
 list(APPEND app_sources ${lib_sources})
+
+
+#[[
+# asio library
+add_library(asio INTERFACE)
+target_include_directories(asio INTERFACE ${asio_SOURCE_DIR}/asio/include)
+target_link_libraries(asio INTERFACE Threads::Threads)
+]]
 
 
 # Main library
@@ -96,12 +159,17 @@ set_target_properties(lib_${PROJECT_NAME} PROPERTIES
 )
 target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_23)
 target_link_libraries(lib_${PROJECT_NAME}
+    #asio
+    #cryptopp-static
+    #cpr::cpr
     fmt
     nlohmann_json::nlohmann_json
     PDFWriter
+    PNGwriter
     pugixml::pugixml
     range-v3
     rtc
+    ZIPLIB
 )
 
 

@@ -45,7 +45,7 @@ void problem_92_main()
 {
     const auto input_file_path{ std::filesystem::current_path() / "res" / "fonts" / "calibri.ttf" };
 
-    std::cout << std::format("Calculating SHA1, SHA256 and MD5 for file '{}'\n", input_file_path.string());
+    std::cout << std::format("Calculating SHA1, SHA256 and MD5 for file '{}'\n", input_file_path.generic_string());
 
     std::cout << std::format("\tSHA1: '{}'\n", get_hash_as_hex_string<CryptoPP::SHA1>(input_file_path));
     std::cout << std::format("\tSHA256: '{}'\n", get_hash_as_hex_string<CryptoPP::SHA256>(input_file_path));

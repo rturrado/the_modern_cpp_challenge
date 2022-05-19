@@ -1,23 +1,21 @@
-#include "chapter_10_archives_images_and_databases.h"
 #include "chapter_10_archives_images_and_databases/ean_13_barcode.h"
 #include "chapter_10_archives_images_and_databases/ean_13_barcode_png_generator.h"
 
 #include <bitset>
 #include <filesystem>
-#include <format>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
 #include <string>
 
 
 void problem_84_main(std::ostream& os) {
-    auto code_png_generator{ rtc::ean_13::barcode_png::generator{} };
-    for (auto&& code_str : { "2407014001944", "9781123123456", "5012345678900" })
-    {
-        const auto image_file_path{ tmcppc::png_writer::create_png_file_path(std::filesystem::temp_directory_path(), code_str) };
-        std::cout << std::format("Creating {}...\n\n", image_file_path.string());
+    auto code_png_generator{ tmcppc::ean_13::barcode_png::generator{} };
+    for (auto&& code_str : { "2407014001944", "9781123123456", "5012345678900" }) {
+        const auto image_file_path{ tmcppc::png::create_png_file_path(std::filesystem::temp_directory_path(), code_str) };
+        fmt::print(os, "Creating {}...\n\n", image_file_path.generic_string());
 
-        code_png_generator(rtc::ean_13::barcode{ code_str }, 1.0, image_file_path);
+        code_png_generator(tmcppc::ean_13::barcode{ code_str }, 1.0, image_file_path);
     }
 }
 

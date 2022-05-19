@@ -6,7 +6,7 @@
 #include <type_traits>  // common_type_t
 
 
-// v1: my initial solution.
+// v1: my initial solution
 // 
 // temperature class is only templated on the representation type
 namespace tmcppc::temperature::v1 {

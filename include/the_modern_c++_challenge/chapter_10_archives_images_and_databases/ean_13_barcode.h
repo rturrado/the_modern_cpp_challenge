@@ -1,5 +1,4 @@
-#ifndef EAN_13_BARCODE_H
-#define EAN_13_BARCODE_H
+#pragma once
 
 #include <algorithm>  // all_of, transform
 #include <array>
@@ -11,10 +10,8 @@
 #include <string>
 
 
-namespace rtc::ean_13
-{
-    auto to_uint8_t(const unsigned char c)
-    {
+namespace tmcppc::ean_13 {
+    auto to_uint8_t(const unsigned char c) {
         return static_cast<uint8_t>(c - '0');
     };
 
@@ -27,8 +24,7 @@ namespace rtc::ean_13
 
     enum class digit_type { none, l, g, r };
 
-    class digit
-    {
+    class digit {
     private:
         static inline auto l_encoding = std::map<std::uint8_t, digit_bs>{
             { 0, digit_bs{"0001101"} },
@@ -75,14 +71,12 @@ namespace rtc::ean_13
         [[nodiscard]] inline auto get_type() const { return type_; }
         [[nodiscard]] inline auto get_value() const { return value_; }
 
-        [[nodiscard]] inline auto encode(uint8_t value) const -> digit_bs
-        {
-            switch (type_)
-            {
-            case digit_type::l: return l_encoding[value];
-            case digit_type::g: return g_encoding[value];
-            case digit_type::r: return r_encoding[value];
-            default: return {};
+        [[nodiscard]] inline auto encode(uint8_t value) const -> digit_bs {
+            switch (type_) {
+                case digit_type::l: return l_encoding[value];
+                case digit_type::g: return g_encoding[value];
+                case digit_type::r: return r_encoding[value];
+                default: return {};
             }
         }
 
@@ -92,8 +86,7 @@ namespace rtc::ean_13
     };
 
     struct digit_group {
-        [[nodiscard]] inline auto encode(const std::string& digits_str) const
-        {
+        [[nodiscard]] inline auto encode(const std::string& digits_str) const {
             digit_group_bs ret{};
 
             std::transform(digits_str.cbegin(), digits_str.cend(), data_.cbegin(), ret.begin(),
@@ -105,22 +98,23 @@ namespace rtc::ean_13
         std::array<digit, group_size> data_{};
     };
 
-    struct InvalidCodeSizeException : public std::runtime_error
-    {
-        InvalidCodeSizeException(const std::string& code_str) : std::runtime_error{ message_ + code_str } {}
+    struct invalid_code_size_exception : public std::runtime_error {
+        invalid_code_size_exception(const std::string& code_str)
+            : std::runtime_error{ message_ + code_str }
+        {}
     private:
         static inline std::string message_{ "invalid code size exception: " };
     };
 
-    struct InvalidCodeException : public std::runtime_error
-    {
-        InvalidCodeException(const std::string& code_str) : std::runtime_error{ message_ + code_str } {}
+    struct invalid_code_exception : public std::runtime_error {
+        invalid_code_exception(const std::string& code_str)
+            : std::runtime_error{ message_ + code_str }
+        {}
     private:
         static inline std::string message_{ "invalid code exception: " };
     };
 
-    class barcode
-    {
+    class barcode {
     private:
         static inline auto l = digit{ digit_type::l };
         static inline auto g = digit{ digit_type::g };
@@ -156,15 +150,12 @@ namespace rtc::ean_13
         static inline const auto end_marker{ std::bitset<3>{"101"} };
 
     private:
-        void encode()
-        {
-            if (code_str_.size() != code_size)
-            {
-                throw InvalidCodeSizeException{ code_str_ };
+        void encode() {
+            if (code_str_.size() != code_size) {
+                throw invalid_code_size_exception{ code_str_ };
             }
-            if (not std::all_of(std::begin(code_str_), std::end(code_str_), [](unsigned char c) { return std::isdigit(c); }))
-            {
-                throw InvalidCodeException{ code_str_ };
+            if (not std::ranges::all_of(code_str_, [](unsigned char c) { return std::isdigit(c); })) {
+                throw invalid_code_exception{ code_str_ };
             }
 
             auto first_digit = digit{ to_uint8_t(get_first_digit_char()) };
@@ -181,7 +172,4 @@ namespace rtc::ean_13
         digit_group_bs first_digit_group_bs_{};
         digit_group_bs second_digit_group_bs_{};
     };
-}  // namespace rtc::ean_13
-
-
-#endif  // EAN_13_BARCODE_H
+}  // namespace tmcppc::ean_13

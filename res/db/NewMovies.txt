@@ -1,0 +1,34 @@
+2
+1
+Fight Club
+1990
+139
+3
+Brad Pitt
+Tyler Durden
+Edward Norton
+Narrator
+Meat Loaf
+Robert Paulsen
+1
+David Fincher
+2
+Chuck Palahniuk
+Jim Uhls
+2
+Blade Runner
+1982
+117
+3
+Harrison Ford
+Rick Deckard
+Rutger Hauer
+Roy Batty
+Sean Young
+Rachael
+1
+Ridley Scott
+3
+Hampton Fancher
+David Webb Peoples
+Philip K. Dick

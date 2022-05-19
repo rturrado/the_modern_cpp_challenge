@@ -10,6 +10,15 @@ TEST(problem_79_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_79_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "blah"
+        "Searching for '^.*\\.jpg$' files in "
+    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "'.*/res/sample_folder.zip'...\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
+        "\tsample_folder/dilbert.jpg\n"
+        "\tsample_folder/guinness.jpg\n"
+        "\tsample_folder/john_mccarthy.jpg\n"
+        "\tsample_folder/sample_subfolder/use_your_illussion_ii.jpg\n"
     ));
 }

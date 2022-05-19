@@ -99,11 +99,11 @@ void problem_94_main()
     const auto signature_file_path{ fs::temp_directory_path() / "signature.txt"};
 
     std::cout << std::format("Generating private and public key files\n\tPrivate key file: '{}'\n\tPublic key file: '{}'\n",
-        rsa_private_key_file_path.string(), rsa_public_key_file_path.string());
+        rsa_private_key_file_path.generic_string(), rsa_public_key_file_path.generic_string());
     generate_keys(rsa_private_key_file_path, rsa_public_key_file_path);
 
     std::cout << std::format("Signing file with private key\n\tInput file: '{}'\n\tSignature file: '{}'\n",
-        input_file_path.string(), signature_file_path.string());
+        input_file_path.generic_string(), signature_file_path.generic_string());
     sign_file(input_file_path, rsa_private_key_file_path, signature_file_path);
 
     std::cout << "Verifying file with public key\n";

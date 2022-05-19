@@ -9,8 +9,8 @@
 #include "chapter_07_concurrency/problems.h"
 #include "chapter_08_design_patterns/problems.h"
 #include "chapter_09_data_serialization/problems.h"
-/*
 #include "chapter_10_archives_images_and_databases/problems.h"
+/*
 #include "chapter_11_cryptography/problems.h"
 #include "chapter_12_networking_and_services/problems.h"
 */
@@ -145,7 +145,6 @@ private:
         []() { problem_77_main(); },  // printing a list of movies to a PDF
         []() { problem_78_main(); },  // creating a PDF from a collection of images
 
-/*
         // Archives, images, and databases
         //
         []() { problem_79_main(); },  // finding files in a ZIP archive
@@ -158,6 +157,7 @@ private:
         []() { problem_86_main(); },  // inserting into an SQLite database
         []() { problem_87_main(); },  // handling images in an SQLite database
 
+/*
         // Cryptography
         //
         []() { problem_88_main(); },  // Caesar cipher

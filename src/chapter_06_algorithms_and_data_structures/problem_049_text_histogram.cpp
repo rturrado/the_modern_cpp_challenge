@@ -64,7 +64,7 @@ void problem_49_main(std::ostream& os)
         std::ifstream in_file{ in_file_path };
         if (not in_file) {
             throw std::runtime_error{ fmt::format("file not found: {}, from current path: {}",
-                in_file_path.string(), fs::current_path().string()) };
+                in_file_path.generic_string(), fs::current_path().generic_string()) };
         }
 
         // Count letters

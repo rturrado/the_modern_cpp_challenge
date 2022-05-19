@@ -188,3 +188,49 @@ namespace tmcppc::temperature::v2 {
         constexpr auto operator"" _K(long double value) { return temperature<long double, scale::kelvin>(value); }
     }  // namespace literals
 }  // namespace tmcppc::temperature::v2
+
+
+template <typename Rep_>
+struct fmt::formatter<tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale::celsius>> {
+    template <typename ParseContext>
+    constexpr auto parse(ParseContext& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale::celsius>& t,
+        FormatContext& ctx) const -> decltype(ctx.out()) {
+
+        return fmt::format_to(ctx.out(), "{:.2f} Celsius", t.value());
+    }
+};
+
+template <typename Rep_>
+struct fmt::formatter<tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale::fahrenheit>> {
+    template <typename ParseContext>
+    constexpr auto parse(ParseContext& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale::fahrenheit>& t,
+        FormatContext& ctx) const -> decltype(ctx.out()) {
+
+        return fmt::format_to(ctx.out(), "{:.2f} Fahrenheit", t.value());
+    }
+};
+
+template <typename Rep_>
+struct fmt::formatter<tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale::kelvin>> {
+    template <typename ParseContext>
+    constexpr auto parse(ParseContext& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale::kelvin>& t,
+        FormatContext& ctx) const -> decltype(ctx.out()) {
+
+        return fmt::format_to(ctx.out(), "{:.2f} Kelvin", t.value());
+    }
+};

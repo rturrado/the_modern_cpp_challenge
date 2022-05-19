@@ -3,8 +3,7 @@
 #include "pugixml.hpp"
 
 #include <cstddef>  // ptrdiff_t
-#include <fmt/ostream.h>
-#include <sstream>  // ostringstream
+#include <fmt/format.h>
 #include <stdexcept>  // runtime_error
 #include <string>
 
@@ -37,9 +36,7 @@ namespace tmcppc::pugixml {
 
     struct load_from_error : public std::runtime_error {
         load_from_error(const std::string& description, std::ptrdiff_t offset) : std::runtime_error{ "" } {
-            std::ostringstream oss{};
-            fmt::print(oss, "trying to load from: \"{}\", at offset {}", description, offset);
-            message_ = oss.str();
+            message_ = fmt::format("trying to load from: \"{}\", at offset {}", description, offset);
         }
         virtual const char* what() const noexcept override { return message_.c_str(); }
     private:
@@ -48,9 +45,7 @@ namespace tmcppc::pugixml {
 
     struct save_to_error : public std::runtime_error {
         save_to_error(const std::string& file_path) : std::runtime_error{ "" } {
-            std::ostringstream oss{};
-            fmt::print(oss, "trying to save to: \"{}\"", file_path);
-            message_ = oss.str();
+            message_ = fmt::format("trying to save to: \"{}\"", file_path);
         }
         virtual const char* what() const noexcept override { return message_.c_str(); }
     private:

@@ -8,30 +8,51 @@
 #include <vector>
 
 
-TEST(sexy_prime_pairs_up_to, DISABLED_zero) { EXPECT_THAT(sexy_prime_pairs_up_to(0), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, DISABLED_one) { EXPECT_THAT(sexy_prime_pairs_up_to(1), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, DISABLED_two) { EXPECT_THAT(sexy_prime_pairs_up_to(2), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, DISABLED_three) { EXPECT_THAT(sexy_prime_pairs_up_to(3), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, DISABLED_four) { EXPECT_THAT(sexy_prime_pairs_up_to(4), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, DISABLED_five) { EXPECT_THAT(sexy_prime_pairs_up_to(5), ::testing::IsEmpty()); }
-TEST(sexy_prime_pairs_up_to, DISABLED_six) { EXPECT_THAT(sexy_prime_pairs_up_to(6), ::testing::IsEmpty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_zero) {
+    std::vector<std::pair<size_t, size_t>> result{};
+    EXPECT_EQ(sexy_prime_pairs_up_to(0), result);
+}
+TEST(sexy_prime_pairs_up_to, DISABLED_one) {
+    std::vector<std::pair<size_t, size_t>> result{};
+    EXPECT_EQ(sexy_prime_pairs_up_to(1), result);
+}
+TEST(sexy_prime_pairs_up_to, DISABLED_two) {
+    std::vector<std::pair<size_t, size_t>> result{};
+    EXPECT_EQ(sexy_prime_pairs_up_to(2), result);
+}
+TEST(sexy_prime_pairs_up_to, DISABLED_three) {
+    std::vector<std::pair<size_t, size_t>> result{};
+    EXPECT_EQ(sexy_prime_pairs_up_to(3), result);
+}
+TEST(sexy_prime_pairs_up_to, DISABLED_four) {
+    std::vector<std::pair<size_t, size_t>> result{};
+    EXPECT_EQ(sexy_prime_pairs_up_to(4), result);
+}
+TEST(sexy_prime_pairs_up_to, DISABLED_five) {
+    std::vector<std::pair<size_t, size_t>> result{};
+    EXPECT_EQ(sexy_prime_pairs_up_to(5), result);
+}
+TEST(sexy_prime_pairs_up_to, DISABLED_six) {
+    std::vector<std::pair<size_t, size_t>> result{};
+    EXPECT_EQ(sexy_prime_pairs_up_to(6), result);
+}
 
 TEST(sexy_prime_pairs_up_to, DISABLED_seven) {
-    EXPECT_THAT(sexy_prime_pairs_up_to(7), ::testing::ElementsAre(::testing::Pair(1, 7)));
+    EXPECT_THAT(sexy_prime_pairs_up_to(7), ::testing::ElementsAre(::testing::Pair<size_t, size_t>(1, 7)));
 }
 
 TEST(sexy_prime_pairs_up_to, DISABLED_forty_eight) {
     EXPECT_THAT(sexy_prime_pairs_up_to(48), ::testing::ElementsAre(
-        ::testing::Pair(1, 7),
-        ::testing::Pair(5, 11),
-        ::testing::Pair(7, 13),
-        ::testing::Pair(11, 17),
-        ::testing::Pair(13, 19),
-        ::testing::Pair(17, 23),
-        ::testing::Pair(23, 29),
-        ::testing::Pair(31, 37),
-        ::testing::Pair(37, 43),
-        ::testing::Pair(41, 47)
+        ::testing::Pair<size_t, size_t>(1, 7),
+        ::testing::Pair<size_t, size_t>(5, 11),
+        ::testing::Pair<size_t, size_t>(7, 13),
+        ::testing::Pair<size_t, size_t>(11, 17),
+        ::testing::Pair<size_t, size_t>(13, 19),
+        ::testing::Pair<size_t, size_t>(17, 23),
+        ::testing::Pair<size_t, size_t>(23, 29),
+        ::testing::Pair<size_t, size_t>(31, 37),
+        ::testing::Pair<size_t, size_t>(37, 43),
+        ::testing::Pair<size_t, size_t>(41, 47)
     ));
 }
 

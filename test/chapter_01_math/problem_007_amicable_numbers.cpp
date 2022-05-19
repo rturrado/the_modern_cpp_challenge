@@ -8,8 +8,14 @@
 #include <vector>
 
 
-TEST(amicable_numbers_up_to, DISABLED_limit_0) { EXPECT_THAT(amicable_numbers_up_to(0), ::testing::IsEmpty()); }
-TEST(amicable_numbers_up_to, DISABLED_limit_250) { EXPECT_THAT(amicable_numbers_up_to(0), ::testing::IsEmpty()); }
+TEST(amicable_numbers_up_to, DISABLED_limit_0) {
+    std::vector<std::pair<size_t, size_t>> result{};
+    EXPECT_EQ(amicable_numbers_up_to(0), result);
+}
+TEST(amicable_numbers_up_to, DISABLED_limit_250) {
+    std::vector<std::pair<size_t, size_t>> result{};
+    EXPECT_EQ(amicable_numbers_up_to(0), result);
+}
 TEST(amicable_numbers_up_to, DISABLED_limit_300) { EXPECT_THAT(amicable_numbers_up_to(300), ::testing::ElementsAre(
     ::testing::Pair(220, 284)));
 }

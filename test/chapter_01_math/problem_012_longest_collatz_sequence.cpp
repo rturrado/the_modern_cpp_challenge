@@ -4,13 +4,17 @@
 #include <gtest/gtest.h>
 
 #include <sstream>  // ostringstream
+#include <vector>
 
 
 TEST(get_collatz_sequence_size, DISABLED_n_0) { EXPECT_EQ(get_collatz_sequence_size(0), 0); }
 TEST(get_collatz_sequence_size, DISABLED_n_6) { EXPECT_EQ(get_collatz_sequence_size(6), 9); }
 TEST(get_collatz_sequence_size, DISABLED_n_75_128_138_247) { EXPECT_EQ(get_collatz_sequence_size(75'128'138'247), 1229); }
 
-TEST(get_collatz_sequence, DISABLED_n_0) { EXPECT_THAT(get_collatz_sequence(0), ::testing::IsEmpty()); }
+TEST(get_collatz_sequence, DISABLED_n_0) {
+    std::vector<size_t> result{};
+    EXPECT_EQ(get_collatz_sequence(0), result);
+}
 TEST(get_collatz_sequence, DISABLED_n_6) { EXPECT_THAT(get_collatz_sequence(6), ::testing::ElementsAre(6, 3, 10, 5, 16, 8, 4, 2, 1)); }
 
 TEST(get_longest_collatz_sequence_v1, DISABLED_n_0) { EXPECT_THAT(get_longest_collatz_sequence_v1(0), ::testing::Pair(0, 0)); }

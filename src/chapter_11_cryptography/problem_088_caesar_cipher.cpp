@@ -69,7 +69,7 @@ void problem_88_main()
 
     const std::unique_ptr<Crypt> crypt_up{ std::make_unique<Caesar>() };
 
-    std::cout << std::format("Encrypting and decrypting file '{}'\n", input_file_path.string());
+    std::cout << std::format("Encrypting and decrypting file '{}'\n", input_file_path.generic_string());
     const auto encrypted_file_content{ crypt_up->encrypt(input_file_content) };
     const auto decrypted_file_content{ crypt_up->decrypt(encrypted_file_content) };
 

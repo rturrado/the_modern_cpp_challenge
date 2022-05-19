@@ -6,7 +6,7 @@
 #include <string>
 
 
-namespace tmcppc::png_writer {
+namespace tmcppc::png {
     namespace fs = std::filesystem;
 
     const fs::path png_file_extension{ "png" };
@@ -23,19 +23,19 @@ namespace tmcppc::png_writer {
         double b{};
     };
 
-    struct Point2D {
+    struct point_2d {
         int x{};
         int y{};
     };
 
-    struct Line2D {
-        Point2D from{};
-        Point2D to{};
+    struct line_2d {
+        point_2d from{};
+        point_2d to{};
     };
 
     struct rectangle_2d {
-        Point2D bottom_left{};
-        Point2D top_right{};
+        point_2d bottom_left{};
+        point_2d top_right{};
 
         [[nodiscard]] int get_width() const { return top_right.x - bottom_left.x; }
         [[nodiscard]] int get_height() const { return top_right.y - bottom_left.y; }
@@ -46,13 +46,19 @@ namespace tmcppc::png_writer {
         rgb end{};
     };
 
-    class PNGWriter {
+    class png_writer {
     public:
-        PNGWriter(int width, int height, double background_colour, const fs::path& file_path)
-            : width_{ width }, height_{ height }, background_colour_{ background_colour }, file_path_{ file_path }
-            , writer_{width, height, background_colour, file_path.string().c_str() }
+        png_writer(int width, int height, double background_colour, const fs::path& file_path)
+            : width_{ width }, height_{ height }
+            , background_colour_{ background_colour }
+            , file_path_{ file_path }
+            , writer_{ width, height, background_colour, file_path.string().c_str() }
         {}
-        ~PNGWriter() { writer_.close(); }
+        png_writer(const png_writer& other) = delete;
+        png_writer(png_writer&& other) noexcept = delete;
+        png_writer& operator=(const png_writer& other) = delete;
+        png_writer& operator=(png_writer&& other) noexcept = delete;
+        ~png_writer() { writer_.close(); }
 
         [[nodiscard]] int get_width() const { return width_; }
         [[nodiscard]] int get_height() const { return height_; }
@@ -64,7 +70,7 @@ namespace tmcppc::png_writer {
                 colour.r, colour.g, colour.b);
         }
 
-        void plot_filled_triangle(const Point2D& v1, const Point2D& v2, const Point2D& v3, const rgb& colour) {
+        void plot_filled_triangle(const point_2d& v1, const point_2d& v2, const point_2d& v3, const rgb& colour) {
             writer_.filledtriangle(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y, colour.r, colour.g, colour.b);
         }
 
@@ -82,14 +88,14 @@ namespace tmcppc::png_writer {
             }
         }
 
-        void plot_line(const Line2D& line, const rgb& colour) {
+        void plot_line(const line_2d& line, const rgb& colour) {
             writer_.line(line.from.x, line.from.y, line.to.x, line.to.y, colour.r, colour.g, colour.b);
         }
 
         void plot_text(
             fs::path font_file_path,
             int font_size,
-            const Point2D& bottom_left_position,
+            const point_2d& bottom_left_position,
             double angle,
             std::string text,
             const rgb& colour) {
@@ -110,4 +116,4 @@ namespace tmcppc::png_writer {
 
         pngwriter writer_{};
     };
-}  // namespace tmcppc::png_writer
+}  // namespace tmcppc::png

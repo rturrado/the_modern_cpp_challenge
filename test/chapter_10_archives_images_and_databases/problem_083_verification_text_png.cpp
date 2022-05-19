@@ -9,7 +9,5 @@
 TEST(problem_83_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_83_main(oss);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "blah"
-    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex("Creating .*/captcha.png...\n"));
 }

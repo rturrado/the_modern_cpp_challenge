@@ -37,9 +37,7 @@ std::string format_date_v1(const std::string& s) {
         throw invalid_date_format_error(s);
     }
 
-    std::ostringstream oss{};
-    fmt::print(oss, "{:04}-{:02}-{:02}", year, month, day);
-    return oss.str();
+    return fmt::format("{:04}-{:02}-{:02}", year, month, day);
 }
 
 // Book's solution

@@ -7,7 +7,10 @@
 #include <vector>
 
 
-TEST(abundant_numbers_up_to, DISABLED_zero) { EXPECT_THAT(abundant_numbers_up_to(0), ::testing::IsEmpty()); }
+TEST(abundant_numbers_up_to, DISABLED_zero) {
+    std::vector<AbundantNumberResult> result{};
+    EXPECT_EQ(abundant_numbers_up_to(0), result);
+}
 
 TEST(abundant_numbers_up_to, DISABLED_thirty) {
     EXPECT_THAT(abundant_numbers_up_to(30), ::testing::ElementsAre(

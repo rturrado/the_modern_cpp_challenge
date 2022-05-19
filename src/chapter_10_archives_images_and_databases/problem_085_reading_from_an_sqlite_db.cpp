@@ -1,9 +1,37 @@
-#include "chapter_10_archives_images_and_databases.h"
 #include "chapter_10_archives_images_and_databases/sqlite_movies.h"
 
 #include <filesystem>
-#include <format>
-#include <iostream>  // cout
+#include <fmt/ostream.h>
+#include <iostream>  // cin, cout
+#include <istream>
+#include <ostream>
+
+
+void problem_85_main(std::istream& is, std::ostream& os) {
+    const auto db_file_path{ std::filesystem::current_path() / "res" / "db" / "movies.db" };
+
+    try {
+        {
+            auto sqlite_db{ tmcppc::movies::sqlite_mcpp::create_movies_database(db_file_path) };
+            auto movies_db{ tmcppc::movies::sqlite_mcpp::database{ sqlite_db } };
+
+            fmt::print(os, "{}", movies_db);
+        }
+
+        fmt::print(os, "\n");
+
+        tmcppc::movies::sqlite_mcpp::remove_movies_database_file(is, os, db_file_path);
+    }
+    catch (const sqlite::sqlite_exception& ex) {
+        fmt::print(os, "Error: code = {}, message = '{}', operation '{}'\n",
+            ex.get_code(), ex.what(), ex.get_sql());
+    }
+    catch (const std::exception& ex) {
+        fmt::print(os, "Error: {}\n", ex.what());
+    }
+
+    fmt::print(os, "\n");
+}
 
 
 // Reading movies from an SQLite database
@@ -26,32 +54,6 @@
 //         movieid   integer                movieid   integer                movieid   integer
 //         personid  integer                personid  integer                personid  integer
 //                                                                           role      text
-void problem_85_main()
-{
-    const auto db_file_path{ std::filesystem::current_path() / "res" / "db" / "movies.db" };
-
-    try
-    {
-        {
-            auto sqlite_db{ tmcppc::movies::sqlite_mcpp::create_movies_database(db_file_path) };
-            auto movies_db{ tmcppc::movies::sqlite_mcpp::database{ sqlite_db } };
-
-            std::cout << movies_db;
-        }
-
-        std::cout << "\n";
-
-        tmcppc::movies::sqlite_mcpp::remove_movies_database_file(db_file_path);
-    }
-    catch (const sqlite::sqlite_exception& ex)
-    {
-        std::cout << std::format("Error: code = {}, message = '{}', operation '{}'\n",
-            ex.get_code(), ex.what(), ex.get_sql());
-    }
-    catch (const std::exception& ex)
-    {
-        std::cout << "Error: " << ex.what() << "\n";
-    }
-
-    std::cout << "\n";
+void problem_85_main() {
+    problem_85_main(std::cin, std::cout);
 }

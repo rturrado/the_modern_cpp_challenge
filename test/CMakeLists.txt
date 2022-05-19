@@ -21,8 +21,8 @@ add_subdirectory(chapter_06_algorithms_and_data_structures)
 add_subdirectory(chapter_07_concurrency)
 add_subdirectory(chapter_08_design_patterns)
 add_subdirectory(chapter_09_data_serialization)
-#[[
 add_subdirectory(chapter_10_archives_images_and_databases)
+#[[
 add_subdirectory(chapter_11_cryptography)
 add_subdirectory(chapter_12_networking_and_services)
 ]]
@@ -39,8 +39,8 @@ set(test_sources
     ${chapter_07_test_sources}
     ${chapter_08_test_sources}
     ${chapter_09_test_sources}
-#[[
     ${chapter_10_test_sources}
+#[[
     ${chapter_11_test_sources}
     ${chapter_11_test_sources}
 ]]

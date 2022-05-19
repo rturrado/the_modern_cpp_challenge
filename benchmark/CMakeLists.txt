@@ -1,4 +1,6 @@
 # Packages
+find_package(Threads REQUIRED)
+
 include(FetchContent)
 set(BENCHMARK_ENABLE_TESTING NO)
 FetchContent_Declare(googlebenchmark
@@ -23,4 +25,4 @@ set(benchmark_sources
 # Benchmark executable
 add_executable(${PROJECT_NAME}_benchmark main.cpp benchmark.h ${benchmark_sources})
 target_compile_features(${PROJECT_NAME}_benchmark PRIVATE cxx_std_23)
-target_link_libraries(${PROJECT_NAME}_benchmark lib_${PROJECT_NAME} benchmark::benchmark ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${PROJECT_NAME}_benchmark lib_${PROJECT_NAME} benchmark::benchmark Threads::Threads)
