@@ -11,7 +11,20 @@ env:
   BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download
 
 jobs:
+  install-dependencies:
+    runs-on: windows-latest
+    steps:
+    - name: Restore vcpkg cache
+      uses: lukka/run-vcpkg@v7
+      with:
+        setupOnly: true
+        vcpkgGitCommitId: '1d4128f08e30cec31b94500840c7eca8ebc579cb'
+    - name: Install dependencies via vcpkg
+      run: |
+        $VCPKG_ROOT/vcpkg install zlib libpng --triplet=x64-windows
+      shell: bash
   windows-debug-test:
+    needs: install-dependencies
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -42,6 +55,7 @@ jobs:
       working-directory: ${{github.workspace}}/build/test
       run: .\Debug\the_modern_c++_challenge_test.exe --gtest_brief=1 --gtest_also_run_disabled_tests
   windows-release-benchmark:
+    needs: install-dependencies
     runs-on: windows-latest
     strategy:
       fail-fast: false
