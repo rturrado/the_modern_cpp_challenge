@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.4)  # version 3.4 needed by pugixml
 
+
+set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    CACHE STRING "Vcpkg toolchain file"
+)
+
+
 project("the_modern_c++_challenge"
     VERSION 1.0.1
     DESCRIPTION "My solutions to the 100 problems of The Modern C++ Challenge, a book by Marius Bancila's (published by Packt)."

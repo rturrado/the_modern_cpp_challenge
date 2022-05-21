@@ -30,11 +30,11 @@ FetchContent_Declare(nlohmann-json
 )
 FetchContent_Declare(PDF-Writer
     GIT_REPOSITORY https://github.com/rturrado/PDF-Writer.git
-    GIT_TAG "8e83634e0857a8500a904e34291b9a8bddb2c032"
+    GIT_TAG "2fad304ca44f3ffa879d760a438167a17775e123"
 )
 FetchContent_Declare(PNGwriter
-    GIT_REPOSITORY https://github.com/pngwriter/pngwriter.git
-    GIT_TAG "79bb3ef5ebd91996bc4cd02cdc031c5cd560b897"
+    GIT_REPOSITORY https://github.com/rturrado/pngwriter.git
+    GIT_TAG "14f1e8143a4b64242a0ed6b33b0574a4ed87caf8"
 )
 FetchContent_Declare(pugixml
     GIT_REPOSITORY https://github.com/zeux/pugixml.git
@@ -63,6 +63,10 @@ FetchContent_Declare(ZipLib
     GIT_REPOSITORY https://github.com/rturrado/ZipLib.git
     GIT_TAG "fca4077481af67a60b9230e262a704365e537b64"
 )
+FetchContent_Declare(vcpkg
+    GIT_REPOSITORY https://github.com/microsoft/vcpkg.git
+    GIT_TAG "314018fef43c7e3a52a3e46599313b70ace3977a"
+)
 FetchContent_MakeAvailable(
     #asio
     #cpr
@@ -77,6 +81,7 @@ FetchContent_MakeAvailable(
     SqliteModernCpp
     sqlite
     ZipLib
+    vcpkg
 )
 find_package(Boost 1.78.0 REQUIRED)
 
