@@ -11,7 +11,19 @@ env:
   BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download
 
 jobs:
+  install-dependencies:
+    runs-on: windows-latest
+    steps:
+    - name: Restore vcpkg cache
+      uses: lukka/run-vcpkg@v10
+      with:
+        vcpkgGitCommitId: '314018fef43c7e3a52a3e46599313b70ace3977a'
+    - name: Install dependencies via vcpkg
+      run: |
+        $VCPKG_ROOT/vcpkg install zlib libpng --triplet=x64-windows
+      shell: bash
   windows-debug-test:
+    needs: install-dependencies
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -35,13 +47,17 @@ jobs:
         rm -rf boost_*/* download.tar.bz2 download.tar
       shell: bash
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON -DRANGE_V3_DOCS=OFF -DRANGE_V3_EXAMPLES=OFF -DRANGE_V3_TESTS=OFF
+      shell: bash
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config Debug
+      shell: bash
     - name: Test
       working-directory: ${{github.workspace}}/build/test
-      run: .\Debug\the_modern_c++_challenge_test.exe --gtest_brief=1 --gtest_also_run_disabled_tests
+      run: ./Debug/the_modern_c++_challenge_test --gtest_brief=1 --gtest_also_run_disabled_tests
+      shell: bash
   windows-release-benchmark:
+    needs: install-dependencies
     runs-on: windows-latest
     strategy:
       fail-fast: false
@@ -65,9 +81,12 @@ jobs:
         rm -rf boost_*/* download.tar.bz2 download.tar
       shell: bash
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release -DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON -DRANGE_V3_DOCS=OFF -DRANGE_V3_EXAMPLES=OFF -DRANGE_V3_TESTS=OFF
+      shell: bash
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config Release
+      shell: bash
     - name: Benchmark
       working-directory: ${{github.workspace}}/build/benchmark/Release
-      run: .\the_modern_c++_challenge_benchmark.exe
+      run: ./the_modern_c++_challenge_benchmark
+      shell: bash
