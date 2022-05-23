@@ -8,85 +8,98 @@ on:
 
 env:
   BOOST_ROOT: ${{github.workspace}}/3rdparty/boost
-  BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download
+  BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download  
+  VCPKG_ROOT: ${{ github.workspace }}/vcpkg  # indicates the location of the vcpkg as a git submodule of the project repository
+  VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg/bincache  # tells vcpkg where binary packages are stored
 
 jobs:
-  install-dependencies:
+  configuration:
     runs-on: windows-latest
     steps:
-    - name: Restore vcpkg cache
-      uses: lukka/run-vcpkg@v10
-      with:
-        vcpkgGitCommitId: '314018fef43c7e3a52a3e46599313b70ace3977a'
-    - name: Install dependencies via vcpkg
-      run: |
-        $VCPKG_ROOT/vcpkg install zlib libpng --triplet=x64-windows
-      shell: bash
-  windows-debug-test:
-    needs: install-dependencies
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: "Create directory '${{ env.VCPKG_DEFAULT_BINARY_CACHE }}'"
+        run: mkdir -p $VCPKG_DEFAULT_BINARY_CACHE
+        shell: bash
+
+      # Setup the build machine with the most recent versions of CMake and Ninja
+      # Both are cached if not already: on subsequent runs both will be quickly restored from GitHub cache service
+      - uses: lukka/get-cmake@latest
+
+      # Restore both vcpkg and its artifacts from the GitHub cache service
+      - name: Restore vcpkg and its artifacts.
+        uses: actions/cache@v3
+        with:
+          # The first path is the location of vcpkg: it contains the vcpkg executable and data files,
+          # as long as the built package archives (aka binary cache) which are located by VCPKG_DEFAULT_BINARY_CACHE env var
+          # The other paths starting with '!' are exclusions: they contain termporary files generated during the build of the installed packages
+          path: |
+            ${{ env.VCPKG_ROOT }}
+            !${{ env.VCPKG_ROOT }}/buildtrees
+            !${{ env.VCPKG_ROOT }}/packages
+            !${{ env.VCPKG_ROOT }}/downloads
+            !${{ env.VCPKG_ROOT }}/installed
+          # The key is composed in a way that it gets properly invalidated:
+          # this must happen whenever vcpkg's git commit ID changes, or the list of packages changes
+          # In this case, a cache miss must happen and a new entry with a new key with be pushed to GitHub the cache service
+          # The key includes: hash of the vcpkg.json file, the hash of the vcpkg's git commit ID, and the used vcpkg's triplet
+          # The vcpkg's commit ID would suffice, but computing a hash out does not harm
+          # Note: given a key, the cache content is immutable
+          # If a cache entry has been created improperly, in order the recreate the right content the key must be changed as well,
+          # and it must be brand new (i.e. not existing already)
+          key: |
+            ${{ hashFiles( 'vcpkg.json' ) }}-${{ hashFiles( '.git/modules/vcpkg/HEAD' )}}-x64-windows
+
+      # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly
+      # As used here the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Restore Boost cache
+        uses: actions/cache@v3
+        id: cache-boost
+        with:
+          path: ${{env.BOOST_ROOT}}
+          key: boost
+      - name: Install Boost
+        if: steps.cache-boost.outputs.cache-hit != 'true'
+        run: |
+          BOOST_ROOT=$(echo $BOOST_ROOT | sed 's/\\/\//g')
+          mkdir -p $BOOST_ROOT
+          curl --progress-bar --location --output $BOOST_ROOT/download.tar.bz2 $BOOST_URL
+          7z -o$BOOST_ROOT x $BOOST_ROOT/download.tar.bz2 -y -bd
+          7z -o$BOOST_ROOT x $BOOST_ROOT/download.tar -y -bd
+          cd $BOOST_ROOT && cp -r boost_*/* .
+          rm -rf boost_*/* download.tar.bz2 download.tar
+        shell: bash
+
+      # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
+      - name: Install dependencies and generate project files
+        run: |
+          cmake --preset test
+          cmake --preset benchmark
+
+  build-and-run-debug-test:
+    needs: configuration
     runs-on: windows-latest
-    strategy:
-      fail-fast: false
     steps:
-    - uses: actions/checkout@v3
-    - name: Restore Boost cache
-      uses: actions/cache@v3
-      id: cache-boost
-      with:
-        path: ${{env.BOOST_ROOT}}
-        key: boost
-    - name: Install Boost
-      if: steps.cache-boost.outputs.cache-hit != 'true'
-      run: |
-        BOOST_ROOT=$(echo $BOOST_ROOT | sed 's/\\/\//g')
-        mkdir -p $BOOST_ROOT
-        curl --progress-bar --location --output $BOOST_ROOT/download.tar.bz2 $BOOST_URL
-        7z -o$BOOST_ROOT x $BOOST_ROOT/download.tar.bz2 -y -bd
-        7z -o$BOOST_ROOT x $BOOST_ROOT/download.tar -y -bd
-        cd $BOOST_ROOT && cp -r boost_*/* .
-        rm -rf boost_*/* download.tar.bz2 download.tar
-      shell: bash
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE="${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON -DRANGE_V3_DOCS=OFF -DRANGE_V3_EXAMPLES=OFF -DRANGE_V3_TESTS=OFF
-      shell: bash
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config Debug
+      run: cmake --build --preset x64-Debug-Test
       shell: bash
     - name: Test
-      working-directory: ${{github.workspace}}/build/test
-      run: ./Debug/the_modern_c++_challenge_test --gtest_brief=1 --gtest_also_run_disabled_tests
+      working-directory: ${{github.workspace}}/build/test/test
+      run: ./Debug/the_modern_c++_challenge_test.exe --gtest_brief=1 --gtest_also_run_disabled_tests
       shell: bash
-  windows-release-benchmark:
-    needs: install-dependencies
+
+  build-and-run-release-benchmark:
+    needs: configuration
     runs-on: windows-latest
-    strategy:
-      fail-fast: false
     steps:
-    - uses: actions/checkout@v3
-    - name: Restore Boost cache
-      uses: actions/cache@v3
-      id: cache-boost
-      with:
-        path: ${{env.BOOST_ROOT}}
-        key: boost
-    - name: Install Boost
-      if: steps.cache-boost.outputs.cache-hit != 'true'
-      run: |
-        BOOST_ROOT=$(echo $BOOST_ROOT | sed 's/\\/\//g')
-        mkdir -p $BOOST_ROOT
-        curl --progress-bar --location --output $BOOST_ROOT/download.tar.bz2 $BOOST_URL
-        7z -o$BOOST_ROOT x $BOOST_ROOT/download.tar.bz2 -y -bd
-        7z -o$BOOST_ROOT x $BOOST_ROOT/download.tar -y -bd
-        cd $BOOST_ROOT && cp -r boost_*/* .
-        rm -rf boost_*/* download.tar.bz2 download.tar
-      shell: bash
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{github.workspace}}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON -DRANGE_V3_DOCS=OFF -DRANGE_V3_EXAMPLES=OFF -DRANGE_V3_TESTS=OFF
-      shell: bash
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config Release
+      run: cmake --build --preset x64-Release-Benchmark
       shell: bash
     - name: Benchmark
-      working-directory: ${{github.workspace}}/build/benchmark/Release
-      run: ./the_modern_c++_challenge_benchmark
+      working-directory: ${{github.workspace}}/build/benchmark/benchmark
+      run: ./Release/the_modern_c++_challenge_benchmark.exe
       shell: bash

@@ -1,0 +1,61 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 22,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "description": "Configure with vcpkg toolchain and generate Ninja project files for all configurations",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "generator": "Ninja Multi-Config",
+            "cacheVariables": {
+                "BOOST_ROOT": {
+                    "type": "PATH",
+                    "value": "$env{BOOST_ROOT}"
+                },
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "type": "FILEPATH",
+                    "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+                },
+                "RANGE_V3_DOCS": false,
+                "RANGE_V3_EXAMPLES": false,
+                "RANGE_V3_TESTS": false
+            }
+        },
+        {
+            "name": "test",
+            "inherits": "base",
+            "cacheVariables": {
+                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true
+            }
+        },
+        {
+            "name": "benchmark",
+            "inherits":  "base",
+            "cacheVariables": {
+                "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true,
+                "BUILD_TESTING":  false
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "x64-Debug-Test",
+            "configurePreset": "test",
+            "displayName": "Build x64-Debug-Test",
+            "description": "Build test Debug configuration",
+            "configuration": "Debug"
+        },
+        {
+            "name": "x64-Release-Benchmark",
+            "configurePreset": "benchmark",
+            "displayName": "Build x64-Release-Benchmark",
+            "description": "Build benchmark Release configuration",
+            "configuration": "Release"
+        }
+    ]
+}
