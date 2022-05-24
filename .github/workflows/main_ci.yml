@@ -21,7 +21,7 @@ env:
   BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download  
 
 jobs:
-  configuration:
+  cmake-configure-and-build:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -59,32 +59,26 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
-      - name: Configure tests and benchmarks
+      - name: Configure and build tests and benchmarks
         run: |
           cmake --preset test
           cmake --preset benchmark
+          cmake --build --preset x64-Debug-Test
+          cmake --build --preset x64-Release-Benchmark
 
-  build-and-run-debug-test:
-    needs: configuration
+  run-debug-test:
+    needs: cmake-configure-and-build
     runs-on: windows-latest
     steps:
-    - name: Build tests
-      working-directory: ${{github.workspace}}
-      run: cmake --build --preset x64-Debug-Test
-      shell: bash
     - name: Run tests
       working-directory: ${{github.workspace}}/build/test/test
       run: ./Debug/the_modern_c++_challenge_test.exe --gtest_brief=1 --gtest_also_run_disabled_tests
       shell: bash
 
-  build-and-run-release-benchmark:
-    needs: configuration
+  run-release-benchmark:
+    needs: cmake-configure-and-build
     runs-on: windows-latest
     steps:
-    - name: Build benchmarks
-      working-directory: ${{github.workspace}}
-      run: cmake --build --preset x64-Release-Benchmark
-      shell: bash
     - name: Run benchmarks
       working-directory: ${{github.workspace}}/build/benchmark/benchmark
       run: ./Release/the_modern_c++_challenge_benchmark.exe
