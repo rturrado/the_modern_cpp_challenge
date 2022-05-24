@@ -21,7 +21,7 @@ void problem_48_main(std::ostream& os) {
     fmt::print(os, "\t{}\n", v_i);
     fmt::print(os, "\t\t(using v1): [{}]\n", fmt::join(most_frequent_elements_v1(v_i), ", "));
     fmt::print(os, "\t\t(using v2): [{}]\n\n", fmt::join(most_frequent_elements_v2(v_i), ", "));
-    fmt::print(os, "\t{}\n", v_c);
+    fmt::print(os, "\t[{}]\n", fmt::join(v_c, ", "));
     fmt::print(os, "\t\t(using v1): [{}]\n", fmt::join(most_frequent_elements_v1(v_c), ", "));
     fmt::print(os, "\t\t(using v2): [{}]\n\n", fmt::join(most_frequent_elements_v2(v_c), ", "));
     fmt::print(os, "\t{}\n", v_d);

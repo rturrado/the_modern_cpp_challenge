@@ -14,7 +14,7 @@ void problem_55_main(std::ostream& os) {
     fmt::print(os, "Zipping {} and {}:\n", rng_1, rng_2);
     fmt::print(os, "\t{}\n\n", zip(rng_1, rng_2));
 
-    fmt::print(os, "Zipping {} and {}:\n", rng_1, rng_3);
+    fmt::print(os, "Zipping {} and [{}]:\n", rng_1, fmt::join(rng_3, ", "));
     fmt::print(os, "\t{}\n\n", zip(rng_1, rng_3));
 }
 

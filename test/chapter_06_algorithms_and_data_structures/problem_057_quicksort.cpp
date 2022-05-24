@@ -10,7 +10,7 @@ TEST(problem_57_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_57_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "Quicksorting zA9!moN9: !99ANmoz\n"
+        "Quicksorting [z, A, 9, !, m, o, N, 9]: [!, 9, 9, A, N, m, o, z]\n"
         "Quicksorting [10, 15, 20, 25, 30, 35, 40]: [40, 30, 20, 10, 35, 25, 15]\n"
     ));
 }

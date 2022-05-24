@@ -9,9 +9,9 @@
 
 void problem_57_main(std::ostream& os) {
     std::vector<char> v_c{ 'z', 'A', '9', '!', 'm', 'o', 'N', '9' };
-    fmt::print(os, "Quicksorting {}: ", v_c);
+    fmt::print(os, "Quicksorting [{}]: ", fmt::join(v_c, ", "));
     tmcppc::algorithm::quicksort(begin(v_c), end(v_c));
-    fmt::print(os, "{}\n", v_c);
+    fmt::print(os, "[{}]\n", fmt::join(v_c, ", "));
 
     std::vector<int> v_i{ 10, 15, 20, 25, 30, 35, 40 };
     fmt::print(os, "Quicksorting {}: ", v_i);
