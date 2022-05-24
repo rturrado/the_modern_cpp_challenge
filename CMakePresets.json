@@ -17,10 +17,6 @@
                     "type": "PATH",
                     "value": "$env{BOOST_ROOT}"
                 },
-                "CMAKE_TOOLCHAIN_FILE": {
-                    "type": "FILEPATH",
-                    "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-                },
                 "RANGE_V3_DOCS": false,
                 "RANGE_V3_EXAMPLES": false,
                 "RANGE_V3_TESTS": false
