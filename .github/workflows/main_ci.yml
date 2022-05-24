@@ -21,7 +21,7 @@ env:
   BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download  
 
 jobs:
-  cmake-configure-and-build:
+  job:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -66,20 +66,12 @@ jobs:
           cmake --build --preset x64-Debug-Test
           cmake --build --preset x64-Release-Benchmark
 
-  run-debug-test:
-    needs: cmake-configure-and-build
-    runs-on: windows-latest
-    steps:
-    - name: Run tests
-      working-directory: ${{github.workspace}}/build/test/test
-      run: ./Debug/the_modern_c++_challenge_test.exe --gtest_brief=1 --gtest_also_run_disabled_tests
-      shell: bash
+      - name: Run tests
+        working-directory: ${{github.workspace}}/build/test/test
+        run: ./Debug/the_modern_c++_challenge_test.exe --gtest_brief=1 --gtest_also_run_disabled_tests
+        shell: bash
 
-  run-release-benchmark:
-    needs: cmake-configure-and-build
-    runs-on: windows-latest
-    steps:
-    - name: Run benchmarks
-      working-directory: ${{github.workspace}}/build/benchmark/benchmark
-      run: ./Release/the_modern_c++_challenge_benchmark.exe
-      shell: bash
+      - name: Run benchmarks
+        working-directory: ${{github.workspace}}/build/benchmark/benchmark
+        run: ./Release/the_modern_c++_challenge_benchmark.exe
+        shell: bash
