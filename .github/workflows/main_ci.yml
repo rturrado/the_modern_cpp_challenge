@@ -54,27 +54,19 @@ jobs:
         with:
           vcpkgJsonGlob: 'vcpkg.json'
 
-      - name: Configure tests
-        uses: lukka/run-cmake@v10
-        id: runcmake-test
-        with:
-          configurePreset: 'test'
-
-      - name: Configure benchmarks
-        uses: lukka/run-cmake@v10
-        id: runcmake-benchmark
-        with:
-          configurePreset: 'benchmark'
+      # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
+      - name: Configure tests and benchmarks
+        run: |
+          cmake --preset test
+          cmake --preset benchmark
 
   build-and-run-debug-test:
     needs: configuration
     runs-on: windows-latest
     steps:
     - name: Build tests
-      uses: lukka/run-cmake@v10
-      id: runcmake-x64-Debug-Test
-      with:
-        buildPreset: 'x64-Debug-Test'
+      run: cmake --build --preset x64-Debug-Test
+      shell: bash
     - name: Run tests
       working-directory: ${{github.workspace}}/build/test/test
       run: ./Debug/the_modern_c++_challenge_test.exe --gtest_brief=1 --gtest_also_run_disabled_tests
@@ -85,10 +77,8 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Build benchmarks
-      uses: lukka/run-cmake@v10
-      id: runcmake-x64-Release-Benchmark
-      with:
-        buildPreset: 'x64-Release-Benchmark'
+      run: cmake --build --preset x64-Release-Benchmark
+      shell: bash
     - name: Run benchmarks
       working-directory: ${{github.workspace}}/build/benchmark/benchmark
       run: ./Release/the_modern_c++_challenge_benchmark.exe
