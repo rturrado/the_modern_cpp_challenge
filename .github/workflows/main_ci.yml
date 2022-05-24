@@ -54,6 +54,10 @@ jobs:
         with:
           vcpkgJsonGlob: 'vcpkg.json'
 
+      # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly
+      # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
+      - uses: ilammy/msvc-dev-cmd@v1
+
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure tests and benchmarks
         run: |
@@ -65,6 +69,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Build tests
+      working-directory: ${{github.workspace}}
       run: cmake --build --preset x64-Debug-Test
       shell: bash
     - name: Run tests
@@ -77,6 +82,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Build benchmarks
+      working-directory: ${{github.workspace}}
       run: cmake --build --preset x64-Release-Benchmark
       shell: bash
     - name: Run benchmarks
