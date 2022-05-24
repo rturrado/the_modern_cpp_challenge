@@ -49,7 +49,7 @@ set(test_sources
 
 # Test executable
 add_executable(${PROJECT_NAME}_test ${test_sources})
-target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_23)
+target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_20)
 target_link_libraries(${PROJECT_NAME}_test lib_${PROJECT_NAME} gmock gtest_main)
 
 include(GoogleTest)
