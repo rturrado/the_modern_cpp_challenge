@@ -11,8 +11,7 @@ permutations all_permutations_rec_impl(std::string str) {
     permutations ret{};
     if (str.size() == 1) {
         ret.push_back(str);
-    }
-    else {
+    } else {
         for (const auto& s : all_permutations_rec_impl(str.substr(1))) {
             for (auto i{ 0 }; i <= s.size(); ++i) {
                 ret.push_back(s.substr(0, i) + str[0] + s.substr(i));
@@ -42,8 +41,7 @@ permutations all_permutations(std::string str) {
     std::sort(begin(str), end(str));
     do {
         ret.push_back(str);
-    }
-    while (std::next_permutation(begin(str), end(str)));
+    } while (std::next_permutation(begin(str), end(str)));
     return ret;
 }
 

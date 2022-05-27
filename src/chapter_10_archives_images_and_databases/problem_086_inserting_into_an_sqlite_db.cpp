@@ -1,6 +1,7 @@
 #include "chapter_09_data_serialization/movies.h"
 #include "chapter_10_archives_images_and_databases/console_movies.h"
 #include "chapter_10_archives_images_and_databases/file_movies.h"
+#include "chapter_10_archives_images_and_databases/problem_086_inserting_into_an_sqlite_db.h"
 #include "chapter_10_archives_images_and_databases/sqlite_movies.h"
 
 #include "rtc/console.h"
@@ -49,8 +50,7 @@ void add_new_movie_from_file(std::istream& is, std::ostream& os, tmcppc::movies:
             tmcppc::movies::file::from_file(ifs, movie);
             add_new_movie(is, os, movies_db, movie);
         }
-    }
-    catch (const std::exception& ex) {
+    } catch (const std::exception& ex) {
         fmt::print(os, "Error: {}\n", ex.what());
     }
 }
@@ -90,12 +90,10 @@ void problem_86_main(std::istream& is, std::ostream& os) {
         fmt::print(os, "\n");
 
         tmcppc::movies::sqlite_mcpp::remove_movies_database_file(is, os, db_file_path);
-    }
-    catch (const sqlite::sqlite_exception& ex) {
+    } catch (const sqlite::sqlite_exception& ex) {
         fmt::print(os, "Error: code = {}, message = '{}', operation = '{}'\n",
             ex.get_code(), ex.what(), ex.get_sql());
-    }
-    catch (const std::exception& ex) {
+    } catch (const std::exception& ex) {
         fmt::print(os, "Error: {}\n", ex.what());
     }
 

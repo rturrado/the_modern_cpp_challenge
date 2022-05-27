@@ -1,7 +1,7 @@
 #pragma once
 
 #include <chrono>
-#include <ostream>
+#include <iosfwd>
 
 namespace ch = std::chrono;
 

@@ -1,15 +1,11 @@
-#ifndef CRYPT_H
-#define CRYPT_H
+#pragma once
 
 #include <string>
 
-class Crypt
-{
+class crypt {
 public:
-    virtual ~Crypt() = default;
+    virtual ~crypt() = default;
 
     [[nodiscard]] virtual std::string encrypt(std::string_view text) const = 0;
     [[nodiscard]] virtual std::string decrypt(std::string_view text) const = 0;
 };
-
-#endif CRYPT_H

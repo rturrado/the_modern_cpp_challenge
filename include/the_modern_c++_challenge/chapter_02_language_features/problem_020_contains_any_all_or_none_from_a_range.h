@@ -1,7 +1,7 @@
 #pragma once
 
 #include <algorithm>  // find
-#include <ostream>
+#include <iosfwd>
 
 
 template <typename C, typename... Args>

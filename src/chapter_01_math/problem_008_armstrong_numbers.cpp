@@ -1,5 +1,5 @@
-#include "chapter_01_math/problem_008_armstrong_numbers.h"
 #include "chapter_01_math/digits.h"
+#include "chapter_01_math/problem_008_armstrong_numbers.h"
 
 #include <cmath>  // pow
 #include <fmt/ostream.h>

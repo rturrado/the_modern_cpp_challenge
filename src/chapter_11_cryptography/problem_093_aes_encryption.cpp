@@ -1,30 +1,27 @@
-#include "chapter_11_cryptography.h"
+#include "chapter_11_cryptography/problem_093_aes_encryption.h"
 
 #include "rtc/filesystem.h"
 
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
+#include <ostream>
 #include <string>
 
-#include "cryptocpp/cryptlib.h"
-#include "cryptocpp/default.h"  // DefaultDecryptorWithMac, DefaultEncryptorWithMAC
-#include "cryptocpp/files.h"  // FileSink, FileSource
-#include "cryptocpp/hex.h"  // HexDecoder, HexEncoder
+#include "cryptlib.h"
+#include "default.h"  // DefaultDecryptorWithMac, DefaultEncryptorWithMAC
+#include "files.h"  // FileSink, FileSource
+#include "hex.h"  // HexDecoder, HexEncoder
 
 
-// Encrypting and decrypting files
-//
-// Write a program that can encrypt and decrypt files using the Advanced Encryption Standard (AES or Rijndael).
-// It should be possible to specify both a source file and a destination file path, as well as a password.
-void problem_93_main()
-{
+void problem_93_main(std::ostream& os) {
     const auto input_file_path{ std::filesystem::current_path() / "res" / "fonts" / "calibri.ttf" };
     const auto encrypted_file_path{ std::filesystem::temp_directory_path() / "calibri.ttf.encrypted" };
     const auto decrypted_file_path{ std::filesystem::temp_directory_path() / "calibri.ttf.decrypted" };
     const std::string password{ "Super secret password" };
 
-    std::cout << std::format("Encrypting and decrypting file '{}'\n", input_file_path.generic_string());
-    std::cout << std::format("Using AES and password '{}'\n", password);
+    fmt::print(os, "Encrypting and decrypting file '{}'\n", input_file_path.generic_string());
+    fmt::print(os, "Using AES and password '{}'\n", password);
 
     CryptoPP::FileSource input_file_source{
         input_file_path.c_str(),
@@ -51,13 +48,21 @@ void problem_93_main()
     };
 
     if (rtc::filesystem::get_binary_file_content(input_file_path) ==
-        rtc::filesystem::get_binary_file_content(decrypted_file_path))
-    {
-        std::cout << "\tOK\n"; }
-    else
-    {
-        std::cout << "\tError: the decrypted content differs from the original content\n";
+        rtc::filesystem::get_binary_file_content(decrypted_file_path)) {
+
+        fmt::print(os, "\tOK\n");
+    } else {
+        fmt::print(os, "\tError: the decrypted content differs from the original content\n");
     }
 
-    std::cout << "\n";
+    fmt::print(os, "\n");
+}
+
+
+// Encrypting and decrypting files
+//
+// Write a program that can encrypt and decrypt files using the Advanced Encryption Standard (AES or Rijndael).
+// It should be possible to specify both a source file and a destination file path, as well as a password.
+void problem_93_main() {
+    problem_93_main(std::cout);
 }

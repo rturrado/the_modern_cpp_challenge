@@ -24,22 +24,26 @@ std::string read_n_digit_isbn(std::istream& is, std::ostream& os, size_t n) {
         
         std::getline(is, ret);
         
-        auto number_of_digits{ std::count_if(ret.begin(), ret.end(), [](auto& n) { return std::isdigit(n) != 0; }) };
-        auto number_of_separators{ std::count_if(ret.begin(), ret.end(),
-            [&separators](char c) { return separators.find(c) != std::string::npos; }) };
+        auto number_of_digits{ std::count_if(ret.begin(), ret.end(), [](auto& n) {
+            return std::isdigit(n) != 0;
+        }) };
+        auto number_of_separators{ std::count_if(ret.begin(), ret.end(), [&separators](char c) {
+            return separators.find(c) != std::string::npos;
+        }) };
         
         if (number_of_digits != n or
             ret.size() != number_of_digits + number_of_separators) {
             fmt::print(os, "\tError: invalid input\n");
-        }
-        else {
+        } else {
             valid_input = true;
         }
         if (!valid_input) {
             rtc::console::clear_istream(std::cin);
         }
     }
-    std::erase_if(ret, [&separators](char c) { return separators.find(c) != std::string::npos; });
+    std::erase_if(ret, [&separators](char c) {
+        return separators.find(c) != std::string::npos;
+    });
 
     return ret;
 }

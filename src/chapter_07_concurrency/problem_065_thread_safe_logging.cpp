@@ -1,5 +1,5 @@
-#include "chapter_07_concurrency/problem_065_thread_safe_logging.h"
 #include "chapter_07_concurrency/logger.h"
+#include "chapter_07_concurrency/problem_065_thread_safe_logging.h"
 
 #include <chrono>  // chrono_literals
 #include <future>  // async

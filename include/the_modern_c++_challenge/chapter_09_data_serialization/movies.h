@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <optional>
 #include <ostream>
+#include <sstream>  // ostringstream
 #include <string>
 #include <vector>
 

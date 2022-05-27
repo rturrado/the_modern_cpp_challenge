@@ -1,4 +1,5 @@
 #include "chapter_09_data_serialization/movies.h"
+#include "chapter_09_data_serialization/problem_073_xml_serialization.h"
 #include "chapter_09_data_serialization/xml_movies.h"
 
 #include <cassert>  // assert
@@ -47,8 +48,7 @@ void problem_73_main(std::ostream& os) {
         fmt::print(os, "Checking if serializing and deserializing the XML object created the same object... ");
         assert(in_doc == out_doc and "Error: serializing and deserializing the XML object created a different object");
         fmt::print(os, "OK\n\n");
-    }
-    catch (const std::exception& err) {
+    } catch (const std::exception& err) {
         fmt::print(os, "Error: {}\n\n", err.what());
     }
 }

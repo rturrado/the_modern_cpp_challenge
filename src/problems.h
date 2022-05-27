@@ -10,10 +10,8 @@
 #include "chapter_08_design_patterns/problems.h"
 #include "chapter_09_data_serialization/problems.h"
 #include "chapter_10_archives_images_and_databases/problems.h"
-/*
 #include "chapter_11_cryptography/problems.h"
 #include "chapter_12_networking_and_services/problems.h"
-*/
 
 #include <cassert>  // assert
 #include <functional>  // function, invoke
@@ -157,7 +155,6 @@ private:
         []() { problem_86_main(); },  // inserting into an SQLite database
         []() { problem_87_main(); },  // handling images in an SQLite database
 
-/*
         // Cryptography
         //
         []() { problem_88_main(); },  // Caesar cipher
@@ -176,6 +173,5 @@ private:
         []() { problem_98_main(); },  // fetching emails using IMAP
         []() { problem_99_main(); },  // translating text
         []() { problem_100_main(); }  // detecting faces in a picture
-*/
     };
 };

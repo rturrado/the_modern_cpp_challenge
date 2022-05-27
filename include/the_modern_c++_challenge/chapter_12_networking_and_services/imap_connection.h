@@ -1,20 +1,22 @@
-#ifndef IMAP_CONNECTION_H
-#define IMAP_CONNECTION_H
+#pragma once
 
+#include <iosfwd>
 #include <optional>
 #include <string>
 #include <string_view>
 #include <unordered_map>
 #include <vector>
 
-namespace curl { class curl_easy; }
 
-namespace rtc::imap
-{
+namespace curl {
+    class curl_easy;
+}
+
+
+namespace tmcppc::imap {
     enum class email_server_provider_t { gmail, hotmail, yahoo };
 
-    class imap_connection
-    {
+    class imap_connection {
     private:
         static inline const std::unordered_map<email_server_provider_t, std::string_view> email_server_provider_to_url{
             { email_server_provider_t::gmail, "imaps://imap.gmail.com" },
@@ -30,10 +32,10 @@ namespace rtc::imap
 
     public:
         imap_connection(email_server_provider_t provider, std::string_view username, std::string_view password);
-        [[nodiscard]] auto get_mailbox_folders() const -> std::optional<std::vector<std::string>>;
-        [[nodiscard]] auto get_unread_email_ids(std::string_view folder) const -> std::optional<std::vector<size_t>>;
-        [[nodiscard]] auto get_email(std::string_view folder, size_t id) const -> std::optional<std::string>;
-        [[nodiscard]] auto get_email_subject(std::string_view folder, size_t id) const -> std::optional<std::string>;
+        [[nodiscard]] auto get_mailbox_folders(std::ostream& os) const -> std::optional<std::vector<std::string>>;
+        [[nodiscard]] auto get_unread_email_ids(std::ostream& os, std::string_view folder) const -> std::optional<std::vector<size_t>>;
+        [[nodiscard]] auto get_email(std::ostream& os, std::string_view folder, size_t id) const -> std::optional<std::string>;
+        [[nodiscard]] auto get_email_subject(std::ostream& os, std::string_view folder, size_t id) const -> std::optional<std::string>;
 
     private:
         email_server_provider_t provider_{};
@@ -41,7 +43,4 @@ namespace rtc::imap
         std::string username_{};
         std::string password_{};
     };
-
-}  // namespace rtc::imap
-
-#endif  // IMAP_CONNECTION_H
+}  // namespace tmcppc::imap

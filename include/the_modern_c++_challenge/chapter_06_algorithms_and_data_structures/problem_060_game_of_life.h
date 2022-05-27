@@ -91,12 +91,16 @@ private:
     size_t count_live_cell_neighbours(int i, int j) {
         size_t ret{ 0 };
         for (int ii{ i - 1 }; ii <= i + 1; ++ii) {
-            if (ii < 0 or ii >= data_.size()) { continue; }
+            if (ii < 0 or ii >= data_.size()) {
+                continue;
+            }
 
             auto& row{ data_[ii] };
 
             for (int jj{ j - 1 }; jj <= j + 1; ++jj) {
-                if (jj < 0 or jj >= row.size()) { continue; }
+                if (jj < 0 or jj >= row.size()) {
+                    continue;
+                }
 
                 if (row[jj].is_alive()) { ret++; }
             }
@@ -107,8 +111,7 @@ private:
     void step_cell(cell& cell, size_t live_neighbours_count) {
         if (cell.is_alive()) {
             if (live_neighbours_count < 2 or live_neighbours_count > 3) { cell.set_dead(); }
-        }
-        else {  // cell is not alive
+        } else {  // cell is not alive
             if (live_neighbours_count == 3) { cell.set_alive(); }
         }
     }

@@ -1,6 +1,6 @@
-#include "Chapter12_NetworkingAndServices/JsonFaces.h"
-#include "Chapter12_NetworkingAndServices/FaceDetection.h"
-#include "Chapter12_NetworkingAndServices/Faces.h"
+#include "chapter_12_networking_and_services/face_detection.h"
+#include "chapter_12_networking_and_services/faces.h"
+#include "chapter_12_networking_and_services/json_faces.h"
 
 #include "rtc/filesystem.h"
 
@@ -15,30 +15,24 @@
 #include <variant>
 
 
-namespace rtc::face_detection
-{
+namespace tmcppc::face_detection {
     detector::detector(std::string_view key) : key_{ key } {}
 
-    [[nodiscard]] std::variant<FacesResponse, ErrorResponse> detector::parse_detect_response(const long status, const std::string& response) const
-    {
+    [[nodiscard]] std::variant<faces_response, error_response> detector::parse_detect_response(const long status, const std::string& response) const {
         nlohmann::json j = nlohmann::json::parse(response);
         if (status == 200) {
-            FacesResponse faces_response = j;
+            faces_response faces_response = j;
             return faces_response;
-        }
-        else if (status >= 400)
-        {
-            ErrorResponse error_response = j;
+        } else if (status >= 400) {
+            error_response error_response = j;
             return error_response;
         }
-        return FacesResponse{};
+        return faces_response{};
     }
 
-    [[nodiscard]] std::variant<FacesResponse, ErrorResponse> detector::detect(const std::filesystem::path& path) const
-    {
-        std::variant<FacesResponse, ErrorResponse> ret{};
-        try
-        {
+    [[nodiscard]] std::variant<faces_response, error_response> detector::detect(const std::filesystem::path& path) const {
+        std::variant<faces_response, error_response> ret{};
+        try {
             std::ostringstream oss{};
             curl::curl_ios<std::ostringstream> writer{ oss };
             curl::curl_easy easy{ writer };
@@ -63,11 +57,9 @@ namespace rtc::face_detection
             easy.perform();
 
             ret = parse_detect_response(easy.get_info<CURLINFO_RESPONSE_CODE>().get(), oss.str());
-        }
-        catch (const curl::curl_easy_exception& ex) {
-            std::cout << "\tError: " << ex.what() << "\n";
+        } catch (const curl::curl_easy_exception& ex) {
+            fmt::print(os, "\tError: " << ex.what() << "\n");
         }
         return ret;
     }
-
-}  // namespace rtc::face_detection
+}  // namespace tmcppc::face_detection

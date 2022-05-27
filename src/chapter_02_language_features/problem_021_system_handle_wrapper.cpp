@@ -53,8 +53,7 @@ void test_unique_hdl(std::wostream& wos) {
             &bytesRead,
             nullptr)) {
         fmt::print(wos, L"Error in ReadFile: {}\n", GetLastError());
-    }
-    else {
+    } else {
         fmt::print(wos, L"Read {} bytes from file\n", bytesRead);
     }
 
@@ -74,8 +73,7 @@ void test_unique_hdl(std::wostream& wos) {
 void problem_21_main(std::wostream& wos) {
     try {
         test_unique_hdl(wos);
-    }
-    catch (const std::runtime_error& ex) {
+    } catch (const std::runtime_error& ex) {
         wos << L"Error: " << ex.what() << L"\n";
     }
     fmt::print(wos, L"\n");

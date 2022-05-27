@@ -1,5 +1,5 @@
-#include "chapter_02_language_features/problem_015_ipv4_data_type.h"
 #include "chapter_02_language_features/ipv4.h"
+#include "chapter_02_language_features/problem_015_ipv4_data_type.h"
 
 #include "rtc/console.h"  // clear_istream
 
@@ -22,8 +22,7 @@ void problem_15_main(std::istream& is, std::ostream& os) {
         try {
             tmcppc::ipv4 address{ s };
             fmt::print(os, "\tYou've entered a valid IPv4 address: {}\n", s);
-        }
-        catch (const std::exception& ex) {
+        } catch (const std::exception& ex) {
             fmt::print(os, "\tError: {}\n", ex.what());
         }
     }

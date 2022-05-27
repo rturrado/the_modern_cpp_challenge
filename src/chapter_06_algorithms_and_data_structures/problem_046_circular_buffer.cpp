@@ -28,8 +28,7 @@ void problem_46_main(std::ostream& os) {
 
     try {
         tmcppc::circular_buffer<int> cb_2{ 0 };
-    }
-    catch (const std::runtime_error& err) {
+    } catch (const std::runtime_error& err) {
         fmt::print(os, "Error: {}\n", err.what());
     }
     fmt::print(os, "\n");

@@ -1,6 +1,7 @@
 #pragma once
 
-#include <ostream>
+#include <iosfwd>
+#include <string>
 
 
 std::string capitalize(const std::string& s);

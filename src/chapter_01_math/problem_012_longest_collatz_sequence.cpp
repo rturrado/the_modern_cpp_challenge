@@ -45,8 +45,7 @@ std::vector<size_t> get_collatz_sequence(size_t n) {
     while (n > 1) {
         if (n % 2 == 0) {
             n /= 2;
-        }
-        else {
+        } else {
             n = n * 3 + 1;
         }
         ret.push_back(n);
@@ -89,8 +88,7 @@ std::pair<size_t, size_t> get_longest_collatz_sequence_v2(size_t limit) {
         while (n != 1 and n >= i) {
             if ((n % 2) == 0) {
                 n = n / 2;
-            }
-            else {
+            } else {
                 n = n * 3 + 1;
             }
             steps++;

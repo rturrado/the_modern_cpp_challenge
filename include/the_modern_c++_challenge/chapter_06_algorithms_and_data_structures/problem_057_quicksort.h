@@ -2,7 +2,7 @@
 
 #include "chapter_07_concurrency/quicksort.h"
 
-#include <ostream>
+#include <iosfwd>
 
 
 void problem_57_main(std::ostream& os);

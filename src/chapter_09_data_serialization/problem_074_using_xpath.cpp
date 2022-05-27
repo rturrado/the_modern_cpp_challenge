@@ -1,6 +1,7 @@
 #include "chapter_09_data_serialization/movies.h"
-#include "chapter_09_data_serialization/xml_movies.h"
+#include "chapter_09_data_serialization/problem_074_using_xpath.h"
 #include "chapter_09_data_serialization/pugixml_wrapper.h"
+#include "chapter_09_data_serialization/xml_movies.h"
 
 #include "src/pugixml.hpp"
 
@@ -104,8 +105,7 @@ void problem_74_main(std::ostream& os) {
 
         print_last_actor_in_casting_list_for_every_movie(os, in_doc);
         fmt::print(os, "\n");
-    }
-    catch (const std::exception& err) {
+    } catch (const std::exception& err) {
         fmt::print(os, "Error: {}\n\n", err.what());
     }
 }

@@ -1,4 +1,5 @@
 #include "chapter_09_data_serialization/pdf_writer_wrapper.h"
+#include "chapter_09_data_serialization/problem_078_creating_a_pdf_from_a_collection_of_images.h"
 
 #include "rtc/filesystem.h"
 #include "rtc/string.h"
@@ -127,8 +128,7 @@ void problem_78_main(std::ostream& os) {
     try {
         fmt::print(os, "Writing PDF out to: {}\n\n", temp_file_path.generic_string());
         save_folder_of_images_to_pdf(input_dir_path, temp_file_path);
-    }
-    catch (const std::exception& err) {
+    } catch (const std::exception& err) {
         fmt::print(os, "Error: {}\n\n", err.what());
     }
 }

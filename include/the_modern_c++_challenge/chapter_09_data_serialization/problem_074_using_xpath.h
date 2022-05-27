@@ -2,7 +2,7 @@
 
 #include "chapter_09_data_serialization/xml_movies.h"
 
-#include <ostream>
+#include <iosfwd>
 
 
 void print_movies_released_after_year(std::ostream& os, const tmcppc::movies::xml::doc& doc, int year);

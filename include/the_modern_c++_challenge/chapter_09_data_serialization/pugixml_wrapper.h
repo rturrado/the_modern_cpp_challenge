@@ -57,8 +57,7 @@ namespace tmcppc::pugixml {
     inline auto attribute_or_throw(const pugi::xml_node& node, const char* name) {
         if (auto ret{ node.attribute(name) }) {
             return ret;
-        }
-        else {
+        } else {
             throw attribute_error{ name };
         }
     }
@@ -66,8 +65,7 @@ namespace tmcppc::pugixml {
     inline auto child_or_throw(const pugi::xml_node& node, const char* name) {
         if (auto ret{ node.child(name) }) {
             return ret;
-        }
-        else {
+        } else {
             throw child_error{ name };
         }
     }
@@ -76,8 +74,7 @@ namespace tmcppc::pugixml {
         auto ret{ node.append_attribute(name) };
         if (ret) {
             return ret;
-        }
-        else {
+        } else {
             throw append_attribute_error{ name };
         }
     }
@@ -86,8 +83,7 @@ namespace tmcppc::pugixml {
         auto ret{ root.append_child(name) };
         if (ret) {
             return ret;
-        }
-        else {
+        } else {
             throw append_child_error{ name };
         }
     }

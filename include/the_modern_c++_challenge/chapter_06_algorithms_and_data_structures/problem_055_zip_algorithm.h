@@ -1,8 +1,8 @@
 #pragma once
 
 #include <algorithm>  // min, transform
+#include <iosfwd>
 #include <iterator>  // back_inserter
-#include <ostream>
 #include <utility>  // make_pair, pair
 #include <vector>
 

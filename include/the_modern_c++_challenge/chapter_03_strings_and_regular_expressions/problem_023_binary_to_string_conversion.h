@@ -2,7 +2,7 @@
 
 #include <algorithm>  // for_each
 #include <fmt/ostream.h>
-#include <ostream>
+#include <iosfwd>
 #include <sstream>  // ostringstream
 #include <string>
 #include <type_traits>  // is_same_v

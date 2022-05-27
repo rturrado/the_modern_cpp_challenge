@@ -1,3 +1,5 @@
+#include "chapter_10_archives_images_and_databases/problem_079_finding_files_in_a_zip_archive.h"
+
 #include "ZipArchive.h"
 #include "ZipFile.h"
 
@@ -32,8 +34,7 @@ std::vector<std::string> regex_search_in_zip_file(std::ostream& os, const fs::pa
             }
         }
         return file_paths;
-    }
-    catch (const std::exception& ex) {
+    } catch (const std::exception& ex) {
         fmt::print(os, "Error: {}\n", ex.what());
         return {};
     }

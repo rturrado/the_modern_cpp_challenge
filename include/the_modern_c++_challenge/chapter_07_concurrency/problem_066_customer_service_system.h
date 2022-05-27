@@ -1,8 +1,8 @@
 #pragma once
 
 #include <condition_variable>  // condition_variable_any
+#include <iosfwd>
 #include <mutex>
-#include <ostream>
 #include <queue>
 #include <thread>  // lock_guard, unique_lock
 #include <vector>

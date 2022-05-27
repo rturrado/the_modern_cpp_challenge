@@ -1,19 +1,19 @@
-#include "chapter_11_cryptography.h"
+#include "chapter_11_cryptography/problem_094_file_signing.h"
 
 #include <filesystem>
-#include <format>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
+#include <ostream>
 
-#include "cryptocpp/osrng.h"  // AutoSeededRandomPool
-#include "cryptocpp/rsa.h"  // RSAES_OAEP_SHA_Decryptor, RSAES_OAEP_SHA_Encryptor, RSASSA_PKCS1v15_SHA_Signer, RSASSA_PKCS1v15_SHA_Verifier
-#include "cryptocpp/files.h"  // FileSink, FileSource
-#include "cryptocpp/hex.h"  // HexDecoder, HexEncoder
+#include "osrng.h"  // AutoSeededRandomPool
+#include "rsa.h"  // RSAES_OAEP_SHA_{Decryptor, Encryptor}, RSASSA_PKCS1v15_SHA_{Signer, Verifier}
+#include "files.h"  // FileSink, FileSource
+#include "hex.h"  // HexDecoder, HexEncoder
 
 namespace fs = std::filesystem;
 
 
-void generate_keys(const fs::path& rsa_private_key_file_path, const fs::path& rsa_public_key_file_path)
-{
+void generate_keys(const fs::path& rsa_private_key_file_path, const fs::path& rsa_public_key_file_path) {
     using namespace CryptoPP;
 
     AutoSeededRandomPool rng{};
@@ -30,8 +30,7 @@ void generate_keys(const fs::path& rsa_private_key_file_path, const fs::path& rs
 }
 
 
-void sign_file(const fs::path& input_file_path, const fs::path& rsa_private_key_file_path, const fs::path& signature_file_path)
-{
+void sign_file(const fs::path& input_file_path, const fs::path& rsa_private_key_file_path, const fs::path& signature_file_path) {
     using namespace CryptoPP;
 
     AutoSeededRandomPool rng{};
@@ -55,8 +54,7 @@ void sign_file(const fs::path& input_file_path, const fs::path& rsa_private_key_
 }
 
 
-bool verify_file(const fs::path& input_file_path, const fs::path& rsa_public_key_file_path, const fs::path& signature_file_path)
-{
+bool verify_file(const fs::path& input_file_path, const fs::path& rsa_public_key_file_path, const fs::path& signature_file_path) {
     using namespace CryptoPP;
 
     FileSource public_file{ rsa_public_key_file_path.c_str(), true, new HexDecoder{} };
@@ -82,6 +80,30 @@ bool verify_file(const fs::path& input_file_path, const fs::path& rsa_public_key
 }
 
 
+void problem_94_main(std::ostream& os) {
+    const auto input_file_path{ fs::current_path() / "res" / "fonts" / "calibri.ttf" };
+    const auto rsa_private_key_file_path{ fs::temp_directory_path() / "private_key.txt" };
+    const auto rsa_public_key_file_path{ fs::temp_directory_path() / "public_key.txt" };
+    const auto signature_file_path{ fs::temp_directory_path() / "signature.txt"};
+
+    fmt::print(os, "Generating private and public key files\n\tPrivate key file: '{}'\n\tPublic key file: '{}'\n",
+        rsa_private_key_file_path.generic_string(), rsa_public_key_file_path.generic_string());
+    generate_keys(rsa_private_key_file_path, rsa_public_key_file_path);
+
+    fmt::print(os, "Signing file with private key\n\tInput file: '{}'\n\tSignature file: '{}'\n",
+        input_file_path.generic_string(), signature_file_path.generic_string());
+    sign_file(input_file_path, rsa_private_key_file_path, signature_file_path);
+
+    fmt::print(os, "Verifying file with public key\n");
+    if (verify_file(input_file_path, rsa_public_key_file_path, signature_file_path)) {
+        fmt::print(os, "\tOK\n");
+    } else {
+        fmt::print(os, "\tError: input file verification returned false\n");
+    }
+    fmt::print(os, "\n");
+}
+
+
 // File signing
 //
 // Write a program that is able to sign files and verify that a signed file has not been tampered with, using RSA cryptography.
@@ -91,27 +113,6 @@ bool verify_file(const fs::path& input_file_path, const fs::path& rsa_public_key
 //     the path to the file where the signature will be written) and
 //   - one that verifies a file (taking as arguments the path to the file, the path to the RSA public key, and
 //     the path to the signature file).
-void problem_94_main()
-{
-    const auto input_file_path{ fs::current_path() / "res" / "fonts" / "calibri.ttf" };
-    const auto rsa_private_key_file_path{ fs::temp_directory_path() / "private_key.txt" };
-    const auto rsa_public_key_file_path{ fs::temp_directory_path() / "public_key.txt" };
-    const auto signature_file_path{ fs::temp_directory_path() / "signature.txt"};
-
-    std::cout << std::format("Generating private and public key files\n\tPrivate key file: '{}'\n\tPublic key file: '{}'\n",
-        rsa_private_key_file_path.generic_string(), rsa_public_key_file_path.generic_string());
-    generate_keys(rsa_private_key_file_path, rsa_public_key_file_path);
-
-    std::cout << std::format("Signing file with private key\n\tInput file: '{}'\n\tSignature file: '{}'\n",
-        input_file_path.generic_string(), signature_file_path.generic_string());
-    sign_file(input_file_path, rsa_private_key_file_path, signature_file_path);
-
-    std::cout << "Verifying file with public key\n";
-    if (verify_file(input_file_path, rsa_public_key_file_path, signature_file_path)) {
-        std::cout << "\tOK\n";
-    }
-    else {
-        std::cout << "\tError: input file verification returned false\n";
-    }
-    std::cout << "\n";
+void problem_94_main() {
+    problem_94_main(std::cout);
 }

@@ -170,8 +170,7 @@ namespace tmcppc::movies::sqlite_mcpp {
         size_t person_id{};
         if (exists_person(db, role.star)) {
             person_id = get_person_id_from_person_name(db, role.star);
-        }
-        else {
+        } else {
             db << "insert into Persons (name) values (?);" << role.star;
             person_id = static_cast<int>(db.last_insert_rowid());
         }
@@ -200,8 +199,7 @@ namespace tmcppc::movies::sqlite_mcpp {
         int person_id{};
         if (exists_person(db, writer.name)) {
             person_id = get_person_id_from_person_name(db, writer.name);
-        }
-        else {
+        } else {
             db << "insert into Persons (name) values (?);" << writer.name;
             person_id = static_cast<int>(db.last_insert_rowid());
         }
@@ -228,8 +226,7 @@ namespace tmcppc::movies::sqlite_mcpp {
         int person_id{};
         if (exists_person(db, director.name)) {
             person_id = get_person_id_from_person_name(db, director.name);
-        }
-        else {
+        } else {
             db << "insert into Persons (name) values (?);"
                 << director.name;
             person_id = static_cast<int>(db.last_insert_rowid());
@@ -372,8 +369,7 @@ namespace tmcppc::movies::sqlite_mcpp {
                 sqlite_db_ << "commit;";
 
                 catalog_.movies.push_back(movie);
-            }
-            catch (const sqlite::sqlite_exception&) {
+            } catch (const sqlite::sqlite_exception&) {
                 sqlite_db_ << "rollback;";
                 
                 throw;
@@ -394,8 +390,7 @@ namespace tmcppc::movies::sqlite_mcpp {
                 sqlite_db_ << "commit;";
 
                 movie_it->media_files.media_files_.push_back(media_file);
-            }
-            catch (const sqlite::sqlite_exception&) {
+            } catch (const sqlite::sqlite_exception&) {
                 sqlite_db_ << "rollback;";
 
                 throw;
@@ -416,8 +411,7 @@ namespace tmcppc::movies::sqlite_mcpp {
                 sqlite_db_ << "commit;";
 
                 movie_it->media_files.media_files_.erase(media_file_it);
-            }
-            catch (const sqlite::sqlite_exception&) {
+            } catch (const sqlite::sqlite_exception&) {
                 sqlite_db_ << "rollback;";
 
                 throw;

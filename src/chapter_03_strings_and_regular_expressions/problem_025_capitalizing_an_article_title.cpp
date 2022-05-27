@@ -12,16 +12,15 @@ std::string capitalize(const std::string& s) {
     std::string ret{s};
     std::for_each(begin(ret), end(ret), [parsing_word = false](char& c) mutable {
         if (parsing_word) {
-            // End of word. Update parsing word flag
+            
             if (not std::isalpha(c)) {
+                // End of word. Update parsing word flag
                 parsing_word = false;
-            }
-            // Else, just another word char
-            else {
+            } else {
+                // Else, just another word char
                 c = std::tolower(c);
             }
-        }
-        else {
+        } else {
             // First word char. Capitalize it and update parsing word flag
             if (std::isalpha(c)) {
                 c = std::toupper(c);

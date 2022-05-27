@@ -1,8 +1,8 @@
 #pragma once
 
 #include <algorithm>  // max, max_element, min, min_element
+#include <iosfwd>
 #include <iterator>  // distance, iterator_traits
-#include <ostream>
 #include <semaphore>  // counting_semaphore
 #include <thread>
 #include <vector>

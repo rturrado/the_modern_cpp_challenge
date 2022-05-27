@@ -1,6 +1,6 @@
-#include "chapter_02_language_features/problem_016_enumerating_ipv4_addresses_in_a_range.h"
 #include "chapter_02_language_features/ipv4.h"
 #include "chapter_02_language_features/ipv4_range.h"
+#include "chapter_02_language_features/problem_016_enumerating_ipv4_addresses_in_a_range.h"
 
 #include "rtc/console.h"  // clear_istream
 
@@ -24,8 +24,7 @@ void problem_16_main(std::istream& is, std::ostream& os) {
             if (not is.fail()) {
                 if (address_start < address_end) {
                     valid_input = true;
-                }
-                else {
+                } else {
                     fmt::print(os, "\tError: range start address is bigger than range end address.\n");
                 }
             }

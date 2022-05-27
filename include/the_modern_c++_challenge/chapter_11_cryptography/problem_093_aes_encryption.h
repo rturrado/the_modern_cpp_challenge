@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ostream>
+#include <iosfwd>
 
 
 void problem_93_main(std::ostream& os);

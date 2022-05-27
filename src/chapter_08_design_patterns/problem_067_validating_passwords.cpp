@@ -62,8 +62,7 @@ void problem_67_main(std::ostream& os) {
 
             if (auto error{ validator.validate(pw) }) {
                 fmt::print(os, "\t'{}' is not valid: {}.\n", pw, error.value());
-            }
-            else {
+            } else {
                 fmt::print(os, "\t'{}' is a valid password.\n", pw);
             }
         }
@@ -113,8 +112,7 @@ void problem_67_main(std::ostream& os) {
 
             if (auto error{ validator->validate(pw) }) {
                 fmt::print(os, "\t'{}' is not valid: {}.\n", pw, error.value());
-            }
-            else {
+            } else {
                 fmt::print(os, "\t'{}' is a valid password.\n", pw);
             }
         }

@@ -1,3 +1,4 @@
+#include "chapter_10_archives_images_and_databases/problem_080_zip_compression.h"
 #include "chapter_10_archives_images_and_databases/zip_lib_wrapper.h"
 
 #include <iostream>  // cin, cout

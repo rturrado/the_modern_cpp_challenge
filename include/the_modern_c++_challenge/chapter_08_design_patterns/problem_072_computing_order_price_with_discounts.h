@@ -319,8 +319,7 @@ struct fmt::formatter<order_line> {
 inline void print(std::ostream& os, const std::vector<order_line>& order_lines, const indentation& indentation = {}) {
     if (order_lines.empty()) {
         fmt::print(os, "{}order_lines : []", indentation);
-    }
-    else {
+    } else {
         fmt::print(os, "{}order_lines : [\n", indentation);
         bool first{ true };
         for (auto&& order_line : order_lines) {

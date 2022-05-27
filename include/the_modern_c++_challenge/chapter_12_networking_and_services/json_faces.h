@@ -1,43 +1,41 @@
-#ifndef JSON_FACES_H
-#define JSON_FACES_H
+#pragma once
 
-#include "Faces.h"
+#include "faces.h"
 
 #include "nlohmann/json.hpp"
 
 #include <vector>
 
 
-namespace rtc::face_detection
-{
-    // Error
-    inline void to_json(nlohmann::json& j, const Error& error) {
+namespace tmcppc::face_detection {
+    // error
+    inline void to_json(nlohmann::json& j, const error& error) {
         j = nlohmann::json{ {"code", error.code}, {"message", error.message} };
     }
-    inline void from_json(const nlohmann::json& j, Error& error) {
+    inline void from_json(const nlohmann::json& j, error& error) {
         j.at("code").get_to(error.code);
         j.at("message").get_to(error.message);
     }
 
-    // ErrorResponse
-    inline void to_json(nlohmann::json& j, const ErrorResponse& error_response) {
+    // error_response
+    inline void to_json(nlohmann::json& j, const error_response& error_response) {
         j = nlohmann::json{ {"error", error_response.error} };
     }
-    inline void from_json(const nlohmann::json& j, ErrorResponse& error_response) {
+    inline void from_json(const nlohmann::json& j, error_response& error_response) {
         j.at("error").get_to(error_response.error);
     }
 
-    // Point
-    inline void to_json(nlohmann::json& j, const Point& point) {
+    // point
+    inline void to_json(nlohmann::json& j, const point& point) {
         j = nlohmann::json{ {"x", point.x}, {"y", point.y} };
     }
-    inline void from_json(const nlohmann::json& j, Point& point) {
+    inline void from_json(const nlohmann::json& j, point& point) {
         j.at("x").get_to(point.x);
         j.at("y").get_to(point.y);
     }
 
-    // Rectangle
-    inline void to_json(nlohmann::json& j, const Rectangle& rectangle) {
+    // rectangle
+    inline void to_json(nlohmann::json& j, const rectangle& rectangle) {
         j = nlohmann::json{
             { "top", rectangle.top },
             { "left", rectangle.left },
@@ -45,15 +43,15 @@ namespace rtc::face_detection
             { "height", rectangle.height }
         };
     }
-    inline void from_json(const nlohmann::json& j, Rectangle& rectangle) {
+    inline void from_json(const nlohmann::json& j, rectangle& rectangle) {
         j.at("top").get_to(rectangle.top);
         j.at("left").get_to(rectangle.left);
         j.at("width").get_to(rectangle.width);
         j.at("height").get_to(rectangle.height);
     }
 
-    // FaceLandmarks
-    inline void to_json(nlohmann::json& j, const FaceLandmarks& face_landmarks) {
+    // face_landmarks
+    inline void to_json(nlohmann::json& j, const face_landmarks& face_landmarks) {
         j = nlohmann::json{
             { "pupilLeft", face_landmarks.pupilLeft },
             { "pupilRight", face_landmarks.pupilRight },
@@ -84,7 +82,7 @@ namespace rtc::face_detection
             { "underLipBottom", face_landmarks.underLipBottom }
         };
     }
-    inline void from_json(const nlohmann::json& j, FaceLandmarks& face_landmarks) {
+    inline void from_json(const nlohmann::json& j, face_landmarks& face_landmarks) {
         j.at("pupilLeft").get_to(face_landmarks.pupilLeft);
         j.at("pupilRight").get_to(face_landmarks.pupilRight);
         j.at("noseTip").get_to(face_landmarks.noseTip);
@@ -114,8 +112,8 @@ namespace rtc::face_detection
         j.at("underLipBottom").get_to(face_landmarks.underLipBottom);
     }
 
-    // Emotion
-    inline void to_json(nlohmann::json& j, const Emotion& emotion) {
+    // emotion
+    inline void to_json(nlohmann::json& j, const emotion& emotion) {
         j = nlohmann::json{
             { "anger", emotion.anger },
             { "contempt", emotion.contempt },
@@ -127,7 +125,7 @@ namespace rtc::face_detection
             { "surprise", emotion.surprise }
         };
     }
-    inline void from_json(const nlohmann::json& j, Emotion& emotion) {
+    inline void from_json(const nlohmann::json& j, emotion& emotion) {
         j.at("anger").get_to(emotion.anger);
         j.at("contempt").get_to(emotion.contempt);
         j.at("disgust").get_to(emotion.disgust);
@@ -138,22 +136,22 @@ namespace rtc::face_detection
         j.at("surprise").get_to(emotion.surprise);
     }
 
-    // FaceAttributes
-    inline void to_json(nlohmann::json& j, const FaceAttributes& face_attributes) {
+    // face_attributes
+    inline void to_json(nlohmann::json& j, const face_attributes& face_attributes) {
         j = nlohmann::json{
             { "gender", face_attributes.gender },
             { "age", face_attributes.age },
             { "emotion", face_attributes.emotion }
         };
     }
-    inline void from_json(const nlohmann::json& j, FaceAttributes& face_attributes) {
+    inline void from_json(const nlohmann::json& j, face_attributes& face_attributes) {
         j.at("gender").get_to(face_attributes.gender);
         j.at("age").get_to(face_attributes.age);
         j.at("emotion").get_to(face_attributes.emotion);
     }
 
-    // Face
-    inline void to_json(nlohmann::json& j, const Face& face) {
+    // face
+    inline void to_json(nlohmann::json& j, const face& face) {
         j = nlohmann::json{
             { "faceId", face.id },
             { "faceRectangle", face.rectangle },
@@ -161,22 +159,18 @@ namespace rtc::face_detection
             { "faceAttributes", face.attributes }
         };
     }
-    inline void from_json(const nlohmann::json& j, Face& face) {
+    inline void from_json(const nlohmann::json& j, face& face) {
         j.at("faceId").get_to(face.id);
         j.at("faceRectangle").get_to(face.rectangle);
         j.at("faceLandmarks").get_to(face.landmarks);
         j.at("faceAttributes").get_to(face.attributes);
     }
 
-    // FacesResponse
-    inline void to_json(nlohmann::json& j, const FacesResponse& faces_response) {
+    // faces_response
+    inline void to_json(nlohmann::json& j, const faces_response& faces_response) {
         j = faces_response.faces;
     }
-    inline void from_json(const nlohmann::json& j, FacesResponse& faces_response) {
-        faces_response.faces = j.get<std::vector<Face>>();
+    inline void from_json(const nlohmann::json& j, faces_response& faces_response) {
+        faces_response.faces = j.get<std::vector<face>>();
     }
-
-}  // namespace rtc::face_detection
-
-
-#endif  // JSON_FACES_H
+}  // namespace tmcppc::face_detection

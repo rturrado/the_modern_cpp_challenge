@@ -1,8 +1,8 @@
 #pragma once
 
 #include <functional>  // plus
+#include <iosfwd>
 #include <numeric>  // adjacent_difference
-#include <ostream>
 #include <utility>  // as_const, make_pair, pair
 #include <vector>
 

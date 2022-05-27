@@ -1,7 +1,6 @@
 #pragma once
 
-#include <istream>
-#include <ostream>
+#include <iosfwd>
 
 
 void problem_21_main(std::wostream& os);

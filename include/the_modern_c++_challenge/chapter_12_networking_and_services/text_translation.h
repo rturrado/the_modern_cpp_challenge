@@ -1,13 +1,12 @@
-#ifndef TEXT_TRANSLATION_H
-#define TEXT_TRANSLATION_H
+#pragma once
 
+#include <iosfwd>
 #include <map>
 #include <string>
 #include <string_view>
 
 
-namespace rtc::text_translation
-{
+namespace tmcppc::text_translation {
     enum class language_code {
         Arabic,
         German,
@@ -33,8 +32,7 @@ namespace rtc::text_translation
         { language_code::Chinese_Simplified, "zh-Hans" }
     };
 
-    class translator
-    {
+    class translator {
     private:
         static inline std::string_view endpoint{ "https://api.microsofttranslator.com/V2/Http.svc" };
         static inline std::string_view key_header{ "Ocp-Apim-Subscription-Key" };
@@ -44,12 +42,8 @@ namespace rtc::text_translation
         translator(std::string_view key);
         
         // Translation is done from utf8 to utf8
-        [[nodiscard]] std::string translate(std::string_view text, language_code from, language_code to) const;
+        [[nodiscard]] std::string translate(std::ostream& os, std::string_view text, language_code from, language_code to) const;
     private:
         std::string key_{};
     };
-
-}  // namespace rtc::text_translation
-
-
-#endif  // TEXT_TRANSLATION_H
+}  // namespace tmcppc::text_translation

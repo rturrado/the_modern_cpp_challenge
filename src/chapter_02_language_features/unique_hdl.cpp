@@ -6,15 +6,12 @@
 #include <windows.h>
 
 
-/* static */ HANDLE tmcppc::handle_traits::invalid() noexcept
-{
+/* static */ HANDLE tmcppc::handle_traits::invalid() noexcept {
     return nullptr;
 }
 
-/* static */ void tmcppc::handle_traits::close(HANDLE hdl) noexcept
-{
-    if (hdl != nullptr)
-    {
+/* static */ void tmcppc::handle_traits::close(HANDLE hdl) noexcept {
+    if (hdl != nullptr) {
         CloseHandle(hdl);
     }
 }

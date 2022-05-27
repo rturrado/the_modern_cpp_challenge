@@ -4,6 +4,7 @@
 
 #include <algorithm>  // copy
 #include <functional>  // plus
+#include <iosfwd>
 #include <iterator>  // ostream_iterator
 #include <numeric>  // transform_reduce
 #include <sstream>  // ostringstream

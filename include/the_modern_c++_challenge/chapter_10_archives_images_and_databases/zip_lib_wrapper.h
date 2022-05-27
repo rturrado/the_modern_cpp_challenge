@@ -42,8 +42,7 @@ namespace tmcppc::zip_lib {
     inline void add_entry_to_archive(const fs::path& input_path, const fs::path& zip_file_path, const std::string& password = {}) {
         if (fs::is_regular_file(input_path)) {
             add_file_to_archive(input_path, zip_file_path, password);
-        }
-        else if (fs::is_directory(input_path)) {
+        } else if (fs::is_directory(input_path)) {
             add_directory_to_archive(input_path, zip_file_path);
         }
     }
@@ -66,15 +65,13 @@ namespace tmcppc::zip_lib {
             if (fs::is_regular_file(input_path)) {
                 fmt::print(os, "\tAdding entry: {}\n", input_path.generic_string());
                 add_entry_to_archive(input_path, zip_file_path, password);
-            }
-            else if (fs::is_directory(input_path)) {
+            } else if (fs::is_directory(input_path)) {
                 for (auto& directory_entry : fs::recursive_directory_iterator{ input_path }) {
                     fmt::print(os, "\tAdding entry: {}\n", directory_entry.path().generic_string());
                     add_entry_to_archive(directory_entry.path(), zip_file_path, password);
                 }
             }
-        }
-        catch (const std::exception&) {
+        } catch (const std::exception&) {
             fmt::print(os, "\tRemoving archive file: {}\n", zip_file_path.generic_string());
             if (fs::exists(zip_file_path)) {
                 fs::remove(zip_file_path);
@@ -121,8 +118,7 @@ namespace tmcppc::zip_lib {
         if (not rtc::filesystem::are_filesystem_trees_equal(input_path, output_path)) {
             fmt::print(os, "\tError: Input '{}' is different than output '{}'\n",
                 input_path.generic_string(), output_path.generic_string());
-        }
-        else {
+        } else {
             fmt::print(os, "\tOK\n");
         }
     }
@@ -167,8 +163,7 @@ namespace tmcppc::zip_lib {
                 decompress(os, zip_file_path, output_root_path, password);
                 compare_input_and_output(os, input_path, output_path);
                 remove_output(is, os, output_relative_root_directory_path);
-            }
-            catch (const std::exception& ex) {
+            } catch (const std::exception& ex) {
                 fmt::print(os, "\nError: {}\n", ex.what());
             }
             fmt::print(os, "\n");

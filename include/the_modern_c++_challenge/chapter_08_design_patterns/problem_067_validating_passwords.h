@@ -49,8 +49,7 @@ namespace tmcppc::password_strength_validator::v1 {
         [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
             if (pw.size() < length_) {
                 return std::string{ "password length has to be at least " } + std::to_string(length_);
-            }
-            else {
+            } else {
                 return validate_with_next(pw);
             }
         }
@@ -71,8 +70,7 @@ namespace tmcppc::password_strength_validator::v1 {
         [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
             if (not pred_(pw)) {
                 return error_message_;
-            }
-            else {
+            } else {
                 return validate_with_next(pw);
             }
         }
@@ -98,7 +96,7 @@ namespace tmcppc::password_strength_validator::v1 {
 //   - creates all the validators on the go, chaining them via their constructors, and
 //   - calls 'validate' on the outermost one
 namespace tmcppc::password_strength_validator::v2 {
-    class password_strength_validator     {
+    class password_strength_validator {
     public:
         [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept = 0;
 
@@ -126,8 +124,7 @@ namespace tmcppc::password_strength_validator::v2 {
         [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
             if (pw.size() < length_) {
                 return std::string{ "password length has to be at least " } + std::to_string(length_);
-            }
-            else {
+            } else {
                 return validate_with_next(pw);
             }
         }
@@ -148,8 +145,7 @@ namespace tmcppc::password_strength_validator::v2 {
         [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
             if (auto error{ contains_or_error_f_(pw) }) {
                 return error.value();
-            }
-            else {
+            } else {
                 return validate_with_next(pw);
             }
         }

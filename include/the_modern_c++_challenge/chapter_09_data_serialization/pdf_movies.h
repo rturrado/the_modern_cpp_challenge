@@ -12,7 +12,6 @@
 #include <cmath>
 #include <filesystem>
 #include <fmt/format.h>
-#include <iomanip>  // setfill, setw
 #include <sstream>  // ostringstream
 #include <string>
 

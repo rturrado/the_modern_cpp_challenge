@@ -1,5 +1,5 @@
-#include "chapter_01_math/problem_006_abundant_numbers.h"
 #include "chapter_01_math/math.h"  // divisors
+#include "chapter_01_math/problem_006_abundant_numbers.h"
 
 #include "rtc/console.h"  // read_positive_number
 

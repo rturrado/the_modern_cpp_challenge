@@ -58,8 +58,7 @@ void problem_35_main(std::ostream& os) {
             fmt::print(os, "{}{}: ", p.generic_string(), (follow_symlinks ? " (following symlinks)" : ""));
             try {
                 fmt::print(os, "{}\n", directory_size_in_bytes_to_string(directory_size_in_bytes(p, follow_symlinks)));
-            }
-            catch (const std::filesystem::filesystem_error& ex) {
+            } catch (const std::filesystem::filesystem_error& ex) {
                 fmt::print(os, "\n\tError: {}\n", ex.what());
             }
         }

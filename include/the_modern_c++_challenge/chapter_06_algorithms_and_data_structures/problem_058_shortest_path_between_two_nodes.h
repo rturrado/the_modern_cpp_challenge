@@ -199,8 +199,7 @@ std::string get_shortest_path_string(const directed_graph_map<Node, Distance>& g
     std::ostringstream oss{};
     if (s == d) {
         oss << s;
-    }
-    else {
+    } else {
         oss << get_shortest_path_string(graph, graph.at(s).first, d) << " -> " << s;
     };
     return oss.str();

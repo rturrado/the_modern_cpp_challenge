@@ -1,7 +1,7 @@
 #pragma once
 
+#include <iosfwd>
 #include <map>
-#include <ostream>
 #include <string>
 #include <vector>
 

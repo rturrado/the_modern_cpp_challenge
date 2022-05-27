@@ -48,8 +48,7 @@ void problem_32_main(std::ostream& os) {
             fmt::print(os, "Pascal triangle for n = {}:\n", n);
             auto ret{ pascal_triangle(n) };
             fmt::print(os, "\t{}\n", ret.empty() ? "[]" : fmt::format("{}", fmt::join(ret, "\n\t")));
-        }
-        catch (const std::exception& err) {
+        } catch (const std::exception& err) {
             fmt::print(os, "\tError: {}\n", err.what());
         }
     }

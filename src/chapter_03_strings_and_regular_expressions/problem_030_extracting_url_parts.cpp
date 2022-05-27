@@ -14,8 +14,7 @@ void problem_30_main(std::ostream& os) {
         try {
             tmcppc::url u{ s };
             fmt::print(os, "Parsing URL \"{}\":\n{}\n", s, u);
-        }
-        catch (const std::exception& err) {
+        } catch (const std::exception& err) {
             fmt::print(os, "Error: {}\n", err.what());
         }
     }

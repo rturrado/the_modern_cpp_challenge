@@ -2,7 +2,7 @@
 
 #include <chrono>
 #include <functional>  // invoke
-#include <ostream>
+#include <iosfwd>
 
 
 template <typename Duration, typename F, typename... Args>

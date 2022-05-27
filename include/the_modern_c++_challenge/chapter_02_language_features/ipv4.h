@@ -1,15 +1,16 @@
 #pragma once
 
-#include <algorithm>
+#include <algorithm>  // for_each
 #include <array>
 #include <cstdint>  // uint8_t, uint32_t
 #include <fmt/format.h>
-#include <ios>
+#include <fmt/ostream.h>
+#include <format>
+#include <ios>  // ios_base
 #include <istream>
 #include <numeric>
 #include <ostream>
 #include <regex>
-#include <sstream>
 #include <stdexcept>  // runtime_error
 #include <string>
 
@@ -59,9 +60,7 @@ namespace tmcppc {
         {}
 
         [[nodiscard]] std::string to_string() const {
-            std::ostringstream oss{};
-            oss << *this;
-            return oss.str();
+            return std::format("{}", *this);
         }
 
         [[nodiscard]] constexpr unsigned long to_ulong() const noexcept {
@@ -125,8 +124,7 @@ namespace tmcppc {
                     }
                     address.octets_[i++] = octet;
                 }
-            }
-            else {
+            } else {
                 ret = false;
             }
             if (not ret) {

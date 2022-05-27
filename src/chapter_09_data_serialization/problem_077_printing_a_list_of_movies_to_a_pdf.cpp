@@ -1,5 +1,6 @@
 #include "chapter_09_data_serialization/movies.h"
 #include "chapter_09_data_serialization/pdf_movies.h"
+#include "chapter_09_data_serialization/problem_077_printing_a_list_of_movies_to_a_pdf.h"
 
 #include <chrono>
 #include <filesystem>
@@ -49,8 +50,7 @@ void problem_77_main(std::ostream& os) {
             }}
         };
         out_doc.save_as_table(temp_file_path);
-    }
-    catch (const std::exception& err) {
+    } catch (const std::exception& err) {
         fmt::print(os, "Error: {}\n\n", err.what());
     }
 }

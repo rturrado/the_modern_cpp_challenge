@@ -1,5 +1,5 @@
-#include "chapter_01_math/problem_007_amicable_numbers.h"
 #include "chapter_01_math/math.h"  // amicable, divisors_sum
+#include "chapter_01_math/problem_007_amicable_numbers.h"
 
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>

@@ -1,8 +1,8 @@
 #include "chapter_03_strings_and_regular_expressions/problem_024_string_to_binary_conversion.h"
 
+#include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <format>
 #include <iostream>  // cout
 #include <ostream>
 #include <stdexcept>  // runtime_error
@@ -57,10 +57,9 @@ std::vector<uint8_t> to_binary(std::string s, const std::string& delimiter) {
 
         if (token.size() == 1) {
             token.insert(0, "0");
-        }
-        else if (token.size() != 2) {
+        } else if (token.size() != 2) {
             throw std::runtime_error(
-                std::format("parsing string \"{}\". Found token \"{}\" of size '{}' at pos '{}'",
+                fmt::format("parsing string \"{}\". Found token \"{}\" of size '{}' at pos '{}'",
                 s, token, token.size(), previous_pos));
         }
 
@@ -68,8 +67,7 @@ std::vector<uint8_t> to_binary(std::string s, const std::string& delimiter) {
 
         if (pos == std::string::npos) {
             break;
-        }
-        else {
+        } else {
             pos += delimiter.size();
             previous_pos = pos;
         }
@@ -98,8 +96,7 @@ void problem_24_main(std::ostream& os) {
 
         // Error: delimiter not found
         fmt::print(os, "Converting string \"{}\" to vector [{:#02x}]\n", s5, fmt::join(to_binary(s5, ","), ", "));
-    }
-    catch (const std::runtime_error& err) {
+    } catch (const std::runtime_error& err) {
         fmt::print(os, "Error: {}\n", err.what());
     }
     fmt::print(os, "\n");

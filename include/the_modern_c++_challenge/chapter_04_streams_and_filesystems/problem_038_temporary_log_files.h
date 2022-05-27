@@ -4,7 +4,7 @@
 #include <boost/uuid/uuid_io.hpp>  // to_string
 #include <filesystem>
 #include <fstream>  // ofstream
-#include <ostream>
+#include <iosfwd>
 
 
 namespace tmcppc::logging::v1 {

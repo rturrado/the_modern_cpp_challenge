@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <ostream>
 
 
@@ -19,7 +20,7 @@ void delete_directory_entries_older_than(
         else if (fs::is_regular_file(entry) and fs::last_write_time(entry) < tp) {
             //fs::remove(entry);  // commented out so that we don't really delete the file
 
-            os << "\t'" << entry.path().generic_string() << "'\n";
+            fmt::print(os, "\t'{}'\n", entry.path().generic_string());
         }
     }
 }

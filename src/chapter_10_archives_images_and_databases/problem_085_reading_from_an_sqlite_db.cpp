@@ -1,3 +1,4 @@
+#include "chapter_10_archives_images_and_databases/problem_085_reading_from_an_sqlite_db.h"
 #include "chapter_10_archives_images_and_databases/sqlite_movies.h"
 
 #include <filesystem>
@@ -21,12 +22,10 @@ void problem_85_main(std::istream& is, std::ostream& os) {
         fmt::print(os, "\n");
 
         tmcppc::movies::sqlite_mcpp::remove_movies_database_file(is, os, db_file_path);
-    }
-    catch (const sqlite::sqlite_exception& ex) {
+    } catch (const sqlite::sqlite_exception& ex) {
         fmt::print(os, "Error: code = {}, message = '{}', operation '{}'\n",
             ex.get_code(), ex.what(), ex.get_sql());
-    }
-    catch (const std::exception& ex) {
+    } catch (const std::exception& ex) {
         fmt::print(os, "Error: {}\n", ex.what());
     }
 

@@ -49,8 +49,7 @@ void problem_38_main(std::ostream& os) {
         logger_1.move_file(log_1_second_new_location);
 
         fmt::print(os, "Asking for logger_1 location: '{}'\n", logger_1.get_file_path());
-    }
-    catch (const std::exception& err) {
+    } catch (const std::exception& err) {
         fmt::print(os, "Error: {}\n", err.what());
     }
 

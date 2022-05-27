@@ -1,4 +1,5 @@
 #include "chapter_10_archives_images_and_databases/png_writer_wrapper.h"
+#include "chapter_10_archives_images_and_databases/problem_083_verification_text_png.h"
 
 #include "rtc/random.h"
 

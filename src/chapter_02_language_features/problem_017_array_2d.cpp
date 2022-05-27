@@ -1,5 +1,5 @@
-#include "chapter_02_language_features/problem_017_array_2d.h"
 #include "chapter_02_language_features/array_2d.h"
+#include "chapter_02_language_features/problem_017_array_2d.h"
 
 #include <algorithm>  // transform
 #include <exception>
@@ -73,8 +73,7 @@ void problem_17_main(std::ostream& os) {
         // Test out of range access
         arr5.swap(3, 0, 2, 2);
         fmt::print(os, "arr5 swapping (3, 0) with (2, 2):\n{}\n\n", arr5);
-    }
-    catch (const std::exception& err) {
+    } catch (const std::exception& err) {
         os << "Error: " << err.what() << "\n\n";
     }
 }

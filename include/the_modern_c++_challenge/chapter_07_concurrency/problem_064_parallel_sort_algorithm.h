@@ -4,7 +4,7 @@
 
 #include <algorithm>  // iter_swap
 #include <future>  // async
-#include <ostream>
+#include <iosfwd>
 
 
 void problem_64_main(std::ostream& os);

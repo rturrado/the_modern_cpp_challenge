@@ -299,8 +299,7 @@ struct fmt::formatter<tmcppc::array_2d<T>> {
     auto format(const tmcppc::array_2d<T>& arr, FormatContext& ctx) const -> decltype(ctx.out()) {
         if (arr.empty()) {
             fmt::format_to(ctx.out(), "{}", "[]");
-        }
-        else {
+        } else {
             auto column_widths{ get_column_widths(arr) };
 
             for (auto row{ 0 }; row < arr.height_; ++row) {

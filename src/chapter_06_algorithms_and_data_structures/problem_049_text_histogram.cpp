@@ -38,7 +38,8 @@ void print_histogram(std::ostream& os, letter_counts& counts) {
     const size_t histogram_width{ 300 };
 
     size_t total_count = std::accumulate(cbegin(counts), cend(counts), static_cast<size_t>(0),
-        [](auto total, auto& kvp) { return total + kvp.second; });
+        [](auto total, auto& kvp) { return total + kvp.second;
+    });
 
     auto print_histogram_line = [&os, &histogram_width, &total_count](char c, size_t count) {
         double frequency{ (count * 100.0) / total_count };
@@ -72,8 +73,7 @@ void problem_49_main(std::ostream& os)
 
         // Print histogram
         print_histogram(os, counts);
-    }
-    catch (const std::exception& err) {
+    } catch (const std::exception& err) {
         fmt::print(os, "Error: {}\n", err.what());
     }
 

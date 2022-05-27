@@ -24,8 +24,7 @@ size_t gray_to_binary(size_t gray) {
 
 void problem_10_main(std::ostream& os) {
     fmt::print(os, "Number\tBinary\tGray code\tDecoded Gray code\n");
-    for (size_t binary = 0b00000; binary <= 0b11111; ++binary)
-    {
+    for (size_t binary = 0b00000; binary <= 0b11111; ++binary) {
         size_t gray{ binary_to_gray(binary) };
         size_t decoded_gray{ gray_to_binary(gray) };
         fmt::print(os, "{}\t{}\t{}\t\t{}\n",

@@ -1,18 +1,18 @@
-#include "Chapter12_NetworkingAndServices.h"
-#include "Chapter12_NetworkingAndServices/Bitcoin.h"
-#include "Chapter12_NetworkingAndServices/JsonBitcoin.h"
+#include "chapter_12_networking_and_services/bitcoin.h"
+#include "chapter_12_networking_and_services/json_bitcoin.h"
+#include "chapter_12_networking_and_services/problem_097_bitcoin_exchange_rates.h"
 
-#include <format>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
+#include <ostream>
 #include <sstream>  // ostringstream
 #include <string>
 #include <string_view>
 
-#include "curlcpp/master/include/curl_easy.h"
+#include "curl_easy.h"
 
 
-auto get_current_exchange_rates()
-{
+auto get_current_exchange_rates() {
     const std::string_view bitcoin_service_url{ "https://blockchain.info/ticker" };
 
     std::ostringstream oss{};
@@ -25,7 +25,18 @@ auto get_current_exchange_rates()
     easy.perform();
 
     nlohmann::json j = nlohmann::json::parse(oss.str());
-    return rtc::bitcoin::ExchangeRates{ j };
+    return tmcppc::bitcoin::exchange_rates{ j };
+}
+
+
+void problem_97_main(std::ostream& os) {
+    try {
+        fmt::print(os, "Current bitcoin exchange rates:\n{}\n", get_current_exchange_rates());
+    } catch (const std::exception& ex) {
+        fmt::print(os, "Error: {}\n", ex.what());
+    }
+
+    fmt::print(os, "\n");
 }
 
 
@@ -33,16 +44,6 @@ auto get_current_exchange_rates()
 //
 // Write a program that displays Bitcoin exchange rates for the most important currencies (such as USD, EUR, or GBP).
 // The exchange rates must be fetched from an online service, such as: https://blockchain.info
-void problem_97_main()
-{
-    try
-    {
-        std::cout << "Current bitcoin exchange rates:\n" << get_current_exchange_rates() << "\n";
-    }
-    catch (const std::exception& ex)
-    {
-        std::cout << std::format("Error: {}\n", ex.what());
-    }
-
-    std::cout << "\n";
+void problem_97_main() {
+    problem_97_main(std::cout);
 }

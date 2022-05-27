@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <format>
 #include <iostream>  // cout
 #include <ostream>
@@ -23,12 +24,12 @@ void problem_36_main(std::ostream& os) {
             ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration1 },
             ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration2 } }) {
 
-            os << "(Not) deleting entries older than " << std::format("{:%F %T}", tp) << " in '" << path.generic_string() << "':\n";
+            fmt::print(os, "(Not) deleting entries older than {} in '{}':\n", std::format("{:%F %T}", tp), path.generic_string());
             delete_directory_entries_older_than(os, path, tp);
         }
     }
 
-    os << "\n";
+    fmt::print(os, "\n");
 }
 
 

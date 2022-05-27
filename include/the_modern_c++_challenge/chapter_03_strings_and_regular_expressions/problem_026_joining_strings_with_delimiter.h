@@ -1,7 +1,7 @@
 #pragma once
 
 #include <algorithm>  // for_each
-#include <ostream>
+#include <iosfwd>
 #include <string>
 
 

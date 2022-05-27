@@ -2,7 +2,6 @@
 
 #include <exception>
 #include <fmt/ostream.h>
-#include <iomanip>  // setfill, setw
 #include <iostream>  // cout
 #include <regex>  // regex_match, regex_replace, smatch
 #include <sstream>  // ostringstream
@@ -32,8 +31,7 @@ std::string format_date_v1(const std::string& s) {
         day = std::stoi(matches[1].str());
         month = std::stoi(matches[2].str());
         year = std::stoi(matches[3].str());
-    }
-    else {
+    } else {
         throw invalid_date_format_error(s);
     }
 
@@ -61,8 +59,7 @@ void problem_31_main(std::ostream& os) {
         try {
             fmt::print(os, "\tformat_date_v1: {}\n", format_date_v1(date));
             fmt::print(os, "\tformat_date_v2: {}\n", format_date_v2(date));
-        }
-        catch (const std::exception& err) {
+        } catch (const std::exception& err) {
             fmt::print(os, "\tError: {}\n", err.what());
         }
     }

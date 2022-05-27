@@ -1,6 +1,7 @@
 #include "chapter_05_date_and_time/problem_043_meeting_time_for_multiple_time_zones.h"
 
 #include <chrono>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
 #include <string_view>  // literals
@@ -31,7 +32,7 @@ void problem_43_main(std::ostream& os) {
 
     display_local_meeting_times(os, meeting_zt, participants);
 
-    os << "\n";
+    fmt::print(os, "\n");
 }
 
 

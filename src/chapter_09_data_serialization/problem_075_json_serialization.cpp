@@ -1,5 +1,6 @@
-#include "chapter_09_data_serialization/movies.h"
 #include "chapter_09_data_serialization/json_movies.h"
+#include "chapter_09_data_serialization/movies.h"
+#include "chapter_09_data_serialization/problem_075_json_serialization.h"
 
 #include <fmt/ostream.h>
 #include <iostream>  // cout
@@ -44,8 +45,7 @@ void problem_75_main(std::ostream& os) {
         fmt::print(os, "Checking if serializing and deserializing the JSON object created the same object... ");
         assert(in_doc == out_doc and "Error: serializing and deserializing the JSON object created a different object");
         fmt::print(os, "OK\n\n");
-    }
-    catch (const std::exception& err) {
+    } catch (const std::exception& err) {
         fmt::print(os, "Error: {}\n\n", err.what());
     }
 }

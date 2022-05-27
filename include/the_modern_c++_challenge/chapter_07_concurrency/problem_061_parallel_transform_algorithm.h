@@ -2,9 +2,8 @@
 
 #include <algorithm>  // max, min, transform
 #include <future>  // async
-#include <iostream>  // cout
+#include <iosfwd>
 #include <iterator>  // distance
-#include <ostream>
 #include <semaphore>  // counting_semaphore
 #include <thread>  // hardware_concurrency
 #include <vector>
