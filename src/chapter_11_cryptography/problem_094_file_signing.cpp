@@ -5,10 +5,10 @@
 #include <iostream>  // cout
 #include <ostream>
 
-#include "osrng.h"  // AutoSeededRandomPool
-#include "rsa.h"  // RSAES_OAEP_SHA_{Decryptor, Encryptor}, RSASSA_PKCS1v15_SHA_{Signer, Verifier}
-#include "files.h"  // FileSink, FileSource
-#include "hex.h"  // HexDecoder, HexEncoder
+#include "cryptopp/osrng.h"  // AutoSeededRandomPool
+#include "cryptopp/rsa.h"  // RSAES_OAEP_SHA_{Decryptor, Encryptor}, RSASSA_PKCS1v15_SHA_{Signer, Verifier}
+#include "cryptopp/files.h"  // FileSink, FileSource
+#include "cryptopp/hex.h"  // HexDecoder, HexEncoder
 
 namespace fs = std::filesystem;
 

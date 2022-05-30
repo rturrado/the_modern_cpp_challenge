@@ -1,6 +1,7 @@
 #pragma once
 
 #include <filesystem>
+#include <iosfwd>
 #include <string>
 #include <string_view>
 #include <variant>
@@ -20,7 +21,7 @@ namespace tmcppc::face_detection {
     public:
         detector(std::string_view key);
 
-        [[nodiscard]] std::variant<faces_response, error_response> detect(const std::filesystem::path& path) const;
+        [[nodiscard]] std::variant<faces_response, error_response> detect(std::ostream& os, const std::filesystem::path& path) const;
     private:
         std::string key_{};
     };

@@ -19,10 +19,10 @@ namespace tmcppc::face_detection {
 
     // error_response
     inline void to_json(nlohmann::json& j, const error_response& error_response) {
-        j = nlohmann::json{ {"error", error_response.error} };
+        j = nlohmann::json{ {"error", error_response.error_} };
     }
     inline void from_json(const nlohmann::json& j, error_response& error_response) {
-        j.at("error").get_to(error_response.error);
+        j.at("error").get_to(error_response.error_);
     }
 
     // point
@@ -141,13 +141,13 @@ namespace tmcppc::face_detection {
         j = nlohmann::json{
             { "gender", face_attributes.gender },
             { "age", face_attributes.age },
-            { "emotion", face_attributes.emotion }
+            { "emotion", face_attributes.emotion_ }
         };
     }
     inline void from_json(const nlohmann::json& j, face_attributes& face_attributes) {
         j.at("gender").get_to(face_attributes.gender);
         j.at("age").get_to(face_attributes.age);
-        j.at("emotion").get_to(face_attributes.emotion);
+        j.at("emotion").get_to(face_attributes.emotion_);
     }
 
     // face

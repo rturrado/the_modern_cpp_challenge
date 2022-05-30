@@ -4,12 +4,13 @@
 
 #include "rtc/filesystem.h"
 
-#include "curlcpp/master/include/curl_easy.h"
-#include "curlcpp/master/include/curl_header.h"
+#include "curl_easy.h"
+#include "curl_header.h"
 
 #include "nlohmann/json.hpp"
 
 #include <filesystem>
+#include <ostream>
 #include <sstream>  // ostringstream
 #include <string>
 #include <variant>
@@ -30,7 +31,7 @@ namespace tmcppc::face_detection {
         return faces_response{};
     }
 
-    [[nodiscard]] std::variant<faces_response, error_response> detector::detect(const std::filesystem::path& path) const {
+    [[nodiscard]] std::variant<faces_response, error_response> detector::detect(std::ostream& os, const std::filesystem::path& path) const {
         std::variant<faces_response, error_response> ret{};
         try {
             std::ostringstream oss{};
@@ -58,7 +59,7 @@ namespace tmcppc::face_detection {
 
             ret = parse_detect_response(easy.get_info<CURLINFO_RESPONSE_CODE>().get(), oss.str());
         } catch (const curl::curl_easy_exception& ex) {
-            fmt::print(os, "\tError: " << ex.what() << "\n");
+            fmt::print(os, "\tError: {}\n", ex.what());
         }
         return ret;
     }

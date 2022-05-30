@@ -8,10 +8,10 @@
 #include <ostream>
 #include <string>
 
-#include "cryptlib.h"
-#include "default.h"  // DefaultDecryptorWithMac, DefaultEncryptorWithMAC
-#include "files.h"  // FileSink, FileSource
-#include "hex.h"  // HexDecoder, HexEncoder
+#include "cryptopp/cryptlib.h"
+#include "cryptopp/default.h"  // DefaultDecryptorWithMac, DefaultEncryptorWithMAC
+#include "cryptopp/files.h"  // FileSink, FileSource
+#include "cryptopp/hex.h"  // HexDecoder, HexEncoder
 
 
 void problem_93_main(std::ostream& os) {

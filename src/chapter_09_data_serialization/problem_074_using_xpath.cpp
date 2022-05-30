@@ -3,7 +3,7 @@
 #include "chapter_09_data_serialization/pugixml_wrapper.h"
 #include "chapter_09_data_serialization/xml_movies.h"
 
-#include "src/pugixml.hpp"
+#include "pugixml.hpp"
 
 #include <cassert>  // assert
 #include <chrono>

@@ -11,10 +11,6 @@ FetchContent_Declare(asio
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
 )
-FetchContent_Declare(CryptoPP
-    GIT_REPOSITORY https://github.com/weidai11/cryptopp.git
-    GIT_TAG "c88e4bde0a9cb307f2be060f9e460541ca6f813a"
-)
 FetchContent_Declare(curlcpp
     GIT_REPOSITORY https://github.com/JosephP91/curlcpp.git
     GIT_TAG "4be41c6ed651d0e19eca10d08cb27605af117566"
@@ -63,7 +59,6 @@ FetchContent_Declare(ZipLib
 )
 FetchContent_MakeAvailable(
     asio
-    CryptoPP
     curlcpp
     fmt
     nlohmann-json
@@ -77,6 +72,7 @@ FetchContent_MakeAvailable(
     ZipLib
 )
 find_package(Boost 1.78.0 REQUIRED)
+find_package(cryptopp CONFIG REQUIRED)
 
 
 # Subdirectories
@@ -131,39 +127,39 @@ target_include_directories(lib_${PROJECT_NAME} PUBLIC
 )
 target_include_directories(lib_${PROJECT_NAME} PUBLIC
     ${Boost_INCLUDE_DIRS}
-    ${cryptopp_SOURCE_DIR}
     ${curlcpp_SOURCE_DIR}/include
     ${PDFHUMMUS_SOURCE_DIR}
     ${pngwriter_SOURCE_DIR}/src
-    ${pugixml_SOURCE_DIR}
+    ${pugixml_SOURCE_DIR}/src
     ${sqlitemoderncpp_SOURCE_DIR}/hdr
     ${sqlite_SOURCE_DIR}
     ${ziplib_SOURCE_DIR}
 )
-message(status " * Target include directories:")
-message(status "\t- CryptoPP: " ${cryptopp_SOURCE_DIR})
-message(status "\t- curlcpp: " ${curlcpp_SOURCE_DIR}/include)
-message(status "\t- PDF-Writer: " ${PDFHUMMUS_SOURCE_DIR})
-message(status "\t- PNGwriter: " ${pngwriter_SOURCE_DIR}/src)
-message(status "\t- pugixml " ${pugixml_SOURCE_DIR})
-message(status "\t- SqliteModernCpp: " ${sqlitemoderncpp_SOURCE_DIR}/hdr)
-message(status "\t- sqlite: " ${sqlite_SOURCE_DIR})
-message(status "\t- ZipLib: " ${ziplib_SOURCE_DIR})
+message(status " * Target include directories:\n")
+message(status "\t- curlcpp: ${curlcpp_SOURCE_DIR}/include")
+message(status "\t- PDF-Writer: ${PDFHUMMUS_SOURCE_DIR}")
+message(status "\t- PNGwriter: ${pngwriter_SOURCE_DIR}/src")
+message(status "\t- pugixml ${pugixml_SOURCE_DIR}/src")
+message(status "\t- SqliteModernCpp: ${sqlitemoderncpp_SOURCE_DIR}/hdr")
+message(status "\t- sqlite: ${sqlite_SOURCE_DIR}")
+message(status "\t- ZipLib: ${ziplib_SOURCE_DIR}\n")
 set_target_properties(lib_${PROJECT_NAME} PROPERTIES
     OUTPUT_NAME ${PROJECT_NAME}-${PROJECT_VERSION}
 )
 target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_20)
-target_link_libraries(lib_${PROJECT_NAME}
+target_link_libraries(lib_${PROJECT_NAME} PUBLIC
     asio
     cryptopp-static
-    curlcpp::curlcpp
     fmt
     nlohmann_json::nlohmann_json
     PDFWriter
-    PNGwriter
-    pugixml::pugixml
     range-v3
     rtc
+)
+target_link_libraries(lib_${PROJECT_NAME} PRIVATE
+    curlcpp::curlcpp
+    PNGwriter
+    pugixml::pugixml
     ZIPLIB
 )
 
@@ -195,8 +191,8 @@ target_link_libraries(${PROJECT_NAME} lib_${PROJECT_NAME})
 
 # Target compile options
 if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
-    target_compile_options(lib_${PROJECT_NAME} PRIVATE /WX /W3 /D _CRT_SECURE_NO_WARNINGS /w34996 /utf-8)
-    target_compile_options(${PROJECT_NAME} PRIVATE /WX /W3 /D _CRT_SECURE_NO_WARNINGS /w34996 /utf-8)
+    target_compile_options(lib_${PROJECT_NAME} PRIVATE /WX /W3 /w34996 /utf-8)
+    target_compile_options(${PROJECT_NAME} PRIVATE /WX /W3 /w34996 /utf-8)
 elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
     target_compile_options(lib_${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
     target_compile_options(${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)

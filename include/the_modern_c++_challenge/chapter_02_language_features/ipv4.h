@@ -5,12 +5,12 @@
 #include <cstdint>  // uint8_t, uint32_t
 #include <fmt/format.h>
 #include <fmt/ostream.h>
-#include <format>
 #include <ios>  // ios_base
 #include <istream>
 #include <numeric>
 #include <ostream>
 #include <regex>
+#include <sstream>  // ostringstream
 #include <stdexcept>  // runtime_error
 #include <string>
 
@@ -60,7 +60,9 @@ namespace tmcppc {
         {}
 
         [[nodiscard]] std::string to_string() const {
-            return std::format("{}", *this);
+            std::ostringstream oss{};
+            oss << *this;
+            return oss.str();
         }
 
         [[nodiscard]] constexpr unsigned long to_ulong() const noexcept {

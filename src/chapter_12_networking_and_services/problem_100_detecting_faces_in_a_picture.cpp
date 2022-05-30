@@ -23,7 +23,7 @@ void problem_100_main(std::istream& is, std::ostream& os) {
     detector detector{ key };
 
     const fs::path input_file_path{ fs::current_path() / "res" / "problem100.jpg" };
-    auto result{ detector.detect(input_file_path) };
+    auto result{ detector.detect(os, input_file_path) };
     if (std::holds_alternative<faces_response>(result)) {
         std::get<faces_response>(result).print(os);
     } else {

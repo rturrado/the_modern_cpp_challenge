@@ -6,8 +6,8 @@
 #include <stdexcept>  // runtime_error
 #include <string>  // getline
 
-#include "cryptlib.h"
-#include "sha.h"
+#include "cryptopp/cryptlib.h"
+#include "cryptopp/sha.h"
 
 
 class login {
@@ -75,7 +75,7 @@ public:
 
             fmt::print(os_, "Please enter password: ");
             std::string password{};
-            std::getline(std::cin, password);
+            std::getline(is_, password);
             if (login::is_valid_password(username, password)) {
                 fmt::print(os_, "\tError: incorrect password\n");
                 continue;

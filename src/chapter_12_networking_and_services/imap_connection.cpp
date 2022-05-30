@@ -1,6 +1,6 @@
 #include "chapter_12_networking_and_services/imap_connection.h"
 
-#include "curlcpp/master/include/curl_easy.h"
+#include "curl_easy.h"
 
 #include <algorithm>  // transform
 #include <boost/algorithm/string.hpp>

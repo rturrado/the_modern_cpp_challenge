@@ -1,7 +1,7 @@
 #include "chapter_12_networking_and_services/text_translation.h"
 
-#include "curlcpp/master/include/curl_easy.h"
-#include "curlcpp/master/include/curl_header.h"
+#include "curl_easy.h"
+#include "curl_header.h"
 
 #include <fmt/format.h>
 #include <fmt/ostream.h>
