@@ -27,15 +27,15 @@ namespace tmcppc {
 
 
     // Notes
-    // 
+    //
     // uint8_t is an alias for unsigned char and thus treated as char by streams
     // We use a temporary string in the string constructor, and a std::to_string conversion in the octets constructor
-    // 
+    //
     // std::array is movable if its elements are movable
     // That makes implementation of move constructor and move assignment operator unnecessary for the IPv4 class,
     // since all the members are movable
     // Copy construction, copy assignment operator and destructor are also unnecesary
-    // 
+    //
     // operator<< and operator>> implemented as non-member functions and friends
     class ipv4 {
     public:

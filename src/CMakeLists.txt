@@ -2,8 +2,6 @@ set(include_dir ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME})
 
 
 # Packages
-find_package(Threads REQUIRED)
-
 include(FetchContent)
 FetchContent_Declare(asio
     GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
@@ -24,7 +22,7 @@ FetchContent_Declare(nlohmann-json
 )
 FetchContent_Declare(PDF-Writer
     GIT_REPOSITORY https://github.com/rturrado/PDF-Writer.git
-    GIT_TAG "2fad304ca44f3ffa879d760a438167a17775e123"
+    GIT_TAG "66fc2954fbce1e9903a8ff4b2f7fe90e1f61d36b"
 )
 FetchContent_Declare(PNGwriter
     GIT_REPOSITORY https://github.com/rturrado/pngwriter.git
@@ -55,7 +53,7 @@ FetchContent_Declare(sqlite
 )
 FetchContent_Declare(ZipLib
     GIT_REPOSITORY https://github.com/rturrado/ZipLib.git
-    GIT_TAG "fca4077481af67a60b9230e262a704365e537b64"
+    GIT_TAG "606ec487b6f6050db5bb5b195514f393928eebe8"
 )
 FetchContent_MakeAvailable(
     asio
@@ -73,6 +71,7 @@ FetchContent_MakeAvailable(
 )
 find_package(Boost 1.78.0 REQUIRED)
 find_package(cryptopp CONFIG REQUIRED)
+find_package(Threads REQUIRED)
 
 
 # Subdirectories
@@ -147,6 +146,8 @@ set_target_properties(lib_${PROJECT_NAME} PROPERTIES
     OUTPUT_NAME ${PROJECT_NAME}-${PROJECT_VERSION}
 )
 target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_20)
+# PDFWriter (which uses zlib.lib) has link conflicts with curlcpp (which uses libcurl.dll, which uses zlib1.dll)
+# Linking PDFWriter as public and curlcpp as private avoids those conflicts (I don't know why)
 target_link_libraries(lib_${PROJECT_NAME} PUBLIC
     asio
     cryptopp-static

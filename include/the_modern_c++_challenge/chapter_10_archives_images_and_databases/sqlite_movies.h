@@ -357,7 +357,7 @@ namespace tmcppc::movies::sqlite_mcpp {
             if (movie_it == std::end(catalog_.movies)) {
                 throw movie_id_not_found_error{ movie_id };
             }
-            
+
             return movie_it->media_files;
         }
 
@@ -371,7 +371,7 @@ namespace tmcppc::movies::sqlite_mcpp {
                 catalog_.movies.push_back(movie);
             } catch (const sqlite::sqlite_exception&) {
                 sqlite_db_ << "rollback;";
-                
+
                 throw;
             }
         }
@@ -379,7 +379,7 @@ namespace tmcppc::movies::sqlite_mcpp {
         // to_db updates media_file.id
         void insert_media_file(size_t movie_id, media_file& media_file) {
             auto movie_it{ find_movie(movie_id) };
-            
+
             if (movie_it == std::end(catalog_.movies)) {
                 throw movie_id_not_found_error{ movie_id };
             }

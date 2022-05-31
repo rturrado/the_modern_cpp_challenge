@@ -1,13 +1,14 @@
 # Packages
-find_package(Threads REQUIRED)
-
 include(FetchContent)
 set(BENCHMARK_ENABLE_TESTING NO)
 FetchContent_Declare(googlebenchmark
     GIT_REPOSITORY https://github.com/google/benchmark.git
     GIT_TAG "60b16f11a30146ac825b7d99be0b9887c24b254a"
 )
-FetchContent_MakeAvailable(googlebenchmark)
+FetchContent_MakeAvailable(
+    googlebenchmark
+)
+find_package(Threads REQUIRED)
 
 
 # Subdirectories

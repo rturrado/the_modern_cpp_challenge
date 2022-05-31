@@ -9,7 +9,7 @@
 
 void problem_59_main(std::ostream& os) {
     weasel_sequence sequence{ "METHINKS IT IS LIKE A WEASEL" };
-    
+
     while (not sequence.end()) {
         // Create 100 mutations of the current sequence
         std::vector<weasel_sequence> mutations(100, sequence);

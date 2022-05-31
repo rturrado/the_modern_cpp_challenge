@@ -12,7 +12,7 @@ std::string capitalize(const std::string& s) {
     std::string ret{s};
     std::for_each(begin(ret), end(ret), [parsing_word = false](char& c) mutable {
         if (parsing_word) {
-            
+
             if (not std::isalpha(c)) {
                 // End of word. Update parsing word flag
                 parsing_word = false;
@@ -42,7 +42,7 @@ void problem_25_main(std::ostream& os) {
 
 
 // Capitalizing an article title
-// 
+//
 // Write a function that transforms an input text into a capitalized version,
 // where every word starts with an uppercase letter and has all the other letters in lowercase.
 // For instance, the text "the c++ challenger" should be transformed to "The C++ Challenger".

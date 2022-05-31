@@ -10,7 +10,7 @@ void problem_34_main()
 {
     const auto in_path{ std::filesystem::current_path() / "res" / "problem34.txt" };
     const auto temp_path{ std::filesystem::current_path() / "res" / "problem34-tmp.txt" };
-    		
+
     std::fstream in_f(in_path, std::ios::in);
     std::fstream temp_f(temp_path, std::ios::out);
 

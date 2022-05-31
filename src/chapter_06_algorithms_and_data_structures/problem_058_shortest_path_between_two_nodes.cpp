@@ -25,7 +25,7 @@ void problem_58_main(std::ostream& os) {
         fmt::print(os, "Shortest distance from node '{}' to all the others:\n", node);
         print_shortest_paths_digraph(os, get_shortest_paths_digraph(graph, node), node);
     }
-    
+
     fmt::print(os, "\n");
 }
 

@@ -93,7 +93,7 @@ cmake --build build --config Release
 cd build\benchmark\Release
 .\the_modern_c++_challenge_benchmark.exe
 ```
-  
+
 ## Dependencies
 
 The following libraries are used in this project, but are automatically downloaded and made available via CMake's `FetchContent`.

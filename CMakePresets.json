@@ -10,7 +10,7 @@
             "name": "base",
             "hidden": true,
             "description": "Configure with vcpkg toolchain and generate Ninja project files for all configurations",
-            "binaryDir": "${sourceDir}/build/${presetName}",
+            "binaryDir": "${sourceDir}/build/NinjaMultiConfig/${presetName}",
             "generator": "Ninja Multi-Config",
             "cacheVariables": {
                 "BOOST_ROOT": {

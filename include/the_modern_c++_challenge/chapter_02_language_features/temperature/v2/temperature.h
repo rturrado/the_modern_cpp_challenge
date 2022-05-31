@@ -6,7 +6,7 @@
 
 
 // v2: based on the book's answer; also similar to Boost.Unit's implementation
-// 
+//
 // temperature class is templated on a Scale parameter as well
 namespace tmcppc::temperature::v2 {
     enum class scale { celsius, fahrenheit, kelvin };

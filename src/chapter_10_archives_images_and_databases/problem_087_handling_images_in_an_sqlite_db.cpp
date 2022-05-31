@@ -75,7 +75,7 @@ void parse_subcommand(std::istringstream& iss, const command_t& command, subcomm
         throw subcommand_not_found_error{ subcommand_str };
     }
     subcommand = string_to_subcommand[subcommand_str];
-    
+
     auto& valid_subcommands{ command_to_subcommands[command] };
     if (std::ranges::find(valid_subcommands, subcommand) == std::cend(valid_subcommands)) {  // this command does not accept this subcommand
         throw invalid_subcommand_error{ command_to_string[command], subcommand_str };

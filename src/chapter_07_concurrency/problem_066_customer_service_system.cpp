@@ -14,7 +14,7 @@ void problem_66_main(std::ostream& os) {
     using namespace tmcppc::logging::v2;
 
     auto sleep_for = [](int min, int max) {
-        std::default_random_engine random_engine{ std::random_device{}() }; 
+        std::default_random_engine random_engine{ std::random_device{}() };
         std::uniform_int_distribution<int> uniform_dist{ min, max };
         std::chrono::milliseconds t{ uniform_dist(random_engine) };
         std::this_thread::sleep_for(t);

@@ -162,7 +162,7 @@ directed_graph_map<Node, Distance> get_shortest_paths_digraph(const undirected_g
                 distances[u] + graph.at({ u, d }) < distances[d];
         };
         auto update_shortest_path_through_u = [&graph, &sp_digraph, &distances, &u](const auto& s, const auto& d) {
-            sp_digraph[d] = std::make_pair(u, graph.at({ u, d }));  // adding (d -> u) connection to shortest path (u -> ... -> s)            
+            sp_digraph[d] = std::make_pair(u, graph.at({ u, d }));  // adding (d -> u) connection to shortest path (u -> ... -> s)
 
             distances[d] = distances[u] + graph.at({ u, d });  // setting (d -> ... -> s) distance as (d -> u) + (u -> ... -> s)
         };

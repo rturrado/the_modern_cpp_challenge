@@ -18,11 +18,11 @@ std::vector<std::vector<uint32_t>> pascal_triangle(const size_t n) {
     }
 
     std::vector<std::vector<uint32_t>> ret{};
-    
+
     if (n == 0) {
         return ret;
     }
-    
+
     ret.push_back({ 1 });
     if (n == 1) {
         return ret;

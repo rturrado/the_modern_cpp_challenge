@@ -40,7 +40,7 @@ namespace tmcppc::text_translation {
         [[nodiscard]] std::string parse_translate_response(const std::string& response) const;
     public:
         translator(std::string_view key);
-        
+
         // Translation is done from utf8 to utf8
         [[nodiscard]] std::string translate(std::ostream& os, std::string_view text, language_code from, language_code to) const;
     private:

@@ -17,7 +17,7 @@
 //
 void cb_sort_algorithm() {
     using namespace rtc::timer;
-    
+
     fmt::print("[sort_algorithm custom benchmark]\n\n");
     for (size_t size : { 100'000, 250'000, 500'000 }) {
         std::vector<int> v(size);

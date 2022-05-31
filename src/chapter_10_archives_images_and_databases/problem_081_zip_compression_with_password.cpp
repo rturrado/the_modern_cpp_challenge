@@ -8,7 +8,7 @@
 
 void problem_81_main(std::istream& is, std::ostream& os) {
     const auto password{ std::string{ "(4n)!(1103+26390n)"} };
-    
+
     tmcppc::zip_lib::test(is, os, password);
 }
 

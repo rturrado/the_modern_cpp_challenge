@@ -7,7 +7,7 @@
 
 
 // v1: my initial solution
-// 
+//
 // temperature class is only templated on the representation type
 namespace tmcppc::temperature::v1 {
     enum class scale { invalid = -1, celsius, fahrenheit, kelvin };

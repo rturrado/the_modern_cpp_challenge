@@ -18,7 +18,7 @@ void problem_36_main(std::ostream& os) {
 
     const ch::years duration1{ 500 };
     const ch::milliseconds duration2{ 5 };
-    
+
     for (const auto& path : { d1_path, d2_path }) {
         for (const auto& tp : {
             ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration1 },

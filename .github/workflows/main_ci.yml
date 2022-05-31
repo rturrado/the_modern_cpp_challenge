@@ -18,10 +18,10 @@ on:
 
 env:
   BOOST_ROOT: ${{github.workspace}}/3rdparty/boost
-  BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download  
+  BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download
 
 jobs:
-  job:
+  windows-x64-Debug-Test:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -62,16 +62,57 @@ jobs:
       - name: Configure and build tests and benchmarks
         run: |
           cmake --preset test
-          cmake --preset benchmark
           cmake --build --preset x64-Debug-Test
-          cmake --build --preset x64-Release-Benchmark
 
       - name: Run tests
-        working-directory: ${{github.workspace}}/build/test/test
+        working-directory: ${{github.workspace}}/build/NinjaMultiConfig/test/test
         run: ./Debug/the_modern_c++_challenge_test.exe --gtest_brief=1 --gtest_also_run_disabled_tests
         shell: bash
 
+  windows-x64-Release-Benchmark:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Restore Boost cache
+        uses: actions/cache@v3
+        id: cache-boost
+        with:
+          path: ${{env.BOOST_ROOT}}
+          key: boost
+      - name: Install Boost
+        if: steps.cache-boost.outputs.cache-hit != 'true'
+        run: |
+          BOOST_ROOT=$(echo $BOOST_ROOT | sed 's/\\/\//g')
+          mkdir -p $BOOST_ROOT
+          curl --progress-bar --location --output $BOOST_ROOT/download.tar.bz2 $BOOST_URL
+          7z -o$BOOST_ROOT x $BOOST_ROOT/download.tar.bz2 -y -bd
+          7z -o$BOOST_ROOT x $BOOST_ROOT/download.tar -y -bd
+          cd $BOOST_ROOT && cp -r boost_*/* .
+          rm -rf boost_*/* download.tar.bz2 download.tar
+        shell: bash
+
+      - uses: lukka/get-cmake@latest
+
+      - name: Restore artifacts, or setup vcpkg for building artifacts
+        uses: lukka/run-vcpkg@v10
+        id: runvcpkg
+        with:
+          vcpkgJsonGlob: 'vcpkg.json'
+
+      # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly
+      # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
+      - name: Configure and build tests and benchmarks
+        run: |
+          cmake --preset benchmark
+          cmake --build --preset x64-Release-Benchmark
+
       - name: Run benchmarks
-        working-directory: ${{github.workspace}}/build/benchmark/benchmark
+        working-directory: ${{github.workspace}}/build/NinjaMultiConfig/benchmark/benchmark
         run: ./Release/the_modern_c++_challenge_benchmark.exe
         shell: bash

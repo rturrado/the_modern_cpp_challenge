@@ -8,7 +8,7 @@
 
 void problem_99_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::text_translation;
-    
+
     fmt::print(os, "Please enter the Azure translator resource key: ");
     std::string key{};
     std::getline(is, key);

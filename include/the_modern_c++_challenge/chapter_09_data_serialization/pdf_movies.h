@@ -90,7 +90,7 @@ namespace tmcppc::movies::pdf {
 
                     std::ostringstream oss{};
                     oss << movie.title << " " << movie_year;
-                    
+
                     // Movie
                     current_y -= (font_height + line_spacing);
                     tmcppc::pdf_writer::write_text(ctx, margin_left + font_width, current_y, oss.str(), text_options);

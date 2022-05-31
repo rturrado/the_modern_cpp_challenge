@@ -13,11 +13,11 @@
 void problem_45_main(std::ostream& os) {
     const std::vector<int> v{ 3, 6, 7, 2, 4, 9, 5, 1, 8, 0 };
     fmt::print(os, "v: {}\n", v);
-    
+
     tmcppc::priority_queue<int> pq_1{ cbegin(v), cend(v) };
     fmt::print(os, "tmcppc::priority_queue<int> pq_1(cbegin(v), cend(v));\n");
     fmt::print(os, "\tpq_1: {}\n", pq_1);
-    
+
     // Notice pq_2 won't necessarily output { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }
     //
     // The array representation of a heap doesn't necessarily store things in sequential order.
@@ -67,7 +67,7 @@ void problem_45_main(std::ostream& os) {
         fmt::print(os, "pq_5.top(): {}\n", pq_5.top());
     }
     // fmt::print(os, "pq_3.top(): {}\n", pq_3.top());  // wrong: same behaviour as v.front() in an empty vector
-    
+
     fmt::print(os, "pq_5.size(): {}\n", pq_5.size());
 
     fmt::print(os, "pq_3.empty(): {}\n", pq_3.empty());

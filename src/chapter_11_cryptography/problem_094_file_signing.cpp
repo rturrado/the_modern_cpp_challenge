@@ -17,7 +17,7 @@ void generate_keys(const fs::path& rsa_private_key_file_path, const fs::path& rs
     using namespace CryptoPP;
 
     AutoSeededRandomPool rng{};
-    
+
     RSAES_OAEP_SHA_Decryptor private_key{ rng, 3072 };
     HexEncoder private_file{ new FileSink{ rsa_private_key_file_path.c_str() } };
     private_key.AccessMaterial().Save(private_file);

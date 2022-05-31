@@ -21,16 +21,16 @@ std::string read_n_digit_isbn(std::istream& is, std::ostream& os, size_t n) {
     bool valid_input{ false };
     while (!valid_input) {
         fmt::print(os, "Please enter a {}-digit ISBN (may include hyphens and/or spaces): ", n);
-        
+
         std::getline(is, ret);
-        
+
         auto number_of_digits{ std::count_if(ret.begin(), ret.end(), [](auto& n) {
             return std::isdigit(n) != 0;
         }) };
         auto number_of_separators{ std::count_if(ret.begin(), ret.end(), [&separators](char c) {
             return separators.find(c) != std::string::npos;
         }) };
-        
+
         if (number_of_digits != n or
             ret.size() != number_of_digits + number_of_separators) {
             fmt::print(os, "\tError: invalid input\n");
@@ -55,7 +55,7 @@ bool validate_10_digit_isbn(const std::string& str) {
 
     auto sum = std::accumulate(str.begin(), str.end(), static_cast<size_t>(0),
         [i = number_of_digits](size_t sum, size_t c) mutable { return sum + (c - '0') * i--; });
-    
+
     return !(sum % 11);
 }
 
