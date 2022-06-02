@@ -1,6 +1,8 @@
 #include "chapter_10_archives_images_and_databases/problem_086_inserting_into_an_sqlite_db.h"
 #include "chapter_10_archives_images_and_databases/problem_087_handling_images_in_an_sqlite_db.h"
+#include "env.h"
 
+#include <fmt/format.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -8,7 +10,8 @@
 
 
 TEST(problem_87_main, DISABLED_output) {
-    std::istringstream iss{
+    const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
+    std::istringstream iss{ fmt::format(
         // Problem 86 input
         "2\n"  // 2 for File
         "n\n"  // no, I don't want to add Fight Club to the list
@@ -20,14 +23,16 @@ TEST(problem_87_main, DISABLED_output) {
         "help\n"
         "blah\n"
         "list movie .*Run.*\n"
-        "add 3, ./res/db/BladeRunner.jpg, Front cover\n"
-        "add 3, ./res/db/BladRunner.mp4, Trailer\n"
-        "add 3, ./res/db/BladeRunner.mp4, Trailer\n"
+        "add 3, {0}/db/BladeRunner.jpg, Front cover\n"
+        "add 3, {0}/db/BladRunner.mp4, Trailer\n"
+        "add 3, {0}/db/BladeRunner.mp4, Trailer\n"
         "list media 3\n"
         "remove 2\n"
         "list media 3\n"
         "quit\n"
-        "y\n"  // yes, I want to remove res/db/movies.db
+        "y\n",  // yes, I want to remove res/db/movies.db
+        resource_folder_path.generic_string()
+    )
     };
     std::ostringstream oss{};
     problem_86_main(iss, oss);
@@ -202,11 +207,19 @@ TEST(problem_87_main, DISABLED_output) {
         "        Media files:\n"
         "            Media file:\n"
         "                id: 1\n"
-        "                path: './res/db/BladeRunner.jpg'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "                path: '.*res/db/BladeRunner.jpg'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "                description: 'Front cover'\n"
         "            Media file:\n"
         "                id: 2\n"
-        "                path: './res/db/BladeRunner.mp4'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "                path: '.*res/db/BladeRunner.mp4'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "                description: 'Trailer'\n"
         "\n"
     ));
@@ -215,11 +228,19 @@ TEST(problem_87_main, DISABLED_output) {
         "Media files:\n"
         "    Media file:\n"
         "        id: 1\n"
-        "        path: './res/db/BladeRunner.jpg'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "        path: '.*res/db/BladeRunner.jpg'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "        description: 'Front cover'\n"
         "    Media file:\n"
         "        id: 2\n"
-        "        path: './res/db/BladeRunner.mp4'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "        path: '.*res/db/BladeRunner.mp4'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "        description: 'Trailer'\n"
         "\n"
     ));
@@ -279,7 +300,11 @@ TEST(problem_87_main, DISABLED_output) {
         "        Media files:\n"
         "            Media file:\n"
         "                id: 1\n"
-        "                path: './res/db/BladeRunner.jpg'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "                path: '.*res/db/BladeRunner.jpg'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "                description: 'Front cover'\n"
         "\n"
     ));
@@ -288,7 +313,11 @@ TEST(problem_87_main, DISABLED_output) {
         "Media files:\n"
         "    Media file:\n"
         "        id: 1\n"
-        "        path: './res/db/BladeRunner.jpg'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "        path: '.*res/db/BladeRunner.jpg'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "        description: 'Front cover'\n"
         "\n"
     ));

@@ -6,7 +6,6 @@
 #include <algorithm>  // for_each
 #include <atomic>
 #include <chrono>
-#include <iostream>  // cout
 #include <ostream>
 #include <thread>  // this_thread
 #include <vector>

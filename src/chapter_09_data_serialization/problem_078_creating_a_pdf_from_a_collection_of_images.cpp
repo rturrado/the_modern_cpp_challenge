@@ -1,5 +1,6 @@
 #include "chapter_09_data_serialization/pdf_writer_wrapper.h"
 #include "chapter_09_data_serialization/problem_078_creating_a_pdf_from_a_collection_of_images.h"
+#include "env.h"
 
 #include "rtc/filesystem.h"
 #include "rtc/string.h"
@@ -122,7 +123,7 @@ void save_folder_of_images_to_pdf(const std::filesystem::path& input_dir_path, c
 
 
 void problem_78_main(std::ostream& os) {
-    const auto input_dir_path{ std::filesystem::current_path() / "res" / "images" };
+    const auto input_dir_path{ tmcppc::env::get_instance().get_resource_folder_path() / "images" };
     const auto temp_file_path{ std::filesystem::temp_directory_path() / "images.pdf" };
 
     try {

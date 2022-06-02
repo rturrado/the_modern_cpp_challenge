@@ -1,12 +1,10 @@
 #pragma once
 
-#include <istream>
-#include <ostream>
+#include <iosfwd>
 #include <vector>
 
 
-struct AbundantNumberResult
-{
+struct AbundantNumberResult {
     size_t number{};
     size_t abundance{};
     std::vector<size_t> divisors{};

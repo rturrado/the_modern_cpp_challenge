@@ -1,5 +1,7 @@
 #pragma once
 
+#include "env.h"
+
 #include "rtc/console.h"
 #include "rtc/filesystem.h"
 
@@ -108,13 +110,18 @@ namespace tmcppc::zip_lib {
                 create_directories_if_needed(destination_file_path.parent_path());
 
                 fmt::print(os, "\tExtracting: {}\n", destination_file_path.generic_string());
-                ZipFile::ExtractEncryptedFile(zip_file_path.generic_string(), entry_file_path.generic_string(), destination_file_path.generic_string(), password);
+                ZipFile::ExtractEncryptedFile(
+                    zip_file_path.generic_string(),
+                    entry_file_path.generic_string(),
+                    destination_file_path.generic_string(),
+                    password);
             }
         }
     }
 
     inline void compare_input_and_output(std::ostream& os, const fs::path& input_path, const fs::path& output_path) {
-        fmt::print(os, "Checking input '{}' and output '{}' are equal\n", input_path.generic_string(), output_path.generic_string());
+        fmt::print(os, "Checking input '{}' and output '{}' are equal\n",
+            input_path.generic_string(), output_path.generic_string());
         if (not rtc::filesystem::are_filesystem_trees_equal(input_path, output_path)) {
             fmt::print(os, "\tError: Input '{}' is different than output '{}'\n",
                 input_path.generic_string(), output_path.generic_string());
@@ -141,8 +148,9 @@ namespace tmcppc::zip_lib {
             return output_root_path / zip_file_name;
         };
 
-        const auto input_file_path{ fs::path{ "res" } / "sample_folder" / "dilbert.jpg" };  // test relative paths
-        const auto input_dir_path{ fs::current_path() / "res" / "sample_folder" / "sample_subfolder" };  // and absolute paths
+        const auto resource_folder_path{ env::get_instance().get_resource_folder_path() };
+        const auto input_file_path{ resource_folder_path / "sample_folder" / "dilbert.jpg" };  // test files
+        const auto input_dir_path{ resource_folder_path / "sample_folder" / "sample_subfolder" };  // and folders
         const auto output_root_path{ fs::temp_directory_path() };
 
         for (auto&& input_path : { input_file_path, input_dir_path }) {

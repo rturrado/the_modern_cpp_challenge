@@ -38,3 +38,5 @@
 /res/problem_034_output.txt
 /build/benchmark
 /build/test
+/build/NinjaMultiConfig/benchmark
+/build/NinjaMultiConfig/test

@@ -1,8 +1,10 @@
 #include "chapter_11_cryptography/problem_092_computing_file_hashes.h"
+#include "env.h"
 
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <iostream>  // cout
+#include <ostream>
 
 #include "cryptopp/md5.h"  // MD5
 #include "cryptopp/sha.h"  // SHA1, SHA256
@@ -11,7 +13,7 @@ namespace fs = std::filesystem;
 
 
 void problem_92_main(std::ostream& os) {
-    const auto input_file_path{ fs::current_path() / "res" / "fonts" / "calibri.ttf" };
+    const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
 
     fmt::print(os, "Calculating SHA1, SHA256 and MD5 for file '{}'\n", input_file_path.generic_string());
 

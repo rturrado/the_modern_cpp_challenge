@@ -1,4 +1,5 @@
 #include "chapter_11_cryptography/problem_093_aes_encryption.h"
+#include "env.h"
 
 #include "rtc/filesystem.h"
 
@@ -15,7 +16,7 @@
 
 
 void problem_93_main(std::ostream& os) {
-    const auto input_file_path{ std::filesystem::current_path() / "res" / "fonts" / "calibri.ttf" };
+    const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
     const auto encrypted_file_path{ std::filesystem::temp_directory_path() / "calibri.ttf.encrypted" };
     const auto decrypted_file_path{ std::filesystem::temp_directory_path() / "calibri.ttf.decrypted" };
     const std::string password{ "Super secret password" };

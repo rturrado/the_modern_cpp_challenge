@@ -26,7 +26,11 @@
             "name": "test",
             "inherits": "base",
             "cacheVariables": {
-                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true
+                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true,
+                "TEST_EXTRA_ARGS": {
+                    "type": "PATH",
+                    "value": "${sourceDir}/res"
+                }
             }
         },
         {
@@ -34,7 +38,7 @@
             "inherits":  "base",
             "cacheVariables": {
                 "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true,
-                "BUILD_TESTING":  false
+                "BUILD_TESTING": false
             }
         }
     ],

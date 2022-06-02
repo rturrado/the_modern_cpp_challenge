@@ -1,7 +1,6 @@
 #pragma once
 
-#include <istream>
-#include <ostream>
+#include <iosfwd>
 #include <utility>  // pair
 #include <vector>
 

@@ -12,7 +12,7 @@
 
 int gcd(std::ostream& os, int m, int n) {
     if (m <= 0 or n <= 0) {
-        os << "Error: calling gcd(m, n) with a negative or zero value.\n";
+        fmt::print(os, "Error: calling gcd(m, n) with a negative or zero value.\n");
         return -1;
     }
 

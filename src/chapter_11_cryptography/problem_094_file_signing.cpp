@@ -1,4 +1,5 @@
 #include "chapter_11_cryptography/problem_094_file_signing.h"
+#include "env.h"
 
 #include <filesystem>
 #include <fmt/ostream.h>
@@ -81,7 +82,7 @@ bool verify_file(const fs::path& input_file_path, const fs::path& rsa_public_key
 
 
 void problem_94_main(std::ostream& os) {
-    const auto input_file_path{ fs::current_path() / "res" / "fonts" / "calibri.ttf" };
+    const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
     const auto rsa_private_key_file_path{ fs::temp_directory_path() / "private_key.txt" };
     const auto rsa_public_key_file_path{ fs::temp_directory_path() / "public_key.txt" };
     const auto signature_file_path{ fs::temp_directory_path() / "signature.txt"};

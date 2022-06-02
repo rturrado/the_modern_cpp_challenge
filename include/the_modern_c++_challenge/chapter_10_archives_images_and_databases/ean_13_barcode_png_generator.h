@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ean_13_barcode.h"
+#include "env.h"
 #include "png_writer_wrapper.h"
 
 #include <algorithm>  // for_each
@@ -221,7 +222,7 @@ namespace tmcppc::ean_13::barcode_png {
             {}
             virtual void paint(png_writer& writer) const override
             {
-                const auto font_file_path{ std::filesystem::current_path() / "res" / "fonts" / "calibri.ttf" };
+                const auto font_file_path{ env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
                 auto start_position{ get_start_position() };
                 for (auto&& digit : digit_group_) {
                     writer.plot_text(

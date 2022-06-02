@@ -1,5 +1,6 @@
 #include "chapter_02_language_features/problem_021_system_handle_wrapper.h"
 #include "chapter_02_language_features/unique_hdl.h"
+#include "env.h"
 
 #include <cassert>  // assert
 #include <iostream>  // cout
@@ -20,7 +21,7 @@ void function_that_throws() {
 
 void test_unique_hdl(std::wostream& wos) {
 #ifdef _WIN32
-    auto file_path{ std::filesystem::current_path() / "res" / "sample_file.txt" };
+    auto file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
 
     using handle = tmcppc::unique_hdl<tmcppc::HANDLE, tmcppc::handle_traits>;
 

@@ -1,4 +1,5 @@
 #include "chapter_10_archives_images_and_databases/problem_079_finding_files_in_a_zip_archive.h"
+#include "env.h"
 
 #include "ZipArchive.h"
 #include "ZipFile.h"
@@ -42,7 +43,7 @@ std::vector<std::string> regex_search_in_zip_file(std::ostream& os, const fs::pa
 
 
 void problem_79_main(std::ostream& os) {
-    const std::filesystem::path input_file_path{ std::filesystem::current_path() / "res" / "sample_folder.zip" };
+    const std::filesystem::path input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_folder.zip" };
     std::string pattern_str{ R"(^.*\.jpg$)" };
     fmt::print(os, "Searching for '{}' files in '{}'...\n", pattern_str, input_file_path.generic_string());
     for (auto&& f : regex_search_in_zip_file(os, input_file_path, std::regex{ pattern_str })) {

@@ -1,4 +1,5 @@
 #include "chapter_11_cryptography/problem_089_vigenere_cipher.h"
+#include "env.h"
 
 #include "rtc/filesystem.h"
 
@@ -6,13 +7,14 @@
 #include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <memory>  // make_unique, unique_ptr
+#include <ostream>
 
 
 /* static */ constexpr vigenere::square_t vigenere::square_{ vigenere::build_square() };
 
 
 void problem_89_main(std::ostream& os) {
-    const auto input_file_path{ std::filesystem::current_path() / "res" / "sample.txt" };
+    const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
     const auto input_file_content{ rtc::filesystem::get_text_file_content(input_file_path) };
 
     const std::unique_ptr<crypt> crypt_up{ std::make_unique<vigenere>() };

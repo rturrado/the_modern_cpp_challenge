@@ -1,4 +1,5 @@
 #include "chapter_11_cryptography/problem_090_base64_encoding.h"
+#include "env.h"
 
 #include "rtc/filesystem.h"
 
@@ -23,7 +24,7 @@ void test_base_64(std::ostream& os, const auto& input_data, bool use_padding = t
 
 
 void problem_90_main(std::ostream& os) {
-    const auto input_file_path{ std::filesystem::current_path() / "res" / "fonts" / "calibri.ttf" };
+    const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
     const auto input_file_content{ rtc::filesystem::get_binary_file_content<base64::value_type>(input_file_path) };
 
     fmt::print(os, "Encoding and decoding file '{}'\n", input_file_path.string());

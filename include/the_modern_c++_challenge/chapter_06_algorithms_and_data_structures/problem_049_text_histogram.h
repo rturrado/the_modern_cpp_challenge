@@ -1,8 +1,8 @@
 #pragma once
 
 #include <fstream>  // ifstream
+#include <iosfwd>
 #include <map>
-#include <ostream>
 
 
 using letter_counts = std::map<char, size_t>;

@@ -5,10 +5,10 @@ FetchContent_Declare(googletest
     GIT_TAG "af29db7ec28d6df1c7f0f745186884091e602e07"
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
-
+FetchContent_MakeAvailable(
+    googletest
+)
 find_package(Boost 1.78.0 REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
 
 
 # Subdirectories
@@ -45,28 +45,18 @@ set(test_sources
     ${chapter_11_test_sources}
 ]]
 )
-
+set(app_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp"
+)
+list(APPEND app_sources ${test_sources})
 
 # Test executable
-add_executable(${PROJECT_NAME}_test ${test_sources})
+add_executable(${PROJECT_NAME}_test ${app_sources})
+target_include_directories(${PROJECT_NAME}_test PUBLIC
+    ${Boost_INCLUDE_DIRS}
+)
 target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_20)
-target_link_libraries(${PROJECT_NAME}_test lib_${PROJECT_NAME} gmock gtest_main)
+target_link_libraries(${PROJECT_NAME}_test lib_${PROJECT_NAME} gmock gtest)
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME}_test)
-
-
-# Resource dir
-# Create a symbolic link from <source dir>/res to <test binary dir>/res
-add_custom_target(resources_test)
-set(resources_source_dir "${CMAKE_SOURCE_DIR}/res")
-set(resources_destination_dir "${CMAKE_CURRENT_BINARY_DIR}/res")
-cmake_path(NATIVE_PATH resources_source_dir NORMALIZE resources_native_source_dir)
-cmake_path(NATIVE_PATH resources_destination_dir NORMALIZE resources_native_destination_dir)
-add_custom_command(
-    TARGET resources_test POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E create_symlink ${resources_native_source_dir} ${resources_native_destination_dir}
-    DEPENDS ${resources_native_destination_dir}
-    COMMENT "symbolic link resources folder from ${resources_native_source_dir} to ${resources_native_destination_dir}"
-)
-add_dependencies(${PROJECT_NAME}_test resources_test)

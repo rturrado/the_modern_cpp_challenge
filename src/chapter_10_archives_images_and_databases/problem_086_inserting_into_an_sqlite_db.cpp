@@ -3,6 +3,7 @@
 #include "chapter_10_archives_images_and_databases/file_movies.h"
 #include "chapter_10_archives_images_and_databases/problem_086_inserting_into_an_sqlite_db.h"
 #include "chapter_10_archives_images_and_databases/sqlite_movies.h"
+#include "env.h"
 
 #include "rtc/console.h"
 
@@ -38,7 +39,7 @@ void add_new_movie_from_console(std::istream& is, std::ostream& os, tmcppc::movi
 
 
 void add_new_movie_from_file(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db) {
-    const fs::path new_movies_file_path{ fs::current_path() / "res" / "db" / "NewMovies.txt" };
+    const fs::path new_movies_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "db" / "NewMovies.txt" };
     fmt::print(os, "Adding movies from {}\n", new_movies_file_path.generic_string());
     std::ifstream ifs{ new_movies_file_path };
     try {
@@ -75,7 +76,7 @@ void add_new_movies(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_m
 
 
 void problem_86_main(std::istream& is, std::ostream& os) {
-    const auto db_file_path{ fs::current_path() / "res" / "db" / "movies.db" };
+    const auto db_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "db" / "movies.db" };
 
     try {
         {

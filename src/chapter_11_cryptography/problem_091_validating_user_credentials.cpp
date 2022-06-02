@@ -2,7 +2,8 @@
 
 #include <fmt/ostream.h>
 #include <iostream>  // cin, cout
-
+#include <istream>
+#include <ostream>
 
 void problem_91_main(std::istream& is, std::ostream& os) {
     login_simulator::get_instance(is, os).run();

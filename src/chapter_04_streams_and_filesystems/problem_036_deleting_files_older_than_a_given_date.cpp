@@ -1,4 +1,5 @@
 #include "chapter_04_streams_and_filesystems/problem_036_deleting_files_older_than_a_given_date.h"
+#include "env.h"
 
 #include <chrono>
 #include <filesystem>
@@ -13,8 +14,9 @@ void problem_36_main(std::ostream& os) {
     namespace ch = std::chrono;
     using namespace std::chrono_literals;
 
-    const auto d1_path = std::filesystem::current_path() / "res" / "sample_folder";
-    const auto d2_path = std::filesystem::current_path() / "res" / "sample_subfolder";
+    const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
+    const auto d1_path{ resource_folder_path / "sample_folder" };
+    const auto d2_path{ resource_folder_path / "sample_subfolder" };
 
     const ch::years duration1{ 500 };
     const ch::milliseconds duration2{ 5 };

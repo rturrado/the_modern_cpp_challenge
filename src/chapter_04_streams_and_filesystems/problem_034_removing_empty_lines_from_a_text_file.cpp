@@ -1,4 +1,5 @@
 #include "chapter_04_streams_and_filesystems/problem_034_removing_empty_lines_from_a_text_file.h"
+#include "env.h"
 
 #include <filesystem>
 #include <fmt/ostream.h>
@@ -10,8 +11,9 @@
 
 
 void problem_34_main(std::ostream& os) {
-    const auto in_path{ std::filesystem::current_path() / "res" / "problem_034_input.txt" };
-    const auto temp_path{ std::filesystem::current_path() / "res" / "problem_034_output.txt" };
+    const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
+    const auto in_path{ resource_folder_path / "problem_034_input.txt" };
+    const auto temp_path{ resource_folder_path / "problem_034_output.txt" };
 
     std::fstream in_f(in_path, std::ios::in);
     std::fstream temp_f(temp_path, std::ios::out);

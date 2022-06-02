@@ -2,7 +2,7 @@
 
 #include "phone_numbers.h"
 
-#include <ostream>
+#include <iosfwd>
 
 using phone_numbers = tmcppc::phone_numbers;
 using country_code = tmcppc::country_code;

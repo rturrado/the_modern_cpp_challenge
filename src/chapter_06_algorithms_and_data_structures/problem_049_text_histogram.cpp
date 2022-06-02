@@ -1,4 +1,5 @@
 #include "chapter_06_algorithms_and_data_structures/problem_049_text_histogram.h"
+#include "env.h"
 
 #include <algorithm>  // for_each
 #include <cctype>  // isalpha
@@ -61,11 +62,12 @@ void problem_49_main(std::ostream& os)
     namespace fs = std::filesystem;
 
     try {
-        fs::path in_file_path{ fs::current_path() / "res" / "sample_file.txt"};
+        const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
+        fs::path in_file_path{ resource_folder_path / "sample_file.txt"};
         std::ifstream in_file{ in_file_path };
         if (not in_file) {
             throw std::runtime_error{ fmt::format("file not found: {}, from current path: {}",
-                in_file_path.generic_string(), fs::current_path().generic_string()) };
+                in_file_path.generic_string(), resource_folder_path.generic_string()) };
         }
 
         // Count letters

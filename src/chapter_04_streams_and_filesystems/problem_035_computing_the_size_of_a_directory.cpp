@@ -1,4 +1,5 @@
 #include "chapter_04_streams_and_filesystems/problem_035_computing_the_size_of_a_directory.h"
+#include "env.h"
 
 #include <cstdint>  // uintmax_t
 #include <filesystem>
@@ -50,8 +51,9 @@ std::string directory_size_in_bytes_to_string(uintmax_t n) {
 void problem_35_main(std::ostream& os) {
     namespace fs = std::filesystem;
 
-    const auto d1_path = std::filesystem::current_path() / "res" / "sample_folder";
-    const auto d2_path = std::filesystem::current_path() / "res" / "sample_subfolder";
+    const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
+    const auto d1_path{ resource_folder_path / "sample_folder" };
+    const auto d2_path{ resource_folder_path / "sample_subfolder" };
 
     for (const auto& p : { d1_path, d2_path }) {
         for (auto follow_symlinks : { false, true }) {

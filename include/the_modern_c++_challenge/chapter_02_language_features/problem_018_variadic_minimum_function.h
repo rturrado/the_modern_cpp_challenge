@@ -5,8 +5,8 @@
 #include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <ostream>
-#include <string>
 #include <sstream>
+#include <string>
 
 
 // Comparison function

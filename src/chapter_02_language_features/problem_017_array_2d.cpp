@@ -6,8 +6,8 @@
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
 #include <iostream>  // cout
-#include <ostream>
 #include <numeric>  // iota
+#include <ostream>
 
 
 void problem_17_main(std::ostream& os) {

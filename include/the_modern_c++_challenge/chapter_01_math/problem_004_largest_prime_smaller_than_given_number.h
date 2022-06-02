@@ -1,7 +1,6 @@
 #pragma once
 
-#include <istream>
-#include <ostream>
+#include <iosfwd>
 
 
 size_t biggest_prime_smaller_than(const size_t n);

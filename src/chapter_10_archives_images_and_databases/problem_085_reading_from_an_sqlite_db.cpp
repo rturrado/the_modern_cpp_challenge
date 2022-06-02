@@ -1,5 +1,6 @@
 #include "chapter_10_archives_images_and_databases/problem_085_reading_from_an_sqlite_db.h"
 #include "chapter_10_archives_images_and_databases/sqlite_movies.h"
+#include "env.h"
 
 #include <filesystem>
 #include <fmt/ostream.h>
@@ -9,7 +10,7 @@
 
 
 void problem_85_main(std::istream& is, std::ostream& os) {
-    const auto db_file_path{ std::filesystem::current_path() / "res" / "db" / "movies.db" };
+    const auto db_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "db" / "movies.db" };
 
     try {
         {

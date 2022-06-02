@@ -1,5 +1,6 @@
 #pragma once
 
+#include "env.h"
 #include "movies.h"
 #include "pdf_writer_wrapper.h"
 
@@ -32,7 +33,7 @@ namespace tmcppc::movies::pdf {
     const double font_height{ 14 };
     const double line_spacing{ 5 };
     // Font
-    const auto font_path{ std::filesystem::current_path() / "res" / "fonts" / "pala.ttf" };
+    const auto font_path{ env::get_instance().get_resource_folder_path() / "fonts" / "pala.ttf"};
 
     // doc
     struct doc {

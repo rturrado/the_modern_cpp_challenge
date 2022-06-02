@@ -1,7 +1,6 @@
 #pragma once
 
-#include <istream>
-#include <ostream>
+#include <iosfwd>
 
 
 int gcd(std::ostream& os, int m, int n);

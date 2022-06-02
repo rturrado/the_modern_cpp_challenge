@@ -1,4 +1,5 @@
 #include "chapter_04_streams_and_filesystems/problem_037_regex_find_files_in_a_directory.h"
+#include "env.h"
 
 #include <algorithm>
 #include <filesystem>
@@ -36,8 +37,9 @@ void problem_37_main(std::ostream& os) {
     const std::string pattern_str_2{ R"(.*_.*)" };  // contains underscore
     const std::string pattern_str_3{ R"(.*[[:digit:]].*)" };  // contains a digit
 
-    const auto path_1 = std::filesystem::current_path() / "res" / "sample_folder";
-    const auto path_2 = std::filesystem::current_path() / "res" / "sample_subfolder";
+    const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
+    const auto path_1{ resource_folder_path / "sample_folder" };
+    const auto path_2{ resource_folder_path / "sample_subfolder" };
 
     for (const auto& path : { path_1, path_2 }) {
         for (const auto& pattern_str : { pattern_str_1, pattern_str_2, pattern_str_3 }) {

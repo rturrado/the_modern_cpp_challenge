@@ -1,11 +1,13 @@
 #include "chapter_10_archives_images_and_databases/png_writer_wrapper.h"
 #include "chapter_10_archives_images_and_databases/problem_083_verification_text_png.h"
+#include "env.h"
 
 #include "rtc/random.h"
 
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <iostream>  // cout
+#include <ostream>
 
 using namespace tmcppc::png;
 using namespace rtc::random;
@@ -26,7 +28,7 @@ void paint_random_letters(png_writer& png_writer) {
     const int image_width{ png_writer.get_width() };
     const int image_height{ png_writer.get_height() };
 
-    const auto font_file_root_path{ std::filesystem::current_path() / "res" / "fonts" };
+    const auto font_file_root_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" };
     const std::vector<std::filesystem::path> font_file_names{
         "calibri.ttf",
         "calibrib.ttf",

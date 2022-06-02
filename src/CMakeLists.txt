@@ -38,7 +38,7 @@ FetchContent_Declare(range-v3
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "87e28ae39708739e958af0a8c3e96050c5a3f756"
+    GIT_TAG "901dc70200fd916efd21f3d95f4843bbabe63bca"
 )
 FetchContent_Declare(SqliteModernCpp
     GIT_REPOSITORY https://github.com/SqliteModernCpp/sqlite_modern_cpp.git
@@ -147,21 +147,21 @@ set_target_properties(lib_${PROJECT_NAME} PROPERTIES
 )
 target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_20)
 # PDFWriter (which uses zlib.lib) has link conflicts with curlcpp (which uses libcurl.dll, which uses zlib1.dll)
-# Linking PDFWriter as public and curlcpp as private avoids those conflicts (I don't know why)
+# Linking PDFWriter as public and curlcpp as private avoids those conflicts
 target_link_libraries(lib_${PROJECT_NAME} PUBLIC
     asio
     cryptopp-static
     fmt
     nlohmann_json::nlohmann_json
-    PDFWriter
     range-v3
     rtc
-)
-target_link_libraries(lib_${PROJECT_NAME} PRIVATE
-    curlcpp::curlcpp
+    PDFWriter
     PNGwriter
     pugixml::pugixml
     ZIPLIB
+)
+target_link_libraries(lib_${PROJECT_NAME} PRIVATE
+    curlcpp::curlcpp
 )
 
 
@@ -198,22 +198,6 @@ elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STR
     target_compile_options(lib_${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
     target_compile_options(${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
 endif()
-
-
-# Resource dir
-# Create a symbolic link from <source dir>/res to <src binary dir>/res
-add_custom_target(resources)
-set(resources_source_dir "${CMAKE_SOURCE_DIR}/res")
-set(resources_destination_dir "${CMAKE_CURRENT_BINARY_DIR}/res")
-cmake_path(NATIVE_PATH resources_source_dir NORMALIZE resources_native_source_dir)
-cmake_path(NATIVE_PATH resources_destination_dir NORMALIZE resources_native_destination_dir)
-add_custom_command(
-    TARGET resources POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E create_symlink ${resources_native_source_dir} ${resources_native_destination_dir}
-    DEPENDS ${resources_native_destination_dir}
-    COMMENT "symbolic link resources folder from ${resources_native_source_dir} to ${resources_native_destination_dir}"
-)
-add_dependencies(${PROJECT_NAME} resources)
 
 
 # Sample subfolder
