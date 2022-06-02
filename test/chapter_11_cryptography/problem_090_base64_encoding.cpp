@@ -9,7 +9,40 @@
 TEST(problem_90_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_90_main(oss);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "blah"
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "Encoding and decoding file '.*res/fonts/calibri.ttf'\n"
+        "\tOK\n"
+        "Encoding and decoding text ''\n"
+        "\tOK\n"
+        "Encoding and decoding text ''\n"
+        "\tOK\n"
+        "Encoding and decoding text 'M'\n"
+        "\tOK\n"
+        "Encoding and decoding text 'M'\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Ma'\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Ma'\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Man'\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Man'\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Many'\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Many'\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Many '\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Many '\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Many h'\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Many h'\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Many hands make light work.'\n"
+        "\tOK\n"
+        "Encoding and decoding text 'Many hands make light work.'\n"
+        "\tOK\n"
     ));
 }

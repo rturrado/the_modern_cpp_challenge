@@ -9,7 +9,8 @@
 TEST(problem_89_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_89_main(oss);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "blah"
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "Encrypting and decrypting file '.*res/sample_file.txt'\n"
+        "\tOK\n"
     ));
 }

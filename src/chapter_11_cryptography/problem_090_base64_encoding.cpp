@@ -27,7 +27,7 @@ void problem_90_main(std::ostream& os) {
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
     const auto input_file_content{ rtc::filesystem::get_binary_file_content<base64::value_type>(input_file_path) };
 
-    fmt::print(os, "Encoding and decoding file '{}'\n", input_file_path.string());
+    fmt::print(os, "Encoding and decoding file '{}'\n", input_file_path.generic_string());
     test_base_64(os, input_file_content);
 
     for (std::string_view input_data : { "", "M", "Ma", "Man", "Many", "Many ", "Many h", "Many hands make light work." }) {
