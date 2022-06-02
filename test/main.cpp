@@ -29,16 +29,16 @@ int main_impl(int argc, char** argv, std::ostream& os) {
 
     if (argc != 2) {
         print_usage(os);
-        return 1;
+        return 0;
     }
     const fs::path resource_folder_path{ argv[1] };
     if (not fs::exists(resource_folder_path)) {
         fmt::print(os, "Error: path '{}' does not exist\n", resource_folder_path.generic_string());
-        return 1;
+        return 0;
     }
     if (not fs::is_directory(resource_folder_path)) {
         fmt::print(os, "Error: path '{}' is not a directory\n", resource_folder_path.generic_string());
-        return 1;
+        return 0;
     }
     tmcppc::env::get_instance().set_resource_folder_path(fs::absolute(resource_folder_path));
 

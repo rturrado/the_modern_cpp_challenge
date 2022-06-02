@@ -55,7 +55,11 @@ TEST(problem_87_main, DISABLED_output) {
         "Examples:\n"
         "\tlist movie .*The.*\n"
         "\tlist media 4\n"
-        "\tadd 4, ./res/db/BladeRunner.jpg, Front cover\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "\tadd 4, .*res/db/BladeRunner.jpg, Front cover\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "\tremove 1\n"
         "\n"
     ));
@@ -87,7 +91,7 @@ TEST(problem_87_main, DISABLED_output) {
         "\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "(help for usage) > "  // add 3, ./res/db/BladeRunner.jpg, Front cover
+        "(help for usage) > "  // add 3, <RESOURCE FOLDER PATH>/db/BladeRunner.jpg, Front cover
         "Catalog:\n"
         "    Movie:\n"
         "        id: 1\n"
@@ -142,17 +146,25 @@ TEST(problem_87_main, DISABLED_output) {
         "        Media files:\n"
         "            Media file:\n"
         "                id: 1\n"
-        "                path: './res/db/BladeRunner.jpg'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "                path: '.*res/db/BladeRunner.jpg'\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "                description: 'Front cover'\n"
         "\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "(help for usage) > "  // add 3, ./res/db/BladRunner.mp4, Trailer
-        "Error: media file not found: ./res/db/BladRunner.mp4\n"
+        "(help for usage) > "  // add 3, <RESOURCE FOLDER PATH>/db/BladRunner.mp4, Trailer
+    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "Error: media file not found: .*res/db/BladRunner.mp4\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "(help for usage) > "  // add 3, ./res/db/BladeRunner.mp4, Trailer\n
+        "(help for usage) > "  // add 3, <RESOURCE FOLDER PATH>/db/BladeRunner.mp4, Trailer\n
         "Catalog:\n"
         "    Movie:\n"
         "        id: 1\n"

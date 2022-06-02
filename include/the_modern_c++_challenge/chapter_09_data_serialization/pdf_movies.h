@@ -32,8 +32,6 @@ namespace tmcppc::movies::pdf {
     const double font_width{ 8 };
     const double font_height{ 14 };
     const double line_spacing{ 5 };
-    // Font
-    const auto font_path{ env::get_instance().get_resource_folder_path() / "fonts" / "pala.ttf"};
 
     // doc
     struct doc {
@@ -48,6 +46,7 @@ namespace tmcppc::movies::pdf {
             tmcppc::pdf_writer::start_pdf(pdf_writer, output_file_path);
 
             // Font, text options
+            const auto font_path{ env::get_instance().get_resource_folder_path() / "fonts" / "pala.ttf" };
             const auto font{ pdf_writer.GetFontForFile(font_path.string()) };
             const AbstractContentContext::TextOptions text_options{ font, font_height, AbstractContentContext::eGray, 0 };
 
