@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4)  # version 3.4 needed by pugixml
+cmake_minimum_required(VERSION 3.21)
 
 
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake"
@@ -7,11 +7,19 @@ set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems
 
 
 project("the_modern_c++_challenge"
-    VERSION 1.0.1
+    VERSION 1.1
     DESCRIPTION "My solutions to the 100 problems of The Modern C++ Challenge, a book by Marius Bancila's (published by Packt)."
     HOMEPAGE_URL https://github.com/rturrado/the_modern_cpp_challenge.git
     LANGUAGES C CXX
 )
+
+
+# Address sanitizer
+if(ASAN_ENABLED)
+    string(REGEX REPLACE "/RTC(su|[1su])" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+    message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}\n")
+    add_compile_options(-fsanitize=address)
+endif()
 
 
 # Subdirectories

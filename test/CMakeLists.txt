@@ -55,7 +55,7 @@ add_executable(${PROJECT_NAME}_test ${app_sources})
 target_include_directories(${PROJECT_NAME}_test PUBLIC
     ${Boost_INCLUDE_DIRS}
 )
-target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_20)
+target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_23)
 target_link_libraries(${PROJECT_NAME}_test lib_${PROJECT_NAME} gmock gtest)
 
 include(GoogleTest)

@@ -59,7 +59,7 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
-      - name: Configure and build tests and benchmarks
+      - name: Configure and build tests
         run: |
           cmake --preset test
           cmake --build --preset x64-Debug-Test
@@ -107,7 +107,7 @@ jobs:
       - uses: ilammy/msvc-dev-cmd@v1
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
-      - name: Configure and build tests and benchmarks
+      - name: Configure and build benchmarks
         run: |
           cmake --preset benchmark
           cmake --build --preset x64-Release-Benchmark

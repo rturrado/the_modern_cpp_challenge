@@ -2,23 +2,26 @@
 
 #include <fmt/format.h>
 #include <fmt/ostream.h>
-#include <initializer_list>
 #include <iostream>  // cout
 #include <memory>  // make_shared, make_unique
 #include <ostream>
+#include <string>
+#include <utility>  // pair
+#include <vector>
 
 using namespace tmcppc::company;
 
 
-void test_approve_expense(std::ostream& os, std::shared_ptr<employee> employee) {
-    for (auto [expense_value, expense_description] : std::initializer_list<std::pair<double, std::string>>{
+void test_approve_expense(std::ostream& os, const std::shared_ptr<employee>& employee) {
+    auto expenses{ std::vector<std::pair<double, std::string>>{
         {25, "Breakfast"},
         {250, "Glasses"},
         {2'500, "Laptop"},
         {25'000, "Car"},
         {250'000, "Boat"},
-        {2'500'000, "House"}}) {
-
+        {2'500'000, "House"}
+    }};
+    for (const auto& [expense_value, expense_description] : expenses) {
         auto expense{ employee->approve_expense(expense_value, expense_description) };
         fmt::print(os, "\tExpense \"{}\" of value {:.2f} {}.\n",
             expense_description,

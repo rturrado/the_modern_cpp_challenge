@@ -9,6 +9,10 @@ FetchContent_Declare(asio
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
 )
+FetchContent_Declare(cryptopp-cmake
+    GIT_REPOSITORY https://github.com/Vollstrecker/cryptopp-cmake.git
+    GIT_TAG "8952723f147afc117ec33afcb488355b2aac1e11"
+)
 FetchContent_Declare(curlcpp
     GIT_REPOSITORY https://github.com/JosephP91/curlcpp.git
     GIT_TAG "4be41c6ed651d0e19eca10d08cb27605af117566"
@@ -34,11 +38,11 @@ FetchContent_Declare(pugixml
 )
 FetchContent_Declare(range-v3
     GIT_REPOSITORY https://github.com/ericniebler/range-v3.git
-    GIT_TAG "d800a032132512a54c291ce55a2a43e0460591c7"
+    GIT_TAG "0fa54d7de5dc00655e38a08e87cda61f7aa6d5b9"
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "901dc70200fd916efd21f3d95f4843bbabe63bca"
+    GIT_TAG "0783d698b3987612d2d41200faf7c7ddb09d9539"
 )
 FetchContent_Declare(SqliteModernCpp
     GIT_REPOSITORY https://github.com/SqliteModernCpp/sqlite_modern_cpp.git
@@ -57,6 +61,7 @@ FetchContent_Declare(ZipLib
 )
 FetchContent_MakeAvailable(
     asio
+    cryptopp-cmake
     curlcpp
     fmt
     nlohmann-json
@@ -70,7 +75,6 @@ FetchContent_MakeAvailable(
     ZipLib
 )
 find_package(Boost 1.78.0 REQUIRED)
-find_package(cryptopp CONFIG REQUIRED)
 find_package(Threads REQUIRED)
 
 
@@ -126,6 +130,7 @@ target_include_directories(lib_${PROJECT_NAME} PUBLIC
 )
 target_include_directories(lib_${PROJECT_NAME} PUBLIC
     ${Boost_INCLUDE_DIRS}
+    ${cryptopp_BINARY_DIR}
     ${curlcpp_SOURCE_DIR}/include
     ${PDFHUMMUS_SOURCE_DIR}
     ${pngwriter_SOURCE_DIR}/src
@@ -134,18 +139,21 @@ target_include_directories(lib_${PROJECT_NAME} PUBLIC
     ${sqlite_SOURCE_DIR}
     ${ziplib_SOURCE_DIR}
 )
-message(status " * Target include directories:\n")
-message(status "\t- curlcpp: ${curlcpp_SOURCE_DIR}/include")
-message(status "\t- PDF-Writer: ${PDFHUMMUS_SOURCE_DIR}")
-message(status "\t- PNGwriter: ${pngwriter_SOURCE_DIR}/src")
-message(status "\t- pugixml ${pugixml_SOURCE_DIR}/src")
-message(status "\t- SqliteModernCpp: ${sqlitemoderncpp_SOURCE_DIR}/hdr")
-message(status "\t- sqlite: ${sqlite_SOURCE_DIR}")
-message(status "\t- ZipLib: ${ziplib_SOURCE_DIR}\n")
+message(STATUS
+    "[${PROJECT_NAME}] Target include directories:\n"
+    "      cryptopp: ${cryptopp_BINARY_DIR}\n"
+    "      curlcpp: ${curlcpp_SOURCE_DIR}/include\n"
+    "      PDF-Writer: ${PDFHUMMUS_SOURCE_DIR}\n"
+    "      PNGwriter: ${pngwriter_SOURCE_DIR}/src\n"
+    "      pugixml ${pugixml_SOURCE_DIR}/src\n"
+    "      SqliteModernCpp: ${sqlitemoderncpp_SOURCE_DIR}/hdr\n"
+    "      sqlite: ${sqlite_SOURCE_DIR}\n"
+    "      ZipLib: ${ziplib_SOURCE_DIR}"
+)
 set_target_properties(lib_${PROJECT_NAME} PROPERTIES
     OUTPUT_NAME ${PROJECT_NAME}-${PROJECT_VERSION}
 )
-target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_20)
+target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_23)
 # PDFWriter (which uses zlib.lib) has link conflicts with curlcpp (which uses libcurl.dll, which uses zlib1.dll)
 # Linking PDFWriter as public and curlcpp as private avoids those conflicts
 target_link_libraries(lib_${PROJECT_NAME} PUBLIC
@@ -165,35 +173,20 @@ target_link_libraries(lib_${PROJECT_NAME} PRIVATE
 )
 
 
-#[[
-# Address sanitizer
-option(ASAN_ENABLED "Build this target with AddressSanitizer" ON)
-if(ASAN_ENABLED)
-    if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
-        add_compile_options(/MDd /fsanitize=address /sdl)
-        add_link_options(/INCREMENTAL:NO /NODEFAULTLIB:LIBCMTD.lib)
-    elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-        add_compile_options(-fsanitize=address)
-        add_link_options(-fsanitize=address)
-    endif()
-endif()
-]]
-
-
 # Main executable
 add_executable(${PROJECT_NAME} ${app_sources})
 target_include_directories(${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${include_dir}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
 target_link_libraries(${PROJECT_NAME} lib_${PROJECT_NAME})
 
 
 # Target compile options
 if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
-    target_compile_options(lib_${PROJECT_NAME} PRIVATE /WX /W3 /w34996 /utf-8)
-    target_compile_options(${PROJECT_NAME} PRIVATE /WX /W3 /w34996 /utf-8)
+    target_compile_options(lib_${PROJECT_NAME} PRIVATE /D_CONSOLE /DCONSOLE /D_UNICODE /DUNICODE /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /W3 /WX /w34996 /utf-8 /Zc:inline)
+    target_compile_options(${PROJECT_NAME} PRIVATE  /D_CONSOLE /DCONSOLE /D_UNICODE /DUNICODE /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /W3 /WX /w34996 /utf-8 /Zc:inline)
 elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
     target_compile_options(lib_${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
     target_compile_options(${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)

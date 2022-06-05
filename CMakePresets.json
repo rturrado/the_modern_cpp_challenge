@@ -20,13 +20,17 @@
                 "RANGE_V3_DOCS": false,
                 "RANGE_V3_EXAMPLES": false,
                 "RANGE_V3_TESTS": false
+            },
+            "debug": {
+                "output": true
             }
         },
         {
             "name": "test",
             "inherits": "base",
             "cacheVariables": {
-                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true
+                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true,
+                "ASAN_ENABLED": true
             }
         },
         {
@@ -44,14 +48,16 @@
             "configurePreset": "test",
             "displayName": "Build x64-Debug-Test",
             "description": "Build test Debug configuration",
-            "configuration": "Debug"
+            "configuration": "Debug",
+            "verbose": true
         },
         {
             "name": "x64-Release-Benchmark",
             "configurePreset": "benchmark",
             "displayName": "Build x64-Release-Benchmark",
             "description": "Build benchmark Release configuration",
-            "configuration": "Release"
+            "configuration": "Release",
+            "verbose": true
         }
     ]
 }

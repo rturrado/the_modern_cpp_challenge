@@ -98,6 +98,8 @@ namespace tmcppc::password_strength_validator::v1 {
 namespace tmcppc::password_strength_validator::v2 {
     class password_strength_validator {
     public:
+        virtual ~password_strength_validator() = default;
+
         [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept = 0;
 
     protected:
