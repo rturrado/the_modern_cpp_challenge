@@ -4,7 +4,6 @@
 #include "curl_header.h"
 
 #include <fmt/format.h>
-#include <fmt/ostream.h>
 #include <ostream>
 #include <regex>  // regex_match, smatch
 #include <sstream>  // ostringstream
@@ -13,9 +12,9 @@
 
 
 namespace tmcppc::text_translation {
-    translator::translator(std::string_view key) : key_{ key } {}
+    translator_azure::translator_azure(std::string_view key) : key_{ key } {}
 
-    [[nodiscard]] std::string translator::parse_translate_response(const std::string& response) const {
+    [[nodiscard]] std::string translator_azure::parse_translate_response(const std::string& response) const {
         std::string ret{};
         const std::regex pattern{ R"(<string xmlns="[^"]+">([^<]*)</string>)" };
         const std::regex error_pattern{ R"(<html><body><h1>Argument Exception</h1>.*<p>Message: ([^<]+)</p>.*)" };
@@ -28,7 +27,8 @@ namespace tmcppc::text_translation {
         return ret;
     }
 
-    [[nodiscard]] std::string translator::translate(std::ostream& os, std::string_view text, language_code from, language_code to) const {
+    [[nodiscard]] std::string translator_azure::translate(std::string_view text, language_code from, language_code to) const {
+
         std::string ret{};
         try {
             std::ostringstream oss{};
@@ -41,21 +41,19 @@ namespace tmcppc::text_translation {
             auto from_code_str{ language_code_to_string_map[from] };
             auto to_code_str{ language_code_to_string_map[to] };
 
-            std::ostringstream oss_url{};
-            fmt::print(oss_url, "{}/Translate?from={}&to={}&text={}", endpoint, from_code_str, to_code_str, url_encoded_text);
-            easy.add<CURLOPT_URL>(oss_url.str().c_str());
+            easy.add<CURLOPT_URL>(fmt::format(
+                "{}/Translate?from={}&to={}&text={}", endpoint, from_code_str, to_code_str, url_encoded_text)
+                .c_str());
 
             curl::curl_header header{};
-            std::ostringstream oss_header{};
-            oss_header << key_header << ":" << key_;
-            header.add(oss_header.str().c_str());
+            header.add(fmt::format("{}:{}", key_header, key_).c_str());
             easy.add<CURLOPT_HTTPHEADER>(header.get());
 
             easy.perform();
 
             ret = parse_translate_response(oss.str());
         } catch (const curl::curl_easy_exception& ex) {
-            fmt::print(os, "\tError: {}\n", ex.what());
+            throw translation_error{ ex.what() };
         }
         return ret;
     }

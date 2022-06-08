@@ -58,9 +58,9 @@ std::vector<uint8_t> to_binary(std::string s, const std::string& delimiter) {
         if (token.size() == 1) {
             token.insert(0, "0");
         } else if (token.size() != 2) {
-            throw std::runtime_error(
+            throw std::runtime_error{
                 fmt::format("parsing string \"{}\". Found token \"{}\" of size '{}' at pos '{}'",
-                s, token, token.size(), previous_pos));
+                s, token, token.size(), previous_pos) };
         }
 
         ret.push_back(to_binary(token[0], token[1]));

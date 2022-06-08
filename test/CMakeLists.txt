@@ -23,9 +23,7 @@ add_subdirectory(chapter_08_design_patterns)
 add_subdirectory(chapter_09_data_serialization)
 add_subdirectory(chapter_10_archives_images_and_databases)
 add_subdirectory(chapter_11_cryptography)
-#[[
 add_subdirectory(chapter_12_networking_and_services)
-]]
 
 
 # Test sources
@@ -41,14 +39,13 @@ set(test_sources
     ${chapter_09_test_sources}
     ${chapter_10_test_sources}
     ${chapter_11_test_sources}
-#[[
-    ${chapter_11_test_sources}
-]]
+    ${chapter_12_test_sources}
 )
 set(app_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp"
 )
 list(APPEND app_sources ${test_sources})
+
 
 # Test executable
 add_executable(${PROJECT_NAME}_test ${app_sources})
@@ -57,6 +54,12 @@ target_include_directories(${PROJECT_NAME}_test PUBLIC
 )
 target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_23)
 target_link_libraries(${PROJECT_NAME}_test lib_${PROJECT_NAME} gmock gtest)
+
+
+# Target compile options
+target_compile_options(${PROJECT_NAME}_test PRIVATE "$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+target_compile_options(${PROJECT_NAME}_test PRIVATE "$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME}_test)

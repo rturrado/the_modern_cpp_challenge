@@ -3,15 +3,66 @@
 
 #include "rtc/console.h"  // read_positive_number
 
+#include <exception>
 #include <fmt/ostream.h>
 #include <iostream>  // cin, cout
+#include <istream>
 #include <ostream>
 #include <string>  // getline
+
+using namespace tmcppc::imap;
+
+
+void test_imap_connection(std::istream& is, std::ostream& os, imap_connection_adaptor* connection) {
+    fmt::print(os, "List of folders from the mailbox:\n");
+
+    try {
+        auto folders_opt{ connection->get_mailbox_folders() };
+        if (folders_opt.has_value()) {
+            auto folders{ folders_opt.value() };
+            if (not folders.empty()) {
+                for (auto& folder : folders) {
+                    fmt::print(os, "\t{}\n", folder);
+                }
+
+                auto folder{ [&is, &os]() {
+                    std::string ret{};
+                    fmt::print(os, "Please enter a folder name: ");
+                    std::getline(is, ret);
+                    return ret;
+                }() };
+
+                fmt::print(os, "List of unread emails from folder '{}':\n", folder);
+                auto unread_email_ids_opt{ connection->get_unread_email_ids(folder) };
+                if (unread_email_ids_opt.has_value()) {
+                    auto unread_email_ids{ unread_email_ids_opt.value() };
+                    if (not unread_email_ids.empty()) {
+                        for (auto&& id : unread_email_ids) {
+                            auto email_subject_opt{ connection->get_email_subject(folder, id) };
+                            if (email_subject_opt.has_value()) {
+                                fmt::print(os, "\t{}\n", email_subject_opt.value());
+                            }
+                        }
+                    } else {
+                        fmt::print(os, "\tThere are no unread emails\n");
+                    }
+                }
+            } else {
+                fmt::print(os, "\tThere are no folders in the mailbox\n");
+            }
+        }
+    } catch (const std::exception& ex) {
+        fmt::print(os, "\tError: {}\n", ex.what());
+    }
+
+    fmt::print(os, "\n");
+}
 
 
 void problem_98_main(std::istream& is, std::ostream& os) {
     auto provider{ [&is, &os]() {
-        auto input{ rtc::console::read_positive_number(is, os, "Please enter your email service provider (0 for gmail, 1 for hotmail, 2 for yahoo): ", 0, 3) };
+        auto input{ rtc::console::read_positive_number(is, os,
+            "Please enter your email service provider (0 for gmail, 1 for hotmail, 2 for yahoo): ", 0, 3) };
         return static_cast<tmcppc::imap::email_server_provider_t>(input);
     }() };
     auto username{ [&is, &os]() {
@@ -27,45 +78,8 @@ void problem_98_main(std::istream& is, std::ostream& os) {
         return ret;
     }() };
 
-    auto imap_connection{ tmcppc::imap::imap_connection(provider, username, password) };
-
-    fmt::print(os, "List of folders from the mailbox:\n");
-    auto folders_opt{ imap_connection.get_mailbox_folders(os) };
-    if (folders_opt.has_value()) {
-        auto folders{ folders_opt.value() };
-        if (not folders.empty()) {
-            for (auto& folder : folders) {
-                fmt::print(os, "\t{}\n", folder);
-            }
-
-            auto folder{ [&is, &os]() {
-                std::string ret{};
-                fmt::print(os, "Please enter a folder name: ");
-                std::getline(is, ret);
-                return ret;
-            }() };
-
-            fmt::print(os, "List of unread emails from folder '{}':\n", folder);
-            auto unread_email_ids_opt{ imap_connection.get_unread_email_ids(os, folder) };
-            if (unread_email_ids_opt.has_value()) {
-                auto unread_email_ids{ unread_email_ids_opt.value() };
-                if (not unread_email_ids.empty()) {
-                    for (auto&& id : unread_email_ids) {
-                        auto email_subject_opt{ imap_connection.get_email_subject(os, folder, id) };
-                        if (email_subject_opt.has_value()) {
-                            fmt::print(os, "\t{}\n", email_subject_opt.value());
-                        }
-                    }
-                } else {
-                    fmt::print(os, "\tThere are no unread emails\n");
-                }
-            }
-        } else {
-            fmt::print(os, "\tThere are no folders in the mailbox\n");
-        }
-    }
-
-    fmt::print(os, "\n");
+    imap_connection connection{ provider, username, password };
+    test_imap_connection(is, os, &connection);
 }
 
 

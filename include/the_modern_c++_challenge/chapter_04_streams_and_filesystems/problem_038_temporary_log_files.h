@@ -14,7 +14,7 @@ namespace tmcppc::logging::v1 {
     }
 
     struct could_not_open_file_error : public std::runtime_error {
-        could_not_open_file_error(std::string_view error) : std::runtime_error(error.data()) {}
+        could_not_open_file_error(std::string_view error) : std::runtime_error{ error.data() } {}
     };
 
     class logger {

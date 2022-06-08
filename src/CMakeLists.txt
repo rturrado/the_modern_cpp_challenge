@@ -19,7 +19,7 @@ FetchContent_Declare(curlcpp
 )
 FetchContent_Declare(fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-    GIT_TAG "7ffe87c0bc8e69cd38941b92c0b33ab2e5cf3c57"
+    GIT_TAG "4bb3af7a6ba4330284fb490b0f471172fda87f07"
 )
 FetchContent_Declare(nlohmann-json
     URL https://github.com/nlohmann/json/releases/download/v3.10.5/json.tar.xz
@@ -42,7 +42,7 @@ FetchContent_Declare(range-v3
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "0783d698b3987612d2d41200faf7c7ddb09d9539"
+    GIT_TAG "0b1e72c6e78df80680429148968ec6c268f5bb70"
 )
 FetchContent_Declare(SqliteModernCpp
     GIT_REPOSITORY https://github.com/SqliteModernCpp/sqlite_modern_cpp.git

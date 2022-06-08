@@ -22,7 +22,7 @@ namespace tmcppc::temperature::v1 {
     }
 
     struct invalid_temperature_error : public std::runtime_error {
-        explicit invalid_temperature_error() : std::runtime_error("invalid temperature") {}
+        explicit invalid_temperature_error() : std::runtime_error{ "invalid temperature" } {}
     };
 
     template <typename Rep_ = float>

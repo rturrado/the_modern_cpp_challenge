@@ -6,10 +6,14 @@
 #include <sstream>  // ostringstream
 
 
-TEST(problem_097_main, DISABLED_output) {
+TEST(problem_97_main, DISABLED_output) {
     std::ostringstream oss{};
-    problem_097_main(oss);
+    problem_97_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "blah"
+        "Current bitcoin exchange rates:\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "\\{ symbol: \\w\\w\\w, 15m: \\d+\\.\\d\\d, last: \\d+\\.\\d\\d, buy: \\d+\\.\\d\\d, sell: \\d+\\.\\d\\d \\},\n.*"
+        "\\{ symbol: \\w\\w\\w, 15m: \\d+\\.\\d\\d, last: \\d+\\.\\d\\d, buy: \\d+\\.\\d\\d, sell: \\d+\\.\\d\\d \\}\n"
     ));
 }

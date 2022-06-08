@@ -10,16 +10,21 @@
 #include "nlohmann/json.hpp"
 
 #include <filesystem>
+#include <fmt/format.h>
 #include <ostream>
 #include <sstream>  // ostringstream
 #include <string>
 #include <variant>
 
+namespace fs = std::filesystem;
+
 
 namespace tmcppc::face_detection {
-    detector::detector(std::string_view key) : key_{ key } {}
+    detector_azure::detector_azure(std::string_view key) : key_{ key } {}
 
-    [[nodiscard]] std::variant<faces_response, error_response> detector::parse_detect_response(const long status, const std::string& response) const {
+    [[nodiscard]] std::variant<faces_response, error_response> detector_azure::parse_detect_response(
+        const long status, const std::string& response) const {
+
         nlohmann::json j = nlohmann::json::parse(response);
         if (status == 200) {
             faces_response faces_response = j;
@@ -31,24 +36,19 @@ namespace tmcppc::face_detection {
         return faces_response{};
     }
 
-    [[nodiscard]] std::variant<faces_response, error_response> detector::detect(std::ostream& os, const std::filesystem::path& path) const {
+    [[nodiscard]] std::variant<faces_response, error_response> detector_azure::detect(const fs::path& path) const {
         std::variant<faces_response, error_response> ret{};
         try {
             std::ostringstream oss{};
             curl::curl_ios<std::ostringstream> writer{ oss };
             curl::curl_easy easy{ writer };
 
-            std::ostringstream oss_url{};
-            oss_url << endpoint << "/Detect"
-                << "?returnFaceId=true"
-                << "&returnFaceLandmarks=true"
-                << "&returnFaceAttributes=age,gender,emotion";
-            easy.add<CURLOPT_URL>(oss_url.str().c_str());
+            easy.add<CURLOPT_URL>(fmt::format(
+                "{}/Detect?returnFaceId=true&returnFaceLandmarks=true&returnFaceAttributes=age,gender,emotion", endpoint)
+                .c_str());
 
             curl::curl_header header{};
-            std::ostringstream oss_key_header{};
-            oss_key_header << key_header << ":" << key_;
-            header.add(oss_key_header.str().c_str());
+            header.add(fmt::format("{}:{}", key_header, key_).c_str());
             header.add(content_type_header.data());
             auto file_content{ rtc::filesystem::get_binary_file_content<char>(path) };
             easy.add<CURLOPT_HTTPHEADER>(header.get());
@@ -59,7 +59,7 @@ namespace tmcppc::face_detection {
 
             ret = parse_detect_response(easy.get_info<CURLINFO_RESPONSE_CODE>().get(), oss.str());
         } catch (const curl::curl_easy_exception& ex) {
-            fmt::print(os, "\tError: {}\n", ex.what());
+            throw detection_error{ ex.what() };
         }
         return ret;
     }

@@ -3,6 +3,8 @@
 #include "chapter_12_networking_and_services/problem_100_detecting_faces_in_a_picture.h"
 #include "env.h"
 
+#include "rtc/pretty_print.h"
+
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <iostream>  // cin, cout
@@ -11,28 +13,36 @@
 #include <string>  // getline
 #include <variant>  // holds_alternative, get
 
+using namespace rtc::pretty_print;
+using namespace tmcppc::face_detection;
 namespace fs = std::filesystem;
 
 
-void problem_100_main(std::istream& is, std::ostream& os) {
-    using namespace tmcppc::face_detection;
-
-    fmt::print(os, "Please enter the Azure face resource key: ");
-    std::string key{};
-    std::getline(is, key);
-    fmt::print(os, "\n");
-    detector detector{ key };
-
+void test_face_detection(std::ostream& os, detector_adaptor* detector) {
     const fs::path input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "problem_100.jpg" };
-    auto result{ detector.detect(os, input_file_path) };
-    if (std::holds_alternative<faces_response>(result)) {
-        std::get<faces_response>(result).print(os);
-    } else {
-        std::get<error_response>(result).print(os);
-        fmt::print(os, "\n");
+
+    try {
+        auto result{ detector->detect(input_file_path) };
+        if (std::holds_alternative<faces_response>(result)) {
+            std::get<faces_response>(result).print(os, indentation{ 1 });
+        } else {
+            std::get<error_response>(result).print(os, indentation{ 1 });
+            fmt::print(os, "\n");
+        }
+    } catch (const std::exception& ex) {
+        fmt::print(os, "\tError: {}\n", ex.what());
     }
 
     fmt::print(os, "\n");
+}
+
+
+void problem_100_main(std::istream& is, std::ostream& os) {
+    fmt::print(os, "Please enter the Azure face resource key: ");
+    std::string key{};
+    std::getline(is, key);
+    detector_azure detector{ key };
+    test_face_detection(os, &detector);
 }
 
 

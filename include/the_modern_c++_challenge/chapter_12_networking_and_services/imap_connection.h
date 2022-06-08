@@ -2,6 +2,7 @@
 
 #include <iosfwd>
 #include <optional>
+#include <stdexcept>  // runtime_error
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -16,7 +17,30 @@ namespace curl {
 namespace tmcppc::imap {
     enum class email_server_provider_t { gmail, hotmail, yahoo };
 
-    class imap_connection {
+
+    struct imap_connection_error : public std::runtime_error {
+        imap_connection_error(std::string_view message) : std::runtime_error{ message.data() } {}
+    };
+
+
+    class imap_connection_adaptor {
+    public:
+        virtual ~imap_connection_adaptor() = default;
+
+        [[nodiscard]] virtual std::optional<std::vector<std::string>> get_mailbox_folders() const = 0;
+        [[nodiscard]] virtual std::optional<std::vector<size_t>> get_unread_email_ids(
+            std::string_view folder) const = 0;
+        [[nodiscard]] virtual std::optional<std::string> get_email(
+            std::string_view folder, size_t id) const = 0;
+        [[nodiscard]] virtual std::optional<std::string> get_email_subject(
+            std::string_view folder, size_t id) const = 0;
+
+    protected:
+        imap_connection_adaptor() = default;
+    };
+
+
+    class imap_connection : public imap_connection_adaptor {
     private:
         static inline const std::unordered_map<email_server_provider_t, std::string_view> email_server_provider_to_url{
             { email_server_provider_t::gmail, "imaps://imap.gmail.com" },
@@ -32,10 +56,13 @@ namespace tmcppc::imap {
 
     public:
         imap_connection(email_server_provider_t provider, std::string_view username, std::string_view password);
-        [[nodiscard]] auto get_mailbox_folders(std::ostream& os) const -> std::optional<std::vector<std::string>>;
-        [[nodiscard]] auto get_unread_email_ids(std::ostream& os, std::string_view folder) const -> std::optional<std::vector<size_t>>;
-        [[nodiscard]] auto get_email(std::ostream& os, std::string_view folder, size_t id) const -> std::optional<std::string>;
-        [[nodiscard]] auto get_email_subject(std::ostream& os, std::string_view folder, size_t id) const -> std::optional<std::string>;
+        [[nodiscard]] virtual std::optional<std::vector<std::string>> get_mailbox_folders() const override;
+        [[nodiscard]] virtual std::optional<std::vector<size_t>> get_unread_email_ids(
+            std::string_view folder) const override;
+        [[nodiscard]] virtual std::optional<std::string> get_email(
+            std::string_view folder, size_t id) const override;
+        [[nodiscard]] virtual std::optional<std::string> get_email_subject(
+            std::string_view folder, size_t id) const override;
 
     private:
         email_server_provider_t provider_{};
