@@ -10,74 +10,79 @@
 #include <vector>
 
 
-// Char to uint8_t
-uint8_t to_binary(char c) {
-    uint8_t ret{ 0 };
 
-    if ('0' <= c and c <= '9') { ret = c - '0'; }
-    else if ('a' <= c and c <= 'f') { ret = c - 'a' + 10; }
-    else if ('A' <= c and c <= 'F') { ret = c - 'A' + 10; }
+namespace tmcppc::problem_24 {
+    // Char to uint8_t
+    uint8_t to_binary(char c) {
+        uint8_t ret{ 0 };
 
-    return ret;
-}
+        if ('0' <= c and c <= '9') { ret = c - '0'; }
+        else if ('a' <= c and c <= 'f') { ret = c - 'a' + 10; }
+        else if ('A' <= c and c <= 'F') { ret = c - 'A' + 10; }
 
-
-// Two chars to uint8_t
-uint8_t to_binary(char c1, char c2) {
-    auto top_nibble{ to_binary(c1) };
-    auto bottom_nibble{ to_binary(c2) };
-    return static_cast<uint8_t>((top_nibble << 4) + bottom_nibble);
-}
-
-
-// String of hexadecimal characters to vector of uint8_t's
-std::vector<uint8_t> to_binary(std::string s) {
-    if (s.size() % 2 != 0)     {
-        s.insert(0, "0");
+        return ret;
     }
 
-    std::vector<uint8_t> ret(s.size() / 2);
 
-    for (size_t i{ 0 }; i < (s.size() / 2); ++i) {
-        ret[i] = to_binary(
-            s[static_cast<size_t>(i * 2)],
-            s[static_cast<size_t>(i * 2 + 1)]);
+    // Two chars to uint8_t
+    uint8_t to_binary(char c1, char c2) {
+        auto top_nibble{ to_binary(c1) };
+        auto bottom_nibble{ to_binary(c2) };
+        return static_cast<uint8_t>((top_nibble << 4) + bottom_nibble);
     }
 
-    return ret;
-}
 
-
-// String of hexadecimal characters, separated by a given string delimiter, to vector of uint8_t's
-std::vector<uint8_t> to_binary(std::string s, const std::string& delimiter) {
-    std::vector<uint8_t> ret{};
-
-    for (size_t pos{ 0 }, previous_pos{ 0 }; pos = s.find(delimiter, pos); ) {
-        auto token{ s.substr(previous_pos, pos - previous_pos) };
-
-        if (token.size() == 1) {
-            token.insert(0, "0");
-        } else if (token.size() != 2) {
-            throw std::runtime_error{
-                fmt::format("parsing string \"{}\". Found token \"{}\" of size '{}' at pos '{}'",
-                s, token, token.size(), previous_pos) };
+    // String of hexadecimal characters to vector of uint8_t's
+    std::vector<uint8_t> to_binary(std::string s) {
+        if (s.size() % 2 != 0) {
+            s.insert(0, "0");
         }
 
-        ret.push_back(to_binary(token[0], token[1]));
+        std::vector<uint8_t> ret(s.size() / 2);
 
-        if (pos == std::string::npos) {
-            break;
-        } else {
-            pos += delimiter.size();
-            previous_pos = pos;
+        for (size_t i{ 0 }; i < (s.size() / 2); ++i) {
+            ret[i] = to_binary(
+                s[static_cast<size_t>(i * 2)],
+                s[static_cast<size_t>(i * 2 + 1)]);
         }
+
+        return ret;
     }
 
-    return ret;
-}
+
+    // String of hexadecimal characters, separated by a given string delimiter, to vector of uint8_t's
+    std::vector<uint8_t> to_binary(std::string s, const std::string& delimiter) {
+        std::vector<uint8_t> ret{};
+
+        for (size_t pos{ 0 }, previous_pos{ 0 }; pos = s.find(delimiter, pos); ) {
+            auto token{ s.substr(previous_pos, pos - previous_pos) };
+
+            if (token.size() == 1) {
+                token.insert(0, "0");
+            } else if (token.size() != 2) {
+                throw std::runtime_error{
+                    fmt::format("parsing string \"{}\". Found token \"{}\" of size '{}' at pos '{}'",
+                    s, token, token.size(), previous_pos) };
+            }
+
+            ret.push_back(to_binary(token[0], token[1]));
+
+            if (pos == std::string::npos) {
+                break;
+            } else {
+                pos += delimiter.size();
+                previous_pos = pos;
+            }
+        }
+
+        return ret;
+    }
+}  // namespace tmcppc::problem_24
 
 
 void problem_24_main(std::ostream& os) {
+    using namespace tmcppc::problem_24;
+
     try {
         std::string s1{ "BAADf00d" };
         std::string s2{ "010203040506" };

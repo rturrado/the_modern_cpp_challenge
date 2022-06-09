@@ -4,21 +4,24 @@
 #include <gtest/gtest.h>
 
 #include <sstream>  // ostringstream
-#include <string>
+#include <string_view>
+
+using namespace std::string_view_literals;
+using namespace tmcppc::problem_28;
 
 
 TEST(longest_palindromic_substring, DISABLED_empty_string) {
-    std::string result{};
+    std::string_view result{};
     EXPECT_EQ(get_longest_palindromic_substring(""), result);
 }
 TEST(longest_palindromic_substring, DISABLED_one_character_string) {
-    EXPECT_THAT(get_longest_palindromic_substring("a"), ::testing::StrEq("a"));
+    EXPECT_THAT(get_longest_palindromic_substring("a"), "a");
 }
 TEST(longest_palindromic_substring, DISABLED_string_is_palindrome) {
-    EXPECT_THAT(get_longest_palindromic_substring("level"), ::testing::StrEq("level"));
+    EXPECT_THAT(get_longest_palindromic_substring("level"), "level");
 }
 TEST(longest_palindromic_substring, DISABLED_s_123aba3218888888888c) {
-    EXPECT_THAT(get_longest_palindromic_substring("123aba3218888888888c"), ::testing::StrEq("8888888888"));
+    EXPECT_THAT(get_longest_palindromic_substring("123aba3218888888888c"), "8888888888");
 }
 
 TEST(problem_28_main, DISABLED_output) {

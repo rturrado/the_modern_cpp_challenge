@@ -10,6 +10,8 @@
 
 
 void problem_26_main(std::ostream& os) {
+    using namespace tmcppc::problem_26;
+
     const std::array<std::string, 0> a0{};
     const std::array<std::string, 1> a1{ "Joe" };
     const std::string d3{ "#" };

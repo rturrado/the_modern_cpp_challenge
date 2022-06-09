@@ -8,11 +8,13 @@
 
 
 void problem_30_main(std::ostream& os) {
+    using namespace tmcppc::network;
+
     for (const auto& s : { "http://user:pass@example.com:992/animal/bird?species=seagull#wings",
                            "http://example.com/animal/bird#wings",
                            "This is not a valid URL!" }) {
         try {
-            tmcppc::url u{ s };
+            url u{ s };
             fmt::print(os, "Parsing URL \"{}\":\n{}\n", s, u);
         } catch (const std::exception& err) {
             fmt::print(os, "Error: {}\n", err.what());

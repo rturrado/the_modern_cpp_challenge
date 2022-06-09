@@ -5,6 +5,8 @@
 
 #include <sstream>  // ostringstream
 
+using namespace tmcppc::problem_29;
+
 
 TEST(validate_license_plate, DISABLED_invalid) {
     EXPECT_FALSE(validate_license_plate(""));  // empty string

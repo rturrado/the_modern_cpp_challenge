@@ -8,32 +8,36 @@
 #include <string>
 
 
-std::string capitalize(const std::string& s) {
-    std::string ret{s};
-    std::for_each(begin(ret), end(ret), [parsing_word = false](char& c) mutable {
-        if (parsing_word) {
+namespace tmcppc::problem_25 {
+    std::string capitalize(const std::string& s) {
+        std::string ret{ s };
+        std::for_each(begin(ret), end(ret), [parsing_word = false](char& c) mutable {
+            if (parsing_word) {
 
-            if (not std::isalpha(c)) {
-                // End of word. Update parsing word flag
-                parsing_word = false;
+                if (not std::isalpha(c)) {
+                    // End of word. Update parsing word flag
+                    parsing_word = false;
+                } else {
+                    // Else, just another word char
+                    c = std::tolower(c);
+                }
             } else {
-                // Else, just another word char
-                c = std::tolower(c);
+                // First word char. Capitalize it and update parsing word flag
+                if (std::isalpha(c)) {
+                    c = std::toupper(c);
+                    parsing_word = true;
+                }
+                // Else, just another non word char
             }
-        } else {
-            // First word char. Capitalize it and update parsing word flag
-            if (std::isalpha(c)) {
-                c = std::toupper(c);
-                parsing_word = true;
-            }
-            // Else, just another non word char
-        }
-    });
-    return ret;
-}
+        });
+        return ret;
+    }
+}  // namespace tmcppc::problem_25
 
 
 void problem_25_main(std::ostream& os) {
+    using namespace tmcppc::problem_25;
+
     std::string s1{ "the c++ challenger" };
     std::string s2{ "THIS IS an ExamplE, should wORk!" };
     fmt::print(os, "Capitalizing word \"{}\": \"{}\"\n", s1, capitalize(s1));

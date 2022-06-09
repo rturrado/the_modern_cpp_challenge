@@ -19,6 +19,8 @@
 // Input: { 0xBA, 0xAD, 0xF0, 0x0D }, output: "BAADF00D" or "baadf00d"
 // Input: { 1, 2, 3, 4, 5, 6 }, output: "010203040506"
 void problem_23_main(std::ostream& os) {
+    using namespace tmcppc::problem_23;
+
     std::vector<uint8_t> v{ 0xBA, 0xAD, 0xf0, 0x0d };
     fmt::print(os, "Converting vector [{:#02x}] to string \"{}\"\n", fmt::join(v, ", "), to_string(v));
 

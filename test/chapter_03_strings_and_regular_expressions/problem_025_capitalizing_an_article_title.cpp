@@ -6,6 +6,8 @@
 #include <sstream>  // ostringstream
 #include <string>
 
+using namespace tmcppc::problem_25;
+
 
 TEST(capitalize, DISABLED_empty_string) {
     std::string result{};

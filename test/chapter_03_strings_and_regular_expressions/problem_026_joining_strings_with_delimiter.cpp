@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+using namespace tmcppc::problem_26;
+
 
 TEST(join, DISABLED_empty_array) {
     std::string result{};

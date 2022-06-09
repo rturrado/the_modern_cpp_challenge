@@ -9,7 +9,7 @@
 #include <string>  // stoi
 
 
-namespace tmcppc {
+namespace tmcppc::network {
     struct invalid_url_error : public std::exception {
         explicit invalid_url_error(const std::string& url) noexcept { message_ += "\"" + url + "\""; }
         const char* what() const noexcept { return message_.c_str(); }
@@ -45,8 +45,7 @@ namespace tmcppc {
                 if (matches[5].matched) { path_ = matches[5]; }
                 if (matches[6].matched) { query_ = matches[6]; }
                 if (matches[7].matched) { fragment_ = matches[7]; }
-            }
-            else {
+            } else {
                 throw invalid_url_error{ s };
             }
         }
@@ -73,18 +72,18 @@ namespace tmcppc {
         std::optional<std::string> query_;
         std::optional<std::string> fragment_;
     };
-}  // namespace tmcppc
+}  // namespace tmcppc::network
 
 
 template <>
-struct fmt::formatter<tmcppc::url> {
+struct fmt::formatter<tmcppc::network::url> {
     template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::url& u, FormatContext& ctx) const -> decltype(ctx.out()) {
+    auto format(const tmcppc::network::url& u, FormatContext& ctx) const -> decltype(ctx.out()) {
         fmt::format_to(ctx.out(), "\tProtocol: {}\n", u.protocol_);
         if (u.login_.has_value()) {
             fmt::format_to(ctx.out(), "\tLogin: {}\n", u.login_.value());

@@ -8,24 +8,25 @@
 #include <vector>
 
 
-const std::regex pattern{ R"([[:upper:]]{3}-[[:upper:]]{2} [[:digit:]]{3,4})" };
-
-
-bool validate_license_plate(const std::string& s) {
-    return std::regex_match(s, pattern);
-}
-
-
-std::vector<std::string> extract_all_license_plates(const std::string& s) {
-    std::vector<std::string> ret{};
-    for (std::sregex_iterator it(cbegin(s), cend(s), pattern); it != std::sregex_iterator{}; ++it) {
-        ret.push_back((*it)[0]);
+namespace tmcppc::problem_29 {
+    bool validate_license_plate(const std::string& s) {
+        return std::regex_match(s, pattern);
     }
-    return ret;
-}
+
+
+    std::vector<std::string> extract_all_license_plates(const std::string& s) {
+        std::vector<std::string> ret{};
+        for (std::sregex_iterator it(cbegin(s), cend(s), pattern); it != std::sregex_iterator{}; ++it) {
+            ret.push_back((*it)[0]);
+        }
+        return ret;
+    }
+}  // namespace tmcppc::problem_29
 
 
 void problem_29_main(std::ostream& os) {
+    using namespace tmcppc::problem_29;
+
     const std::string text{ "AAA-AA 123qwe-ty 1234 ABC-DE 123456..XYZ-WW 0001" };
 
     // Test validate_license_plate

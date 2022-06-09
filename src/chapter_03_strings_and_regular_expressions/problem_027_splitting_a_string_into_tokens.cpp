@@ -7,23 +7,27 @@
 #include <vector>
 
 
-std::vector<std::string> split(const std::string& s, const std::string& delimiters) {
-    std::vector<std::string> ret{};
-    for (size_t previous_pos{ 0 }, pos{ 0 }; pos < s.size(); ) {
-        pos = s.find_first_of(delimiters, pos);
-        if (pos > previous_pos) {
-            ret.push_back(s.substr(previous_pos, pos - previous_pos));
+namespace tmcppc::problem_27 {
+    std::vector<std::string> split(const std::string& s, const std::string& delimiters) {
+        std::vector<std::string> ret{};
+        for (size_t previous_pos{ 0 }, pos{ 0 }; pos < s.size(); ) {
+            pos = s.find_first_of(delimiters, pos);
+            if (pos > previous_pos) {
+                ret.push_back(s.substr(previous_pos, pos - previous_pos));
+            }
+            if (pos != std::string::npos) {
+                ++pos;
+                previous_pos = pos;
+            }
         }
-        if (pos != std::string::npos) {
-            ++pos;
-            previous_pos = pos;
-        }
+        return ret;
     }
-    return ret;
-}
+}  // namespace tmcppc::problem_27
 
 
 void problem_27_main(std::ostream& os) {
+    using namespace tmcppc::problem_27;
+
     const std::string s{ "this,is.a sample!!" };
     const std::string d1{ ",.! " };
     const std::string d2{ "#" };
