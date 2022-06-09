@@ -9,6 +9,8 @@
 
 
 void problem_15_main(std::istream& is, std::ostream& os) {
+    using namespace tmcppc::network;
+
     while (true) {
         fmt::print(os, "Please enter an IPv4 address (e.g. 127.0.0.1), or 'quit' to finish: ");
 
@@ -20,7 +22,7 @@ void problem_15_main(std::istream& is, std::ostream& os) {
         }
 
         try {
-            tmcppc::ipv4 address{ s };
+            ipv4 address{ s };
             fmt::print(os, "\tYou've entered a valid IPv4 address: {}\n", s);
         } catch (const std::exception& ex) {
             fmt::print(os, "\tError: {}\n", ex.what());

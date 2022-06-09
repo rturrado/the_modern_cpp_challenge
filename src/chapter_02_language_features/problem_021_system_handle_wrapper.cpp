@@ -21,9 +21,11 @@ void function_that_throws() {
 
 void test_unique_hdl(std::wostream& wos) {
 #ifdef _WIN32
+    using namespace tmcppc::data_structures;
+
     const auto file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
 
-    using handle = tmcppc::unique_hdl<tmcppc::HANDLE, tmcppc::handle_traits>;
+    using handle = unique_hdl<HANDLE, handle_traits>;
 
     handle file_hdl{
         CreateFileW(

@@ -7,6 +7,8 @@
 
 
 void problem_18_main(std::ostream& os) {
+    using namespace tmcppc::problem_18;
+
     test_minimum(os, 1, 7, -3, 42);
     test_minimum(os, "un", "lugar", "de", "la", "Mancha");
     test_minimum(os, std::string("un"), std::string("lugar"), std::string("de"), std::string("la"), std::string("Mancha"));

@@ -15,7 +15,7 @@
 #include <string>
 
 
-namespace tmcppc {
+namespace tmcppc::network {
     struct invalid_ipv4_address_error : public std::runtime_error {
         invalid_ipv4_address_error(const std::string& address) : std::runtime_error{ "" } {
             message_ = fmt::format("{}: {}", message_, address);
@@ -140,18 +140,18 @@ namespace tmcppc {
 
         std::array<std::uint8_t, 4> octets_{};
     };
-}  // namespace tmcppc
+}  // namespace tmcppc::network
 
 
 template <>
-struct fmt::formatter<tmcppc::ipv4> {
+struct fmt::formatter<tmcppc::network::ipv4> {
     template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::ipv4& address, FormatContext& ctx) const -> decltype(ctx.out()) {
+    auto format(const tmcppc::network::ipv4& address, FormatContext& ctx) const -> decltype(ctx.out()) {
         return fmt::format_to(ctx.out(), "{}.{}.{}.{}",
             address.octets_[0], address.octets_[1], address.octets_[2], address.octets_[3]);
     }

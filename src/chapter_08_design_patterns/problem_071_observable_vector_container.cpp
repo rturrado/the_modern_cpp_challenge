@@ -11,17 +11,19 @@
 
 
 void problem_71_main(std::ostream& os) {
+    using namespace tmcppc::data_structures;
+
     // Test observable vector constructors
     fmt::print(os, "Creating the observable vectors:\n");
-    auto sp_ov_0{ std::make_shared<tmcppc::observable_vector<std::string>>() };
-    auto sp_ov_1{ std::make_shared<tmcppc::observable_vector<float>>(5) };
+    auto sp_ov_0{ std::make_shared<observable_vector<std::string>>() };
+    auto sp_ov_1{ std::make_shared<observable_vector<float>>(5) };
     for (auto i = 0; i < sp_ov_1->size(); ++i) {
         (*sp_ov_1)[i] = 3.14f * i;
     }
-    auto sp_ov_2{ std::make_shared<tmcppc::observable_vector<double>>(3, 1.5) };
+    auto sp_ov_2{ std::make_shared<observable_vector<double>>(3, 1.5) };
     const char* cstr{ "Hello, universe!" };
-    auto sp_ov_3{ std::make_shared<tmcppc::observable_vector<char>>(cstr + 4, cstr + 8) };
-    auto sp_ov_4{ std::make_shared<tmcppc::observable_vector<int>>()};
+    auto sp_ov_3{ std::make_shared<observable_vector<char>>(cstr + 4, cstr + 8) };
+    auto sp_ov_4{ std::make_shared<observable_vector<int>>()};
     fmt::print(os, "\tov_0: {}\n", *sp_ov_0);
     fmt::print(os, "\tov_1: {}\n", *sp_ov_1);
     fmt::print(os, "\tov_2: {}\n", *sp_ov_2);
@@ -29,11 +31,11 @@ void problem_71_main(std::ostream& os) {
     fmt::print(os, "\tov_4: {}\n\n", *sp_ov_4);
 
     // Concrete observers
-    auto sp_co_0{ std::make_shared<tmcppc::concrete_observer_1<std::string>>(os, sp_ov_0) };
-    auto sp_co_1{ std::make_shared<tmcppc::concrete_observer_2<float>>(os, sp_ov_1) };
-    auto sp_co_2{ std::make_shared<tmcppc::concrete_observer_2<double>>(os, sp_ov_2) };
-    auto sp_co_3{ std::make_shared<tmcppc::concrete_observer_1<char>>(os, sp_ov_3) };
-    auto sp_co_4{ std::make_shared<tmcppc::concrete_observer_2<int>>(os, sp_ov_4) };
+    auto sp_co_0{ std::make_shared<concrete_observer_1<std::string>>(os, sp_ov_0) };
+    auto sp_co_1{ std::make_shared<concrete_observer_2<float>>(os, sp_ov_1) };
+    auto sp_co_2{ std::make_shared<concrete_observer_2<double>>(os, sp_ov_2) };
+    auto sp_co_3{ std::make_shared<concrete_observer_1<char>>(os, sp_ov_3) };
+    auto sp_co_4{ std::make_shared<concrete_observer_2<int>>(os, sp_ov_4) };
 
     // Attach concrete observers to observable vectors
     sp_ov_0->attach(sp_co_0);
@@ -49,14 +51,14 @@ void problem_71_main(std::ostream& os) {
     fmt::print(os, "\n");
 
     fmt::print(os, "Copy assigning from ov_3:\n");
-    tmcppc::observable_vector<char> ov_char{};  // copy operations don't copy the list of observers
+    observable_vector<char> ov_char{};  // copy operations don't copy the list of observers
     ov_char = *sp_ov_3;
     fmt::print(os, "Popping back from the copied-to vector:\n");
     ov_char.pop_back();
     fmt::print(os, "\n");
 
     fmt::print(os, "Move assigning from ov_1:\n");
-    tmcppc::observable_vector<float> ov_float{};  // move operations don't copy the list of observers
+    observable_vector<float> ov_float{};  // move operations don't copy the list of observers
     ov_float = std::move(*sp_ov_1);
     fmt::print(os, "Pushing back to the moved-to vector:\n");
     ov_float.push_back(3.14f);
@@ -67,7 +69,7 @@ void problem_71_main(std::ostream& os) {
     fmt::print(os, "\n");
 
     fmt::print(os, "Move assigning to ov_4:\n");
-    *sp_ov_4 = tmcppc::observable_vector<int>(std::initializer_list<int>{ 1, 1, 2, 3, 5 });
+    *sp_ov_4 = observable_vector<int>(std::initializer_list<int>{ 1, 1, 2, 3, 5 });
     fmt::print(os, "\n");
 
     fmt::print(os, "Detaching from ov_0:\n");

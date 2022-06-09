@@ -3,9 +3,8 @@
 #include "ipv4.h"
 
 
-namespace tmcppc {
-    class ipv4_iterator
-    {
+namespace tmcppc::network {
+    class ipv4_iterator {
     private:
         using iterator_category = std::forward_iterator_tag;
         using difference_type = std::ptrdiff_t;
@@ -29,8 +28,7 @@ namespace tmcppc {
         value_type value_;
     };
 
-    class ipv4_range
-    {
+    class ipv4_range {
     public:
         ipv4_range(const ipv4& start, const ipv4& end) : start_{ start }, end_{ end } { ++end_; }
         auto begin() { return ipv4_iterator{ start_ }; }
@@ -43,4 +41,4 @@ namespace tmcppc {
         ipv4 start_;
         ipv4 end_;
     };
-}  // namespace tmcppc
+}  // namespace tmcppc::network

@@ -16,7 +16,7 @@
 #include <vector>
 
 
-namespace tmcppc {
+namespace tmcppc::data_structures {
     using rtc::print::printable;
 
     template <printable T>
@@ -282,22 +282,22 @@ namespace tmcppc {
         size_type width_;
         size_type height_;
     };
-}  // namespace tmcppc
+}  // namespace tmcppc::data_structures
 
 
-template <tmcppc::printable T>
-struct fmt::is_range<tmcppc::array_2d<T>, char> : std::false_type {};
+template <rtc::print::printable T>
+struct fmt::is_range<tmcppc::data_structures::array_2d<T>, char> : std::false_type {};
 
 
-template <tmcppc::printable T>
-struct fmt::formatter<tmcppc::array_2d<T>> {
+template <rtc::print::printable T>
+struct fmt::formatter<tmcppc::data_structures::array_2d<T>> {
     template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::array_2d<T>& arr, FormatContext& ctx) const -> decltype(ctx.out()) {
+    auto format(const tmcppc::data_structures::array_2d<T>& arr, FormatContext& ctx) const -> decltype(ctx.out()) {
         if (arr.empty()) {
             fmt::format_to(ctx.out(), "{}", "[]");
         } else {

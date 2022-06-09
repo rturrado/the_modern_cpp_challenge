@@ -12,9 +12,11 @@
 
 
 void problem_16_main(std::istream& is, std::ostream& os) {
+    using namespace tmcppc::network;
+
     // Read range start and end addresses from the console
-    tmcppc::ipv4 address_start{};
-    tmcppc::ipv4 address_end{};
+    ipv4 address_start{};
+    ipv4 address_end{};
     bool valid_input{ false };
     while (!valid_input) {
         fmt::print(os, "Please input two IPv4 addresses (range start and end): ");
@@ -38,7 +40,7 @@ void problem_16_main(std::istream& is, std::ostream& os) {
 
     // List all addresses in the range
     fmt::print(os, "List of all addresses in the range:\n");
-    tmcppc::ipv4_range address_range{ address_start, address_end };
+    ipv4_range address_range{ address_start, address_end };
     for (const auto& address : address_range) {
         fmt::print(os, "\t{}\n", address);
     }

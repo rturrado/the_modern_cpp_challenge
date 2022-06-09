@@ -9,6 +9,8 @@
 
 
 void problem_19_main(std::ostream& os) {
+    using namespace tmcppc::problem_19;
+
     std::vector<int> v_int{};
     push_back_list(v_int, 10, 20, 30);
     fmt::print(os, "Adding 10, 20, and 30 to an empty vector of ints: {}\n", v_int);

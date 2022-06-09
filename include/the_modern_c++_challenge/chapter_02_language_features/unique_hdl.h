@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace tmcppc {
+namespace tmcppc::data_structures {
     using HANDLE = void*;
 
     // From Windows with C++ - C++ and the Windows API
@@ -55,4 +55,4 @@ namespace tmcppc {
 
         Type hdl_{ Traits::invalid_hdl() };
     };
-}  // namespace tmcppc
+}  // namespace tmcppc::data_structures

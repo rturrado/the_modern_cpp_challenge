@@ -8,6 +8,8 @@
 
 
 void problem_20_main(std::ostream& os) {
+    using namespace tmcppc::problem_20;
+
     std::vector<int> v{ 1, 2, 3, 4, 5, 6 };
     os << "Checking std::vector<int> v{ 1, 2, 3, 4, 5, 6 } contains_any of (0, 3, 30)\n";
     assert(contains_any(v, 0, 3, 30));
