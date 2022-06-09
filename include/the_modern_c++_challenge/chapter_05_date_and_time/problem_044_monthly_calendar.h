@@ -3,10 +3,11 @@
 #include <chrono>
 #include <iosfwd>
 
-namespace ch = std::chrono;
 
+namespace tmcppc::problem_44 {
+    void print_calendar_month(std::ostream& os, const std::chrono::year& y, const std::chrono::month& m);
+}  // namespace tmcppc::problem_44
 
-void print_calendar_month(std::ostream& os, const ch::year& y, const ch::month& m);
 
 void problem_44_main(std::ostream& os);
 void problem_44_main();

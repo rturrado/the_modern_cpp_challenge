@@ -8,27 +8,26 @@
 #include <utility>  // pair
 #include <vector>
 
-namespace ch = std::chrono;
-using namespace ch;
-
 
 void problem_43_main(std::ostream& os) {
-    using namespace std::literals;
+    namespace ch = std::chrono;
+    using namespace ch;
+    using namespace tmcppc::problem_43;
 
     ch::zoned_time<ch::minutes> meeting_zt{ "Europe/Madrid", ch::sys_days{2021y / October / 23} + 18h };
 
     auto participants = vector_of_participants_and_time_zones{
-        { "Laura"sv, "America/Los_Angeles"sv },
-        { "Daniel"sv, "America/Denver"sv },
-        { "Norman"sv, "America/New_York"sv },
-        { "Leonard"sv, "Europe/London"sv },
-        { "Manuel"sv, "Europe/Minsk"sv },
-        { "Mary"sv, "Europe/Moscow"sv },
-        { "Kaisa"sv, "Asia/Kolkata"sv },
-        { "Norbert"sv, "Asia/Novosibirsk"sv },
-        { "Samuel"sv, "Asia/Singapore"sv },
-        { "Paula"sv, "Australia/Perth"sv },
-        { "Susan"sv, "Australia/Sydney"sv },
+        { "Laura", "America/Los_Angeles" },
+        { "Daniel", "America/Denver" },
+        { "Norman", "America/New_York" },
+        { "Leonard", "Europe/London" },
+        { "Manuel", "Europe/Minsk" },
+        { "Mary", "Europe/Moscow" },
+        { "Kaisa", "Asia/Kolkata" },
+        { "Norbert", "Asia/Novosibirsk" },
+        { "Samuel", "Asia/Singapore" },
+        { "Paula", "Australia/Perth" },
+        { "Susan", "Australia/Sydney" },
     };
 
     display_local_meeting_times(os, meeting_zt, participants);

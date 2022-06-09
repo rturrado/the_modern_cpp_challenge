@@ -8,18 +8,21 @@
 namespace ch = std::chrono;
 
 
-ch::weekday date_to_weekday(const ch::year_month_day& date) {
-    return ch::weekday{ std::chrono::sys_days{date} };
-}
+namespace tmcppc::problem_41 {
+    ch::weekday date_to_weekday(const ch::year_month_day& date) {
+        return ch::weekday{ std::chrono::sys_days{date} };
+    }
 
 
-unsigned int weekday_to_number(const ch::weekday& wd) {
-    return wd.iso_encoding();
-}
+    unsigned int weekday_to_number(const ch::weekday& wd) {
+        return wd.iso_encoding();
+    }
+}  // namespace tmcppc::problem_41
 
 
 void problem_41_main(std::ostream& os) {
-    namespace ch = std::chrono; using namespace std::chrono_literals;
+    using namespace std::chrono_literals;
+    using namespace tmcppc::problem_41;
 
     auto date_1{ 1946y / 8 / 11 };
     auto date_2{ 1952y / 4 / 24 };

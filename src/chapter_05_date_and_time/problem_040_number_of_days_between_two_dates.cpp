@@ -6,14 +6,19 @@
 #include <utility>  // pair
 #include <vector>
 
+namespace ch = std::chrono;
 
-int difference_in_days(std::chrono::sys_days start_date, std::chrono::sys_days end_date) {
-    return (end_date - start_date).count();
-}
+
+namespace tmcppc::problem_40 {
+    int difference_in_days(ch::sys_days start_date, ch::sys_days end_date) {
+        return (end_date - start_date).count();
+    }
+}  // namespace tmcppc::problem_40
 
 
 void problem_40_main(std::ostream& os) {
-    namespace ch = std::chrono; using namespace std::chrono_literals;
+    using namespace std::chrono_literals;
+    using namespace tmcppc::problem_40;
 
     auto x{ 2012y / 1 / 24 };
     auto y{ 2013y / 1 / 8 };

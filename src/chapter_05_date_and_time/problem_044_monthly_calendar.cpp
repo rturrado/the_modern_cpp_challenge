@@ -8,35 +8,39 @@
 #include <vector>
 
 namespace ch = std::chrono;
-using namespace ch;
 
 
-void print_calendar_month(std::ostream& os, const ch::year& y, const ch::month& m) {
-    // Header
-    os << ch::year_month{ y / m } << "\n";
-    for (unsigned int i{ 1 }; i <= 7; ++i) {
-        os << std::format("{:>4}", ch::weekday{i});
-    }
-    os << "\n";
+namespace tmcppc::problem_44 {
+    void print_calendar_month(std::ostream& os, const ch::year& y, const ch::month& m) {
+        // Header
+        os << ch::year_month{ y / m } << "\n";
+        for (unsigned int i{ 1 }; i <= 7; ++i) {
+            os << std::format("{:>4}", ch::weekday{ i });
+        }
+        os << "\n";
 
-    // Blank days
-    unsigned int y_m_1_iso_wd{ (ch::weekday{y / m / 1}).iso_encoding() - 1 };
-    for (unsigned int i{ 0 }; i < y_m_1_iso_wd; ++i) {
-        os << std::format("{:>4}", ' ');
-    }
+        // Blank days
+        unsigned int y_m_1_iso_wd{ (ch::weekday{y / m / 1}).iso_encoding() - 1 };
+        for (unsigned int i{ 0 }; i < y_m_1_iso_wd; ++i) {
+            os << std::format("{:>4}", ' ');
+        }
 
-    // Month days
-    unsigned int y_m_d_last{ ch::year_month_day_last{y / m / ch::last}.day() };
-    for (unsigned int i{ 1 }; i <= y_m_d_last; ++i) {
-        os << std::format("{:>4}", i);
-        if ((i != y_m_d_last) and ((y_m_1_iso_wd + i) % 7 == 0)) {
-            os << "\n";
+        // Month days
+        unsigned int y_m_d_last{ ch::year_month_day_last{y / m / ch::last}.day() };
+        for (unsigned int i{ 1 }; i <= y_m_d_last; ++i) {
+            os << std::format("{:>4}", i);
+            if ((i != y_m_d_last) and ((y_m_1_iso_wd + i) % 7 == 0)) {
+                os << "\n";
+            }
         }
     }
-}
+}  // namespace tmcppc::problem_44
 
 
 void problem_44_main(std::ostream& os) {
+    using namespace ch;
+    using namespace tmcppc::problem_44;
+    
     using vector_of_pairs_year_month = std::vector<std::pair<ch::year, ch::month>>;
 
     for (const auto& [year, month] : vector_of_pairs_year_month{ {1970y, January}, {1977y, May}, {2012y, February} }) {

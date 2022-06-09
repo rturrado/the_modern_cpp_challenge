@@ -12,34 +12,37 @@
 #include <vector>
 
 
-auto sort_vector = [](std::vector<int>& v) mutable {
-    std::sort(begin(v), end(v));
-    assert(v[0] == 1);
-};
+namespace tmcppc::problem_39 {
+    void sort_vector(std::vector<int>& v) {
+        std::sort(begin(v), end(v));
+        assert(v[0] == 1);
+    };
 
 
-void sort_iota_vector(size_t num_elems, size_t num_reps) {
-    assert(num_elems > 0);
-    std::vector<int> v(num_elems);
-    std::iota(begin(v), end(v), 1);
-    while (num_reps-- != 0) {
-        sort_vector(v);
+    void sort_iota_vector(size_t num_elems, size_t num_reps) {
+        assert(num_elems > 0);
+        std::vector<int> v(num_elems);
+        std::iota(begin(v), end(v), 1);
+        while (num_reps-- != 0) {
+            sort_vector(v);
+        }
     }
-}
 
 
-void sort_shuffle_vector(size_t num_elems, size_t num_reps) {
-    assert(num_elems > 0);
-    std::vector<int> v(num_elems);
-    std::iota(begin(v), end(v), 1);
-    std::shuffle(begin(v), end(v), std::mt19937{ std::random_device{}() });
-    while (num_reps-- != 0) {
-        sort_vector(v);
+    void sort_shuffle_vector(size_t num_elems, size_t num_reps) {
+        assert(num_elems > 0);
+        std::vector<int> v(num_elems);
+        std::iota(begin(v), end(v), 1);
+        std::shuffle(begin(v), end(v), std::mt19937{ std::random_device{}() });
+        while (num_reps-- != 0) {
+            sort_vector(v);
+        }
     }
-}
+}  // namespace tmcppc::problem_39
 
 
 void problem_39_main(std::ostream& os) {
+    using namespace tmcppc::problem_39;
     namespace ch = std::chrono;
 
     fmt::print(os, "Measuring times...\n");
