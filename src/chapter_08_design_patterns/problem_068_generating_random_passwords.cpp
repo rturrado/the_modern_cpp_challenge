@@ -7,6 +7,8 @@
 
 
 void problem_68_main(std::ostream& os) {
+    using namespace tmcppc::password;
+
     auto g{ std::make_unique<composite_password_generator>() };
 
     g->add_generator(std::make_unique<symbol_generator>(2));

@@ -1,6 +1,9 @@
 #pragma once
 
 #include <algorithm>  // for_each, minmax, transform
+#include <fmt/format.h>
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <initializer_list>
 #include <iterator>  // inserter
 #include <limits>  // numeric_limits
@@ -8,7 +11,6 @@
 #include <ostream>
 #include <ranges>
 #include <set>
-#include <sstream>  // ostringstream
 #include <string>
 #include <utility>  // initializer_list, make_pair, pair
 
@@ -42,7 +44,28 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const undirected_graph_map<Node, Distance>& graph) { return os << graph.data_; }
 
 private:
+    friend struct fmt::formatter<undirected_graph_map>;
+
     std::map<key_type, mapped_type> data_{};
+};
+
+template <typename Node, typename Distance>
+struct fmt::is_range<undirected_graph_map<Node, Distance>, char> : std::false_type {};
+
+template <typename Node, typename Distance>
+struct fmt::detail::is_map<undirected_graph_map<Node, Distance>> : std::false_type {};
+
+template <typename Node, typename Distance>
+struct fmt::formatter<undirected_graph_map<Node, Distance>> {
+    template <typename ParseContext>
+    constexpr auto parse(ParseContext& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const undirected_graph_map<Node, Distance>& graph, FormatContext& ctx) const -> decltype(ctx.out()) {
+        return fmt::format_to(ctx.out(), "{}", graph.data_);
+    }
 };
 
 
@@ -75,7 +98,28 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const directed_graph_map<Node, Distance>& graph) { return os << graph.data_; }
 
 private:
+    friend struct fmt::formatter<directed_graph_map>;
+
     std::map<key_type, mapped_type> data_;
+};
+
+template <typename Node, typename Distance>
+struct fmt::is_range<directed_graph_map<Node, Distance>, char> : std::false_type {};
+
+template <typename Node, typename Distance>
+struct fmt::detail::is_map<directed_graph_map<Node, Distance>> : std::false_type {};
+
+template <typename Node, typename Distance>
+struct fmt::formatter<directed_graph_map<Node, Distance>> {
+    template <typename ParseContext>
+    constexpr auto parse(ParseContext& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const directed_graph_map<Node, Distance>& graph, FormatContext& ctx) const -> decltype(ctx.out()) {
+        return fmt::format_to(ctx.out(), "{}", graph.data_);
+    }
 };
 
 
@@ -196,13 +240,11 @@ Distance get_shortest_path_distance(const directed_graph_map<Node, Distance>& gr
 
 template <typename Node, typename Distance>
 std::string get_shortest_path_string(const directed_graph_map<Node, Distance>& graph, const Node& s, const Node& d) {
-    std::ostringstream oss{};
     if (s == d) {
-        oss << s;
+        return fmt::format("{}", s);
     } else {
-        oss << get_shortest_path_string(graph, graph.at(s).first, d) << " -> " << s;
+        return fmt::format("{} -> {}", get_shortest_path_string(graph, graph.at(s).first, d), s);
     };
-    return oss.str();
 }
 
 
@@ -211,9 +253,8 @@ void print_shortest_paths_digraph(std::ostream& os, const directed_graph_map<Nod
     for (auto& kvp : graph) {
         Node s{ kvp.first };
 
-        os << "\t" << d << " -> " << s << " : "
-            << get_shortest_path_distance(graph, s, d) << "\t"
-            << get_shortest_path_string(graph, s, d) << "\n";
+        fmt::print(os, "\t{} -> {} : {}\t{}\n",
+            d, s, get_shortest_path_distance(graph, s, d), get_shortest_path_string(graph, s, d));
     }
 }
 

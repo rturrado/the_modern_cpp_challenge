@@ -1,5 +1,7 @@
 #pragma once
 
+#include "rtc/print.h"
+
 #include <algorithm>
 #include <fmt/format.h>
 #include <fmt/ostream.h>
@@ -15,8 +17,7 @@
 
 
 namespace tmcppc {
-    template <typename T>
-    concept printable = requires(std::ostream& os, T t) { os << t; };
+    using rtc::print::printable;
 
     template <printable T>
     class array_2d {

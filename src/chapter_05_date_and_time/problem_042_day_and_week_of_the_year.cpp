@@ -4,19 +4,18 @@
 #include <format>
 #include <iostream>  // cout
 
+namespace ch = std::chrono;
+using namespace ch;
+
 
 // Starting from 1
-unsigned int daynum(const std::chrono::year_month_day& date) {
-    namespace ch = std::chrono; using namespace ch;
-
+unsigned int daynum(const ch::year_month_day& date) {
     return (ch::sys_days{ date } - ch::sys_days{ ch::year_month_day{ date.year() / January / 0 } }).count();
 }
 
 
 // Starting from 1
-unsigned int weeknum(const std::chrono::year_month_day& date) {
-    namespace ch = std::chrono; using namespace ch;
-
+unsigned int weeknum(const ch::year_month_day& date) {
     unsigned int ret{ (daynum(date) + 6) / 7 };
 
     auto wd_jan_1st{ (ch::weekday{ date.year() / January / 1 }).iso_encoding() };  // Mon=1, Tue=2... Sun=7
@@ -30,8 +29,6 @@ unsigned int weeknum(const std::chrono::year_month_day& date) {
 
 
 void problem_42_main(std::ostream& os) {
-    namespace ch = std::chrono; using namespace ch;
-
     auto date_1{ 2020y / December / 31 };
     auto date_2{ 2021y / December / 31 };
     auto date_3{ 2022y / January / 7 };

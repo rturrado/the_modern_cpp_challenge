@@ -8,7 +8,8 @@
 #include <utility>  // pair
 #include <vector>
 
-namespace ch = std::chrono; using namespace ch;
+namespace ch = std::chrono;
+using namespace ch;
 
 
 void problem_43_main(std::ostream& os) {

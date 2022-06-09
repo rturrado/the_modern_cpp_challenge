@@ -9,6 +9,8 @@
 
 
 void problem_72_main(std::ostream& os) {
+    using namespace tmcppc::store;
+
     const size_t store_articles_size{ 15 };
 
     // Discounts

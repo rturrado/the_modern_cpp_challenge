@@ -9,6 +9,7 @@
 
 void problem_69_main(std::ostream& os) {
     using namespace std::chrono_literals;
+    using namespace tmcppc::ssn;
 
     auto ng{ northeria_ssn_generator::get_instance() };
     auto sg{ southeria_ssn_generator::get_instance() };

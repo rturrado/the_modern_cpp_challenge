@@ -12,26 +12,28 @@
 using namespace tmcppc::company;
 
 
-void test_approve_expense(std::ostream& os, const std::shared_ptr<employee>& employee) {
-    auto expenses{ std::vector<std::pair<double, std::string>>{
-        {25, "Breakfast"},
-        {250, "Glasses"},
-        {2'500, "Laptop"},
-        {25'000, "Car"},
-        {250'000, "Boat"},
-        {2'500'000, "House"}
-    }};
-    for (const auto& [expense_value, expense_description] : expenses) {
-        auto expense{ employee->approve_expense(expense_value, expense_description) };
-        fmt::print(os, "\tExpense \"{}\" of value {:.2f} {}.\n",
-            expense_description,
-            expense_value,
-            expense.approved_by_
+namespace tmcppc::company {
+    void test_approve_expense(std::ostream& os, const employee& employee) {
+        auto expenses{ std::vector<std::pair<double, std::string>>{
+            {25, "Breakfast"},
+            {250, "Glasses"},
+            {2'500, "Laptop"},
+            {25'000, "Car"},
+            {250'000, "Boat"},
+            {2'500'000, "House"}
+        }};
+        for (const auto& [expense_value, expense_description] : expenses) {
+            auto expense{ employee.approve_expense(expense_value, expense_description) };
+            fmt::print(os, "\tExpense \"{}\" of value {:.2f} {}.\n",
+                expense_description,
+                expense_value,
+                expense.approved_by_
                 ? fmt::format("approved by {}", expense.approved_by_.value())
                 : "wasn't approved"
-        );
+            );
+        }
     }
-}
+}  // namespace tmcppc::company
 
 
 void problem_70_main(std::ostream& os) {
@@ -41,7 +43,7 @@ void problem_70_main(std::ostream& os) {
     auto r{ std::make_shared<employee>("Avril Haines", std::make_unique<regular_employee>()) };
 
     fmt::print(os, "Before calling set_direct_manager...\n");
-    test_approve_expense(os, r);
+    test_approve_expense(os, *r);
     fmt::print(os, "\n");
 
     r->set_direct_manager(tm);
@@ -49,7 +51,7 @@ void problem_70_main(std::ostream& os) {
     dm->set_direct_manager(p);
 
     fmt::print(os, "After calling set_direct_manager...\n");
-    test_approve_expense(os, p);
+    test_approve_expense(os, *p);
     fmt::print(os, "\n");
 }
 

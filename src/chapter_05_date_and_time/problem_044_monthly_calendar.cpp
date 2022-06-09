@@ -7,7 +7,8 @@
 #include <utility>  // pair
 #include <vector>
 
-namespace ch = std::chrono; using namespace ch;
+namespace ch = std::chrono;
+using namespace ch;
 
 
 void print_calendar_month(std::ostream& os, const ch::year& y, const ch::month& m) {

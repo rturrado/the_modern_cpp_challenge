@@ -1,9 +1,8 @@
 #pragma once
 
-#include <ostream>
-
 #include <format>
 #include <initializer_list>
+#include <iosfwd>
 #include <limits>  // numeric_limits
 #include <memory>  // shared_ptr, unique_ptr
 #include <optional>
@@ -29,7 +28,9 @@ namespace tmcppc::company {
 
     class president : public employee_role {
     public:
-        [[nodiscard]] virtual double get_approval_limit() const noexcept override { return expense_approval_limit_; };
+        [[nodiscard]] virtual double get_approval_limit() const noexcept override {
+            return expense_approval_limit_;
+        };
     private:
         const double expense_approval_limit_{ std::numeric_limits<double>::max() };
     };
@@ -37,7 +38,9 @@ namespace tmcppc::company {
 
     class department_manager : public employee_role {
     public:
-        [[nodiscard]] virtual double get_approval_limit() const noexcept override { return expense_approval_limit_; };
+        [[nodiscard]] virtual double get_approval_limit() const noexcept override {
+            return expense_approval_limit_;
+        };
     private:
         const double expense_approval_limit_{ 100'000 };
     };
@@ -45,7 +48,9 @@ namespace tmcppc::company {
 
     class team_manager : public employee_role {
     public:
-        [[nodiscard]] virtual double get_approval_limit() const noexcept override { return expense_approval_limit_; };
+        [[nodiscard]] virtual double get_approval_limit() const noexcept override {
+            return expense_approval_limit_;
+        };
     private:
         const double expense_approval_limit_{ 10'000 };
     };
@@ -53,7 +58,9 @@ namespace tmcppc::company {
 
     class regular_employee : public employee_role {
     public:
-        [[nodiscard]] virtual double get_approval_limit() const noexcept override { return expense_approval_limit_; };
+        [[nodiscard]] virtual double get_approval_limit() const noexcept override {
+            return expense_approval_limit_;
+        };
     private:
         const double expense_approval_limit_{ 1'000 };
     };
@@ -66,7 +73,9 @@ namespace tmcppc::company {
             , role_{ std::move(role) }
         {}
 
-        void set_direct_manager(std::shared_ptr<employee> direct_manager) noexcept { direct_manager_ = direct_manager; }
+        void set_direct_manager(const std::shared_ptr<employee>& direct_manager) noexcept {
+            direct_manager_ = direct_manager;
+        }
 
         [[nodiscard]] expense approve_expense(double value, const std::string& description) const noexcept {
             if (value <= role_->get_approval_limit()) {
@@ -85,6 +94,9 @@ namespace tmcppc::company {
         std::unique_ptr<employee_role> role_;
         std::shared_ptr<employee> direct_manager_{};
     };
+
+
+    void test_approve_expense(std::ostream& os, const employee& employee);
 }  // namespace tmcppc::company
 
 
