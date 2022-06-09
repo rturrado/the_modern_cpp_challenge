@@ -13,6 +13,7 @@ void problem_36_main(std::ostream& os) {
     namespace fs = std::filesystem;
     namespace ch = std::chrono;
     using namespace std::chrono_literals;
+    using namespace tmcppc::problem_36;
 
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
     const auto d1_path{ resource_folder_path / "sample_folder" };

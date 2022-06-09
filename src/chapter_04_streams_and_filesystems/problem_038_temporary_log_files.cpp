@@ -12,7 +12,6 @@
 
 void problem_38_main(std::ostream& os) {
     using namespace tmcppc::logging::v1;
-    using namespace std::string_view_literals;
 
     try {
         auto trace_log = [&os](logger& logger, std::string_view sv) {
@@ -25,23 +24,23 @@ void problem_38_main(std::ostream& os) {
         logger logger_2{};
 
         fmt::print(os, "Writing out to logger_1 and logger_2...\n");
-        trace_log(logger_1, "R u awake? Want 2 chat?\n"sv);
-        trace_log(logger_2, "O Rom. Where4 art thou?\n"sv);
-        trace_log(logger_1, "Outside yr window.\n"sv);
-        trace_log(logger_2, "Stalker! J/K.\n"sv);
-        trace_log(logger_1, "Had 2-feeln' romantc.\n"sv);
-        trace_log(logger_2, "B careful. My family h8 u.\n"sv);
-        trace_log(logger_1, "I no. What about u?\n"sv);
-        trace_log(logger_2, "'M up for marriage if u r. Is tht a bit fwd?\n"sv);
-        trace_log(logger_1, "No. Yes. No. Oh, dsnt mat-r. 2moro @ 9?\n"sv);
-        trace_log(logger_2, "Luv U xxxx\n"sv);
+        trace_log(logger_1, "R u awake? Want 2 chat?\n");
+        trace_log(logger_2, "O Rom. Where4 art thou?\n");
+        trace_log(logger_1, "Outside yr window.\n");
+        trace_log(logger_2, "Stalker! J/K.\n");
+        trace_log(logger_1, "Had 2-feeln' romantc.\n");
+        trace_log(logger_2, "B careful. My family h8 u.\n");
+        trace_log(logger_1, "I no. What about u?\n");
+        trace_log(logger_2, "'M up for marriage if u r. Is tht a bit fwd?\n");
+        trace_log(logger_1, "No. Yes. No. Oh, dsnt mat-r. 2moro @ 9?\n");
+        trace_log(logger_2, "Luv U xxxx\n");
 
         const auto log_1_new_location{ std::filesystem::temp_directory_path() / "log_1.txt" };
         fmt::print(os, "Moving logger_1 from '{}' to '{}'\n", logger_1.get_file_path(), log_1_new_location.generic_string());
         logger_1.move_file(log_1_new_location);
 
         fmt::print(os, "Writing out something else to logger_1...\n");
-        trace_log(logger_1, "CU then xxxx\n"sv);
+        trace_log(logger_1, "CU then xxxx\n");
 
         const auto log_1_second_new_location{ std::filesystem::temp_directory_path() / "log_1-new.txt" };
         fmt::print(os, "Moving logger_1 from '{}' to '{}'\n",

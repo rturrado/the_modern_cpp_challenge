@@ -12,37 +12,41 @@
 #include <vector>
 
 
-std::vector<std::vector<uint32_t>> pascal_triangle(const size_t n) {
-    if (n > 30) {
-        throw std::out_of_range{ std::string{"calling pascal_triangle with n > 30, n = "} + std::to_string(n) };
-    }
+namespace tmcppc::problem_32 {
+    std::vector<std::vector<uint32_t>> pascal_triangle(const size_t n) {
+        if (n > 30) {
+            throw std::out_of_range{ std::string{"calling pascal_triangle with n > 30, n = "} + std::to_string(n) };
+        }
 
-    std::vector<std::vector<uint32_t>> ret{};
+        std::vector<std::vector<uint32_t>> ret{};
 
-    if (n == 0) {
+        if (n == 0) {
+            return ret;
+        }
+
+        ret.push_back({ 1 });
+        if (n == 1) {
+            return ret;
+        }
+
+        ret.push_back({ 1, 1 });
+        if (n == 2) {
+            return ret;
+        }
+
+        for (size_t i{ 2 }; i < n; ++i) {  // n > 2
+            std::vector<uint32_t> row(i + 1, 1);
+            std::adjacent_difference(cbegin(ret[i - 1]), cend(ret[i - 1]), begin(row), std::plus<>{});
+            ret.push_back(row);
+        }
         return ret;
     }
-
-    ret.push_back({ 1 });
-    if (n == 1) {
-        return ret;
-    }
-
-    ret.push_back({ 1, 1 });
-    if (n == 2) {
-        return ret;
-    }
-
-    for (size_t i{ 2 }; i < n; ++i) {  // n > 2
-        std::vector<uint32_t> row(i + 1, 1);
-        std::adjacent_difference(cbegin(ret[i - 1]), cend(ret[i - 1]), begin(row), std::plus<>{});
-        ret.push_back(row);
-    }
-    return ret;
-}
+}  // namespace tmcppc::problem_32
 
 
 void problem_32_main(std::ostream& os) {
+    using namespace tmcppc::problem_32;
+
     for (size_t n : { 0, 1, 2, 10, 40 }) {
         try {
             fmt::print(os, "Pascal triangle for n = {}:\n", n);

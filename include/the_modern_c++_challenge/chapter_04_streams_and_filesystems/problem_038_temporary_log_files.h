@@ -33,8 +33,7 @@ namespace tmcppc::logging::v1 {
         }
 
         void move_file(const fs::path& new_file_path) {
-            if (new_file_path != file_path_)
-            {
+            if (new_file_path != file_path_) {
                 close_file();  // close current file stream
                 fs::rename(file_path_, new_file_path);  // move current file; this operation may throw
                 file_path_ = new_file_path;

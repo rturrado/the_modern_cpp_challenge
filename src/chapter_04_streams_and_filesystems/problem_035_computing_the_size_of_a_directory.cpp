@@ -9,47 +9,49 @@
 #include <sstream>  // ostringstream
 #include <string>
 
+namespace fs = std::filesystem;
 
-std::uintmax_t directory_size_in_bytes(const std::filesystem::path& p, bool follow_symlinks = false) {
-    namespace fs = std::filesystem;
 
-    // Set up directory options
-    fs::directory_options options = fs::directory_options::skip_permission_denied;
-    if (follow_symlinks) {
-        options |= fs::directory_options::follow_directory_symlink;
+namespace tmcppc::problem_35 {
+    std::uintmax_t directory_size_in_bytes(const fs::path& p, bool follow_symlinks = false) {
+        // Set up directory options
+        fs::directory_options options = fs::directory_options::skip_permission_denied;
+        if (follow_symlinks) {
+            options |= fs::directory_options::follow_directory_symlink;
+        }
+
+        std::uintmax_t ret{ 0 };
+
+        for (const fs::directory_entry& entry : fs::recursive_directory_iterator{ p, options }) {
+            if (not follow_symlinks and fs::is_symlink(entry)) {
+                continue;
+            }
+            if (fs::is_regular_file(entry)) {
+                ret += fs::file_size(entry);
+            }
+        }
+
+        return ret;
     }
 
-    std::uintmax_t ret{ 0 };
 
-    for (const fs::directory_entry& entry : fs::recursive_directory_iterator{ p, options }) {
-        if (not follow_symlinks and fs::is_symlink(entry)) {
-            continue;
+    std::string directory_size_in_bytes_to_string(uintmax_t n) {
+        double d{ static_cast<double>(n) };
+        std::ostringstream oss{};
+        for (auto& unit : { "b", "KB", "MB", "GB" }) {
+            if (d < 1024 or unit == "GB") {
+                fmt::print(oss, "{:.2f} {}", d, unit);
+                break;
+            }
+            d /= 1024;
         }
-        if (fs::is_regular_file(entry)) {
-            ret += fs::file_size(entry);
-        }
+        return oss.str();
     }
-
-    return ret;
-}
-
-
-std::string directory_size_in_bytes_to_string(uintmax_t n) {
-    double d{ static_cast<double>(n) };
-    std::ostringstream oss{};
-    for (auto& unit : { "b", "KB", "MB", "GB" }) {
-        if (d < 1024 or unit == "GB") {
-            fmt::print(oss, "{:.2f} {}", d, unit);
-            break;
-        }
-        d /= 1024;
-    }
-    return oss.str();
-}
+}  // namespace tmcppc::problem_35
 
 
 void problem_35_main(std::ostream& os) {
-    namespace fs = std::filesystem;
+    using namespace tmcppc::problem_35;
 
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
     const auto d1_path{ resource_folder_path / "sample_folder" };

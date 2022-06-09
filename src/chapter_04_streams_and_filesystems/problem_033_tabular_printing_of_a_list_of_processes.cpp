@@ -13,61 +13,63 @@
 using namespace tmcppc::process;
 
 
-void print_process_infos(std::ostream& os, std::vector<info>& infos) {
-    auto id_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
-        [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, std::to_string(info.id()).size());
-            return total_max;
-        }) };
-    auto name_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
-        [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, info.name().size());
-            return total_max;
-        }) };
-    auto status_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
-        [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, to_string(info.status()).size());
-            return total_max;
-        }) };
-    auto account_name_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
-        [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, info.account_name().size());
-            return total_max;
-        }) };
-    auto mem_size_b_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
-        [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, std::to_string(info.mem_size_b() / 1024).size());
-            return total_max;
-        }) };
-    auto platform_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
-        [](auto total_max, const auto& info) {
-            total_max = std::max(total_max, to_string(info.platform()).size());
-            return total_max;
-        }) };
+namespace tmcppc::problem_33 {
+    void print_process_infos(std::ostream& os, std::vector<info>& infos) {
+        auto id_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+            [](auto total_max, const auto& info) {
+                total_max = std::max(total_max, std::to_string(info.id()).size());
+                return total_max;
+            }) };
+        auto name_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+            [](auto total_max, const auto& info) {
+                total_max = std::max(total_max, info.name().size());
+                return total_max;
+            }) };
+        auto status_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+            [](auto total_max, const auto& info) {
+                total_max = std::max(total_max, to_string(info.status()).size());
+                return total_max;
+            }) };
+        auto account_name_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+            [](auto total_max, const auto& info) {
+                total_max = std::max(total_max, info.account_name().size());
+                return total_max;
+            }) };
+        auto mem_size_b_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+            [](auto total_max, const auto& info) {
+                total_max = std::max(total_max, std::to_string(info.mem_size_b() / 1024).size());
+                return total_max;
+            }) };
+        auto platform_max_width{ std::accumulate(cbegin(infos), cend(infos), static_cast<size_t>(0),
+            [](auto total_max, const auto& info) {
+                total_max = std::max(total_max, to_string(info.platform()).size());
+                return total_max;
+            }) };
 
-    std::ranges::sort(infos, {}, [](const auto& info) { return info.name(); });
+        std::ranges::sort(infos, {}, [](const auto& info) { return info.name(); });
 
-    for (auto& info : infos) {
-        fmt::print(os, "{:<{}} {:{}} {:{}} {:{}} {:>{}} {:{}}\n",
-            info.id(), id_max_width,
-            info.name(), name_max_width,
-            to_string(info.status()), status_max_width,
-            info.account_name(), account_name_max_width,
-            info.mem_size_b() / 1024, mem_size_b_max_width,
-            to_string(info.status()), platform_max_width);
+        for (auto& info : infos) {
+            fmt::print(os, "{:<{}} {:{}} {:{}} {:{}} {:>{}} {:{}}\n",
+                info.id(), id_max_width,
+                info.name(), name_max_width,
+                to_string(info.status()), status_max_width,
+                info.account_name(), account_name_max_width,
+                info.mem_size_b() / 1024, mem_size_b_max_width,
+                to_string(info.status()), platform_max_width);
+        }
     }
-}
+}  // namespace tmcppc::problem_33
 
 
 void problem_33_main(std::ostream& os) {
-    using namespace std::string_literals;
+    using namespace tmcppc::problem_33;
 
     std::vector<info> infos{
-       { 512, "cmd.exe"s, status_t::running, "SYSTEM"s, 148293, platform_t::x64 },
-       { 1044, "chrome.exe"s, status_t::running, "marius.bancila"s, 25180454, platform_t::x32 },
-       { 7108, "explorer.exe"s, status_t::running, "marius.bancila"s, 2952943, platform_t::x64 },
-       { 10100, "chrome.exe"s, status_t::running, "marius.bancila"s, 227756123, platform_t::x32 },
-       { 22456, "skype.exe"s, status_t::suspended, "marius.bancila"s, 16870123, platform_t::x64 },
+       { 512, "cmd.exe", status_t::running, "SYSTEM", 148293, platform_t::x64 },
+       { 1044, "chrome.exe", status_t::running, "marius.bancila", 25180454, platform_t::x32 },
+       { 7108, "explorer.exe", status_t::running, "marius.bancila", 2952943, platform_t::x64 },
+       { 10100, "chrome.exe", status_t::running, "marius.bancila", 227756123, platform_t::x32 },
+       { 22456, "skype.exe", status_t::suspended, "marius.bancila", 16870123, platform_t::x64 },
     };
 
     print_process_infos(os, infos);

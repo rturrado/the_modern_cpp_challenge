@@ -11,28 +11,30 @@
 #include <string>
 #include <vector>
 
+namespace fs = std::filesystem;
 
-std::vector<std::filesystem::directory_entry> get_directory_entries_matching(
-    const std::filesystem::path& path, const std::string& pattern_str) {
 
-    namespace fs = std::filesystem;
-
-    std::vector<fs::directory_entry> ret{};
-    std::regex pattern{ pattern_str };
-    const fs::directory_options options{ fs::directory_options::skip_permission_denied };
-    std::copy_if(
-        fs::recursive_directory_iterator{ path, options },
-        fs::recursive_directory_iterator{},
-        std::back_inserter(ret),
-        [&pattern](const fs::directory_entry& entry) {
-            return (fs::is_regular_file(entry) and std::regex_match(entry.path().filename().string(), pattern));
-        }
-    );
-    return ret;
-}
+namespace tmcppc::problem_37 {
+    std::vector<fs::directory_entry> get_directory_entries_matching(const fs::path& path, const std::string& pattern_str) {
+        std::vector<fs::directory_entry> ret{};
+        std::regex pattern{ pattern_str };
+        const fs::directory_options options{ fs::directory_options::skip_permission_denied };
+        std::copy_if(
+            fs::recursive_directory_iterator{ path, options },
+            fs::recursive_directory_iterator{},
+            std::back_inserter(ret),
+            [&pattern](const fs::directory_entry& entry) {
+                return (fs::is_regular_file(entry) and std::regex_match(entry.path().filename().string(), pattern));
+            }
+        );
+        return ret;
+    }
+}  // namespace tmcppc::problem_37
 
 
 void problem_37_main(std::ostream& os) {
+    using namespace tmcppc::problem_37;
+
     const std::string pattern_str_1{ R"(.*\.jpg$)" };  // jpg extension
     const std::string pattern_str_2{ R"(.*_.*)" };  // contains underscore
     const std::string pattern_str_3{ R"(.*[[:digit:]].*)" };  // contains a digit

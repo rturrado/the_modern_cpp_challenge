@@ -5,6 +5,7 @@
 #include <ostream>
 #include <sstream>  // ostringstream
 #include <string>
+#include <vector>
 
 
 namespace tmcppc::process {
@@ -84,6 +85,13 @@ struct fmt::formatter<tmcppc::process::platform_t> {
         return fmt::format_to(ctx.out(), "{}", platform == tmcppc::process::platform_t::x32 ? "32-bit" : "64-bit");
     }
 };
+
+
+namespace tmcppc::problem_33 {
+    using namespace tmcppc::process;
+
+    void print_process_infos(std::ostream& os, std::vector<info>& infos);
+}  // namespace tmcppc::problem_33
 
 
 void problem_33_main(std::ostream& os);
