@@ -6,6 +6,8 @@
 #include <sstream>  // ostringstream
 #include <vector>
 
+using namespace tmcppc::problem_12;
+
 
 TEST(get_collatz_sequence_size, DISABLED_n_0) { EXPECT_EQ(get_collatz_sequence_size(0), 0); }
 TEST(get_collatz_sequence_size, DISABLED_n_6) { EXPECT_EQ(get_collatz_sequence_size(6), 9); }

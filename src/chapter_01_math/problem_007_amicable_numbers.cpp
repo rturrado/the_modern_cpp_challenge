@@ -9,27 +9,31 @@
 #include <vector>
 
 
-std::vector<std::pair<size_t, size_t>> amicable_numbers_up_to(size_t limit) {
-    using namespace tmcppc::math;
+namespace tmcppc::problem_7 {
+    std::vector<std::pair<size_t, size_t>> amicable_numbers_up_to(size_t limit) {
+        using namespace tmcppc::math;
 
-    std::vector<std::pair<size_t, size_t>> ret{};
+        std::vector<std::pair<size_t, size_t>> ret{};
 
-    for (size_t i{ 1 }; i < limit; ++i) {
-        auto j{ divisors_sum(i) };
-        // Both pairs of amicable numbers have to be smaller than limit
-        // And we only print (i, j) pairs where i < j
-        auto k{ (j < limit and i < j) ? divisors_sum(j) : 0 };
+        for (size_t i{ 1 }; i < limit; ++i) {
+            auto j{ divisors_sum(i) };
+            // Both pairs of amicable numbers have to be smaller than limit
+            // And we only print (i, j) pairs where i < j
+            auto k{ (j < limit and i < j) ? divisors_sum(j) : 0 };
 
-        if (i == k) {
-            ret.push_back({ i, j });
+            if (i == k) {
+                ret.push_back({ i, j });
+            }
         }
-    }
 
-    return ret;
-}
+        return ret;
+    }
+}  // namespace tmcppc::problem_7
 
 
 void problem_7_main(std::ostream& os) {
+    using namespace tmcppc::problem_7;
+
     const size_t limit{ 1'000'000 };
     fmt::print(os, "Amicable numbers up to {}:\n", limit);
     for (auto&& p : amicable_numbers_up_to(limit)) {

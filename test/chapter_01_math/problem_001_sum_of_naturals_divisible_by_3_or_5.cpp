@@ -6,6 +6,8 @@
 #include <sstream>  // istringstream, ostringstream
 #include <vector>
 
+using namespace tmcppc::problem_1;
+
 
 TEST(sum_of_naturals_divisible_by_3_and_5, DISABLED_v1_with_number_0) {
     EXPECT_EQ(naturals_divisible_by_3_or_5_up_to_limit_v1(0), std::vector<size_t>{ 0 });

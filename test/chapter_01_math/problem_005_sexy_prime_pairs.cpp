@@ -7,6 +7,8 @@
 #include <utility>  // pair
 #include <vector>
 
+using namespace tmcppc::problem_5;
+
 
 TEST(sexy_prime_pairs_up_to, DISABLED_zero) {
     std::vector<std::pair<size_t, size_t>> result{};

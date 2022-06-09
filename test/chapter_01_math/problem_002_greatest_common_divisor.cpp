@@ -6,6 +6,8 @@
 #include <limits>  // numeric_limits
 #include <sstream>  // istringstream, ostringstream
 
+using namespace tmcppc::problem_2;
+
 
 TEST(gcd, DISABLED_minus_ten_and_ten) {
     std::ostringstream oss{};

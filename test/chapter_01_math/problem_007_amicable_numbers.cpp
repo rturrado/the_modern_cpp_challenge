@@ -7,6 +7,8 @@
 #include <utility>  // pair
 #include <vector>
 
+using namespace tmcppc::problem_7;
+
 
 TEST(amicable_numbers_up_to, DISABLED_limit_0) {
     std::vector<std::pair<size_t, size_t>> result{};

@@ -6,6 +6,8 @@
 #include <sstream>  // istringstream, ostringstream
 #include <vector>
 
+using namespace tmcppc::problem_6;
+
 
 TEST(abundant_numbers_up_to, DISABLED_zero) {
     std::vector<AbundantNumberResult> result{};

@@ -11,9 +11,11 @@
 
 
 void problem_9_main(std::istream& is, std::ostream& os) {
+    using namespace tmcppc::math;
+
     auto n{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 0): ", 0) };
 
-    fmt::print(os, "Prime factors of {}: {}\n\n", n, tmcppc::math::prime_factors(n));
+    fmt::print(os, "Prime factors of {}: {}\n\n", n, prime_factors(n));
 }
 
 

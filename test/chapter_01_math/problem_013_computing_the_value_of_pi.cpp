@@ -5,6 +5,8 @@
 
 #include <sstream>  // ostringstream
 
+using namespace tmcppc::problem_13;
+
 
 TEST(compute_pi, DISABLED_n_10) { EXPECT_NEAR(compute_pi(10), 3.14159, 0.9); }
 TEST(compute_pi, DISABLED_n_100) { EXPECT_NEAR(compute_pi(100), 3.14159, 0.2); }

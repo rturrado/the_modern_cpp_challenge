@@ -5,6 +5,8 @@
 
 #include <sstream>  // istringstream, ostringstream
 
+using namespace tmcppc::problem_14;
+
 
 TEST(read_n_digit_isbn, DISABLED_fewer_digits_than_expected) {
     std::istringstream iss{ "abc\n0123456789\n" };

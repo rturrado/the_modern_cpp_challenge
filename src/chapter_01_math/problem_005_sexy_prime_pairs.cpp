@@ -12,18 +12,24 @@
 #include <vector>
 
 
-std::vector<std::pair<size_t, size_t>> sexy_prime_pairs_up_to(size_t limit) {
-    std::vector<std::pair<size_t, size_t>> ret{};
-    for (auto i{ 7 }; i <= limit; ++i) {
-        if (tmcppc::math::is_prime(i) and tmcppc::math::is_prime(i - 6)) {
-            ret.push_back({ i - 6, i });
+namespace tmcppc::problem_5 {
+    std::vector<std::pair<size_t, size_t>> sexy_prime_pairs_up_to(size_t limit) {
+        using namespace tmcppc::math;
+
+        std::vector<std::pair<size_t, size_t>> ret{};
+        for (auto i{ 7 }; i <= limit; ++i) {
+            if (tmcppc::math::is_prime(i) and tmcppc::math::is_prime(i - 6)) {
+                ret.push_back({ i - 6, i });
+            }
         }
+        return ret;
     }
-    return ret;
-}
+}  // namespace tmcppc::problem_5
 
 
 void problem_5_main(std::istream& is, std::ostream& os) {
+    using namespace tmcppc::problem_5;
+
     auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 1): ", 1) };
 
     fmt::print(os, "Sexy prime pairs up to {}:\n", limit);

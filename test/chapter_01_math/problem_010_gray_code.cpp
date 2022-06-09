@@ -5,6 +5,8 @@
 
 #include <sstream>  // ostringstream
 
+using namespace tmcppc::problem_10;
+
 
 TEST(binary_to_gray, DISABLED_n_0) { EXPECT_EQ(binary_to_gray(0), 0); }
 TEST(binary_to_gray, DISABLED_n_10) { EXPECT_EQ(binary_to_gray(10), 15); }

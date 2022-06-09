@@ -7,6 +7,8 @@
 #include <sstream>  // istringstream, ostringstream
 #include <vector>
 
+using namespace tmcppc::problem_3;
+
 
 TEST(lcm, DISABLED_empty_v) {
     std::ostringstream oss{};

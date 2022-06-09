@@ -5,6 +5,8 @@
 
 #include <sstream>  // istringstream, ostringstream
 
+using namespace tmcppc::problem_4;
+
 
 TEST(biggest_prime_smaller_than, DISABLED_zero) { EXPECT_EQ(biggest_prime_smaller_than(0), 0); }
 TEST(biggest_prime_smaller_than, DISABLED_one) { EXPECT_EQ(biggest_prime_smaller_than(1), 0); }

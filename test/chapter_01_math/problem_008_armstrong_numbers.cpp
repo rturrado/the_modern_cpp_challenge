@@ -5,6 +5,8 @@
 
 #include <sstream>  // ostringstream
 
+using namespace tmcppc::problem_8;
+
 
 TEST(armstrong_numbers_up_to_a_limit_v1, DISABLED_n_0) {
     EXPECT_THAT(armstrong_numbers_up_to_a_limit_v1(0), ::testing::ElementsAre(0));

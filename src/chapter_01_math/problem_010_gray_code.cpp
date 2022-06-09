@@ -7,22 +7,26 @@
 #include <ostream>
 
 
-size_t binary_to_gray(size_t binary) {
-    return binary ^ (binary >> 1);
-}
-
-
-size_t gray_to_binary(size_t gray) {
-    size_t binary{ 0 };
-    while (gray != 0) {
-        binary ^= gray;
-        gray >>= 1;
+namespace tmcppc::problem_10 {
+    size_t binary_to_gray(size_t binary) {
+        return binary ^ (binary >> 1);
     }
-    return binary;
-}
+
+
+    size_t gray_to_binary(size_t gray) {
+        size_t binary{ 0 };
+        while (gray != 0) {
+            binary ^= gray;
+            gray >>= 1;
+        }
+        return binary;
+    }
+}  // namespace tmcppc::problem_10
 
 
 void problem_10_main(std::ostream& os) {
+    using namespace tmcppc::problem_10;
+
     fmt::print(os, "Number\tBinary\tGray code\tDecoded Gray code\n");
     for (size_t binary = 0b00000; binary <= 0b11111; ++binary) {
         size_t gray{ binary_to_gray(binary) };
