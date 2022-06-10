@@ -12,6 +12,7 @@
 
 void problem_66_main(std::ostream& os) {
     using namespace tmcppc::logging::v2;
+    using namespace tmcppc::office;
 
     auto sleep_for = [](int min, int max) {
         std::default_random_engine random_engine{ std::random_device{}() };

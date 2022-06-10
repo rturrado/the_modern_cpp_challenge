@@ -6,6 +6,8 @@
 
 #include <sstream>  // ostringstream
 
+using namespace tmcppc::office;
+
 
 TEST(problem_66_main, DISABLED_output) {
     std::ostringstream oss{};

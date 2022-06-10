@@ -10,8 +10,8 @@
 
 
 void problem_65_main(std::ostream& os) {
-    using namespace tmcppc::logging::v2;
     using namespace std::chrono_literals;
+    using namespace tmcppc::logging::v2;
 
     auto logger_1 = [&os]() {
         for (size_t i{ 20 }; i > 0;  i--) {

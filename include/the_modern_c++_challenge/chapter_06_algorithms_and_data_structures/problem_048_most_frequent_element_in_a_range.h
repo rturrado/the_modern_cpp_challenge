@@ -19,12 +19,6 @@ namespace tmcppc::data_structures {
     };
 
     template <typename T>
-    std::ostream& operator<<(std::ostream& os, const element_count<T>& ec) {
-        fmt::print(os, "{}", ec);
-        return os;
-    }
-
-    template <typename T>
     using element_count_list = std::vector<element_count<T>>;
 }  // namespace tmcppc::data_structures
 
@@ -41,6 +35,12 @@ struct fmt::formatter<tmcppc::data_structures::element_count<T>> {
         return fmt::format_to(ctx.out(), "[e={}, c={}]", ec.element, ec.count);
     }
 };
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const tmcppc::data_structures::element_count<T>& ec) {
+    fmt::print(os, "{}", ec);
+    return os;
+}
 
 
 namespace tmcppc::problem_48 {

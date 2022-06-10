@@ -14,7 +14,9 @@
 namespace tmcppc::game_of_life {
     inline constinit std::atomic<bool> stop_game{ false };
 
+
     enum class cell_state { dead, alive };
+
 
     class cell {
     public:
