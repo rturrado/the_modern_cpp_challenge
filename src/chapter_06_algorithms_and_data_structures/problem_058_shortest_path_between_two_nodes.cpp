@@ -7,6 +7,8 @@
 
 
 void problem_58_main(std::ostream& os) {
+    using namespace tmcppc::data_structures;
+
     const undirected_graph_map<char, int> graph{
         {{ 'A', 'B' }, 7},
         {{ 'A', 'C' }, 9},

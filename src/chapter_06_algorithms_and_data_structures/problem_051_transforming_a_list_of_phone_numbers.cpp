@@ -9,45 +9,45 @@
 #include <functional>  // reference_wrapper
 #include <iostream>  // cout
 #include <regex>  // regex_match, regex_replace, smatch
-#include <sstream>  // ostringstream
-
-using phone_numbers = tmcppc::phone_numbers;
-using country_code = tmcppc::country_code;
+#include <string>
 
 
-void format_phone_numbers(phone_numbers& ph_nos, const country_code& cc) {
-    std::transform(begin(ph_nos), end(ph_nos), begin(ph_nos), [&cc](auto& ph_no) {
-        // Remove whitespaces
-        std::regex space_pattern{ R"([[:space:]])" };
-        ph_no = std::regex_replace(ph_no, space_pattern, "");
+namespace tmcppc::problem_51 {
+    void format_phone_numbers(phone_numbers& ph_nos, const country_code& cc) {
+        std::transform(begin(ph_nos), end(ph_nos), begin(ph_nos), [&cc](auto& ph_no) {
+            // Remove whitespaces
+            std::regex space_pattern{ R"([[:space:]])" };
+            ph_no = std::regex_replace(ph_no, space_pattern, "");
 
-        // Match a phone number. It can be of the form:
-        // - +, country code, 10-digit number
-        // - country code, 10-digit number
-        // - 0, and then a 10-digit number
-        // - 10 digit number
-        // Country codes and 10-digit numbers shouldn't start with 0
-        std::regex ph_no_pattern{R"((?:0?|([1-9][0-9]*)|\+([1-9][0-9]*))([1-9][0-9]{9}))"};
-        std::smatch matches{};
-        std::ostringstream oss{};
-        if (std::regex_match(ph_no, matches, ph_no_pattern) and
-            ((not matches[1].matched and not matches[2].matched) or
-             (matches[1].matched and stoi(matches[1]) == static_cast<int>(cc)) or
-             (matches[2].matched and stoi(matches[2]) == static_cast<int>(cc)))) {
+            // Match a phone number. It can be of the form:
+            // - +, country code, 10-digit number
+            // - country code, 10-digit number
+            // - 0, and then a 10-digit number
+            // - 10 digit number
+            // Country codes and 10-digit numbers shouldn't start with 0
+            std::regex ph_no_pattern{ R"((?:0?|([1-9][0-9]*)|\+([1-9][0-9]*))([1-9][0-9]{9}))" };
+            std::smatch matches{};
+            if (std::regex_match(ph_no, matches, ph_no_pattern) and
+                ((not matches[1].matched and not matches[2].matched) or
+                    (matches[1].matched and stoi(matches[1]) == static_cast<int>(cc)) or
+                    (matches[2].matched and stoi(matches[2]) == static_cast<int>(cc)))) {
 
-            oss << "+" << static_cast<int>(cc) << matches[3];  // outputs +, country code, 10-digit number
-        }
+                return fmt::format("+{}{}", static_cast<int>(cc), matches[3].str());  // outputs +, country code, 10-digit number
+            }
 
-        // Returns whether a formatted phone number or an empty string
-        return oss.str();
-    });
+            // Returns whether a formatted phone number or an empty string
+            return std::string{};
+        });
 
-    // Removes empty strings from the list of phone numbers
-    std::erase_if(ph_nos, [](auto& ph_no) { return ph_no.empty(); });
-}
+        // Removes empty strings from the list of phone numbers
+        std::erase_if(ph_nos, [](auto& ph_no) { return ph_no.empty(); });
+    }
+}  // namespace tmcppc::problem_51
 
 
 void problem_51_main(std::ostream& os) {
+    using namespace tmcppc::problem_51;
+
     phone_numbers good_cases{
         "07555 111111",
         "07555222222",

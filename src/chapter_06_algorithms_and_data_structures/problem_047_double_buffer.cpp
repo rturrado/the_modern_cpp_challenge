@@ -43,11 +43,12 @@
 // Buffer r: 0 2 0 4 0 6 0 8 0 10
 void test_1(std::ostream& os) {
     using namespace std::chrono_literals;
+    using namespace tmcppc::data_structures;
 
     fmt::print(os, "Test 1:\n\t");
 
     // We work over a double buffer of 10 elements, initially set to 0
-    tmcppc::double_buffer<int> db{ 10 };
+    double_buffer<int> db{ 10 };
 
     // Thread 1 writes every 100ms
     // It writes a sequence of numbers starting from 1
@@ -85,10 +86,11 @@ void test_1(std::ostream& os) {
 // There's no problem here as write operations update the full buffer
 void test_2(std::ostream& os) {
     using namespace std::chrono_literals;
+    using namespace tmcppc::data_structures;
 
     fmt::print(os, "Test 2:\n");
 
-    tmcppc::double_buffer<int> db{ 10 };
+    double_buffer<int> db{ 10 };
 
     // Thread 1 writes the full buffer 10 times, every 100ms
     // First time, it writes a sequence of numbers from 0 to 9

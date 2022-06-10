@@ -11,11 +11,13 @@
 
 
 void problem_45_main(std::ostream& os) {
+    using namespace tmcppc::data_structures;
+
     const std::vector<int> v{ 3, 6, 7, 2, 4, 9, 5, 1, 8, 0 };
     fmt::print(os, "v: {}\n", v);
 
-    tmcppc::priority_queue<int> pq_1{ cbegin(v), cend(v) };
-    fmt::print(os, "tmcppc::priority_queue<int> pq_1(cbegin(v), cend(v));\n");
+    priority_queue<int> pq_1{ cbegin(v), cend(v) };
+    fmt::print(os, "priority_queue<int> pq_1(cbegin(v), cend(v));\n");
     fmt::print(os, "\tpq_1: {}\n", pq_1);
 
     // Notice pq_2 won't necessarily output { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }
@@ -25,17 +27,17 @@ void problem_45_main(std::ostream& os) {
     // Both are valid heaps. Which one is created depends on insertion order.
     //
     // From Stack Overflow: https://stackoverflow.com/a/38365848/260313
-    tmcppc::priority_queue<int, std::greater<int>> pq_2{ cbegin(v), cend(v) };
-    fmt::print(os, "tmcppc::priority_queue<int, std::greater<int>> pq_2(cbegin(v), cend(v));\n");
+    priority_queue<int, std::greater<int>> pq_2{ cbegin(v), cend(v) };
+    fmt::print(os, "priority_queue<int, std::greater<int>> pq_2(cbegin(v), cend(v));\n");
     fmt::print(os, "\tpq_2: {}\n", pq_2);
-    // tmcppc::priority_queue<int, std::less<int>> pq_4{ pq_1 };  // wrong: argument types are tmcppc::priority_queue<int, std::greater<int>>
+    // priority_queue<int, std::less<int>> pq_4{ pq_1 };  // wrong: argument types are priority_queue<int, std::greater<int>>
 
-    tmcppc::priority_queue<int> pq_3{};
-    fmt::print(os, "tmcppc::priority_queue<int> pq_3();\n");
+    priority_queue<int> pq_3{};
+    fmt::print(os, "priority_queue<int> pq_3();\n");
     fmt::print(os, "\tpq_3: {}\n", pq_3);
 
-    tmcppc::priority_queue<int> pq_5{ std::move(pq_1) };
-    fmt::print(os, "tmcppc::priority_queue<int> pq_5(std::move(pq_1));\n");
+    priority_queue<int> pq_5{ std::move(pq_1) };
+    fmt::print(os, "priority_queue<int> pq_5(std::move(pq_1));\n");
     fmt::print(os, "\tpq_5: {}\n", pq_5);
     // fmt::print(os, "\tpq_1: {}\n", pq_1);  // wrong: use of a moved from object
 
@@ -73,8 +75,8 @@ void problem_45_main(std::ostream& os) {
     fmt::print(os, "pq_3.empty(): {}\n", pq_3.empty());
     fmt::print(os, "pq_5.empty(): {}\n", pq_5.empty());
 
-    tmcppc::priority_queue<int, std::greater<int>> pq_6{};
-    fmt::print(os, "tmcppc::priority_queue<int, std::greater<int>> pq_6();\n");
+    priority_queue<int, std::greater<int>> pq_6{};
+    fmt::print(os, "priority_queue<int, std::greater<int>> pq_6();\n");
     fmt::print(os, "\tpq_6: {}\n", pq_6);
 
     for (int i{ 9 }; i > 0; --i) {

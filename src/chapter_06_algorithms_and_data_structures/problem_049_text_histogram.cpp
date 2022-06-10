@@ -15,51 +15,54 @@
 #include <string>  // getline
 
 
-letter_counts count_letters(std::ifstream& in_file) {
-    letter_counts ret{};
-    std::string line{};
-    while (std::getline(in_file, line)) {
-        for (auto& c : line) {
-            // Like all other functions from <cctype>, the behavior of std::isalpha is undefined
-            // if the argument's value is neither representable as unsigned char nor equal to EOF.
-            // To use these functions safely with plain chars (or signed chars),
-            // the argument should first be converted to unsigned char.
-            //
-            // From CppReference: https://en.cppreference.com/w/cpp/string/byte/isalpha
-            if (std::isalpha(static_cast<unsigned char>(c))) {
-                ret[c]++;
+namespace tmcppc::problem_49 {
+    letter_counts count_letters(std::ifstream& in_file) {
+        letter_counts ret{};
+        std::string line{};
+        while (std::getline(in_file, line)) {
+            for (auto& c : line) {
+                // Like all other functions from <cctype>, the behavior of std::isalpha is undefined
+                // if the argument's value is neither representable as unsigned char nor equal to EOF.
+                // To use these functions safely with plain chars (or signed chars),
+                // the argument should first be converted to unsigned char.
+                //
+                // From CppReference: https://en.cppreference.com/w/cpp/string/byte/isalpha
+                if (std::isalpha(static_cast<unsigned char>(c))) {
+                    ret[c]++;
+                }
             }
         }
+        return ret;
     }
-    return ret;
-}
 
 
-void print_histogram(std::ostream& os, letter_counts& counts) {
-    const size_t histogram_width{ 300 };
+    void print_histogram(std::ostream& os, letter_counts& counts) {
+        const size_t histogram_width{ 300 };
 
-    size_t total_count = std::accumulate(cbegin(counts), cend(counts), static_cast<size_t>(0),
-        [](auto total, auto& kvp) { return total + kvp.second;
-    });
+        size_t total_count = std::accumulate(cbegin(counts), cend(counts), static_cast<size_t>(0),
+            [](auto total, auto& kvp) { return total + kvp.second;
+        });
 
-    auto print_histogram_line = [&os, &histogram_width, &total_count](char c, size_t count) {
-        double frequency{ (count * 100.0) / total_count };
+        auto print_histogram_line = [&os, &histogram_width, &total_count](char c, size_t count) {
+            double frequency{ (count * 100.0) / total_count };
 
-        // Subtract 12 for line header, e.g.: 'e (13.25 %) '
-        size_t bar_width{ static_cast<size_t>(((histogram_width - 12) * frequency) / 100) };
+            // Subtract 12 for line header, e.g.: 'e (13.25 %) '
+            size_t bar_width{ static_cast<size_t>(((histogram_width - 12) * frequency) / 100) };
 
-        fmt::print(os, "{} ({:5.2f} %) {:=>{}}\n", c, frequency, '>', bar_width);
-    };
+            fmt::print(os, "{} ({:5.2f} %) {:=>{}}\n", c, frequency, '>', bar_width);
+        };
 
-    std::for_each(cbegin(counts), cend(counts), [&print_histogram_line](const auto& kvp) {
-        print_histogram_line(kvp.first, kvp.second);
-    });
-}
+        std::for_each(cbegin(counts), cend(counts), [&print_histogram_line](const auto& kvp) {
+            print_histogram_line(kvp.first, kvp.second);
+        });
+    }
+}  // namespace tmcppc::problem_49
 
 
 void problem_49_main(std::ostream& os)
 {
     namespace fs = std::filesystem;
+    using namespace tmcppc::problem_49;
 
     try {
         const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };

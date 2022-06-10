@@ -11,26 +11,27 @@
 #include <string>  // stoi
 #include <vector>
 
-using phone_numbers = tmcppc::phone_numbers;
-using country_code = tmcppc::country_code;
 
-
-phone_numbers filter_phone_numbers_by_country_code(const phone_numbers& ph_nos, const country_code& cc) {
-    phone_numbers ret{};
-    std::smatch matches{};
-    // + is optional, country code should be followed by a 9-digit number
-    const std::regex pattern{ R"(^\+?([[:digit:]]+)[[:digit:]]{9}$)" };
-    std::copy_if(cbegin(ph_nos), cend(ph_nos), std::back_inserter(ret), [&matches, &pattern, &cc](const auto& ph_no) {
-        return (
-            std::regex_match(ph_no, matches, pattern) and
-            std::stoi(matches[1]) == static_cast<int>(cc)  // matches[1] is country code
-        );
-    });
-    return ret;
-}
+namespace tmcppc::problem_50 {
+    phone_numbers filter_phone_numbers_by_country_code(const phone_numbers& ph_nos, const country_code& cc) {
+        phone_numbers ret{};
+        std::smatch matches{};
+        // + is optional, country code should be followed by a 9-digit number
+        const std::regex pattern{ R"(^\+?([[:digit:]]+)[[:digit:]]{9}$)" };
+        std::copy_if(cbegin(ph_nos), cend(ph_nos), std::back_inserter(ret), [&matches, &pattern, &cc](const auto& ph_no) {
+            return (
+                std::regex_match(ph_no, matches, pattern) and
+                std::stoi(matches[1]) == static_cast<int>(cc)  // matches[1] is country code
+            );
+        });
+        return ret;
+    }
+}  // namespace tmcppc::problem_50
 
 
 void problem_50_main(std::ostream& os) {
+    using namespace tmcppc::problem_50;
+
     const std::vector<std::string> phone_numbers{
         "555102030",
         "600111222",

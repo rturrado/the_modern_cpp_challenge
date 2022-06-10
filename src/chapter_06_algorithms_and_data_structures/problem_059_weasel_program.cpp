@@ -8,6 +8,8 @@
 
 
 void problem_59_main(std::ostream& os) {
+    using namespace tmcppc::weasel;
+
     weasel_sequence sequence{ "METHINKS IT IS LIKE A WEASEL" };
 
     while (not sequence.end()) {

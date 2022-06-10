@@ -5,7 +5,7 @@
 #include <vector>
 
 
-namespace tmcppc {
+namespace tmcppc::data_structures {
     template <typename T>
     class double_buffer {
     public:
@@ -51,4 +51,4 @@ namespace tmcppc {
         container buffer_read_{};
         mutable std::mutex buffers_mutex{};
     };
-}  // namespace tmcppc
+}  // namespace tmcppc::data_structures

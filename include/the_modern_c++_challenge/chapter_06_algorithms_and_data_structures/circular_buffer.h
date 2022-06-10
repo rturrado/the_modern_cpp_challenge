@@ -8,7 +8,7 @@
 #include <vector>
 
 
-namespace tmcppc {
+namespace tmcppc::data_structures {
     template <typename T>
     class circular_buffer {
     public:
@@ -162,22 +162,22 @@ namespace tmcppc {
     auto cbegin(const circular_buffer<T>& cb) -> decltype(cb.cbegin()) { return cb.cbegin(); }
     template <typename T>
     auto cend(const circular_buffer<T>& cb) -> decltype(cb.cend()) { return cb.cend(); }
-}  // namespace tmcppc
+}  // namespace tmcppc::data_structures
 
 
 template <typename T>
-struct fmt::is_range<tmcppc::circular_buffer<T>, char> : std::false_type {};
+struct fmt::is_range<tmcppc::data_structures::circular_buffer<T>, char> : std::false_type {};
 
 
 template <typename T>
-struct fmt::formatter<tmcppc::circular_buffer<T>> {
+struct fmt::formatter<tmcppc::data_structures::circular_buffer<T>> {
     template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::circular_buffer<T>& cb, FormatContext& ctx) const -> decltype(ctx.out()) {
+    auto format(const tmcppc::data_structures::circular_buffer<T>& cb, FormatContext& ctx) const -> decltype(ctx.out()) {
         return format_to(ctx.out(), "[{}]", fmt::join(cb.container_, ", "));
     }
 };

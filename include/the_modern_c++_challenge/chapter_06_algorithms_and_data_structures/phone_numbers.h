@@ -7,8 +7,8 @@
 #include <vector>
 
 
-namespace tmcppc {
-    using phone_numbers = std::vector<std::string>;
+namespace tmcppc::phone {
+    using numbers = std::vector<std::string>;
 
     enum class country_code {
         US = 1,
@@ -21,22 +21,22 @@ namespace tmcppc {
         fmt::print(os, "{}", cc);
         return os;
     }
-}  // namespace tmcppc
+}  // namespace tmcppc::phone
 
 
 template <>
-struct fmt::formatter<tmcppc::country_code> {
+struct fmt::formatter<tmcppc::phone::country_code> {
     template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::country_code& cc, FormatContext& ctx) const -> decltype(ctx.out()) {
+    auto format(const tmcppc::phone::country_code& cc, FormatContext& ctx) const -> decltype(ctx.out()) {
         switch (cc) {
-            case tmcppc::country_code::US: fmt::format_to(ctx.out(), "{}", "US"); break;
-            case tmcppc::country_code::Spain: fmt::format_to(ctx.out(), "{}", "Spain"); break;
-            case tmcppc::country_code::UK: fmt::format_to(ctx.out(), "{}", "UK"); break;
+            case tmcppc::phone::country_code::US: fmt::format_to(ctx.out(), "{}", "US"); break;
+            case tmcppc::phone::country_code::Spain: fmt::format_to(ctx.out(), "{}", "Spain"); break;
+            case tmcppc::phone::country_code::UK: fmt::format_to(ctx.out(), "{}", "UK"); break;
             default: fmt::format_to(ctx.out(), "{}", "Unknown country code"); break;
         }
         return ctx.out();

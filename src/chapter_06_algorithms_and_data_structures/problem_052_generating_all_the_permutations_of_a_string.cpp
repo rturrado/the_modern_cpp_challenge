@@ -7,46 +7,50 @@
 #include <string>
 
 
-permutations all_permutations_rec_impl(std::string str) {
-    permutations ret{};
-    if (str.size() == 1) {
-        ret.push_back(str);
-    } else {
-        for (const auto& s : all_permutations_rec_impl(str.substr(1))) {
-            for (auto i{ 0 }; i <= s.size(); ++i) {
-                ret.push_back(s.substr(0, i) + str[0] + s.substr(i));
+namespace tmcppc::problem_52 {
+    permutations all_permutations_rec_impl(std::string str) {
+        permutations ret{};
+        if (str.size() == 1) {
+            ret.push_back(str);
+        } else {
+            for (const auto& s : all_permutations_rec_impl(str.substr(1))) {
+                for (auto i{ 0 }; i <= s.size(); ++i) {
+                    ret.push_back(s.substr(0, i) + str[0] + s.substr(i));
+                }
             }
         }
-    }
-    return ret;
-}
-
-
-permutations all_permutations_rec(std::string str) {
-    if (str.empty()) {
-        return {};
+        return ret;
     }
 
-    std::sort(begin(str), end(str));
-    return all_permutations_rec_impl(str);
-}
 
+    permutations all_permutations_rec(std::string str) {
+        if (str.empty()) {
+            return {};
+        }
 
-permutations all_permutations(std::string str) {
-    if (str.empty()) {
-        return {};
+        std::sort(begin(str), end(str));
+        return all_permutations_rec_impl(str);
     }
 
-    permutations ret{};
-    std::sort(begin(str), end(str));
-    do {
-        ret.push_back(str);
-    } while (std::next_permutation(begin(str), end(str)));
-    return ret;
-}
+
+    permutations all_permutations(std::string str) {
+        if (str.empty()) {
+            return {};
+        }
+
+        permutations ret{};
+        std::sort(begin(str), end(str));
+        do {
+            ret.push_back(str);
+        } while (std::next_permutation(begin(str), end(str)));
+        return ret;
+    }
+}  // namespace tmcppc::problem_52
 
 
 void problem_52_main(std::ostream& os) {
+    using namespace tmcppc::problem_52;
+
     for (const auto& str : { "", "n", "ab", "andy" }) {
         fmt::print(os, "All permutations of string: '{}'\n", str);
 

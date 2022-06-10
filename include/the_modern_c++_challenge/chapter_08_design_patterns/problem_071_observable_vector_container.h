@@ -337,7 +337,7 @@ struct fmt::formatter<tmcppc::data_structures::observable_vector<T>> {
 };
 
 template <typename T>
-requires std::is_convertible_v<std::vector<T>, std::string_view>
+    requires std::is_convertible_v<std::vector<T>, std::string_view>
 struct fmt::formatter<tmcppc::data_structures::observable_vector<T>> {
     template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {

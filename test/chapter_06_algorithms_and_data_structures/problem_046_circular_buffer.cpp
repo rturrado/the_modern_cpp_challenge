@@ -12,7 +12,7 @@ TEST(problem_46_main, DISABLED_output) {
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "Error: trying to create a circular_buffer with a fixed size of 0.\n"
         "\n"
-        "tmcppc::circular_buffer<double> cb_3(5);\n"
+        "circular_buffer<double> cb_3(5);\n"
         "\tcb_3: [0, 0, 0, 0, 0], capacity: 5, size: 0\n"
         "\n"
         "cb_3.push_back(1);\n"

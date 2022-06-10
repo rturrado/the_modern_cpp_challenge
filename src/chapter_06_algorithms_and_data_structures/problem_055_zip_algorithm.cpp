@@ -7,6 +7,8 @@
 
 
 void problem_55_main(std::ostream& os) {
+    using namespace tmcppc::problem_55;
+
     const std::vector<int> rng_1{ 1, 2, 3 , 4, 5, 6, 7, 8, 9, 10 };
     const std::vector<int> rng_2{ 1, 1, 3, 5, 8, 13, 21 };
     const std::vector<char> rng_3{ 'a', 'b', 'c', 'd', 'e' };

@@ -5,7 +5,7 @@
 #include <vector>
 
 
-namespace tmcppc {
+namespace tmcppc::data_structures {
     template <typename T, typename Compare = std::less<T>>
     class priority_queue {
     public:
@@ -67,4 +67,4 @@ namespace tmcppc {
     auto cbegin(const priority_queue<T, Compare>& pq) -> decltype(pq.cbegin()) { return pq.cbegin(); }
     template <typename T, typename Compare>
     auto cend(const priority_queue<T, Compare>& pq) -> decltype(pq.cend()) { return pq.cend(); }
-}  // namespace tmcppc
+}  // namespace tmcppc::data_structures

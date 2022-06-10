@@ -6,22 +6,26 @@
 #include <numeric>  // accumulate
 
 
-double average_rating(ratings rs) {
-    if (rs.empty()) {
-        return double{ 0.0 };
+namespace tmcppc::problem_53 {
+    double average_rating(ratings rs) {
+        if (rs.empty()) {
+            return double{ 0.0 };
+        }
+
+        std::sort(begin(rs), end(rs));
+
+        size_t ratings_to_remove{ static_cast<size_t>(rs.size() * 0.1 + 0.5) };  // removing a 10% instead of a 5%
+        rs.erase(begin(rs), begin(rs) + ratings_to_remove);
+        rs.erase(end(rs) - ratings_to_remove, end(rs));
+
+        return std::accumulate(begin(rs), end(rs), 0.0) / rs.size();
     }
-
-    std::sort(begin(rs), end(rs));
-
-    size_t ratings_to_remove{ static_cast<size_t>(rs.size() * 0.1 + 0.5) };  // removing a 10% instead of a 5%
-    rs.erase(begin(rs), begin(rs) + ratings_to_remove);
-    rs.erase(end(rs) - ratings_to_remove, end(rs));
-
-    return std::accumulate(begin(rs), end(rs), 0.0) / rs.size();
-}
+}  // namespace tmcppc::problem_53
 
 
 void problem_53_main(std::ostream& os) {
+    using namespace tmcppc::problem_53;
+
     movie_ratings mr = {
         { "The Godfather", { 10, 8, 7, 9, 9, 9, 3, 10, 6 } },
         { "The Godfather II", { 10, 9, 9, 8, 8, 10, 2, 4, 6 } },

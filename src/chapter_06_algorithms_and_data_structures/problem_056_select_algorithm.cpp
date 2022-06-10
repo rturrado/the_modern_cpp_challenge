@@ -7,6 +7,8 @@
 
 
 void problem_56_main(std::ostream& os) {
+    using namespace tmcppc::problem_56;
+
     const std::vector<book> books{
         { 101, "The C++ Programming Language", "Bjarne Stroustrup" },
         { 203, "Effective Modern C++", "Scott Meyers" },

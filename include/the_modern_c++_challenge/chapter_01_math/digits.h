@@ -8,7 +8,7 @@
 
 namespace tmcppc::math {
     template <typename T>
-    requires std::numeric_limits<T>::is_integer && (!std::numeric_limits<T>::is_signed)
+        requires std::numeric_limits<T>::is_integer && (!std::numeric_limits<T>::is_signed)
     class digits {
     public:
         digits() : data_{0} {}

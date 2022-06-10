@@ -6,11 +6,11 @@
 #include <iostream>  // cout
 #include <ostream>
 #include <stdexcept>  // runtime_error
-#include <string_view>  // literals
+#include <string_view>
 
 
 void problem_46_main(std::ostream& os) {
-    using namespace std::literals;
+    using namespace tmcppc::data_structures;
 
     auto print_circular_buffer = [&os](const std::string_view cb_name, const auto& cb) -> void {
         fmt::print(os, "\t{}: {}, capacity: {}, size: {}{}\n",
@@ -24,38 +24,38 @@ void problem_46_main(std::ostream& os) {
         );
     };
 
-    // tmcppc::circular_buffer<int> cb_1{};  // wrong: default constructor is private
+    // circular_buffer<int> cb_1{};  // wrong: default constructor is private
 
     try {
-        tmcppc::circular_buffer<int> cb_2{ 0 };
+        circular_buffer<int> cb_2{ 0 };
     } catch (const std::runtime_error& err) {
         fmt::print(os, "Error: {}\n", err.what());
     }
     fmt::print(os, "\n");
 
-    tmcppc::circular_buffer<double> cb_3{ 5 };
-    fmt::print(os, "tmcppc::circular_buffer<double> cb_3(5);\n");
-    print_circular_buffer("cb_3"sv, cb_3);
+    circular_buffer<double> cb_3{ 5 };
+    fmt::print(os, "circular_buffer<double> cb_3(5);\n");
+    print_circular_buffer("cb_3", cb_3);
     fmt::print(os, "\n");
 
     for (auto i{ 1 }; i < static_cast<int>(1.5 * cb_3.capacity()); ++i) {
         cb_3.push_back(i);
         fmt::print(os, "cb_3.push_back({});\n", i);
-        print_circular_buffer("cb_3"sv, cb_3);
+        print_circular_buffer("cb_3", cb_3);
     }
     fmt::print(os, "\n");
 
     cb_3.pop_front();
     fmt::print(os, "cb_3.pop_front();\n");
-    print_circular_buffer("cb_3"sv, cb_3);
+    print_circular_buffer("cb_3", cb_3);
     cb_3.pop_back();
     fmt::print(os, "cb_3.pop_back();\n");
-    print_circular_buffer("cb_3"sv, cb_3);
+    print_circular_buffer("cb_3", cb_3);
     fmt::print(os, "\n");
 
     cb_3.clear();
     fmt::print(os, "cb_3.clear();\n");
-    print_circular_buffer("cb_3"sv, cb_3);
+    print_circular_buffer("cb_3", cb_3);
     fmt::print(os, "\n");
 }
 

@@ -8,6 +8,8 @@
 
 
 void problem_60_main(std::ostream& os, std::chrono::duration<int> timeout) {
+    using namespace tmcppc::game_of_life;
+
     // Initialize stop game flag
     stop_game = false;
 

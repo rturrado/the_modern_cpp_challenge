@@ -15,7 +15,9 @@ void problem_57_main(std::ostream& os) {
 
     std::vector<int> v_i{ 10, 15, 20, 25, 30, 35, 40 };
     fmt::print(os, "Quicksorting {}: ", v_i);
-    tmcppc::algorithm::quicksort(begin(v_i), end(v_i), [](int i, int j) { return (i % 10 - i / 10) < (j % 10 - j / 10); });
+    tmcppc::algorithm::quicksort(begin(v_i), end(v_i), [](int i, int j) {
+        return (i % 10 - i / 10) < (j % 10 - j / 10);
+    });
     fmt::print(os, "{}\n\n", v_i);
 }
 

@@ -13,6 +13,9 @@
 
 
 void problem_48_main(std::ostream& os) {
+    using namespace tmcppc::data_structures;
+    using namespace tmcppc::problem_48;
+
     std::vector<int> v_i{ 1, 1, 3, 5, 8, 13, 3, 5, 8, 8, 5 };
     std::vector<char> v_c{ '0', 'a', 'A', '@', '0', 'A', '@', '@' };
     std::vector<double> v_d{};

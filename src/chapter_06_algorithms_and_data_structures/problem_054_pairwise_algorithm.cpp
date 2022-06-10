@@ -7,6 +7,8 @@
 
 
 void problem_54_main(std::ostream& os) {
+    using namespace tmcppc::problem_54;
+
     std::vector v_1(6, 1);
     std::vector v_2(7, 1);  // v_2 has an odd number of elements
 
