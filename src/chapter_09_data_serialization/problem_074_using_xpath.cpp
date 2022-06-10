@@ -12,42 +12,45 @@
 #include <ostream>
 
 
-void print_movies_released_after_year(std::ostream& os, const tmcppc::movies::xml::doc& doc, int year) {
-    fmt::print(os, "Movies released after year: {}\n", year);
+namespace tmcppc::problem_74 {
+    void print_movies_released_after_year(std::ostream& os, const tmcppc::movies::xml::doc& doc, int year) {
+        fmt::print(os, "Movies released after year: {}\n", year);
 
-    pugi::xpath_variable_set vars;
-    vars.add("year", pugi::xpath_type_number);
-    vars.set("year", static_cast<double>(year));
-    const pugi::xpath_query query{"/movies/movie[@year > $year]", &vars};
-    auto movies{ query.evaluate_node_set(doc.get_pugi_xml_root()) };
+        pugi::xpath_variable_set vars;
+        vars.add("year", pugi::xpath_type_number);
+        vars.set("year", static_cast<double>(year));
+        const pugi::xpath_query query{ "/movies/movie[@year > $year]", &vars };
+        auto movies{ query.evaluate_node_set(doc.get_pugi_xml_root()) };
 
-    for (auto&& movie : movies) {
-        fmt::print(os, "\t{}: {}\n",
-            tmcppc::pugixml::attribute_or_throw(movie.node(), "title").as_string(),
-            tmcppc::pugixml::attribute_or_throw(movie.node(), "year").as_int());
+        for (auto&& movie : movies) {
+            fmt::print(os, "\t{}: {}\n",
+                tmcppc::pugixml::attribute_or_throw(movie.node(), "title").as_string(),
+                tmcppc::pugixml::attribute_or_throw(movie.node(), "year").as_int());
+        }
     }
-}
 
 
-void print_last_actor_in_casting_list_for_every_movie(std::ostream& os, const tmcppc::movies::xml::doc& doc) {
-    fmt::print(os, "Last actor in the casting list for every movie:\n");
+    void print_last_actor_in_casting_list_for_every_movie(std::ostream& os, const tmcppc::movies::xml::doc& doc) {
+        fmt::print(os, "Last actor in the casting list for every movie:\n");
 
-    const pugi::xpath_query query{ "/movies/movie" };
-    auto movies{ query.evaluate_node_set(doc.get_pugi_xml_root()) };
+        const pugi::xpath_query query{ "/movies/movie" };
+        auto movies{ query.evaluate_node_set(doc.get_pugi_xml_root()) };
 
-    for (auto&& movie : movies) {
-        const pugi::xpath_query query{ "cast/role[last()]" };
-        auto actor{ query.evaluate_node(movie) };
+        for (auto&& movie : movies) {
+            const pugi::xpath_query query{ "cast/role[last()]" };
+            auto actor{ query.evaluate_node(movie) };
 
-        fmt::print(os, "\t{}: {}\n",
-            tmcppc::pugixml::attribute_or_throw(movie.node(), "title").as_string(),
-            tmcppc::pugixml::attribute_or_throw(actor.node(), "star").as_string());
+            fmt::print(os, "\t{}: {}\n",
+                tmcppc::pugixml::attribute_or_throw(movie.node(), "title").as_string(),
+                tmcppc::pugixml::attribute_or_throw(actor.node(), "star").as_string());
+        }
     }
-}
+}  // namespace tmcppc::problem_74
 
 
 void problem_74_main(std::ostream& os) {
     using namespace std::chrono_literals;
+    using namespace tmcppc::problem_74;
 
     const auto temp_file_path{ std::filesystem::temp_directory_path() / "list_of_movies.xml" };
 
