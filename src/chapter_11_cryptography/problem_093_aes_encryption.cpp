@@ -14,11 +14,13 @@
 #include "cryptopp/files.h"  // FileSink, FileSource
 #include "cryptopp/hex.h"  // HexDecoder, HexEncoder
 
+namespace fs = std::filesystem;
+
 
 void problem_93_main(std::ostream& os) {
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
-    const auto encrypted_file_path{ std::filesystem::temp_directory_path() / "calibri.ttf.encrypted" };
-    const auto decrypted_file_path{ std::filesystem::temp_directory_path() / "calibri.ttf.decrypted" };
+    const auto encrypted_file_path{ fs::temp_directory_path() / "calibri.ttf.encrypted" };
+    const auto decrypted_file_path{ fs::temp_directory_path() / "calibri.ttf.decrypted" };
     const std::string password{ "Super secret password" };
 
     fmt::print(os, "Encrypting and decrypting file '{}'\n", input_file_path.generic_string());

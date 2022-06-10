@@ -14,74 +14,78 @@
 namespace fs = std::filesystem;
 
 
-void generate_keys(const fs::path& rsa_private_key_file_path, const fs::path& rsa_public_key_file_path) {
-    using namespace CryptoPP;
+namespace tmcppc::problem_94 {
+    void generate_keys(const fs::path& rsa_private_key_file_path, const fs::path& rsa_public_key_file_path) {
+        using namespace CryptoPP;
 
-    AutoSeededRandomPool rng{};
+        AutoSeededRandomPool rng{};
 
-    RSAES_OAEP_SHA_Decryptor private_key{ rng, 3072 };
-    HexEncoder private_file{ new FileSink{ rsa_private_key_file_path.c_str() } };
-    private_key.AccessMaterial().Save(private_file);
-    private_file.MessageEnd();
+        RSAES_OAEP_SHA_Decryptor private_key{ rng, 3072 };
+        HexEncoder private_file{ new FileSink{ rsa_private_key_file_path.c_str() } };
+        private_key.AccessMaterial().Save(private_file);
+        private_file.MessageEnd();
 
-    RSAES_OAEP_SHA_Encryptor public_key{ private_key };
-    HexEncoder public_file{ new FileSink{ rsa_public_key_file_path.c_str() } };
-    public_key.AccessMaterial().Save(public_file);
-    public_file.MessageEnd();
-}
+        RSAES_OAEP_SHA_Encryptor public_key{ private_key };
+        HexEncoder public_file{ new FileSink{ rsa_public_key_file_path.c_str() } };
+        public_key.AccessMaterial().Save(public_file);
+        public_file.MessageEnd();
+    }
 
 
-void sign_file(const fs::path& input_file_path, const fs::path& rsa_private_key_file_path, const fs::path& signature_file_path) {
-    using namespace CryptoPP;
+    void sign_file(const fs::path& input_file_path, const fs::path& rsa_private_key_file_path, const fs::path& signature_file_path) {
+        using namespace CryptoPP;
 
-    AutoSeededRandomPool rng{};
+        AutoSeededRandomPool rng{};
 
-    FileSource private_file{ rsa_private_key_file_path.c_str(), true, new HexDecoder{} };
-    RSASSA_PKCS1v15_SHA_Signer signer{ private_file };
+        FileSource private_file{ rsa_private_key_file_path.c_str(), true, new HexDecoder{} };
+        RSASSA_PKCS1v15_SHA_Signer signer{ private_file };
 
-    FileSource input_file_source{
-        input_file_path.c_str(),
-        true,
-        new SignerFilter{
-            rng,
-            signer,
-            new HexEncoder{
-                new FileSink{
-                    signature_file_path.c_str()
+        FileSource input_file_source{
+            input_file_path.c_str(),
+            true,
+            new SignerFilter{
+                rng,
+                signer,
+                new HexEncoder{
+                    new FileSink{
+                        signature_file_path.c_str()
+                    }
                 }
             }
-        }
-    };
-}
-
-
-bool verify_file(const fs::path& input_file_path, const fs::path& rsa_public_key_file_path, const fs::path& signature_file_path) {
-    using namespace CryptoPP;
-
-    FileSource public_file{ rsa_public_key_file_path.c_str(), true, new HexDecoder{} };
-    RSASSA_PKCS1v15_SHA_Verifier verifier{ public_file };
-
-    FileSource signature_file{ signature_file_path.c_str(), true, new HexDecoder{} };
-    if (signature_file.MaxRetrievable() != verifier.SignatureLength()) {
-        return false;
+        };
     }
-    SecByteBlock signature{ verifier.SignatureLength() };
-    signature_file.Get(signature, signature.size());
 
-    SignatureVerificationFilter* verifierFilter{ new SignatureVerificationFilter(verifier) };
-    verifierFilter->Put(signature, verifier.SignatureLength());
 
-    FileSource input_file_source{
-        input_file_path.c_str(),
-        true,
-        verifierFilter
-    };
+    bool verify_file(const fs::path& input_file_path, const fs::path& rsa_public_key_file_path, const fs::path& signature_file_path) {
+        using namespace CryptoPP;
 
-    return verifierFilter->GetLastResult();
-}
+        FileSource public_file{ rsa_public_key_file_path.c_str(), true, new HexDecoder{} };
+        RSASSA_PKCS1v15_SHA_Verifier verifier{ public_file };
+
+        FileSource signature_file{ signature_file_path.c_str(), true, new HexDecoder{} };
+        if (signature_file.MaxRetrievable() != verifier.SignatureLength()) {
+            return false;
+        }
+        SecByteBlock signature{ verifier.SignatureLength() };
+        signature_file.Get(signature, signature.size());
+
+        SignatureVerificationFilter* verifierFilter{ new SignatureVerificationFilter(verifier) };
+        verifierFilter->Put(signature, verifier.SignatureLength());
+
+        FileSource input_file_source{
+            input_file_path.c_str(),
+            true,
+            verifierFilter
+        };
+
+        return verifierFilter->GetLastResult();
+    }
+}  // namespace tmcppc::problem_94
 
 
 void problem_94_main(std::ostream& os) {
+    using namespace tmcppc::problem_94;
+
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
     const auto rsa_private_key_file_path{ fs::temp_directory_path() / "private_key.txt" };
     const auto rsa_public_key_file_path{ fs::temp_directory_path() / "public_key.txt" };

@@ -6,5 +6,6 @@ set(chapter_11_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_092_computing_file_hashes.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_093_aes_encryption.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_094_file_signing.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/vigenere.cpp"
     PARENT_SCOPE
 )

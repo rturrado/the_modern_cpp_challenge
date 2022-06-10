@@ -5,7 +5,10 @@
 #include <istream>
 #include <ostream>
 
+
 void problem_91_main(std::istream& is, std::ostream& os) {
+    using namespace tmcppc::crypto;
+
     login_simulator::get_instance(is, os).run();
     fmt::print(os, "\n");
 }

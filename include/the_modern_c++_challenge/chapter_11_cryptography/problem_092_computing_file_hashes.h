@@ -11,27 +11,26 @@
 #include "cryptopp/filters.h"  // HashFilter, StringSink
 #include "cryptopp/hex.h"  // HexEncoder
 
-namespace fs = std::filesystem;
 
+namespace tmcppc::crypto {
+    template <typename Hash>
+    std::string get_hash_as_hex_string(const std::filesystem::path& file_path) {
+        std::string digest{};
+        Hash hash{};
 
-template <typename Hash>
-std::string get_hash_as_hex_string(const fs::path& file_path)
-{
-    std::string digest{};
-    Hash hash{};
-
-    CryptoPP::FileSource file_source{
-        file_path.c_str(),
-        true,
-        new CryptoPP::HashFilter{hash,
-            new CryptoPP::HexEncoder{
-                new CryptoPP::StringSink{digest}
+        CryptoPP::FileSource file_source{
+            file_path.c_str(),
+            true,
+            new CryptoPP::HashFilter{hash,
+                new CryptoPP::HexEncoder{
+                    new CryptoPP::StringSink{digest}
+                }
             }
-        }
-    };
+        };
 
-    return digest;
-}
+        return digest;
+    }
+}  // namespace tmcppc::crypto
 
 
 void problem_92_main(std::ostream& os);
