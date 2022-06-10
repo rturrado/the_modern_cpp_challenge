@@ -14,68 +14,71 @@
 #include <istream>
 #include <ostream>
 
-namespace fs = std::filesystem;
 
-
-// insert_movie updates movie.id
-void add_new_movie(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db, tmcppc::movies::movie& movie) {
-    auto c{
-        rtc::console::read_char(is, os,
-            fmt::format("{}\nAre you sure you want to add this movie to the movies database? [y/n] ", movie),
-            {'n', 'N', 'y', 'Y'}
-    )};
-    if (c == 'y' or c == 'Y') {
-        movies_db.insert_movie(movie);
-    }
-}
-
-
-void add_new_movie_from_console(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db) {
-    fmt::print(os, "Please enter the movie data (ID will be later overwritten with DB's Movies.rowid)\n");
-    tmcppc::movies::movie movie{};
-    tmcppc::movies::console::from_console(is, os, movie);
-    add_new_movie(is, os, movies_db, movie);
-}
-
-
-void add_new_movie_from_file(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db) {
-    const fs::path new_movies_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "db" / "NewMovies.txt" };
-    fmt::print(os, "Adding movies from {}\n", new_movies_file_path.generic_string());
-    std::ifstream ifs{ new_movies_file_path };
-    try {
-        std::string line{};
-        std::getline(ifs, line);
-        int number_of_movies{ std::stoi(line) };
-        while (number_of_movies--) {
-            tmcppc::movies::movie movie{};
-            tmcppc::movies::file::from_file(ifs, movie);
-            add_new_movie(is, os, movies_db, movie);
-        }
-    } catch (const std::exception& ex) {
-        fmt::print(os, "Error: {}\n", ex.what());
-    }
-}
-
-
-void add_new_movies(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db) {
-    for (;;) {
-        auto input_option{
+namespace tmcppc::problem_86 {
+    // insert_movie updates movie.id
+    void add_new_movie(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db, tmcppc::movies::movie& movie) {
+        auto c{
             rtc::console::read_char(is, os,
-                "Choose method for adding a new movie (1 - Console, 2 - File, q - Quit): ",
-                { '1', '2', 'q'}
+                fmt::format("{}\nAre you sure you want to add this movie to the movies database? [y/n] ", movie),
+                {'n', 'N', 'y', 'Y'}
         )};
-        switch (input_option) {
-            case '1': add_new_movie_from_console(is, os, movies_db); break;
-            case '2': add_new_movie_from_file(is, os, movies_db); break;
-            case 'q': return;
-            default: break;
+        if (c == 'y' or c == 'Y') {
+            movies_db.insert_movie(movie);
         }
     }
-    fmt::print(os, "\n");
-}
+
+
+    void add_new_movie_from_console(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db) {
+        fmt::print(os, "Please enter the movie data (ID will be later overwritten with DB's Movies.rowid)\n");
+        tmcppc::movies::movie movie{};
+        tmcppc::movies::console::from_console(is, os, movie);
+        add_new_movie(is, os, movies_db, movie);
+    }
+
+
+    void add_new_movie_from_file(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db) {
+        const std::filesystem::path new_movies_file_path{
+            tmcppc::env::get_instance().get_resource_folder_path() / "db" / "NewMovies.txt" };
+        fmt::print(os, "Adding movies from {}\n", new_movies_file_path.generic_string());
+        std::ifstream ifs{ new_movies_file_path };
+        try {
+            std::string line{};
+            std::getline(ifs, line);
+            int number_of_movies{ std::stoi(line) };
+            while (number_of_movies--) {
+                tmcppc::movies::movie movie{};
+                tmcppc::movies::file::from_file(ifs, movie);
+                add_new_movie(is, os, movies_db, movie);
+            }
+        } catch (const std::exception& ex) {
+            fmt::print(os, "Error: {}\n", ex.what());
+        }
+    }
+
+
+    void add_new_movies(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db) {
+        for (;;) {
+            auto input_option{
+                rtc::console::read_char(is, os,
+                    "Choose method for adding a new movie (1 - Console, 2 - File, q - Quit): ",
+                    { '1', '2', 'q'}
+            )};
+            switch (input_option) {
+                case '1': add_new_movie_from_console(is, os, movies_db); break;
+                case '2': add_new_movie_from_file(is, os, movies_db); break;
+                case 'q': return;
+                default: break;
+            }
+        }
+        fmt::print(os, "\n");
+    }
+}  // namespace tmcppc::problem_86
 
 
 void problem_86_main(std::istream& is, std::ostream& os) {
+    using namespace tmcppc::problem_86;
+
     const auto db_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "db" / "movies.db" };
 
     try {

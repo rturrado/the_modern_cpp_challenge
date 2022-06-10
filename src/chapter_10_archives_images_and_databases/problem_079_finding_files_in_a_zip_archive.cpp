@@ -16,34 +16,38 @@
 namespace fs = std::filesystem;
 
 
-std::vector<std::string> regex_search_in_zip_file(std::ostream& os, const fs::path& file_path, const std::regex& pattern) {
-    try {
-        if (not fs::exists(file_path)) {
-            return {};
-        }
+namespace tmcppc::problem_79 {
+    std::vector<std::string> regex_search_in_zip_file(std::ostream& os, const fs::path& file_path, const std::regex& pattern) {
+        try {
+            if (not fs::exists(file_path)) {
+                return {};
+            }
 
-        std::vector<std::string> file_paths{};
+            std::vector<std::string> file_paths{};
 
-        auto archive{ ZipFile::Open(file_path.generic_string()) };
-        for (auto i{ 0 }; i < archive->GetEntriesCount(); ++i) {
-            auto entry{ archive->GetEntry(i) };
-            if (not entry->IsDirectory()) {
-                auto& entry_file_path{ entry->GetFullName() };
-                if (std::regex_match(entry_file_path, pattern)) {
-                    file_paths.push_back(entry_file_path);
+            auto archive{ ZipFile::Open(file_path.generic_string()) };
+            for (auto i{ 0 }; i < archive->GetEntriesCount(); ++i) {
+                auto entry{ archive->GetEntry(i) };
+                if (not entry->IsDirectory()) {
+                    auto& entry_file_path{ entry->GetFullName() };
+                    if (std::regex_match(entry_file_path, pattern)) {
+                        file_paths.push_back(entry_file_path);
+                    }
                 }
             }
+            return file_paths;
+        } catch (const std::exception& ex) {
+            fmt::print(os, "Error: {}\n", ex.what());
+            return {};
         }
-        return file_paths;
-    } catch (const std::exception& ex) {
-        fmt::print(os, "Error: {}\n", ex.what());
-        return {};
-    }
-};
+    };
+}  // namespace tmcppc::problem_79
 
 
 void problem_79_main(std::ostream& os) {
-    const std::filesystem::path input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_folder.zip" };
+    using namespace tmcppc::problem_79;
+
+    const fs::path input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_folder.zip" };
     std::string pattern_str{ R"(^.*\.jpg$)" };
     fmt::print(os, "Searching for '{}' files in '{}'...\n", pattern_str, input_file_path.generic_string());
     for (auto&& f : regex_search_in_zip_file(os, input_file_path, std::regex{ pattern_str })) {

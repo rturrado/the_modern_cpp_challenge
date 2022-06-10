@@ -9,77 +9,81 @@
 #include <iostream>  // cout
 #include <ostream>
 
-using namespace tmcppc::png;
 using namespace rtc::random;
+using namespace tmcppc::png;
 
 
-void paint_gradient_background(png_writer& png_writer) {
-    const int image_width{ png_writer.get_width() };
-    const int image_height{ png_writer.get_height() };
+namespace tmcppc::problem_83 {
+    void paint_gradient_background(png_writer& png_writer) {
+        const int image_width{ png_writer.get_width() };
+        const int image_height{ png_writer.get_height() };
 
-    const rectangle_2d image_rectangle{ {1, 1}, {image_width, image_height} };
-    const gradient gradient{ { 0.3, 0.3, 0.7 }, {} };
+        const rectangle_2d image_rectangle{ {1, 1}, {image_width, image_height} };
+        const gradient gradient{ { 0.3, 0.3, 0.7 }, {} };
 
-    png_writer.plot_filled_rectangle_horizontal_gradient(image_rectangle, gradient);
-}
-
-
-void paint_random_letters(png_writer& png_writer) {
-    const int image_width{ png_writer.get_width() };
-    const int image_height{ png_writer.get_height() };
-
-    const auto font_file_root_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" };
-    const std::vector<std::filesystem::path> font_file_names{
-        "calibri.ttf",
-        "calibrib.ttf",
-        "calibrii.ttf",
-        "calibril.ttf",
-        "calibrili.ttf",
-        "calibriz.ttf"
-    };
-    const auto number_of_letters{ 4 };
-
-    random_int random_font{ 0, static_cast<int>(font_file_names.size()) - 1 };
-    random_int random_font_size{ image_height / 4, image_height / 2 };
-    random_int random_y{ image_height / 4, image_height / 2 };
-    random_int random_angle{ 0, 45 };
-    random_letter random_letter{};
-    random_floating_point random_colour{ 0.4, 0.8 };
-
-    for (int i{ 0 }; i < number_of_letters; ++i) {
-        auto font_file_path{ font_file_root_path / font_file_names[random_font()] };
-        auto font_size{ random_font_size() };
-        auto start_position = point_2d{ i * image_width / number_of_letters, random_y()};
-        auto angle{ (i % 2 == 0 ? -1.0 : 1.0) * random_angle() * 3.14 / 180 };
-        auto text = std::string{ random_letter() };
-        auto colour = rgb{ random_colour(), random_colour(), random_colour() };
-
-        png_writer.plot_text(font_file_path, font_size, start_position, angle, text, colour);
+        png_writer.plot_filled_rectangle_horizontal_gradient(image_rectangle, gradient);
     }
-}
 
 
-void paint_random_strokes(png_writer& png_writer) {
-    const int image_width{ png_writer.get_width() };
-    const int image_height{ png_writer.get_height() };
+    void paint_random_letters(png_writer& png_writer) {
+        const int image_width{ png_writer.get_width() };
+        const int image_height{ png_writer.get_height() };
 
-    const auto number_of_strokes{ 8 };
+        const auto font_file_root_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" };
+        const std::vector<std::filesystem::path> font_file_names{
+            "calibri.ttf",
+            "calibrib.ttf",
+            "calibrii.ttf",
+            "calibril.ttf",
+            "calibrili.ttf",
+            "calibriz.ttf"
+        };
+        const auto number_of_letters{ 4 };
 
-    random_int random_x0{ 5 * image_width / 100, 10 * image_width / 100 };
-    random_int random_x1{ 90 * image_width / 100, 95 * image_width / 100 };
-    random_int random_y{ 5 * image_height / 100, 95 * image_height / 100 };
-    random_floating_point random_colour{ 0.2, 0.6 };
+        random_int random_font{ 0, static_cast<int>(font_file_names.size()) - 1 };
+        random_int random_font_size{ image_height / 4, image_height / 2 };
+        random_int random_y{ image_height / 4, image_height / 2 };
+        random_int random_angle{ 0, 45 };
+        random_letter random_letter{};
+        random_floating_point random_colour{ 0.4, 0.8 };
 
-    for (int i{ 0 }; i < number_of_strokes; ++i) {
-        auto line = line_2d{ { random_x0(), random_y() }, { random_x1(), random_y() } };
-        auto colour = rgb{ random_colour(), random_colour(), random_colour() };
+        for (int i{ 0 }; i < number_of_letters; ++i) {
+            auto font_file_path{ font_file_root_path / font_file_names[random_font()] };
+            auto font_size{ random_font_size() };
+            auto start_position = point_2d{ i * image_width / number_of_letters, random_y() };
+            auto angle{ (i % 2 == 0 ? -1.0 : 1.0) * random_angle() * 3.14 / 180 };
+            auto text = std::string{ random_letter() };
+            auto colour = rgb{ random_colour(), random_colour(), random_colour() };
 
-        png_writer.plot_line(line, colour);
+            png_writer.plot_text(font_file_path, font_size, start_position, angle, text, colour);
+        }
     }
-}
+
+
+    void paint_random_strokes(png_writer& png_writer) {
+        const int image_width{ png_writer.get_width() };
+        const int image_height{ png_writer.get_height() };
+
+        const auto number_of_strokes{ 8 };
+
+        random_int random_x0{ 5 * image_width / 100, 10 * image_width / 100 };
+        random_int random_x1{ 90 * image_width / 100, 95 * image_width / 100 };
+        random_int random_y{ 5 * image_height / 100, 95 * image_height / 100 };
+        random_floating_point random_colour{ 0.2, 0.6 };
+
+        for (int i{ 0 }; i < number_of_strokes; ++i) {
+            auto line = line_2d{ { random_x0(), random_y() }, { random_x1(), random_y() } };
+            auto colour = rgb{ random_colour(), random_colour(), random_colour() };
+
+            png_writer.plot_line(line, colour);
+        }
+    }
+}  // namespace tmcppc::problem_83
 
 
 void problem_83_main(std::ostream& os) {
+    using namespace tmcppc::problem_83;
+
     const auto image_file_path{ create_png_file_path(std::filesystem::temp_directory_path(), "captcha") };
 
     fmt::print(os, "Creating {}...\n\n", image_file_path.generic_string());
