@@ -7,8 +7,11 @@
 #include <fmt/chrono.h>
 #include <fmt/ranges.h>
 
+using namespace tmcppc::problem_12;
+
 
 constinit const size_t limit{ 1'000'000 };
+
 
 // Custom benchmark
 //

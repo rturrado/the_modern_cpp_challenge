@@ -8,6 +8,8 @@
 #include <fmt/chrono.h>
 #include <fmt/ranges.h>
 
+using namespace tmcppc::problem_8;
+
 
 // Custom benchmark
 //
