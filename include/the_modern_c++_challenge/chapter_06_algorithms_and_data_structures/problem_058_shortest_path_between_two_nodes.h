@@ -223,45 +223,5 @@ namespace tmcppc::data_structures {
 }  // namespace tmcppc::data_structures
 
 
-template <typename Node, typename Distance>
-struct fmt::is_range<tmcppc::data_structures::undirected_graph_map<Node, Distance>, char> : std::false_type {};
-
-template <typename Node, typename Distance>
-struct fmt::detail::is_map<tmcppc::data_structures::undirected_graph_map<Node, Distance>> : std::false_type {};
-
-template <typename Node, typename Distance>
-struct fmt::formatter<tmcppc::data_structures::undirected_graph_map<Node, Distance>> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::data_structures::undirected_graph_map<Node, Distance>& graph, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "{}", graph.data_);
-    }
-};
-
-
-template <typename Node, typename Distance>
-struct fmt::is_range<tmcppc::data_structures::directed_graph_map<Node, Distance>, char> : std::false_type {};
-
-template <typename Node, typename Distance>
-struct fmt::detail::is_map<tmcppc::data_structures::directed_graph_map<Node, Distance>> : std::false_type {};
-
-template <typename Node, typename Distance>
-struct fmt::formatter<tmcppc::data_structures::directed_graph_map<Node, Distance>> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::data_structures::directed_graph_map<Node, Distance>& graph, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "{}", graph.data_);
-    }
-};
-
-
 void problem_58_main(std::ostream& os);
 void problem_58_main();
