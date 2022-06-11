@@ -11,22 +11,26 @@
 #include <asio.hpp>
 
 
-auto get_host_ipv4_addresses(std::string_view host, std::string_view service) {
-    std::vector<std::string> ret{};
+namespace tmcppc::problem_95 {
+    std::vector<std::string> get_host_ipv4_addresses(std::string_view host, std::string_view service) {
+        std::vector<std::string> ret{};
 
-    asio::io_context my_io_context;
-    asio::ip::tcp::resolver resolver(my_io_context);
-    auto iter{ resolver.resolve(asio::ip::tcp::v4(), host, service)};
-    asio::ip::tcp::resolver::iterator end{};
-    while (iter != end) {
-        asio::ip::tcp::endpoint endpoint = *iter++;
-        ret.emplace_back(endpoint.address().to_string().c_str());
+        asio::io_context my_io_context;
+        asio::ip::tcp::resolver resolver(my_io_context);
+        auto iter{ resolver.resolve(asio::ip::tcp::v4(), host, service) };
+        asio::ip::tcp::resolver::iterator end{};
+        while (iter != end) {
+            asio::ip::tcp::endpoint endpoint = *iter++;
+            ret.emplace_back(endpoint.address().to_string().c_str());
+        }
+        return ret;
     }
-    return ret;
-}
+}  // namespace tmcppc::problem_95
 
 
 void problem_95_main(std::ostream& os) {
+    using namespace tmcppc::problem_95;
+
     for (auto&& [host, service] : std::vector<std::pair<std::string_view, std::string_view>>{
         { "localhost", "8080" },
         { "www.boost.org", "http" },

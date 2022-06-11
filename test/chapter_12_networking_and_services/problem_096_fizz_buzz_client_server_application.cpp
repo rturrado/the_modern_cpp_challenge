@@ -21,9 +21,9 @@ TEST(problem_96_main, DISABLED_output) {
     };
     std::ostringstream oss{};
     problem_96_main(iss, oss);
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("[server] Starting\n"));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("[client] Starting\n"));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "[server] Starting\n"
-        "[client] Starting\n"
         "[client] Please enter a number between 1 and 99 ('quit' to finish the game): "  // 0
         "[client] Error: invalid input\n"
         "[client] Please enter a number between 1 and 99 ('quit' to finish the game): "  // 100
@@ -51,7 +51,7 @@ TEST(problem_96_main, DISABLED_output) {
         "[server] Says 'fizz-buzz'\n"
         "[client] Please enter a number between 1 and 99 ('quit' to finish the game): "  // quit
         "[client] Says 'quit'\n"
-        "[client] Exiting\n"
-        "[server] Exiting\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("[server] Exiting\n"));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("[client] Exiting\n"));
 }

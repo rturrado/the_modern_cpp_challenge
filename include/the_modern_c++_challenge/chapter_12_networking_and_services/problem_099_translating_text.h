@@ -4,10 +4,11 @@
 
 #include <iosfwd>
 
-using namespace tmcppc::text_translation;
 
+namespace tmcppc::problem_99 {
+    void test_text_translation(std::ostream& os, tmcppc::text_translation::translator_adaptor* translator);
+}  // namespace tmcppc::problem_99
 
-void test_text_translation(std::ostream& os, translator_adaptor* translator);
 
 void problem_99_main(std::istream& is, std::ostream& os);
 void problem_99_main();

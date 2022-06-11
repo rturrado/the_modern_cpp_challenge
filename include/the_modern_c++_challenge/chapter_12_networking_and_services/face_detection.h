@@ -7,8 +7,6 @@
 #include <string_view>
 #include <variant>
 
-namespace fs = std::filesystem;
-
 
 namespace tmcppc::face_detection {
     struct faces_response;
@@ -25,7 +23,7 @@ namespace tmcppc::face_detection {
         virtual ~detector_adaptor() = default;
 
         [[nodiscard]] virtual std::variant<faces_response, error_response> detect(
-            const fs::path& path) const = 0;
+            const std::filesystem::path& path) const = 0;
     protected:
         detector_adaptor() = default;
     };
@@ -43,7 +41,7 @@ namespace tmcppc::face_detection {
         detector_azure(std::string_view key);
 
         [[nodiscard]] virtual std::variant<faces_response, error_response> detect(
-            const fs::path& path) const override;
+            const std::filesystem::path& path) const override;
     private:
         std::string key_{};
     };

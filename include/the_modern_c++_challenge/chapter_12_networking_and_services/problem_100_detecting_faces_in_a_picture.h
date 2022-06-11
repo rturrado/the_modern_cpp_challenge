@@ -4,10 +4,11 @@
 
 #include <iosfwd>
 
-using namespace tmcppc::face_detection;
 
+namespace tmcppc::problem_100 {
+    void test_face_detection(std::ostream& os, tmcppc::face_detection::detector_adaptor* detector);
+}  // namespace tmcppc::problem_100
 
-void test_face_detection(std::ostream& os, detector_adaptor* detector);
 
 void problem_100_main(std::istream& is, std::ostream& os);
 void problem_100_main();

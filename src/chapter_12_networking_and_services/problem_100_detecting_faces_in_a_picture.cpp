@@ -18,26 +18,30 @@ using namespace tmcppc::face_detection;
 namespace fs = std::filesystem;
 
 
-void test_face_detection(std::ostream& os, detector_adaptor* detector) {
-    const fs::path input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "problem_100.jpg" };
+namespace tmcppc::problem_100 {
+    void test_face_detection(std::ostream& os, detector_adaptor* detector) {
+        const fs::path input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "problem_100.jpg" };
 
-    try {
-        auto result{ detector->detect(input_file_path) };
-        if (std::holds_alternative<faces_response>(result)) {
-            std::get<faces_response>(result).print(os, indentation{ 1 });
-        } else {
-            std::get<error_response>(result).print(os, indentation{ 1 });
-            fmt::print(os, "\n");
+        try {
+            auto result{ detector->detect(input_file_path) };
+            if (std::holds_alternative<faces_response>(result)) {
+                std::get<faces_response>(result).print(os, indentation{ 1 });
+            } else {
+                std::get<error_response>(result).print(os, indentation{ 1 });
+                fmt::print(os, "\n");
+            }
+        } catch (const std::exception& ex) {
+            fmt::print(os, "\tError: {}\n", ex.what());
         }
-    } catch (const std::exception& ex) {
-        fmt::print(os, "\tError: {}\n", ex.what());
-    }
 
-    fmt::print(os, "\n");
-}
+        fmt::print(os, "\n");
+    }
+}  // namespace tmcppc::problem_100
 
 
 void problem_100_main(std::istream& is, std::ostream& os) {
+    using namespace tmcppc::problem_100;
+
     fmt::print(os, "Please enter the Azure face resource key: ");
     std::string key{};
     std::getline(is, key);
