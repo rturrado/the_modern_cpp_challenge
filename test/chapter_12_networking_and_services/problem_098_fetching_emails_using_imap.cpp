@@ -38,7 +38,7 @@ TEST(test_imap_connection, DISABLED_output_wrong_folder_name) {
 
     std::istringstream iss{ "wrong_folder_name\n" };
     std::ostringstream oss{};
-    test_imap_connection(iss, oss, &connection);
+    tmcppc::problem_98::test_imap_connection(iss, oss, &connection);
 
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "List of folders from the mailbox:\n"
@@ -67,7 +67,7 @@ TEST(test_imap_connection, DISABLED_output) {
 
     std::istringstream iss{ "Inbox\n" };
     std::ostringstream oss{};
-    test_imap_connection(iss, oss, &connection);
+    tmcppc::problem_98::test_imap_connection(iss, oss, &connection);
 
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "List of folders from the mailbox:\n"

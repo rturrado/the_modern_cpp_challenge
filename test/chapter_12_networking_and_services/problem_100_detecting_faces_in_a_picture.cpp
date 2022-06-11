@@ -109,7 +109,7 @@ TEST(test_face_detection, DISABLED_output) {
     ));
 
     std::ostringstream oss{};
-    test_face_detection(oss, &detector);
+    tmcppc::problem_100::test_face_detection(oss, &detector);
 
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "    Faces:\n"

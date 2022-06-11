@@ -53,7 +53,7 @@ TEST(test_text_translation, DISABLED_output) {
             "这是一个错误的号码，电话在夜深人静的时候响了三声。")));
 
     std::ostringstream oss{};
-    test_text_translation(oss, &translator);
+    tmcppc::problem_99::test_text_translation(oss, &translator);
 
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("{}",
         "\ten: It was a wrong number that started it, the telephone ringing three times in the dead of night.\n"
