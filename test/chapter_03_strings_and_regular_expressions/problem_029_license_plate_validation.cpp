@@ -30,6 +30,23 @@ TEST(validate_license_plate, DISABLED_valid) {
     EXPECT_TRUE(validate_license_plate("AAA-BB 1234"));
 }
 
+TEST(extract_all_license_plates, DISABLED_empty_string) {
+    auto license_plates{ extract_all_license_plates("") };
+    EXPECT_TRUE(license_plates.empty());
+}
+TEST(extract_all_license_plates, DISABLED_no_license_plates) {
+    auto license_plates{ extract_all_license_plates("En un lugar de la Mancha") };
+    EXPECT_TRUE(license_plates.empty());
+}
+TEST(extract_all_license_plates, DISABLED_one_valid_license_plate) {
+    auto license_plates{ extract_all_license_plates("En un lugar ABC-DE 1234 de la Mancha") };
+    EXPECT_THAT(license_plates, ::testing::ElementsAre("ABC-DE 1234"));
+}
+TEST(extract_all_license_plates, DISABLED_many_valid_license_plates) {
+    auto license_plates{ extract_all_license_plates("AAA-AA 123qwe-ty 1234 ABC-DE 123456..XYZ-WW 0001") };
+    EXPECT_THAT(license_plates, ::testing::ElementsAre("AAA-AA 123", "ABC-DE 1234", "XYZ-WW 0001"));
+}
+
 TEST(problem_29_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_29_main(oss);

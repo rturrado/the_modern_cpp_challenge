@@ -21,7 +21,7 @@ namespace tmcppc::network {
     class url {
     private:
         const std::string protocol_str{ R"((^[[:alnum:]]+))" };  // ^\w+
-        const std::string login_str{ R"((?:([^@]+)@)?)" };  // :[^@]+@, this part is optional, and we don't capture the final @
+        const std::string login_str{ R"((?:(.+?)@)?)" };  // :(.+?)@, this part is optional, and we don't capture the final @
         const std::string domain_str{ R"(([^\:/\?#]+))" };  // [^:/\?#]+
         const std::string port_str{ R"((?:(?:\:([0-9]+))?))" };  // :\d+, this part is optional, and we don't capture the initial :
         const std::string path_str{ R"((?:(?:/([^\?#]+))?))" };  // /[^\?#]+, this part is optional, and we don't capture the initial /
@@ -56,10 +56,13 @@ namespace tmcppc::network {
         url& operator=(const url& other) = default;
         url& operator=(url&& other) noexcept = default;
 
-        friend std::ostream& operator<<(std::ostream& os, const url& u) {
-            fmt::print(os, "{}", u);
-            return os;
-        }
+        [[nodiscard]] std::string get_protocol() const { return protocol_; }
+        [[nodiscard]] std::optional<std::string> get_login() const { return login_; }
+        [[nodiscard]] std::string get_domain() const { return domain_; }
+        [[nodiscard]] std::optional<int> get_port() const { return port_; }
+        [[nodiscard]] std::optional<std::string> get_path() const { return path_; }
+        [[nodiscard]] std::optional<std::string> get_query() const { return query_; }
+        [[nodiscard]] std::optional<std::string> get_fragment() const { return fragment_; }
 
     private:
         friend struct fmt::formatter<url>;
@@ -84,6 +87,7 @@ struct fmt::formatter<tmcppc::network::url> {
 
     template <typename FormatContext>
     auto format(const tmcppc::network::url& u, FormatContext& ctx) const -> decltype(ctx.out()) {
+        fmt::format_to(ctx.out(), "[\n");
         fmt::format_to(ctx.out(), "\tProtocol: {}\n", u.protocol_);
         if (u.login_.has_value()) {
             fmt::format_to(ctx.out(), "\tLogin: {}\n", u.login_.value());
@@ -101,6 +105,12 @@ struct fmt::formatter<tmcppc::network::url> {
         if (u.fragment_.has_value()) {
             fmt::format_to(ctx.out(), "\tFragment: {}\n", u.fragment_.value());
         }
+        fmt::format_to(ctx.out(), "]");
         return ctx.out();
     }
 };
+
+inline std::ostream& operator<<(std::ostream& os, const tmcppc::network::url& u) {
+    fmt::print(os, "{}", u);
+    return os;
+}

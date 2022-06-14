@@ -11,11 +11,11 @@
 namespace tmcppc::problem_23 {
     template <typename Container>
         requires (std::is_same_v<typename Container::value_type, uint8_t>)
-    std::string to_string(const Container& container) {
+    std::string to_hex_string(const Container& container) {
         std::ostringstream oss{};
         std::for_each(cbegin(container), cend(container), [&oss](auto c) {
             fmt::print(oss, "{:02x}", static_cast<uint16_t>(c));
-            });
+        });
         return oss.str();
     }
 }  // namespace tmcppc::problem_23

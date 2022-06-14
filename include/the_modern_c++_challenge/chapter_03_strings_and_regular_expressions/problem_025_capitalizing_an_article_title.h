@@ -2,10 +2,11 @@
 
 #include <iosfwd>
 #include <string>
+#include <string_view>
 
 
 namespace tmcppc::problem_25 {
-    std::string capitalize(const std::string& s);
+    std::string capitalize(std::string_view s);
 }  // namespace tmcppc::problem_25
 
 

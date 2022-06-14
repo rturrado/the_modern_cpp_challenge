@@ -6,14 +6,14 @@
 #include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <string>
+#include <string_view>
 
 
 namespace tmcppc::problem_25 {
-    std::string capitalize(const std::string& s) {
+    std::string capitalize(std::string_view s) {
         std::string ret{ s };
         std::for_each(begin(ret), end(ret), [parsing_word = false](char& c) mutable {
             if (parsing_word) {
-
                 if (not std::isalpha(c)) {
                     // End of word. Update parsing word flag
                     parsing_word = false;

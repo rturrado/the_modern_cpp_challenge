@@ -270,11 +270,6 @@ namespace tmcppc::data_structures {
             return column_widths;
         }
 
-        friend std::ostream& operator<<(std::ostream& os, const array_2d& arr) {
-            fmt::print(os, "{}", arr);
-            return os;
-        }
-
     private:
         friend struct fmt::formatter<array_2d>;
 
@@ -314,3 +309,10 @@ struct fmt::formatter<tmcppc::data_structures::array_2d<T>> {
         return ctx.out();
     }
 };
+
+
+template <rtc::print::printable T>
+std::ostream& operator<<(std::ostream& os, const tmcppc::data_structures::array_2d<T>& arr) {
+    fmt::print(os, "{}", arr);
+    return os;
+}

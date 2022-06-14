@@ -15,13 +15,11 @@ void problem_30_main(std::ostream& os) {
                            "This is not a valid URL!" }) {
         try {
             url u{ s };
-            fmt::print(os, "Parsing URL \"{}\":\n{}\n", s, u);
+            fmt::print(os, "Parsing URL \"{}\":\n{}\n\n", s, u);
         } catch (const std::exception& err) {
-            fmt::print(os, "Error: {}\n", err.what());
+            fmt::print(os, "Error: {}\n\n", err.what());
         }
     }
-
-    fmt::print(os, "\n");
 }
 
 

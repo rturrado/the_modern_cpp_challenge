@@ -8,6 +8,59 @@
 using namespace tmcppc::problem_24;
 
 
+TEST(from_hex_char, DISABLED_hex_number) { EXPECT_EQ(from_hex_char('7'), 7); }
+TEST(from_hex_char, DISABLED_uppercase_hex_letter) { EXPECT_EQ(from_hex_char('A'), 10); }
+TEST(from_hex_char, DISABLED_lowercase_hex_letter) { EXPECT_EQ(from_hex_char('a'), 10); }
+TEST(from_hex_char, DISABLED_uppercase_non_hex_letter) { EXPECT_THROW(from_hex_char('Z'), from_hex_char_error); }
+TEST(from_hex_char, DISABLED_lowercase_non_hex_letter) { EXPECT_THROW(from_hex_char('z'), from_hex_char_error); }
+TEST(from_hex_char, DISABLED_non_hex_digit) { EXPECT_THROW(from_hex_char('@'), from_hex_char_error); }
+
+
+TEST(from_hex_chars, DISABLED_two_hex_digits) { EXPECT_EQ(from_hex_chars('7', 'a'), 0x7a); }
+TEST(from_hex_chars, DISABLED_one_hex_digit_and_one_non_hex_digit) { EXPECT_THROW(from_hex_chars('7', '@'), from_hex_char_error); }
+TEST(from_hex_chars, DISABLED_two_non_hex_digits) { EXPECT_THROW(from_hex_chars('@', '#'), from_hex_char_error); }
+
+
+TEST(from_hex_string, DISABLED_empty_string) {
+    EXPECT_TRUE(from_hex_string("").empty());
+}
+TEST(from_hex_string, DISABLED_zero_string) {
+    EXPECT_THAT(from_hex_string("0"), ::testing::ElementsAre(0));
+}
+TEST(from_hex_string, DISABLED_valid_string_odd_number_of_digits) {
+    EXPECT_THAT(from_hex_string("7af"), ::testing::ElementsAre(0x7, 0xaf));
+}
+TEST(from_hex_string, DISABLED_valid_string_even_number_of_digits) {
+    EXPECT_THAT(from_hex_string("07af"), ::testing::ElementsAre(0x7, 0xaf));
+}
+TEST(from_hex_string, DISABLED_invalid_string) {
+    EXPECT_THROW(from_hex_string("07a@"), from_hex_char_error);
+}
+
+
+TEST(from_hex_string_with_delimiter, DISABLED_empty_string) {
+    EXPECT_TRUE(from_hex_string("", "-").empty());
+}
+TEST(from_hex_string_with_delimiter, DISABLED_zero_string) {
+    EXPECT_THAT(from_hex_string("0", "-"), ::testing::ElementsAre(0));
+}
+TEST(from_hex_string_with_delimiter, DISABLED_valid_string_and_one_char_delimiter) {
+    EXPECT_THAT(from_hex_string("07-af", "-"), ::testing::ElementsAre(0x7, 0xaf));
+}
+TEST(from_hex_string_with_delimiter, DISABLED_valid_string_and_two_chars_delimiter) {
+    EXPECT_THAT(from_hex_string("07.-af", ".-"), ::testing::ElementsAre(0x7, 0xaf));
+}
+TEST(from_hex_string_with_delimiter, DISABLED_non_hex_digit) {
+    EXPECT_THROW(from_hex_string("0@-af", "-"), from_hex_char_error);
+}
+TEST(from_hex_string_with_delimiter, DISABLED_missing_delimiter) {
+    EXPECT_THROW(from_hex_string("07a@", "-"), from_hex_string_parse_error);
+}
+TEST(from_hex_string_with_delimiter, DISABLED_missing_hex_digits) {
+    EXPECT_THROW(from_hex_string("0--7--a--f", "-"), from_hex_string_parse_error);
+}
+
+
 TEST(problem_24_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_24_main(oss);

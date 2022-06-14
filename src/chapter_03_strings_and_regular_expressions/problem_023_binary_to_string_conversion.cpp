@@ -22,11 +22,11 @@ void problem_23_main(std::ostream& os) {
     using namespace tmcppc::problem_23;
 
     std::vector<uint8_t> v{ 0xBA, 0xAD, 0xf0, 0x0d };
-    fmt::print(os, "Converting vector [{:#02x}] to string \"{}\"\n", fmt::join(v, ", "), to_string(v));
+    fmt::print(os, "Converting vector [{:#02x}] to string \"{}\"\n", fmt::join(v, ", "), to_hex_string(v));
 
     std::array<uint8_t, 6> a{};
     std::iota(std::begin(a), std::end(a), 1);
-    fmt::print(os, "Converting array [{:#02x}] to string \"{}\"\n\n", fmt::join(a, ", "), to_string(a));
+    fmt::print(os, "Converting array [{:#02x}] to string \"{}\"\n\n", fmt::join(a, ", "), to_hex_string(a));
 }
 
 

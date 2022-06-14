@@ -12,6 +12,7 @@ TEST(problem_30_main, DISABLED_output) {
     problem_30_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "Parsing URL \"http://user:pass@example.com:992/animal/bird?species=seagull#wings\":\n"
+        "[\n"
         "\tProtocol: http\n"
         "\tLogin: user:pass\n"
         "\tDomain: example.com\n"
@@ -19,12 +20,15 @@ TEST(problem_30_main, DISABLED_output) {
         "\tPath: animal/bird\n"
         "\tQuery: species=seagull\n"
         "\tFragment: wings\n"
+        "]\n"
         "\n"
         "Parsing URL \"http://example.com/animal/bird#wings\":\n"
+        "[\n"
         "\tProtocol: http\n"
         "\tDomain: example.com\n"
         "\tPath: animal/bird\n"
         "\tFragment: wings\n"
+        "]\n"
         "\n"
         "Error: invalid URL: \"This is not a valid URL!\"\n"
     ));

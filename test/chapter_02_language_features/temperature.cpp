@@ -99,10 +99,10 @@ TEST(temperature_v1, DISABLED_conversion_of_temperatures) {
 
 TEST(temperature_v1, DISABLED_comparisons) {
     using namespace tmcppc::temperature::v1;
-    temperature<float> t1{ 20.0, scale::celsius };
-    temperature<float> t2{ 25.0, scale::celsius };
-    temperature<float> t3{ 77.0, scale::fahrenheit };
-    temperature<float> t4{ 298.15, scale::kelvin };
+    temperature<float> t1{ 20.0f, scale::celsius };
+    temperature<float> t2{ 25.0f, scale::celsius };
+    temperature<float> t3{ 77.0f, scale::fahrenheit };
+    temperature<float> t4{ 298.15f, scale::kelvin };
     EXPECT_TRUE(t1 == t1);
     EXPECT_TRUE(t2 == t3);
     EXPECT_TRUE(t2 == t4);
@@ -117,12 +117,12 @@ TEST(temperature_v1, DISABLED_comparisons) {
 }
 TEST(temperature_v1, DISABLED_equality_precision) {
     using namespace tmcppc::temperature::v1;
-    temperature<float> t1{ 25.0, scale::celsius };
-    temperature<float> slightly_above_t1{ 25.01, scale::celsius };
-    temperature<float> t2{ 77.0, scale::fahrenheit };
-    temperature<float> slightly_above_t2{ 77.018, scale::fahrenheit };
-    temperature<float> t3{ 298.15, scale::kelvin };
-    temperature<float> slightly_above_t3{ 298.16, scale::kelvin };
+    temperature<float> t1{ 25.0f, scale::celsius };
+    temperature<float> slightly_above_t1{ 25.01f, scale::celsius };
+    temperature<float> t2{ 77.0f, scale::fahrenheit };
+    temperature<float> slightly_above_t2{ 77.018f, scale::fahrenheit };
+    temperature<float> t3{ 298.15f, scale::kelvin };
+    temperature<float> slightly_above_t3{ 298.16f, scale::kelvin };
     EXPECT_FALSE(t1 == slightly_above_t1);
     EXPECT_FALSE(t2 == slightly_above_t2);
     EXPECT_FALSE(t3 == slightly_above_t3);
@@ -140,8 +140,8 @@ TEST(temperature_v1, DISABLED_arithmetic) {
     temperature<double> t1{ 25.0, scale::celsius };
     temperature<double> t2d{ 77.0, scale::fahrenheit };
     temperature<double> t3d{ 298.15, scale::kelvin };
-    temperature<float> t2f{ 77.0, scale::fahrenheit };
-    temperature<float> t3f{ 298.15, scale::kelvin };
+    temperature<float> t2f{ 77.0f, scale::fahrenheit };
+    temperature<float> t3f{ 298.15f, scale::kelvin };
     temperature<double> sum{ 50.0, scale::celsius };
     temperature<double> difference{ 0.0, scale::celsius };
     EXPECT_THROW((void) (t0 + t1), invalid_temperature_error);
@@ -228,9 +228,9 @@ TEST(temperature_v2, DISABLED_conversion_helper) {
     using namespace tmcppc::temperature::v2;
     double fahrenheit_d{ 77.0 };
     double kelvin_d{ 298.15 };
-    float fahrenheit_f{ 77.0 };
+    float fahrenheit_f{ 77.0f };
     temperature<double, scale::celsius> t1d{ 25.0 };
-    temperature<float, scale::celsius> t1f{ 25.0 };
+    temperature<float, scale::celsius> t1f{ 25.0f };
     EXPECT_TRUE(simple_compare_long_doubles(
         fahrenheit_d,
         conversion_helper<double, scale::celsius, double, scale::fahrenheit>::convert(t1d.value())
@@ -261,9 +261,9 @@ TEST(temperature_v2, DISABLED_temperature_cast) {
     temperature<double, scale::celsius> t1d{ 25.0 };
     temperature<double, scale::fahrenheit> t2d{ 77.0 };
     temperature<double, scale::kelvin> t3d{ 298.15 };
-    temperature<float, scale::celsius> t1f{ 25.0 };
-    temperature<float, scale::fahrenheit> t2f{ 77.0 };
-    temperature<float, scale::kelvin> t3f{ 298.15 };
+    temperature<float, scale::celsius> t1f{ 25.0f };
+    temperature<float, scale::fahrenheit> t2f{ 77.0f };
+    temperature<float, scale::kelvin> t3f{ 298.15f };
     EXPECT_TRUE(t2d == (temperature_cast<double, scale::fahrenheit>(t1d)));
     EXPECT_TRUE(t2d == (temperature_cast<float, scale::fahrenheit>(t1d)));
     EXPECT_TRUE(t3d == (temperature_cast<float, scale::kelvin>(t1d)));
@@ -274,10 +274,10 @@ TEST(temperature_v2, DISABLED_temperature_cast) {
 
 TEST(temperature_v2, DISABLED_comparisons) {
     using namespace tmcppc::temperature::v2;
-    temperature<float, scale::celsius> t1{ 20.0 };
-    temperature<float, scale::celsius> t2{ 25.0 };
-    temperature<float, scale::fahrenheit> t3{ 77.0 };
-    temperature<float, scale::kelvin> t4{ 298.15 };
+    temperature<float, scale::celsius> t1{ 20.0f };
+    temperature<float, scale::celsius> t2{ 25.0f };
+    temperature<float, scale::fahrenheit> t3{ 77.0f };
+    temperature<float, scale::kelvin> t4{ 298.15f };
     EXPECT_TRUE(t1 == t1);
     EXPECT_TRUE(t2 == (temperature_cast<float, scale::celsius>(t3)));
     EXPECT_TRUE(t2 == (temperature_cast<float, scale::celsius>(t4)));
@@ -292,12 +292,12 @@ TEST(temperature_v2, DISABLED_comparisons) {
 }
 TEST(temperature_v2, DISABLED_equality_precision) {
     using namespace tmcppc::temperature::v2;
-    temperature<float, scale::celsius> t1{ 25.0 };
-    temperature<float, scale::celsius> slightly_above_t1{ 25.01 };
-    temperature<float, scale::fahrenheit> t2{ 77.0 };
-    temperature<float, scale::fahrenheit> slightly_above_t2{ 77.018 };
-    temperature<float, scale::kelvin> t3{ 298.15 };
-    temperature<float, scale::kelvin> slightly_above_t3{ 298.16 };
+    temperature<float, scale::celsius> t1{ 25.0f };
+    temperature<float, scale::celsius> slightly_above_t1{ 25.01f };
+    temperature<float, scale::fahrenheit> t2{ 77.0f };
+    temperature<float, scale::fahrenheit> slightly_above_t2{ 77.018f };
+    temperature<float, scale::kelvin> t3{ 298.15f };
+    temperature<float, scale::kelvin> slightly_above_t3{ 298.16f };
     EXPECT_FALSE(t1 == slightly_above_t1);
     EXPECT_FALSE(t2 == slightly_above_t2);
     EXPECT_FALSE(t3 == slightly_above_t3);
@@ -314,9 +314,9 @@ TEST(temperature_v2, DISABLED_arithmetic) {
     temperature<double, scale::celsius> t1d{ 25.0 };
     temperature<double, scale::fahrenheit> t2d{ 77.0 };
     temperature<double, scale::kelvin> t3d{ 298.15 };
-    temperature<float, scale::celsius> t1f{ 25.0 };
-    temperature<float, scale::fahrenheit> t2f{ 77.0 };
-    temperature<float, scale::kelvin> t3f{ 298.15 };
+    temperature<float, scale::celsius> t1f{ 25.0f };
+    temperature<float, scale::fahrenheit> t2f{ 77.0f };
+    temperature<float, scale::kelvin> t3f{ 298.15f };
     temperature<double, scale::celsius> sum_c{ 50.0 };
     temperature<double, scale::fahrenheit> sum_f{ 154.0 };
     temperature<double, scale::kelvin> sum_k{ 596.30 };

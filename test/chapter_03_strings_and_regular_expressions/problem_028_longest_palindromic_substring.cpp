@@ -6,13 +6,16 @@
 #include <sstream>  // ostringstream
 #include <string_view>
 
-using namespace std::string_view_literals;
 using namespace tmcppc::problem_28;
 
 
+TEST(is_palindrome, DISABLED_empty_string) { EXPECT_TRUE(is_palindrome("")); }
+TEST(is_palindrome, DISABLED_one_character_string) { EXPECT_TRUE(is_palindrome("a")); }
+TEST(is_palindrome, DISABLED_valid_palindrome) { EXPECT_TRUE(is_palindrome("1111aaa8bb8aaa1111")); }
+TEST(is_palindrome, DISABLED_invalid_palindrome) { EXPECT_FALSE(is_palindrome("1111aaa8bb8aaa11110")); }
+
 TEST(longest_palindromic_substring, DISABLED_empty_string) {
-    std::string_view result{};
-    EXPECT_EQ(get_longest_palindromic_substring(""), result);
+    EXPECT_EQ(get_longest_palindromic_substring(""), "");
 }
 TEST(longest_palindromic_substring, DISABLED_one_character_string) {
     EXPECT_THAT(get_longest_palindromic_substring("a"), "a");
