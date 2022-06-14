@@ -26,7 +26,7 @@ namespace tmcppc::face_detection {
 
 TEST(test_face_detection, DISABLED_output) {
     detector_mock detector{};
-    EXPECT_CALL(detector, detect(tmcppc::env::get_instance().get_resource_folder_path() / "problem_100.jpg"))
+    EXPECT_CALL(detector, detect(tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg"))
         .WillOnce(::testing::Return(
             faces_response{{
                 face{

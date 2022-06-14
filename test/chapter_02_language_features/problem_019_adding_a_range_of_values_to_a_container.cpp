@@ -4,7 +4,52 @@
 #include <gtest/gtest.h>
 
 #include <sstream>  // ostringstream
+#include <vector>
 
+using namespace tmcppc::problem_19;
+
+
+TEST(push_back_list, DISABLED_push_back_list_empty_container_t) {
+    std::vector<char> v{};
+    push_back_list(v, 'a');
+    EXPECT_EQ(v, std::vector<char>{'a'});
+}
+TEST(push_back_list, DISABLED_push_back_list_empty_container_args) {
+    std::vector<char> v{};
+    push_back_list(v, 'a', 'b', 'c');
+    EXPECT_EQ(v, (std::vector<char>{ 'a', 'b', 'c' }));
+}
+TEST(push_back_list, DISABLED_push_back_list_non_empty_container_t) {
+    std::vector<char> v{ 'a' };
+    push_back_list(v, 'b');
+    EXPECT_EQ(v, (std::vector<char>{ 'a', 'b' }));
+}
+TEST(push_back_list, DISABLED_push_back_list_non_empty_container_args) {
+    std::vector<char> v{ 'a' };
+    push_back_list(v, 'b', 'c', 'd');
+    EXPECT_EQ(v, (std::vector<char>{ 'a', 'b', 'c', 'd' }));
+}
+
+TEST(push_back_list, DISABLED_push_back_list_v2_empty_container_t) {
+    std::vector<char> v{};
+    push_back_list_v2(v, 'a');
+    EXPECT_EQ(v, std::vector<char>{ 'a' });
+}
+TEST(push_back_list, DISABLED_push_back_list_v2_empty_container_args) {
+    std::vector<char> v{};
+    push_back_list_v2(v, 'a', 'b', 'c');
+    EXPECT_EQ(v, (std::vector<char>{ 'a', 'b', 'c' }));
+}
+TEST(push_back_list, DISABLED_push_back_list_v2_non_empty_container_t) {
+    std::vector<char> v{ 'a' };
+    push_back_list_v2(v, 'b');
+    EXPECT_EQ(v, (std::vector<char>{ 'a', 'b' }));
+}
+TEST(push_back_list, DISABLED_push_back_list_v2_non_empty_container_args) {
+    std::vector<char> v{ 'a' };
+    push_back_list_v2(v, 'b', 'c', 'd');
+    EXPECT_EQ(v, (std::vector<char>{ 'a', 'b', 'c', 'd' }));
+}
 
 TEST(problem_19_main, DISABLED_output) {
     std::ostringstream oss{};

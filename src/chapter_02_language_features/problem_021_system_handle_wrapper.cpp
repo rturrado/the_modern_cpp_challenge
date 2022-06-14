@@ -38,8 +38,8 @@ void test_unique_hdl(std::wostream& wos) {
             nullptr
     )};
 
-    if (!file_hdl) {
-        fmt::print(wos, L"Error in unique_hdl constructor: {}\n", GetLastError());
+    if (not file_hdl) {
+        fmt::print(wos, L"Error in CreateFileW: {}\n", GetLastError());
         return;
     }
     fmt::print(wos, L"Opened: {}\n", file_path.generic_wstring());
@@ -49,7 +49,7 @@ void test_unique_hdl(std::wostream& wos) {
 
     std::vector<char> buffer(1024);
     DWORD bytesRead = 0;
-    if (!ReadFile(
+    if (not ReadFile(
             another_file_hdl.get(),
             buffer.data(),
             static_cast<DWORD>(buffer.size()),
@@ -67,21 +67,24 @@ void test_unique_hdl(std::wostream& wos) {
 }
 
 
+void problem_21_main(std::wostream& wos) {
+    try {
+        test_unique_hdl(wos);
+    } catch (const std::runtime_error& ex) {
+        // ex.what() returns a const char*
+        // Using a wostream here, instead of fmt::print, was the easiest way
+        wos << L"Error: " << ex.what() << L"\n";
+    }
+    fmt::print(wos, L"\n");
+}
+
+
 // System handle wrapper
 //
 // Consider an operating system handle, such as a file handle.
 // Write a wrapper that handles the acquisition and release of the handle,
 // as well as other operations such as verifying the validity of the handle
 // and moving handle ownership from one object to another.
-void problem_21_main(std::wostream& wos) {
-    try {
-        test_unique_hdl(wos);
-    } catch (const std::runtime_error& ex) {
-        wos << L"Error: " << ex.what() << L"\n";
-    }
-    fmt::print(wos, L"\n");
-}
-
 void problem_21_main() {
     problem_21_main(std::wcout);
 }

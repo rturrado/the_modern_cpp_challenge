@@ -53,6 +53,6 @@ namespace tmcppc::data_structures {
     private:
         void close() noexcept { Traits::close(hdl_); }
 
-        Type hdl_{ Traits::invalid_hdl() };
+        Type hdl_{ Traits::invalid() };
     };
 }  // namespace tmcppc::data_structures

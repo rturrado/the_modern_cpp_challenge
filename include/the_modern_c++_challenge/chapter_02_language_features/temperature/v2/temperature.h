@@ -128,15 +128,15 @@ namespace tmcppc::temperature::v2 {
 
     // Comparisons
     //
-    bool simple_compare_long_doubles(long double lhs, long double rhs) {
-        return std::fabs(lhs - rhs) <= std::numeric_limits<long double>::epsilon();
+    inline bool simple_compare_long_doubles(long double a, long double b) {
+        return std::fabs(a - b) < 0.001;
     }
 
     template <typename Rep_, scale S, typename Rep2_>
     bool operator==(const temperature<Rep_, S>& lhs, const temperature<Rep2_, S>& rhs) {
-        return simple_compare_long_doubles(
-            static_cast<long double>(lhs.value()),
-            static_cast<long double>(rhs.value()));
+        auto a{ static_cast<long double>(lhs.value()) };
+        auto b{ static_cast<long double>(rhs.value()) };
+        return simple_compare_long_doubles(a, b);
     }
 
     template <typename Rep_, scale S, typename Rep2_>
@@ -146,12 +146,16 @@ namespace tmcppc::temperature::v2 {
 
     template <typename Rep_, scale S, typename Rep2_>
     constexpr bool operator<(const temperature<Rep_, S>& lhs, const temperature<Rep2_, S>& rhs) {
-        return static_cast<long double>(lhs.value()) < static_cast<long double>(rhs.value());
+        auto a{ static_cast<long double>(lhs.value()) };
+        auto b{ static_cast<long double>(rhs.value()) };
+        return (a < b) and not simple_compare_long_doubles(a, b);
     }
 
     template <typename Rep_, scale S, typename Rep2_>
     constexpr bool operator>(const temperature<Rep_, S>& lhs, const temperature<Rep2_, S>& rhs) {
-        return rhs < lhs;
+        auto a{ static_cast<long double>(lhs.value()) };
+        auto b{ static_cast<long double>(rhs.value()) };
+        return (a > b) and not simple_compare_long_doubles(a, b);
     }
 
     template <typename Rep_, scale S, typename Rep2_>

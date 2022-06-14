@@ -20,7 +20,7 @@ namespace fs = std::filesystem;
 
 namespace tmcppc::problem_100 {
     void test_face_detection(std::ostream& os, detector_adaptor* detector) {
-        const fs::path input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "problem_100.jpg" };
+        const fs::path input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg" };
 
         try {
             auto result{ detector->detect(input_file_path) };

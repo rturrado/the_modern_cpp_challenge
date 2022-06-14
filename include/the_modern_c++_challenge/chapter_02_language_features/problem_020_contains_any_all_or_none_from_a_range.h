@@ -2,22 +2,23 @@
 
 #include <algorithm>  // find
 #include <iosfwd>
+#include <ranges>
 
 
 namespace tmcppc::problem_20 {
-    template <typename C, typename... Args>
-    bool contains_any(C& c, Args&&... args) {
-        return (... or (std::find(cbegin(c), cend(c), args) != cend(c)));
+    template <typename R, typename... Args>
+    bool contains_any(R&& r, Args&&... args) {
+        return (... or (std::ranges::find(r, std::forward<Args>(args)) != r.end()));
     }
 
-    template <typename C, typename... Args>
-    bool contains_all(C& c, Args&&... args) {
-        return (... and (std::find(cbegin(c), cend(c), args) != cend(c)));
+    template <typename R, typename... Args>
+    bool contains_all(R&& r, Args&&... args) {
+        return (... and (std::ranges::find(r, std::forward<Args>(args)) != r.end()));
     }
 
-    template <typename C, typename... Args>
-    bool contains_none(C& c, Args&&... args) {
-        return (... and (std::find(cbegin(c), cend(c), args) == cend(c)));
+    template <typename R, typename... Args>
+    bool contains_none(R&& r, Args&&... args) {
+        return (... and (std::ranges::find(r, std::forward<Args>(args)) == r.end()));
     }
 }  // namespace tmcppc::problem_20
 

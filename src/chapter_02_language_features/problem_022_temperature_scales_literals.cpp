@@ -7,8 +7,7 @@
 #include <iostream>  // cout
 
 
-void test_temperature_v1(std::ostream& os)
-{
+void test_temperature_v1(std::ostream& os) {
     using namespace tmcppc::temperature::v1;
     using namespace tmcppc::temperature::v1::literals;
 
@@ -35,8 +34,7 @@ void test_temperature_v1(std::ostream& os)
 }
 
 
-void test_temperature_v2(std::ostream& os)
-{
+void test_temperature_v2(std::ostream& os) {
     using namespace tmcppc::temperature::v2;
     using namespace tmcppc::temperature::v2::literals;
 
@@ -65,6 +63,12 @@ void test_temperature_v2(std::ostream& os)
 }
 
 
+void problem_22_main(std::ostream& os) {
+    test_temperature_v1(os);
+    test_temperature_v2(os);
+}
+
+
 // Literals of various temperature scales
 //
 // Write a small library that enables expressing temperatures in the three most used scales,
@@ -72,13 +76,6 @@ void test_temperature_v2(std::ostream& os)
 // The library must enable you to write temperature literals in all these scales,
 // such as 36.5_deg for Celsius, 97.7_f for Fahrenheit, and 309.65_K for Kelvin;
 // perform operations with these values; and convert between them
-void problem_22_main(std::ostream& os)
-{
-    test_temperature_v1(os);
-    test_temperature_v2(os);
-}
-
-
 void problem_22_main() {
     problem_22_main(std::cout);
 }
