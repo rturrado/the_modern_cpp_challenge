@@ -13,12 +13,12 @@
 
 
 namespace tmcppc::problem_32 {
-    std::vector<std::vector<uint32_t>> pascal_triangle(const size_t n) {
+    pascal_triangle_t pascal_triangle(const size_t n) {
         if (n > 30) {
             throw std::out_of_range{ std::string{"calling pascal_triangle with n > 30, n = "} + std::to_string(n) };
         }
 
-        std::vector<std::vector<uint32_t>> ret{};
+        pascal_triangle_t ret{};
 
         if (n == 0) {
             return ret;

@@ -1,6 +1,9 @@
 #include "chapter_04_streams_and_filesystems/problem_035_computing_the_size_of_a_directory.h"
 #include "env.h"
 
+#include "rtc/filesystem.h"
+
+#include <cmath>
 #include <cstdint>  // uintmax_t
 #include <filesystem>
 #include <fmt/ostream.h>
@@ -13,7 +16,14 @@ namespace fs = std::filesystem;
 
 
 namespace tmcppc::problem_35 {
-    std::uintmax_t directory_size_in_bytes(const fs::path& p, bool follow_symlinks = false) {
+    std::uintmax_t directory_size_in_bytes(const fs::path& in_dir_path, bool follow_symlinks) {
+        if (not fs::exists(in_dir_path)) {
+            throw rtc::filesystem::file_path_does_not_exist_error{ in_dir_path.generic_string() };
+        }
+        if (not fs::is_directory(in_dir_path)) {
+            throw rtc::filesystem::not_a_directory_error{ in_dir_path.generic_string() };
+        }
+
         // Set up directory options
         fs::directory_options options = fs::directory_options::skip_permission_denied;
         if (follow_symlinks) {
@@ -22,7 +32,7 @@ namespace tmcppc::problem_35 {
 
         std::uintmax_t ret{ 0 };
 
-        for (const fs::directory_entry& entry : fs::recursive_directory_iterator{ p, options }) {
+        for (const fs::directory_entry& entry : fs::recursive_directory_iterator{ in_dir_path, options }) {
             if (not follow_symlinks and fs::is_symlink(entry)) {
                 continue;
             }
@@ -40,7 +50,7 @@ namespace tmcppc::problem_35 {
         std::ostringstream oss{};
         for (auto& unit : { "b", "KB", "MB", "GB" }) {
             if (d < 1024 or unit == "GB") {
-                fmt::print(oss, "{:.2f} {}", d, unit);
+                fmt::print(oss, "{:.0f} {}", std::floor(d), unit);
                 break;
             }
             d /= 1024;
@@ -54,15 +64,15 @@ void problem_35_main(std::ostream& os) {
     using namespace tmcppc::problem_35;
 
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
-    const auto d1_path{ resource_folder_path / "sample_folder" };
-    const auto d2_path{ resource_folder_path / "sample_subfolder" };
+    const auto in_dir_path_1{ resource_folder_path / "sample_folder" };
+    const auto in_dir_path_2{ resource_folder_path / "sample_subfolder" };
 
-    for (const auto& p : { d1_path, d2_path }) {
+    for (const auto& p : { in_dir_path_1, in_dir_path_2 }) {
         for (auto follow_symlinks : { false, true }) {
             fmt::print(os, "{}{}: ", p.generic_string(), (follow_symlinks ? " (following symlinks)" : ""));
             try {
                 fmt::print(os, "{}\n", directory_size_in_bytes_to_string(directory_size_in_bytes(p, follow_symlinks)));
-            } catch (const std::filesystem::filesystem_error& ex) {
+            } catch (const std::exception& ex) {
                 fmt::print(os, "\n\tError: {}\n", ex.what());
             }
         }

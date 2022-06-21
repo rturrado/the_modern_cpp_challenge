@@ -48,14 +48,17 @@ namespace tmcppc::problem_33 {
 
         std::ranges::sort(infos, {}, [](const auto& info) { return info.name(); });
 
+        bool first{ true };
         for (auto& info : infos) {
-            fmt::print(os, "{:<{}} {:{}} {:{}} {:{}} {:>{}} {:{}}\n",
+            fmt::print(os, "{}{:<{}} {:{}} {:{}} {:{}} {:>{}} {:{}}",
+                first ? "" : "\n",
                 info.id(), id_max_width,
                 info.name(), name_max_width,
                 to_string(info.status()), status_max_width,
                 info.account_name(), account_name_max_width,
                 info.mem_size_b() / 1024, mem_size_b_max_width,
-                to_string(info.status()), platform_max_width);
+                to_string(info.platform()), platform_max_width);
+            first = false;
         }
     }
 }  // namespace tmcppc::problem_33
@@ -74,7 +77,7 @@ void problem_33_main(std::ostream& os) {
 
     print_process_infos(os, infos);
 
-    fmt::print(os, "\n");
+    fmt::print(os, "\n\n");
 }
 
 

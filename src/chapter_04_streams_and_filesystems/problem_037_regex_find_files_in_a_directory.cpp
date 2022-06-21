@@ -1,7 +1,10 @@
 #include "chapter_04_streams_and_filesystems/problem_037_regex_find_files_in_a_directory.h"
 #include "env.h"
 
+#include "rtc/filesystem.h"
+
 #include <algorithm>
+#include <exception>
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <iostream>  // cout
@@ -15,12 +18,19 @@ namespace fs = std::filesystem;
 
 
 namespace tmcppc::problem_37 {
-    std::vector<fs::directory_entry> get_directory_entries_matching(const fs::path& path, const std::string& pattern_str) {
+    std::vector<fs::directory_entry> get_directory_entries_matching(const fs::path& in_dir_path, const std::string& pattern_str) {
+        if (not fs::exists(in_dir_path)) {
+            throw rtc::filesystem::file_path_does_not_exist_error{ in_dir_path.generic_string() };
+        }
+        if (not fs::is_directory(in_dir_path)) {
+            throw rtc::filesystem::not_a_directory_error{ in_dir_path.generic_string() };
+        }
+
         std::vector<fs::directory_entry> ret{};
         std::regex pattern{ pattern_str };
         const fs::directory_options options{ fs::directory_options::skip_permission_denied };
         std::copy_if(
-            fs::recursive_directory_iterator{ path, options },
+            fs::recursive_directory_iterator{ in_dir_path, options },
             fs::recursive_directory_iterator{},
             std::back_inserter(ret),
             [&pattern](const fs::directory_entry& entry) {
@@ -40,14 +50,18 @@ void problem_37_main(std::ostream& os) {
     const std::string pattern_str_3{ R"(.*[[:digit:]].*)" };  // contains a digit
 
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
-    const auto path_1{ resource_folder_path / "sample_folder" };
-    const auto path_2{ resource_folder_path / "sample_subfolder" };
+    const auto in_dir_path_1{ resource_folder_path / "sample_folder" };
+    const auto in_dir_path_2{ resource_folder_path / "sample_subfolder" };
 
-    for (const auto& path : { path_1, path_2 }) {
+    for (const auto& path : { in_dir_path_1, in_dir_path_2 }) {
         for (const auto& pattern_str : { pattern_str_1, pattern_str_2, pattern_str_3 }) {
             fmt::print(os, "Searching {} for entries matching pattern '{}':\n", path.generic_string(), pattern_str);
-            for (auto&& entry : get_directory_entries_matching(path, pattern_str)) {
-                fmt::print(os, "\t'{}'\n", entry.path().generic_string());
+            try {
+                for (auto&& entry : get_directory_entries_matching(path, pattern_str)) {
+                    fmt::print(os, "\t'{}'\n", entry.path().generic_string());
+                }
+            } catch (const std::exception& ex) {
+                fmt::print(os, "\n\tError: {}\n", ex.what());
             }
         }
     }

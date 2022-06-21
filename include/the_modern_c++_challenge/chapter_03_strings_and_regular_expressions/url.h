@@ -51,18 +51,21 @@ namespace tmcppc::network {
         }
 
         url() = default;
+        ~url() = default;
         url(const url& other) = default;
         url(url&& other) noexcept = default;
         url& operator=(const url& other) = default;
         url& operator=(url&& other) noexcept = default;
 
-        [[nodiscard]] std::string get_protocol() const { return protocol_; }
-        [[nodiscard]] std::optional<std::string> get_login() const { return login_; }
-        [[nodiscard]] std::string get_domain() const { return domain_; }
-        [[nodiscard]] std::optional<int> get_port() const { return port_; }
-        [[nodiscard]] std::optional<std::string> get_path() const { return path_; }
-        [[nodiscard]] std::optional<std::string> get_query() const { return query_; }
-        [[nodiscard]] std::optional<std::string> get_fragment() const { return fragment_; }
+        [[nodiscard]] std::string protocol() const { return protocol_; }
+        [[nodiscard]] std::optional<std::string> login() const { return login_; }
+        [[nodiscard]] std::string domain() const { return domain_; }
+        [[nodiscard]] std::optional<int> port() const { return port_; }
+        [[nodiscard]] std::optional<std::string> path() const { return path_; }
+        [[nodiscard]] std::optional<std::string> query() const { return query_; }
+        [[nodiscard]] std::optional<std::string> fragment() const { return fragment_; }
+
+        auto operator<=>(const url& other) const = default;
 
     private:
         friend struct fmt::formatter<url>;

@@ -35,7 +35,6 @@
 /.vs
 /out/build
 /CMakeSettings.json
-/res/problem_034_output.txt
 /build/benchmark
 /build/test
 /build/NinjaMultiConfig/benchmark

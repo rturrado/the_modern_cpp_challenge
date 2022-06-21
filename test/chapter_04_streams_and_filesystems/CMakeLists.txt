@@ -1,4 +1,5 @@
 set(chapter_04_test_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/logger.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_032_pascal_triangle.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_033_tabular_printing_of_a_list_of_processes.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_034_removing_empty_lines_from_a_text_file.cpp"

@@ -14,7 +14,14 @@ namespace tmcppc::process {
 
     class info {
     public:
-        info(size_t id, std::string name, status_t status, std::string account_name, size_t mem_size_b, platform_t platform) noexcept
+        info(
+            size_t id,
+            std::string name,
+            status_t status,
+            std::string account_name,
+            size_t mem_size_b,
+            platform_t platform) noexcept
+            
             : id_{ id }
             , name_{ name }
             , status_{ status }
@@ -23,12 +30,21 @@ namespace tmcppc::process {
             , platform_{ platform }
         {}
 
+        info() = default;
+        ~info() = default;
+        info(const info& other) = default;
+        info(info&& other) noexcept = default;
+        info& operator=(const info& other) = default;
+        info& operator=(info&& other) noexcept = default;
+
         [[nodiscard]] size_t id() const noexcept { return id_; }
         [[nodiscard]] std::string name() const noexcept { return name_; }
         [[nodiscard]] status_t status() const noexcept { return status_; }
         [[nodiscard]] std::string account_name() const noexcept { return account_name_; }
         [[nodiscard]] size_t mem_size_b() const noexcept { return mem_size_b_; }
         [[nodiscard]] platform_t platform() const noexcept { return platform_; }
+
+        auto operator<=>(const info& other) const = default;
 
     private:
         size_t id_{};
@@ -38,24 +54,6 @@ namespace tmcppc::process {
         size_t mem_size_b_{};
         platform_t platform_{};
     };
-
-    inline std::ostream& operator<<(std::ostream& os, const status_t& status) {
-        fmt::print(os, "{}", status);
-        return os;
-    }
-
-    inline std::ostream& operator<<(std::ostream& os, const platform_t& platform) {
-        fmt::print(os, "{}", platform);
-        return os;
-    }
-
-    inline std::string to_string(const status_t& status) {
-        return fmt::format("{}", status);
-    }
-
-    inline std::string to_string(const platform_t& platform) {
-        return fmt::format("{}", platform);
-    }
 }  // namespace tmcppc::process
 
 
@@ -72,6 +70,15 @@ struct fmt::formatter<tmcppc::process::status_t> {
     }
 };
 
+inline std::ostream& operator<<(std::ostream& os, const tmcppc::process::status_t& status) {
+    fmt::print(os, "{}", status);
+    return os;
+}
+
+inline std::string to_string(const tmcppc::process::status_t& status) {
+    return fmt::format("{}", status);
+}
+
 
 template <>
 struct fmt::formatter<tmcppc::process::platform_t> {
@@ -85,6 +92,15 @@ struct fmt::formatter<tmcppc::process::platform_t> {
         return fmt::format_to(ctx.out(), "{}", platform == tmcppc::process::platform_t::x32 ? "32-bit" : "64-bit");
     }
 };
+
+inline std::ostream& operator<<(std::ostream& os, const tmcppc::process::platform_t& platform) {
+    fmt::print(os, "{}", platform);
+    return os;
+}
+
+inline std::string to_string(const tmcppc::process::platform_t& platform) {
+    return fmt::format("{}", platform);
+}
 
 
 namespace tmcppc::problem_33 {

@@ -2,6 +2,7 @@
 #include "env.h"
 
 #include <chrono>
+#include <exception>
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <format>
@@ -16,19 +17,23 @@ void problem_36_main(std::ostream& os) {
     using namespace tmcppc::problem_36;
 
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
-    const auto d1_path{ resource_folder_path / "sample_folder" };
-    const auto d2_path{ resource_folder_path / "sample_subfolder" };
+    const auto in_dir_path_1{ resource_folder_path / "sample_folder" };
+    const auto in_dir_path_2{ resource_folder_path / "sample_subfolder" };
 
-    const ch::years duration1{ 500 };
-    const ch::milliseconds duration2{ 5 };
+    const ch::years duration_1{ 500 };
+    const ch::milliseconds duration_2{ 5 };
 
-    for (const auto& path : { d1_path, d2_path }) {
+    for (const auto& path : { in_dir_path_1, in_dir_path_2 }) {
         for (const auto& tp : {
-            ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration1 },
-            ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration2 } }) {
+            ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration_1 },
+            ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration_2 } }) {
 
-            fmt::print(os, "(Not) deleting entries older than {} in '{}':\n", std::format("{:%F %T}", tp), path.generic_string());
-            delete_directory_entries_older_than(os, path, tp);
+            try {
+                fmt::print(os, "(Not) deleting entries older than {} in '{}':\n", std::format("{:%F %T}", tp), path.generic_string());
+                delete_directory_entries_older_than(os, path, tp);
+            } catch (const std::exception& ex) {
+                fmt::print(os, "\n\tError: {}\n", ex.what());
+            }
         }
     }
 

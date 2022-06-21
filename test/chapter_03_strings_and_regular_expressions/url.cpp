@@ -13,13 +13,13 @@ TEST(url, DISABLED_constructor_empty_string) { EXPECT_THROW(url{ "" }, invalid_u
 TEST(url, DISABLED_constructor_invalid_url) { EXPECT_THROW(url{ "This is not a valid URL!" }, invalid_url_error); }
 TEST(url, DISABLED_valid_url) {
     url url{ "http://user:pass@example.com:992/animal/bird?species=seagull#wings" };
-    EXPECT_EQ(url.get_protocol(), "http");
-    EXPECT_EQ(*url.get_login(), "user:pass");
-    EXPECT_EQ(url.get_domain(), "example.com");
-    EXPECT_EQ(*url.get_port(), 992);
-    EXPECT_EQ(*url.get_path(), "animal/bird");
-    EXPECT_EQ(*url.get_query(), "species=seagull");
-    EXPECT_EQ(*url.get_fragment(), "wings");
+    EXPECT_EQ(url.protocol(), "http");
+    EXPECT_EQ(*url.login(), "user:pass");
+    EXPECT_EQ(url.domain(), "example.com");
+    EXPECT_EQ(*url.port(), 992);
+    EXPECT_EQ(*url.path(), "animal/bird");
+    EXPECT_EQ(*url.query(), "species=seagull");
+    EXPECT_EQ(*url.fragment(), "wings");
 }
 
 TEST(url, DISABLED_fmt_print) {
