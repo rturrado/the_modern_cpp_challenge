@@ -1,5 +1,7 @@
 #include "chapter_05_date_and_time/problem_044_monthly_calendar.h"
 
+#include "rtc/chrono.h"
+
 #include <chrono>
 #include <format>
 #include <iostream>  // cout
@@ -12,6 +14,10 @@ namespace ch = std::chrono;
 
 namespace tmcppc::problem_44 {
     void print_calendar_month(std::ostream& os, const ch::year& y, const ch::month& m) {
+        if (not m.ok()) {
+            throw rtc::chrono::invalid_month_error{ m };
+        }
+
         // Header
         os << ch::year_month{ y / m } << "\n";
         for (unsigned int i{ 1 }; i <= 7; ++i) {

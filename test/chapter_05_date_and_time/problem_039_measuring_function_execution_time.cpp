@@ -1,9 +1,34 @@
 #include "chapter_05_date_and_time/problem_039_measuring_function_execution_time.h"
 
+#include <chrono>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <sstream>  // ostringstream
+#include <thread>  // sleep_for
+
+namespace ch = std::chrono;
+using namespace std::chrono_literals;
+using namespace tmcppc::problem_39;
+
+
+TEST(measure_time, DISABLED_f_no_args) {
+    auto duration{
+        measure_time<ch::milliseconds>(
+            []() { std::this_thread::sleep_for(10ms); }
+        )
+    };
+    EXPECT_GT(duration, 5ms);
+}
+TEST(measure_time, DISABLED_f_args) {
+    auto duration{
+        measure_time<ch::milliseconds>(
+            [](const auto& duration) { std::this_thread::sleep_for(duration); },
+            10ms
+        )
+    };
+    EXPECT_GT(duration, 5ms);
+}
 
 
 TEST(problem_39_main, DISABLED_output) {

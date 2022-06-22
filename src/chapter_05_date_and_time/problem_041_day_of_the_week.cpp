@@ -1,6 +1,9 @@
 #include "chapter_05_date_and_time/problem_041_day_of_the_week.h"
 
+#include "rtc/chrono.h"
+
 #include <chrono>
+#include <exception>
 #include <format>
 #include <iostream>  // cout
 #include <ostream>
@@ -10,9 +13,11 @@ namespace ch = std::chrono;
 
 namespace tmcppc::problem_41 {
     ch::weekday date_to_weekday(const ch::year_month_day& date) {
+        if (not date.ok()) {
+            throw rtc::chrono::invalid_date_error{ date };
+        }
         return ch::weekday{ std::chrono::sys_days{date} };
     }
-
 
     unsigned int weekday_to_number(const ch::weekday& wd) {
         return wd.iso_encoding();
@@ -30,8 +35,13 @@ void problem_41_main(std::ostream& os) {
     auto date_4{ 1977y / 5 / 23 };
 
     for (const auto& date : { date_1, date_2, date_3, date_4 }) {
-        auto wd{ date_to_weekday(date) };
-        os << std::format("{} was: {} ({})\n", date, weekday_to_number(wd), wd);
+        try {
+            auto wd{ date_to_weekday(date) };
+            os << std::format("{} was: {} ({})\n", date, weekday_to_number(wd), wd);
+        }
+        catch (const std::exception& ex) {
+            os << "Error: " << ex.what() << "\n";
+        }
     }
     os << "\n";
 }

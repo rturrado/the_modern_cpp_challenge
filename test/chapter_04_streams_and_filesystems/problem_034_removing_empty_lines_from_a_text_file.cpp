@@ -12,16 +12,16 @@ using namespace rtc::filesystem;
 using namespace tmcppc::problem_34;
 
 
-TEST(remove_empty_lines, in_file_path_does_not_exist) {
+TEST(remove_empty_lines, DISABLED_in_file_path_does_not_exist) {
     std::ostringstream oss{};
     EXPECT_THROW((void) remove_empty_lines(oss, "this_file_does_not_exist.txt"), file_path_does_not_exist_error);
 }
-TEST(remove_empty_lines, in_file_path_is_not_a_regular_file) {
+TEST(remove_empty_lines, DISABLED_in_file_path_is_not_a_regular_file) {
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
     std::ostringstream oss{};
     EXPECT_THROW((void) remove_empty_lines(oss, resource_folder_path), file_is_not_regular_error);
 }
-TEST(remove_empty_lines, valid_in_file_path) {
+TEST(remove_empty_lines, DISABLED_valid_in_file_path) {
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
     const auto in_file_path{ resource_folder_path / "problem_034_input.txt" };
     const auto out_file_path{ resource_folder_path / "problem_034_output.txt" };
@@ -31,7 +31,7 @@ TEST(remove_empty_lines, valid_in_file_path) {
 }
 
 
-TEST(problem_34_main, output) {
+TEST(problem_34_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_34_main(oss);
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(

@@ -3,7 +3,37 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <chrono>
 #include <sstream>  // ostringstream
+
+namespace ch = std::chrono;
+using namespace std::chrono_literals;
+using namespace tmcppc::problem_43;
+
+
+TEST(display_local_meeting_times, DISABLED_no_participants) {
+    std::ostringstream oss{};
+    ch::zoned_time<ch::minutes> meeting_zt{ "Europe/Madrid", ch::sys_days{2021y / ch::October / 23} + 18h };
+    vector_of_participants_and_time_zones participants{};
+    display_local_meeting_times(oss, meeting_zt, participants);
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Local meeting times:\n"));
+}
+
+
+TEST(display_local_meeting_times, DISABLED_some_participants) {
+    std::ostringstream oss{};
+    ch::zoned_time<ch::minutes> meeting_zt{ "Europe/Madrid", ch::sys_days{2021y / ch::October / 23} + 18h };
+    auto participants = vector_of_participants_and_time_zones{
+        { "Laura", "America/Los_Angeles" },
+        { "Daniel", "America/Denver" }
+    };
+    display_local_meeting_times(oss, meeting_zt, participants);
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
+        "Local meeting times:\n"
+        "\tLaura      2021-10-23 11:00 -0700 America/Los_Angeles \n"
+        "\tDaniel     2021-10-23 12:00 -0600 America/Denver      \n"
+    ));
+}
 
 
 TEST(problem_43_main, DISABLED_output) {

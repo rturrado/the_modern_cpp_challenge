@@ -18,16 +18,15 @@ namespace tmcppc::problem_39 {
         assert(v[0] == 1);
     };
 
-
     void sort_iota_vector(size_t num_elems, size_t num_reps) {
         assert(num_elems > 0);
         std::vector<int> v(num_elems);
         std::iota(begin(v), end(v), 1);
         while (num_reps-- != 0) {
-            sort_vector(v);
+            auto w{ v };
+            sort_vector(w);
         }
     }
-
 
     void sort_shuffle_vector(size_t num_elems, size_t num_reps) {
         assert(num_elems > 0);
@@ -35,15 +34,16 @@ namespace tmcppc::problem_39 {
         std::iota(begin(v), end(v), 1);
         std::shuffle(begin(v), end(v), std::mt19937{ std::random_device{}() });
         while (num_reps-- != 0) {
-            sort_vector(v);
+            auto w{ v };
+            sort_vector(w);
         }
     }
 }  // namespace tmcppc::problem_39
 
 
 void problem_39_main(std::ostream& os) {
-    using namespace tmcppc::problem_39;
     namespace ch = std::chrono;
+    using namespace tmcppc::problem_39;
 
     fmt::print(os, "Measuring times...\n");
     using vector_of_elems_and_reps = std::vector<std::pair<size_t, size_t>>;

@@ -11,10 +11,10 @@
 
 void problem_43_main(std::ostream& os) {
     namespace ch = std::chrono;
-    using namespace ch;
+    using namespace std::chrono_literals;
     using namespace tmcppc::problem_43;
 
-    ch::zoned_time<ch::minutes> meeting_zt{ "Europe/Madrid", ch::sys_days{2021y / October / 23} + 18h };
+    ch::zoned_time<ch::minutes> meeting_zt{ "Europe/Madrid", ch::sys_days{2021y / ch::October / 23} + 18h };
 
     auto participants = vector_of_participants_and_time_zones{
         { "Laura", "America/Los_Angeles" },

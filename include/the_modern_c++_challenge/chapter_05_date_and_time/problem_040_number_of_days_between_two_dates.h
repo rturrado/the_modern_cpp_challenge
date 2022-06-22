@@ -5,7 +5,7 @@
 
 
 namespace tmcppc::problem_40 {
-    int difference_in_days(std::chrono::sys_days start_date, std::chrono::sys_days end_date);
+    int difference_in_days(std::chrono::year_month_day start_date, std::chrono::year_month_day end_date);
 }  // namespace tmcppc::problem_40
 
 

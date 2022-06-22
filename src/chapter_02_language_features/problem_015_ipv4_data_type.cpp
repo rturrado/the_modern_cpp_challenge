@@ -28,6 +28,7 @@ void problem_15_main(std::istream& is, std::ostream& os) {
             fmt::print(os, "\tError: {}\n", ex.what());
         }
     }
+    fmt::print(os, "\n");
 }
 
 

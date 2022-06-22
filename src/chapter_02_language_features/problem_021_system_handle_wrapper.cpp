@@ -15,7 +15,7 @@
 
 
 void function_that_throws() {
-    throw std::runtime_error{"I'm a throwing function!\n"};
+    throw std::runtime_error{ "I'm a throwing function!" };
 }
 
 

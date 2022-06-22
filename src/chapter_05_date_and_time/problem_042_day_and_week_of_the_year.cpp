@@ -1,5 +1,7 @@
 #include "chapter_05_date_and_time/problem_042_day_and_week_of_the_year.h"
 
+#include "rtc/chrono.h"
+
 #include <chrono>
 #include <format>
 #include <iostream>  // cout
@@ -11,12 +13,19 @@ using namespace ch;
 namespace tmcppc::problem_42 {
     // Starting from 1
     unsigned int daynum(const ch::year_month_day& date) {
+        if (not date.ok()) {
+            throw rtc::chrono::invalid_date_error{ date };
+        }
         return (ch::sys_days{ date } - ch::sys_days{ ch::year_month_day{ date.year() / January / 0 } }).count();
     }
 
 
     // Starting from 1
     unsigned int weeknum(const ch::year_month_day& date) {
+        if (not date.ok()) {
+            throw rtc::chrono::invalid_date_error{ date };
+        }
+
         unsigned int ret{ (daynum(date) + 6) / 7 };
 
         auto wd_jan_1st{ (ch::weekday{ date.year() / January / 1 }).iso_encoding() };  // Mon=1, Tue=2... Sun=7

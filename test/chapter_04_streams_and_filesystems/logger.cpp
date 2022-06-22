@@ -13,14 +13,14 @@ using namespace rtc::filesystem;
 using namespace tmcppc::logging::v1;
 
 
-TEST(logger, log_empty_text) {
+TEST(logger, DISABLED_log_empty_text) {
     logger logger{};
     logger.log("");
     auto file_content{ get_text_file_content(logger.get_file_path()) };
     EXPECT_TRUE(file_content.empty());
 }
 
-TEST(logger, log_text) {
+TEST(logger, DISABLED_log_text) {
     std::string log_file_path{};
     {
         logger logger{};
@@ -33,7 +33,7 @@ TEST(logger, log_text) {
     EXPECT_THAT(file_content, ::testing::HasSubstr("R u awake\\? Want 2 chat\\?\n"));
 }
 
-TEST(logger, move_file) {
+TEST(logger, DISABLED_move_file) {
     logger logger{};
     logger.log("R u awake\\? Want 2 chat\\?\n");
 
@@ -48,7 +48,7 @@ TEST(logger, move_file) {
     EXPECT_THAT(file_content, ::testing::HasSubstr("R u awake\\? Want 2 chat\\?\n"));
 }
 
-TEST(logger, destructor_and_not_moved) {
+TEST(logger, DISABLED_destructor_and_not_moved) {
     std::string log_file_path{};
     {
         logger logger{};
@@ -57,7 +57,7 @@ TEST(logger, destructor_and_not_moved) {
     EXPECT_FALSE(fs::exists(log_file_path));
 }
 
-TEST(logger, destructor_and_moved) {
+TEST(logger, DISABLED_destructor_and_moved) {
     std::string log_file_path{};
     {
         logger logger{};
