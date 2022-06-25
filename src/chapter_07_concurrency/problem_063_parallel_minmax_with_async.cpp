@@ -9,8 +9,8 @@
 void problem_63_main(std::ostream& os) {
     parallel_minmax(
         os,
-        [](auto first, auto last) { return tmcppc::algorithm::async::parallel_min(first, last); },
-        [](auto first, auto last) { return tmcppc::algorithm::async::parallel_max(first, last); }
+        [](auto&& rng) { return tmcppc::algorithm::async::parallel_min(rng); },
+        [](auto&& rng) { return tmcppc::algorithm::async::parallel_max(rng); }
     );
 }
 

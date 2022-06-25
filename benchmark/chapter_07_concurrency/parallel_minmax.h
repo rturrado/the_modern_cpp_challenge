@@ -63,7 +63,7 @@ void cb_parallel_binary_operation(F&& f, G&& g, H&& h, std::vector<std::string_v
         for (size_t block_size : { 1'000, 10'000, 100'000 }) {
             auto t{ function_timer<>::duration(
                 [&h, &v, thread_pool_size, block_size, &h_ret]() {
-                    h_ret = h(std::cbegin(v), std::cend(v), thread_pool_size, block_size);
+                    h_ret = h(v, thread_pool_size, block_size);
                 }
             ) };
             assert(f_ret == h_ret);
@@ -81,32 +81,32 @@ void cb_parallel_minmax(ParallelMinFunction&& parallel_min, ParallelMaxFunction&
     cb_parallel_binary_operation<int>(
         [](auto first, auto last) { return *std::min_element(first, last); },
         [](auto first, auto last) { return *std::min_element(std::execution::par, first, last); },
-        [&parallel_min](auto first, auto last, auto thread_pool_size, auto block_size) {
-            return parallel_min(first, last, thread_pool_size, block_size); },
+        [&parallel_min](auto&& rng, auto thread_pool_size, auto block_size) {
+            return *parallel_min(rng, thread_pool_size, block_size); },
         std::vector<std::string_view>{ "min", "int", "std::min_element", "parallel_min" });
 
     // Max, T = int
     cb_parallel_binary_operation<int>(
         [](auto first, auto last) { return *std::max_element(first, last); },
         [](auto first, auto last) { return *std::max_element(std::execution::par, first, last); },
-        [&parallel_max](auto first, auto last, auto thread_pool_size, auto block_size) {
-            return parallel_max(first, last, thread_pool_size, block_size); },
+        [&parallel_max](auto&& rng, auto thread_pool_size, auto block_size) {
+            return *parallel_max(rng, thread_pool_size, block_size); },
         std::vector<std::string_view>{ "max", "int", "std::max_element", "parallel_max" });
 
     // Min, T = int64_t
     cb_parallel_binary_operation<int64_t>(
         [](auto first, auto last) { return *std::min_element(first, last); },
         [](auto first, auto last) { return *std::min_element(std::execution::par, first, last); },
-        [&parallel_min](auto first, auto last, auto thread_pool_size, auto block_size) {
-            return parallel_min(first, last, thread_pool_size, block_size); },
+        [&parallel_min](auto&& rng, auto thread_pool_size, auto block_size) {
+            return *parallel_min(rng, thread_pool_size, block_size); },
         std::vector<std::string_view>{ "min", "int64_t", "std::min_element", "parallel_min" });
 
     // Max, T = int64_t
     cb_parallel_binary_operation<int64_t>(
         [](auto first, auto last) { return *std::max_element(first, last); },
         [](auto first, auto last) { return *std::max_element(std::execution::par, first, last); },
-        [&parallel_max](auto first, auto last, auto thread_pool_size, auto block_size) {
-            return parallel_max(first, last, thread_pool_size, block_size); },
+        [&parallel_max](auto&& rng, auto thread_pool_size, auto block_size) {
+            return *parallel_max(rng, thread_pool_size, block_size); },
         std::vector<std::string_view>{ "max", "int64_t", "std::max_element", "parallel_max" });
 }
 
@@ -144,7 +144,7 @@ inline static void gb_parallel_minmax_int(benchmark::State& state, auto minmax_a
     std::ranges::shuffle(v, std::mt19937{ std::random_device{}() });
 
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(minmax_algorithm(std::begin(v), std::end(v), thread_pool_size, block_size));
+        benchmark::DoNotOptimize(minmax_algorithm(v, thread_pool_size, block_size));
     }
 }
 
@@ -157,6 +157,6 @@ inline static void gb_parallel_minmax_int64_t(benchmark::State& state, auto minm
     std::ranges::shuffle(v, std::mt19937{ std::random_device{}() });
 
     while (state.KeepRunning()) {
-        benchmark::DoNotOptimize(minmax_algorithm(std::begin(v), std::end(v), thread_pool_size, block_size));
+        benchmark::DoNotOptimize(minmax_algorithm(v, thread_pool_size, block_size));
     }
 }

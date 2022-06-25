@@ -3,7 +3,57 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <numeric>  // iota
+#include <ranges>  // views::iota
 #include <sstream>  // ostringstream
+#include <vector>
+
+using tmcppc::algorithm::thread::parallel_min;
+using tmcppc::algorithm::thread::parallel_max;
+
+
+TEST(thread_parallel_min, DISABLED_empty_input_range) {
+    std::vector<int> v{};
+    EXPECT_EQ(parallel_min(v), v.end());
+}
+TEST(thread_parallel_min, DISABLED_zero_thread_pool_size) {
+    std::vector<int> v(1000);
+    std::iota(v.begin(), v.end(), -500);
+    EXPECT_EQ(*parallel_min(v, 0), -500);
+}
+TEST(thread_parallel_min, DISABLED_zero_block_size) {
+    std::vector<int> v(1000);
+    std::iota(v.begin(), v.end(), -500);
+    EXPECT_EQ(*parallel_min(v, 4, 0), -500);
+}
+TEST(thread_parallel_min, DISABLED_rvalue_range) {
+    EXPECT_EQ(*parallel_min(std::vector<int>{ -5, -2, 1, 4 }), -5);
+}
+TEST(thread_parallel_min, DISABLED_view) {
+    EXPECT_EQ(*parallel_min(std::views::iota(-500, 500)), -500);
+}
+
+
+TEST(thread_parallel_max, DISABLED_empty_input_range) {
+    std::vector<int> v{};
+    EXPECT_EQ(parallel_max(v), v.end());
+}
+TEST(thread_parallel_max, DISABLED_zero_thread_pool_size) {
+    std::vector<int> v(1000);
+    std::iota(v.begin(), v.end(), -500);
+    EXPECT_EQ(*parallel_max(v, 0), 499);
+}
+TEST(thread_parallel_max, DISABLED_zero_block_size) {
+    std::vector<int> v(1000);
+    std::iota(v.begin(), v.end(), -500);
+    EXPECT_EQ(*parallel_max(v, 4, 0), 499);
+}
+TEST(thread_parallel_max, DISABLED_rvalue_range) {
+    EXPECT_EQ(*parallel_max(std::vector<int>{ -5, -2, 1, 4 }), 4);
+}
+TEST(thread_parallel_max, DISABLED_view) {
+    EXPECT_EQ(*parallel_max(std::views::iota(-500, 500)), 499);
+}
 
 
 TEST(problem_62_main, DISABLED_output) {

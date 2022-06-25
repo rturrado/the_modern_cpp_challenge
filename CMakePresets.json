@@ -58,6 +58,14 @@
             "description": "Build benchmark Release configuration",
             "configuration": "Release",
             "verbose": true
+        },
+        {
+            "name": "x64-RelWithDebInfo-Benchmark",
+            "configurePreset": "benchmark",
+            "displayName": "Build x64-RelWithDebInfo-Benchmark",
+            "description": "Build benchmark RelWithDebInfo configuration",
+            "configuration": "RelWithDebInfo",
+            "verbose": true
         }
     ]
 }

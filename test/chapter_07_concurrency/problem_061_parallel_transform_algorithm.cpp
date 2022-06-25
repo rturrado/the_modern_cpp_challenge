@@ -4,6 +4,46 @@
 #include <gtest/gtest.h>
 
 #include <sstream>  // ostringstream
+#include <vector>
+
+using tmcppc::algorithm::parallel_transform;
+
+
+TEST(parallel_transform, DISABLED_empty_input_range) {
+    std::vector<int> v{};
+    std::vector<int> w(v.size());
+    parallel_transform(v.cbegin(), v.cend(), w.begin(), [](int i) { return i * i; });
+    EXPECT_TRUE(v.empty());
+    EXPECT_TRUE(w.empty());
+    EXPECT_EQ(v, w);
+}
+TEST(parallel_transform, DISABLED_non_empty_output_range) {
+    std::vector<int> v{ 1, 2 };
+    std::vector<int> w{ 3, 4, 5 };
+    parallel_transform(v.cbegin(), v.cend(), w.begin(), [](int i) { return i * i * i; });
+    EXPECT_EQ(w.size(), 3);
+    EXPECT_THAT(w, ::testing::ElementsAre(1, 8, 5));
+}
+TEST(parallel_transform, DISABLED_output_range_is_same_as_input_range) {
+    std::vector<int> v{ 1, 2 };
+    parallel_transform(v.cbegin(), v.cend(), v.begin(), [](int i) { return i + i; });
+    EXPECT_EQ(v.size(), 2);
+    EXPECT_THAT(v, ::testing::ElementsAre(2, 4));
+}
+TEST(parallel_transform, DISABLED_zero_thread_pool_size) {
+    std::vector<int> v{ 1, 2 };
+    std::vector<int> w(v.size());
+    parallel_transform(v.cbegin(), v.cend(), w.begin(), [](int i) { return i * 3; }, 0);
+    EXPECT_EQ(w.size(), 2);
+    EXPECT_THAT(w, ::testing::ElementsAre(3, 6));
+}
+TEST(parallel_transform, DISABLED_zero_block_size) {
+    std::vector<int> v{ 1, 2 };
+    std::vector<int> w(v.size());
+    parallel_transform(v.cbegin(), v.cend(), w.begin(), [](int i) { return i * 3; }, 4, 0);
+    EXPECT_EQ(w.size(), 2);
+    EXPECT_THAT(w, ::testing::ElementsAre(3, 6));
+}
 
 
 TEST(problem_61_main, DISABLED_output) {

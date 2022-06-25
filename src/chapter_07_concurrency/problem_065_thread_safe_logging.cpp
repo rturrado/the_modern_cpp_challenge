@@ -2,6 +2,7 @@
 #include "chapter_07_concurrency/problem_065_thread_safe_logging.h"
 
 #include <chrono>  // chrono_literals
+#include <fmt/ostream.h>
 #include <future>  // async
 #include <iostream>  // cout
 #include <mutex>  // lock_guard
@@ -40,7 +41,7 @@ void problem_65_main(std::ostream& os) {
     future_2.wait();
     future_3.wait();
 
-    os << "\n";
+    fmt::print(os, "\n");
 }
 
 

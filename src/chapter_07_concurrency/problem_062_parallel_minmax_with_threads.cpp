@@ -8,8 +8,8 @@
 void problem_62_main(std::ostream& os) {
     parallel_minmax(
         os,
-        [](auto first, auto last) { return tmcppc::algorithm::thread::parallel_min(first, last); },
-        [](auto first, auto last) { return tmcppc::algorithm::thread::parallel_max(first, last); }
+        [](auto&& rng) { return tmcppc::algorithm::thread::parallel_min(rng); },
+        [](auto&& rng) { return tmcppc::algorithm::thread::parallel_max(rng); }
     );
 }
 
