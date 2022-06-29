@@ -1,5 +1,6 @@
 #include "chapter_08_design_patterns/problem_071_observable_vector_container.h"
 
+#include <algorithm>  // transfomr
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
 #include <initializer_list>
@@ -17,9 +18,9 @@ void problem_71_main(std::ostream& os) {
     fmt::print(os, "Creating the observable vectors:\n");
     auto sp_ov_0{ std::make_shared<observable_vector<std::string>>() };
     auto sp_ov_1{ std::make_shared<observable_vector<float>>(5) };
-    for (auto i = 0; i < sp_ov_1->size(); ++i) {
-        (*sp_ov_1)[i] = 3.14f * i;
-    }
+    std::ranges::transform(*sp_ov_1, std::begin(*sp_ov_1),
+        [i = 0](auto&& f) mutable { return 3.14f * i++; }
+    );
     auto sp_ov_2{ std::make_shared<observable_vector<double>>(3, 1.5) };
     const char* cstr{ "Hello, universe!" };
     auto sp_ov_3{ std::make_shared<observable_vector<char>>(cstr + 4, cstr + 8) };
@@ -69,7 +70,7 @@ void problem_71_main(std::ostream& os) {
     fmt::print(os, "\n");
 
     fmt::print(os, "Move assigning to ov_4:\n");
-    *sp_ov_4 = observable_vector<int>(std::initializer_list<int>{ 1, 1, 2, 3, 5 });
+    *sp_ov_4 = observable_vector<int>{ 1, 1, 2, 3, 5 };
     fmt::print(os, "\n");
 
     fmt::print(os, "Detaching from ov_0:\n");

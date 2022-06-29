@@ -11,7 +11,7 @@
 #include <ostream>
 #include <string>
 #include <string_view>
-#include <type_traits>  // is_convertible_v
+#include <type_traits>  // is_arithmetic_v, is_convertible_v
 #include <utility>  // forward, move
 #include <vector>
 
@@ -92,6 +92,7 @@ namespace tmcppc::data_structures {
     // Concrete observers 1 and 2 may do things completely different
     // Like printing the vector contents to the console and printing the sum of all the vector elements
     template <typename T>
+        requires requires (T t) { fmt::print("{}", t); }
     class concrete_observer_1 : public observer<T> {
     public:
         explicit concrete_observer_1(std::ostream& os, std::shared_ptr<observable_vector<T>> sp_ov) noexcept
@@ -107,8 +108,8 @@ namespace tmcppc::data_structures {
 
 
     template <typename T>
-    class concrete_observer_2 : public observer<T>
-    {
+        requires std::is_arithmetic_v<T>
+    class concrete_observer_2 : public observer<T> {
     public:
         explicit concrete_observer_2(std::ostream& os, std::shared_ptr<observable_vector<T>> sp_ov) noexcept
             : observer<T>::observer{ os, sp_ov } {}
@@ -142,17 +143,21 @@ namespace tmcppc::data_structures {
 
         // Copy and move operations don't copy neither the id nor the list of observers
         constexpr subject(const subject& other) {}
-        constexpr subject(subject&& other) noexcept { other.id_ = static_cast<size_t>(-1); other.observers_.clear(); }
+        constexpr subject(subject&& other) noexcept {
+            other.id_ = static_cast<size_t>(-1);
+            other.observers_.clear();
+        }
         constexpr subject& operator=(const subject& other) { return *this; }
         constexpr subject& operator=(subject&& other) noexcept {
-            other.id_ = static_cast<size_t>(-1); other.observers_.clear();
+            other.id_ = static_cast<size_t>(-1);
+            other.observers_.clear();
             return *this;
         }
 
         [[nodiscard]] bool is_observed() const noexcept { return not observers_.empty(); }
 
         void notify(const notification& n) const {
-            std::for_each(std::begin(observers_), std::end(observers_), [&n](auto sp) { sp->update(n); });
+            std::ranges::for_each(observers_, [&n](auto sp) { sp->update(n); });
         }
 
     private:
@@ -173,7 +178,7 @@ namespace tmcppc::data_structures {
         using iterator = std::vector<T>::iterator;
         using const_iterator = std::vector<T>::const_iterator;
 
-        constexpr observable_vector() noexcept = default;
+        constexpr observable_vector() = default;
         constexpr explicit observable_vector(size_t s)
             : v_(s) {}
         constexpr observable_vector(size_t s, const T& t)
@@ -307,7 +312,7 @@ struct fmt::formatter<tmcppc::data_structures::notification> {
             n.get_id(),
             n_type,
             (n_type == tmcppc::data_structures::notification_type::push_back or
-                n_type == tmcppc::data_structures::notification_type::pop_back)
+             n_type == tmcppc::data_structures::notification_type::pop_back)
                 ? std::to_string(n.get_index_of_changed_element())
                 : ""
         );

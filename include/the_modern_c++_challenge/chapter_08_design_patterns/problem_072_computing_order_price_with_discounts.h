@@ -12,12 +12,14 @@ using namespace rtc::pretty_print;
 
 
 namespace tmcppc::store {
+    // Discount
+    //
     struct discount {
         virtual ~discount() = default;
 
         [[nodiscard]] virtual float percentage(size_t, float) const noexcept = 0;
 
-        [[nodiscard]] virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept = 0;
+        virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept = 0;
     };
 
     inline void print(
@@ -45,12 +47,14 @@ namespace tmcppc::store {
     }
 
 
+    // Article fixed discount
+    //
     struct article_fixed_discount : public discount {
         explicit article_fixed_discount(float p)
             : percentage_{ p }
         {}
 
-        [[nodiscard]] virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
+        virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
             fmt::print(os, "{}article_fixed_discount(percentage : {})", indentation, percentage_);
         }
 
@@ -66,14 +70,15 @@ namespace tmcppc::store {
     };
 
 
-    class order_line_volume_discount : public discount {
-    public:
+    // Order line volume discount
+    //
+    struct order_line_volume_discount : public discount {
         order_line_volume_discount(float p, size_t q)
             : percentage_{ p }
             , minimum_article_quantity_{ q }
         {}
 
-        [[nodiscard]] virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
+        virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
             fmt::print(os, "{}order_line_volume_discount(percentage : {}, minimum_article_quantity : {})",
                 indentation, percentage_, minimum_article_quantity_);
         }
@@ -91,11 +96,13 @@ namespace tmcppc::store {
     };
 
 
+    // Order line price discount
+    //
     struct order_line_price_discount : public discount {
     public:
         order_line_price_discount(float p, float mtap) : percentage_{ p }, minimum_total_article_price_{ mtap } {}
 
-        [[nodiscard]] virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
+        virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
             fmt::print(os, "{}order_line_price_discount(percentage : {}, minimum_total_article_price : {})",
                 indentation, percentage_, minimum_total_article_price_);
         }
@@ -113,11 +120,13 @@ namespace tmcppc::store {
     };
 
 
+    // Order price discount
+    //
     struct order_price_discount : public discount {
     public:
         order_price_discount(float p, float mtop) : percentage_{ p }, minimum_total_order_price_{ mtop } {}
 
-        [[nodiscard]] virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
+        virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
             fmt::print(os, "{}order_price_discount(percentage : {}, minimum_total_order_price : {})",
                 indentation, percentage_, minimum_total_order_price_);
         }
@@ -135,6 +144,8 @@ namespace tmcppc::store {
     };
 
 
+    // Article
+    //
     struct article {
         size_t id{};
         float price{};
@@ -164,6 +175,8 @@ namespace tmcppc::store {
     }
 
 
+    // Store
+    //
     struct store {
         std::vector<std::shared_ptr<article>> articles{};
 
@@ -180,6 +193,8 @@ namespace tmcppc::store {
     }
 
 
+    // Customer
+    //
     struct customer {
         size_t id{};
         std::vector<std::shared_ptr<discount>> discounts{};
@@ -198,6 +213,8 @@ namespace tmcppc::store {
     }
 
 
+    // Order line
+    //
     struct order_line {
         std::shared_ptr<article> article{};
         size_t quantity{};
@@ -234,6 +251,8 @@ namespace tmcppc::store {
     }
 
 
+    // Order
+    //
     struct order {
         size_t id{};
         std::vector<order_line> order_lines{};
@@ -258,6 +277,8 @@ namespace tmcppc::store {
     }
 
 
+    // Price calculator
+    //
     struct price_calculator {
         virtual ~price_calculator() = default;
 
@@ -265,6 +286,8 @@ namespace tmcppc::store {
     };
 
 
+    // Cumulative price calculator
+    //
     struct cumulative_price_calculator : public price_calculator {
         [[nodiscard]] virtual float calculate(const order& order) const noexcept override {
             float ret{};
@@ -301,6 +324,8 @@ namespace tmcppc::store {
     };
 
 
+    // Non cumulative price calculator
+    //
     struct non_cumulative_price_calculator : public price_calculator {
         [[nodiscard]] virtual float calculate(const order& order) const noexcept override {
             float ret{};

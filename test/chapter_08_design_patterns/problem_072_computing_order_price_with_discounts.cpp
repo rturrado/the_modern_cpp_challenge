@@ -3,7 +3,89 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <cmath>  // fabs
+#include <memory>  // make_shared, make_unique, unique_ptr
 #include <sstream>  // ostringstream
+
+using namespace tmcppc::store;
+
+
+bool simple_compare_floats(float a, float b) {
+    return std::fabs(a - b) < 0.001;
+}
+
+
+TEST(article_fixed_discount_percentage, DISABLED_discount_0) {
+    std::unique_ptr<discount> d{ std::make_unique<article_fixed_discount>(0.0f) };
+    EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
+}
+TEST(article_fixed_discount_percentage, DISABLED_discount_0_5) {
+    std::unique_ptr<discount> d{ std::make_unique<article_fixed_discount>(0.5f) };
+    EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.5f));
+}
+
+
+TEST(order_line_volume_discount_percentage, DISABLED_discount_0) {
+    std::unique_ptr<discount> d{ std::make_unique<order_line_volume_discount>(0.0f, 0) };
+    EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
+}
+TEST(order_line_volume_discount_percentage, DISABLED_discount_0_5_minimum_article_quantity_0) {
+    std::unique_ptr<discount> d{ std::make_unique<order_line_volume_discount>(0.5f, 0) };
+    EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.5f));
+}
+TEST(order_line_volume_discount_percentage, DISABLED_discount_0_5_minimum_article_quantity_5) {
+    std::unique_ptr<discount> d{ std::make_unique<order_line_volume_discount>(0.5f, 5) };
+    EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
+}
+
+
+TEST(order_line_price_discount_percentage, DISABLED_discount_0) {
+    std::unique_ptr<discount> d{ std::make_unique<order_line_price_discount>(0.0f, 0.0f) };
+    EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
+}
+TEST(order_line_price_discount_percentage, DISABLED_discount_0_5_minimum_total_article_price_0) {
+    std::unique_ptr<discount> d{ std::make_unique<order_line_price_discount>(0.5f, 0.0f) };
+    EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.5f));
+}
+TEST(order_line_price_discount_percentage, DISABLED_discount_0_5_minimum_total_article_price_100) {
+    std::unique_ptr<discount> d{ std::make_unique<order_line_price_discount>(0.5f, 100.0f) };
+    EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
+}
+
+
+TEST(order_price_discount_percentage, DISABLED_discount_0) {
+    std::unique_ptr<discount> d{ std::make_unique<order_price_discount>(0.0f, 0.0f) };
+    EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
+}
+TEST(order_price_discount_percentage, DISABLED_discount_0_5_minimum_total_order_price_0) {
+    std::unique_ptr<discount> d{ std::make_unique<order_price_discount>(0.5f, 0.0f) };
+    EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.5f));
+}
+TEST(order_price_discount_percentage, DISABLED_discount_0_5_minimum_total_order_price_100) {
+    std::unique_ptr<discount> d{ std::make_unique<order_price_discount>(0.5f, 100.0f) };
+    EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
+}
+
+
+TEST(price_calculator, DISABLED_calculate) {
+    auto d1{ std::make_shared<article_fixed_discount>(0.05f) };
+    auto d3{ std::make_shared<order_line_price_discount>(0.1f, 20.0f) };
+    auto d4{ std::make_shared<order_price_discount>(0.03f, 100.0f) };
+    auto a3{ std::make_shared<article>(2, 4.0f, std::vector<std::shared_ptr<discount>>{}) };
+    auto a4{ std::make_shared<article>(3, 8.0f, std::vector<std::shared_ptr<discount>>{}) };
+    auto c2{ std::make_shared<customer>(1, std::vector<std::shared_ptr<discount>>{ d1 }) };
+    order o2{
+        .id = 1,
+        .order_lines = {
+            { a3, 10, std::vector<std::shared_ptr<discount>>{ d3 } },
+            { a4, 10, std::vector<std::shared_ptr<discount>>{ d3 } }
+        },
+        .customer = c2,
+        .discounts = std::vector<std::shared_ptr<discount>>{ d4 }
+    };
+    EXPECT_TRUE(simple_compare_floats(cumulative_price_calculator{}.calculate(o2), 99.36f));
+    EXPECT_TRUE(simple_compare_floats(non_cumulative_price_calculator{}.calculate(o2), 108.0f));
+}
 
 
 TEST(problem_72_main, DISABLED_output) {

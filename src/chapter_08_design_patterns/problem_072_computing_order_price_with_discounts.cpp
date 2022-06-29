@@ -44,23 +44,23 @@ void problem_72_main(std::ostream& os) {
 
     // Orders
     order o1{
-        0,
-        {
+        .id = 0,
+        .order_lines = {
             { a1, 6, std::vector<std::shared_ptr<discount>>{ d2 } },
             { a2, 2, std::vector<std::shared_ptr<discount>>{} },
             { a5, 2, std::vector<std::shared_ptr<discount>>{ d3 } }
         },
-        c1,
-        std::vector<std::shared_ptr<discount>>{}
+        .customer = c1,
+        .discounts = std::vector<std::shared_ptr<discount>>{}
     };
     order o2{
-        1,
-        {
+        .id = 1,
+        .order_lines = {
             { a3, 10, std::vector<std::shared_ptr<discount>>{ d3 } },
             { a4, 10, std::vector<std::shared_ptr<discount>>{ d3 } }
         },
-        c2,
-        std::vector<std::shared_ptr<discount>>{ d4 }
+        .customer = c2,
+        .discounts = std::vector<std::shared_ptr<discount>>{ d4 }
     };
 
     fmt::print(os, "Order 1:\n");

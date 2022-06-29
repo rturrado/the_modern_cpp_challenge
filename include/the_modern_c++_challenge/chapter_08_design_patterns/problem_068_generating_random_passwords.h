@@ -46,7 +46,7 @@ namespace tmcppc::password {
             for (auto&& g : gs_) {
                 ret += g->generate();
             }
-            std::shuffle(std::begin(ret), std::end(ret), std::default_random_engine{ std::random_device{}() });
+            std::ranges::shuffle(ret, std::default_random_engine{ std::random_device{}() });
             return ret;
         }
 
@@ -63,15 +63,14 @@ namespace tmcppc::password {
         [[nodiscard]] virtual std::string generate() const noexcept override {
             static rtc::random::random_int random_character{ 0, 31 };  // 32 symbol characters
             std::string ret(length_, '!');
-            std::generate(std::begin(ret), std::end(ret), []() {
+            std::ranges::generate(ret, []() {
                 auto c{ random_character() };
                 if (c <= 14) { c += '!'; }  // first group of 15 characters: !"#$%&'()*+,-./
                 else if (c <= 21) { c += ':' - 15; }  // second group of 7 characters: :;<=>?@
                 else if (c <= 27) { c += '[' - 22; }  // third group of 6 characters: [\]^_`
                 else { c += '{' - 28; }  // fourth group of 4 characters: {|}~
                 return static_cast<unsigned char>(c);
-                }
-            );
+            });
             return ret;
         }
 
@@ -93,9 +92,7 @@ namespace tmcppc::password {
         [[nodiscard]] virtual std::string generate() const noexcept override {
             static rtc::random::random_int random_character{ first_ascii_code_, last_ascii_code_ };
             std::string ret(length_, static_cast<unsigned char>(first_ascii_code_));
-            std::generate(std::begin(ret), std::end(ret), []() {
-                return static_cast<unsigned char>(random_character());
-            });
+            std::ranges::generate(ret, []() { return static_cast<unsigned char>(random_character()); });
             return ret;
         }
 

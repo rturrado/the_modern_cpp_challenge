@@ -80,11 +80,9 @@ namespace tmcppc::company {
         [[nodiscard]] expense approve_expense(double value, const std::string& description) const noexcept {
             if (value <= role_->get_approval_limit()) {
                 return expense{ value, description, name_ };
-            }
-            else if (direct_manager_) {
+            } else if (direct_manager_) {
                 return direct_manager_->approve_expense(value, description);
-            }
-            else {
+            } else {
                 return expense{ value, description, {} };
             }
         }

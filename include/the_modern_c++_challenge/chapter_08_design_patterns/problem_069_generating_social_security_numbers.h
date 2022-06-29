@@ -56,9 +56,7 @@ namespace tmcppc::ssn {
         mutable std::unordered_map<random_number_str, vector_of_date_str> random_number_str_cache_{};
 
         [[nodiscard]] std::string encode_sex(sex sex) const noexcept {
-            return (sex == sex::female)
-                ? std::to_string(get_sex_female_code())
-                : std::to_string(get_sex_male_code());
+            return fmt::format("{}", (sex == sex::female) ? get_sex_female_code() : get_sex_male_code());
         }
         [[nodiscard]] std::string encode_birth_date(const ch::year_month_day& birth_date) const noexcept {
             return fmt::format("{:%Y%m%d}", ch::sys_days(birth_date));
@@ -91,15 +89,12 @@ namespace tmcppc::ssn {
             auto str_sum{ std::accumulate(std::cbegin(str), std::cend(str), 0,
                 [pos = static_cast<int>(str.size() + 1)](auto total, unsigned char c) mutable {
                     return total + (c - '0') * pos--; }
-            ) };
+            )};
             auto crc_modulo{ get_crc_modulo() };
             auto check_digit{ crc_modulo - (str_sum % crc_modulo) };
-            if (check_digit == crc_modulo) {
-                check_digit = 0;
-            } else if (check_digit >= 10) {
-                return "X";
-            }
-            return std::to_string(check_digit);
+            return (check_digit == crc_modulo)
+                ? std::to_string(0)
+                : (check_digit >= 10) ? "X" : std::to_string(check_digit);
         }
     };
 

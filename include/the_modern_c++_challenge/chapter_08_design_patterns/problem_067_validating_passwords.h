@@ -2,6 +2,7 @@
 
 #include <algorithm>  // any_of
 #include <cctype>  // isdigit, islower, ispunct, isupper
+#include <fmt/format.h>
 #include <iosfwd>
 #include <memory>  // make_unique, unique_ptr
 #include <optional>
@@ -74,7 +75,7 @@ namespace tmcppc::password {
 
                 [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
                     if (pw.size() < length_) {
-                        return std::string{ "password length has to be at least " } + std::to_string(length_);
+                        return fmt::format("{} {}", "password length has to be at least", length_);
                     } else {
                         return validate_with_next(pw);
                     }
@@ -106,6 +107,26 @@ namespace tmcppc::password {
             };
 
 
+            // Helpers
+            //
+            static inline contains_validator contains_symbol_validator{
+                contains_symbol,
+                "password has to contain at least one 'symbol'"
+            };
+            static inline contains_validator contains_digit_validator{
+                contains_digit,
+                "password has to contain at least one 'digit'"
+            };
+            static inline contains_validator contains_lowercase_validator{
+                contains_lowercase,
+                "password has to contain at least one 'lowercase' letter"
+            };
+            static inline contains_validator contains_uppercase_validator{
+                contains_uppercase,
+                "password has to contain at least one 'uppercase' letter"
+            };
+
+
             void test_validator(std::ostream& os);
         }  // namespace v1
 
@@ -134,7 +155,7 @@ namespace tmcppc::password {
             protected:
                 std::unique_ptr<password_strength_validator> next_{ nullptr };
 
-                explicit password_strength_validator(std::unique_ptr<password_strength_validator> next)
+                explicit password_strength_validator(std::unique_ptr<password_strength_validator> next = nullptr)
                     : next_{ std::move(next) }
                 {}
 
@@ -147,14 +168,14 @@ namespace tmcppc::password {
             class minimum_length_validator : public password_strength_validator {
             public:
                 minimum_length_validator() = default;
-                minimum_length_validator(size_t length, std::unique_ptr<password_strength_validator> next)
+                minimum_length_validator(size_t length, std::unique_ptr<password_strength_validator> next = nullptr)
                     : length_{ length }
                     , password_strength_validator{ std::move(next) }
                 {}
 
                 [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
                     if (pw.size() < length_) {
-                        return std::string{ "password length has to be at least " } + std::to_string(length_);
+                        return fmt::format("{} {}", "password length has to be at least", length_);
                     } else {
                         return validate_with_next(pw);
                     }
@@ -168,7 +189,7 @@ namespace tmcppc::password {
             class contains_validator : public password_strength_validator {
             public:
                 contains_validator() = delete;
-                contains_validator(ContainsOrErrorF f, std::unique_ptr<password_strength_validator> next)
+                contains_validator(ContainsOrErrorF f, std::unique_ptr<password_strength_validator> next = nullptr)
                     : contains_or_error_f_{ f }
                     , password_strength_validator{ std::move(next) }
                 {}
@@ -182,6 +203,30 @@ namespace tmcppc::password {
                 }
             private:
                 ContainsOrErrorF contains_or_error_f_{};
+            };
+
+
+            // Helpers
+            //
+            inline auto contains_symbol_or_error = [](std::string_view sv) {
+                return contains_symbol(sv)
+                    ? validate_return_type{}
+                    : validate_error_message{ "password has to contain at least one 'symbol'" };
+            };
+            inline auto contains_digit_or_error = [](std::string_view sv) {
+                return contains_digit(sv)
+                    ? validate_return_type{}
+                    : validate_error_message{ "password has to contain at least one 'digit'" };
+            };
+            inline auto contains_lowercase_or_error = [](std::string_view sv) {
+                return contains_lowercase(sv)
+                    ? validate_return_type{}
+                    : validate_error_message{ "password has to contain at least one 'lowercase'" };
+            };
+            inline auto contains_uppercase_or_error = [](std::string_view sv) {
+                return contains_uppercase(sv)
+                    ? validate_return_type{}
+                    : validate_error_message{ "password has to contain at least one 'uppercase'" };
             };
 
 

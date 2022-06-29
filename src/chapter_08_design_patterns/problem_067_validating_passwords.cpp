@@ -5,36 +5,19 @@
 #include <ostream>
 
 
-namespace tmcppc::password {
-    namespace validator::v1 {
+namespace tmcppc::password::validator {
+    namespace v1 {
         void test_validator(std::ostream& os) {
             using namespace std::string_view_literals;
 
+            minimum_length_validator validator{ 8 };
+            validator.set_next(&contains_symbol_validator);
+            contains_symbol_validator.set_next(&contains_digit_validator);
+            contains_digit_validator.set_next(&contains_lowercase_validator);
+            contains_lowercase_validator.set_next(&contains_uppercase_validator);
+
             fmt::print(os, "v1:\n");
             for (auto&& pw : { "hola"sv, "holaquetal"sv, "holaqueta!"sv, "h0laqueta!"sv, "H0LAQUETA!"sv, "h0laQueTa!"sv }) {
-                minimum_length_validator validator{ 8 };
-                contains_validator contains_symbol_validator{
-                    contains_symbol,
-                    "password has to contain at least one 'symbol'"sv
-                };
-                contains_validator contains_digit_validator{
-                    contains_digit,
-                    "password has to contain at least one 'digit'"sv
-                };
-                contains_validator contains_lowercase_validator{
-                    contains_lowercase,
-                    "password has to contain at least one 'lowercase' letter"sv
-                };
-                contains_validator contains_uppercase_validator{
-                    contains_uppercase,
-                    "password has to contain at least one 'uppercase' letter"sv
-                };
-
-                validator.set_next(&contains_symbol_validator);
-                contains_symbol_validator.set_next(&contains_digit_validator);
-                contains_digit_validator.set_next(&contains_lowercase_validator);
-                contains_lowercase_validator.set_next(&contains_uppercase_validator);
-
                 if (auto error{ validator.validate(pw) }) {
                     fmt::print(os, "\t'{}' is not valid: {}.\n", pw, error.value());
                 } else {
@@ -43,49 +26,28 @@ namespace tmcppc::password {
             }
             fmt::print(os, "\n");
         }
-    }  // namespace validator::v1
+    }  // namespace v1
 
-    namespace validator::v2 {
+    namespace v2 {
         void test_validator(std::ostream& os) {
             using namespace std::string_view_literals;
 
-            auto contains_symbol_or_error = [](std::string_view sv) {
-                return contains_symbol(sv)
-                    ? validate_return_type{}
-                    : validate_error_message{ "password has to contain at least one 'symbol'" };
-            };
-            auto contains_digit_or_error = [](std::string_view sv) {
-                return contains_digit(sv)
-                    ? validate_return_type{}
-                    : validate_error_message{ "password has to contain at least one 'digit'" };
-            };
-            auto contains_lowercase_or_error = [](std::string_view sv) {
-                return contains_lowercase(sv)
-                    ? validate_return_type{}
-                    : validate_error_message{ "password has to contain at least one 'lowercase'" };
-            };
-            auto contains_uppercase_or_error = [](std::string_view sv) {
-                return contains_uppercase(sv)
-                    ? validate_return_type{}
-                    : validate_error_message{ "password has to contain at least one 'uppercase'" };
-            };
-
-            fmt::print(os, "v2:\n");
-            for (auto&& pw : { "hola"sv, "holaquetal"sv, "holaqueta!"sv, "h0laqueta!"sv, "H0LAQUETA!"sv, "h0laQueTa!"sv }) {
-                auto validator(
-                    std::make_unique<minimum_length_validator>(8,
-                        std::make_unique<contains_validator<decltype(contains_symbol_or_error)>>(contains_symbol_or_error,
-                            std::make_unique<contains_validator<decltype(contains_digit_or_error)>>(contains_digit_or_error,
-                                std::make_unique<contains_validator<decltype(contains_lowercase_or_error)>>(contains_lowercase_or_error,
-                                    std::make_unique<contains_validator<decltype(contains_uppercase_or_error)>>(contains_uppercase_or_error,
-                                        nullptr
+            auto validator(
+                std::make_unique<minimum_length_validator>(8,
+                    std::make_unique<contains_validator<decltype(contains_symbol_or_error)>>(contains_symbol_or_error,
+                        std::make_unique<contains_validator<decltype(contains_digit_or_error)>>(contains_digit_or_error,
+                            std::make_unique<contains_validator<decltype(contains_lowercase_or_error)>>(contains_lowercase_or_error,
+                                std::make_unique<contains_validator<decltype(contains_uppercase_or_error)>>(contains_uppercase_or_error,
+                                    nullptr
                                     )
                                 )
                             )
                         )
                     )
-                );
+            );
 
+            fmt::print(os, "v2:\n");
+            for (auto&& pw : { "hola"sv, "holaquetal"sv, "holaqueta!"sv, "h0laqueta!"sv, "H0LAQUETA!"sv, "h0laQueTa!"sv }) {
                 if (auto error{ validator->validate(pw) }) {
                     fmt::print(os, "\t'{}' is not valid: {}.\n", pw, error.value());
                 } else {
@@ -94,8 +56,8 @@ namespace tmcppc::password {
             }
             fmt::print(os, "\n");
         }
-    }  // namespace validator::v2
-}  // namespace tmcppc::password
+    }  // namespace v2
+}  // namespace tmcppc::password::validator
 
 
 

@@ -28,8 +28,8 @@ namespace tmcppc::company {
                 expense_description,
                 expense_value,
                 expense.approved_by_
-                ? fmt::format("approved by {}", expense.approved_by_.value())
-                : "wasn't approved"
+                    ? fmt::format("approved by {}", expense.approved_by_.value())
+                    : "wasn't approved"
             );
         }
     }
