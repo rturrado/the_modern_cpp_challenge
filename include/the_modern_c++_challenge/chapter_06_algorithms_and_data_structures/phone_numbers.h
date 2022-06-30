@@ -15,12 +15,6 @@ namespace tmcppc::phone {
         Spain = 34,
         UK = 44
     };
-
-    inline std::ostream& operator<<(std::ostream& os, const country_code& cc)
-    {
-        fmt::print(os, "{}", cc);
-        return os;
-    }
 }  // namespace tmcppc::phone
 
 
@@ -42,3 +36,8 @@ struct fmt::formatter<tmcppc::phone::country_code> {
         return ctx.out();
     }
 };
+
+inline std::ostream& operator<<(std::ostream& os, const tmcppc::phone::country_code& cc) {
+    fmt::print(os, "{}", cc);
+    return os;
+}

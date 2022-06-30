@@ -2,6 +2,7 @@
 
 #include <algorithm>  // make_heap, push_heap, pop_heap, swap
 #include <functional>  // less
+#include <stdexcept>  // runtime_error
 #include <vector>
 
 
@@ -33,14 +34,22 @@ namespace tmcppc::data_structures {
             container_.push_back(t);
             std::push_heap(container_.begin(), container_.end(), compare_);
         }
-        constexpr void pop() noexcept {
+        constexpr void pop() {
+            throw_if_empty();
             std::pop_heap(container_.begin(), container_.end(), compare_);
             container_.pop_back();
         }
-        [[nodiscard]] constexpr T& top() noexcept { return container_.front(); }
-        [[nodiscard]] constexpr const T& top() const noexcept { return container_.front(); }
+        [[nodiscard]] constexpr T& top() {
+            throw_if_empty();
+            return container_.front();
+        }
+        [[nodiscard]] constexpr const T& top() const {
+            throw_if_empty();
+            return container_.front();
+        }
         [[nodiscard]] constexpr size_type size() const noexcept { return container_.size(); }
         [[nodiscard]] constexpr bool empty() const noexcept { return container_.empty(); }
+
         void swap(priority_queue& other) noexcept {
             std::swap(container_, other.container_);
             std::swap(compare_, other.compare_);
@@ -48,10 +57,18 @@ namespace tmcppc::data_structures {
 
         constexpr iterator begin() noexcept { return container_.begin(); }
         constexpr iterator end() noexcept { return container_.end(); }
+        constexpr const_iterator begin() const noexcept { return container_.cbegin(); }
+        constexpr const_iterator end() const noexcept { return container_.cend(); }
         constexpr const_iterator cbegin() const noexcept { return container_.cbegin(); }
         constexpr const_iterator cend() const noexcept { return container_.cend(); }
 
     private:
+        constexpr void throw_if_empty() const {
+            if (empty()) {
+                throw std::runtime_error{ "trying to access an empty priority queue." };
+            }
+        }
+
         std::vector<T> container_{};
         Compare compare_{};
     };
@@ -63,6 +80,10 @@ namespace tmcppc::data_structures {
     auto begin(priority_queue<T, Compare>& pq) -> decltype(pq.begin()) { return pq.begin(); }
     template <typename T, typename Compare>
     auto end(priority_queue<T, Compare>& pq) -> decltype(pq.end()) { return pq.end(); }
+    template <typename T, typename Compare>
+    auto begin(const priority_queue<T, Compare>& pq) -> decltype(pq.cbegin()) { return pq.cbegin(); }
+    template <typename T, typename Compare>
+    auto end(const priority_queue<T, Compare>& pq) -> decltype(pq.cend()) { return pq.cend(); }
     template <typename T, typename Compare>
     auto cbegin(const priority_queue<T, Compare>& pq) -> decltype(pq.cbegin()) { return pq.cbegin(); }
     template <typename T, typename Compare>

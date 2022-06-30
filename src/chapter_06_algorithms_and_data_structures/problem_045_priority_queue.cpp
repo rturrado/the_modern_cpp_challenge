@@ -11,7 +11,7 @@
 
 
 void problem_45_main(std::ostream& os) {
-    using namespace tmcppc::data_structures;
+    using tmcppc::data_structures::priority_queue;
 
     const std::vector<int> v{ 3, 6, 7, 2, 4, 9, 5, 1, 8, 0 };
     fmt::print(os, "v: {}\n", v);

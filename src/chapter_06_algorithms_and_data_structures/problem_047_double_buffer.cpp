@@ -43,7 +43,7 @@
 // Buffer r: 0 2 0 4 0 6 0 8 0 10
 void test_1(std::ostream& os) {
     using namespace std::chrono_literals;
-    using namespace tmcppc::data_structures;
+    using tmcppc::data_structures::double_buffer;
 
     fmt::print(os, "Test 1:\n\t");
 

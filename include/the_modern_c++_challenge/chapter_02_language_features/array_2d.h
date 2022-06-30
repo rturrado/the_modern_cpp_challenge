@@ -45,7 +45,7 @@ namespace tmcppc::data_structures {
             constexpr const_iterator operator-(const difference_type offset) const noexcept { const_iterator tmp{ *this }; tmp -= offset; return tmp; }
             constexpr difference_type operator-(const const_iterator& other) const noexcept { return ptr_ - other.ptr_; }
             constexpr bool operator==(const const_iterator& other) const noexcept { return ptr_ == other.ptr_; }
-            constexpr bool operator<=>(const const_iterator& other) const noexcept { return ptr_ <=> other.ptr_; }
+            constexpr auto operator<=>(const const_iterator& other) const noexcept { return ptr_ <=> other.ptr_; }
 
         protected:
             TPtr_ ptr_{ nullptr };
@@ -104,7 +104,7 @@ namespace tmcppc::data_structures {
             template <typename OtherIter>
             constexpr bool operator==(const reverse_iterator<OtherIter>& other) const noexcept { return current_ == other.current_; }
             template <typename OtherIter>
-            constexpr bool operator<=>(const reverse_iterator<OtherIter>& other) const noexcept { return current_ <=> other.current_; }
+            constexpr auto operator<=>(const reverse_iterator<OtherIter>& other) const noexcept { return current_ <=> other.current_; }
 
         protected:
             Iter current_{};

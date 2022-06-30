@@ -42,15 +42,15 @@ namespace tmcppc::data_structures {
                 ++(*this);
                 return tmp;
             }
-            constexpr bool operator==(const const_iterator& other) const noexcept {
-                return &cb_ == &other.cb_ and last_ == other.last_ and ptr_ == other.ptr_;
+            bool operator==(const const_iterator& other) const noexcept {
+                return cb_ == other.cb_ and ptr_ == other.ptr_;
             }
-            constexpr bool operator<=>(const const_iterator& other) const noexcept {
-                return &cb_ == &other.cb_ and last_ == other.last_ and ptr_ <=> other.ptr_;
+            auto operator<=>(const const_iterator& other) const noexcept {
+                return cb_ <=> other.cb_ and ptr_ <=> other.ptr_;
             }
 
         protected:
-            const circular_buffer<T>& cb_{};
+            const circular_buffer<T>& cb_;
             TPtr_ ptr_{ front_pos_ };
             // begin and end will point to the same position in a full circular buffer
             // This flag will help us differentiate them at the beginning of a loop
@@ -64,6 +64,9 @@ namespace tmcppc::data_structures {
             using iterator_category = std::random_access_iterator_tag;
             using reference = container::reference;
 
+            constexpr iterator() noexcept : const_iterator{} {}
+            constexpr iterator(circular_buffer& cb, MyBase_::TPtr_ pos, bool last) noexcept
+                : const_iterator{ cb, pos, last } {}
             constexpr reference operator*() const noexcept { return const_cast<reference>(MyBase_::operator*()); }
             constexpr reference operator->() const noexcept { return const_cast<reference>(MyBase_::operator->()); }
             constexpr iterator& operator++() noexcept {
@@ -131,8 +134,12 @@ namespace tmcppc::data_structures {
 
         constexpr iterator begin() noexcept { return iterator{ *this, front_pos_, empty() }; }
         constexpr iterator end() noexcept { return iterator{ *this, empty() ? front_pos_ : next_pos(back_pos_), true }; }
+        constexpr const_iterator begin() const noexcept { return cbegin(); }
+        constexpr const_iterator end() const noexcept { return cend(); }
         constexpr const_iterator cbegin() const noexcept { return const_iterator{ *this, front_pos_, empty() }; }
         constexpr const_iterator cend() const noexcept { return const_iterator{ *this, empty() ? front_pos_ : next_pos(back_pos_), true }; }
+
+        auto operator<=>(const circular_buffer& other) const noexcept = default;
 
     private:
         friend struct fmt::formatter<circular_buffer>;
@@ -141,6 +148,7 @@ namespace tmcppc::data_structures {
 
         [[nodiscard]] constexpr size_type next_pos(size_type pos) const noexcept { return (++pos % capacity_); }
         [[nodiscard]] constexpr size_type prev_pos(size_type pos) const noexcept { return (pos == 0) ? (capacity_ - 1) : --pos; }
+
         constexpr void throw_if_empty() const {
             if (empty()) {
                 throw std::runtime_error{ "trying to access an empty circular_buffer." };
@@ -158,6 +166,10 @@ namespace tmcppc::data_structures {
     auto begin(circular_buffer<T>& cb) -> decltype(cb.begin()) { return cb.begin(); }
     template <typename T>
     auto end(circular_buffer<T>& cb) -> decltype(cb.end()) { return cb.end(); }
+    template <typename T>
+    auto begin(const circular_buffer<T>& cb) -> decltype(cb.cbegin()) { return cb.cbegin(); }
+    template <typename T>
+    auto end(const circular_buffer<T>& cb) -> decltype(cb.cend()) { return cb.cend(); }
     template <typename T>
     auto cbegin(const circular_buffer<T>& cb) -> decltype(cb.cbegin()) { return cb.cbegin(); }
     template <typename T>
@@ -178,6 +190,6 @@ struct fmt::formatter<tmcppc::data_structures::circular_buffer<T>> {
 
     template <typename FormatContext>
     auto format(const tmcppc::data_structures::circular_buffer<T>& cb, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return format_to(ctx.out(), "[{}]", fmt::join(cb.container_, ", "));
+        return fmt::format_to(ctx.out(), "[{}]", fmt::join(cb.container_, ", "));
     }
 };

@@ -10,7 +10,7 @@
 
 
 void problem_46_main(std::ostream& os) {
-    using namespace tmcppc::data_structures;
+    using tmcppc::data_structures::circular_buffer;
 
     auto print_circular_buffer = [&os](const std::string_view cb_name, const auto& cb) -> void {
         fmt::print(os, "\t{}: {}, capacity: {}, size: {}{}\n",
