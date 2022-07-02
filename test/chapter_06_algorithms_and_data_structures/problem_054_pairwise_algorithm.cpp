@@ -4,9 +4,37 @@
 #include <gtest/gtest.h>
 
 #include <sstream>  // ostringstream
+#include <utility>  // pair
+#include <vector>
+
+using namespace tmcppc::problem_54;
 
 
-TEST(problem_54_main, DISABLED_output) {
+TEST(zip_with_next, empty_vector) {
+    EXPECT_TRUE(zip_with_next(std::vector<int>{}).empty());
+}
+TEST(zip_with_next, one_element_vector) {
+    EXPECT_TRUE(zip_with_next(std::vector<int>{ 1 }).empty());
+}
+TEST(zip_with_next, two_elements_vector) {
+    EXPECT_THAT(zip_with_next(std::vector<int>{ 1, 2 }), ::testing::ElementsAre(
+        std::pair<int, int>{ 1, 2 }
+    ));
+}
+TEST(zip_with_next, three_elements_vector) {
+    EXPECT_THAT(zip_with_next(std::vector<int>{ 1, 2, 3 }), ::testing::ElementsAre(
+        std::pair<int, int>{ 1, 2 }
+    ));
+}
+TEST(zip_with_next, four_elements_vector) {
+    EXPECT_THAT(zip_with_next(std::vector<int>{ 1, 2, 3, 4 }), ::testing::ElementsAre(
+        std::pair<int, int>{ 1, 2 },
+        std::pair<int, int>{ 3, 4 }
+    ));
+}
+
+
+TEST(problem_54_main, output) {
     std::ostringstream oss{};
     problem_54_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

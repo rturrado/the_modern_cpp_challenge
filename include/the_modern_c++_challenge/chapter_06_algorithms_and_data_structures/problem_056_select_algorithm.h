@@ -6,7 +6,7 @@
 #include <iterator>  // back_inserter
 #include <ostream>
 #include <string>
-#include <type_traits>  // invoke_result_t
+#include <type_traits>  // invoke_result_t, remove_cvref
 #include <utility>  // forward
 #include <vector>
 
@@ -19,9 +19,9 @@ namespace tmcppc::problem_56 {
     };
 
     template <typename T, typename F>
-        requires requires (T&& t, F f) { f(t); }
+        requires requires (T&& t, F&& f) { f(t); }
     auto select(const std::vector<T>& v, F&& f) {
-        std::vector<std::invoke_result_t<F, const T&>> ret{};
+        std::vector<std::remove_cvref_t<std::invoke_result_t<F, const T&>>> ret{};
         std::transform(cbegin(v), cend(v), std::back_inserter(ret), std::forward<F>(f));
         return ret;
     }

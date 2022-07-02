@@ -16,6 +16,8 @@ namespace tmcppc::data_structures {
     struct element_count {
         T element{};
         size_t count{};
+
+        auto operator<=>(const element_count& other) const = default;
     };
 
     template <typename T>
@@ -44,7 +46,8 @@ std::ostream& operator<<(std::ostream& os, const tmcppc::data_structures::elemen
 
 
 namespace tmcppc::problem_48 {
-    using namespace tmcppc::data_structures;
+    using tmcppc::data_structures::element_count;
+    using tmcppc::data_structures::element_count_list;
 
     // v1: my solution
     template <typename T>

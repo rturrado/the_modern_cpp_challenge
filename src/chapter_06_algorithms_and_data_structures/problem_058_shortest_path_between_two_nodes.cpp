@@ -1,3 +1,4 @@
+#include "chapter_06_algorithms_and_data_structures/graph.h"
 #include "chapter_06_algorithms_and_data_structures/problem_058_shortest_path_between_two_nodes.h"
 
 #include <fmt/ostream.h>

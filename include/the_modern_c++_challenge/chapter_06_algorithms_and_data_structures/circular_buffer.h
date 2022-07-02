@@ -45,8 +45,20 @@ namespace tmcppc::data_structures {
             bool operator==(const const_iterator& other) const noexcept {
                 return cb_ == other.cb_ and ptr_ == other.ptr_;
             }
-            auto operator<=>(const const_iterator& other) const noexcept {
-                return cb_ <=> other.cb_ and ptr_ <=> other.ptr_;
+            bool operator!=(const const_iterator& other) const noexcept {
+                return not (*this == other);
+            }
+            auto operator<(const const_iterator& other) const noexcept {
+                return cb_ < other.cb_ or (cb_ == other.cb_ and ptr_ < other.ptr_);
+            }
+            auto operator>(const const_iterator& other) const noexcept {
+                return cb_ > other.cb_ or (cb_ == other.cb_ and ptr_ > other.ptr_);
+            }
+            auto operator<=(const const_iterator& other) const noexcept {
+                return not (*this > other);
+            }
+            auto operator>=(const const_iterator& other) const noexcept {
+                return not (*this < other);
             }
 
         protected:

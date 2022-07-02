@@ -1,6 +1,7 @@
 set(chapter_06_test_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/circular_buffer.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/double_buffer.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/graph.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/phone_numbers.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/priority_queue.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_045_priority_queue.cpp"
