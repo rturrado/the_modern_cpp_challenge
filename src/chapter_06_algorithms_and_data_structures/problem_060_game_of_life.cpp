@@ -4,7 +4,7 @@
 #include <fmt/ostream.h>
 #include <future>  // async
 #include <iostream>  // cout
-#include <thread>
+#include <thread>  // sleep_for
 
 
 void problem_60_main(std::ostream& os, std::chrono::duration<int> timeout) {

@@ -20,7 +20,7 @@ void problem_59_main(std::ostream& os) {
         }
 
         // Choose the mutation that is most similar to the target phrase
-        sequence = *std::max_element(std::cbegin(mutations), std::cend(mutations),
+        sequence = *std::ranges::max_element(mutations,
             [](const auto& seq_1, const auto& seq_2) { return seq_1.score() < seq_2.score(); }
         );
 

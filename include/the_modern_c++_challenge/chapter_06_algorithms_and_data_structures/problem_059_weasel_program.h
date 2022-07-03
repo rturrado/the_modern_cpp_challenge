@@ -2,12 +2,9 @@
 
 #include "rtc/random.h"
 
-#include <algorithm>  // copy
 #include <functional>  // plus
 #include <iosfwd>
-#include <iterator>  // ostream_iterator
 #include <numeric>  // transform_reduce
-#include <sstream>  // ostringstream
 #include <string>
 
 
@@ -34,10 +31,10 @@ namespace tmcppc::weasel {
         }
 
         // Return number of characters that are equal to the target string
-        [[nodiscard]] size_t score() const noexcept {
+        [[nodiscard]] int score() const noexcept {
             return std::transform_reduce(
                 std::cbegin(data_), std::end(data_), std::cbegin(target_),
-                static_cast<size_t>(0),
+                0,
                 std::plus<>{},
                 [](char c, char t) { return (c == t) ? 1 : 0; }
             );
@@ -48,9 +45,7 @@ namespace tmcppc::weasel {
         }
 
         [[nodiscard]] std::string str() const noexcept {
-            std::ostringstream oss{};
-            std::copy(std::cbegin(data_), std::cend(data_), std::ostream_iterator<char>(oss));
-            return oss.str();
+            return data_;
         }
 
     private:

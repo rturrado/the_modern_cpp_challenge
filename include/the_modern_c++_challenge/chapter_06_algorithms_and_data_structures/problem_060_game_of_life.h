@@ -22,8 +22,8 @@ namespace tmcppc::game_of_life {
     public:
         cell() : state_{ cell_state::dead } { }
 
-        [[nodiscard]] bool is_dead() const noexcept { return state_ == cell_state::dead; }
-        [[nodiscard]] bool is_alive() const noexcept { return state_ == cell_state::alive; }
+        [[nodiscard]] bool is_dead() const noexcept { return get_state() == cell_state::dead; }
+        [[nodiscard]] bool is_alive() const noexcept { return get_state() == cell_state::alive; }
 
         void set_dead() { set_state(cell_state::dead); }
         void set_alive() { set_state(cell_state::alive); }
@@ -31,7 +31,7 @@ namespace tmcppc::game_of_life {
         // Set 90% of probability for a dead cell, 10% for an alive cell
         void set_random_state() {
             static rtc::random::random_int random_int_{ 0, 9 };
-            state_ = random_int_() < 9 ? cell_state::dead : cell_state::alive;
+            set_state(random_int_() < 9 ? cell_state::dead : cell_state::alive);
         }
 
     private:
@@ -53,17 +53,16 @@ namespace tmcppc::game_of_life {
             , columns_{ columns }
             , data_{ std::vector(rows, std::vector(columns, cell{})) } {
 
-            std::for_each(std::begin(data_), std::end(data_), [](auto& row) {
-                std::for_each(std::begin(row), std::end(row), [](auto& cell) {
+            std::ranges::for_each(data_, [](auto& row) {
+                std::ranges::for_each(row, [](auto& cell) {
                     cell.set_random_state();
                 });
             });
         }
 
         void run() {
+            using namespace std::chrono_literals;
             while (not stop_game) {
-                using namespace std::chrono_literals;
-
                 step();
                 display();
                 std::this_thread::sleep_for(200ms);
@@ -74,8 +73,8 @@ namespace tmcppc::game_of_life {
         void display() {
             rtc::console::clear_screen();
 
-            std::for_each(std::cbegin(data_), std::cend(data_), [this](const auto& row) {
-                std::for_each(std::cbegin(row), std::cend(row), [this](const auto& cell) {
+            std::ranges::for_each(data_, [this](const auto& row) {
+                std::ranges::for_each(row, [this](const auto& cell) {
                     fmt::print(os_, "{}", cell.is_alive() ? '*' : ' ');
                 });
                 fmt::print(os_, "\n");
