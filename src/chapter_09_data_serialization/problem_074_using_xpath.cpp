@@ -68,8 +68,14 @@ void problem_74_main(std::ostream& os) {
                         { .star = "Carrie-Anne Moss", .name = "Trinity" },
                         { .star = "Hugo Weaving", .name = "Agent Smith" }
                     }},
-                    .directors = tmcppc::movies::directors{{ { .name = "Lana Wachowski" }, { .name = "Lilly Wachowski" } }},
-                    .writers = tmcppc::movies::writers{{ { .name = "Lana Wachowski" }, { .name = "Lilly Wachowski" } }}
+                    .directors = tmcppc::movies::directors{{
+                        { .name = "Lana Wachowski" },
+                        { .name = "Lilly Wachowski" }
+                    }},
+                    .writers = tmcppc::movies::writers{{
+                        { .name = "Lana Wachowski" },
+                        { .name = "Lilly Wachowski" }
+                    }}
                 },
                 {   .id = 9871,
                     .title = "Forrest Gump",

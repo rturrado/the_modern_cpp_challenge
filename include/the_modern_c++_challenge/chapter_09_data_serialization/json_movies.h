@@ -85,7 +85,7 @@ namespace tmcppc::movies {
 
     // Catalog
     inline void to_json(nlohmann::json& j, const catalog& catalog) {
-        j = { "movies", catalog.movies };
+        j = catalog.movies;
     }
     inline void from_json(const nlohmann::json& j, catalog& catalog) {
         catalog.movies = j.get<std::vector<movie>>();
@@ -100,13 +100,15 @@ namespace tmcppc::movies {
 
         void save_to(const std::filesystem::path& output_file_path) {
             std::ofstream ofs{ output_file_path };
-            ofs << std::setw(4) << nlohmann::json{ catalog_ } << "\n";
+            nlohmann::json j{};
+            to_json(j, catalog_);
+            ofs << std::setw(4) << j << "\n";
         }
         void load_from(const std::filesystem::path& input_file_path) {
             std::ifstream ifs{ input_file_path };
             nlohmann::json j{};
             ifs >> j;
-            j.at("movies").get_to(catalog_);
+            from_json(j, catalog_);
         }
     };
     inline bool operator==(const doc& lhs, const doc& rhs) {

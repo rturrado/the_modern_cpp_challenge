@@ -16,6 +16,7 @@ namespace tmcppc::movies {
     using namespace rtc::pretty_print;
     namespace fs = std::filesystem;
 
+    // Role
     struct role {
         std::string star{};
         std::string name{};
@@ -30,6 +31,7 @@ namespace tmcppc::movies {
         return os;
     }
 
+    // Cast
     struct cast {
         std::vector<role> cast_{};
 
@@ -37,8 +39,7 @@ namespace tmcppc::movies {
             fmt::print(os, "{}Cast:\n", indentation);
             if (cast_.empty()) {
                 fmt::print(os, "{}[]\n", indentation + 1);
-            }
-            else {
+            } else {
                 for (const auto& role : cast_) {
                     role.print(os, indentation + 1);
                     fmt::print(os, "\n");
@@ -52,6 +53,7 @@ namespace tmcppc::movies {
         return os;
     }
 
+    // Director
     struct director {
         std::string name{};
 
@@ -65,6 +67,7 @@ namespace tmcppc::movies {
         return os;
     }
 
+    // Directors
     struct directors {
         std::vector<director> directors_{};
 
@@ -87,7 +90,7 @@ namespace tmcppc::movies {
         return os;
     }
 
-
+    // Writer
     struct writer {
         std::string name{};
 
@@ -101,6 +104,7 @@ namespace tmcppc::movies {
         return os;
     }
 
+    // Writers
     struct writers {
         std::vector<writer> writers_{};
 
@@ -123,6 +127,7 @@ namespace tmcppc::movies {
         return os;
     }
 
+    // Media file
     struct media_file {
         size_t id{};
         fs::path file_path{};
@@ -134,13 +139,44 @@ namespace tmcppc::movies {
             fmt::print(os, "{}path: '{}'\n", indentation + 1, file_path.generic_string());
             fmt::print(os, "{}description: '{}'\n", indentation + 1, description.value_or(""));
         }
-        auto operator<=>(const media_file& other) const = default;
+        auto operator==(const media_file& other) const {
+            return
+                id == other.id and
+                file_path.generic_string() == other.file_path.generic_string() and
+                description.value_or("") == other.description.value_or("");
+        }
+        auto operator<(const media_file& other) const {
+            return
+                id < other.id or
+                    (id == other.id and
+                        (file_path.generic_string() < other.file_path.generic_string() or
+                            (file_path.generic_string() == other.file_path.generic_string() and
+                             description.value_or("") < other.description.value_or(""))));
+        }
+        auto operator>(const media_file& other) const {
+            return
+                id > other.id or
+                (id == other.id and
+                    (file_path.generic_string() > other.file_path.generic_string() or
+                        (file_path.generic_string() == other.file_path.generic_string() and
+                            description.value_or("") > other.description.value_or(""))));
+        }
+        auto operator!=(const media_file& other) const {
+            return not (*this == other);
+        }
+        auto operator<=(const media_file& other) const {
+            return not (*this > other);
+        }
+        auto operator>=(const media_file& other) const {
+            return not (*this < other);
+        }
     };
     inline std::ostream& operator<<(std::ostream& os, const media_file& media_file) {
         media_file.print(os);
         return os;
     }
 
+    // Media files
     struct media_files {
         std::vector<media_file> media_files_{};
 
@@ -148,8 +184,7 @@ namespace tmcppc::movies {
             fmt::print(os, "{}Media files:\n", indentation);
             if (media_files_.empty()) {
                 fmt::print(os, "{}[]\n", indentation + 1);
-            }
-            else {
+            } else {
                 for (const auto& media_file : media_files_) {
                     media_file.print(os, indentation + 1);
                 }
@@ -162,6 +197,7 @@ namespace tmcppc::movies {
         return os;
     }
 
+    // Movie
     struct movie {
         size_t id{};
         std::string title{};
@@ -190,6 +226,7 @@ namespace tmcppc::movies {
         return os;
     }
 
+    // Catalog
     struct catalog {
         std::vector<movie> movies{};
 
@@ -197,8 +234,7 @@ namespace tmcppc::movies {
             fmt::print(os, "{}Catalog:\n", indentation);
             if (movies.empty()) {
                 fmt::print(os, "{}[]\n", indentation + 1);
-            }
-            else {
+            } else {
                 for (const auto& movie : movies) {
                     movie.print(os, indentation + 1);
                 }

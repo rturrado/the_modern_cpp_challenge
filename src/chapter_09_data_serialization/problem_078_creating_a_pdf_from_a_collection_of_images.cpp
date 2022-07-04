@@ -80,7 +80,7 @@ namespace tmcppc::problem_78 {
         PDFWriter pdf_writer{};
         PDFPage* page{};
         PageContentContext* ctx{};
-        double current_y{};  // cursor height
+        double current_y{};  // cursor
 
         tmcppc::pdf_writer::start_pdf(pdf_writer, output_file_path);
         tmcppc::pdf_writer::start_page_and_page_content_context(pdf_writer, &page, &ctx, page_width, page_height);

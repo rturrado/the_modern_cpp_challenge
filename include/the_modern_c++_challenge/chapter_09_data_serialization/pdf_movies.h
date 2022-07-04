@@ -13,7 +13,7 @@
 #include <cmath>
 #include <filesystem>
 #include <fmt/format.h>
-#include <sstream>  // ostringstream
+#include <fmt/ostream.h>
 #include <string>
 
 
@@ -32,80 +32,82 @@ namespace tmcppc::movies::pdf {
     const double font_width{ 8 };
     const double font_height{ 14 };
     const double line_spacing{ 5 };
+    // Page layout
+    const size_t movies_per_page{ 25 };
 
     // doc
     struct doc {
+    private:
+        PDFWriter pdf_writer{};
+        AbstractContentContext::TextOptions text_options{ nullptr, font_height, AbstractContentContext::eGray, 0 };
+
+        void draw_line_separator(PageContentContext* ctx, double current_y) {
+            using namespace tmcppc::pdf_writer;
+
+            double start_x{ margin_left };
+            double end_x{ page_width - margin_right };
+            draw_line(ctx, start_x, current_y, end_x, current_y);
+        };
+
+    public:
         catalog catalog_{};
 
-        doc() = default;
-        doc(const catalog& c) : catalog_{ c } {}
+        doc(const catalog& c) : catalog_{ c } {
+            auto font_path{ env::get_instance().get_resource_folder_path() / "fonts" / "pala.ttf" };
+            auto font{ pdf_writer.GetFontForFile(font_path.string()) };
+            text_options.font = font;
+        }
 
-        inline void save_as_table(const std::filesystem::path& output_file_path) {
-            // PDF writer
-            PDFWriter pdf_writer{};
-            tmcppc::pdf_writer::start_pdf(pdf_writer, output_file_path);
+        void save_as_table(const std::filesystem::path& output_file_path) {
+            using namespace tmcppc::pdf_writer;
 
-            // Font, text options
-            const auto font_path{ env::get_instance().get_resource_folder_path() / "fonts" / "pala.ttf" };
-            const auto font{ pdf_writer.GetFontForFile(font_path.string()) };
-            const AbstractContentContext::TextOptions text_options{ font, font_height, AbstractContentContext::eGray, 0 };
+            start_pdf(pdf_writer, output_file_path);
 
             // Movies
-            for (auto it{ std::cbegin(catalog_.movies) }; it != std::cend(catalog_.movies); ) {
-                // Page
-                auto page{ tmcppc::pdf_writer::create_page(page_width, page_height) };
+            for (int i{ 0 }; i < catalog_.movies.size(); ) {
+                PDFPage* page{};
+                PageContentContext* ctx{};
+                start_page_and_page_content_context(pdf_writer, &page, &ctx, page_width, page_height);
 
-                // Context
-                auto ctx{ tmcppc::pdf_writer::start_page_content_context(pdf_writer, page) };
-
-                // Cursor height
+                // Cursor
                 double current_y{ page_height - margin_top };
+                double start_x{};
 
                 // Title (only in the first page)
-                if (it == std::cbegin(catalog_.movies)) {
+                if (i == 0) {
                     current_y -= font_height;
-                    tmcppc::pdf_writer::write_text(ctx, margin_left + font_width, current_y, "List of movies", text_options);
+                    start_x = margin_left + font_width;
+                    write_text(ctx, start_x, current_y, "List of movies", text_options);
                 }
 
                 // Line separator
                 current_y -= line_spacing;
-                tmcppc::pdf_writer::draw_line(ctx, margin_left, current_y, page_width - margin_right, current_y);
-
-                // Page layout
-                const size_t movies_per_page{ 25 };
+                draw_line_separator(ctx, current_y);
 
                 // Movies per page
-                auto page_it_end{ it + std::min(static_cast<size_t>(std::distance(it, std::cend(catalog_.movies))), movies_per_page) };
-                for (; it != page_it_end; ++it) {
-                    auto movie_year_to_string = [](auto year) {
-                        return fmt::format("({})", static_cast<int>(year));
-                    };
-                    auto movie_length_to_string = [](auto length) {
-                        return fmt::format("{}: {:02}", length / 60, length % 60);
-                    };
-
-                    auto& movie{ *it };
-                    std::string movie_year{ movie_year_to_string(movie.year) };
-                    std::string movie_length{ movie_length_to_string(movie.length) };
-
-                    std::ostringstream oss{};
-                    oss << movie.title << " " << movie_year;
+                auto page_movies_end{ std::min(catalog_.movies.size() - i, movies_per_page) };
+                for (int j{ 0 }; j < page_movies_end; ++j, ++i) {
+                    auto& movie{ catalog_.movies[i] };
+                    auto movie_year_str{ fmt::format("({})", static_cast<int>(movie.year)) };
+                    auto movie_length_str{ fmt::format("{}: {:02}", movie.length / 60, movie.length % 60) };
+                    auto movie_title_and_year_str{ fmt::format("{} {}", movie.title, movie_year_str) };
 
                     // Movie
                     current_y -= (font_height + line_spacing);
-                    tmcppc::pdf_writer::write_text(ctx, margin_left + font_width, current_y, oss.str(), text_options);
-                    tmcppc::pdf_writer::write_text(ctx, page_width - margin_right - font_width * movie_length.size(), current_y, movie_length, text_options);
+                    start_x = margin_left + font_width;
+                    write_text(ctx, start_x, current_y, movie_title_and_year_str, text_options);  // title, year
+                    start_x = page_width - margin_right - font_width * movie_length_str.size();
+                    write_text(ctx, start_x, current_y, movie_length_str, text_options);  // length
                 }
 
                 // Line separator
                 current_y -= line_spacing;
-                tmcppc::pdf_writer::draw_line(ctx, margin_left, current_y, page_width - margin_right, current_y);
+                draw_line_separator(ctx, current_y);
 
-                tmcppc::pdf_writer::end_page_content_context(pdf_writer, ctx);
-                tmcppc::pdf_writer::write_page_and_release(pdf_writer, page);
+                end_page_and_page_content_context(pdf_writer, &page, &ctx);
             }
 
-            tmcppc::pdf_writer::end_pdf(pdf_writer);
+            end_pdf(pdf_writer);
         }
     };
 }  // namespace tmcppc::movies::pdf
