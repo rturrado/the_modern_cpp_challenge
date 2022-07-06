@@ -36,6 +36,16 @@ namespace tmcppc::pdf_writer {
     private:
         static inline std::string message_{ "trying to write page and release: " };
     };
+    struct get_font_for_file_error : public std::runtime_error {
+        get_font_for_file_error(const std::string& path) : std::runtime_error{ message_ + path } {}
+    private:
+        static inline std::string message_{ "trying to get font for file: " };
+    };
+    struct get_image_dimensions_error : public std::runtime_error {
+        get_image_dimensions_error(const std::string& path) : std::runtime_error{ message_ + path } {}
+    private:
+        static inline std::string message_{ "trying to get image dimensions for file: " };
+    };
 
 
     // PDF writer function wrappers
@@ -68,6 +78,12 @@ namespace tmcppc::pdf_writer {
             throw tmcppc::pdf_writer::end_page_content_context_error{ pdf_writer.GetOutputFile().GetFilePath() };
         }
     }
+    inline auto get_font_for_file(PDFWriter& pdf_writer, const std::filesystem::path& font_file_path) {
+        if (not std::filesystem::exists(font_file_path)) {
+            throw tmcppc::pdf_writer::get_font_for_file_error{ font_file_path.generic_string() };
+        }
+        return pdf_writer.GetFontForFile(font_file_path.string());
+    }
     inline auto write_text(PageContentContext* ctx, double x, double y, const std::string& text, const TextOptions& text_options) {
         ctx->WriteText(x, y, text, text_options);
     }
@@ -75,6 +91,9 @@ namespace tmcppc::pdf_writer {
         ctx->DrawPath({ {x1, y1}, {x2, y2} });
     }
     inline auto get_image_dimensions(PDFWriter& pdf_writer, const std::filesystem::path& image_file_path) {
+        if (not std::filesystem::exists(image_file_path)) {
+            throw tmcppc::pdf_writer::get_image_dimensions_error{ image_file_path.generic_string() };
+        }
         return pdf_writer.GetImageDimensions(image_file_path.string());
     }
     inline auto draw_image(PageContentContext* ctx, double x, double y, const std::filesystem::path& image_file_path,
@@ -91,7 +110,7 @@ namespace tmcppc::pdf_writer {
         if (ppage and not *ppage) {
             *ppage = create_page(page_width, page_height);
         }
-        if (pctx and not *pctx) {
+        if (*ppage and pctx and not *pctx) {
             *pctx = start_page_content_context(pdf_writer, *ppage);
         };
     };

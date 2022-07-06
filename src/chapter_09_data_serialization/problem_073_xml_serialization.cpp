@@ -1,4 +1,5 @@
 #include "chapter_09_data_serialization/movies.h"
+#include "chapter_09_data_serialization/movies_samples.h"
 #include "chapter_09_data_serialization/problem_073_xml_serialization.h"
 #include "chapter_09_data_serialization/xml_movies.h"
 
@@ -11,38 +12,17 @@
 
 
 void problem_73_main(std::ostream& os) {
-    using namespace std::chrono_literals;
+    using namespace tmcppc::movies;
 
     const auto temp_file_path{ std::filesystem::temp_directory_path() / "list_of_movies.xml" };
 
     try {
         fmt::print(os, "Writing XML out to: {}\n", temp_file_path.generic_string());
-        tmcppc::movies::xml::doc out_doc{
-            tmcppc::movies::catalog{{
-                {   .id = 9871,
-                    .title = "Forrest Gump",
-                    .year = 1994y,
-                    .length = 202,
-                    .cast = tmcppc::movies::cast{{
-                        { .star = "Tom Hanks", .name = "Forrest Gump" },
-                        { .star = "Sally Field", .name = "Mrs. Gump" },
-                        { .star = "Robin Wright", .name = "Jenny Curran" },
-                        { .star = "Mykelti Williamson", .name = "Bubba Blue" }
-                    }},
-                    .directors = tmcppc::movies::directors{{
-                        { .name = "Robert Zemeckis" }
-                    }},
-                    .writers = tmcppc::movies::writers{{
-                        { .name = "Winston Groom" },
-                        { .name = "Eric Roth" }
-                    }}
-                }
-            }}
-        };
+        xml::doc out_doc{ catalog_sample };
         out_doc.save_to(temp_file_path);
 
         fmt::print(os, "Reading XML in from: {}\n\n", temp_file_path.generic_string());
-        tmcppc::movies::xml::doc in_doc{};
+        xml::doc in_doc{};
         in_doc.load_from(temp_file_path);
 
         fmt::print(os, "Checking if serializing and deserializing the XML object created the same object... ");

@@ -91,7 +91,7 @@ namespace tmcppc::movies {
         catalog.movies = j.get<std::vector<movie>>();
     }
 
-    // doc
+    // JSON document
     struct doc {
         catalog catalog_{};
 

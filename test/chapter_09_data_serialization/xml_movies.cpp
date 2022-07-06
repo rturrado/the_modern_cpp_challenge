@@ -1,4 +1,5 @@
 #include "chapter_09_data_serialization/movies.h"
+#include "chapter_09_data_serialization/movies_samples.h"
 #include "chapter_09_data_serialization/pugixml_wrapper.h"
 #include "chapter_09_data_serialization/xml_movies.h"
 
@@ -17,11 +18,10 @@ using namespace tmcppc::pugixml;
 TEST(role, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "role") };
-    role r{ "Tom Hanks", "Forrest Gump" };
-    to_xml(n, r);
-	role rr{};
-	from_xml(n, rr);
-	EXPECT_EQ(r, rr);
+    to_xml(n, role_sample);
+	role r{};
+	from_xml(n, r);
+	EXPECT_EQ(role_sample, r);
 }
 
 
@@ -29,14 +29,10 @@ TEST(role, to_xml_and_from_xml) {
 TEST(cast, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "cast") };
-    cast c{ {
-        { "Tom Hanks", "Forrest Gump" },
-        { "Robin Wright", "Jenny Curran" }
-    }};
-    to_xml(n, c);
-    cast cc{};
-    from_xml(n, cc);
-    EXPECT_EQ(c, cc);
+    to_xml(n, cast_sample);
+    cast c{};
+    from_xml(n, c);
+    EXPECT_EQ(cast_sample, c);
 }
 
 
@@ -44,11 +40,10 @@ TEST(cast, to_xml_and_from_xml) {
 TEST(director, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "director") };
-    director d{ "Robert Zemeckis" };
-    to_xml(n, d);
-    director dd{};
-    from_xml(n, dd);
-    EXPECT_EQ(d, dd);
+    to_xml(n, director_sample);
+    director d{};
+    from_xml(n, d);
+    EXPECT_EQ(director_sample, d);
 }
 
 
@@ -56,14 +51,10 @@ TEST(director, to_xml_and_from_xml) {
 TEST(directors, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "directors") };
-    directors ds{{
-        { "Lana Wachowski" },
-        { "Lilly Wachowski" }
-    }};
-    to_xml(n, ds);
-    directors dds{};
-    from_xml(n, dds);
-    EXPECT_EQ(ds, dds);
+    to_xml(n, directors_sample);
+    directors ds{};
+    from_xml(n, ds);
+    EXPECT_EQ(directors_sample, ds);
 }
 
 
@@ -71,11 +62,10 @@ TEST(directors, to_xml_and_from_xml) {
 TEST(writer, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "writer") };
-    writer w{ "Robert Zemeckis" };
-    to_xml(n, w);
-    writer ww{};
-    from_xml(n, ww);
-    EXPECT_EQ(w, ww);
+    to_xml(n, writer_sample);
+    writer w{};
+    from_xml(n, w);
+    EXPECT_EQ(writer_sample, w);
 }
 
 
@@ -83,14 +73,10 @@ TEST(writer, to_xml_and_from_xml) {
 TEST(writers, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "writers") };
-    writers ws{{
-        { "Winston Groom" },
-        { "Eric Roth" }
-    }};
-    to_xml(n, ws);
-    writers wws{};
-    from_xml(n, wws);
-    EXPECT_EQ(ws, wws);
+    to_xml(n, writers_sample);
+    writers ws{};
+    from_xml(n, ws);
+    EXPECT_EQ(writers_sample, ws);
 }
 
 
@@ -98,27 +84,10 @@ TEST(writers, to_xml_and_from_xml) {
 TEST(movie, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "movie") };
-    movie mv{
-        .id = 1,
-        .title = "Forrest Gump",
-        .year = 1994y,
-        .length = 202,
-        .cast = cast{{
-            { .star = "Tom Hanks", .name = "Forrest Gump" },
-            { .star = "Robin Wright", .name = "Jenny Curran" }
-        }},
-        .directors = directors{{
-            { .name = "Robert Zemeckis" }
-        }},
-        .writers = writers{{
-            { .name = "Winston Groom" },
-            { .name = "Eric Roth" }
-        }}
-    };
-    to_xml(n, mv);
-    movie mvv{};
-    from_xml(n, mvv);
-    EXPECT_EQ(mv, mvv);
+    to_xml(n, movie_sample);
+    movie mv{};
+    from_xml(n, mv);
+    EXPECT_EQ(movie_sample, mv);
 }
 
 
@@ -126,45 +95,19 @@ TEST(movie, to_xml_and_from_xml) {
 TEST(catalog, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "catalog") };
-    catalog c{{
-        {
-            .id = 1,
-            .title = "The Matrix",
-            .year = 1999y,
-            .length = 196,
-            .cast = tmcppc::movies::cast{{
-                { .star = "Keanu Reeves", .name = "Neo" },
-                { .star = "Carrie-Anne Moss", .name = "Trinity" },
-            }},
-            .directors = directors{{
-                { .name = "Lana Wachowski" },
-                { .name = "Lilly Wachowski" }
-            }},
-            .writers = writers{{
-                { .name = "Lana Wachowski" },
-                { .name = "Lilly Wachowski" }
-            }}
-        },
-        {
-            .id = 2,
-            .title = "Forrest Gump",
-            .year = 1994y,
-            .length = 202,
-            .cast = cast{{
-                { .star = "Tom Hanks", .name = "Forrest Gump" },
-                { .star = "Robin Wright", .name = "Jenny Curran" }
-            }},
-            .directors = directors{{
-                { .name = "Robert Zemeckis" }
-            }},
-            .writers = writers{{
-                { .name = "Winston Groom" },
-                { .name = "Eric Roth" }
-            }}
-        }
-    }};
-    to_xml(n, c);
-    catalog cc{};
-    from_xml(n, cc);
-    EXPECT_EQ(c, cc);
+    to_xml(n, catalog_sample);
+    catalog mvs{};
+    from_xml(n, mvs);
+    EXPECT_EQ(catalog_sample, mvs);
+}
+
+
+// XML document
+TEST(xml_doc, save_to_and_load_from) {
+    const auto temp_file_path{ std::filesystem::temp_directory_path() / "test_doc_save_to_and_load_from.xml" };
+    doc out_doc{ catalog_sample };
+    out_doc.save_to(temp_file_path);
+    doc in_doc{};
+    in_doc.load_from(temp_file_path);
+    EXPECT_EQ(out_doc, in_doc);
 }

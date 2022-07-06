@@ -292,7 +292,7 @@ namespace tmcppc::ean_13::barcode_png {
             vcontrols.push_back(std::make_unique<controls::second_digit_group>(code.get_second_digit_group_str()));
             vcontrols.push_back(std::make_unique<controls::lmi>());
 
-            std::for_each(vcontrols.begin(), vcontrols.end(), [&writer](auto& control_up) { control_up->paint(writer); });
+            std::ranges::for_each(vcontrols, [&writer](auto& control_up) { control_up->paint(writer); });
         }
     };
 }  // namespace tmcppc::ean_13::barcode_png

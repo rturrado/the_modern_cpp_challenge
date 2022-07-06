@@ -1,4 +1,5 @@
 #include "chapter_09_data_serialization/movies.h"
+#include "chapter_09_data_serialization/movies_samples.h"
 #include "chapter_09_data_serialization/json_movies.h"
 
 #include "nlohmann/json.hpp"
@@ -15,147 +16,89 @@ using namespace tmcppc::movies;
 // Role
 TEST(role, to_json_and_from_json) {
     nlohmann::json j{};
-    role r{ "Tom Hanks", "Forrest Gump" };
-    to_json(j, r);
-    role rr{};
-    from_json(j, rr);
-    EXPECT_EQ(r, rr);
+    to_json(j, role_sample);
+    role r{};
+    from_json(j, r);
+    EXPECT_EQ(role_sample, r);
 }
 
 
 // Cast
 TEST(cast, to_json_and_from_json) {
     nlohmann::json j{};
-    cast c{{
-        { "Tom Hanks", "Forrest Gump" },
-        { "Robin Wright", "Jenny Curran" }
-    }};
-    to_json(j, c);
-    cast cc{};
-    from_json(j, cc);
-    EXPECT_EQ(c, cc);
+    to_json(j, cast_sample);
+    cast c{};
+    from_json(j, c);
+    EXPECT_EQ(cast_sample, c);
 }
 
 
 // Director
 TEST(director, to_json_and_from_json) {
     nlohmann::json j{};
-    director d{ "Robert Zemeckis" };
-    to_json(j, d);
-    director dd{};
-    from_json(j, dd);
-    EXPECT_EQ(d, dd);
+    to_json(j, director_sample);
+    director d{};
+    from_json(j, d);
+    EXPECT_EQ(director_sample, d);
 }
 
 
 // Directors
 TEST(directors, to_json_and_from_json) {
     nlohmann::json j{};
-    directors ds{{
-        { "Lana Wachowski" },
-        { "Lilly Wachowski" }
-    }};
-    to_json(j, ds);
-    directors dds{};
-    from_json(j, dds);
-    EXPECT_EQ(ds, dds);
+    to_json(j, directors_sample);
+    directors ds{};
+    from_json(j, ds);
+    EXPECT_EQ(directors_sample, ds);
 }
 
 
 // Writer
 TEST(writer, to_json_and_from_json) {
     nlohmann::json j{};
-    writer w{ "Robert Zemeckis" };
-    to_json(j, w);
-    writer ww{};
-    from_json(j, ww);
-    EXPECT_EQ(w, ww);
+    to_json(j, writer_sample);
+    writer w{};
+    from_json(j, w);
+    EXPECT_EQ(writer_sample, w);
 }
 
 
 // Writers
 TEST(writers, to_json_and_from_json) {
     nlohmann::json j{};
-    writers ws{{
-        { "Winston Groom" },
-        { "Eric Roth" }
-    }};
-    to_json(j, ws);
-    writers wws{};
-    from_json(j, wws);
-    EXPECT_EQ(ws, wws);
+    to_json(j, writers_sample);
+    writers ws{};
+    from_json(j, ws);
+    EXPECT_EQ(writers_sample, ws);
 }
 
 
 // Movie
 TEST(movie, to_json_and_from_json) {
     nlohmann::json j{};
-    movie mv{
-        .id = 1,
-        .title = "Forrest Gump",
-        .year = 1994y,
-        .length = 202,
-        .cast = cast{{
-            { .star = "Tom Hanks", .name = "Forrest Gump" },
-            { .star = "Robin Wrigth", .name = "Jenny Curran" }
-        }},
-        .directors = directors{{
-            { .name = "Robert Zemeckis" }
-        }},
-        .writers = writers{{
-            { .name = "Winston Groom" },
-            { .name = "Eric Roth" }
-        }}
-    };
-    to_json(j, mv);
-    movie mvv{};
-    from_json(j, mvv);
-    EXPECT_EQ(mv, mvv);
+    to_json(j, movie_sample);
+    movie mv{};
+    from_json(j, mv);
+    EXPECT_EQ(movie_sample, mv);
 }
 
 
 // Catalog
 TEST(catalog, to_json_and_from_json) {
     nlohmann::json j{};
-    catalog c{{
-        {
-            .id = 1,
-            .title = "The Matrix",
-            .year = 1999y,
-            .length = 196,
-            .cast = tmcppc::movies::cast{{
-                { .star = "Keanu Reeves", .name = "Neo" },
-                { .star = "Carrie-Anne Moss", .name = "Trinity" },
-            }},
-            .directors = directors{{
-                { .name = "Lana Wachowski" },
-                { .name = "Lilly Wachowski" }
-            }},
-            .writers = writers{{
-                { .name = "Lana Wachowski" },
-                { .name = "Lilly Wachowski" }
-            }}
-        },
-        {
-            .id = 2,
-            .title = "Forrest Gump",
-            .year = 1994y,
-            .length = 202,
-            .cast = cast{{
-                { .star = "Tom Hanks", .name = "Forrest Gump" },
-                { .star = "Robin Wright", .name = "Jenny Curran" }
-            }},
-            .directors = directors{{
-                { .name = "Robert Zemeckis" }
-            }},
-            .writers = writers{{
-                { .name = "Winston Groom" },
-                { .name = "Eric Roth" }
-            }}
-        }
-    }};
-    to_json(j, c);
-    catalog cc{};
-    from_json(j, cc);
-    EXPECT_EQ(c, cc);
+    to_json(j, catalog_sample);
+    catalog c{};
+    from_json(j, c);
+    EXPECT_EQ(catalog_sample, c);
+}
+
+
+// JSON document
+TEST(json_doc, save_to_and_load_from) {
+    const auto temp_file_path{ std::filesystem::temp_directory_path() / "test_doc_save_to_and_load_from.json" };
+    doc out_doc{ catalog_sample };
+    out_doc.save_to(temp_file_path);
+    doc in_doc{};
+    in_doc.load_from(temp_file_path);
+    EXPECT_EQ(out_doc, in_doc);
 }
