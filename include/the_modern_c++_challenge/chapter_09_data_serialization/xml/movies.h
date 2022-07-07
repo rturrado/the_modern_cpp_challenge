@@ -1,6 +1,6 @@
 #pragma once
 
-#include "movies.h"
+#include "../movies.h"
 #include "pugixml_wrapper.h"
 
 #include "pugixml.hpp"

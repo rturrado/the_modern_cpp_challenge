@@ -1,8 +1,8 @@
 #include "chapter_09_data_serialization/movies.h"
 #include "chapter_09_data_serialization/movies_samples.h"
 #include "chapter_09_data_serialization/problem_074_using_xpath.h"
-#include "chapter_09_data_serialization/pugixml_wrapper.h"
-#include "chapter_09_data_serialization/xml_movies.h"
+#include "chapter_09_data_serialization/xml/pugixml_wrapper.h"
+#include "chapter_09_data_serialization/xml/movies.h"
 
 #include "pugixml.hpp"
 

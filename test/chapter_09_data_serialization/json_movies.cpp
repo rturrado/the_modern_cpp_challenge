@@ -1,6 +1,6 @@
 #include "chapter_09_data_serialization/movies.h"
 #include "chapter_09_data_serialization/movies_samples.h"
-#include "chapter_09_data_serialization/json_movies.h"
+#include "chapter_09_data_serialization/json/movies.h"
 
 #include "nlohmann/json.hpp"
 

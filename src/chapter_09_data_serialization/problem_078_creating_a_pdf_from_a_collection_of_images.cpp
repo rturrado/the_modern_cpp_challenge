@@ -1,4 +1,5 @@
-#include "chapter_09_data_serialization/pdf_images.h"
+#include "chapter_09_data_serialization/pdf/images_doc.h"
+#include "chapter_09_data_serialization/pdf/image_list_layouter.h"
 #include "chapter_09_data_serialization/problem_078_creating_a_pdf_from_a_collection_of_images.h"
 
 #include <exception>

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "env.h"
-#include "pdf_layouter.h"
 #include "pdf_writer_wrapper.h"
 
 #include "PDFWriter/PDFWriter.h"
@@ -16,14 +15,18 @@ class PDFUsedFont;
 
 
 namespace tmcppc::pdf {
-    class pdf_doc {
-    public:
-        virtual void save_to(const std::filesystem::path& output_file_path, std::unique_ptr<layouter> layouter) = 0;
+    class layouter;
 
+    class doc {
+    public:
+        virtual ~doc() = default;
+
+        virtual void start_pdf(const std::filesystem::path& output_file_path) = 0;
         virtual void start_page(double page_width, double page_height) = 0;
+        virtual void end_pdf() = 0;
         virtual void end_page() = 0;
 
-        [[nodiscard]] auto& get_pdf_writer() noexcept { return pdf_writer_; }
+        virtual void save_to(const std::filesystem::path& output_file_path, std::unique_ptr<layouter> layouter) = 0;
 
         void set_font() {
             if (font_ == nullptr) {
@@ -46,9 +49,6 @@ namespace tmcppc::pdf {
         PDFUsedFont* font_{ nullptr };
         std::unique_ptr<layouter> layouter_{};
         int page_counter_{ 0 };
-
-        virtual void start_pdf(const std::filesystem::path& output_file_path) = 0;
-        virtual void end_pdf() = 0;
 
         [[nodiscard]] bool is_first_page() const { return page_counter_ == 0; }
     };

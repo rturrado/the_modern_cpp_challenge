@@ -2,6 +2,7 @@ set(chapter_09_test_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/json_movies.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/movies.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/pdf_movies.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/pdf_images.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_073_xml_serialization.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_074_using_xpath.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_075_json_serialization.cpp"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "chapter_09_data_serialization/xml_movies.h"
+#include "chapter_09_data_serialization/xml/movies.h"
 
 #include <iosfwd>
 

@@ -1,6 +1,7 @@
 #include "chapter_09_data_serialization/movies.h"
 #include "chapter_09_data_serialization/movies_samples.h"
-#include "chapter_09_data_serialization/pdf_movies.h"
+#include "chapter_09_data_serialization/pdf/movies_doc.h"
+#include "chapter_09_data_serialization/pdf/text_list_layouter.h"
 #include "chapter_09_data_serialization/problem_077_printing_a_list_of_movies_to_a_pdf.h"
 
 #include <filesystem>

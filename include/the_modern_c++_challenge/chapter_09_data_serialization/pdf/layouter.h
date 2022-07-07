@@ -2,12 +2,11 @@
 
 #include "PDFWriter/AbstractContentContext.h"
 
-#include <filesystem>
 #include <string>
 
 
 namespace tmcppc::pdf {
-    class pdf_doc;
+    class doc;
 
     // Text alignment
     enum class text_alignment { left, right };
@@ -39,10 +38,13 @@ namespace tmcppc::pdf {
     public:
         virtual ~layouter() = default;
 
-        [[nodiscard]] virtual image_control position_image(pdf_doc* doc, const std::filesystem::path& image_file_path) = 0;
+        [[nodiscard]] virtual image_control position_image(
+            doc* doc, double image_width, double image_height) = 0;
         [[nodiscard]] virtual line_control position_line() = 0;
-        [[nodiscard]] virtual text_control position_text(pdf_doc* doc, const std::string& text, bool add_new_line, const text_alignment& alignment) = 0;
-        [[nodiscard]] virtual text_control position_title(pdf_doc* doc, const std::string& text, const text_alignment& alignment) = 0;
+        [[nodiscard]] virtual text_control position_text(
+            doc* doc, const std::string& text, bool add_new_line, const text_alignment& alignment) = 0;
+        [[nodiscard]] virtual text_control position_title(
+            doc* doc, const std::string& text, const text_alignment& alignment) = 0;
 
     protected:
         // Margins
@@ -70,6 +72,5 @@ namespace tmcppc::pdf {
 
         void reset_cursor() noexcept { current_y_ = page_height_ - margin_top_; }
         void reset_cursor(double y) noexcept { current_y_ = y; }
-
     };
 }  // namespace tmcppc::pdf

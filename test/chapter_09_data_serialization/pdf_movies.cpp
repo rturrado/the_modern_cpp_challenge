@@ -1,6 +1,7 @@
 #include "chapter_09_data_serialization/movies.h"
 #include "chapter_09_data_serialization/movies_samples.h"
-#include "chapter_09_data_serialization/pdf_movies.h"
+#include "chapter_09_data_serialization/pdf/movies_doc.h"
+#include "chapter_09_data_serialization/pdf/text_list_layouter.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -15,7 +16,7 @@ namespace fs = std::filesystem;
 
 
 TEST(doc, save_to_list_of_2_movies) {
-    const auto temp_file_path{ std::filesystem::temp_directory_path() / "list_of_2_movies.pdf" };
+    const auto temp_file_path{ fs::temp_directory_path() / "list_of_2_movies.pdf" };
     extern catalog catalog_of_2_movies;
     movies_doc out_doc{ catalog_of_2_movies };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(10));
@@ -25,7 +26,7 @@ TEST(doc, save_to_list_of_2_movies) {
 
 
 TEST(doc, save_to_list_of_30_movies_with_10_per_page) {
-    const auto temp_file_path{ std::filesystem::temp_directory_path() / "list_of_30_movies_with_10_per_page.pdf" };
+    const auto temp_file_path{ fs::temp_directory_path() / "list_of_30_movies_with_10_per_page.pdf" };
     extern catalog catalog_of_30_movies;
     movies_doc out_doc{ catalog_of_30_movies };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(10));
@@ -35,7 +36,7 @@ TEST(doc, save_to_list_of_30_movies_with_10_per_page) {
 
 
 TEST(doc, save_to_list_of_50_movies_with_100_per_page) {
-    const auto temp_file_path{ std::filesystem::temp_directory_path() / "list_of_50_movies_with_100_per_page.pdf" };
+    const auto temp_file_path{ fs::temp_directory_path() / "list_of_50_movies_with_100_per_page.pdf" };
     extern catalog catalog_of_50_movies;
     movies_doc out_doc{ catalog_of_50_movies };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(100));
