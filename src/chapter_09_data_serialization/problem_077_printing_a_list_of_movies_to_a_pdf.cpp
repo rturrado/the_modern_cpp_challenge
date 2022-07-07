@@ -3,23 +3,23 @@
 #include "chapter_09_data_serialization/pdf_movies.h"
 #include "chapter_09_data_serialization/problem_077_printing_a_list_of_movies_to_a_pdf.h"
 
-#include <chrono>
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <memory>  // make_unique
 #include <iostream>  // cout
+#include <memory>  // make_unique
 #include <ostream>
 
 
 void problem_77_main(std::ostream& os) {
     using namespace tmcppc::movies;
+    using namespace tmcppc::pdf;
 
     const auto temp_file_path{ std::filesystem::temp_directory_path() / "list_of_movies.pdf" };
 
     try {
         fmt::print(os, "Writing PDF out to: {}\n\n", temp_file_path.generic_string());
-        pdf::doc out_doc{ catalog_of_50_movies };
-        out_doc.save_to(temp_file_path, std::make_unique<pdf::list_layouter>(25));
+        movies_doc out_doc{ catalog_of_50_movies };
+        out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(25));
     } catch (const std::exception& err) {
         fmt::print(os, "Error: {}\n\n", err.what());
     }

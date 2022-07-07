@@ -13,8 +13,7 @@
 
 
 namespace tmcppc::movies {
-    using namespace rtc::pretty_print;
-    namespace fs = std::filesystem;
+    using indentation = rtc::pretty_print::indentation;
 
     // Role
     struct role {
@@ -130,7 +129,7 @@ namespace tmcppc::movies {
     // Media file
     struct media_file {
         size_t id{};
-        fs::path file_path{};
+        std::filesystem::path file_path{};
         std::optional<std::string> description{};
 
         void print(std::ostream& os, const indentation& indentation = {}) const noexcept {

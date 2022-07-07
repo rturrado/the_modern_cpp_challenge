@@ -15,6 +15,6 @@ namespace tmcppc::movies {
     extern movie movie_sample;
     extern catalog catalog_sample;
     extern catalog catalog_of_2_movies;
-    extern catalog catalog_of_20_movies;
+    extern catalog catalog_of_30_movies;
     extern catalog catalog_of_50_movies;
 }  // namespace tmcppc::movies

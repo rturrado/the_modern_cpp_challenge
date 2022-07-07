@@ -115,7 +115,7 @@ namespace tmcppc::movies {
         { 2, "Forrest Gump", 1994y, 142 }
     } };
 
-    catalog catalog_of_20_movies{ {
+    catalog catalog_of_30_movies{ {
         { 1, "The Matrix", 1999y, 136 },
         { 2, "Forrest Gump", 1994y, 142 },
         { 3, "The Truman Show", 1998y, 103 },
@@ -135,7 +135,17 @@ namespace tmcppc::movies {
         { 17, "Fargo", 1998y, 98 },
         { 18, "Reservoir Dogs", 1992y, 99 },
         { 19, "The Departed", 2006y, 151 },
-        { 20, "Se7en", 1995y, 127 }
+        { 20, "Se7en", 1995y, 127 },
+        { 21, "American History X", 1998y, 119 },
+        { 22, "Silver Linings Playbook", 2012y, 122 },
+        { 23, "2001: A Space Odyssey", 1968y, 149 },
+        { 24, "Monty Python and the Holy Grail", 1975y, 91 },
+        { 25, "Life of Brian", 1979y, 94 },
+        { 26, "Children of Men", 2006y, 109 },
+        { 27, "Sin City", 2005y, 124 },
+        { 28, "L.A. Confidential", 1997y, 138 },
+        { 29, "Shutter Island", 2010y, 138 },
+        { 30, "The Ten Commandments", 1956y, 220 }
     } };
 
     catalog catalog_of_50_movies{ {

@@ -1,83 +1,66 @@
 #pragma once
 
 #include "movies.h"
-#include "pdf_writer_wrapper.h"
+#include "pdf_doc.h"
+#include "pdf_layouter.h"
 
 #include "PDFWriter/AbstractContentContext.h"
-#include "PDFWriter/PDFWriter.h"
 
 #include <filesystem>
 #include <memory>  // unique_ptr
+#include <string>
 
-class PageContentContext;
 
-
-namespace tmcppc::movies::pdf {
-    class doc;
-
-    // Layouter
-    class layouter {
+namespace tmcppc::pdf {
+    // Text list layouter
+    class text_list_layouter : public layouter {
     public:
-        virtual ~layouter() = default;
-        virtual void print(doc* doc, const movie& movie) = 0;
+        explicit text_list_layouter(int text_lines_per_page);
 
-    protected:
-        // Page
-        double page_width{ 595 };
-        double page_height{ 842 };
-        // Margins
-        double margin_left{ 20 };
-        double margin_right{ 20 };
-        double margin_top{ 30 };
-        double margin_bottom{ 30 };
-        // Text
-        double font_width{ 8 };
-        double font_height{ 14 };
-        double line_spacing{ 5 };
-        // Text options
-        AbstractContentContext::TextOptions text_options{ nullptr, font_height, AbstractContentContext::eGray, 0 };
-        // Cursor
-        double current_y{};
+        [[nodiscard]] virtual image_control position_image(pdf_doc* doc, const std::filesystem::path& image_file_path) {
+            return {};
+        };
+        [[nodiscard]] virtual line_control position_line() override;
+        [[nodiscard]] virtual text_control position_text(pdf_doc* doc, const std::string& text, bool add_new_line,
+            const text_alignment& alignment) override;
+        [[nodiscard]] virtual text_control position_title(pdf_doc* doc, const std::string& text,
+            const text_alignment& alignment) override;
 
-    protected:
-        void set_font(PDFWriter& pdf_writer);
+    private:
+        double title_font_width_{ 9 };
+        double title_font_height_{ 16 };
+        int text_lines_per_page_{ 40 };
+        int text_line_counter_{ 0 };
+        AbstractContentContext::TextOptions text_options_{ nullptr };
+        AbstractContentContext::TextOptions title_text_options_{ nullptr };
+
+        [[nodiscard]] bool text_fits_in_current_page() const;
+        [[nodiscard]] AbstractContentContext::TextOptions get_text_options(pdf_doc* doc);
+        [[nodiscard]] AbstractContentContext::TextOptions get_title_text_options(pdf_doc* doc);
+        [[nodiscard]] double get_text_x(const std::string& text, double font_width, const text_alignment& alignment);
     };
 
 
-    // List layouter
-    class list_layouter : public layouter {
+    // Movies document
+    class movies_doc : public pdf_doc {
+        using catalog = tmcppc::movies::catalog;
+
     public:
-        explicit list_layouter(int movies_per_page);
-        virtual void print(doc* doc, const movie& movie) override;
+        movies_doc(const catalog& c) : catalog_{ c } {}
+
+        virtual void save_to(const std::filesystem::path& output_file_path, std::unique_ptr<layouter> layouter) override;
+
+        virtual void start_page(double page_width, double page_height) override;
+        virtual void end_page() override;
 
     private:
-        int movies_per_page_{};
-        int page_counter_{};
-        bool is_first_movie_of_page_{};
-
-        [[nodiscard]] bool is_first_movie_of_page() const noexcept;
-        [[nodiscard]] bool is_last_movie_of_page(doc* doc) const noexcept;
-        void set_is_first_movie_of_page(bool flag) noexcept;
-        void reset_cursor() noexcept;
-        void print_title(PageContentContext* ctx);
-        void print_line_separator(PageContentContext* ctx);
-        void print_movie(PageContentContext* ctx, const movie& movie);
-    };
-
-
-    // PDF document
-    class doc {
-    public:
-        doc(const catalog& c) : catalog_{ c } {}
-
-        void save_to(const std::filesystem::path& output_file_path, std::unique_ptr<layouter> layouter);
-
-        [[nodiscard]] auto& get_pdf_writer() noexcept { return pdf_writer_; }
-        [[nodiscard]] auto& get_catalog() const noexcept { return catalog_; }
-        [[nodiscard]] auto get_catalog_size() const noexcept { return catalog_.movies.size(); }
-
-    private:
-        PDFWriter pdf_writer_{};
         catalog catalog_{};
+
+        virtual void start_pdf(const std::filesystem::path& output_file_path) override;
+        virtual void end_pdf() override;
+
+        void print_title();
+        void print_line_separator();
+        void print_text_line(const std::string& text, bool add_new_line, const text_alignment& align);
     };
-}  // namespace tmcppc::movies::pdf
+}  // namespace tmcppc::pdf
