@@ -15,22 +15,30 @@ namespace tmcppc::pdf {
         using ImageOptions = AbstractContentContext::ImageOptions;
 
     public:
+        image_list_layouter() = default;
+        image_list_layouter(const image_list_layouter& other) = delete;
+        image_list_layouter(image_list_layouter&& other) noexcept = delete;
+        image_list_layouter& operator=(const image_list_layouter& other) = delete;
+        image_list_layouter& operator=(image_list_layouter&& other) noexcept = delete;
+        ~image_list_layouter() = default;
+
         [[nodiscard]] virtual image_control position_image(doc* doc, double image_width, double image_height) override {
             auto [scaled_image_width, scaled_image_height] = scale_image_to_fit_page(image_width, image_height);
 
             if (not image_fits_in_current_page(scaled_image_height)) {
-                doc->start_page(page_width_, page_height_);
+                doc->end_page();
                 reset_cursor();
+                doc->start_page(page_width_, page_height_);
             }
 
             auto scaled_image_y{ current_y_ - scaled_image_height - get_current_image_spacing() };
             auto image_options{ create_image_options_for_scaled_image(scaled_image_width, scaled_image_height) };
-            reset_cursor(scaled_image_y);
+            set_cursor(scaled_image_y);
 
             return image_control{ margin_left_, scaled_image_y, image_options };
         }
 
-        [[nodiscard]] virtual line_control position_line() override { return {}; }
+        [[nodiscard]] virtual line_control position_line_separator() override { return {}; }
         [[nodiscard]] virtual text_control position_text(doc*, const std::string&, bool, const text_alignment&) override { return {}; }
         [[nodiscard]] virtual text_control position_title(doc*, const std::string&, const text_alignment&) override { return {}; }
 

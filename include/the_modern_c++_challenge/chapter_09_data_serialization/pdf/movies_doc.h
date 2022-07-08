@@ -33,11 +33,11 @@ namespace tmcppc::pdf {
 
         virtual void start_page(double page_width, double page_height) override {
             tmcppc::pdf_writer::start_page_and_page_content_context(pdf_writer_, &current_page_, &current_ctx_, page_width, page_height);
+            page_counter_++;
             if (is_first_page()) {
                 print_title();
             }
             print_line_separator();
-            page_counter_++;
         }
 
         virtual void end_pdf() override {
@@ -55,6 +55,7 @@ namespace tmcppc::pdf {
         virtual void save_to(const std::filesystem::path& output_file_path, std::unique_ptr<layouter> layouter) override {
             layouter_ = std::move(layouter);
             start_pdf(output_file_path);
+            start_page(layouter_->get_page_width(), layouter_->get_page_height());
             for (auto&& movie : catalog_.movies) {
                 auto movie_year_str{ fmt::format("({})", static_cast<int>(movie.year)) };
                 auto movie_title_and_year_str{ fmt::format("{} {}", movie.title, movie_year_str) };
@@ -70,7 +71,7 @@ namespace tmcppc::pdf {
         catalog catalog_{};
 
         void print_line_separator() {
-            auto [start_x, start_y, end_x, end_y] = layouter_->position_line();
+            auto [start_x, start_y, end_x, end_y] = layouter_->position_line_separator();
             tmcppc::pdf_writer::draw_line(current_ctx_, start_x, start_y, end_x, end_y);
         }
 

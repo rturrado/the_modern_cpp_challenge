@@ -50,6 +50,6 @@ namespace tmcppc::pdf {
         std::unique_ptr<layouter> layouter_{};
         int page_counter_{ 0 };
 
-        [[nodiscard]] bool is_first_page() const { return page_counter_ == 0; }
+        [[nodiscard]] bool is_first_page() const { return page_counter_ == 1; }
     };
 }  // namespace tmcppc::pdf

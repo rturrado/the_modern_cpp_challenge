@@ -14,7 +14,7 @@ void problem_78_main(std::ostream& os) {
     using namespace tmcppc::pdf;
 
     const auto input_dir_path{ tmcppc::env::get_instance().get_resource_folder_path() / "images" };
-    const auto temp_file_path{ std::filesystem::temp_directory_path() / "images.pdf" };
+    const auto temp_file_path{ std::filesystem::temp_directory_path() / "list_of_images.pdf" };
 
     try {
         images_doc out_doc{ input_dir_path };

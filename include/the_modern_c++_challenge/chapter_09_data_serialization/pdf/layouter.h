@@ -36,15 +36,25 @@ namespace tmcppc::pdf {
     // Layouter
     class layouter {
     public:
+        layouter() {
+            reset_cursor();
+        }
+        layouter(const layouter& other) = delete;
+        layouter(layouter&& other) noexcept = delete;
+        layouter& operator=(const layouter& other) = delete;
+        layouter& operator=(layouter&& other) noexcept = delete;
         virtual ~layouter() = default;
 
         [[nodiscard]] virtual image_control position_image(
             doc* doc, double image_width, double image_height) = 0;
-        [[nodiscard]] virtual line_control position_line() = 0;
+        [[nodiscard]] virtual line_control position_line_separator() = 0;
         [[nodiscard]] virtual text_control position_text(
             doc* doc, const std::string& text, bool add_new_line, const text_alignment& alignment) = 0;
         [[nodiscard]] virtual text_control position_title(
             doc* doc, const std::string& text, const text_alignment& alignment) = 0;
+
+        [[nodiscard]] auto get_page_width() const { return page_width_; }
+        [[nodiscard]] auto get_page_height() const { return page_height_; }
 
     protected:
         // Margins
@@ -71,6 +81,6 @@ namespace tmcppc::pdf {
         bool less_than(double a, double b) { return (b - a > 0.1); };
 
         void reset_cursor() noexcept { current_y_ = page_height_ - margin_top_; }
-        void reset_cursor(double y) noexcept { current_y_ = y; }
+        void set_cursor(double y) noexcept { current_y_ = y; }
     };
 }  // namespace tmcppc::pdf

@@ -5,6 +5,7 @@
 
 #include "PDFWriter/AbstractContentContext.h"
 
+#include <stdexcept>  // runtime_error
 #include <string>
 
 
@@ -13,17 +14,28 @@ namespace tmcppc::pdf {
         using TextOptions = AbstractContentContext::TextOptions;
 
     public:
+        text_list_layouter() = default;
+        text_list_layouter(const text_list_layouter& other) = delete;
+        text_list_layouter(text_list_layouter&& other) noexcept = delete;
+        text_list_layouter& operator=(const text_list_layouter& other) = delete;
+        text_list_layouter& operator=(text_list_layouter&& other) noexcept = delete;
+        ~text_list_layouter() = default;
+
         explicit text_list_layouter(int text_lines_per_page)
             : text_lines_per_page_{ text_lines_per_page }
-            , text_line_counter_{ 0 }
-        {}
+            , text_line_counter_{ 0 } {
+        
+            if (text_lines_per_page_ == 0) {
+                throw std::runtime_error("trying to create a text_list_layouter with a zero text_lines_per_page");
+            }
+        }
 
         [[nodiscard]] virtual image_control position_image(doc*, double, double) {
             return {};
         };
 
-        [[nodiscard]] virtual line_control position_line() override {
-            reset_cursor(current_y_ - line_spacing_);
+        [[nodiscard]] virtual line_control position_line_separator() override {
+            set_cursor(current_y_ - line_spacing_);
             double start_x{ margin_left_ };
             double end_x{ page_width_ - margin_right_ };
             return { start_x, current_y_, end_x, current_y_ };
@@ -33,13 +45,13 @@ namespace tmcppc::pdf {
             const text_alignment& alignment) override {
 
             if (add_new_line) {
+                text_line_counter_++;
                 if (not text_fits_in_current_page()) {
                     doc->end_page();
                     reset_cursor();
                     doc->start_page(page_width_, page_height_);
                 }
-                text_line_counter_++;
-                reset_cursor(current_y_ - font_height_ - line_spacing_);
+                set_cursor(current_y_ - font_height_ - line_spacing_);
             }
             double x{ get_text_x(text, font_width_, alignment) };
             return text_control{ x, current_y_, get_text_options(doc) };
@@ -48,7 +60,7 @@ namespace tmcppc::pdf {
         [[nodiscard]] virtual text_control position_title(doc* doc, const std::string& text,
             const text_alignment& alignment) override {
 
-            reset_cursor(current_y_ - title_font_height_ - line_spacing_);
+            set_cursor(current_y_ - title_font_height_ - line_spacing_);
             double x{ get_text_x(text, title_font_width_, alignment) };
             return text_control{ x, current_y_, get_title_text_options(doc) };
         }
@@ -63,7 +75,7 @@ namespace tmcppc::pdf {
 
         [[nodiscard]] bool text_fits_in_current_page() const {
             return
-                ((text_line_counter_ % text_lines_per_page_) != 0) and
+                ((text_line_counter_ == 1) or (text_line_counter_ % text_lines_per_page_ != 1)) and
                 ((current_y_ - font_height_ - 2 * line_spacing_) > margin_bottom_);
         }
 

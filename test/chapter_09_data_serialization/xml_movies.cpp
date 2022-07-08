@@ -15,7 +15,7 @@ using namespace tmcppc::pugixml;
 
 
 // Role
-TEST(role, to_xml_and_from_xml) {
+TEST(role, DISABLED_to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "role") };
     to_xml(n, role_sample);
@@ -24,9 +24,8 @@ TEST(role, to_xml_and_from_xml) {
 	EXPECT_EQ(role_sample, r);
 }
 
-
 // Cast
-TEST(cast, to_xml_and_from_xml) {
+TEST(cast, DISABLED_to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "cast") };
     to_xml(n, cast_sample);
@@ -35,9 +34,8 @@ TEST(cast, to_xml_and_from_xml) {
     EXPECT_EQ(cast_sample, c);
 }
 
-
 // Director
-TEST(director, to_xml_and_from_xml) {
+TEST(director, DISABLED_to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "director") };
     to_xml(n, director_sample);
@@ -46,9 +44,8 @@ TEST(director, to_xml_and_from_xml) {
     EXPECT_EQ(director_sample, d);
 }
 
-
 // Directors
-TEST(directors, to_xml_and_from_xml) {
+TEST(directors, DISABLED_to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "directors") };
     to_xml(n, directors_sample);
@@ -57,9 +54,8 @@ TEST(directors, to_xml_and_from_xml) {
     EXPECT_EQ(directors_sample, ds);
 }
 
-
 // Writer
-TEST(writer, to_xml_and_from_xml) {
+TEST(writer, DISABLED_to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "writer") };
     to_xml(n, writer_sample);
@@ -68,9 +64,8 @@ TEST(writer, to_xml_and_from_xml) {
     EXPECT_EQ(writer_sample, w);
 }
 
-
 // Writers
-TEST(writers, to_xml_and_from_xml) {
+TEST(writers, DISABLED_to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "writers") };
     to_xml(n, writers_sample);
@@ -79,9 +74,8 @@ TEST(writers, to_xml_and_from_xml) {
     EXPECT_EQ(writers_sample, ws);
 }
 
-
 // Movie
-TEST(movie, to_xml_and_from_xml) {
+TEST(movie, DISABLED_to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "movie") };
     to_xml(n, movie_sample);
@@ -90,9 +84,8 @@ TEST(movie, to_xml_and_from_xml) {
     EXPECT_EQ(movie_sample, mv);
 }
 
-
 // Catalog
-TEST(catalog, to_xml_and_from_xml) {
+TEST(catalog, DISABLED_to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "catalog") };
     to_xml(n, catalog_sample);
@@ -101,9 +94,8 @@ TEST(catalog, to_xml_and_from_xml) {
     EXPECT_EQ(catalog_sample, mvs);
 }
 
-
 // XML document
-TEST(xml_doc, save_to_and_load_from) {
+TEST(xml_doc, DISABLED_save_to_and_load_from) {
     const auto temp_file_path{ std::filesystem::temp_directory_path() / "test_doc_save_to_and_load_from.xml" };
     doc out_doc{ catalog_sample };
     out_doc.save_to(temp_file_path);

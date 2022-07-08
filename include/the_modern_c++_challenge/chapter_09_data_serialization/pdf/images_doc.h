@@ -34,8 +34,8 @@ namespace tmcppc::pdf {
         }
 
         virtual void start_page(double page_width, double page_height) override {
-            end_page();
             tmcppc::pdf_writer::start_page_and_page_content_context(pdf_writer_, &current_page_, &current_ctx_, page_width, page_height);
+            page_counter_++;
         }
 
         virtual void end_pdf() override {
@@ -51,6 +51,7 @@ namespace tmcppc::pdf {
         virtual void save_to(const std::filesystem::path& output_file_path, std::unique_ptr<layouter> layouter) override {
             layouter_ = std::move(layouter);
             start_pdf(output_file_path);
+            start_page(layouter_->get_page_width(), layouter_->get_page_height());
             for (const auto& dir_entry : std::filesystem::directory_iterator{ input_dir_path_ }) {
                 if (not is_image_file(dir_entry.path())) {
                     continue;
