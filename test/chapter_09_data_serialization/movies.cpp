@@ -30,7 +30,7 @@ TEST(role, DISABLED_fmt_print) {
 }
 
 // Cast
-auto cast_output{ fmt::format("Cast:\n{0}Tom Hanks (Forrest Gump)\n{0}Sally Field (Jenny)\n", default_indentation_value) };
+auto cast_output{ fmt::format("Cast:\n{0}Tom Hanks (Forrest Gump)\n{0}Robin Wright (Jenny Curran)\n", default_indentation_value) };
 TEST(cast, DISABLED_print_empty_cast) {
     std::ostringstream oss{};
     cast{}.print(oss);
@@ -206,7 +206,7 @@ auto movie_output{
         "{0}length: 202\n"
         "{0}Cast:\n"
         "{0}{0}Tom Hanks (Forrest Gump)\n"
-        "{0}{0}Sally Field (Mrs. Gump)\n"
+        "{0}{0}Robin Wright (Jenny Curran)\n"
         "{0}Directors:\n"
         "{0}{0}Robert Zemeckis\n"
         "{0}Writers:\n"
@@ -258,7 +258,7 @@ auto catalog_output{
         "{0}{0}length: 202\n"
         "{0}{0}Cast:\n"
         "{0}{0}{0}Tom Hanks (Forrest Gump)\n"
-        "{0}{0}{0}Sally Field (Mrs. Gump)\n"
+        "{0}{0}{0}Robin Wright (Jenny Curran)\n"
         "{0}{0}Directors:\n"
         "{0}{0}{0}Robert Zemeckis\n"
         "{0}{0}Writers:\n"

@@ -7,7 +7,6 @@
 
 #include <cmath>  // max
 #include <string>
-#include <utility>  // pair
 
 
 namespace tmcppc::pdf {
@@ -43,6 +42,14 @@ namespace tmcppc::pdf {
         [[nodiscard]] virtual text_control position_title(doc*, const std::string&, const text_alignment&) override { return {}; }
 
     private:
+        // Image spacing
+        double image_spacing_{ 10 };
+
+        struct image_dimensions {
+            double width{};
+            double height{};
+        };
+
         [[nodiscard]] double get_current_image_spacing() {
             return equals(current_y_, page_height_ - margin_top_) ? 0 : image_spacing_;
         }
@@ -51,14 +58,14 @@ namespace tmcppc::pdf {
             return less_than(image_height + get_current_image_spacing(), current_y_ - margin_bottom_);
         }
 
-        [[nodiscard]] std::pair<double, double> scale_image_to_fit_page(double image_width, double image_height) {
+        [[nodiscard]] image_dimensions scale_image_to_fit_page(double image_width, double image_height) {
             auto ratio{ 1.0 };
             auto width_ratio{ image_width / page_width_available_ };
             auto height_ratio{ image_height / page_height_available_ };
             if (less_than(1.0, width_ratio) or less_than(1.0, height_ratio)) {
                 ratio = std::max(width_ratio, height_ratio);
             }
-            return std::pair<double, double>{ image_width / ratio, image_height / ratio };
+            return image_dimensions{ image_width / ratio, image_height / ratio };
         }
 
         [[nodiscard]] ImageOptions create_image_options_for_scaled_image(double scaled_image_width, double scaled_image_height) {

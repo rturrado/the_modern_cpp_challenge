@@ -13,7 +13,7 @@ namespace tmcppc::movies {
     // Cast
     cast cast_sample{ {
         { "Tom Hanks", "Forrest Gump" },
-        { "Sally Field", "Jenny" }
+        { "Robin Wright", "Jenny Curran" }
     } };
 
 
@@ -59,7 +59,7 @@ namespace tmcppc::movies {
         .length = 202,
         .cast = cast{{
             {.star = "Tom Hanks", .name = "Forrest Gump" },
-            {.star = "Sally Field", .name = "Mrs. Gump" }
+            {.star = "Robin Wright", .name = "Jenny Curran" }
         }},
         .directors = directors{{
             {.name = "Robert Zemeckis" }
@@ -98,7 +98,7 @@ namespace tmcppc::movies {
             .length = 202,
             .cast = cast{{
                 {.star = "Tom Hanks", .name = "Forrest Gump" },
-                {.star = "Sally Field", .name = "Mrs. Gump" }
+                {.star = "Robin Wright", .name = "Jenny Curran" }
             }},
             .directors = directors{{
                 {.name = "Robert Zemeckis" }

@@ -67,12 +67,6 @@ namespace tmcppc::pdf {
         double page_height_{ 842 };
         const double page_width_available_{ page_width_ - margin_left_ - margin_right_ };
         const double page_height_available_{ page_height_ - margin_top_ - margin_bottom_ };
-        // Text
-        double font_width_{ 8 };
-        double font_height_{ 14 };
-        double line_spacing_{ 5 };
-        // Image
-        double image_spacing_{ 10 };
         // Cursor
         double current_y_{ 0 };
 
