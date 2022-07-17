@@ -1,6 +1,6 @@
 #pragma once
 
-#include "chapter_10_archives_images_and_databases/sqlite_movies.h"
+#include "chapter_10_archives_images_and_databases/sql/movies.h"
 
 #include <filesystem>
 #include <fmt/format.h>
@@ -56,6 +56,13 @@ namespace tmcppc::movies::command_line {
     private:
         static inline std::string message_{ "invalid movie ID: " };
     };
+    struct invalid_regex_error : public std::runtime_error {
+        invalid_regex_error(const std::string& regex_str)
+            : std::runtime_error{ message_ + regex_str }
+        {}
+    private:
+        static inline std::string message_{ "invalid regex: " };
+    };
     struct invalid_subcommand_error : public std::runtime_error {
         invalid_subcommand_error(const std::string& command_str, const std::string& subcommand_str)
             : std::runtime_error{ "" }  {
@@ -110,13 +117,13 @@ namespace tmcppc::movies::command_line {
     void parse_remove_options(std::istringstream& iss, command_line_options& options);
     auto parse_command_line(std::string command_line);
 
-    void add_media(std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db,
+    void add_media(std::ostream& os, tmcppc::movies::sql::database& movies_db,
         size_t movie_id, const std::filesystem::path& media_file_path, std::optional<std::string> media_file_description);
-    void delete_media(std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db, size_t media_id);
-    void list_media(std::ostream& os, const tmcppc::movies::sqlite_mcpp::database& movies_db, size_t movie_id);
-    void list_movies(std::ostream& os, const tmcppc::movies::sqlite_mcpp::database& movies_db, const std::regex& pattern);
-    void execute_command(std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db,
+    void delete_media(std::ostream& os, tmcppc::movies::sql::database& movies_db, size_t media_id);
+    void list_media(std::ostream& os, const tmcppc::movies::sql::database& movies_db, size_t movie_id);
+    void list_movies(std::ostream& os, const tmcppc::movies::sql::database& movies_db, const std::regex& pattern);
+    void execute_command(std::ostream& os, tmcppc::movies::sql::database& movies_db,
         const command_t command, const subcommand_t subcommand, const command_line_options& options);
 
-    void menu(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db);
+    void menu(std::istream& is, std::ostream& os, tmcppc::movies::sql::database& movies_db);
 }  // namespace tmcppc::movies::command_line

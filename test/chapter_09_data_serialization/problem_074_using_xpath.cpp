@@ -24,7 +24,7 @@ TEST(problem_74_main, DISABLED_output) {
         "Movies released after year: 2000\n"
         "\n"
         "Last actor in the casting list for every movie:\n"
-        "\tThe Matrix: Carrie-Anne Moss\n"
-        "\tForrest Gump: Sally Field\n"
+        "\tThe Matrix: Hugo Weaving\n"
+        "\tForrest Gump: Mykelti Williamson\n"
     ));
 }

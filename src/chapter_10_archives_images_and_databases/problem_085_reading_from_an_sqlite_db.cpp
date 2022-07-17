@@ -1,6 +1,5 @@
 #include "chapter_10_archives_images_and_databases/problem_085_reading_from_an_sqlite_db.h"
-#include "chapter_10_archives_images_and_databases/sqlite_movies.h"
-#include "env.h"
+#include "chapter_10_archives_images_and_databases/sql/movies.h"
 
 #include <filesystem>
 #include <fmt/ostream.h>
@@ -8,21 +7,23 @@
 #include <istream>
 #include <ostream>
 
+namespace fs = std::filesystem;
+
 
 void problem_85_main(std::istream& is, std::ostream& os) {
-    const auto db_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "db" / "movies.db" };
+    const auto db_file_path{ fs::temp_directory_path() / "movies.db" };
 
     try {
         {
-            auto sqlite_db{ tmcppc::movies::sqlite_mcpp::create_movies_database(db_file_path) };
-            auto movies_db{ tmcppc::movies::sqlite_mcpp::database{ sqlite_db } };
+            auto sqlite_db{ tmcppc::movies::sql::create_movies_database(db_file_path) };
+            auto movies_db{ tmcppc::movies::sql::database{ sqlite_db } };
 
             fmt::print(os, "{}", movies_db);
         }
 
         fmt::print(os, "\n");
 
-        tmcppc::movies::sqlite_mcpp::remove_movies_database_file(is, os, db_file_path);
+        tmcppc::movies::sql::remove_movies_database_file(is, os, db_file_path);
     } catch (const sqlite::sqlite_exception& ex) {
         fmt::print(os, "Error: code = {}, message = '{}', operation '{}'\n",
             ex.get_code(), ex.what(), ex.get_sql());

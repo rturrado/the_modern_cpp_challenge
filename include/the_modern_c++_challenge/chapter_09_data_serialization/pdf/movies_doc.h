@@ -57,7 +57,7 @@ namespace tmcppc::pdf {
             start_pdf(output_file_path);
             start_page(layouter_->get_page_width(), layouter_->get_page_height());
             for (auto&& movie : catalog_.movies) {
-                auto movie_year_str{ fmt::format("({})", static_cast<int>(movie.year)) };
+                auto movie_year_str{ fmt::format("({})", int(movie.year)) };
                 auto movie_title_and_year_str{ fmt::format("{} {}", movie.title, movie_year_str) };
                 auto movie_length_str{ fmt::format("{}: {:02}", movie.length / 60, movie.length % 60) };
 

@@ -211,7 +211,7 @@ namespace tmcppc::movies {
             fmt::print(os, "{}Movie:\n", indentation);
             fmt::print(os, "{}id: {}\n", indentation + 1, id);
             fmt::print(os, "{}title: {}\n", indentation + 1, title);
-            fmt::print(os, "{}year: {}\n", indentation + 1, static_cast<int>(year));
+            fmt::print(os, "{}year: {}\n", indentation + 1, int(year));
             fmt::print(os, "{}length: {}\n", indentation + 1, length);
             cast.print(os, indentation + 1);
             directors.print(os, indentation + 1);

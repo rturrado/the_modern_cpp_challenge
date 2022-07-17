@@ -11,7 +11,7 @@ using namespace tmcppc::pdf;
 namespace fs = std::filesystem;
 
 
-TEST(doc, DISABLED_save_to_empty_list_of_images) {
+TEST(images_doc, DISABLED_save_to_empty_list_of_images) {
     const auto input_dir_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" };
     const auto temp_file_path{ fs::temp_directory_path() / "test_pdf_doc_save_to_empty_list_of_images.pdf" };
     images_doc out_doc{ input_dir_path };
@@ -20,7 +20,7 @@ TEST(doc, DISABLED_save_to_empty_list_of_images) {
     EXPECT_NE(fs::file_size(temp_file_path), 0);
 }
 
-TEST(doc, DISABLED_save_to_list_of_images) {
+TEST(images_doc, DISABLED_save_to_list_of_images) {
     const auto input_dir_path{ tmcppc::env::get_instance().get_resource_folder_path() / "images" };
     const auto temp_file_path{ fs::temp_directory_path() / "test_pdf_doc_save_to_list_of_images.pdf" };
     images_doc out_doc{ input_dir_path };

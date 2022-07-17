@@ -14,7 +14,7 @@ using namespace tmcppc::movies;
 
 
 // Role
-TEST(role, DISABLED_to_json_and_from_json) {
+TEST(json_role, DISABLED_to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, role_sample);
     role r{};
@@ -23,7 +23,7 @@ TEST(role, DISABLED_to_json_and_from_json) {
 }
 
 // Cast
-TEST(cast, DISABLED_to_json_and_from_json) {
+TEST(json_cast, DISABLED_to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, cast_sample);
     cast c{};
@@ -32,7 +32,7 @@ TEST(cast, DISABLED_to_json_and_from_json) {
 }
 
 // Director
-TEST(director, DISABLED_to_json_and_from_json) {
+TEST(json_director, DISABLED_to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, director_sample);
     director d{};
@@ -41,7 +41,7 @@ TEST(director, DISABLED_to_json_and_from_json) {
 }
 
 // Directors
-TEST(directors, DISABLED_to_json_and_from_json) {
+TEST(json_directors, DISABLED_to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, directors_sample);
     directors ds{};
@@ -50,7 +50,7 @@ TEST(directors, DISABLED_to_json_and_from_json) {
 }
 
 // Writer
-TEST(writer, DISABLED_to_json_and_from_json) {
+TEST(json_writer, DISABLED_to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, writer_sample);
     writer w{};
@@ -59,7 +59,7 @@ TEST(writer, DISABLED_to_json_and_from_json) {
 }
 
 // Writers
-TEST(writers, DISABLED_to_json_and_from_json) {
+TEST(json_writers, DISABLED_to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, writers_sample);
     writers ws{};
@@ -68,7 +68,7 @@ TEST(writers, DISABLED_to_json_and_from_json) {
 }
 
 // Movie
-TEST(movie, DISABLED_to_json_and_from_json) {
+TEST(json_movie, DISABLED_to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, movie_sample);
     movie mv{};
@@ -77,7 +77,7 @@ TEST(movie, DISABLED_to_json_and_from_json) {
 }
 
 // Catalog
-TEST(catalog, DISABLED_to_json_and_from_json) {
+TEST(json_catalog, DISABLED_to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, catalog_sample);
     catalog c{};

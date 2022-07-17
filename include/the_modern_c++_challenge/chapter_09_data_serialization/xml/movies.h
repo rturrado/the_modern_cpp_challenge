@@ -87,7 +87,7 @@ namespace tmcppc::movies::xml {
 
         append_attribute_or_throw(root, "id") = movie.id;
         append_attribute_or_throw(root, "title") = movie.title.c_str();
-        append_attribute_or_throw(root, "year") = static_cast<int>(movie.year);
+        append_attribute_or_throw(root, "year") = int(movie.year);
         append_attribute_or_throw(root, "length") = movie.length;
         {
             auto node{ append_child_or_throw(root, "cast") };

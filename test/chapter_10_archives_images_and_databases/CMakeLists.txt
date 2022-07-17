@@ -1,4 +1,6 @@
 set(chapter_10_test_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/console_movies.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/file_movies.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_079_finding_files_in_a_zip_archive.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_080_zip_compression.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_081_zip_compression_with_password.cpp"
@@ -8,5 +10,6 @@ set(chapter_10_test_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_085_reading_from_an_sqlite_db.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_086_inserting_into_an_sqlite_db.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_087_handling_images_in_an_sqlite_db.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/sql_movies.cpp"
     PARENT_SCOPE
 )

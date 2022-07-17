@@ -15,13 +15,13 @@ using namespace tmcppc::pdf;
 namespace fs = std::filesystem;
 
 
-TEST(doc, DISABLED_save_to_text_list_layouter_of_zero_text_lines_per_page) {
+TEST(movies_doc, DISABLED_save_to_text_list_layouter_of_zero_text_lines_per_page) {
     const auto temp_file_path{ fs::temp_directory_path() / "test_pdf_doc_save_to_text_list_layouter_of_zero_text_lines_per_page.pdf" };
     movies_doc out_doc{ catalog{} };
     EXPECT_THROW(out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(0)), std::runtime_error);
 }
 
-TEST(doc, DISABLED_save_to_empty_list_of_movies) {
+TEST(movies_doc, DISABLED_save_to_empty_list_of_movies) {
     const auto temp_file_path{ fs::temp_directory_path() / "test_pdf_doc_save_to_empty_list_of_movies.pdf" };
     movies_doc out_doc{ catalog{} };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(10));
@@ -29,27 +29,24 @@ TEST(doc, DISABLED_save_to_empty_list_of_movies) {
     EXPECT_NE(fs::file_size(temp_file_path), 0);
 }
 
-TEST(doc, DISABLED_save_to_list_of_2_movies) {
+TEST(movies_doc, DISABLED_save_to_list_of_2_movies) {
     const auto temp_file_path{ fs::temp_directory_path() / "test_pdf_doc_save_to_list_of_2_movies.pdf" };
-    extern catalog catalog_of_2_movies;
     movies_doc out_doc{ catalog_of_2_movies };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(10));
     EXPECT_TRUE(fs::exists(temp_file_path));
     EXPECT_NE(fs::file_size(temp_file_path), 0);
 }
 
-TEST(doc, DISABLED_save_to_list_of_30_movies_with_10_per_page) {
+TEST(movies_doc, DISABLED_save_to_list_of_30_movies_with_10_per_page) {
     const auto temp_file_path{ fs::temp_directory_path() / "test_pdf_doc_save_to_list_of_30_movies_with_10_per_page.pdf" };
-    extern catalog catalog_of_30_movies;
     movies_doc out_doc{ catalog_of_30_movies };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(10));
     EXPECT_TRUE(fs::exists(temp_file_path));
     EXPECT_NE(fs::file_size(temp_file_path), 0);
 }
 
-TEST(doc, DISABLED_save_to_list_of_50_movies_with_100_per_page) {
+TEST(movies_doc, DISABLED_save_to_list_of_50_movies_with_100_per_page) {
     const auto temp_file_path{ fs::temp_directory_path() / "test_pdf_doc_save_to_list_of_50_movies_with_100_per_page.pdf" };
-    extern catalog catalog_of_50_movies;
     movies_doc out_doc{ catalog_of_50_movies };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(100));
     EXPECT_TRUE(fs::exists(temp_file_path));

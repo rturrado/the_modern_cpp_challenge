@@ -7,115 +7,116 @@ using namespace std::chrono_literals;
 
 namespace tmcppc::movies {
     // Role
-    role role_sample{ "Tom Hanks", "Forrest Gump" };
+    const role role_sample{ "Tom Hanks", "Forrest Gump" };
 
 
     // Cast
-    cast cast_sample{ {
-        { "Tom Hanks", "Forrest Gump" },
-        { "Robin Wright", "Jenny Curran" }
+    const cast cast_sample{ {
+        role_sample,
+        { .star = "Sally Field", .name = "Mrs. Gump" },
+        { .star = "Robin Wright", .name = "Jenny Curran" },
+        { .star = "Mykelti Williamson", .name = "Bubba Blue" }
     } };
 
 
     // Director
-    director director_sample{ "Robert Zemeckis" };
+    const director director_sample{ "Robert Zemeckis" };
 
 
     // Directors
-    directors directors_sample{ {
-        { "Lana Wachowski" },
-        { "Lilly Wachowski" }
+    const directors directors_sample{ {
+        director_sample
     } };
 
 
     // Writer
-    writer writer_sample{ "Winston Groom" };
+    const writer writer_sample{ "Winston Groom" };
 
 
     // Writers
-    writers writers_sample{ {
-        { "Winston Groom" },
+    const writers writers_sample{ {
+        writer_sample,
         { "Eric Roth" }
     } };
 
 
     // Media file
-    media_file media_file_without_description_sample{ 1, "./res/db/BladeRunner.jpg" };
-    media_file media_file_sample{ 1, "./res/db/BladeRunner.jpg", "Front cover" };
+    const media_file media_file_without_description_sample{ 1, "./res/db/poster.png" };
+    const media_file media_file_sample{ 1, "./res/db/poster.png", "Front cover" };
 
 
     // Media files
-    media_files media_files_sample{ {
-        { 1, "./res/db/BladeRunner.jpg", "Front cover" },
-        { 2, "./res/db/BladeRunner.mp4", "Trailer" }
+    const media_files media_files_sample{ {
+        media_file_sample,
+        { 2, "./res/db/city.jpg", "Los Angeles" }
     } };
 
 
     // Movie
-    movie movie_sample{
-        .id = 11001,
+    const movie movie_sample{
+        .id = 9871,
         .title = "Forrest Gump",
         .year = 1994y,
         .length = 202,
-        .cast = cast{{
-            {.star = "Tom Hanks", .name = "Forrest Gump" },
-            {.star = "Robin Wright", .name = "Jenny Curran" }
-        }},
-        .directors = directors{{
-            {.name = "Robert Zemeckis" }
-        }},
-        .writers = writers{{
-            {.name = "Winston Groom" },
-            {.name = "Eric Roth" }
-        }}
+        .cast = cast_sample,
+        .directors = directors_sample,
+        .writers = writers_sample
+    };
+
+    // Movie with default ID
+    const movie movie_with_default_id_sample{
+        .id = 0,
+        .title = "Forrest Gump",
+        .year = 1994y,
+        .length = 202,
+        .cast = cast_sample,
+        .directors = directors_sample,
+        .writers = writers_sample
+    };
+
+    // Movie with default ID
+    const movie movie_with_id_initialized_after_database_insertion_sample{
+        .id = 2,
+        .title = "Forrest Gump",
+        .year = 1994y,
+        .length = 202,
+        .cast = cast_sample,
+        .directors = directors_sample,
+        .writers = writers_sample
     };
 
 
     // Catalog
-    catalog catalog_sample{ {
+    const catalog catalog_sample{ {
         {
             .id = 11001,
             .title = "The Matrix",
             .year = 1999y,
             .length = 196,
             .cast = tmcppc::movies::cast{{
-                {.star = "Keanu Reeves", .name = "Neo" },
-                {.star = "Carrie-Anne Moss", .name = "Trinity" },
+                { .star = "Keanu Reeves", .name = "Neo" },
+                { .star = "Laurence Fishburne", .name = "Morpheus" },
+                { .star = "Carrie-Anne Moss", .name = "Trinity" },
+                { .star = "Hugo Weaving", .name = "Agent Smith" }
             }},
             .directors = directors{{
-                {.name = "Lana Wachowski" },
-                {.name = "Lilly Wachowski" }
+                { .name = "Lana Wachowski" },
+                { .name = "Lilly Wachowski" }
             }},
             .writers = writers{{
-                {.name = "Lana Wachowski" },
-                {.name = "Lilly Wachowski" }
+                { .name = "Lana Wachowski" },
+                { .name = "Lilly Wachowski" }
             }}
         },
-        {
-            .id = 9871,
-            .title = "Forrest Gump",
-            .year = 1994y,
-            .length = 202,
-            .cast = cast{{
-                {.star = "Tom Hanks", .name = "Forrest Gump" },
-                {.star = "Robin Wright", .name = "Jenny Curran" }
-            }},
-            .directors = directors{{
-                {.name = "Robert Zemeckis" }
-            }},
-            .writers = writers{{
-                {.name = "Winston Groom" },
-                {.name = "Eric Roth" }
-            }}
-        }
+        movie_sample
     } };
 
-    catalog catalog_of_2_movies{ {
+    const catalog catalog_of_2_movies{ {
         { 1, "The Matrix", 1999y, 136 },
         { 2, "Forrest Gump", 1994y, 142 }
     } };
 
-    catalog catalog_of_30_movies{ {
+    const catalog catalog_of_30_movies{ {
         { 1, "The Matrix", 1999y, 136 },
         { 2, "Forrest Gump", 1994y, 142 },
         { 3, "The Truman Show", 1998y, 103 },
@@ -148,7 +149,7 @@ namespace tmcppc::movies {
         { 30, "The Ten Commandments", 1956y, 220 }
     } };
 
-    catalog catalog_of_50_movies{ {
+    const catalog catalog_of_50_movies{ {
         { 1, "The Matrix", 1999y, 136 },
         { 2, "Forrest Gump", 1994y, 142 },
         { 3, "The Truman Show", 1998y, 103 },

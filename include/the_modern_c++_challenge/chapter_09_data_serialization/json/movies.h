@@ -66,7 +66,7 @@ namespace tmcppc::movies {
         j = nlohmann::json{
             { "id", movie.id },
             { "title", movie.title },
-            { "year", static_cast<int>(movie.year) },
+            { "year", int(movie.year) },
             { "length", movie.length },
             { "cast", movie.cast },
             { "directors", movie.directors },

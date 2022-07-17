@@ -1,4 +1,4 @@
-#include "chapter_10_archives_images_and_databases/png_writer_wrapper.h"
+#include "chapter_10_archives_images_and_databases/png/png_writer_wrapper.h"
 #include "chapter_10_archives_images_and_databases/problem_082_national_flag_png.h"
 
 #include <filesystem>

@@ -17,20 +17,20 @@ TEST(problem_87_main, DISABLED_output) {
         "n\n"  // no, I don't want to add Fight Club to the list
         "y\n"  // yes, I want to add Blade Runner to the list
         "q\n"  // quit
-        "n\n"  // no, I want to remove res/db/movies.db
+        "n\n"  // no, I don't want to remove .*/movies.db
 
         // Problem 87 input
         "help\n"
         "blah\n"
         "list movie .*Run.*\n"
-        "add 3, {0}/db/BladeRunner.jpg, Front cover\n"
-        "add 3, {0}/db/BladRunner.mp4, Trailer\n"
-        "add 3, {0}/db/BladeRunner.mp4, Trailer\n"
+        "add 3, {0}/db/poster.png, Front cover\n"
+        "add 3, {0}/db/citi.jpg, Los Angeles\n"
+        "add 3, {0}/db/city.jpg, Los Angeles\n"
         "list media 3\n"
         "remove 2\n"
         "list media 3\n"
         "quit\n"
-        "y\n",  // yes, I want to remove res/db/movies.db
+        "y\n",  // yes, I want to remove .*/movies.db
         resource_folder_path.generic_string()
     )
     };
@@ -54,8 +54,8 @@ TEST(problem_87_main, DISABLED_output) {
         "\tmovie_title_regex       Regular expression for a movie title.\n"
         "Examples:\n"
         "\tlist movie \\.\\*The\\.\\*\n"
-        "\tlist media 4\n"
-        "\tadd 4, .*res/db/BladeRunner\\.jpg, Front cover\n"
+        "\tlist media 2\n"
+        "\tadd 2, .*res/db/poster\\.png, Front cover\n"
         "\tremove 1\n"
         "\n"
     ));
@@ -87,7 +87,7 @@ TEST(problem_87_main, DISABLED_output) {
         "\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
-        "\\(help for usage\\) > "  // add 3, <RESOURCE FOLDER PATH>/db/BladeRunner.jpg, Front cover
+        "\\(help for usage\\) > "  // add 3, <RESOURCE FOLDER PATH>/db/poster.png, Front cover
         "Catalog:\n"
         "    Movie:\n"
         "        id: 1\n"
@@ -97,7 +97,7 @@ TEST(problem_87_main, DISABLED_output) {
         "        Cast:\n"
         "            Keanu Reeves \\(Neo\\)\n"
         "            Laurence Fishburne \\(Morpheus\\)\n"
-        "            Carrie - Anne Moss \\(Trinity\\)\n"
+        "            Carrie-Anne Moss \\(Trinity\\)\n"
         "            Hugo Weaving \\(Agent Smith\\)\n"
         "        Directors:\n"
         "            Lana Wachowski\n"
@@ -114,7 +114,7 @@ TEST(problem_87_main, DISABLED_output) {
         "        length: 202\n"
         "        Cast:\n"
         "            Tom Hanks \\(Forrest Gump\\)\n"
-        "            Sally Field \\(Mrs.Gump\\)\n"
+        "            Sally Field \\(Mrs. Gump\\)\n"
         "            Robin Wright \\(Jenny Curran\\)\n"
         "            Mykelti Williamson \\(Bubba Blue\\)\n"
         "        Directors:\n"
@@ -142,17 +142,17 @@ TEST(problem_87_main, DISABLED_output) {
         "        Media files:\n"
         "            Media file:\n"
         "                id: 1\n"
-        "                path: '.*res/db/BladeRunner\\.jpg'\n"
+        "                path: '.*res/db/poster\\.png'\n"
         "                description: 'Front cover'\n"
         "\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
-        "\\(help for usage\\) > "  // add 3, <RESOURCE FOLDER PATH>/db/BladRunner.mp4, Trailer
-        "Error: media file not found: .*res/db/BladRunner.mp4\n"
+        "\\(help for usage\\) > "  // add 3, <RESOURCE FOLDER PATH>/db/citi.jpg, Los Angeles
+        "Error: media file not found: .*res/db/citi\\.jpg\n"
         "\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
-        "\\(help for usage\\) > "  // add 3, <RESOURCE FOLDER PATH>/db/BladeRunner.mp4, Trailer\n
+        "\\(help for usage\\) > "  // add 3, <RESOURCE FOLDER PATH>/db/city.jpg, Los Angeles\n
         "Catalog:\n"
         "    Movie:\n"
         "        id: 1\n"
@@ -162,7 +162,7 @@ TEST(problem_87_main, DISABLED_output) {
         "        Cast:\n"
         "            Keanu Reeves \\(Neo\\)\n"
         "            Laurence Fishburne \\(Morpheus\\)\n"
-        "            Carrie - Anne Moss \\(Trinity\\)\n"
+        "            Carrie-Anne Moss \\(Trinity\\)\n"
         "            Hugo Weaving \\(Agent Smith\\)\n"
         "        Directors:\n"
         "            Lana Wachowski\n"
@@ -179,7 +179,7 @@ TEST(problem_87_main, DISABLED_output) {
         "        length: 202\n"
         "        Cast:\n"
         "            Tom Hanks \\(Forrest Gump\\)\n"
-        "            Sally Field \\(Mrs.Gump\\)\n"
+        "            Sally Field \\(Mrs. Gump\\)\n"
         "            Robin Wright \\(Jenny Curran\\)\n"
         "            Mykelti Williamson \\(Bubba Blue\\)\n"
         "        Directors:\n"
@@ -207,12 +207,12 @@ TEST(problem_87_main, DISABLED_output) {
         "        Media files:\n"
         "            Media file:\n"
         "                id: 1\n"
-        "                path: '.*res/db/BladeRunner\\.jpg'\n"
+        "                path: '.*res/db/poster\\.png'\n"
         "                description: 'Front cover'\n"
         "            Media file:\n"
         "                id: 2\n"
-        "                path: '.*res/db/BladeRunner\\.mp4'\n"
-        "                description: 'Trailer'\n"
+        "                path: '.*res/db/city\\.jpg'\n"
+        "                description: 'Los Angeles'\n"
         "\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
@@ -220,12 +220,12 @@ TEST(problem_87_main, DISABLED_output) {
         "Media files:\n"
         "    Media file:\n"
         "        id: 1\n"
-        "        path: '.*res/db/BladeRunner\\.jpg'\n"
+        "        path: '.*res/db/poster\\.png'\n"
         "        description: 'Front cover'\n"
         "    Media file:\n"
         "        id: 2\n"
-        "        path: '.*res/db/BladeRunner\\.mp4'\n"
-        "        description: 'Trailer'\n"
+        "        path: '.*res/db/city\\.jpg'\n"
+        "        description: 'Los Angeles'\n"
         "\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
@@ -239,7 +239,7 @@ TEST(problem_87_main, DISABLED_output) {
         "        Cast:\n"
         "            Keanu Reeves \\(Neo\\)\n"
         "            Laurence Fishburne \\(Morpheus\\)\n"
-        "            Carrie - Anne Moss \\(Trinity\\)\n"
+        "            Carrie-Anne Moss \\(Trinity\\)\n"
         "            Hugo Weaving \\(Agent Smith\\)\n"
         "        Directors:\n"
         "            Lana Wachowski\n"
@@ -256,7 +256,7 @@ TEST(problem_87_main, DISABLED_output) {
         "        length: 202\n"
         "        Cast:\n"
         "            Tom Hanks \\(Forrest Gump\\)\n"
-        "            Sally Field \\(Mrs.Gump\\)\n"
+        "            Sally Field \\(Mrs. Gump\\)\n"
         "            Robin Wright \\(Jenny Curran\\)\n"
         "            Mykelti Williamson \\(Bubba Blue\\)\n"
         "        Directors:\n"
@@ -284,7 +284,7 @@ TEST(problem_87_main, DISABLED_output) {
         "        Media files:\n"
         "            Media file:\n"
         "                id: 1\n"
-        "                path: '.*res/db/BladeRunner\\.jpg'\n"
+        "                path: '.*res/db/poster\\.png'\n"
         "                description: 'Front cover'\n"
         "\n"
     ));
@@ -293,7 +293,7 @@ TEST(problem_87_main, DISABLED_output) {
         "Media files:\n"
         "    Media file:\n"
         "        id: 1\n"
-        "        path: '.*res/db/BladeRunner\\.jpg'\n"
+        "        path: '.*res/db/poster\\.png'\n"
         "        description: 'Front cover'\n"
         "\n"
     ));
@@ -302,6 +302,6 @@ TEST(problem_87_main, DISABLED_output) {
         "\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
-        "Are you sure you want to remove '.*/res/db/movies.db'\\? \\[y/n\\] \tOK\n"  // y
+        "Are you sure you want to remove '.*/movies.db'\\? \\[y/n\\] \tOK\n"  // y
     ));
 }

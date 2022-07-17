@@ -20,7 +20,7 @@ TEST(problem_85_main, DISABLED_output) {
         "        Cast:\n"
         "            Keanu Reeves (Neo)\n"
         "            Laurence Fishburne (Morpheus)\n"
-        "            Carrie - Anne Moss (Trinity)\n"
+        "            Carrie-Anne Moss (Trinity)\n"
         "            Hugo Weaving (Agent Smith)\n"
         "        Directors:\n"
         "            Lana Wachowski\n"
@@ -37,7 +37,7 @@ TEST(problem_85_main, DISABLED_output) {
         "        length: 202\n"
         "        Cast:\n"
         "            Tom Hanks (Forrest Gump)\n"
-        "            Sally Field (Mrs.Gump)\n"
+        "            Sally Field (Mrs. Gump)\n"
         "            Robin Wright (Jenny Curran)\n"
         "            Mykelti Williamson (Bubba Blue)\n"
         "        Directors:\n"
@@ -49,7 +49,7 @@ TEST(problem_85_main, DISABLED_output) {
         "            []\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
-        "Are you sure you want to remove '.*/res/db/movies.db'\\? \\[y/n\\] "
+        "Are you sure you want to remove '.*/movies.db'\\? \\[y/n\\] "
         "\tOK\n"
     ));
 }

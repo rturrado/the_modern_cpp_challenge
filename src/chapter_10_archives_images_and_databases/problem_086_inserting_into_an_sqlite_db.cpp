@@ -1,8 +1,8 @@
 #include "chapter_09_data_serialization/movies.h"
-#include "chapter_10_archives_images_and_databases/console_movies.h"
-#include "chapter_10_archives_images_and_databases/file_movies.h"
+#include "chapter_10_archives_images_and_databases/console/movies.h"
+#include "chapter_10_archives_images_and_databases/file/movies.h"
 #include "chapter_10_archives_images_and_databases/problem_086_inserting_into_an_sqlite_db.h"
-#include "chapter_10_archives_images_and_databases/sqlite_movies.h"
+#include "chapter_10_archives_images_and_databases/sql/movies.h"
 #include "env.h"
 
 #include "rtc/console.h"
@@ -13,14 +13,28 @@
 #include <iostream>  // cin, cout
 #include <istream>
 #include <ostream>
+#include <regex>  // regex_replace
+
+using namespace tmcppc::movies;
+using namespace tmcppc::movies::sql;
+namespace fs = std::filesystem;
 
 
 namespace tmcppc::problem_86 {
+    [[nodiscard]] std::string remove_movie_id_line(const std::string& movie_str) {
+        std::regex pattern{ R"(Movie:\n\s+id: \d+\n)" };
+        return std::regex_replace(movie_str, pattern, "Movie:\n");
+    }
+
+
     // insert_movie updates movie.id
-    void add_new_movie(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db, tmcppc::movies::movie& movie) {
+    void add_new_movie(std::istream& is, std::ostream& os, database& movies_db, movie& movie) {
         auto c{
             rtc::console::read_char(is, os,
-                fmt::format("{}\nAre you sure you want to add this movie to the movies database? [y/n] ", movie),
+                fmt::format(
+                    "{}\nAre you sure you want to add this movie to the movies database? [y/n] ",
+                    remove_movie_id_line(fmt::format("{}", movie))
+                ),
                 {'n', 'N', 'y', 'Y'}
         )};
         if (c == 'y' or c == 'Y') {
@@ -29,17 +43,17 @@ namespace tmcppc::problem_86 {
     }
 
 
-    void add_new_movie_from_console(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db) {
-        fmt::print(os, "Please enter the movie data (ID will be later overwritten with DB's Movies.rowid)\n");
-        tmcppc::movies::movie movie{};
+    void add_new_movie_from_console(std::istream& is, std::ostream& os, database& movies_db) {
+        fmt::print(os, "Please enter the movie data:\n");
+        movie movie{};
         tmcppc::movies::console::from_console(is, os, movie);
         add_new_movie(is, os, movies_db, movie);
     }
 
 
-    void add_new_movie_from_file(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db) {
-        const std::filesystem::path new_movies_file_path{
-            tmcppc::env::get_instance().get_resource_folder_path() / "db" / "NewMovies.txt" };
+    void add_new_movie_from_file(std::istream& is, std::ostream& os, database& movies_db) {
+        const fs::path new_movies_file_path{
+            tmcppc::env::get_instance().get_resource_folder_path() / "db" / "new_movies.txt" };
         fmt::print(os, "Adding movies from {}\n", new_movies_file_path.generic_string());
         std::ifstream ifs{ new_movies_file_path };
         try {
@@ -47,7 +61,7 @@ namespace tmcppc::problem_86 {
             std::getline(ifs, line);
             int number_of_movies{ std::stoi(line) };
             while (number_of_movies--) {
-                tmcppc::movies::movie movie{};
+                movie movie{};
                 tmcppc::movies::file::from_file(ifs, movie);
                 add_new_movie(is, os, movies_db, movie);
             }
@@ -57,7 +71,7 @@ namespace tmcppc::problem_86 {
     }
 
 
-    void add_new_movies(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db) {
+    void add_new_movies(std::istream& is, std::ostream& os, database& movies_db) {
         for (;;) {
             auto input_option{
                 rtc::console::read_char(is, os,
@@ -79,12 +93,12 @@ namespace tmcppc::problem_86 {
 void problem_86_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::problem_86;
 
-    const auto db_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "db" / "movies.db" };
+    const auto db_file_path{ fs::temp_directory_path() / "movies.db" };
 
     try {
         {
-            auto sqlite_db{ tmcppc::movies::sqlite_mcpp::create_movies_database(db_file_path) };
-            auto movies_db{ tmcppc::movies::sqlite_mcpp::database{ sqlite_db } };
+            auto sqlite_db{ create_movies_database(db_file_path) };
+            auto movies_db{ database{ sqlite_db } };
 
             add_new_movies(is, os, movies_db);
 
@@ -93,7 +107,7 @@ void problem_86_main(std::istream& is, std::ostream& os) {
 
         fmt::print(os, "\n");
 
-        tmcppc::movies::sqlite_mcpp::remove_movies_database_file(is, os, db_file_path);
+        remove_movies_database_file(is, os, db_file_path);
     } catch (const sqlite::sqlite_exception& ex) {
         fmt::print(os, "Error: code = {}, message = '{}', operation = '{}'\n",
             ex.get_code(), ex.what(), ex.get_sql());

@@ -1,6 +1,6 @@
 #include "chapter_09_data_serialization/movies.h"
 #include "chapter_10_archives_images_and_databases/command_line_movies.h"
-#include "chapter_10_archives_images_and_databases/sqlite_movies.h"
+#include "chapter_10_archives_images_and_databases/sql/movies.h"
 
 #include "rtc/stream.h"  // get_unread
 #include "rtc/string.h"  // to_lowercase, trim_right
@@ -37,8 +37,8 @@ namespace tmcppc::movies::command_line {
         fmt::print(os, "\tmovie_title_regex       Regular expression for a movie title.\n");
         fmt::print(os, "Examples:\n");
         fmt::print(os, "\tlist movie .*The.*\n");
-        fmt::print(os, "\tlist media 4\n");
-        fmt::print(os, "\tadd 4, ./res/db/BladeRunner.jpg, Front cover\n");
+        fmt::print(os, "\tlist media 2\n");
+        fmt::print(os, "\tadd 2, ./res/db/poster.png, Front cover\n");
         fmt::print(os, "\tremove 1\n");
     }
 
@@ -104,7 +104,11 @@ namespace tmcppc::movies::command_line {
     void parse_movie_title_regex_option(std::istringstream& iss, command_line_options& options) {
         std::string movie_title_regex_str{};
         iss >> movie_title_regex_str;
-        options.movie_title_regex = movie_title_regex_str;
+        try {
+            options.movie_title_regex = movie_title_regex_str;
+        } catch (const std::exception&) {
+            throw invalid_regex_error{ movie_title_regex_str };
+        }
     }
 
     void parse_add_options(std::istringstream& iss, command_line_options& options) {
@@ -171,7 +175,7 @@ namespace tmcppc::movies::command_line {
     }
 
 
-    void add_media(std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db,
+    void add_media(std::ostream& os, tmcppc::movies::sql::database& movies_db,
         size_t movie_id, const fs::path& media_file_path, std::optional<std::string> media_file_description) {
 
         if (not fs::exists(media_file_path)) {
@@ -183,33 +187,33 @@ namespace tmcppc::movies::command_line {
             auto media_file{ tmcppc::movies::media_file{ movie_id, media_file_path, media_file_description } };
             movies_db.insert_media_file(movie_id, media_file);
             fmt::print(os, "{}", movies_db);
-        } catch (const tmcppc::movies::sqlite_mcpp::movie_id_not_found_error& ex) {
+        } catch (const tmcppc::movies::sql::movie_id_not_found_error& ex) {
             fmt::print(os, "Error: {}\n", ex.what());
         }
     }
 
-    void delete_media(std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db, size_t media_id) {
+    void delete_media(std::ostream& os, tmcppc::movies::sql::database& movies_db, size_t media_id) {
         try {
             movies_db.delete_media_file(media_id);
             fmt::print(os, "{}", movies_db);
-        } catch (const tmcppc::movies::sqlite_mcpp::media_file_id_not_found_error& ex) {
+        } catch (const tmcppc::movies::sql::media_file_id_not_found_error& ex) {
             fmt::print(os, "Error: {}\n", ex.what());
         }
     }
 
-    void list_media(std::ostream& os, const tmcppc::movies::sqlite_mcpp::database& movies_db, size_t movie_id) {
+    void list_media(std::ostream& os, const tmcppc::movies::sql::database& movies_db, size_t movie_id) {
         try {
             fmt::print(os, "{}", movies_db.get_media_files(movie_id));
-        } catch (const tmcppc::movies::sqlite_mcpp::movie_id_not_found_error& ex) {
+        } catch (const tmcppc::movies::sql::movie_id_not_found_error& ex) {
             fmt::print(os, "Error: {}\n", ex.what());
         }
     }
 
-    void list_movies(std::ostream& os, const tmcppc::movies::sqlite_mcpp::database& movies_db, const std::regex& pattern) {
+    void list_movies(std::ostream& os, const tmcppc::movies::sql::database& movies_db, const std::regex& pattern) {
         fmt::print(os, "{}", movies_db.get_movies(pattern));
     }
 
-    void execute_command(std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db,
+    void execute_command(std::ostream& os, tmcppc::movies::sql::database& movies_db,
         const command_t command, const subcommand_t subcommand, const command_line_options& options) {
 
         switch (command) {
@@ -243,7 +247,7 @@ namespace tmcppc::movies::command_line {
     }
 
 
-    void menu(std::istream& is, std::ostream& os, tmcppc::movies::sqlite_mcpp::database& movies_db) {
+    void menu(std::istream& is, std::ostream& os, tmcppc::movies::sql::database& movies_db) {
         for (;;) {
             try {
                 auto command_line{ read_command_line(is, os) };

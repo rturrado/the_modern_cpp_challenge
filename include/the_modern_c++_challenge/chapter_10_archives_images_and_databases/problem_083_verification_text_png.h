@@ -1,6 +1,6 @@
 #pragma once
 
-#include "chapter_10_archives_images_and_databases/png_writer_wrapper.h"
+#include "chapter_10_archives_images_and_databases/png/png_writer_wrapper.h"
 
 #include <iosfwd>
 
