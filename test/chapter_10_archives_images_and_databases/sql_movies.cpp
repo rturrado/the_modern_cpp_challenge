@@ -41,11 +41,6 @@ auto get_empty_sqlite_db() {
     create_empty_movies_database(sqlite_db);
     return sqlite_db;
 }
-auto get_ok_sqlite_db() {
-    sqlite::database sqlite_db{ ":memory:" };
-    create_movies_database(sqlite_db);
-    return sqlite_db;
-}
 auto get_empty_db() {
     sqlite::database sqlite_db{ ":memory:" };
     create_empty_movies_database(sqlite_db);

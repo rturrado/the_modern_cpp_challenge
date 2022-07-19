@@ -16,7 +16,5 @@ namespace tmcppc::movies {
     extern const movie movie_with_default_id_sample;
     extern const movie movie_with_id_initialized_after_database_insertion_sample;
     extern const catalog catalog_sample;
-    extern const catalog catalog_of_2_movies;
-    extern const catalog catalog_of_30_movies;
-    extern const catalog catalog_of_50_movies;
+    extern const catalog catalog_of_50_movies_sample;
 }  // namespace tmcppc::movies
