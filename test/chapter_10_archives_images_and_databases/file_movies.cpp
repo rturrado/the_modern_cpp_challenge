@@ -1,5 +1,5 @@
 #include "chapter_09_data_serialization/movies.h"
-#include "chapter_09_data_serialization/movies_samples.h"
+#include "chapter_09_data_serialization/movies/samples.h"
 #include "chapter_10_archives_images_and_databases/file/movies.h"
 
 #include <gmock/gmock.h>
@@ -30,7 +30,7 @@ TEST(from_file, DISABLED_cast) {
     std::ifstream ifs{ temp_file_path, std::ios_base::in };
     cast c{};
     from_file(ifs, c);
-    EXPECT_EQ(c, cast_sample);
+    EXPECT_EQ(c, samples::cast);
 }
 
 
@@ -45,7 +45,7 @@ TEST(from_file, DISABLED_writers) {
     std::ifstream ifs{ temp_file_path, std::ios_base::in };
     writers ws{};
     from_file(ifs, ws);
-    EXPECT_EQ(ws, writers_sample);
+    EXPECT_EQ(ws, samples::writers);
 }
 
 
@@ -59,7 +59,7 @@ TEST(from_file, DISABLED_directors) {
     std::ifstream ifs{ temp_file_path, std::ios_base::in };
     directors ds{};
     from_file(ifs, ds);
-    EXPECT_EQ(ds, directors_sample);
+    EXPECT_EQ(ds, samples::directors);
 }
 
 
@@ -88,5 +88,5 @@ TEST(from_file, DISABLED_movie) {
     std::ifstream ifs{ temp_file_path, std::ios_base::in };
     movie m{};
     from_file(ifs, m);
-    EXPECT_EQ(m, movie_with_default_id_sample);
+    EXPECT_EQ(m, samples::movie_with_default_id);
 }

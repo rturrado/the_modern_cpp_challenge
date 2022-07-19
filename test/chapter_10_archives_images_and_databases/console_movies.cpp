@@ -1,5 +1,5 @@
 #include "chapter_09_data_serialization/movies.h"
-#include "chapter_09_data_serialization/movies_samples.h"
+#include "chapter_09_data_serialization/movies/samples.h"
 #include "chapter_10_archives_images_and_databases/console/movies.h"
 
 #include <gmock/gmock.h>
@@ -26,7 +26,7 @@ TEST(from_console, DISABLED_cast) {
     std::ostringstream oss{};
     cast c{};
     from_console(iss, oss, c);
-    EXPECT_EQ(c, cast_sample);
+    EXPECT_EQ(c, samples::cast);
 }
 
 
@@ -39,7 +39,7 @@ TEST(from_console, DISABLED_writers) {
     std::ostringstream oss{};
     writers ws{};
     from_console(iss, oss, ws);
-    EXPECT_EQ(ws, writers_sample);
+    EXPECT_EQ(ws, samples::writers);
 }
 
 
@@ -51,7 +51,7 @@ TEST(from_console, DISABLED_directors) {
     std::ostringstream oss{};
     directors ds{};
     from_console(iss, oss, ds);
-    EXPECT_EQ(ds, directors_sample);
+    EXPECT_EQ(ds, samples::directors);
 }
 
 
@@ -78,5 +78,5 @@ TEST(from_console, DISABLED_movie) {
     std::ostringstream oss{};
     movie m{};
     from_console(iss, oss, m);
-    EXPECT_EQ(m, movie_with_default_id_sample);
+    EXPECT_EQ(m, samples::movie_with_default_id);
 }

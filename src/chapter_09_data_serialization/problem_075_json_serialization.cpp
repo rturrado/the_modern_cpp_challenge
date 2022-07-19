@@ -1,6 +1,6 @@
 #include "chapter_09_data_serialization/json/movies.h"
 #include "chapter_09_data_serialization/movies.h"
-#include "chapter_09_data_serialization/movies_samples.h"
+#include "chapter_09_data_serialization/movies/samples.h"
 #include "chapter_09_data_serialization/problem_075_json_serialization.h"
 
 #include <fmt/ostream.h>
@@ -15,7 +15,7 @@ void problem_75_main(std::ostream& os) {
 
     try {
         fmt::print(os, "Writing JSON out to: {}\n", temp_file_path.generic_string());
-        doc out_doc{ catalog_sample };
+        doc out_doc{ samples::catalog };
         out_doc.save_to(temp_file_path);
 
         fmt::print(os, "Reading JSON in from: {}\n\n", temp_file_path.generic_string());

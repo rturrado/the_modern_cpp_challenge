@@ -1,5 +1,5 @@
 #include "chapter_09_data_serialization/movies.h"
-#include "chapter_09_data_serialization/movies_samples.h"
+#include "chapter_09_data_serialization/movies/samples.h"
 #include "chapter_09_data_serialization/pdf/movies_doc.h"
 #include "chapter_09_data_serialization/pdf/text_list_layouter.h"
 #include "chapter_09_data_serialization/problem_077_printing_a_list_of_movies_to_a_pdf.h"
@@ -19,7 +19,7 @@ void problem_77_main(std::ostream& os) {
 
     try {
         fmt::print(os, "Writing PDF out to: {}\n\n", temp_file_path.generic_string());
-        movies_doc out_doc{ catalog_of_50_movies_sample };
+        movies_doc out_doc{ samples::catalog_of_50_movies };
         out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(25));
     } catch (const std::exception& err) {
         fmt::print(os, "Error: {}\n\n", err.what());

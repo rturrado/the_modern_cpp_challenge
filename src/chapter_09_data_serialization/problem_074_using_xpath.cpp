@@ -1,5 +1,5 @@
 #include "chapter_09_data_serialization/movies.h"
-#include "chapter_09_data_serialization/movies_samples.h"
+#include "chapter_09_data_serialization/movies/samples.h"
 #include "chapter_09_data_serialization/problem_074_using_xpath.h"
 #include "chapter_09_data_serialization/xml/pugixml_wrapper.h"
 #include "chapter_09_data_serialization/xml/movies.h"
@@ -57,7 +57,7 @@ void problem_74_main(std::ostream& os) {
 
     try {
         fmt::print(os, "Writing XML out to: {}\n", temp_file_path.generic_string());
-        xml::doc out_doc{ catalog_sample };
+        xml::doc out_doc{ samples::catalog };
         out_doc.save_to(temp_file_path);
 
         fmt::print(os, "Reading XML in from: {}\n\n", temp_file_path.generic_string());

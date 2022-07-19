@@ -1,5 +1,5 @@
 #include "chapter_09_data_serialization/movies.h"
-#include "chapter_09_data_serialization/movies_samples.h"
+#include "chapter_09_data_serialization/movies/samples.h"
 
 #include "rtc/pretty_print.h"
 
@@ -17,16 +17,16 @@ using namespace tmcppc::movies;
 auto role_output{ "Tom Hanks (Forrest Gump)" };
 TEST(role, print) {
     std::ostringstream oss{};
-    role_sample.print(oss);
+    samples::role.print(oss);
     EXPECT_EQ(oss.str(), role_output);
 }
 TEST(role, operator_insertion) {
     std::ostringstream oss{};
-    oss << role_sample;
+    oss << samples::role;
     EXPECT_EQ(oss.str(), role_output);
 }
 TEST(role, fmt_print) {
-    EXPECT_EQ(fmt::format("{}", role_sample), role_output);
+    EXPECT_EQ(fmt::format("{}", samples::role), role_output);
 }
 
 // Cast
@@ -44,32 +44,32 @@ TEST(cast, print_empty_cast) {
 }
 TEST(cast, print) {
     std::ostringstream oss{};
-    cast_sample.print(oss);
+    samples::cast.print(oss);
     EXPECT_EQ(oss.str(), cast_output);
 }
 TEST(cast, operator_insertion) {
     std::ostringstream oss{};
-    oss << cast_sample;
+    oss << samples::cast;
     EXPECT_EQ(oss.str(), cast_output);
 }
 TEST(cast, fmt_print) {
-    EXPECT_EQ(fmt::format("{}", cast_sample), cast_output);
+    EXPECT_EQ(fmt::format("{}", samples::cast), cast_output);
 }
 
 // Director
 auto director_output{ "Robert Zemeckis" };
 TEST(director, print) {
     std::ostringstream oss{};
-    director_sample.print(oss);
+    samples::director.print(oss);
     EXPECT_EQ(oss.str(), director_output);
 }
 TEST(director, operator_insertion) {
     std::ostringstream oss{};
-    oss << director_sample;
+    oss << samples::director;
     EXPECT_EQ(oss.str(), director_output);
 }
 TEST(director, fmt_print) {
-    EXPECT_EQ(fmt::format("{}", director_sample), director_output);
+    EXPECT_EQ(fmt::format("{}", samples::director), director_output);
 }
 
 // Directors
@@ -84,32 +84,32 @@ TEST(directors, print_empty_directors) {
 }
 TEST(directors, print) {
     std::ostringstream oss{};
-    directors_sample.print(oss);
+    samples::directors.print(oss);
     EXPECT_EQ(oss.str(), directors_output);
 }
 TEST(directors, operator_insertion) {
     std::ostringstream oss{};
-    oss << directors_sample;
+    oss << samples::directors;
     EXPECT_EQ(oss.str(), directors_output);
 }
 TEST(directors, fmt_print) {
-    EXPECT_EQ(fmt::format("{}", directors_sample), directors_output);
+    EXPECT_EQ(fmt::format("{}", samples::directors), directors_output);
 }
 
 // Writer
 auto writer_output{ "Winston Groom" };
 TEST(writer, print) {
     std::ostringstream oss{};
-    writer_sample.print(oss);
+    samples::writer.print(oss);
     EXPECT_EQ(oss.str(), writer_output);
 }
 TEST(writer, operator_insertion) {
     std::ostringstream oss{};
-    oss << writer_sample;
+    oss << samples::writer;
     EXPECT_EQ(oss.str(), writer_output);
 }
 TEST(writer, fmt_print) {
-    EXPECT_EQ(fmt::format("{}", writer_sample), writer_output);
+    EXPECT_EQ(fmt::format("{}", samples::writer), writer_output);
 }
 
 // Writers
@@ -125,16 +125,16 @@ TEST(writers, print_empty_writers) {
 }
 TEST(writers, print) {
     std::ostringstream oss{};
-    writers_sample.print(oss);
+    samples::writers.print(oss);
     EXPECT_EQ(oss.str(), writers_output);
 }
 TEST(writers, operator_insertion) {
     std::ostringstream oss{};
-    oss << writers_sample;
+    oss << samples::writers;
     EXPECT_EQ(oss.str(), writers_output);
 }
 TEST(writers, fmt_print) {
-    EXPECT_EQ(fmt::format("{}", writers_sample), writers_output);
+    EXPECT_EQ(fmt::format("{}", samples::writers), writers_output);
 }
 
 // Media file
@@ -158,21 +158,21 @@ auto media_file_output{
 };
 TEST(media_file, print_empty_description) {
     std::ostringstream oss{};
-    media_file_without_description_sample.print(oss);
+    samples::media_file_without_description.print(oss);
     EXPECT_EQ(oss.str(), media_file_without_description_output);
 }
 TEST(media_file, print_description) {
     std::ostringstream oss{};
-    media_file_sample.print(oss);
+    samples::media_file.print(oss);
     EXPECT_EQ(oss.str(), media_file_output);
 }
 TEST(media_file, operator_insertion) {
     std::ostringstream oss{};
-    oss << media_file_sample;
+    oss << samples::media_file;
     EXPECT_EQ(oss.str(), media_file_output);
 }
 TEST(media_file, fmt_print) {
-    EXPECT_EQ(fmt::format("{}", media_file_sample), media_file_output);
+    EXPECT_EQ(fmt::format("{}", samples::media_file), media_file_output);
 }
 
 // Media files
@@ -197,16 +197,16 @@ TEST(media_files, print_empty_media_files) {
 }
 TEST(media_files, print) {
     std::ostringstream oss{};
-    media_files_sample.print(oss);
+    samples::media_files.print(oss);
     EXPECT_EQ(oss.str(), media_files_output);
 }
 TEST(media_files, operator_insertion) {
     std::ostringstream oss{};
-    oss << media_files_sample;
+    oss << samples::media_files;
     EXPECT_EQ(oss.str(), media_files_output);
 }
 TEST(media_files, fmt_print) {
-    EXPECT_EQ(fmt::format("{}", media_files_sample), media_files_output);
+    EXPECT_EQ(fmt::format("{}", samples::media_files), media_files_output);
 }
 
 // Movie
@@ -234,16 +234,16 @@ auto movie_output{
 };
 TEST(movie, print) {
     std::ostringstream oss{};
-    movie_sample.print(oss);
+    samples::movie.print(oss);
     EXPECT_EQ(oss.str(), movie_output);
 }
 TEST(movie, operator_insertion) {
     std::ostringstream oss{};
-    oss << movie_sample;
+    oss << samples::movie;
     EXPECT_EQ(oss.str(), movie_output);
 }
 TEST(movie, fmt_print) {
-    EXPECT_EQ(fmt::format("{}", movie_sample), movie_output);
+    EXPECT_EQ(fmt::format("{}", samples::movie), movie_output);
 }
 
 // Catalog
@@ -290,14 +290,14 @@ auto catalog_output{
 };
 TEST(catalog, print) {
     std::ostringstream oss{};
-    catalog_sample.print(oss);
+    samples::catalog.print(oss);
     EXPECT_EQ(oss.str(), catalog_output);
 }
 TEST(catalog, operator_insertion) {
     std::ostringstream oss{};
-    oss << catalog_sample;
+    oss << samples::catalog;
     EXPECT_EQ(oss.str(), catalog_output);
 }
 TEST(catalog, fmt_print) {
-    EXPECT_EQ(fmt::format("{}", catalog_sample), catalog_output);
+    EXPECT_EQ(fmt::format("{}", samples::catalog), catalog_output);
 }

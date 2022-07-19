@@ -1,5 +1,5 @@
 #include "chapter_09_data_serialization/movies.h"
-#include "chapter_09_data_serialization/movies_samples.h"
+#include "chapter_09_data_serialization/movies/samples.h"
 #include "chapter_10_archives_images_and_databases/sql/movies.h"
 
 #include "env.h"
@@ -17,20 +17,20 @@ namespace fs = std::filesystem;
 
 
 auto get_updated_catalog_sample() {
-    auto ret{ catalog_sample };
+    auto ret{ samples::catalog };
     ret.movies[0].id = 1;
     ret.movies[1].id = 2;
     return ret;
 }
 auto get_updated_media_files_sample() {
-    auto ret{ media_files_sample };
+    auto ret{ samples::media_files };
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
     ret.media_files_[0].file_path = resource_folder_path / "db" / "poster.png";
     ret.media_files_[1].file_path = resource_folder_path / "db" / "city.jpg";
     return ret;
 }
 auto get_updated_media_file_sample() {
-    auto ret{ media_file_sample };
+    auto ret{ samples::media_file };
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
     ret.file_path = resource_folder_path / "db" / "poster.png";
     return ret;
@@ -55,79 +55,79 @@ static auto get_ok_db() {
 
 TEST(sql_cast, DISABLED_to_db_movie_does_not_exist) {
     auto sqlite_db{ get_empty_sqlite_db() };
-    EXPECT_THROW(to_db(sqlite_db, 111, cast_sample), movie_id_not_found_error);
+    EXPECT_THROW(to_db(sqlite_db, 111, samples::cast), movie_id_not_found_error);
 }
 TEST(sql_cast, DISABLED_to_db_cast_and_one_of_the_roles_already_exists) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
-    to_db(sqlite_db, 1, cast_sample);
-    EXPECT_THROW(to_db(sqlite_db, 1, cast_sample), trying_to_insert_existing_role_error);
+    to_db(sqlite_db, 1, samples::cast);
+    EXPECT_THROW(to_db(sqlite_db, 1, samples::cast), trying_to_insert_existing_role_error);
     cast c{};
     from_db(sqlite_db, 1, c);
-    EXPECT_EQ(c, cast_sample);
+    EXPECT_EQ(c, samples::cast);
 }
 TEST(sql_cast, DISABLED_to_db_and_from_db) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
-    to_db(sqlite_db, 1, cast_sample);
+    to_db(sqlite_db, 1, samples::cast);
     cast c{};
     from_db(sqlite_db, 1, c);
-    EXPECT_EQ(c, cast_sample);
+    EXPECT_EQ(c, samples::cast);
 }
 
 TEST(sql_writers, DISABLED_to_db_movie_does_not_exist) {
     auto sqlite_db{ get_empty_sqlite_db() };
-    EXPECT_THROW(to_db(sqlite_db, 111, writers_sample), movie_id_not_found_error);
+    EXPECT_THROW(to_db(sqlite_db, 111, samples::writers), movie_id_not_found_error);
 }
 TEST(sql_writers, DISABLED_to_db_writers_and_one_of_the_writers_already_exists) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
-    to_db(sqlite_db, 1, writers_sample);
-    EXPECT_THROW(to_db(sqlite_db, 1, writers_sample), trying_to_insert_existing_writer_error);
+    to_db(sqlite_db, 1, samples::writers);
+    EXPECT_THROW(to_db(sqlite_db, 1, samples::writers), trying_to_insert_existing_writer_error);
     writers ws{};
     from_db(sqlite_db, 1, ws);
-    EXPECT_EQ(ws, writers_sample);
+    EXPECT_EQ(ws, samples::writers);
 }
 TEST(sql_writers, DISABLED_to_db_and_from_db) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
-    to_db(sqlite_db, 1, writers_sample);
+    to_db(sqlite_db, 1, samples::writers);
     writers ws{};
     from_db(sqlite_db, 1, ws);
-    EXPECT_EQ(ws, writers_sample);
+    EXPECT_EQ(ws, samples::writers);
 }
 
 TEST(sql_directors, DISABLED_to_db_movie_does_not_exist) {
     auto sqlite_db{ get_empty_sqlite_db() };
-    EXPECT_THROW(to_db(sqlite_db, 111, directors_sample), movie_id_not_found_error);
+    EXPECT_THROW(to_db(sqlite_db, 111, samples::directors), movie_id_not_found_error);
 }
 TEST(sql_directors, DISABLED_to_db_directors_and_one_of_the_directors_already_exists) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
-    to_db(sqlite_db, 1, directors_sample);
-    EXPECT_THROW(to_db(sqlite_db, 1, directors_sample), trying_to_insert_existing_director_error);
+    to_db(sqlite_db, 1, samples::directors);
+    EXPECT_THROW(to_db(sqlite_db, 1, samples::directors), trying_to_insert_existing_director_error);
     directors ds{};
     from_db(sqlite_db, 1, ds);
-    EXPECT_EQ(ds, directors_sample);
+    EXPECT_EQ(ds, samples::directors);
 }
 TEST(sql_directors, DISABLED_to_db_and_from_db) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
-    to_db(sqlite_db, 1, directors_sample);
+    to_db(sqlite_db, 1, samples::directors);
     directors ds{};
     from_db(sqlite_db, 1, ds);
-    EXPECT_EQ(ds, directors_sample);
+    EXPECT_EQ(ds, samples::directors);
 }
 
 TEST(sql_media_files, DISABLED_to_db_movie_does_not_exist) {
     auto sqlite_db{ get_empty_sqlite_db() };
-    auto non_const_media_files_sample_copy{ media_files_sample };
+    auto non_const_media_files_sample_copy{ samples::media_files };
     EXPECT_THROW(to_db(sqlite_db, 111, non_const_media_files_sample_copy), movie_id_not_found_error);
 }
 TEST(sql_media_files, DISABLED_to_db_media_files_and_one_of_the_media_files_already_exists) {
@@ -189,13 +189,13 @@ TEST(database, DISABLED_get_movies_gets_one_movie) {
     auto db{ get_ok_db() };
     auto ret{ db.get_movies(std::regex{ R"(.*Forrest.*)" }) };
     EXPECT_EQ(ret.movies.size(), 1);
-    EXPECT_EQ(ret.movies[0], movie_with_id_initialized_after_database_insertion_sample);
+    EXPECT_EQ(ret.movies[0], samples::movie_with_id_initialized_after_database_insertion);
 }
 TEST(database, DISABLED_get_movies_gets_all_movies) {
     auto db{ get_ok_db() };
     auto ret{ db.get_movies(std::regex{ R"(.*)" }) };
     EXPECT_EQ(ret.movies.size(), 2);
-    auto updated_catalog_sample{ catalog_sample };
+    auto updated_catalog_sample{ samples::catalog };
     updated_catalog_sample.movies[0].id = 1;
     updated_catalog_sample.movies[1].id = 2;
     EXPECT_EQ(ret, updated_catalog_sample);
