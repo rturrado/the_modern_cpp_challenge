@@ -59,7 +59,7 @@ target_include_directories(${PROJECT_NAME}_test PUBLIC
     ${perceptualdiff_SOURCE_DIR}
 )
 message(STATUS
-    "[${PROJECT_NAME}] Target include directories:\n"
+    "[${PROJECT_NAME}_test] Target include directories:\n"
     "      perceptualdiff: ${perceptualdiff_SOURCE_DIR}\n"
 )
 target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_23)

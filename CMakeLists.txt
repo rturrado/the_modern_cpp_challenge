@@ -19,9 +19,13 @@ if(ASAN_ENABLED)
     string(REGEX REPLACE "/RTC(su|[1su])" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}\n")
     add_compile_options(-fsanitize=address
-    #,undefined -fno-omit-frame-pointer
+        # This may be gcc-only
+        #-fsanitize=address,undefined -fno-omit-frame-pointer
     )
-    #set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}" -fsanitize=address,undefined)
+    add_link_options(-fsanitize=address
+        # This may be gcc-only
+        #-fsanitize=address,undefined
+    )
 endif()
 
 

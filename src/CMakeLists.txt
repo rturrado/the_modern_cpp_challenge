@@ -10,8 +10,8 @@ FetchContent_Declare(asio
     BUILD_COMMAND ""
 )
 FetchContent_Declare(cryptopp-cmake
-    GIT_REPOSITORY https://github.com/Vollstrecker/cryptopp-cmake.git
-    GIT_TAG "8952723f147afc117ec33afcb488355b2aac1e11"
+    GIT_REPOSITORY https://github.com/rturrado/cryptopp-cmake.git
+    GIT_TAG "1689327135734081fade00be1c783711276f0d23"
 )
 FetchContent_Declare(curlcpp
     GIT_REPOSITORY https://github.com/JosephP91/curlcpp.git
