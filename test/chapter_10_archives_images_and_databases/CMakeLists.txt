@@ -1,5 +1,6 @@
 set(chapter_10_test_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/console_movies.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/ean_13_barcode_png_generator.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/file_movies.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_079_finding_files_in_a_zip_archive.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_080_zip_compression.cpp"

@@ -11,7 +11,7 @@
 
 
 namespace tmcppc::ean_13 {
-    auto to_uint8_t(const unsigned char c) {
+    inline auto to_uint8_t(const unsigned char c) {
         return static_cast<uint8_t>(c - '0');
     };
 
@@ -26,7 +26,7 @@ namespace tmcppc::ean_13 {
 
     class digit {
     private:
-        static inline auto l_encoding = std::map<std::uint8_t, digit_bs>{
+        static inline const auto l_encoding = std::map<std::uint8_t, digit_bs>{
             { 0, digit_bs{"0001101"} },
             { 1, digit_bs{"0011001"} },
             { 2, digit_bs{"0010011"} },
@@ -38,7 +38,7 @@ namespace tmcppc::ean_13 {
             { 8, digit_bs{"0110111"} },
             { 9, digit_bs{"0001011"} }
         };
-        static inline auto g_encoding = std::map<std::uint8_t, digit_bs>{
+        static inline const auto g_encoding = std::map<std::uint8_t, digit_bs>{
             { 0, digit_bs{"0100111"} },
             { 1, digit_bs{"0110011"} },
             { 2, digit_bs{"0011011"} },
@@ -50,7 +50,7 @@ namespace tmcppc::ean_13 {
             { 8, digit_bs{"0001001"} },
             { 9, digit_bs{"0010111"} }
         };
-        static inline auto r_encoding = std::map<std::uint8_t, digit_bs>{
+        static inline const auto r_encoding = std::map<std::uint8_t, digit_bs>{
             { 0, digit_bs{"1110010"} },
             { 1, digit_bs{"1100110"} },
             { 2, digit_bs{"1101100"} },
@@ -68,14 +68,14 @@ namespace tmcppc::ean_13 {
         explicit digit(std::uint8_t value) : value_{ value } {}
         explicit digit(digit_type type) : type_{ type } {}
 
-        [[nodiscard]] inline auto get_type() const { return type_; }
-        [[nodiscard]] inline auto get_value() const { return value_; }
+        [[nodiscard]] auto get_type() const { return type_; }
+        [[nodiscard]] auto get_value() const { return value_; }
 
-        [[nodiscard]] inline auto encode(uint8_t value) const -> digit_bs {
+        [[nodiscard]] auto encode(uint8_t value) const -> digit_bs {
             switch (type_) {
-                case digit_type::l: return l_encoding[value];
-                case digit_type::g: return g_encoding[value];
-                case digit_type::r: return r_encoding[value];
+                case digit_type::l: return l_encoding.at(value);
+                case digit_type::g: return g_encoding.at(value);
+                case digit_type::r: return r_encoding.at(value);
                 default: return {};
             }
         }
@@ -86,7 +86,7 @@ namespace tmcppc::ean_13 {
     };
 
     struct digit_group {
-        [[nodiscard]] inline auto encode(const std::string& digits_str) const {
+        [[nodiscard]] auto encode(const std::string& digits_str) const {
             digit_group_bs ret{};
 
             std::transform(digits_str.cbegin(), digits_str.cend(), data_.cbegin(), ret.begin(),
@@ -116,11 +116,11 @@ namespace tmcppc::ean_13 {
 
     class barcode {
     private:
-        static inline auto l = digit{ digit_type::l };
-        static inline auto g = digit{ digit_type::g };
-        static inline auto r = digit{ digit_type::r };
+        static inline const auto l = digit{ digit_type::l };
+        static inline const auto g = digit{ digit_type::g };
+        static inline const auto r = digit{ digit_type::r };
 
-        static inline auto first_group_structure_map = std::map<std::uint8_t, digit_group>{
+        static inline const auto first_group_structure_map = std::map<std::uint8_t, digit_group>{
             { 0, { l, l, l, l, l, l } },
             { 1, { l, l, g, l, l, g } },
             { 2, { l, l, g, g, l, g } },
@@ -159,7 +159,7 @@ namespace tmcppc::ean_13 {
             }
 
             auto first_digit = digit{ to_uint8_t(get_first_digit_char()) };
-            auto& first_group_digits = first_group_structure_map[first_digit.get_value()];
+            auto& first_group_digits = first_group_structure_map.at(first_digit.get_value());
             auto second_group_digits = digit_group{ r, r, r, r, r, r };
 
             first_digit_group_bs_ = first_group_digits.encode(get_first_digit_group_str());

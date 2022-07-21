@@ -10,9 +10,9 @@ namespace tmcppc::movies {
         namespace ch = std::chrono;
 
         // Role
-        inline static const tmcppc::movies::role role{ "Tom Hanks", "Forrest Gump" };
+        static inline const tmcppc::movies::role role{ "Tom Hanks", "Forrest Gump" };
         // Cast
-        inline static const tmcppc::movies::cast cast{ {
+        static inline const tmcppc::movies::cast cast{ {
             role,  // Tom Hanks, Forrest Gump
             {.star = "Sally Field", .name = "Mrs. Gump" },
             {.star = "Robin Wright", .name = "Jenny Curran" },
@@ -20,31 +20,31 @@ namespace tmcppc::movies {
         } };
 
         // Director
-        inline static const tmcppc::movies::director director{ "Robert Zemeckis" };
+        static inline const tmcppc::movies::director director{ "Robert Zemeckis" };
         // Directors
-        inline static const tmcppc::movies::directors directors{ {
+        static inline const tmcppc::movies::directors directors{ {
             director  // Robert Zemeckis
         } };
 
         // Writer
-        inline static const tmcppc::movies::writer writer{ "Winston Groom" };
+        static inline const tmcppc::movies::writer writer{ "Winston Groom" };
         // Writers
-        inline static const tmcppc::movies::writers writers{ {
+        static inline const tmcppc::movies::writers writers{ {
             writer,  // Winston Groom
             { "Eric Roth" }
         } };
 
         // Media file
-        inline static const tmcppc::movies::media_file media_file_without_description{ 1, "./res/db/poster.png" };
-        inline static const tmcppc::movies::media_file media_file{ 1, "./res/db/poster.png", "Front cover" };
+        static inline const tmcppc::movies::media_file media_file_without_description{ 1, "./res/db/poster.png" };
+        static inline const tmcppc::movies::media_file media_file{ 1, "./res/db/poster.png", "Front cover" };
         // Media files
-        inline static const tmcppc::movies::media_files media_files{ {
+        static inline const tmcppc::movies::media_files media_files{ {
             media_file,  // 1, poster.png, Front cover
             { 2, "./res/db/city.jpg", "Los Angeles" }
         } };
 
         // Movie
-        inline static const tmcppc::movies::movie movie{
+        static inline const tmcppc::movies::movie movie{
             .id = 9871,
             .title = "Forrest Gump",
             .year = ch::year{ 1994 },
@@ -54,7 +54,7 @@ namespace tmcppc::movies {
             .writers = writers
         };
         // Movie with default ID
-        inline static const tmcppc::movies::movie movie_with_default_id{
+        static inline const tmcppc::movies::movie movie_with_default_id{
             .id = 0,
             .title = "Forrest Gump",
             .year = ch::year{ 1994 },
@@ -64,7 +64,7 @@ namespace tmcppc::movies {
             .writers = writers
         };
         // Movie with default ID
-        inline static const tmcppc::movies::movie movie_with_id_initialized_after_database_insertion{
+        static inline const tmcppc::movies::movie movie_with_id_initialized_after_database_insertion{
             .id = 2,
             .title = "Forrest Gump",
             .year = ch::year{ 1994 },
@@ -75,7 +75,7 @@ namespace tmcppc::movies {
         };
 
         // Catalog
-        inline static const tmcppc::movies::catalog catalog{ {
+        static inline const tmcppc::movies::catalog catalog{ {
             {
                 .id = 11001,
                 .title = "The Matrix",
@@ -98,7 +98,7 @@ namespace tmcppc::movies {
             },
             movie  // Forrest Gump
         } };
-        inline static const tmcppc::movies::catalog catalog_of_50_movies{ {
+        static inline const tmcppc::movies::catalog catalog_of_50_movies{ {
             { 1, "The Matrix", ch::year{ 1999 }, 136 },
             { 2, "Forrest Gump", ch::year{ 1994 }, 142 },
             { 3, "The Truman Show", ch::year{ 1998 }, 103 },

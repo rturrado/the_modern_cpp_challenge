@@ -78,6 +78,12 @@ namespace tmcppc::problem_83 {
             png_writer.plot_line(line, colour);
         }
     }
+
+    void paint_verification_text(png_writer& png_writer) {
+        paint_gradient_background(png_writer);
+        paint_random_letters(png_writer);
+        paint_random_strokes(png_writer);
+    }
 }  // namespace tmcppc::problem_83
 
 
@@ -90,9 +96,7 @@ void problem_83_main(std::ostream& os) {
 
     png_writer png_writer(300, 200, 0.0, image_file_path);
 
-    paint_gradient_background(png_writer);
-    paint_random_letters(png_writer);
-    paint_random_strokes(png_writer);
+    paint_verification_text(png_writer);
 }
 
 

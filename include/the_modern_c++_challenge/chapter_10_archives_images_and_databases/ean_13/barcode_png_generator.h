@@ -146,8 +146,9 @@ namespace tmcppc::ean_13::barcode_png {
                 png_writer.plot_filled_rectangle(
                     rectangle_2d{
                         .bottom_left = { start_position.x, start_position.y },
-                        .top_right = { start_position.x + width - 1, start_position.y + height - 1 } },
-                        rgb{}
+                        .top_right = { start_position.x + width - 1, start_position.y + height - 1 }
+                    },
+                    rgb{}
                 );
             }
 
@@ -214,14 +215,11 @@ namespace tmcppc::ean_13::barcode_png {
 
         // Digit groups
         //
-        struct digit_group : public base
-        {
-        public:
+        struct digit_group : public base {
             explicit digit_group(const std::string& digit_group)
                 : digit_group_{ digit_group }
             {}
-            virtual void paint(png_writer& writer) const override
-            {
+            virtual void paint(png_writer& writer) const override {
                 const auto font_file_path{ env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
                 auto start_position{ get_start_position() };
                 for (auto&& digit : digit_group_) {
@@ -231,16 +229,15 @@ namespace tmcppc::ean_13::barcode_png {
                         start_position,
                         0.0,  // angle
                         std::string{ digit },
-                        rgb{});
-
+                        rgb{}
+                    );
                     start_position.x += layout::digit_group::element_width;
                 }
             }
         private:
             std::string digit_group_{};
         };
-        struct first_digit : public digit_group
-        {
+        struct first_digit : public digit_group {
             explicit first_digit(const std::string& digit)
                 : digit_group{ digit }
             {}
