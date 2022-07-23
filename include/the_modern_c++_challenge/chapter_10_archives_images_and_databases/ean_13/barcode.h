@@ -1,18 +1,34 @@
 #pragma once
 
-#include <algorithm>  // all_of, transform
+#include <algorithm>  // all_of, copy, transform
 #include <array>
 #include <bitset>
+#include <cassert>  // assert
 #include <cctype>  // isdigit
 #include <cstdint>  // uint8_t
 #include <map>
 #include <stdexcept>  // runtime_error
 #include <string>
+#include <string_view>
 
 
 namespace tmcppc::ean_13 {
     inline auto to_uint8_t(const unsigned char c) {
         return static_cast<uint8_t>(c - '0');
+    };
+
+    struct invalid_code_size_exception : public std::runtime_error {
+        invalid_code_size_exception(std::string_view code_sv) : std::runtime_error{ "" } { message_ += code_sv; }
+        virtual const char* what() const noexcept override { return message_.c_str(); }
+    private:
+        static inline std::string message_{ "invalid code size exception: " };
+    };
+
+    struct invalid_code_exception : public std::runtime_error {
+        invalid_code_exception(std::string_view code_sv) : std::runtime_error{ "" } { message_ += code_sv; }
+        virtual const char* what() const noexcept override { return message_.c_str(); }
+    private:
+        static inline std::string message_{ "invalid code exception: " };
     };
 
     constinit const size_t code_size{ 13 };
@@ -22,7 +38,7 @@ namespace tmcppc::ean_13 {
     using digit_bs = std::bitset<bits_per_digit>;
     using digit_group_bs = std::array<digit_bs, group_size>;
 
-    enum class digit_type { none, l, g, r };
+    enum class digit_type { l, g, r };
 
     class digit {
     private:
@@ -64,9 +80,10 @@ namespace tmcppc::ean_13 {
         };
 
     public:
-        digit() : type_{ digit_type::none } {}
-        explicit digit(std::uint8_t value) : value_{ value } {}
-        explicit digit(digit_type type) : type_{ type } {}
+        explicit digit(digit_type type)
+            : type_{ type }
+            , value_{ static_cast<std::uint8_t>(0) }
+        {}
 
         [[nodiscard]] auto get_type() const { return type_; }
         [[nodiscard]] auto get_value() const { return value_; }
@@ -76,8 +93,9 @@ namespace tmcppc::ean_13 {
                 case digit_type::l: return l_encoding.at(value);
                 case digit_type::g: return g_encoding.at(value);
                 case digit_type::r: return r_encoding.at(value);
-                default: return {};
             }
+            assert("Eror: trying to encode a digit of type other than l, g, or r, " and false);
+            return {};
         }
 
     private:
@@ -86,32 +104,16 @@ namespace tmcppc::ean_13 {
     };
 
     struct digit_group {
-        [[nodiscard]] auto encode(const std::string& digits_str) const {
+        [[nodiscard]] auto encode(std::string_view digits) const -> digit_group_bs {
             digit_group_bs ret{};
 
-            std::transform(digits_str.cbegin(), digits_str.cend(), data_.cbegin(), ret.begin(),
+            std::ranges::transform(digits, data_, ret.begin(),
                 [](const unsigned char c, const digit& d) { return d.encode(to_uint8_t(c));  });
 
             return ret;
         }
 
-        std::array<digit, group_size> data_{};
-    };
-
-    struct invalid_code_size_exception : public std::runtime_error {
-        invalid_code_size_exception(const std::string& code_str)
-            : std::runtime_error{ message_ + code_str }
-        {}
-    private:
-        static inline std::string message_{ "invalid code size exception: " };
-    };
-
-    struct invalid_code_exception : public std::runtime_error {
-        invalid_code_exception(const std::string& code_str)
-            : std::runtime_error{ message_ + code_str }
-        {}
-    private:
-        static inline std::string message_{ "invalid code exception: " };
+        std::array<digit, group_size> data_;
     };
 
     class barcode {
@@ -120,7 +122,7 @@ namespace tmcppc::ean_13 {
         static inline const auto g = digit{ digit_type::g };
         static inline const auto r = digit{ digit_type::r };
 
-        static inline const auto first_group_structure_map = std::map<std::uint8_t, digit_group>{
+        static inline const auto first_group_structure = std::map<std::uint8_t, digit_group>{
             { 0, { l, l, l, l, l, l } },
             { 1, { l, l, g, l, l, g } },
             { 2, { l, l, g, g, l, g } },
@@ -132,17 +134,18 @@ namespace tmcppc::ean_13 {
             { 8, { l, g, l, g, g, l } },
             { 9, { l, g, g, l, g, l } }
         };
+        static inline const auto second_group_structure = digit_group{ r, r, r, r, r, r };
 
     public:
-        explicit barcode(const std::string& code_str) : code_str_{ code_str } { encode(); }
+        explicit barcode(std::string_view code) : code_{ code } { encode(); }
 
         [[nodiscard]] auto get_first_digit_group_bs() const { return first_digit_group_bs_; }
         [[nodiscard]] auto get_second_digit_group_bs() const { return second_digit_group_bs_; }
 
-        [[nodiscard]] auto get_first_digit_char() const { return code_str_[0]; }
-        [[nodiscard]] auto get_first_digit_str() const { return std::string{ code_str_[0] }; }
-        [[nodiscard]] auto get_first_digit_group_str() const { return code_str_.substr(1, group_size); }
-        [[nodiscard]] auto get_second_digit_group_str() const { return code_str_.substr(1 + group_size); }
+        [[nodiscard]] auto get_first_digit_char() const { return code_[0]; }
+        [[nodiscard]] auto get_first_digit_string() const { return code_.substr(0, 1); }
+        [[nodiscard]] auto get_first_digit_group_string() const { return code_.substr(1, group_size); }
+        [[nodiscard]] auto get_second_digit_group_string() const { return code_.substr(1 + group_size); }
 
     public:
         static inline const auto start_marker{ std::bitset<3>{"101"} };
@@ -151,23 +154,22 @@ namespace tmcppc::ean_13 {
 
     private:
         void encode() {
-            if (code_str_.size() != code_size) {
-                throw invalid_code_size_exception{ code_str_ };
+            if (code_.size() != code_size) {
+                throw invalid_code_size_exception{ code_ };
             }
-            if (not std::ranges::all_of(code_str_, [](unsigned char c) { return std::isdigit(c); })) {
-                throw invalid_code_exception{ code_str_ };
+            if (not std::ranges::all_of(code_, [](unsigned char c) { return std::isdigit(c); })) {
+                throw invalid_code_exception{ code_ };
             }
 
-            auto first_digit = digit{ to_uint8_t(get_first_digit_char()) };
-            auto& first_group_digits = first_group_structure_map.at(first_digit.get_value());
-            auto second_group_digits = digit_group{ r, r, r, r, r, r };
+            auto& first_group_digits = first_group_structure.at(to_uint8_t(get_first_digit_char()));
+            auto& second_group_digits = second_group_structure;
 
-            first_digit_group_bs_ = first_group_digits.encode(get_first_digit_group_str());
-            second_digit_group_bs_ = second_group_digits.encode(get_second_digit_group_str());
+            first_digit_group_bs_ = first_group_digits.encode(get_first_digit_group_string());
+            second_digit_group_bs_ = second_group_digits.encode(get_second_digit_group_string());
         }
 
     private:
-        std::string code_str_{};
+        std::string_view code_{};
 
         digit_group_bs first_digit_group_bs_{};
         digit_group_bs second_digit_group_bs_{};

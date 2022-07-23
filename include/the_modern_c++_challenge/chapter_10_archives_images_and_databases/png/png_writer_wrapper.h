@@ -15,7 +15,7 @@ namespace tmcppc::png {
         auto file_path{ file_root_path / file_stem };
         file_path.replace_extension(png_file_extension);
         return file_path;
-    };
+    }
 
     struct rgb {
         double r{};

@@ -7,6 +7,7 @@
 #include <algorithm>  // for_each
 #include <filesystem>
 #include <memory>  // make_unique, unique_ptr
+#include <string_view>
 
 
 namespace tmcppc::ean_13::barcode_png {
@@ -216,7 +217,7 @@ namespace tmcppc::ean_13::barcode_png {
         // Digit groups
         //
         struct digit_group : public base {
-            explicit digit_group(const std::string& digit_group)
+            explicit digit_group(std::string_view digit_group)
                 : digit_group_{ digit_group }
             {}
             virtual void paint(png_writer& writer) const override {
@@ -235,22 +236,22 @@ namespace tmcppc::ean_13::barcode_png {
                 }
             }
         private:
-            std::string digit_group_{};
+            std::string_view digit_group_{};
         };
         struct first_digit : public digit_group {
-            explicit first_digit(const std::string& digit)
+            explicit first_digit(std::string_view digit)
                 : digit_group{ digit }
             {}
             [[nodiscard]] virtual point_2d get_start_position() const override { return layout::first_digit::start_position; };
         };
         struct first_digit_group : public digit_group {
-            explicit first_digit_group(const std::string& digit_group)
+            explicit first_digit_group(std::string_view digit_group)
                 : digit_group{ digit_group }
             {}
             [[nodiscard]] virtual point_2d get_start_position() const override { return layout::first_digit_group::start_position; };
         };
         struct second_digit_group : public digit_group {
-            explicit second_digit_group(const std::string& digit_group)
+            explicit second_digit_group(std::string_view digit_group)
                 : digit_group{ digit_group }
             {}
             [[nodiscard]] virtual point_2d get_start_position() const override { return layout::second_digit_group::start_position; };
@@ -284,9 +285,9 @@ namespace tmcppc::ean_13::barcode_png {
             vcontrols.push_back(std::make_unique<controls::end_marker>());
             vcontrols.push_back(std::make_unique<controls::first_digit_bar_group>(code.get_first_digit_group_bs()));
             vcontrols.push_back(std::make_unique<controls::second_digit_bar_group>(code.get_second_digit_group_bs()));
-            vcontrols.push_back(std::make_unique<controls::first_digit>(code.get_first_digit_str()));
-            vcontrols.push_back(std::make_unique<controls::first_digit_group>(code.get_first_digit_group_str()));
-            vcontrols.push_back(std::make_unique<controls::second_digit_group>(code.get_second_digit_group_str()));
+            vcontrols.push_back(std::make_unique<controls::first_digit>(code.get_first_digit_string()));
+            vcontrols.push_back(std::make_unique<controls::first_digit_group>(code.get_first_digit_group_string()));
+            vcontrols.push_back(std::make_unique<controls::second_digit_group>(code.get_second_digit_group_string()));
             vcontrols.push_back(std::make_unique<controls::lmi>());
 
             std::ranges::for_each(vcontrols, [&writer](auto& control_up) { control_up->paint(writer); });

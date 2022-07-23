@@ -19,10 +19,16 @@
 #include <vector>
 
 
-namespace tmcppc::zip_lib {
+namespace tmcppc::zip {
     namespace fs = std::filesystem;
 
     const fs::path zip_file_extension{ "zip" };
+
+    inline auto create_zip_file_path(const fs::path& output_root_path, const fs::path& input_path) {
+        auto zip_file_name{ input_path.filename() };
+        zip_file_name.replace_extension(zip_file_extension);
+        return output_root_path / zip_file_name;
+    }
 
     inline void create_directories_if_needed(const fs::path& path) {
         if (not fs::exists(path)) {
@@ -140,41 +146,4 @@ namespace tmcppc::zip_lib {
             fs::remove_all(path);
         }
     }
-
-    inline void test(std::istream& is, std::ostream& os, const std::string& password = {}) {
-        auto create_zip_file_path = [](const fs::path& output_root_path, const fs::path& input_path) {
-            auto zip_file_name{ input_path.filename() };
-            zip_file_name.replace_extension(zip_file_extension);
-            return output_root_path / zip_file_name;
-        };
-
-        const auto resource_folder_path{ env::get_instance().get_resource_folder_path() };
-        const auto input_file_path{ resource_folder_path / "sample_folder" / "dilbert.jpg" };  // test files
-        const auto input_dir_path{ resource_folder_path / "sample_folder" / "sample_subfolder" };  // and folders
-        const auto output_root_path{ fs::temp_directory_path() };
-
-        for (auto&& input_path : { input_file_path, input_dir_path }) {
-            const auto output_path{ output_root_path / input_path.relative_path() };
-            const auto output_relative_root_directory_path{ output_root_path / *input_path.relative_path().begin() };
-            const auto zip_file_path{ create_zip_file_path(output_root_path, input_path) };
-
-            // Input path                                c:/programming/code/c++/the_modern_c++_challenge/res/sample_folder/dilbert.jpg
-            // Input relative path                          programming/code/c++/the_modern_c++_challenge/res/sample_folder/dilbert.jpg
-            // Input file name                                                                                              dilbert.jpg
-            // Output root path                     c:/temp
-            // Output path                          c:/temp/programming/code/c++/the_modern_c++_challenge/res/sample_folder/dilbert.jpg
-            // Output relative root directory path  c:/temp/programming
-            // Zip file path                        c:/temp/                                                                dilbert.zip
-
-            try {
-                compress(os, input_path, zip_file_path, password);
-                decompress(os, zip_file_path, output_root_path, password);
-                compare_input_and_output(os, input_path, output_path);
-                remove_output(is, os, output_relative_root_directory_path);
-            } catch (const std::exception& ex) {
-                fmt::print(os, "\nError: {}\n", ex.what());
-            }
-            fmt::print(os, "\n");
-        }
-    }
-}  // namespace tmcppc::zip_lib
+}  // namespace tmcppc::zip

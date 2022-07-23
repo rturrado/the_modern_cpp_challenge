@@ -7,7 +7,7 @@
 
 
 void problem_76_main(std::ostream& os) {
-    // Problem 75 already tests serialization and deserialization of to and from JSON files
+    // Problem 75 already tests serialization-to and deserialization-from JSON files
     problem_75_main(os);
 }
 
