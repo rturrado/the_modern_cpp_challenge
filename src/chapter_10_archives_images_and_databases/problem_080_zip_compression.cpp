@@ -8,8 +8,10 @@
 
 
 void problem_80_main(std::istream& is, std::ostream& os) {
+    using namespace tmcppc::problem_81;
+
     // Problem 81 tests compression-to and decompression-from ZIP files
-    problem_81_main(is, os);
+    test_zip_lib(is, os);
 }
 
 

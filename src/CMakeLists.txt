@@ -42,7 +42,7 @@ FetchContent_Declare(range-v3
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "4bddc1c4e055ecfe52de840a96a9d141b342c5ae"
+    GIT_TAG "e82da7dbf57ebe3356c78495af3980ca056f7865"
 )
 FetchContent_Declare(SqliteModernCpp
     GIT_REPOSITORY https://github.com/SqliteModernCpp/sqlite_modern_cpp.git
@@ -193,8 +193,8 @@ elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STR
 endif()
 
 
-# Sample subfolder
-# Create a symbolic link from <source dir>/res/sample_subfolder to <source dir>/res/sample_folder/sample_subfolder
+# Link to sample_subfolder
+# Create a symbolic link from <source dir>/res/sample_folder/sample_subfolder to <source dir>/res/sample_subfolder
 add_custom_target(sample_subfolder)
 set(sample_subfolder_source_dir "${CMAKE_SOURCE_DIR}/res/sample_subfolder")
 set(sample_subfolder_destination_dir "${CMAKE_SOURCE_DIR}/res/sample_folder/sample_subfolder")

@@ -1,16 +1,12 @@
 #pragma once
 
-#include "env.h"
-
-#include "rtc/console.h"
-#include "rtc/filesystem.h"
-
 #include "ZipArchive.h"
 #include "ZipArchiveEntry.h"
 #include "ZipFile.h"
 
+#include "rtc/filesystem.h"
+
 #include <filesystem>
-#include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <istream>
@@ -36,23 +32,37 @@ namespace tmcppc::zip {
         }
     }
 
-    inline void add_file_to_archive(const fs::path& input_path, const fs::path& zip_file_path, const std::string& password = {}) {
-        ZipFile::AddEncryptedFile(zip_file_path.string(), input_path.string(), input_path.string(), password);
+    inline void add_file_to_archive(const fs::path& zip_file_path, const fs::path& input_path, const fs::path& in_archive_path,
+        const std::string& password = {}) {
+        
+        ZipFile::AddEncryptedFile(zip_file_path.string(), input_path.string(), in_archive_path.string(), password);
     }
 
-    inline void add_directory_to_archive(const fs::path& input_path, const fs::path& zip_file_path) {
+    inline void add_directory_to_archive(const fs::path& zip_file_path, const fs::path& input_path) {
         auto archive{ ZipFile::Open(zip_file_path.generic_string()) };
         auto entry{ archive->CreateEntry(input_path.generic_string()) };
         entry->SetAttributes(ZipArchiveEntry::Attributes::Directory);
         ZipFile::SaveAndClose(archive, zip_file_path.generic_string());
     }
 
-    inline void add_entry_to_archive(const fs::path& input_path, const fs::path& zip_file_path, const std::string& password = {}) {
+    inline void add_entry_to_archive(const fs::path& zip_file_path, const fs::path& input_path, const fs::path& in_archive_path,
+        const std::string& password = {}) {
+
         if (fs::is_regular_file(input_path)) {
-            add_file_to_archive(input_path, zip_file_path, password);
+            add_file_to_archive(zip_file_path, input_path, in_archive_path, password);
         } else if (fs::is_directory(input_path)) {
-            add_directory_to_archive(input_path, zip_file_path);
+            add_directory_to_archive(zip_file_path, input_path);
         }
+    }
+
+    inline auto remove_base_path(const fs::path& input_path, const fs::path& base_path) {
+        fs::path ret{};
+        auto ip{ std::begin(input_path) };
+        for (auto bp{ base_path.begin()}; bp != base_path.end() and ip != input_path.end() and *bp == *ip; ++bp, ++ip);
+        for (; ip != input_path.end(); ++ip) {
+            ret /= *ip;
+        }
+        return ret;
     }
 
     inline void compress(
@@ -72,11 +82,16 @@ namespace tmcppc::zip {
         try {
             if (fs::is_regular_file(input_path)) {
                 fmt::print(os, "\tAdding entry: {}\n", input_path.generic_string());
-                add_entry_to_archive(input_path, zip_file_path, password);
+                auto in_archive_path{ input_path.filename() };
+                add_entry_to_archive(zip_file_path, input_path, in_archive_path, password);
             } else if (fs::is_directory(input_path)) {
-                for (auto& directory_entry : fs::recursive_directory_iterator{ input_path }) {
+                auto base_path{ input_path.has_relative_path() ? input_path.parent_path() : fs::path{} };
+                auto options{ fs::directory_options::skip_permission_denied | fs::directory_options::follow_directory_symlink };
+
+                for (auto& directory_entry : fs::recursive_directory_iterator{ input_path, options }) {
                     fmt::print(os, "\tAdding entry: {}\n", directory_entry.path().generic_string());
-                    add_entry_to_archive(directory_entry.path(), zip_file_path, password);
+                    auto in_archive_path{ remove_base_path(directory_entry.path(), base_path) };
+                    add_entry_to_archive(zip_file_path, directory_entry.path(), in_archive_path, password);
                 }
             }
         } catch (const std::exception&) {
@@ -122,28 +137,6 @@ namespace tmcppc::zip {
                     destination_file_path.generic_string(),
                     password);
             }
-        }
-    }
-
-    inline void compare_input_and_output(std::ostream& os, const fs::path& input_path, const fs::path& output_path) {
-        fmt::print(os, "Checking input '{}' and output '{}' are equal\n",
-            input_path.generic_string(), output_path.generic_string());
-        if (not rtc::filesystem::are_filesystem_trees_equal(input_path, output_path)) {
-            fmt::print(os, "\tError: Input '{}' is different than output '{}'\n",
-                input_path.generic_string(), output_path.generic_string());
-        } else {
-            fmt::print(os, "\tOK\n");
-        }
-    }
-
-    inline void remove_output(std::istream& is, std::ostream& os, const fs::path& path) {
-        auto c{
-            rtc::console::read_char(is, os,
-                fmt::format("Are you sure you want to remove '{}' and all of its contents? [y/n] ", path.generic_string()),
-                std::vector<char>{'n', 'N', 'y', 'Y'}
-        )};
-        if (c == 'y' or c == 'Y') {
-            fs::remove_all(path);
         }
     }
 }  // namespace tmcppc::zip
