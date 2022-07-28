@@ -1,6 +1,8 @@
 #include "chapter_11_cryptography/problem_094_file_signing.h"
 #include "env.h"
 
+#include "rtc/filesystem.h"
+
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <iostream>  // cout
@@ -14,7 +16,7 @@
 namespace fs = std::filesystem;
 
 
-namespace tmcppc::problem_94 {
+namespace tmcppc::crypto {
     void generate_keys(const fs::path& rsa_private_key_file_path, const fs::path& rsa_public_key_file_path) {
         using namespace CryptoPP;
 
@@ -34,6 +36,13 @@ namespace tmcppc::problem_94 {
 
     void sign_file(const fs::path& input_file_path, const fs::path& rsa_private_key_file_path, const fs::path& signature_file_path) {
         using namespace CryptoPP;
+
+        if (not fs::exists(input_file_path)) {
+            throw rtc::filesystem::file_path_does_not_exist_error{ input_file_path.generic_string() };
+        }
+        if (not fs::exists(rsa_private_key_file_path)) {
+            throw rtc::filesystem::file_path_does_not_exist_error{ rsa_private_key_file_path.generic_string() };
+        }
 
         AutoSeededRandomPool rng{};
 
@@ -58,6 +67,16 @@ namespace tmcppc::problem_94 {
 
     bool verify_file(const fs::path& input_file_path, const fs::path& rsa_public_key_file_path, const fs::path& signature_file_path) {
         using namespace CryptoPP;
+
+        if (not fs::exists(input_file_path)) {
+            throw rtc::filesystem::file_path_does_not_exist_error{ input_file_path.generic_string() };
+        }
+        if (not fs::exists(rsa_public_key_file_path)) {
+            throw rtc::filesystem::file_path_does_not_exist_error{ rsa_public_key_file_path.generic_string() };
+        }
+        if (not fs::exists(signature_file_path)) {
+            throw rtc::filesystem::file_path_does_not_exist_error{ signature_file_path.generic_string() };
+        }
 
         FileSource public_file{ rsa_public_key_file_path.c_str(), true, new HexDecoder{} };
         RSASSA_PKCS1v15_SHA_Verifier verifier{ public_file };
@@ -84,7 +103,7 @@ namespace tmcppc::problem_94 {
 
 
 void problem_94_main(std::ostream& os) {
-    using namespace tmcppc::problem_94;
+    using namespace tmcppc::crypto;
 
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
     const auto rsa_private_key_file_path{ fs::temp_directory_path() / "private_key.txt" };

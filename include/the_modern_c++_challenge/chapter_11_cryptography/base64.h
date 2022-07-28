@@ -6,10 +6,10 @@
 #include <cassert>  // assert
 #include <cstdint>  // uint8_t
 #include <iterator>  // back_inserter
-#include <unordered_map>
 #include <span>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 #include <vector>
 
 
@@ -17,6 +17,7 @@ namespace tmcppc::crypto {
     class base64 {
     public:
         using value_type = uint8_t;
+        using data_t = std::vector<value_type>;
 
     private:
         using encoding_table_t = std::array<unsigned char, 64>;
@@ -51,9 +52,17 @@ namespace tmcppc::crypto {
         };
 
     public:
-        [[nodiscard]] std::string encode(const std::vector<value_type>& data, bool use_padding = true) const {
+        [[nodiscard]] std::string encode(const data_t& data, bool use_padding = true) const {
             std::string ret{};
+            size_t line_characters_counter{};
 
+            auto get_encoded_string_size = [&data]() {
+                // For every 3 octets read, write out 4 sextets
+                // Padding is not taking into account, i.e. this size is rounded up to blocks of 4 sextets
+                size_t capacity{ (data.size() / 3 + ((data.size() % 3 == 0) ? 0 : 1)) * 4 };
+                // For every max_line_width characters, add a new line
+                return capacity + capacity / max_line_width;
+            };
             auto get_sextet = [](const std::bitset<24>& input_bs, size_t sextet_index) {
                 std::bitset<24> sextet_mask_bs{ 0x00'00'3f };
                 auto sextet_ul{ ((input_bs >> (18 - 6 * sextet_index)) & sextet_mask_bs).to_ulong() };
@@ -72,12 +81,19 @@ namespace tmcppc::crypto {
                     get_sextet(input_bs, 3)
                 };
             };
-            auto max_line_width_reached = [&ret]() {
-                return ((ret.size() % max_line_width) + 4) >= max_line_width;
+            auto max_line_width_reached = [&line_characters_counter]() {
+                line_characters_counter += 4;  // add 4 sextets
+                if ((line_characters_counter + 4) > max_line_width) {
+                    line_characters_counter = 0;
+                    return true;
+                }
+                return false;
             };
 
+            ret.reserve(get_encoded_string_size());
+
             size_t i{ 0 };
-            for (; i + 3 <= data.size(); i += 3) {
+            for (; i + 3 <= data.size(); i += 3) {  // read 3 octets
                 auto octets{ octets_t{ data[i], data[i + 1], data[i + 2] } };
                 auto sextets{ build_sextets_from_octets(octets) };
                 std::ranges::transform(sextets, std::back_inserter(ret), [](auto& sextet) {
@@ -120,9 +136,13 @@ namespace tmcppc::crypto {
             return ret;
         }
 
-        [[nodiscard]] std::vector<value_type> decode(std::string_view data) const {
-            std::vector<value_type> ret{};
+        [[nodiscard]] data_t decode(std::string_view data) const {
+            data_t ret{};
 
+            auto get_decoded_data_t_size = [&data]() {
+                // For every 4 sextets read, write out 3 octets
+                return (data.size() / 4 + ((data.size() % 4 == 0) ? 0 : 1)) * 3;
+            };
             auto get_octet = [](const std::bitset<24>& input_bs, size_t octet_index) {
                 std::bitset<24> octet_mask_bs{ 0x00'00'ff };
                 auto octet_ul{ ((input_bs >> (16 - 8 * octet_index)) & octet_mask_bs).to_ulong() };
@@ -168,7 +188,9 @@ namespace tmcppc::crypto {
                 });
             };
 
-            for (auto i{ 0 }; i < data.size();) {
+            ret.reserve(get_decoded_data_t_size());
+
+            for (size_t i{ 0 }; i < data.size();) {
                 value_type chunk[4];
                 size_t j{ 0 };
                 for (; j < 4 and i < data.size(); ++i) {
@@ -180,8 +202,8 @@ namespace tmcppc::crypto {
                     case 4: decode_group(chunk); break;
                     case 3:
                     case 2: decode_subgroup({ chunk, j }); break;
-                    case 1: assert("Error: chunk.size() == 1, " and false); break;
-                    case 0: assert("Error: chunk.size() == 0, " and i != data.size()); break;
+                    case 1: assert("Error: chunk.size() == 1, " and i == data.size()); break;
+                    case 0: assert("Error: chunk.size() == 0, " and i == data.size()); break;
                     default: break;
                 }
             }

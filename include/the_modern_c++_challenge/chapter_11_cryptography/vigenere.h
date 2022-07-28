@@ -8,7 +8,7 @@
 #include <array>
 #include <cctype>  // isalpha, islower, tolower, toupper
 #include <filesystem>
-#include <iterator>  // back_inserter, distance
+#include <iterator>  // distance
 #include <string>
 #include <string_view>
 
@@ -27,12 +27,12 @@ namespace tmcppc::crypto {
                 auto increment_letter = [](unsigned char& c) {
                     c = (c == 'z') ? 'a' : c + 1;
                 };
-                std::generate_n(std::begin(row), row.size(), [&letter]() {
+                std::generate_n(row.begin(), row.size(), [&letter, &increment_letter]() {
                     auto ret{ letter };
-                    letter = (letter == 'z') ? 'a' : letter + 1;
+                    increment_letter(letter);
                     return ret;
                 });
-                letter = (letter == 'z') ? 'a' : letter + 1;
+                increment_letter(letter);
             });
             return ret;
         }
@@ -41,11 +41,9 @@ namespace tmcppc::crypto {
         std::string key_{};
 
     public:
-        vigenere() {
-            auto key_size{ rtc::random::random_int{5, 10}() };
-
-            std::generate_n(std::back_inserter(key_), key_size, []() {
-                return static_cast<unsigned char>('a' + rtc::random::random_int{ 0, letters_size_ - 1 }());
+        vigenere() : key_(rtc::random::random_int{ 5, 10 }(), 0) {  // [5, 10]
+            std::generate_n(key_.begin(), key_.size(), []() {
+                return static_cast<unsigned char>('a' + rtc::random::random_int{ 0, letters_size_ - 1 }());  // [0, letters_size - 1]
             });
 
         }
@@ -65,9 +63,9 @@ namespace tmcppc::crypto {
                 return static_cast<unsigned char>(std::toupper(ciphered_lower_c));
             };
 
-            std::string ret{};
+            std::string ret(text.size(), 0);
             size_t key_index{ 0 };
-            std::ranges::transform(text, std::back_inserter(ret),
+            std::ranges::transform(text, ret.begin(),
                 [this, &encrypt_char, &key_index](unsigned char c) {
                     auto ret{ encrypt_char(c, key_index) };
                     key_index = (key_index + 1) % key_.size();
@@ -91,9 +89,9 @@ namespace tmcppc::crypto {
                 return static_cast<unsigned char>(std::toupper(deciphered_lower_c));
             };
 
-            std::string ret{};
+            std::string ret(text.size(), 0);
             size_t key_index{ 0 };
-            std::ranges::transform(text, std::back_inserter(ret),
+            std::ranges::transform(text, ret.begin(),
                 [this, &decrypt_char, &key_index](unsigned char c) {
                     auto ret{ decrypt_char(c, key_index) };
                     key_index = (key_index + 1) % key_.size();

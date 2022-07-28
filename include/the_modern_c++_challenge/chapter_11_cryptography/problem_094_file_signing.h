@@ -4,7 +4,7 @@
 #include <iosfwd>
 
 
-namespace tmcppc::problem_94 {
+namespace tmcppc::crypto {
     void generate_keys(
         const std::filesystem::path& rsa_private_key_file_path,
         const std::filesystem::path& rsa_public_key_file_path);

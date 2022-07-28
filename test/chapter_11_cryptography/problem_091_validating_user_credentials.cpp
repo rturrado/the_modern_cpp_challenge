@@ -5,6 +5,40 @@
 
 #include <sstream>  // istringstream, ostringstream
 
+using namespace tmcppc::crypto;
+
+
+TEST(login, DISABLED_add_new_user) {
+    login l{};
+    l.add_user("john", "deacon-1951");
+    EXPECT_TRUE(l.exists_user("john"));
+}
+TEST(login, DISABLED_add_existing_user) {
+    login l{};
+    l.add_user("john", "deacon-1951");
+    EXPECT_THROW(l.add_user("john", "deacon-1951"), login::user_exists_error);
+}
+TEST(login, DISABLED_exists_user_fails) {
+    login l{};
+    l.add_user("john", "deacon-1951");
+    EXPECT_FALSE(l.exists_user("roger"));
+}
+TEST(login, DISABLED_exists_user_suceeds) {
+    login l{};
+    l.add_user("john", "deacon-1951");
+    EXPECT_TRUE(l.exists_user("john"));
+}
+TEST(login, DISABLED_is_valid_password_fails) {
+    login l{};
+    l.add_user("john", "deacon-1951");
+    EXPECT_FALSE(l.is_valid_password("john", "taylor-1949"));
+}
+TEST(login, DISABLED_is_valid_password_succeeds) {
+    login l{};
+    l.add_user("john", "deacon-1951");
+    EXPECT_TRUE(l.is_valid_password("john", "deacon-1951"));
+}
+
 
 TEST(problem_91_main, DISABLED_output) {
     std::istringstream iss{

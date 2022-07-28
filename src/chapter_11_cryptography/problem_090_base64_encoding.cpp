@@ -14,7 +14,7 @@
 namespace tmcppc::problem_90 {
     using base64 = tmcppc::crypto::base64;
 
-    void test_base_64(std::ostream& os, const std::vector<base64::value_type>& input_data, bool use_padding) {
+    void test_base_64(std::ostream& os, const base64::data_t& input_data, bool use_padding) {
         static const auto b64{ base64{} };
         const auto encoded_data{ b64.encode(input_data, use_padding) };
         const auto decoded_data{ b64.decode(encoded_data) };
@@ -40,7 +40,7 @@ void problem_90_main(std::ostream& os) {
     for (std::string_view input_data : { "", "M", "Ma", "Man", "Many", "Many ", "Many h", "Many hands make light work." }) {
         for (auto use_padding : { true, false }) {
             fmt::print(os, "Encoding and decoding text '{}'\n", input_data);
-            test_base_64(os, std::vector<base64::value_type>{ std::cbegin(input_data), std::cend(input_data) }, use_padding);
+            test_base_64(os, base64::data_t{ std::cbegin(input_data), std::cend(input_data) }, use_padding);
         }
     }
 

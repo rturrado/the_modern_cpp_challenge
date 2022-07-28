@@ -1,5 +1,7 @@
 #pragma once
 
+#include "rtc/filesystem.h"
+
 #include <filesystem>
 #include <iosfwd>
 #include <string>
@@ -15,6 +17,10 @@
 namespace tmcppc::crypto {
     template <typename Hash>
     std::string get_hash_as_hex_string(const std::filesystem::path& file_path) {
+        if (not fs::exists(file_path)) {
+            throw rtc::filesystem::file_path_does_not_exist_error{ file_path.generic_string()};
+        }
+
         std::string digest{};
         Hash hash{};
 

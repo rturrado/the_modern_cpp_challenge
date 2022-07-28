@@ -1,9 +1,79 @@
 #include "chapter_11_cryptography/problem_094_file_signing.h"
+#include "env.h"
+
+#include "rtc/filesystem.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <filesystem>
 #include <sstream>  // ostringstream
+
+using namespace tmcppc::crypto;
+namespace fs = std::filesystem;
+
+
+TEST(generate_keys, DISABLED_ok) {
+    const auto rsa_private_key_file_path{ fs::temp_directory_path() / "private_key.txt" };
+    const auto rsa_public_key_file_path{ fs::temp_directory_path() / "public_key.txt" };
+
+    generate_keys(rsa_private_key_file_path, rsa_public_key_file_path);
+    EXPECT_TRUE(fs::exists(rsa_private_key_file_path));
+    EXPECT_TRUE(fs::exists(rsa_public_key_file_path));
+    EXPECT_FALSE(fs::is_empty(rsa_private_key_file_path));
+    EXPECT_FALSE(fs::is_empty(rsa_public_key_file_path));
+}
+
+
+TEST(sign_file, DISABLED_input_file_does_not_exist) {
+    const auto rsa_private_key_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "private_key.txt" };
+    const auto signature_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "signature.txt" };
+
+    EXPECT_THROW(sign_file(fs::path{}, rsa_private_key_file_path, signature_file_path), rtc::filesystem::file_path_does_not_exist_error);
+}
+TEST(sign_file, DISABLED_private_key_file_does_not_exist) {
+    const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
+    const auto signature_file_path{ fs::temp_directory_path() / "signature.txt" };
+
+    EXPECT_THROW(sign_file(input_file_path, fs::path{}, signature_file_path), rtc::filesystem::file_path_does_not_exist_error);
+}
+TEST(sign_file, DISABLED_ok) {
+    const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
+    const auto rsa_private_key_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "private_key.txt" };
+    const auto signature_file_path{ fs::temp_directory_path() / "signature.txt" };
+
+    sign_file(input_file_path, rsa_private_key_file_path, signature_file_path);
+    EXPECT_TRUE(fs::exists(signature_file_path));
+    EXPECT_FALSE(fs::is_empty(signature_file_path));
+}
+
+
+TEST(verify_file, DISABLED_input_file_does_not_exist) {
+    const auto rsa_private_key_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "private_key.txt" };
+    const auto signature_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "signature.txt" };
+
+    EXPECT_THROW(verify_file(fs::path{}, rsa_private_key_file_path, signature_file_path), rtc::filesystem::file_path_does_not_exist_error);
+}
+TEST(verify_file, DISABLED_public_key_file_does_not_exist) {
+    const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
+    const auto signature_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "signature.txt" };
+
+    EXPECT_THROW(verify_file(input_file_path, fs::path{}, signature_file_path), rtc::filesystem::file_path_does_not_exist_error);
+}
+TEST(verify_file, DISABLED_signature_file_does_not_exist) {
+    const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
+    const auto rsa_private_key_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "private_key.txt" };
+    const auto rsa_public_key_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "public_key.txt" };
+
+    EXPECT_THROW(verify_file(input_file_path, rsa_public_key_file_path, fs::path{}), rtc::filesystem::file_path_does_not_exist_error);
+}
+TEST(verify_file, DISABLED_ok) {
+    const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
+    const auto rsa_public_key_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "public_key.txt" };
+    const auto signature_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "signature.txt" };
+
+    EXPECT_TRUE(verify_file(input_file_path, rsa_public_key_file_path, signature_file_path));
+}
 
 
 TEST(problem_94_main, DISABLED_output) {

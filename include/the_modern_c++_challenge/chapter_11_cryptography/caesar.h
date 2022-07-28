@@ -7,7 +7,6 @@
 #include <algorithm>  // transform
 #include <cctype>  // isalpha, islower, tolower, toupper
 #include <iosfwd>
-#include <iterator>  // back_inserter
 #include <string>
 #include <string_view>
 
@@ -34,8 +33,8 @@ namespace tmcppc::crypto {
                 return static_cast<unsigned char>(std::toupper(ciphered_lower_c));
             };
 
-            std::string ret{};
-            std::ranges::transform(text, std::back_inserter(ret), [&encrypt_char](unsigned char c) {
+            std::string ret(text.size(), 0);
+            std::ranges::transform(text, ret.begin(), [&encrypt_char](unsigned char c) {
                 return encrypt_char(c);
             });
             return ret;
@@ -54,8 +53,8 @@ namespace tmcppc::crypto {
                 return static_cast<unsigned char>(std::toupper(deciphered_lower_c));
             };
 
-            std::string ret{};
-            std::ranges::transform(text, std::back_inserter(ret), [&decrypt_char](unsigned char c) {
+            std::string ret(text.size(), 0);
+            std::ranges::transform(text, ret.begin(), [&decrypt_char](unsigned char c) {
                 return decrypt_char(c);
             });
             return ret;
