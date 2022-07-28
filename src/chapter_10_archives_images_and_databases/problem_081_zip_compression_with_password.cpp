@@ -50,11 +50,11 @@ namespace tmcppc::problem_81 {
             const auto output_path{ output_root_path / input_path.filename()};
             const auto zip_file_path{ create_zip_file_path(output_root_path, input_path) };
 
-            // Input path                                c:/programming/code/c++/the_modern_c++_challenge/res/sample_folder/dilbert.jpg
-            // Input file name                                                                                              dilbert.jpg
-            // Output root path                     c:/temp
-            // Output path                          c:/temp/                                                                dilbert.jpg
-            // Zip file path                        c:/temp/                                                                dilbert.zip
+            // Input path        c:/programming/code/c++/the_modern_c++_challenge/res/sample_folder/dilbert.jpg
+            // Input file name                                                                      dilbert.jpg
+            // Output root path  c:/temp
+            // Output path       c:/temp/                                                           dilbert.jpg
+            // Zip file path     c:/temp/                                                           dilbert.zip
 
             try {
                 compress(os, input_path, zip_file_path, password);
