@@ -19,7 +19,7 @@ TEST(paint_verification_text, DISABLED_png_file_creation) {
         paint_verification_text(png_writer);
     }
     EXPECT_TRUE(fs::exists(image_file_path));
-    EXPECT_NE(fs::file_size(image_file_path), 0);
+    EXPECT_FALSE(fs::is_empty(image_file_path));
 }
 
 TEST(problem_83_main, DISABLED_output) {

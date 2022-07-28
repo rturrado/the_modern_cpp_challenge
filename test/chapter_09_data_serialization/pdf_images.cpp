@@ -17,7 +17,7 @@ TEST(images_doc, DISABLED_save_to_empty_list_of_images) {
     images_doc out_doc{ input_dir_path };
     out_doc.save_to(temp_file_path, std::make_unique<image_list_layouter>());
     EXPECT_TRUE(fs::exists(temp_file_path));
-    EXPECT_NE(fs::file_size(temp_file_path), 0);
+    EXPECT_FALSE(fs::is_empty(temp_file_path));
 }
 
 TEST(images_doc, DISABLED_save_to_list_of_images) {
@@ -26,5 +26,5 @@ TEST(images_doc, DISABLED_save_to_list_of_images) {
     images_doc out_doc{ input_dir_path };
     out_doc.save_to(temp_file_path, std::make_unique<image_list_layouter>());
     EXPECT_TRUE(fs::exists(temp_file_path));
-    EXPECT_NE(fs::file_size(temp_file_path), 0);
+    EXPECT_FALSE(fs::is_empty(temp_file_path));
 }

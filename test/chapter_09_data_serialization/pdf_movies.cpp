@@ -27,7 +27,7 @@ TEST(movies_doc, DISABLED_save_to_empty_list_of_movies) {
     movies_doc out_doc{ catalog{} };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(10));
     EXPECT_TRUE(fs::exists(temp_file_path));
-    EXPECT_NE(fs::file_size(temp_file_path), 0);
+    EXPECT_FALSE(fs::is_empty(temp_file_path));
 }
 
 TEST(movies_doc, DISABLED_save_to_list_of_2_movies) {
@@ -37,7 +37,7 @@ TEST(movies_doc, DISABLED_save_to_list_of_2_movies) {
     movies_doc out_doc{ catalog_of_2_movies };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(10));
     EXPECT_TRUE(fs::exists(temp_file_path));
-    EXPECT_NE(fs::file_size(temp_file_path), 0);
+    EXPECT_FALSE(fs::is_empty(temp_file_path));
 }
 
 TEST(movies_doc, DISABLED_save_to_list_of_30_movies_with_10_per_page) {
@@ -47,7 +47,7 @@ TEST(movies_doc, DISABLED_save_to_list_of_30_movies_with_10_per_page) {
     movies_doc out_doc{ catalog_of_30_movies };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(10));
     EXPECT_TRUE(fs::exists(temp_file_path));
-    EXPECT_NE(fs::file_size(temp_file_path), 0);
+    EXPECT_FALSE(fs::is_empty(temp_file_path));
 }
 
 TEST(movies_doc, DISABLED_save_to_list_of_50_movies_with_100_per_page) {
@@ -55,5 +55,5 @@ TEST(movies_doc, DISABLED_save_to_list_of_50_movies_with_100_per_page) {
     movies_doc out_doc{ samples::catalog_of_50_movies };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(100));
     EXPECT_TRUE(fs::exists(temp_file_path));
-    EXPECT_NE(fs::file_size(temp_file_path), 0);
+    EXPECT_FALSE(fs::is_empty(temp_file_path));
 }

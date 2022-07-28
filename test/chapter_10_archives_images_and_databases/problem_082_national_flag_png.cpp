@@ -25,7 +25,7 @@ TEST(paint_romania_flag, DISABLED_png_output) {
         paint_romania_flag(png_writer);
     }
     EXPECT_TRUE(fs::exists(image_file_path));
-    EXPECT_NE(fs::file_size(image_file_path), 0);
+    EXPECT_FALSE(fs::is_empty(image_file_path));
     const auto decoded_output_image{ pdiff::read_from_file(image_file_path.string()) };
     const auto decoded_master_image{ pdiff::read_from_file(master_image_file_path.string()) };
     EXPECT_TRUE(pdiff::yee_compare(*decoded_output_image, *decoded_master_image));
