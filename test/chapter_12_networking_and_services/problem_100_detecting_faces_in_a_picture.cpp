@@ -14,7 +14,7 @@
 using namespace tmcppc::face_detection;
 
 
-TEST(test_face_detection, output) {
+TEST(test_face_detection, DISABLED_output) {
     provider_mock provider{};
     EXPECT_CALL(provider, detect(tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg"))
         .WillOnce(::testing::Return(provider_response{ 200, samples::faces_response_text }));

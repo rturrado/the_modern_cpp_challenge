@@ -12,7 +12,7 @@
 using namespace tmcppc::text_translation;
 
 
-TEST(test_text_translation, output) {
+TEST(test_text_translation, DISABLED_output) {
     std::string_view text{ "It was a wrong number that started it, the telephone ringing three times in the dead of night." };
     provider_mock provider{};
     EXPECT_CALL(provider, translate(text, language_code::English, language_code::Arabic))

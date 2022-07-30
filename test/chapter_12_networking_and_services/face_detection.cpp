@@ -15,12 +15,12 @@ using namespace tmcppc::face_detection;
 namespace fs = std::filesystem;
 
 
-TEST(detector, detect_and_file_does_not_exist) {
+TEST(detector, DISABLED_detect_and_file_does_not_exist) {
     EXPECT_THROW((void) detector{ provider_mock{} }.detect(fs::path{}), rtc::filesystem::file_path_does_not_exist_error);
 }
 
 
-TEST(detector, detect_and_provider_returned_an_error_response) {
+TEST(detector, DISABLED_detect_and_provider_returned_an_error_response) {
     provider_mock provider{};
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
     EXPECT_CALL(provider, detect(input_file_path))
@@ -40,7 +40,7 @@ TEST(detector, detect_and_provider_returned_an_error_response) {
 }
 
 
-TEST(detector, detect_and_provider_returned_a_faces_response) {
+TEST(detector, DISABLED_detect_and_provider_returned_a_faces_response) {
     provider_mock provider{};
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg" };
     EXPECT_CALL(provider, detect(input_file_path))
