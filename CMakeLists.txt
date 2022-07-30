@@ -22,10 +22,10 @@ if(ASAN_ENABLED)
         # This may be gcc-only
         #-fsanitize=address,undefined -fno-omit-frame-pointer
     )
-    add_link_options(-fsanitize=address
-        # This may be gcc-only
+    # This may be gcc-only
+    #add_link_options(-fsanitize=address
         #-fsanitize=address,undefined
-    )
+    #)
 endif()
 
 

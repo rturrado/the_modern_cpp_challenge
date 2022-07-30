@@ -18,31 +18,44 @@ namespace tmcppc::face_detection {
     };
 
 
-    class detector_adaptor {
-    public:
-        virtual ~detector_adaptor() = default;
-
-        [[nodiscard]] virtual std::variant<faces_response, error_response> detect(
-            const std::filesystem::path& path) const = 0;
-    protected:
-        detector_adaptor() = default;
+    struct provider_response {
+        long status{};
+        std::string text{};
     };
 
 
-    class detector_azure : public detector_adaptor {
+    class provider_adaptor {
+    public:
+        virtual ~provider_adaptor() = default;
+
+        [[nodiscard]] virtual provider_response detect(const std::filesystem::path& path) const = 0;
+    protected:
+        provider_adaptor() = default;
+    };
+
+
+    class provider_azure : public provider_adaptor {
     private:
         static inline const std::string_view endpoint{ "https://westeurope.api.cognitive.microsoft.com/face/v1.0" };
         static inline std::string_view key_header{ "Ocp-Apim-Subscription-Key" };
         static inline std::string_view content_type_header{ "Content-Type:application/octet-stream" };
-
-        [[nodiscard]] std::variant<faces_response, error_response> parse_detect_response(
-            const long status, const std::string& response) const;
     public:
-        detector_azure(std::string_view key);
+        provider_azure(std::string_view key);
 
-        [[nodiscard]] virtual std::variant<faces_response, error_response> detect(
-            const std::filesystem::path& path) const override;
+        [[nodiscard]] virtual provider_response detect(const std::filesystem::path& path) const override;
     private:
         std::string key_{};
+    };
+
+
+    class detector {
+    private:
+        [[nodiscard]] std::variant<faces_response, error_response> parse_detect_response(const provider_response& response) const;
+    public:
+        detector(const provider_adaptor& provider);
+
+        [[nodiscard]] std::variant<faces_response, error_response> detect(const std::filesystem::path& path) const;
+    private:
+        const provider_adaptor& provider_;
     };
 }  // namespace tmcppc::face_detection

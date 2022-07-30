@@ -11,7 +11,7 @@
 #include <istream>
 #include <ostream>
 #include <string>  // getline
-#include <variant>  // holds_alternative, get
+#include <variant>  // get, holds_alternative
 
 using namespace rtc::pretty_print;
 using namespace tmcppc::face_detection;
@@ -19,11 +19,11 @@ namespace fs = std::filesystem;
 
 
 namespace tmcppc::problem_100 {
-    void test_face_detection(std::ostream& os, detector_adaptor* detector) {
+    void test_face_detection(std::ostream& os, const provider_adaptor& provider) {
         const fs::path input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg" };
 
         try {
-            auto result{ detector->detect(input_file_path) };
+            const auto& result{ detector{ provider }.detect(input_file_path) };
             if (std::holds_alternative<faces_response>(result)) {
                 std::get<faces_response>(result).print(os, indentation{ 1 });
             } else {
@@ -45,8 +45,7 @@ void problem_100_main(std::istream& is, std::ostream& os) {
     fmt::print(os, "Please enter the Azure face resource key: ");
     std::string key{};
     std::getline(is, key);
-    detector_azure detector{ key };
-    test_face_detection(os, &detector);
+    test_face_detection(os, provider_azure{ key });
 }
 
 

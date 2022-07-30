@@ -1,4 +1,4 @@
-#include "chapter_12_networking_and_services/text_translation.h"
+﻿#include "chapter_12_networking_and_services/text_translation.h"
 
 #include "curl_easy.h"
 #include "curl_header.h"
@@ -12,24 +12,9 @@
 
 
 namespace tmcppc::text_translation {
-    translator_azure::translator_azure(std::string_view key) : key_{ key } {}
+    provider_azure::provider_azure(std::string_view key) : key_{ key } {}
 
-    [[nodiscard]] std::string translator_azure::parse_translate_response(const std::string& response) const {
-        std::string ret{};
-        const std::regex pattern{ R"(<string xmlns="[^"]+">([^<]*)</string>)" };
-        const std::regex error_pattern{ R"(<html><body><h1>Argument Exception</h1>.*<p>Message: ([^<]+)</p>.*)" };
-        std::smatch matches{};
-        if (std::regex_match(response, matches, pattern)) {
-            ret = matches[1].str();
-        } else if (std::regex_match(response, matches, error_pattern)) {
-            return fmt::format("Error: {}", matches[1].str());
-        }
-        return ret;
-    }
-
-    [[nodiscard]] std::string translator_azure::translate(std::string_view text, language_code from, language_code to) const {
-
-        std::string ret{};
+    [[nodiscard]] std::string provider_azure::translate(std::string_view text, language_code from, language_code to) const {
         try {
             std::ostringstream oss{};
             curl::curl_ios<std::ostringstream> writer{ oss };
@@ -51,10 +36,27 @@ namespace tmcppc::text_translation {
 
             easy.perform();
 
-            ret = parse_translate_response(oss.str());
+            return oss.str();
         } catch (const curl::curl_easy_exception& ex) {
             throw translation_error{ ex.what() };
         }
-        return ret;
+    }
+
+    [[nodiscard]] translator_response translator::parse_translate_response(const std::string& response) const {
+        const std::regex pattern{ R"(<string xmlns="[^"]+">([^<]*)</string>)" };
+        const std::regex error_pattern{ R"(<html><body><h1>Argument Exception</h1>.*<p>Message: ([^<]+)</p>.*)" };
+        std::smatch matches{};
+        if (std::regex_match(response, matches, pattern)) {
+            return translation_response{ matches[1].str() };
+        } else if (std::regex_match(response, matches, error_pattern)) {
+            return error_response{ matches[1].str() };
+        }
+        return error_response{ "unknown provider response" };
+    }
+
+    translator::translator(const provider_adaptor& provider) : provider_{ provider } {}
+
+    [[nodiscard]] translator_response translator::translate(std::string_view text, language_code from, language_code to) const {
+        return parse_translate_response(provider_.translate(text, from, to));
     }
 }  // namespace tmcppc::text_translation

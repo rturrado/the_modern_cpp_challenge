@@ -2,119 +2,30 @@
 #include "chapter_12_networking_and_services/faces.h"
 #include "chapter_12_networking_and_services/problem_100_detecting_faces_in_a_picture.h"
 #include "env.h"
+#include "face_detection_mock.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include <filesystem>
-#include <iosfwd>
 #include <sstream>  // ostringstream
 #include <variant>
 
 using namespace tmcppc::face_detection;
-namespace fs = std::filesystem;
 
 
-namespace tmcppc::face_detection {
-    class detector_mock : public detector_adaptor {
-    public:
-        MOCK_METHOD((std::variant<faces_response, error_response>), detect,
-            (const fs::path& path), (const, override));
-    };
-}  // namespace tmcppc::face_detection
-
-
-TEST(test_face_detection, DISABLED_output) {
-    detector_mock detector{};
-    EXPECT_CALL(detector, detect(tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg"))
-        .WillOnce(::testing::Return(
-            faces_response{{
-                face{
-                    "01234567-89ab-cdef-0123-456789abcdef",
-                    rectangle{118, 615, 100, 100},
-                    face_landmarks{
-                        point{645, 146},
-                        point{685, 144},
-                        point{662, 166},
-                        point{646, 194},
-                        point{685, 194},
-                        point{628, 135},
-                        point{658, 137},
-                        point{638, 147},
-                        point{643, 144},
-                        point{644, 149},
-                        point{651, 146},
-                        point{671, 136},
-                        point{702, 137},
-                        point{679, 145},
-                        point{686, 142},
-                        point{686, 147},
-                        point{692, 146},
-                        point{656, 146},
-                        point{671, 146},
-                        point{653, 160},
-                        point{674, 160},
-                        point{649, 169},
-                        point{678, 169},
-                        point{663, 186},
-                        point{662, 191},
-                        point{663, 198},
-                        point{663, 206}
-                    },
-                    face_attributes{
-                        "male",
-                        31.0,
-                        emotion{0.031, 0.001, 0.000, 0.000, 0.001, 0.940, 0.000, 0.027}
-                    }
-                },
-                face{
-                    "12345678-9abc-def0-1234-56789abcdef0",
-                    rectangle{29, 268, 94, 94},
-                    face_landmarks{
-                        point{298, 52},
-                        point{337, 57},
-                        point{314, 75},
-                        point{293, 97},
-                        point{329, 101},
-                        point{282, 39},
-                        point{309, 42},
-                        point{290, 51},
-                        point{297, 48},
-                        point{296, 55},
-                        point{305, 53},
-                        point{327, 45},
-                        point{356, 50},
-                        point{330, 56},
-                        point{338, 52},
-                        point{337, 60},
-                        point{345, 58},
-                        point{310, 54},
-                        point{324, 56},
-                        point{305, 68},
-                        point{326, 71},
-                        point{300, 74},
-                        point{327, 78},
-                        point{313, 87},
-                        point{312, 94},
-                        point{310, 99},
-                        point{309, 108},
-                    },
-                    face_attributes{
-                        "male",
-                        34.0,
-                        emotion{0.000, 0.000, 0.000, 0.001, 0.000, 0.886, 0.000, 0.112}
-                    }
-                }
-            }}
-    ));
+TEST(test_face_detection, output) {
+    provider_mock provider{};
+    EXPECT_CALL(provider, detect(tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg"))
+        .WillOnce(::testing::Return(provider_response{ 200, samples::faces_response_text }));
 
     std::ostringstream oss{};
-    tmcppc::problem_100::test_face_detection(oss, &detector);
+    tmcppc::problem_100::test_face_detection(oss, provider);
 
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "    Faces:\n"
         "        Face:\n"
-        "            id: 01234567-89ab-cdef-0123-456789abcdef\n"
+        "            id: 473bc81f-6c04-498d-8581-0d22184b1637\n"
         "            rectangle: (top: 118, left: 615, width: 100, height: 100)\n"
         "            Face landmarks:\n"
         "                pupilLeft: (x: 645, y: 146)\n"
@@ -157,7 +68,7 @@ TEST(test_face_detection, DISABLED_output) {
         "                    sadness: 0.000\n"
         "                    surprise: 0.027\n"
         "        Face:\n"
-        "            id: 12345678-9abc-def0-1234-56789abcdef0\n"
+        "            id: a4834808-6727-4004-8e7a-b16d5f857694\n"
         "            rectangle: (top: 29, left: 268, width: 94, height: 94)\n"
         "            Face landmarks:\n"
         "                pupilLeft: (x: 298, y: 52)\n"

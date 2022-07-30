@@ -20,24 +20,9 @@ namespace fs = std::filesystem;
 
 
 namespace tmcppc::face_detection {
-    detector_azure::detector_azure(std::string_view key) : key_{ key } {}
+    provider_azure::provider_azure(std::string_view key) : key_{ key } {}
 
-    [[nodiscard]] std::variant<faces_response, error_response> detector_azure::parse_detect_response(
-        const long status, const std::string& response) const {
-
-        nlohmann::json j = nlohmann::json::parse(response);
-        if (status == 200) {
-            faces_response faces_response = j;
-            return faces_response;
-        } else if (status >= 400) {
-            error_response error_response = j;
-            return error_response;
-        }
-        return faces_response{};
-    }
-
-    [[nodiscard]] std::variant<faces_response, error_response> detector_azure::detect(const fs::path& path) const {
-        std::variant<faces_response, error_response> ret{};
+    [[nodiscard]] provider_response provider_azure::detect(const fs::path& path) const {
         try {
             std::ostringstream oss{};
             curl::curl_ios<std::ostringstream> writer{ oss };
@@ -57,10 +42,36 @@ namespace tmcppc::face_detection {
 
             easy.perform();
 
-            ret = parse_detect_response(easy.get_info<CURLINFO_RESPONSE_CODE>().get(), oss.str());
+            return { easy.get_info<CURLINFO_RESPONSE_CODE>().get(), oss.str() };
         } catch (const curl::curl_easy_exception& ex) {
             throw detection_error{ ex.what() };
         }
-        return ret;
+    }
+
+    [[nodiscard]] std::variant<faces_response, error_response> detector::parse_detect_response(const provider_response& response) const {
+        auto& [status, text] = response;
+        nlohmann::json j = nlohmann::json::parse(text);
+        if (status == 200) {
+            faces_response faces_response = j;
+            return faces_response;
+        } else if (status >= 400) {
+            error_response error_response = j;
+            return error_response;
+        }
+        return faces_response{};
+    }
+
+    detector::detector(const provider_adaptor& provider) : provider_{ provider } {}
+
+    [[nodiscard]] std::variant<faces_response, error_response> detector::detect(const fs::path& path) const {
+        if (not fs::exists(path)) {
+            throw rtc::filesystem::file_path_does_not_exist_error{ path.generic_string() };
+        }
+
+        try {
+            return parse_detect_response(provider_.detect(path));
+        } catch (const curl::curl_easy_exception& ex) {
+            throw detection_error{ ex.what() };
+        }
     }
 }  // namespace tmcppc::face_detection

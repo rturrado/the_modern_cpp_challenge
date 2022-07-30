@@ -5,6 +5,7 @@
 #include <stdexcept>  // runtime_error
 #include <string>
 #include <string_view>
+#include <variant>
 
 
 namespace tmcppc::text_translation {
@@ -35,34 +36,52 @@ namespace tmcppc::text_translation {
     };
 
 
+    struct translation_response {
+        std::string text{};
+    };
+    struct error_response {
+        std::string text{};
+    };
+    using translator_response = std::variant<translation_response, error_response>;
+
+
     struct translation_error : public std::runtime_error {
         translation_error(std::string_view message) : std::runtime_error{ message.data()} {}
     };
 
 
-    class translator_adaptor {
+    class provider_adaptor {
     public:
-        virtual ~translator_adaptor() = default;
+        virtual ~provider_adaptor() = default;
 
         // Translation is done from utf8 to utf8
         [[nodiscard]] virtual std::string translate(std::string_view text, language_code from, language_code to) const = 0;
     protected:
-        translator_adaptor() = default;
+        provider_adaptor() = default;
     };
 
 
-    class translator_azure : public translator_adaptor {
+    class provider_azure : public provider_adaptor {
     private:
         static inline std::string_view endpoint{ "https://api.microsofttranslator.com/V2/Http.svc" };
         static inline std::string_view key_header{ "Ocp-Apim-Subscription-Key" };
-
-        [[nodiscard]] std::string parse_translate_response(const std::string& response) const;
     public:
-        translator_azure(std::string_view key);
+        provider_azure(std::string_view key);
 
-        // Translation is done from utf8 to utf8
         [[nodiscard]] virtual std::string translate(std::string_view text, language_code from, language_code to) const override;
-    private:
+    protected:
         std::string key_{};
+    };
+
+
+    class translator {
+    private:
+        [[nodiscard]] translator_response parse_translate_response(const std::string& response) const;
+    public:
+        translator(const provider_adaptor& provider);
+
+        [[nodiscard]] virtual translator_response translate(std::string_view text, language_code from, language_code to) const;
+    private:
+        const provider_adaptor& provider_;
     };
 }  // namespace tmcppc::text_translation

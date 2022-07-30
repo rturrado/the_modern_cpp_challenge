@@ -6,7 +6,7 @@
 
 
 namespace tmcppc::problem_100 {
-    void test_face_detection(std::ostream& os, tmcppc::face_detection::detector_adaptor* detector);
+    void test_face_detection(std::ostream& os, const tmcppc::face_detection::provider_adaptor& provider);
 }  // namespace tmcppc::problem_100
 
 

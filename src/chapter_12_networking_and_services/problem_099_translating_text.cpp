@@ -8,22 +8,28 @@
 #include <ostream>
 #include <string>  // getline
 #include <string_view>
+#include <variant>  // get, holds_alternative
 
 using namespace tmcppc::text_translation;
 
 
 namespace tmcppc::problem_99 {
-    void test_text_translation(std::ostream& os, translator_adaptor* translator) {
+    void test_text_translation(std::ostream& os, const provider_adaptor& provider) {
         auto from_code{ language_code::English };
         auto from_code_str{ language_code_to_string_map[from_code] };
         std::string_view text{ "It was a wrong number that started it, the telephone ringing three times in the dead of night." };
         fmt::print(os, "\t{}: {}\n", from_code_str, text);
 
+        translator translator{ provider };
         for (auto&& [to_code, to_code_str] : language_code_to_string_map) {
             if (from_code != to_code) {
                 try {
-                    auto translated_text{ translator->translate(text, from_code, to_code) };
-                    fmt::print(os, "\t{}: {}\n", to_code_str, translated_text);
+                    const auto& result{ translator.translate(text, from_code, to_code) };
+                    if (std::holds_alternative<translation_response>(result)) {
+                        fmt::print(os, "\t{}: {}\n", to_code_str, std::get<translation_response>(result).text);
+                    } else {
+                        fmt::print(os, "\t{}: Error: {}\n", to_code_str, std::get<error_response>(result).text);
+                    }
                 } catch (const std::exception& ex) {
                     fmt::print(os, "\tError: {}\n", ex.what());
                 }
@@ -41,8 +47,7 @@ void problem_99_main(std::istream& is, std::ostream& os) {
     fmt::print(os, "Please enter the Azure translator resource key: ");
     std::string key{};
     std::getline(is, key);
-    translator_azure translator{ key };
-    test_text_translation(os, &translator);
+    test_text_translation(os, provider_azure{ key });
 }
 
 
