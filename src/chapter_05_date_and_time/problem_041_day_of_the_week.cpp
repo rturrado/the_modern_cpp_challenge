@@ -38,8 +38,7 @@ void problem_41_main(std::ostream& os) {
         try {
             auto wd{ date_to_weekday(date) };
             os << std::format("{} was: {} ({})\n", date, weekday_to_number(wd), wd);
-        }
-        catch (const std::exception& ex) {
+        } catch (const std::exception& ex) {
             os << "Error: " << ex.what() << "\n";
         }
     }
