@@ -5,6 +5,7 @@
 #include <fmt/ostream.h>
 #include <iostream>  // cin, cout
 #include <istream>
+#include <memory>  // make_unique, unique_ptr
 #include <ostream>
 #include <string>  // getline
 #include <string_view>
@@ -14,13 +15,13 @@ using namespace tmcppc::text_translation;
 
 
 namespace tmcppc::problem_99 {
-    void test_text_translation(std::ostream& os, const provider_adaptor& provider) {
+    void test_text_translation(std::ostream& os, std::unique_ptr<provider_adaptor> provider) {
         auto from_code{ language_code::English };
         auto from_code_str{ language_code_to_string_map[from_code] };
         std::string_view text{ "It was a wrong number that started it, the telephone ringing three times in the dead of night." };
         fmt::print(os, "\t{}: {}\n", from_code_str, text);
 
-        translator translator{ provider };
+        translator translator{ std::move(provider) };
         for (auto&& [to_code, to_code_str] : language_code_to_string_map) {
             if (from_code != to_code) {
                 try {
@@ -47,7 +48,7 @@ void problem_99_main(std::istream& is, std::ostream& os) {
     fmt::print(os, "Please enter the Azure translator resource key: ");
     std::string key{};
     std::getline(is, key);
-    test_text_translation(os, provider_azure{ key });
+    test_text_translation(os, std::make_unique<provider_azure>(key));
 }
 
 

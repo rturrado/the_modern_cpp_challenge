@@ -34,11 +34,17 @@ void problem_95_main(std::ostream& os) {
     for (auto&& [host, service] : std::vector<std::pair<std::string_view, std::string_view>>{
         { "localhost", "8080" },
         { "www.boost.org", "http" },
-        { "www.google.com", "https" } })
-    {
+        { "www.google.com", "https" },
+        { "www.---.com", "http" },
+        { "www.boost.org", "blah" }}) {
+
         fmt::print(os, "Getting IPv4 addresses for host = '{}' and service = '{}'\n", host, service);
-        for (auto&& address : get_host_ipv4_addresses(host, service)) {
-            fmt::print(os, "\t{}\n", address);
+        try {
+            for (auto&& address : get_host_ipv4_addresses(host, service)) {
+                fmt::print(os, "\t{}\n", address);
+            }
+        } catch (const std::exception& ex) {
+            fmt::print(os, "\tError: {}\n", ex.what());
         }
     }
 

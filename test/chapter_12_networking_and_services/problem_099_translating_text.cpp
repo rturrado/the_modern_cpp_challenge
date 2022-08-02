@@ -6,15 +6,17 @@
 #include <gtest/gtest.h>
 
 #include <fmt/format.h>
+#include <memory>  // make_unique, unique_ptr
 #include <sstream>  // ostringstream
 #include <string_view>
 
 using namespace tmcppc::text_translation;
 
 
-TEST(test_text_translation, DISABLED_output) {
+TEST(test_text_translation, output) {
     std::string_view text{ "It was a wrong number that started it, the telephone ringing three times in the dead of night." };
-    provider_mock provider{};
+    std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
+    auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     EXPECT_CALL(provider, translate(text, language_code::English, language_code::Arabic))
         .WillOnce(::testing::Return(fmt::format("{}",
             R"(<string xmlns="http://schemas.microsoft.com/2003/10/Serialization/">)"
@@ -71,7 +73,7 @@ TEST(test_text_translation, DISABLED_output) {
         )));
 
     std::ostringstream oss{};
-    tmcppc::problem_99::test_text_translation(oss, provider);
+    tmcppc::problem_99::test_text_translation(oss, std::move(provider_up));
 
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("{}",
         "\ten: It was a wrong number that started it, the telephone ringing three times in the dead of night.\n"

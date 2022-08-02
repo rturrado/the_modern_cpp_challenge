@@ -20,7 +20,9 @@ namespace fs = std::filesystem;
 
 
 namespace tmcppc::face_detection {
-    provider_azure::provider_azure(std::string_view key) : key_{ key } {}
+    provider_azure::provider_azure(std::string_view key)
+        : key_{ key }
+    {}
 
     [[nodiscard]] provider_response provider_azure::detect(const fs::path& path) const {
         try {
@@ -61,7 +63,9 @@ namespace tmcppc::face_detection {
         return faces_response{};
     }
 
-    detector::detector(const provider_adaptor& provider) : provider_{ provider } {}
+    detector::detector(std::unique_ptr<provider_adaptor> provider)
+        : provider_{ std::move(provider) }
+    {}
 
     [[nodiscard]] std::variant<faces_response, error_response> detector::detect(const fs::path& path) const {
         if (not fs::exists(path)) {
@@ -69,7 +73,7 @@ namespace tmcppc::face_detection {
         }
 
         try {
-            return parse_detect_response(provider_.detect(path));
+            return parse_detect_response(provider_->detect(path));
         } catch (const curl::curl_easy_exception& ex) {
             throw detection_error{ ex.what() };
         }

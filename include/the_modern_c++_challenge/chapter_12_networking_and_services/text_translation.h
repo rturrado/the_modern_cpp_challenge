@@ -2,6 +2,7 @@
 
 #include <iosfwd>
 #include <map>
+#include <memory>  // unique_ptr
 #include <stdexcept>  // runtime_error
 #include <string>
 #include <string_view>
@@ -78,10 +79,10 @@ namespace tmcppc::text_translation {
     private:
         [[nodiscard]] translator_response parse_translate_response(const std::string& response) const;
     public:
-        translator(const provider_adaptor& provider);
+        translator(std::unique_ptr<provider_adaptor> provider);
 
         [[nodiscard]] virtual translator_response translate(std::string_view text, language_code from, language_code to) const;
     private:
-        const provider_adaptor& provider_;
+        std::unique_ptr<provider_adaptor> provider_;
     };
 }  // namespace tmcppc::text_translation

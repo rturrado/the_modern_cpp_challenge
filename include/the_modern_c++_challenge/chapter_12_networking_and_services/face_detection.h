@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <iosfwd>
+#include <memory>  // unique_ptr
 #include <stdexcept>  // runtime_error
 #include <string>
 #include <string_view>
@@ -52,10 +53,10 @@ namespace tmcppc::face_detection {
     private:
         [[nodiscard]] std::variant<faces_response, error_response> parse_detect_response(const provider_response& response) const;
     public:
-        detector(const provider_adaptor& provider);
+        detector(std::unique_ptr<provider_adaptor> provider);
 
         [[nodiscard]] std::variant<faces_response, error_response> detect(const std::filesystem::path& path) const;
     private:
-        const provider_adaptor& provider_;
+        std::unique_ptr<provider_adaptor> provider_;
     };
 }  // namespace tmcppc::face_detection

@@ -29,7 +29,7 @@ namespace tmcppc::imap {
 }  // namespace tmcppc::imap
 
 
-TEST(test_imap_connection, DISABLED_output_wrong_folder_name) {
+TEST(test_imap_connection, output_wrong_folder_name) {
     imap_connection_mock connection{};
     EXPECT_CALL(connection, get_mailbox_folders())
         .WillOnce(::testing::Return(std::vector<std::string>{ "Inbox", "Sent", "Trash" }));
@@ -52,7 +52,7 @@ TEST(test_imap_connection, DISABLED_output_wrong_folder_name) {
 }
 
 
-TEST(test_imap_connection, DISABLED_output) {
+TEST(test_imap_connection, output) {
     imap_connection_mock connection{};
     EXPECT_CALL(connection, get_mailbox_folders())
         .WillOnce(::testing::Return(std::vector<std::string>{ "Inbox", "Sent", "Trash" }));

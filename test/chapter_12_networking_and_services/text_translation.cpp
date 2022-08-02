@@ -10,8 +10,9 @@
 using namespace tmcppc::text_translation;
 
 
-TEST(translator, DISABLED_translate_and_provider_returned_an_error_response) {
-    provider_mock provider{};
+TEST(translator, translate_and_provider_returned_an_error_response) {
+    std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
+    auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     std::string_view text{ "It was a wrong number that started it, the telephone ringing three times in the dead of night." };
     auto from_code{ language_code::English };
     auto to_code{ language_code::Spanish };
@@ -23,14 +24,15 @@ TEST(translator, DISABLED_translate_and_provider_returned_an_error_response) {
             R"(<code></code>)"
             R"(<p>message id=V2_Rest_Translate.BNZE.1C19.0730T1725.B03984</p></body></html>)"
         ));
-    const auto& result{ translator{ provider }.translate(text, from_code, to_code) };
+    const auto& result{ translator{ std::move(provider_up) }.translate(text, from_code, to_code) };
     EXPECT_TRUE(std::holds_alternative<error_response>(result));
     EXPECT_EQ(std::get<error_response>(result).text, "Invalid Azure Subscription key.");
 }
 
 
-TEST(translator, DISABLED_translate_and_provider_returned_a_translation_response) {
-    provider_mock provider{};
+TEST(translator, translate_and_provider_returned_a_translation_response) {
+    std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
+    auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     std::string_view text{ "It was a wrong number that started it, the telephone ringing three times in the dead of night." };
     auto from_code{ language_code::English };
     auto to_code{ language_code::Spanish };
@@ -40,7 +42,7 @@ TEST(translator, DISABLED_translate_and_provider_returned_a_translation_response
             "Fue un número equivocado lo que lo inició, el teléfono sonó tres veces en la oscuridad de la noche."
             R"(</string>)"
         )));
-    const auto& result{ translator{ provider }.translate(text, from_code, to_code) };
+    const auto& result{ translator{ std::move(provider_up) }.translate(text, from_code, to_code) };
     EXPECT_TRUE(std::holds_alternative<translation_response>(result));
     EXPECT_EQ(std::get<translation_response>(result).text, fmt::format("{}",
         "Fue un número equivocado lo que lo inició, el teléfono sonó tres veces en la oscuridad de la noche."

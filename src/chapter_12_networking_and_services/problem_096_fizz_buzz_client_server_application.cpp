@@ -2,9 +2,10 @@
 #include "chapter_12_networking_and_services/problem_096_fizz_buzz_client_server_application.h"
 
 #include <fmt/ostream.h>
-#include <future>
+#include <future>  // async
 #include <iostream>  // cin, cout
 #include <istream>
+#include <memory>  // make_unique
 #include <ostream>
 
 #define BOOST_ASIO_STANDALONE
@@ -16,8 +17,8 @@ void problem_96_main(std::istream& is, std::ostream& os) {
 
     asio::io_context io{};
     asio::ip::tcp::endpoint ep{ asio::ip::make_address("127.0.0.1"), 5555 };
-    server s{ os, io, ep };
-    client c{ is, os, io, ep };
+    server s{ os, std::make_unique<tcp_connection_asio>(io, ep) };
+    client c{ is, os, std::make_unique< tcp_connection_asio>(io, ep) };
     auto server_future = std::async(std::launch::async, [&s]() { return s.run(); });
     auto client_future = std::async(std::launch::async, [&c]() { return c.run(); });
 

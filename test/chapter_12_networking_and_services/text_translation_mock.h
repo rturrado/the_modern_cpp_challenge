@@ -15,9 +15,4 @@ namespace tmcppc::text_translation {
         MOCK_METHOD((std::string), translate, (std::string_view text, tmcppc::text_translation::language_code from,
             tmcppc::text_translation::language_code to), (const, override));
     };
-
-    namespace samples {
-        static inline const std::string translation_response_text{
-        };
-    }  // namespace samples
 }  // namespace tmcppc::text_translation

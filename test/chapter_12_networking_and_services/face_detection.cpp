@@ -9,19 +9,21 @@
 #include <gtest/gtest.h>
 
 #include <filesystem>
+#include <memory>  // make_unique, unique_ptr
 #include <variant>  // get, holds_alternative
 
 using namespace tmcppc::face_detection;
 namespace fs = std::filesystem;
 
 
-TEST(detector, DISABLED_detect_and_file_does_not_exist) {
-    EXPECT_THROW((void) detector{ provider_mock{} }.detect(fs::path{}), rtc::filesystem::file_path_does_not_exist_error);
+TEST(detector, detect_and_file_does_not_exist) {
+    EXPECT_THROW((void) detector{ std::make_unique<provider_mock>() }.detect(fs::path{}), rtc::filesystem::file_path_does_not_exist_error);
 }
 
 
-TEST(detector, DISABLED_detect_and_provider_returned_an_error_response) {
-    provider_mock provider{};
+TEST(detector, detect_and_provider_returned_an_error_response) {
+    std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
+    auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
     EXPECT_CALL(provider, detect(input_file_path))
         .WillOnce(::testing::Return(provider_response{
@@ -29,7 +31,7 @@ TEST(detector, DISABLED_detect_and_provider_returned_an_error_response) {
             R"({"error":{"code":"401","message" : "Access denied due to invalid subscription key or wrong API endpoint. )"
             R"(Make sure to provide a valid key for an active subscriptionand use a correct regional API endpoint for your resource."}})"
         }));
-    const auto& result{ detector{ provider }.detect(input_file_path) };
+    const auto& result{ detector{ std::move(provider_up) }.detect(input_file_path) };
     EXPECT_TRUE(std::holds_alternative<error_response>(result));
     const auto& error{ std::get<error_response>(result).error_ };
     EXPECT_EQ(error.code, "401");
@@ -40,12 +42,13 @@ TEST(detector, DISABLED_detect_and_provider_returned_an_error_response) {
 }
 
 
-TEST(detector, DISABLED_detect_and_provider_returned_a_faces_response) {
-    provider_mock provider{};
+TEST(detector, detect_and_provider_returned_a_faces_response) {
+    std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
+    auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg" };
     EXPECT_CALL(provider, detect(input_file_path))
         .WillOnce(::testing::Return(provider_response{ 200, samples::faces_response_text }));
-    const auto& result{ detector{ provider }.detect(input_file_path) };
+    const auto& result{ detector{ std::move(provider_up) }.detect(input_file_path) };
     EXPECT_TRUE(std::holds_alternative<faces_response>(result));
     const auto& faces{ std::get<faces_response>(result).faces };
     EXPECT_THAT(faces, ::testing::ElementsAre(

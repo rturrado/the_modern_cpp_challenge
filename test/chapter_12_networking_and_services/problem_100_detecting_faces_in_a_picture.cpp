@@ -8,19 +8,21 @@
 #include <gtest/gtest.h>
 
 #include <filesystem>
+#include <memory>  // make_unique, unique_ptr
 #include <sstream>  // ostringstream
 #include <variant>
 
 using namespace tmcppc::face_detection;
 
 
-TEST(test_face_detection, DISABLED_output) {
-    provider_mock provider{};
+TEST(test_face_detection, output) {
+    std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
+    auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     EXPECT_CALL(provider, detect(tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg"))
         .WillOnce(::testing::Return(provider_response{ 200, samples::faces_response_text }));
 
     std::ostringstream oss{};
-    tmcppc::problem_100::test_face_detection(oss, provider);
+    tmcppc::problem_100::test_face_detection(oss, std::move(provider_up));
 
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "    Faces:\n"

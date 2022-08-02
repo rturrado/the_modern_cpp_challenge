@@ -4,6 +4,7 @@
 #include "curl_header.h"
 
 #include <fmt/format.h>
+#include <memory>  // unique_ptr
 #include <ostream>
 #include <regex>  // regex_match, smatch
 #include <sstream>  // ostringstream
@@ -12,7 +13,9 @@
 
 
 namespace tmcppc::text_translation {
-    provider_azure::provider_azure(std::string_view key) : key_{ key } {}
+    provider_azure::provider_azure(std::string_view key)
+        : key_{ key }
+    {}
 
     [[nodiscard]] std::string provider_azure::translate(std::string_view text, language_code from, language_code to) const {
         try {
@@ -54,9 +57,11 @@ namespace tmcppc::text_translation {
         return error_response{ "unknown provider response" };
     }
 
-    translator::translator(const provider_adaptor& provider) : provider_{ provider } {}
+    translator::translator(std::unique_ptr<provider_adaptor> provider)
+        : provider_{ std::move(provider) }
+    {}
 
     [[nodiscard]] translator_response translator::translate(std::string_view text, language_code from, language_code to) const {
-        return parse_translate_response(provider_.translate(text, from, to));
+        return parse_translate_response(provider_->translate(text, from, to));
     }
 }  // namespace tmcppc::text_translation
