@@ -7,7 +7,7 @@
 #include <fmt/format.h>
 #include <iostream>  // cout
 #include <iterator>  // back_inserter
-#include <optional>
+#include <memory>  // std::unique_ptr
 #include <ostream>
 #include <regex>  // regex_match, smatch, sregex_iterator
 #include <sstream>  // istringstream, ostringstream
@@ -18,7 +18,7 @@
 
 
 namespace tmcppc::imap {
-    void imap_connection::setup_easy(curl::curl_easy& easy) const {
+    void connector_curl::setup_easy(curl::curl_easy& easy) const {
         easy.add<CURLOPT_PORT>(email_server_port);
         easy.add<CURLOPT_USERNAME>(username_.c_str());
         easy.add<CURLOPT_PASSWORD>(password_.c_str());
@@ -28,8 +28,70 @@ namespace tmcppc::imap {
         easy.add<CURLOPT_USERAGENT>("libcurl-agent/1.0");
     }
 
-    [[nodiscard]] std::vector<std::string> imap_connection::parse_get_mailbox_folders_response(const std::string& response) const {
-        std::vector<std::string> ret{};
+    connector_curl::connector_curl(email_server_provider_t provider, std::string_view username, std::string_view password)
+        : provider_{ provider }
+        , url_{ email_server_provider_to_url.at(provider_) }
+        , username_{ username }
+        , password_{ password }
+    {}
+
+    [[nodiscard]] std::string connector_curl::get_mailbox_folders() const {
+        try {
+            std::ostringstream oss{};
+            curl::curl_ios<std::ostringstream> writer{ oss };
+            curl::curl_easy easy{ writer };
+
+            setup_easy(easy);
+            easy.add<CURLOPT_URL>(url_.c_str());
+            easy.perform();
+
+            return oss.str();
+        } catch (const curl::curl_easy_exception& ex) {
+            throw imap_connection_error{ ex.what() };
+        }
+    }
+
+    [[nodiscard]] std::string connector_curl::get_unread_email_ids(std::string_view folder) const {
+        try {
+            std::ostringstream oss{};
+            curl::curl_ios<std::ostringstream> writer{ oss };
+            curl::curl_easy easy{ writer };
+
+            setup_easy(easy);
+            easy.add<CURLOPT_URL>(fmt::format("{}/{}/", url_, folder.data()).c_str());
+            easy.add<CURLOPT_CUSTOMREQUEST>("SEARCH UNSEEN");
+
+            easy.perform();
+
+            return oss.str();
+        } catch (const curl::curl_easy_exception& ex) {
+            throw imap_connection_error{ ex.what() };
+        }
+    }
+
+    [[nodiscard]] std::string connector_curl::get_email(std::string_view folder, size_t id) const {
+        try {
+            std::ostringstream oss{};
+            curl::curl_ios<std::ostringstream> writer{ oss };
+            curl::curl_easy easy{ writer };
+
+            setup_easy(easy);
+            easy.add<CURLOPT_URL>(fmt::format("{}/{}/;UID={}", url_, folder.data(), id).c_str());
+
+            easy.perform();
+
+            return oss.str();
+        } catch (const curl::curl_easy_exception& ex) {
+            throw imap_connection_error{ ex.what() };
+        }
+    }
+
+    imap_connection::imap_connection(std::unique_ptr<connector_adaptor> connector)
+        : connector_{ std::move(connector) }
+    {}
+
+    [[nodiscard]] mailbox_folders_t imap_connection::parse_get_mailbox_folders_response(const std::string& response) const {
+        mailbox_folders_t ret{};
         std::istringstream iss{ response };
         std::string line{};
         std::smatch matches{};
@@ -43,8 +105,8 @@ namespace tmcppc::imap {
         return ret;
     }
 
-    [[nodiscard]] std::vector<std::size_t> imap_connection::parse_get_unread_email_ids_response(std::string response) const {
-        std::vector<std::size_t> ret{};
+    [[nodiscard]] email_ids_t imap_connection::parse_get_unread_email_ids_response(std::string response) const {
+        email_ids_t ret{};
         std::smatch matches{};
         boost::algorithm::trim_right(response);
         const std::regex response_pattern{ R"(\* SEARCH(?: \d+)+)" };
@@ -60,8 +122,7 @@ namespace tmcppc::imap {
         return ret;
     }
 
-    [[nodiscard]] std::optional<std::string> imap_connection::parse_email_subject(const std::string& email) const {
-        std::optional<std::string> ret{};
+    [[nodiscard]] email_subject_t imap_connection::parse_email_subject(const std::string& email) const {
         std::istringstream iss{ email };
         std::string line{};
         std::smatch matches{};
@@ -69,89 +130,29 @@ namespace tmcppc::imap {
         while (std::getline(iss, line)) {
             boost::algorithm::trim_right(line);
             if (std::regex_match(line, matches, pattern)) {
-                ret = matches[0].str();
-                break;
+                return matches[0].str();
             }
         }
-        return ret;
+        return {};
     }
 
-    imap_connection::imap_connection(email_server_provider_t provider, std::string_view username, std::string_view password)
-        : provider_{ provider }
-        , url_{ email_server_provider_to_url.at(provider_) }
-        , username_{ username }
-        , password_{ password }
-    {}
-
-    [[nodiscard]] std::optional<std::vector<std::string>> imap_connection::get_mailbox_folders() const {
-        std::optional<std::vector<std::string>> ret{};
-        try {
-            std::ostringstream oss{};
-            curl::curl_ios<std::ostringstream> writer{ oss };
-            curl::curl_easy easy{ writer };
-
-            setup_easy(easy);
-            easy.add<CURLOPT_URL>(url_.c_str());
-            easy.perform();
-
-            ret = parse_get_mailbox_folders_response(oss.str());
-        } catch (const curl::curl_easy_exception& ex) {
-            throw imap_connection_error{ ex.what() };
-        }
-        return ret;
+    [[nodiscard]] mailbox_folders_t imap_connection::get_mailbox_folders() const {
+        return parse_get_mailbox_folders_response(connector_->get_mailbox_folders());
     }
 
-    [[nodiscard]] std::optional<std::vector<size_t>> imap_connection::get_unread_email_ids(
-        std::string_view folder) const {
-
-        std::optional<std::vector<size_t>> ret{};
-        try {
-            std::ostringstream oss{};
-            curl::curl_ios<std::ostringstream> writer{ oss };
-            curl::curl_easy easy{ writer };
-
-            setup_easy(easy);
-            easy.add<CURLOPT_URL>(fmt::format("{}/{}/", url_, folder.data()).c_str());
-            easy.add<CURLOPT_CUSTOMREQUEST>("SEARCH UNSEEN");
-
-            easy.perform();
-
-            ret = parse_get_unread_email_ids_response(oss.str());
-        } catch (const curl::curl_easy_exception& ex) {
-            throw imap_connection_error{ ex.what() };
-        }
-        return ret;
+    [[nodiscard]] email_ids_t imap_connection::get_unread_email_ids(std::string_view folder) const {
+        return parse_get_unread_email_ids_response(connector_->get_unread_email_ids(folder));
     }
 
-    [[nodiscard]] std::optional<std::string> imap_connection::get_email(
-        std::string_view folder, size_t id) const {
-
-        std::optional<std::string> ret{};
-        try {
-            std::ostringstream oss{};
-            curl::curl_ios<std::ostringstream> writer{ oss };
-            curl::curl_easy easy{ writer };
-
-            setup_easy(easy);
-            easy.add<CURLOPT_URL>(fmt::format("{}/{}/;UID={}", url_, folder.data(), id).c_str());
-
-            easy.perform();
-
-            ret = oss.str();
-        } catch (const curl::curl_easy_exception& ex) {
-            throw imap_connection_error{ ex.what() };
-        }
-        return ret;
+    [[nodiscard]] email_t imap_connection::get_email(std::string_view folder, size_t id) const {
+        return connector_->get_email(folder, id);
     }
 
-    [[nodiscard]] std::optional<std::string> imap_connection::get_email_subject(
-        std::string_view folder, size_t id) const {
-
-        std::optional<std::string> ret{};
-        auto email_opt{ get_email(folder, id) };
-        if (email_opt.has_value()) {
-            ret = parse_email_subject(email_opt.value());
+    [[nodiscard]] email_subject_t imap_connection::get_email_subject(std::string_view folder, size_t id) const {
+        const auto& email{ get_email(folder, id) };
+        if (not email.empty()) {
+            return parse_email_subject(email);
         }
-        return ret;
+        return {};
     }
 }  // namespace tmcppc::imap

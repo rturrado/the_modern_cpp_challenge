@@ -2,7 +2,8 @@
 #include "chapter_12_networking_and_services/faces.h"
 #include "chapter_12_networking_and_services/problem_100_detecting_faces_in_a_picture.h"
 #include "env.h"
-#include "face_detection_mock.h"
+#include "face_detection/mock.h"
+#include "face_detection/samples.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -22,7 +23,7 @@ TEST(test_face_detection, output) {
         .WillOnce(::testing::Return(provider_response{ 200, samples::faces_response_text }));
 
     std::ostringstream oss{};
-    tmcppc::problem_100::test_face_detection(oss, std::move(provider_up));
+    tmcppc::problem_100::test_face_detection(oss, detector{ std::move(provider_up) });
 
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "    Faces:\n"

@@ -1,5 +1,5 @@
 ﻿#include "chapter_12_networking_and_services/text_translation.h"
-#include "text_translation_mock.h"
+#include "text_translation/mock.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -10,7 +10,7 @@
 using namespace tmcppc::text_translation;
 
 
-TEST(translator, translate_and_provider_returned_an_error_response) {
+TEST(translator, translate_and_provider_returns_an_error_response) {
     std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
     auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     std::string_view text{ "It was a wrong number that started it, the telephone ringing three times in the dead of night." };
@@ -30,7 +30,7 @@ TEST(translator, translate_and_provider_returned_an_error_response) {
 }
 
 
-TEST(translator, translate_and_provider_returned_a_translation_response) {
+TEST(translator, translate_and_provider_returns_a_translation_response) {
     std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
     auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     std::string_view text{ "It was a wrong number that started it, the telephone ringing three times in the dead of night." };

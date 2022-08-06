@@ -1,6 +1,6 @@
 ﻿#include "chapter_12_networking_and_services/text_translation.h"
 #include "chapter_12_networking_and_services/problem_099_translating_text.h"
-#include "text_translation_mock.h"
+#include "text_translation/mock.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -73,7 +73,7 @@ TEST(test_text_translation, output) {
         )));
 
     std::ostringstream oss{};
-    tmcppc::problem_99::test_text_translation(oss, std::move(provider_up));
+    tmcppc::problem_99::test_text_translation(oss, translator{ std::move(provider_up) });
 
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("{}",
         "\ten: It was a wrong number that started it, the telephone ringing three times in the dead of night.\n"

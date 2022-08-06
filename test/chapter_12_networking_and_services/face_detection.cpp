@@ -1,7 +1,8 @@
 #include "chapter_12_networking_and_services/face_detection.h"
 #include "chapter_12_networking_and_services/faces.h"
 #include "env.h"
-#include "face_detection_mock.h"
+#include "face_detection/mock.h"
+#include "face_detection/samples.h"
 
 #include "rtc/filesystem.h"
 
@@ -17,11 +18,13 @@ namespace fs = std::filesystem;
 
 
 TEST(detector, detect_and_file_does_not_exist) {
-    EXPECT_THROW((void) detector{ std::make_unique<provider_mock>() }.detect(fs::path{}), rtc::filesystem::file_path_does_not_exist_error);
+    EXPECT_THROW((void) detector{ std::make_unique<provider_mock>() }.detect(fs::path{}),
+        rtc::filesystem::file_path_does_not_exist_error
+    );
 }
 
 
-TEST(detector, detect_and_provider_returned_an_error_response) {
+TEST(detector, detect_and_provider_returns_an_error_response) {
     std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
     auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
@@ -29,7 +32,8 @@ TEST(detector, detect_and_provider_returned_an_error_response) {
         .WillOnce(::testing::Return(provider_response{
             401,
             R"({"error":{"code":"401","message" : "Access denied due to invalid subscription key or wrong API endpoint. )"
-            R"(Make sure to provide a valid key for an active subscriptionand use a correct regional API endpoint for your resource."}})"
+            R"(Make sure to provide a valid key for an active subscription and )"
+            R"(use a correct regional API endpoint for your resource."}})"
         }));
     const auto& result{ detector{ std::move(provider_up) }.detect(input_file_path) };
     EXPECT_TRUE(std::holds_alternative<error_response>(result));
@@ -37,12 +41,13 @@ TEST(detector, detect_and_provider_returned_an_error_response) {
     EXPECT_EQ(error.code, "401");
     EXPECT_EQ(error.message,
         "Access denied due to invalid subscription key or wrong API endpoint. "
-        "Make sure to provide a valid key for an active subscriptionand use a correct regional API endpoint for your resource."
+        "Make sure to provide a valid key for an active subscription and "
+        "use a correct regional API endpoint for your resource."
     );
 }
 
 
-TEST(detector, detect_and_provider_returned_a_faces_response) {
+TEST(detector, detect_and_provider_returns_a_faces_response) {
     std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
     auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg" };

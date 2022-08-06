@@ -72,10 +72,6 @@ namespace tmcppc::face_detection {
             throw rtc::filesystem::file_path_does_not_exist_error{ path.generic_string() };
         }
 
-        try {
-            return parse_detect_response(provider_->detect(path));
-        } catch (const curl::curl_easy_exception& ex) {
-            throw detection_error{ ex.what() };
-        }
+        return parse_detect_response(provider_->detect(path));
     }
 }  // namespace tmcppc::face_detection

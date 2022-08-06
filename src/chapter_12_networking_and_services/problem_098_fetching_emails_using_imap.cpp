@@ -3,10 +3,12 @@
 
 #include "rtc/console.h"  // read_positive_number
 
+#include <algorithm>  // transform
 #include <exception>
 #include <fmt/ostream.h>
 #include <iostream>  // cin, cout
 #include <istream>
+#include <memory>  // make_unique
 #include <ostream>
 #include <string>  // getline
 
@@ -14,43 +16,49 @@ using namespace tmcppc::imap;
 
 
 namespace tmcppc::problem_98 {
-    void test_imap_connection(std::istream& is, std::ostream& os, imap_connection_adaptor* connection) {
+    mailbox_folder_t read_mailbox_folder(std::istream& is, std::ostream& os) {
+        std::string ret{};
+        fmt::print(os, "Please enter a folder name: ");
+        std::getline(is, ret);
+        return ret;
+    }
+
+    void print_mailbox_folders(std::ostream& os, const mailbox_folders_t& folders) {
         fmt::print(os, "List of folders from the mailbox:\n");
+        if (not folders.empty()) {
+            for (const auto& folder : folders) {
+                fmt::print(os, "\t{}\n", folder);
+            }
+        } else {
+            fmt::print(os, "\tThere are no folders in the mailbox\n");
+        }
+    }
 
+    void print_unread_email_ids_from_folder(std::ostream& os, const mailbox_folder_t& folder,
+        const email_subjects_t& email_subjects) {
+
+        fmt::print(os, "List of unread emails from folder '{}':\n", folder);
+        if (not email_subjects.empty()) {
+            for (const auto& email_subject : email_subjects) {
+                fmt::print(os, "\t{}\n", email_subject);
+            }
+        } else {
+            fmt::print(os, "\tThere are no unread emails\n");
+        }
+    }
+
+    void test_imap_connection(std::istream& is, std::ostream& os, const imap_connection& connection) {
         try {
-            auto folders_opt{ connection->get_mailbox_folders() };
-            if (folders_opt.has_value()) {
-                auto folders{ folders_opt.value() };
-                if (not folders.empty()) {
-                    for (auto& folder : folders) {
-                        fmt::print(os, "\t{}\n", folder);
-                    }
-
-                    auto folder{ [&is, &os]() {
-                        std::string ret{};
-                        fmt::print(os, "Please enter a folder name: ");
-                        std::getline(is, ret);
-                        return ret;
-                    }() };
-
-                    fmt::print(os, "List of unread emails from folder '{}':\n", folder);
-                    auto unread_email_ids_opt{ connection->get_unread_email_ids(folder) };
-                    if (unread_email_ids_opt.has_value()) {
-                        auto unread_email_ids{ unread_email_ids_opt.value() };
-                        if (not unread_email_ids.empty()) {
-                            for (auto&& id : unread_email_ids) {
-                                auto email_subject_opt{ connection->get_email_subject(folder, id) };
-                                if (email_subject_opt.has_value()) {
-                                    fmt::print(os, "\t{}\n", email_subject_opt.value());
-                                }
-                            }
-                        } else {
-                            fmt::print(os, "\tThere are no unread emails\n");
-                        }
-                    }
-                } else {
-                    fmt::print(os, "\tThere are no folders in the mailbox\n");
-                }
+            const auto& folders{ connection.get_mailbox_folders() };
+            print_mailbox_folders(os, folders);
+            if (not folders.empty()) {
+                auto folder{ read_mailbox_folder(is, os) };
+                const auto& unread_email_ids{ connection.get_unread_email_ids(folder) };
+                std::vector<email_subject_t> email_subjects(unread_email_ids.size());
+                std::ranges::transform(unread_email_ids, std::begin(email_subjects), [&connection, &folder](const auto& id) {
+                    return connection.get_email_subject(folder, id);
+                });
+                print_unread_email_ids_from_folder(os, folder, email_subjects);
             }
         } catch (const std::exception& ex) {
             fmt::print(os, "\tError: {}\n", ex.what());
@@ -82,8 +90,7 @@ void problem_98_main(std::istream& is, std::ostream& os) {
         return ret;
     }() };
 
-    imap_connection connection{ provider, username, password };
-    test_imap_connection(is, os, &connection);
+    test_imap_connection(is, os, imap_connection{ std::make_unique<connector_curl>(provider, username, password) });
 }
 
 

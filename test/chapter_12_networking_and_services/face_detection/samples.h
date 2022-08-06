@@ -1,18 +1,9 @@
 #pragma once
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
-
-#include <filesystem>
 #include <string>
 
 
 namespace tmcppc::face_detection {
-    class provider_mock : public provider_adaptor {
-    public:
-        MOCK_METHOD((provider_response), detect, (const std::filesystem::path& path), (const, override));
-    };
-
     namespace samples {
         static inline const std::string faces_response_text{
             R"([{"faceId":"473bc81f-6c04-498d-8581-0d22184b1637",)"
