@@ -1,5 +1,7 @@
 #pragma once
 
+#include "tcp_connection.h"
+
 #include <fmt/ostream.h>
 #include <future>
 #include <mutex>
@@ -12,50 +14,8 @@
 #include <system_error>  // errc, error_code
 #include <thread>  // lock_guard
 
-#define BOOST_ASIO_STANDALONE
-#include <asio.hpp>
-#include <boost/system/error_code.hpp>
-
 
 namespace tmcppc::fizz_buzz {
-    class tcp_connection {
-    public:
-        virtual ~tcp_connection() = default;
-
-        [[nodiscard]] virtual size_t read_until(std::string& data, std::string_view delimiter, std::error_code& ec) = 0;
-        virtual void write(const std::string& message, std::error_code& ec) = 0;
-        virtual void accept() = 0;
-        virtual void connect() = 0;
-    };
-
-
-    class tcp_connection_asio : public tcp_connection {
-    public:
-        tcp_connection_asio(asio::io_context& io_context, const asio::ip::tcp::endpoint& endpoint)
-            : socket_{ io_context }
-            , endpoint_{ endpoint }
-            , acceptor_{ io_context, endpoint }
-        {}
-
-        [[nodiscard]] virtual size_t read_until(std::string& data, std::string_view delimiter, std::error_code& ec) override {
-            return asio::read_until(socket_, asio::dynamic_buffer(data), delimiter, ec);
-        }
-        virtual void write(const std::string& message, std::error_code& ec) override {
-            asio::write(socket_, asio::buffer(message), ec);
-        }
-        virtual void accept() override {
-            acceptor_.accept(socket_);
-        }
-        virtual void connect() override {
-            socket_.connect(endpoint_);
-        }
-    private:
-        asio::ip::tcp::socket socket_;
-        asio::ip::tcp::endpoint endpoint_;
-        asio::ip::tcp::acceptor acceptor_;
-    };
-
-
     // fmt::ostream is not thread-safe
     // https://github.com/fmtlib/fmt/issues/1872#issuecomment-693014704
     inline static std::mutex mtx{};
@@ -69,10 +29,10 @@ namespace tmcppc::fizz_buzz {
     }
 
 
-    inline std::string read_line(std::ostream& os, tcp_connection* connection) {
+    inline std::string read_line(std::ostream& os, tmcppc::tcp::connector* connector) {
         std::string ret{};
         std::error_code ec{};
-        auto length{ connection->read_until(ret, "\n", ec) };
+        auto length{ connector->read_until(ret, "\n", ec) };
         if (ec) {
             std::lock_guard<std::mutex> lock{ mtx };
             fmt::print(os, "Error: reading: {}", ec.message());
@@ -83,9 +43,9 @@ namespace tmcppc::fizz_buzz {
     }
 
 
-    inline void write_line(std::ostream& os, tcp_connection* connection, const std::string& message) {
+    inline void write_line(std::ostream& os, tmcppc::tcp::connector* connector, const std::string& message) {
         std::error_code ec{};
-        connection->write(message + "\n", ec);
+        connector->write(message + "\n", ec);
         if (ec) {
             std::lock_guard<std::mutex> lock{ mtx };
             fmt::print(os, "Error: writing: {}", ec.message());
@@ -95,29 +55,29 @@ namespace tmcppc::fizz_buzz {
 
     class server {
     public:
-        server(std::ostream& os, std::unique_ptr<tcp_connection> connection)
+        server(std::ostream& os, std::unique_ptr<tmcppc::tcp::connector> connector)
             : os_{ os }
-            , connection_{ std::move(connection) }
+            , connector_{ std::move(connector) }
         {}
 
         void run() {
             print("[server] Starting\n");
             accept();
             for (;;) {
-                auto request_str{ read_line(os_, connection_.get()) };
+                auto request_str{ read_line(os_, connector_.get()) };
                 if (request_str == "quit") {
                     break;
                 }
                 auto request_number{ std::atoi(request_str.c_str()) };
                 auto response_str{ fizz_buzz(request_number) };
-                write_line(os_, connection_.get(), response_str);
+                write_line(os_, connector_.get(), response_str);
             }
             print("[server] Exiting\n");
         }
 
     private:
         void accept() {
-            connection_->accept();
+            connector_->accept();
         }
 
         std::string fizz_buzz(size_t number) {
@@ -136,16 +96,16 @@ namespace tmcppc::fizz_buzz {
 
     private:
         std::ostream& os_;
-        std::unique_ptr<tcp_connection> connection_;
+        std::unique_ptr<tmcppc::tcp::connector> connector_;
     };
 
 
     class client {
     public:
-        client(std::istream& is, std::ostream& os, std::unique_ptr<tcp_connection> connection)
+        client(std::istream& is, std::ostream& os, std::unique_ptr<tmcppc::tcp::connector> connector)
             : is_{ is }
             , os_{ os }
-            , connection_{ std::move(connection) }
+            , connector_{ std::move(connector) }
         {}
 
         void run() {
@@ -154,11 +114,11 @@ namespace tmcppc::fizz_buzz {
             for (;;) {
                 auto request_str{ read_from_console() };
                 print(fmt::format("[client] Says '{}'\n", request_str));
-                write_line(os_, connection_.get(), request_str);
+                write_line(os_, connector_.get(), request_str);
                 if (request_str == "quit") {
                     break;
                 }
-                auto response_str{ read_line(os_, connection_.get()) };
+                auto response_str{ read_line(os_, connector_.get()) };
                 print(fmt::format("[server] Says '{}'\n", response_str));
             }
             print("[client] Exiting\n");
@@ -166,7 +126,7 @@ namespace tmcppc::fizz_buzz {
 
     private:
         void connect() {
-            connection_->connect();
+            connector_->connect();
         }
 
         std::string read_from_console() {
@@ -201,6 +161,6 @@ namespace tmcppc::fizz_buzz {
     private:
         std::istream& is_;
         std::ostream& os_;
-        std::unique_ptr<tcp_connection> connection_;
+        std::unique_ptr<tmcppc::tcp::connector> connector_;
     };
 }  // namespace tmcppc::fizz_buzz

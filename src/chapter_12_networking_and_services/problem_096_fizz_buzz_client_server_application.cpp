@@ -14,11 +14,12 @@
 
 void problem_96_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::fizz_buzz;
+    using namespace tmcppc::tcp;
 
     asio::io_context io{};
     asio::ip::tcp::endpoint ep{ asio::ip::make_address("127.0.0.1"), 5555 };
-    server s{ os, std::make_unique<tcp_connection_asio>(io, ep) };
-    client c{ is, os, std::make_unique< tcp_connection_asio>(io, ep) };
+    server s{ os, std::make_unique<connector_asio>(io, ep) };
+    client c{ is, os, std::make_unique<connector_asio>(io, ep) };
     auto server_future = std::async(std::launch::async, [&s]() { return s.run(); });
     auto client_future = std::async(std::launch::async, [&c]() { return c.run(); });
 

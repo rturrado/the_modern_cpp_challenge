@@ -1,43 +1,17 @@
-#include "chapter_12_networking_and_services/bitcoin.h"
-#include "chapter_12_networking_and_services/json_bitcoin.h"
+#include "chapter_12_networking_and_services/bitcoin_connection.h"
 #include "chapter_12_networking_and_services/problem_097_bitcoin_exchange_rates.h"
 
 #include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
-#include <sstream>  // ostringstream
-#include <string>
-#include <string_view>
-
-#include "curl_easy.h"
-
-
-namespace tmcppc::problem_97 {
-    using exchange_rates = tmcppc::bitcoin::exchange_rates;
-
-    exchange_rates get_current_exchange_rates() {
-        const std::string_view bitcoin_service_url{ "https://blockchain.info/ticker" };
-
-        std::ostringstream oss{};
-        curl::curl_ios<std::ostringstream> writer{ oss };
-        curl::curl_easy easy{ writer };
-
-        easy.add<CURLOPT_URL>(bitcoin_service_url.data());
-        easy.add<CURLOPT_FOLLOWLOCATION>(1L);
-
-        easy.perform();
-
-        nlohmann::json j = nlohmann::json::parse(oss.str());
-        return exchange_rates{ j };
-    }
-}  // namespace tmcppc::problem_97
 
 
 void problem_97_main(std::ostream& os) {
-    using namespace tmcppc::problem_97;
+    using namespace tmcppc::bitcoin;
 
+    bitcoin_connection connection{ std::make_unique<connector_curl>() };
     try {
-        fmt::print(os, "Current bitcoin exchange rates:\n{}\n", get_current_exchange_rates());
+        fmt::print(os, "Current bitcoin exchange rates:\n{}\n", connection.get_current_exchange_rates());
     } catch (const std::exception& ex) {
         fmt::print(os, "Error: {}\n", ex.what());
     }

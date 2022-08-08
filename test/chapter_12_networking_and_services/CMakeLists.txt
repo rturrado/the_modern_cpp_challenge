@@ -1,4 +1,5 @@
 set(chapter_12_test_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/bitcoin_connection.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/face_detection.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/fizz_buzz.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/imap_connection.cpp"
@@ -8,6 +9,7 @@ set(chapter_12_test_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_098_fetching_emails_using_imap.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_099_translating_text.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_100_detecting_faces_in_a_picture.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/tcp_resolver.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/text_translation.cpp"
     PARENT_SCOPE
 )

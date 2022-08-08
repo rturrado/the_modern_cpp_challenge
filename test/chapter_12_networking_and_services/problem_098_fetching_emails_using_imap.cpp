@@ -18,14 +18,14 @@ using namespace tmcppc::imap;
 using namespace tmcppc::problem_98;
 
 
-TEST(read_mailbox_folder, inbox) {
+TEST(read_mailbox_folder, DISABLED_inbox) {
     std::istringstream iss{ "inbox\n" };
     std::ostringstream oss{};
     EXPECT_EQ(read_mailbox_folder(iss, oss), "inbox");
 }
 
 
-TEST(print_mailbox_folders, empty_folders) {
+TEST(print_mailbox_folders, DISABLED_empty_folders) {
     std::ostringstream oss{};
     print_mailbox_folders(oss, mailbox_folders_t{});
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
@@ -33,7 +33,7 @@ TEST(print_mailbox_folders, empty_folders) {
         "\tThere are no folders in the mailbox\n"
     ));
 }
-TEST(print_mailbox_folders, non_empty_folders) {
+TEST(print_mailbox_folders, DISABLED_non_empty_folders) {
     std::ostringstream oss{};
     print_mailbox_folders(oss, mailbox_folders_t{ "inbox", "sent", "trash" });
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
@@ -45,7 +45,7 @@ TEST(print_mailbox_folders, non_empty_folders) {
 }
 
 
-TEST(print_unread_email_ids_from_folder, empty_email_subjects) {
+TEST(print_unread_email_ids_from_folder, DISABLED_empty_email_subjects) {
     std::ostringstream oss{};
     print_unread_email_ids_from_folder(oss, "inbox", email_subjects_t{});
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
@@ -53,7 +53,7 @@ TEST(print_unread_email_ids_from_folder, empty_email_subjects) {
         "\tThere are no unread emails\n"
     ));
 }
-TEST(print_unread_email_ids_from_folder, non_empty_email_subjects) {
+TEST(print_unread_email_ids_from_folder, DISABLED_non_empty_email_subjects) {
     std::ostringstream oss{};
     print_unread_email_ids_from_folder(oss, "inbox", email_subjects_t{
         "Subject 1: What do you mean, the party of the first part?",
@@ -69,7 +69,7 @@ TEST(print_unread_email_ids_from_folder, non_empty_email_subjects) {
 }
 
 
-TEST(test_imap_connection, output_wrong_folder_name) {
+TEST(test_imap_connection, DISABLED_output_wrong_folder_name) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_mailbox_folders())
@@ -89,7 +89,7 @@ TEST(test_imap_connection, output_wrong_folder_name) {
     ));
 }
 
-TEST(test_imap_connection, output) {
+TEST(test_imap_connection, DISABLED_output) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_mailbox_folders())

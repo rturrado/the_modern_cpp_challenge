@@ -27,7 +27,9 @@ namespace tmcppc::imap {
 
 
     struct imap_connection_error : public std::runtime_error {
-        imap_connection_error(std::string_view message) : std::runtime_error{ message.data() } {}
+        imap_connection_error(std::string_view message)
+            : std::runtime_error{ message.data() }
+        {}
     };
 
 

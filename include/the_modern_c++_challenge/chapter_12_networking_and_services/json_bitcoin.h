@@ -4,8 +4,8 @@
 
 #include "nlohmann/json.hpp"
 
-#include <string>
 #include <map>
+#include <string>
 
 
 namespace tmcppc::bitcoin {

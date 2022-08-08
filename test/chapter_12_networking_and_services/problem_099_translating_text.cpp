@@ -13,7 +13,7 @@
 using namespace tmcppc::text_translation;
 
 
-TEST(test_text_translation, output) {
+TEST(test_text_translation, DISABLED_output) {
     std::string_view text{ "It was a wrong number that started it, the telephone ringing three times in the dead of night." };
     std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
     auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };

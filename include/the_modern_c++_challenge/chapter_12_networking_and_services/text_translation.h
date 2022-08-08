@@ -47,18 +47,17 @@ namespace tmcppc::text_translation {
 
 
     struct translation_error : public std::runtime_error {
-        translation_error(std::string_view message) : std::runtime_error{ message.data()} {}
+        translation_error(std::string_view message)
+            : std::runtime_error{ message.data() }
+        {}
     };
 
 
-    class provider_adaptor {
-    public:
+    struct provider_adaptor {
         virtual ~provider_adaptor() = default;
 
         // Translation is done from utf8 to utf8
         [[nodiscard]] virtual std::string translate(std::string_view text, language_code from, language_code to) const = 0;
-    protected:
-        provider_adaptor() = default;
     };
 
 

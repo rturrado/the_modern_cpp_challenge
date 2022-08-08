@@ -15,7 +15,9 @@ namespace tmcppc::face_detection {
 
 
     struct detection_error : public std::runtime_error {
-        detection_error(std::string_view message) : std::runtime_error{ message.data() } {}
+        detection_error(std::string_view message)
+            : std::runtime_error{ message.data() }
+        {}
     };
 
 
@@ -25,13 +27,10 @@ namespace tmcppc::face_detection {
     };
 
 
-    class provider_adaptor {
-    public:
+    struct provider_adaptor {
         virtual ~provider_adaptor() = default;
 
         [[nodiscard]] virtual provider_response detect(const std::filesystem::path& path) const = 0;
-    protected:
-        provider_adaptor() = default;
     };
 
 

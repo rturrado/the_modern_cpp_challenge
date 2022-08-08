@@ -10,8 +10,7 @@
 
 
 namespace tmcppc::text_translation {
-    class provider_mock : public provider_adaptor {
-    public:
+    struct provider_mock : public provider_adaptor {
         MOCK_METHOD((std::string), translate, (std::string_view text, tmcppc::text_translation::language_code from,
             tmcppc::text_translation::language_code to), (const, override));
     };

@@ -16,7 +16,7 @@
 using namespace tmcppc::face_detection;
 
 
-TEST(test_face_detection, output) {
+TEST(test_face_detection, DISABLED_output) {
     std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
     auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     EXPECT_CALL(provider, detect(tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg"))

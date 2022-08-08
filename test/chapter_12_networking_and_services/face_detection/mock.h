@@ -9,8 +9,7 @@
 
 
 namespace tmcppc::face_detection {
-    class provider_mock : public provider_adaptor {
-    public:
+    struct provider_mock : public provider_adaptor {
         MOCK_METHOD((provider_response), detect, (const std::filesystem::path& path), (const, override));
     };
 }  // namespace tmcppc::face_detection
