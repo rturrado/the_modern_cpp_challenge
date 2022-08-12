@@ -4,6 +4,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <fmt/ostream.h>
 #include <sstream>  // istringstream, ostringstream
 
 using namespace tmcppc::network;
@@ -43,7 +44,7 @@ TEST(ipv4_range, DISABLED_is_an_lvalue) {
     const ipv4_range range{ ipv4{ "10.10.10.10" }, ipv4{ "10.10.10.15" } };
     std::ostringstream oss{};
     for (const auto& address : range) {
-        oss << address << "\n";
+        fmt::print(oss, "{}\n", address);
     }
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "10.10.10.10\n"
@@ -59,9 +60,9 @@ TEST(ipv4_range, DISABLED_is_an_rvalue_but_constructed_from_two_ipv4_lvalues) {
     ipv4 a2{ "10.10.10.15" };
     std::ostringstream oss{};
     for (auto&& address : ipv4_range{ a1, a2 }) {
-        oss << address << "\n";
+        fmt::print(oss, "{}\n", address);
     }
-    oss << a2 << "\n";
+    fmt::print(oss, "{}\n", a2);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "10.10.10.10\n"
         "10.10.10.11\n"
@@ -75,7 +76,7 @@ TEST(ipv4_range, DISABLED_is_an_rvalue_but_constructed_from_two_ipv4_lvalues) {
 TEST(ipv4_range, DISABLED_is_an_rvalue_and_constructed_from_two_ipv4_rvalues) {
     std::ostringstream oss{};
     for (auto&& address : ipv4_range{ ipv4{ "10.10.10.10" }, ipv4{ "10.10.10.15" } }) {
-        oss << address << "\n";
+        fmt::print(oss, "{}\n", address);
     }
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "10.10.10.10\n"
@@ -90,7 +91,7 @@ TEST(ipv4_range, DISABLED_begin_end) {
     ipv4_range range{ ipv4{ "10.10.10.10" }, ipv4{ "10.10.10.15" } };
     std::ostringstream oss{};
     for (auto it{ range.begin() }; it != range.end(); ++it) {
-        oss << *it << "\n";
+        fmt::print(oss, "{}\n", *it);
     }
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "10.10.10.10\n"
@@ -106,7 +107,7 @@ TEST(ipv4_range, DISABLED_begin_end_on_const_range) {
     const ipv4_range range{ ipv4{ "10.10.10.10" }, ipv4{ "10.10.10.15" } };
     std::ostringstream oss{};
     for (auto it{ range.begin() }; it != range.end(); ++it) {
-        oss << *it << "\n";
+        fmt::print(oss, "{}\n", *it);
     }
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "10.10.10.10\n"
@@ -121,7 +122,7 @@ TEST(ipv4_range, DISABLED_cbegin_cend) {
     const ipv4_range range{ ipv4{ "10.10.10.10" }, ipv4{ "10.10.10.15" } };
     std::ostringstream oss{};
     for (auto it{ range.cbegin() }; it != range.cend(); ++it) {
-        oss << *it << "\n";
+        fmt::print(oss, "{}\n", *it);
     }
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "10.10.10.10\n"

@@ -60,9 +60,7 @@ namespace tmcppc::network {
         {}
 
         [[nodiscard]] std::string to_string() const {
-            std::ostringstream oss{};
-            oss << *this;
-            return oss.str();
+            return fmt::format("{}", *this);
         }
 
         [[nodiscard]] constexpr unsigned long to_ulong() const noexcept {
@@ -90,9 +88,8 @@ namespace tmcppc::network {
         }
 
         friend std::ostream& operator<<(std::ostream& os, const ipv4& address) {
-            std::for_each(address.octets_.cbegin(), address.octets_.cend(),
-                [&os, first = true](std::uint8_t n) mutable {
-                os << (first ? "" : ".") << std::to_string(n);
+            std::ranges::for_each(address.octets_, [&os, first = true](std::uint8_t n) mutable {
+                fmt::print(os, "{}{}", (first ? "" : "."), n);
                 first = false;
             });
             return os;

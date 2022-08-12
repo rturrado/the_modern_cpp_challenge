@@ -93,9 +93,9 @@ namespace tmcppc::office {
         void customer_waits_until_end_of_service(size_t customer_id) {
             std::unique_lock<std::mutex> lock{ m_customers_served_ };
             cv_customers_served_.wait(lock, [this, customer_id] {
-                return std::binary_search(std::begin(customers_served_), std::end(customers_served_), customer_id);
+                return std::ranges::binary_search(customers_served_, customer_id);
             });
-            customers_served_.erase(std::find(std::begin(customers_served_), std::end(customers_served_), customer_id));
+            customers_served_.erase(std::ranges::find(customers_served_, customer_id));
         }
 
     private:

@@ -6,6 +6,7 @@
 #include <gtest/gtest.h>
 
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <fstream>  // ifstream, ofstream
 #include <ios>  // ios_base
 
@@ -16,7 +17,7 @@ using namespace tmcppc::movies::file;
 TEST(from_file, DISABLED_cast) {
     const std::filesystem::path temp_file_path{ std::filesystem::temp_directory_path() / "test_from_console_cast.txt" };
     std::ofstream ofs{ temp_file_path, std::ios_base::out | std::ios_base::trunc };
-    ofs <<
+    fmt::print(ofs,
         "4\n"
         "Tom Hanks\n"
         "Forrest Gump\n"
@@ -25,7 +26,7 @@ TEST(from_file, DISABLED_cast) {
         "Robin Wright\n"
         "Jenny Curran\n"
         "Mykelti Williamson\n"
-        "Bubba Blue\n";
+        "Bubba Blue\n");
     ofs.close();
     std::ifstream ifs{ temp_file_path, std::ios_base::in };
     cast c{};
@@ -37,10 +38,10 @@ TEST(from_file, DISABLED_cast) {
 TEST(from_file, DISABLED_writers) {
     const std::filesystem::path temp_file_path{ std::filesystem::temp_directory_path() / "test_from_console_writers.txt" };
     std::ofstream ofs{ temp_file_path, std::ios_base::out | std::ios_base::trunc };
-    ofs <<
+    fmt::print(ofs,
         "2\n"
         "Winston Groom\n"
-        "Eric Roth\n";
+        "Eric Roth\n");
     ofs.close();
     std::ifstream ifs{ temp_file_path, std::ios_base::in };
     writers ws{};
@@ -52,9 +53,9 @@ TEST(from_file, DISABLED_writers) {
 TEST(from_file, DISABLED_directors) {
     const std::filesystem::path temp_file_path{ std::filesystem::temp_directory_path() / "test_from_console_directors.txt" };
     std::ofstream ofs{ temp_file_path, std::ios_base::out | std::ios_base::trunc };
-    ofs <<
+    fmt::print(ofs,
         "1\n"
-        "Robert Zemeckis\n";
+        "Robert Zemeckis\n");
     ofs.close();
     std::ifstream ifs{ temp_file_path, std::ios_base::in };
     directors ds{};

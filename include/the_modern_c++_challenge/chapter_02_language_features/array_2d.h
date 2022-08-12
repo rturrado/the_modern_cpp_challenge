@@ -126,9 +126,9 @@ namespace tmcppc::data_structures {
             const std::string& num_elems_text) const {
 
             if (index >= num_elems) {
-                std::ostringstream oss{};
-                oss << index_text << " (zero based index) = " << index << " and " << num_elems_text << " = " << num_elems << ".";
-                throw std::out_of_range{ oss.str() };
+                throw std::out_of_range{ fmt::format("{} (zero based index) = {} and {} = {}.",
+                    index_text, index, num_elems_text, num_elems)
+                };
             }
         };
 

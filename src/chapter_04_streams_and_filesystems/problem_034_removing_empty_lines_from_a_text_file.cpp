@@ -36,7 +36,7 @@ namespace tmcppc::problem_34 {
         while (std::getline(in_f, line)) {
             const std::regex pattern(R"(^[[:space:]]*$)");
             if (not std::regex_search(line, pattern)) {
-                out_f << (first ? "" : "\n") << line;
+                fmt::print(out_f, "{}{}", (first ? "" : "\n"), line);
             }
             first = false;
         }
