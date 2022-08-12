@@ -14,9 +14,9 @@ namespace tmcppc::movies {
         // Cast
         static inline const tmcppc::movies::cast cast{ {
             role,  // Tom Hanks, Forrest Gump
-            {.star = "Sally Field", .name = "Mrs. Gump" },
-            {.star = "Robin Wright", .name = "Jenny Curran" },
-            {.star = "Mykelti Williamson", .name = "Bubba Blue" }
+            { .star = "Sally Field", .name = "Mrs. Gump" },
+            { .star = "Robin Wright", .name = "Jenny Curran" },
+            { .star = "Mykelti Williamson", .name = "Bubba Blue" }
         } };
 
         // Director
@@ -82,18 +82,18 @@ namespace tmcppc::movies {
                 .year = ch::year{ 1999 },
                 .length = 196,
                 .cast = tmcppc::movies::cast{ {
-                    {.star = "Keanu Reeves", .name = "Neo" },
-                    {.star = "Laurence Fishburne", .name = "Morpheus" },
-                    {.star = "Carrie-Anne Moss", .name = "Trinity" },
-                    {.star = "Hugo Weaving", .name = "Agent Smith" }
+                    { .star = "Keanu Reeves", .name = "Neo" },
+                    { .star = "Laurence Fishburne", .name = "Morpheus" },
+                    { .star = "Carrie-Anne Moss", .name = "Trinity" },
+                    { .star = "Hugo Weaving", .name = "Agent Smith" }
                 } },
                 .directors = tmcppc::movies::directors{ {
-                    {.name = "Lana Wachowski" },
-                    {.name = "Lilly Wachowski" }
+                    { .name = "Lana Wachowski" },
+                    { .name = "Lilly Wachowski" }
                 } },
                 .writers = tmcppc::movies::writers{ {
-                    {.name = "Lana Wachowski" },
-                    {.name = "Lilly Wachowski" }
+                    { .name = "Lana Wachowski" },
+                    { .name = "Lilly Wachowski" }
                 } }
             },
             movie  // Forrest Gump
