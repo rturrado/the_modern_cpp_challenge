@@ -3,6 +3,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <sstream>  // ostringstream
 
@@ -22,11 +23,9 @@ TEST(url, DISABLED_valid_url) {
     EXPECT_EQ(*url.fragment(), "wings");
 }
 
-TEST(url, DISABLED_fmt_print) {
-    std::ostringstream oss{};
+TEST(url, DISABLED_fmt_format) {
     url url{ "http://user:pass@example.com:992/animal/bird?species=seagull#wings" };
-    fmt::print(oss, "{}\n", url);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
+    EXPECT_EQ(fmt::format("{}\n", url),
         "[\n"
         "\tProtocol: http\n"
         "\tLogin: user:pass\n"
@@ -36,7 +35,7 @@ TEST(url, DISABLED_fmt_print) {
         "\tQuery: species=seagull\n"
         "\tFragment: wings\n"
         "]\n"
-    ));
+    );
 }
 TEST(url, DISABLED_operator_insertion) {
     std::ostringstream oss{};

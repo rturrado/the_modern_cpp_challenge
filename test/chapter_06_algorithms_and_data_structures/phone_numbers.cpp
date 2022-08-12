@@ -8,7 +8,9 @@
 using tmcppc::phone::country_code;
 
 
-TEST(country_code_US, DISABLED_fmt_print) { EXPECT_EQ(fmt::format("{}", country_code::US), "US"); }
-TEST(country_code_Spain, DISABLED_fmt_print) { EXPECT_EQ(fmt::format("{}", country_code::Spain), "Spain"); }
-TEST(country_code_UK, DISABLED_fmt_print) { EXPECT_EQ(fmt::format("{}", country_code::UK), "UK"); }
-TEST(country_code_unknown, DISABLED_fmt_print) { EXPECT_EQ(fmt::format("{}", static_cast<country_code>(10)), "Unknown country code"); }
+TEST(country_code_US, DISABLED_fmt_format) { EXPECT_EQ(fmt::format("{}", country_code::US), "US"); }
+TEST(country_code_Spain, DISABLED_fmt_format) { EXPECT_EQ(fmt::format("{}", country_code::Spain), "Spain"); }
+TEST(country_code_UK, DISABLED_fmt_format) { EXPECT_EQ(fmt::format("{}", country_code::UK), "UK"); }
+TEST(country_code_unknown, DISABLED_fmt_format) {
+    EXPECT_EQ(fmt::format("{}", static_cast<country_code>(10)), "Unknown country code");
+}

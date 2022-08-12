@@ -3,6 +3,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <fmt/format.h>
 #include <sstream>  // ostringstream
 #include <stdexcept>  // runtime_error
 #include <utility>  // as_const
@@ -220,11 +221,9 @@ TEST(circular_buffer, DISABLED_cend_free_function) {
     cb.push_back(1);
     EXPECT_EQ(++cbegin(std::as_const(cb)), cend(std::as_const(cb)));
 }
-TEST(circular_buffer, DISABLED_fmt_print) {
+TEST(circular_buffer, DISABLED_fmt_format) {
     circular_buffer<int> cb{ 3 };
     cb.push_back(1);
     cb.push_back(2);
-    std::ostringstream oss{};
-    fmt::print(oss, "{}", cb);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr("[1, 2, 0]"));
+    EXPECT_EQ(fmt::format("{}", cb), "[1, 2, 0]");
 }

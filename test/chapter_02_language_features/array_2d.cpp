@@ -3,6 +3,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
 #include <sstream>  // ostringstream
@@ -276,12 +277,10 @@ TEST(array_2d, DISABLED_operator_insertion) {
         "[ de, la, Mancha ]"
     ));
 }
-TEST(array_2d, DISABLED_fmt_print) {
+TEST(array_2d, DISABLED_fmt_format) {
     const array_2d<std::string> arr{ { "En", "un", "lugar" }, { "de", "la", "Mancha" } };
-    std::ostringstream oss{};
-    fmt::print(oss, "{}", arr);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
+    EXPECT_EQ(fmt::format("{}", arr),
         "[ En, un,  lugar ]\n"
         "[ de, la, Mancha ]"
-    ));
+    );
 }
