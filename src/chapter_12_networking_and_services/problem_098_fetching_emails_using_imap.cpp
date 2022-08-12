@@ -1,4 +1,4 @@
-#include "chapter_12_networking_and_services/imap_connection.h"
+#include "chapter_12_networking_and_services/imap/connection.h"
 #include "chapter_12_networking_and_services/problem_098_fetching_emails_using_imap.h"
 
 #include "rtc/console.h"  // read_positive_number

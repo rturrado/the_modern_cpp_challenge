@@ -1,6 +1,6 @@
 #pragma once
 
-#include "tcp_connection.h"
+#include "tcp/connection.h"
 
 #include <fmt/ostream.h>
 #include <future>

@@ -28,8 +28,7 @@ TEST(problem_85_main, DISABLED_output) {
         "        Writers:\n"
         "            Lana Wachowski\n"
         "            Lilly Wachowski\n"
-        "        Media files:\n"
-        "            []\n"
+        "        Media files: []\n"
         "    Movie:\n"
         "        id: 2\n"
         "        title: Forrest Gump\n"
@@ -45,8 +44,7 @@ TEST(problem_85_main, DISABLED_output) {
         "        Writers:\n"
         "            Winston Groom\n"
         "            Eric Roth\n"
-        "        Media files:\n"
-        "            []\n"
+        "        Media files: []\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
         "Are you sure you want to remove '.*/movies.db'\\? \\[y/n\\] "

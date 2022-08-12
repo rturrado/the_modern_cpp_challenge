@@ -1,4 +1,4 @@
-#include "chapter_12_networking_and_services/bitcoin_connection.h"
+#include "chapter_12_networking_and_services/bitcoin/connection.h"
 #include "chapter_12_networking_and_services/problem_097_bitcoin_exchange_rates.h"
 
 #include <fmt/ostream.h>

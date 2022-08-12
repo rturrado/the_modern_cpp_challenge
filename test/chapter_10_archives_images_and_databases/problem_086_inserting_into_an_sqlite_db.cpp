@@ -77,8 +77,7 @@ TEST(problem_86_main, DISABLED_output) {
         "    Writers:\n"
         "        Chuck Palahniuk\n"
         "        Jim Uhls\n"
-        "    Media files:\n"
-        "        []\n"
+        "    Media files: []\n"
         "\n"
         "Are you sure you want to add this movie to the movies database? [y/n] \tOK\n"  // y
         "Choose method for adding a new movie (1 - Console, 2 - File, q - Quit): \tOK\n"  // 2
@@ -100,8 +99,7 @@ TEST(problem_86_main, DISABLED_output) {
         "    Writers:\n"
         "        Chuck Palahniuk\n"
         "        Jim Uhls\n"
-        "    Media files:\n"
-        "        []\n"
+        "    Media files: []\n"
         "\n"
         "Are you sure you want to add this movie to the movies database? [y/n] \tOK\n"  // n
     ));
@@ -120,8 +118,7 @@ TEST(problem_86_main, DISABLED_output) {
         "        Hampton Fancher\n"
         "        David Webb Peoples\n"
         "        Philip K. Dick\n"
-        "    Media files:\n"
-        "        []\n"
+        "    Media files: []\n"
         "\n"
         "Are you sure you want to add this movie to the movies database? [y/n] \tOK\n"  // y
     ));
@@ -144,8 +141,7 @@ TEST(problem_86_main, DISABLED_output) {
         "        Writers:\n"
         "            Lana Wachowski\n"
         "            Lilly Wachowski\n"
-        "        Media files:\n"
-        "            []\n"
+        "        Media files: []\n"
         "    Movie:\n"
         "        id: 2\n"
         "        title: Forrest Gump\n"
@@ -161,8 +157,7 @@ TEST(problem_86_main, DISABLED_output) {
         "        Writers:\n"
         "            Winston Groom\n"
         "            Eric Roth\n"
-        "        Media files:\n"
-        "            []\n"
+        "        Media files: []\n"
         "    Movie:\n"
         "        id: 3\n"
         "        title: Fight Club\n"
@@ -177,8 +172,7 @@ TEST(problem_86_main, DISABLED_output) {
         "        Writers:\n"
         "            Chuck Palahniuk\n"
         "            Jim Uhls\n"
-        "        Media files:\n"
-        "            []\n"
+        "        Media files: []\n"
         "    Movie:\n"
         "        id: 4\n"
         "        title: Blade Runner\n"
@@ -194,8 +188,7 @@ TEST(problem_86_main, DISABLED_output) {
         "            Hampton Fancher\n"
         "            David Webb Peoples\n"
         "            Philip K. Dick\n"
-        "        Media files:\n"
-        "            []\n"
+        "        Media files: []\n"
         "\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(

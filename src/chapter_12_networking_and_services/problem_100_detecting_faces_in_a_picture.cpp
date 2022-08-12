@@ -26,10 +26,9 @@ namespace tmcppc::problem_100 {
         try {
             const auto& result{ detector.detect(input_file_path) };
             if (std::holds_alternative<faces_response>(result)) {
-                std::get<faces_response>(result).print(os, indentation{ 1 });
+                std::get<faces_response>(result).println(os, indentation{ 1 });
             } else {
-                std::get<error_response>(result).print(os, indentation{ 1 });
-                fmt::print(os, "\n");
+                std::get<error_response>(result).println(os, indentation{ 1 });
             }
         } catch (const std::exception& ex) {
             fmt::print(os, "\tError: {}\n", ex.what());

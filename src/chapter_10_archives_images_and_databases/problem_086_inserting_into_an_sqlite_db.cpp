@@ -32,7 +32,7 @@ namespace tmcppc::problem_86 {
         auto c{
             rtc::console::read_char(is, os,
                 fmt::format(
-                    "{}\nAre you sure you want to add this movie to the movies database? [y/n] ",
+                    "{}\n\nAre you sure you want to add this movie to the movies database? [y/n] ",
                     remove_movie_id_line(fmt::format("{}", movie))
                 ),
                 {'n', 'N', 'y', 'Y'}
@@ -102,7 +102,7 @@ void problem_86_main(std::istream& is, std::ostream& os) {
 
             add_new_movies(is, os, movies_db);
 
-            fmt::print(os, "{}", movies_db);
+            fmt::print(os, "{}\n", movies_db);
         }
 
         fmt::print(os, "\n");

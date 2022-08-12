@@ -9,186 +9,184 @@
 
 
 namespace tmcppc::face_detection {
-    using namespace rtc::pretty_print;
-
-    // error
+    // Error
     struct error {
         std::string code{};
         std::string message{};
 
-        void print(std::ostream& os, const indentation& indentation = {}) const {
+        void print(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
             fmt::print(os, "{}(code: {}, message: '{}')", indentation, code, message);
         }
-        void println(std::ostream& os, const indentation& indentation = {}) const {
+        void println(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
             print(os, indentation);
             fmt::print(os, "\n");
         }
+        auto operator<=>(const error& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const error& error) {
         error.print(os);
         return os;
     }
 
-    // error_response
+    // Error response
     struct error_response {
         error error_{};
 
-        void print(std::ostream& os, const indentation& indentation = {}) const {
+        void print(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
             fmt::print(os, "{}Error: ", indentation);
             error_.print(os);
         }
-        void println(std::ostream& os, const indentation& indentation = {}) const {
+        void println(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
             print(os, indentation);
             fmt::print(os, "\n");
         }
+        auto operator<=>(const error_response& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const error_response& error_response) {
         error_response.print(os);
         return os;
     }
 
-    // point
+    // Point
     struct point {
-        int x{};
-        int y{};
+        double x{};
+        double y{};
 
-        auto operator<=>(const point& other) const = default;
-
-        void print(std::ostream& os, const indentation& indentation = {}) const {
-            fmt::print(os, "{}(x: {}, y: {})", indentation, x, y);
+        void print(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
+            fmt::print(os, "{}(x: {:.1f}, y: {:.1f})", indentation, x, y);
         }
-        void println(std::ostream& os, const indentation& indentation = {}) const {
+        void println(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
             print(os, indentation);
             fmt::print(os, "\n");
         }
+        auto operator<=>(const point& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const point& point) {
         point.print(os);
         return os;
     }
 
-    // rectangle
+    // Rectangle
     struct rectangle {
-        int top{};
-        int left{};
-        int width{};
-        int height{};
+        double top{};
+        double left{};
+        double width{};
+        double height{};
 
-        auto operator<=>(const rectangle& other) const = default;
-
-        void print(std::ostream& os, const indentation& indentation = {}) const {
-            fmt::print(os, "{}(top: {}, left: {}, width: {}, height: {})", indentation, top, left, width, height);
+        void print(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
+            fmt::print(os, "{}(top: {:.1f}, left: {:.1f}, width: {:.1f}, height: {:.1f})",
+                indentation, top, left, width, height);
         }
-        void println(std::ostream& os, const indentation& indentation = {}) const {
+        void println(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
             print(os, indentation);
             fmt::print(os, "\n");
         }
+        auto operator<=>(const rectangle& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const rectangle& rectangle) {
         rectangle.print(os);
         return os;
     }
 
-    // face_landmarks
+    // Face landmarks
     struct face_landmarks {
-        point pupilLeft{};
-        point pupilRight{};
-        point noseTip{};
-        point mouthLeft{};
-        point mouthRight{};
-        point eyebrowLeftOuter{};
-        point eyebrowLeftInner{};
-        point eyeLeftOuter{};
-        point eyeLeftTop{};
-        point eyeLeftBottom{};
-        point eyeLeftInner{};
-        point eyebrowRightInner{};
-        point eyebrowRightOuter{};
-        point eyeRightInner{};
-        point eyeRightTop{};
-        point eyeRightBottom{};
-        point eyeRightOuter{};
-        point noseRootLeft{};
-        point noseRootRight{};
-        point noseLeftAlarTop{};
-        point noseRightAlarTop{};
-        point noseLeftAlarOutTip{};
-        point noseRightAlarOutTip{};
-        point upperLipTop{};
-        point upperLipBottom{};
-        point underLipTop{};
-        point underLipBottom{};
+        point pupil_left{};
+        point pupil_right{};
+        point nose_tip{};
+        point mouth_left{};
+        point mouth_right{};
+        point eyebrow_left_outer{};
+        point eyebrow_left_inner{};
+        point eye_left_outer{};
+        point eye_left_top{};
+        point eye_left_bottom{};
+        point eye_left_inner{};
+        point eyebrow_right_inner{};
+        point eyebrow_right_outer{};
+        point eye_right_inner{};
+        point eye_right_top{};
+        point eye_right_bottom{};
+        point eye_right_outer{};
+        point nose_root_left{};
+        point nose_root_right{};
+        point nose_left_alar_top{};
+        point nose_right_alar_top{};
+        point nose_left_alar_out_tip{};
+        point nose_right_alar_out_tip{};
+        point upper_lip_top{};
+        point upper_lip_bottom{};
+        point under_lip_top{};
+        point under_lip_bottom{};
 
-        auto operator<=>(const face_landmarks& other) const = default;
-
-        void print(std::ostream& os, const indentation& indentation = {}) const {
-            fmt::print(os, "{}{}:\n", indentation, "Face landmarks");
-            fmt::print(os, "{}{}: ", indentation + 1, "pupilLeft");
-            pupilLeft.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "pupilRight");
-            pupilRight.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "noseTip");
-            noseTip.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "mouthLeft");
-            mouthLeft.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "mouthRight");
-            mouthRight.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyebrowLeftOuter");
-            eyebrowLeftOuter.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyebrowLeftInner");
-            eyebrowLeftInner.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyeLeftOuter");
-            eyeLeftOuter.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyeLeftTop");
-            eyeLeftTop.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyeLeftBottom");
-            eyeLeftBottom.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyeLeftInner");
-            eyeLeftInner.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyebrowRightInner");
-            eyebrowRightInner.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyebrowRightOuter");
-            eyebrowRightOuter.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyeRightInner");
-            eyeRightInner.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyeRightTop");
-            eyeRightTop.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyeRightBottom");
-            eyeRightBottom.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "eyeRightOuter");
-            eyeRightOuter.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "noseRootLeft");
-            noseRootLeft.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "noseRootRight");
-            noseRootRight.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "noseLeftAlarTop");
-            noseLeftAlarTop.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "noseRightAlarTop");
-            noseRightAlarTop.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "noseLeftAlarOutTip");
-            noseLeftAlarOutTip.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "noseRightAlarOutTip");
-            noseRightAlarOutTip.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "upperLipTop");
-            upperLipTop.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "upperLipBottom");
-            upperLipBottom.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "underLipTop");
-            underLipTop.println(os);
-            fmt::print(os, "{}{}: ", indentation + 1, "underLipBottom");
-            underLipBottom.print(os);
+        void print(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
+            fmt::print(os, "{}Face landmarks:\n", indentation);
+            fmt::print(os, "{}Pupil left: ", indentation + 1);
+            pupil_left.println(os);
+            fmt::print(os, "{}Pupil right: ", indentation + 1);
+            pupil_right.println(os);
+            fmt::print(os, "{}Nose tip: ", indentation + 1);
+            nose_tip.println(os);
+            fmt::print(os, "{}Mouth left: ", indentation + 1);
+            mouth_left.println(os);
+            fmt::print(os, "{}Mouth right: ", indentation + 1);
+            mouth_right.println(os);
+            fmt::print(os, "{}Eyebrow left outer: ", indentation + 1);
+            eyebrow_left_outer.println(os);
+            fmt::print(os, "{}Eyebrow left inner: ", indentation + 1);
+            eyebrow_left_inner.println(os);
+            fmt::print(os, "{}Eye left outer: ", indentation + 1);
+            eye_left_outer.println(os);
+            fmt::print(os, "{}Eye left top: ", indentation + 1);
+            eye_left_top.println(os);
+            fmt::print(os, "{}Eye left bottom: ", indentation + 1);
+            eye_left_bottom.println(os);
+            fmt::print(os, "{}Eye left inner: ", indentation + 1);
+            eye_left_inner.println(os);
+            fmt::print(os, "{}Eyebrow right inner: ", indentation + 1);
+            eyebrow_right_inner.println(os);
+            fmt::print(os, "{}Eyebrow right outer: ", indentation + 1);
+            eyebrow_right_outer.println(os);
+            fmt::print(os, "{}Eye right inner: ", indentation + 1);
+            eye_right_inner.println(os);
+            fmt::print(os, "{}Eye right top: ", indentation + 1);
+            eye_right_top.println(os);
+            fmt::print(os, "{}Eye right bottom: ", indentation + 1);
+            eye_right_bottom.println(os);
+            fmt::print(os, "{}Eye right outer: ", indentation + 1);
+            eye_right_outer.println(os);
+            fmt::print(os, "{}Nose root left: ", indentation + 1);
+            nose_root_left.println(os);
+            fmt::print(os, "{}Nose root right: ", indentation + 1);
+            nose_root_right.println(os);
+            fmt::print(os, "{}Nose left alar top: ", indentation + 1);
+            nose_left_alar_top.println(os);
+            fmt::print(os, "{}Nose right alar top: ", indentation + 1);
+            nose_right_alar_top.println(os);
+            fmt::print(os, "{}Nose left alar out tip: ", indentation + 1);
+            nose_left_alar_out_tip.println(os);
+            fmt::print(os, "{}Nose right alar out tip: ", indentation + 1);
+            nose_right_alar_out_tip.println(os);
+            fmt::print(os, "{}Upper lip top: ", indentation + 1);
+            upper_lip_top.println(os);
+            fmt::print(os, "{}Upper lip bottom: ", indentation + 1);
+            upper_lip_bottom.println(os);
+            fmt::print(os, "{}Under lip top: ", indentation + 1);
+            under_lip_top.println(os);
+            fmt::print(os, "{}Under lip bottom: ", indentation + 1);
+            under_lip_bottom.print(os);
         }
-        void println(std::ostream& os, const indentation& indentation = {}) const {
+        void println(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
             print(os, indentation);
             fmt::print(os, "\n");
         }
+        auto operator<=>(const face_landmarks& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const face_landmarks& face_landmarks) {
         face_landmarks.print(os);
         return os;
     }
 
-    // emotion
+    // Emotion
     struct emotion {
         double anger{};
         double contempt{};
@@ -199,88 +197,97 @@ namespace tmcppc::face_detection {
         double sadness{};
         double surprise{};
 
-        auto operator<=>(const emotion& other) const = default;
-
-        void print(std::ostream& os, const indentation& indentation = {}) const {
-            fmt::print(os, "{}{}:\n", indentation, "Emotion");
-            fmt::print(os, "{}{}: {:.3f}\n", indentation + 1, "anger", anger);
-            fmt::print(os, "{}{}: {:.3f}\n", indentation + 1, "contempt", contempt);
-            fmt::print(os, "{}{}: {:.3f}\n", indentation + 1, "disgust", disgust);
-            fmt::print(os, "{}{}: {:.3f}\n", indentation + 1, "fear", fear);
-            fmt::print(os, "{}{}: {:.3f}\n", indentation + 1, "happiness", happiness);
-            fmt::print(os, "{}{}: {:.3f}\n", indentation + 1, "neutral", neutral);
-            fmt::print(os, "{}{}: {:.3f}\n", indentation + 1, "sadness", sadness);
-            fmt::print(os, "{}{}: {:.3f}", indentation + 1, "surprise", surprise);
+        void print(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
+            fmt::print(os, "{}Emotion:\n", indentation);
+            fmt::print(os, "{}Anger: {:.3f}\n", indentation + 1, anger);
+            fmt::print(os, "{}Contempt: {:.3f}\n", indentation + 1, contempt);
+            fmt::print(os, "{}Disgust: {:.3f}\n", indentation + 1, disgust);
+            fmt::print(os, "{}Fear: {:.3f}\n", indentation + 1, fear);
+            fmt::print(os, "{}Happiness: {:.3f}\n", indentation + 1, happiness);
+            fmt::print(os, "{}Neutral: {:.3f}\n", indentation + 1, neutral);
+            fmt::print(os, "{}Sadness: {:.3f}\n", indentation + 1, sadness);
+            fmt::print(os, "{}Surprise: {:.3f}", indentation + 1, surprise);
         }
+        void println(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
+            print(os, indentation);
+            fmt::print(os, "\n");
+        }
+        auto operator<=>(const emotion& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const emotion& emotion) {
         emotion.print(os);
         return os;
     }
 
-    // face_attributes
+    // Face attributes
     struct face_attributes {
         std::string gender{};
         double age{};
         emotion emotion_{};
 
-        auto operator<=>(const face_attributes& other) const = default;
-
-        void print(std::ostream& os, const indentation& indentation = {}) const {
-            fmt::print(os, "{}{}:\n", indentation, "Face attributes");
-            fmt::print(os, "{}{}: {}\n", indentation + 1, "gender", gender);
-            fmt::print(os, "{}{}: {:.1f}\n", indentation + 1, "age", age);
+        void print(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
+            fmt::print(os, "{}Face attributes:\n", indentation);
+            fmt::print(os, "{}Gender: {}\n", indentation + 1, gender);
+            fmt::print(os, "{}Age: {:.1f}\n", indentation + 1, age);
             emotion_.print(os, indentation + 1);
         }
-        void println(std::ostream& os, const indentation& indentation = {}) const {
+        void println(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
             print(os, indentation);
             fmt::print(os, "\n");
         }
+        auto operator<=>(const face_attributes& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const face_attributes& face_attributes) {
         face_attributes.print(os);
         return os;
     }
 
-    // face
+    // Face
     struct face {
         std::string id{};
         rectangle rectangle{};
         face_landmarks landmarks{};
         face_attributes attributes{};
 
-        auto operator<=>(const face& other) const = default;
-
-        void print(std::ostream& os, const indentation& indentation = {}) const {
-            fmt::print(os, "{}{}:\n", indentation, "Face");
-            fmt::print(os, "{}{}: {}\n", indentation + 1, "id", id);
-            fmt::print(os, "{}{}: ", indentation + 1, "rectangle");
+        void print(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
+            fmt::print(os, "{}Face:\n", indentation);
+            fmt::print(os, "{}ID: {}\n", indentation + 1, id);
+            fmt::print(os, "{}Rectangle: ", indentation + 1);
             rectangle.println(os);
             landmarks.println(os, indentation + 1);
             attributes.print(os, indentation + 1);
         }
-        void println(std::ostream& os, const indentation& indentation = {}) const {
+        void println(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
             print(os, indentation);
             fmt::print(os, "\n");
         }
+        auto operator<=>(const face& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const face& face) {
         face.print(os);
         return os;
     }
 
-    // faces_response
+    // Faces response
     struct faces_response {
         std::vector<face> faces{};
 
-        auto operator<=>(const faces_response& other) const = default;
-
-        void print(std::ostream& os, const indentation& indentation = {}) const {
-            fmt::print(os, "{}{}:\n", indentation, "Faces");
-            for (auto&& face : faces) {
-                face.println(os, indentation + 1);
+        void print(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
+            if (faces.empty()) {
+                fmt::print("{}Faces: []", indentation);
+            } else {
+                fmt::print(os, "{}Faces:", indentation);
+                for (auto&& face : faces) {
+                    fmt::print(os, "\n");
+                    face.print(os, indentation + 1);
+                }
             }
         }
+        void println(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
+            print(os, indentation);
+            fmt::print(os, "\n");
+        }
+        auto operator<=>(const faces_response& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const faces_response& faces_response) {
         faces_response.print(os);

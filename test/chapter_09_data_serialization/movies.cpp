@@ -1,8 +1,6 @@
 #include "chapter_09_data_serialization/movies.h"
 #include "chapter_09_data_serialization/movies/samples.h"
 
-#include "rtc/pretty_print.h"
-
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -14,290 +12,176 @@ using namespace tmcppc::movies;
 
 
 // Role
-auto role_output{ "Tom Hanks (Forrest Gump)" };
 TEST(role, DISABLED_print) {
     std::ostringstream oss{};
     samples::role.print(oss);
-    EXPECT_EQ(oss.str(), role_output);
+    EXPECT_EQ(oss.str(), samples::role_output);
 }
 TEST(role, DISABLED_operator_insertion) {
     std::ostringstream oss{};
     oss << samples::role;
-    EXPECT_EQ(oss.str(), role_output);
+    EXPECT_EQ(oss.str(), samples::role_output);
 }
-TEST(role, DISABLED_fmt_print) {
-    EXPECT_EQ(fmt::format("{}", samples::role), role_output);
+TEST(role, DISABLED_fmt_format) {
+    EXPECT_EQ(fmt::format("{}", samples::role), samples::role_output);
 }
 
 // Cast
-auto cast_output{ fmt::format(
-    "Cast:\n"
-    "{0}Tom Hanks (Forrest Gump)\n"
-    "{0}Sally Field (Mrs. Gump)\n"
-    "{0}Robin Wright (Jenny Curran)\n"
-    "{0}Mykelti Williamson (Bubba Blue)\n",
-    default_indentation_value) };
 TEST(cast, DISABLED_print_empty_cast) {
     std::ostringstream oss{};
     cast{}.print(oss);
-    EXPECT_EQ(oss.str(), fmt::format("Cast:\n{}[]\n", default_indentation_value));
+    EXPECT_EQ(oss.str(), fmt::format("Cast: []"));
 }
 TEST(cast, DISABLED_print) {
     std::ostringstream oss{};
     samples::cast.print(oss);
-    EXPECT_EQ(oss.str(), cast_output);
+    EXPECT_EQ(oss.str(), samples::get_cast_2_output());
 }
 TEST(cast, DISABLED_operator_insertion) {
     std::ostringstream oss{};
     oss << samples::cast;
-    EXPECT_EQ(oss.str(), cast_output);
+    EXPECT_EQ(oss.str(), samples::get_cast_2_output());
 }
-TEST(cast, DISABLED_fmt_print) {
-    EXPECT_EQ(fmt::format("{}", samples::cast), cast_output);
+TEST(cast, DISABLED_fmt_format) {
+    EXPECT_EQ(fmt::format("{}", samples::cast), samples::get_cast_2_output());
 }
 
 // Director
-auto director_output{ "Robert Zemeckis" };
 TEST(director, DISABLED_print) {
     std::ostringstream oss{};
     samples::director.print(oss);
-    EXPECT_EQ(oss.str(), director_output);
+    EXPECT_EQ(oss.str(), samples::director_output);
 }
 TEST(director, DISABLED_operator_insertion) {
     std::ostringstream oss{};
     oss << samples::director;
-    EXPECT_EQ(oss.str(), director_output);
+    EXPECT_EQ(oss.str(), samples::director_output);
 }
-TEST(director, DISABLED_fmt_print) {
-    EXPECT_EQ(fmt::format("{}", samples::director), director_output);
+TEST(director, DISABLED_fmt_format) {
+    EXPECT_EQ(fmt::format("{}", samples::director), samples::director_output);
 }
 
 // Directors
-auto directors_output{ fmt::format(
-    "Directors:\n"
-    "{0}Robert Zemeckis\n",
-    default_indentation_value) };
 TEST(directors, DISABLED_print_empty_directors) {
     std::ostringstream oss{};
     directors{}.print(oss);
-    EXPECT_EQ(oss.str(), fmt::format("Directors:\n{}[]\n", default_indentation_value));
+    EXPECT_EQ(oss.str(), fmt::format("Directors: []"));
 }
 TEST(directors, DISABLED_print) {
     std::ostringstream oss{};
     samples::directors.print(oss);
-    EXPECT_EQ(oss.str(), directors_output);
+    EXPECT_EQ(oss.str(), samples::get_directors_2_output());
 }
 TEST(directors, DISABLED_operator_insertion) {
     std::ostringstream oss{};
     oss << samples::directors;
-    EXPECT_EQ(oss.str(), directors_output);
+    EXPECT_EQ(oss.str(), samples::get_directors_2_output());
 }
-TEST(directors, DISABLED_fmt_print) {
-    EXPECT_EQ(fmt::format("{}", samples::directors), directors_output);
+TEST(directors, DISABLED_fmt_format) {
+    EXPECT_EQ(fmt::format("{}", samples::directors), samples::get_directors_2_output());
 }
 
 // Writer
-auto writer_output{ "Winston Groom" };
 TEST(writer, DISABLED_print) {
     std::ostringstream oss{};
     samples::writer.print(oss);
-    EXPECT_EQ(oss.str(), writer_output);
+    EXPECT_EQ(oss.str(), samples::writer_output);
 }
 TEST(writer, DISABLED_operator_insertion) {
     std::ostringstream oss{};
     oss << samples::writer;
-    EXPECT_EQ(oss.str(), writer_output);
+    EXPECT_EQ(oss.str(), samples::writer_output);
 }
-TEST(writer, DISABLED_fmt_print) {
-    EXPECT_EQ(fmt::format("{}", samples::writer), writer_output);
+TEST(writer, DISABLED_fmt_format) {
+    EXPECT_EQ(fmt::format("{}", samples::writer), samples::writer_output);
 }
 
 // Writers
-auto writers_output{ fmt::format(
-    "Writers:\n"
-    "{0}Winston Groom\n"
-    "{0}Eric Roth\n",
-    default_indentation_value) };
 TEST(writers, DISABLED_print_empty_writers) {
     std::ostringstream oss{};
     writers{}.print(oss);
-    EXPECT_EQ(oss.str(), fmt::format("Writers:\n{}[]\n", default_indentation_value));
+    EXPECT_EQ(oss.str(), fmt::format("Writers: []"));
 }
 TEST(writers, DISABLED_print) {
     std::ostringstream oss{};
     samples::writers.print(oss);
-    EXPECT_EQ(oss.str(), writers_output);
+    EXPECT_EQ(oss.str(), samples::get_writers_2_output());
 }
 TEST(writers, DISABLED_operator_insertion) {
     std::ostringstream oss{};
     oss << samples::writers;
-    EXPECT_EQ(oss.str(), writers_output);
+    EXPECT_EQ(oss.str(), samples::get_writers_2_output());
 }
-TEST(writers, DISABLED_fmt_print) {
-    EXPECT_EQ(fmt::format("{}", samples::writers), writers_output);
+TEST(writers, DISABLED_fmt_format) {
+    EXPECT_EQ(fmt::format("{}", samples::writers), samples::get_writers_2_output());
 }
 
 // Media file
-auto media_file_without_description_output{
-    fmt::format(
-        "Media file:\n"
-        "{0}id: 1\n"
-        "{0}path: './res/db/poster.png'\n"
-        "{0}description: ''\n",
-        default_indentation_value
-    )
-};
-auto media_file_output{
-    fmt::format(
-        "Media file:\n"
-        "{0}id: 1\n"
-        "{0}path: './res/db/poster.png'\n"
-        "{0}description: 'Front cover'\n",
-        default_indentation_value
-    )
-};
 TEST(media_file, DISABLED_print_empty_description) {
     std::ostringstream oss{};
     samples::media_file_without_description.print(oss);
-    EXPECT_EQ(oss.str(), media_file_without_description_output);
+    EXPECT_EQ(oss.str(), samples::get_media_file_without_description_output());
 }
 TEST(media_file, DISABLED_print_description) {
     std::ostringstream oss{};
     samples::media_file.print(oss);
-    EXPECT_EQ(oss.str(), media_file_output);
+    EXPECT_EQ(oss.str(), samples::get_media_file_1_output());
 }
 TEST(media_file, DISABLED_operator_insertion) {
     std::ostringstream oss{};
     oss << samples::media_file;
-    EXPECT_EQ(oss.str(), media_file_output);
+    EXPECT_EQ(oss.str(), samples::get_media_file_1_output());
 }
-TEST(media_file, DISABLED_fmt_print) {
-    EXPECT_EQ(fmt::format("{}", samples::media_file), media_file_output);
+TEST(media_file, DISABLED_fmt_format) {
+    EXPECT_EQ(fmt::format("{}", samples::media_file), samples::get_media_file_1_output());
 }
 
 // Media files
-auto media_files_output{
-    fmt::format(
-        "Media files:\n"
-        "{0}Media file:\n"
-        "{0}{0}id: 1\n"
-        "{0}{0}path: './res/db/poster.png'\n"
-        "{0}{0}description: 'Front cover'\n"
-        "{0}Media file:\n"
-        "{0}{0}id: 2\n"
-        "{0}{0}path: './res/db/city.jpg'\n"
-        "{0}{0}description: 'Los Angeles'\n",
-        default_indentation_value
-    )
-};
 TEST(media_files, DISABLED_print_empty_media_files) {
     std::ostringstream oss{};
     media_files{}.print(oss);
-    EXPECT_EQ(oss.str(), fmt::format("Media files:\n{}[]\n", default_indentation_value));
+    EXPECT_EQ(oss.str(), fmt::format("Media files: []"));
 }
 TEST(media_files, DISABLED_print) {
     std::ostringstream oss{};
     samples::media_files.print(oss);
-    EXPECT_EQ(oss.str(), media_files_output);
+    EXPECT_EQ(oss.str(), samples::get_media_files_output());
 }
 TEST(media_files, DISABLED_operator_insertion) {
     std::ostringstream oss{};
     oss << samples::media_files;
-    EXPECT_EQ(oss.str(), media_files_output);
+    EXPECT_EQ(oss.str(), samples::get_media_files_output());
 }
-TEST(media_files, DISABLED_fmt_print) {
-    EXPECT_EQ(fmt::format("{}", samples::media_files), media_files_output);
+TEST(media_files, DISABLED_fmt_format) {
+    EXPECT_EQ(fmt::format("{}", samples::media_files), samples::get_media_files_output());
 }
 
 // Movie
-auto movie_output{
-    fmt::format(
-        "Movie:\n"
-        "{0}id: 9871\n"
-        "{0}title: Forrest Gump\n"
-        "{0}year: 1994\n"
-        "{0}length: 202\n"
-        "{0}Cast:\n"
-        "{0}{0}Tom Hanks (Forrest Gump)\n"
-        "{0}{0}Sally Field (Mrs. Gump)\n"
-        "{0}{0}Robin Wright (Jenny Curran)\n"
-        "{0}{0}Mykelti Williamson (Bubba Blue)\n"
-        "{0}Directors:\n"
-        "{0}{0}Robert Zemeckis\n"
-        "{0}Writers:\n"
-        "{0}{0}Winston Groom\n"
-        "{0}{0}Eric Roth\n"
-        "{0}Media files:\n"
-        "{0}{0}[]\n",
-        default_indentation_value
-    )
-};
 TEST(movie, DISABLED_print) {
     std::ostringstream oss{};
     samples::movie.print(oss);
-    EXPECT_EQ(oss.str(), movie_output);
+    EXPECT_EQ(oss.str(), samples::get_movie_2_output());
 }
 TEST(movie, DISABLED_operator_insertion) {
     std::ostringstream oss{};
     oss << samples::movie;
-    EXPECT_EQ(oss.str(), movie_output);
+    EXPECT_EQ(oss.str(), samples::get_movie_2_output());
 }
-TEST(movie, DISABLED_fmt_print) {
-    EXPECT_EQ(fmt::format("{}", samples::movie), movie_output);
+TEST(movie, DISABLED_fmt_format) {
+    EXPECT_EQ(fmt::format("{}", samples::movie), samples::get_movie_2_output());
 }
 
 // Catalog
-auto catalog_output{
-    fmt::format(
-        "Catalog:\n"
-        "{0}Movie:\n"
-        "{0}{0}id: 11001\n"
-        "{0}{0}title: The Matrix\n"
-        "{0}{0}year: 1999\n"
-        "{0}{0}length: 196\n"
-        "{0}{0}Cast:\n"
-        "{0}{0}{0}Keanu Reeves (Neo)\n"
-        "{0}{0}{0}Laurence Fishburne (Morpheus)\n"
-        "{0}{0}{0}Carrie-Anne Moss (Trinity)\n"
-        "{0}{0}{0}Hugo Weaving (Agent Smith)\n"
-        "{0}{0}Directors:\n"
-        "{0}{0}{0}Lana Wachowski\n"
-        "{0}{0}{0}Lilly Wachowski\n"
-        "{0}{0}Writers:\n"
-        "{0}{0}{0}Lana Wachowski\n"
-        "{0}{0}{0}Lilly Wachowski\n"
-        "{0}{0}Media files:\n"
-        "{0}{0}{0}[]\n"
-        "{0}Movie:\n"
-        "{0}{0}id: 9871\n"
-        "{0}{0}title: Forrest Gump\n"
-        "{0}{0}year: 1994\n"
-        "{0}{0}length: 202\n"
-        "{0}{0}Cast:\n"
-        "{0}{0}{0}Tom Hanks (Forrest Gump)\n"
-        "{0}{0}{0}Sally Field (Mrs. Gump)\n"
-        "{0}{0}{0}Robin Wright (Jenny Curran)\n"
-        "{0}{0}{0}Mykelti Williamson (Bubba Blue)\n"
-        "{0}{0}Directors:\n"
-        "{0}{0}{0}Robert Zemeckis\n"
-        "{0}{0}Writers:\n"
-        "{0}{0}{0}Winston Groom\n"
-        "{0}{0}{0}Eric Roth\n"
-        "{0}{0}Media files:\n"
-        "{0}{0}{0}[]\n",
-        default_indentation_value
-    )
-};
 TEST(catalog, DISABLED_print) {
     std::ostringstream oss{};
     samples::catalog.print(oss);
-    EXPECT_EQ(oss.str(), catalog_output);
+    EXPECT_EQ(oss.str(), samples::get_catalog_output());
 }
 TEST(catalog, DISABLED_operator_insertion) {
     std::ostringstream oss{};
     oss << samples::catalog;
-    EXPECT_EQ(oss.str(), catalog_output);
+    EXPECT_EQ(oss.str(), samples::get_catalog_output());
 }
-TEST(catalog, DISABLED_fmt_print) {
-    EXPECT_EQ(fmt::format("{}", samples::catalog), catalog_output);
+TEST(catalog, DISABLED_fmt_format) {
+    EXPECT_EQ(fmt::format("{}", samples::catalog), samples::get_catalog_output());
 }

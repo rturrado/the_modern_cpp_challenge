@@ -1,4 +1,4 @@
-#include "chapter_10_archives_images_and_databases/command_line_movies.h"
+#include "chapter_10_archives_images_and_databases/command_line/movies.h"
 #include "chapter_10_archives_images_and_databases/problem_087_handling_images_in_an_sqlite_db.h"
 #include "chapter_10_archives_images_and_databases/sql/movies.h"
 

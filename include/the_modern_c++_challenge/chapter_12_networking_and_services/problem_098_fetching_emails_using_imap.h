@@ -1,6 +1,6 @@
 #pragma once
 
-#include "chapter_12_networking_and_services/imap_connection.h"
+#include "imap/connection.h"
 
 #include <iosfwd>
 

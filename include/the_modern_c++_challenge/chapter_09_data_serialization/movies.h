@@ -23,6 +23,10 @@ namespace tmcppc::movies {
         void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
             fmt::print(os, "{}{} ({})", indentation, star, name);
         }
+        void println(std::ostream& os, const indentation& indentation = {}) const noexcept {
+            print(os, indentation);
+            fmt::print(os, "\n");
+        }
         auto operator<=>(const role& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const role& role) {
@@ -35,15 +39,19 @@ namespace tmcppc::movies {
         std::vector<role> cast_{};
 
         void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
-            fmt::print(os, "{}Cast:\n", indentation);
             if (cast_.empty()) {
-                fmt::print(os, "{}[]\n", indentation + 1);
+                fmt::print(os, "{}Cast: []", indentation);
             } else {
+                fmt::print(os, "{}Cast:", indentation);
                 for (const auto& role : cast_) {
-                    role.print(os, indentation + 1);
                     fmt::print(os, "\n");
+                    role.print(os, indentation + 1);
                 }
             }
+        }
+        void println(std::ostream& os, const indentation& indentation = {}) const noexcept {
+            print(os, indentation);
+            fmt::print(os, "\n");
         }
         auto operator<=>(const cast& other) const = default;
     };
@@ -59,6 +67,10 @@ namespace tmcppc::movies {
         void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
             fmt::print(os, "{}{}", indentation, name);
         }
+        void println(std::ostream& os, const indentation& indentation = {}) const noexcept {
+            print(os, indentation);
+            fmt::print(os, "\n");
+        }
         auto operator<=>(const director& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const director& director) {
@@ -71,16 +83,19 @@ namespace tmcppc::movies {
         std::vector<director> directors_{};
 
         void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
-            fmt::print(os, "{}Directors:\n", indentation);
             if (directors_.empty()) {
-                fmt::print(os, "{}[]\n", indentation + 1);
-            }
-            else {
+                fmt::print(os, "{}Directors: []", indentation);
+            } else {
+                fmt::print(os, "{}Directors:", indentation);
                 for (const auto& director : directors_) {
-                    director.print(os, indentation + 1);
                     fmt::print(os, "\n");
+                    director.print(os, indentation + 1);
                 }
             }
+        }
+        void println(std::ostream& os, const indentation& indentation = {}) const noexcept {
+            print(os, indentation);
+            fmt::print(os, "\n");
         }
         auto operator<=>(const directors& other) const = default;
     };
@@ -96,6 +111,10 @@ namespace tmcppc::movies {
         void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
             fmt::print(os, "{}{}", indentation, name);
         }
+        void println(std::ostream& os, const indentation& indentation = {}) const noexcept {
+            print(os, indentation);
+            fmt::print(os, "\n");
+        }
         auto operator<=>(const writer& other) const = default;
     };
     inline std::ostream& operator<<(std::ostream& os, const writer& writer) {
@@ -108,16 +127,19 @@ namespace tmcppc::movies {
         std::vector<writer> writers_{};
 
         void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
-            fmt::print(os, "{}Writers:\n", indentation);
             if (writers_.empty()) {
-                fmt::print(os, "{}[]\n", indentation + 1);
-            }
-            else {
+                fmt::print(os, "{}Writers: []", indentation);
+            } else {
+                fmt::print(os, "{}Writers:", indentation);
                 for (const auto& writer : writers_) {
-                    writer.print(os, indentation + 1);
                     fmt::print(os, "\n");
+                    writer.print(os, indentation + 1);
                 }
             }
+        }
+        void println(std::ostream& os, const indentation& indentation = {}) const noexcept {
+            print(os, indentation);
+            fmt::print(os, "\n");
         }
         auto operator<=>(const writers& other) const = default;
     };
@@ -136,7 +158,11 @@ namespace tmcppc::movies {
             fmt::print(os, "{}Media file:\n", indentation);
             fmt::print(os, "{}id: {}\n", indentation + 1, id);
             fmt::print(os, "{}path: '{}'\n", indentation + 1, file_path.generic_string());
-            fmt::print(os, "{}description: '{}'\n", indentation + 1, description.value_or(""));
+            fmt::print(os, "{}description: '{}'", indentation + 1, description.value_or(""));
+        }
+        void println(std::ostream& os, const indentation& indentation = {}) const noexcept {
+            print(os, indentation);
+            fmt::print(os, "\n");
         }
         auto operator==(const media_file& other) const {
             return
@@ -180,14 +206,19 @@ namespace tmcppc::movies {
         std::vector<media_file> media_files_{};
 
         void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
-            fmt::print(os, "{}Media files:\n", indentation);
             if (media_files_.empty()) {
-                fmt::print(os, "{}[]\n", indentation + 1);
+                fmt::print(os, "{}Media files: []", indentation);
             } else {
+                fmt::print(os, "{}Media files:", indentation);
                 for (const auto& media_file : media_files_) {
+                    fmt::print(os, "\n");
                     media_file.print(os, indentation + 1);
                 }
             }
+        }
+        void println(std::ostream& os, const indentation& indentation = {}) const noexcept {
+            print(os, indentation);
+            fmt::print(os, "\n");
         }
         auto operator<=>(const media_files& other) const = default;
     };
@@ -213,10 +244,14 @@ namespace tmcppc::movies {
             fmt::print(os, "{}title: {}\n", indentation + 1, title);
             fmt::print(os, "{}year: {}\n", indentation + 1, int(year));
             fmt::print(os, "{}length: {}\n", indentation + 1, length);
-            cast.print(os, indentation + 1);
-            directors.print(os, indentation + 1);
-            writers.print(os, indentation + 1);
+            cast.println(os, indentation + 1);
+            directors.println(os, indentation + 1);
+            writers.println(os, indentation + 1);
             media_files.print(os, indentation + 1);
+        }
+        void println(std::ostream& os, const indentation& indentation = {}) const noexcept {
+            print(os, indentation);
+            fmt::print(os, "\n");
         }
         auto operator<=>(const movie& other) const = default;
     };
@@ -230,14 +265,19 @@ namespace tmcppc::movies {
         std::vector<movie> movies{};
 
         void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
-            fmt::print(os, "{}Catalog:\n", indentation);
             if (movies.empty()) {
-                fmt::print(os, "{}[]\n", indentation + 1);
+                fmt::print(os, "{}Catalog: []", indentation);
             } else {
+                fmt::print(os, "{}Catalog:", indentation);
                 for (const auto& movie : movies) {
+                    fmt::print(os, "\n");
                     movie.print(os, indentation + 1);
                 }
             }
+        }
+        void println(std::ostream& os, const indentation& indentation = {}) const noexcept {
+            print(os, indentation);
+            fmt::print(os, "\n");
         }
         auto operator<=>(const catalog& other) const = default;
     };

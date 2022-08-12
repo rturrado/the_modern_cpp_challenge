@@ -1,5 +1,5 @@
 #include "chapter_12_networking_and_services/fizz_buzz.h"
-#include "tcp_connection/mock.h"
+#include "tcp/mock.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>

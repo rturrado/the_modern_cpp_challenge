@@ -2,7 +2,11 @@
 
 #include "../movies.h"
 
+#include "rtc/pretty_print.h"
+
 #include <chrono>
+#include <fmt/format.h>
+#include <string>
 
 
 namespace tmcppc::movies {
@@ -11,6 +15,9 @@ namespace tmcppc::movies {
 
         // Role
         static inline const tmcppc::movies::role role{ "Tom Hanks", "Forrest Gump" };
+        static inline const std::string role_output{ "Tom Hanks (Forrest Gump)" };
+
+
         // Cast
         static inline const tmcppc::movies::cast cast{ {
             role,  // Tom Hanks, Forrest Gump
@@ -18,30 +25,149 @@ namespace tmcppc::movies {
             { .star = "Robin Wright", .name = "Jenny Curran" },
             { .star = "Mykelti Williamson", .name = "Bubba Blue" }
         } };
+        template <size_t L = 0>
+        auto get_cast_1_output() {
+            return fmt::format(
+                "{0}Cast:\n"
+                "{1}Keanu Reeves (Neo)\n"
+                "{1}Laurence Fishburne (Morpheus)\n"
+                "{1}Carrie-Anne Moss (Trinity)\n"
+                "{1}Hugo Weaving (Agent Smith)",
+                rtc::pretty_print::indentation{ L },
+                rtc::pretty_print::indentation{ L + 1 }
+            );
+        }
+        template <size_t L = 0>
+        auto get_cast_2_output() {
+            return fmt::format(
+                "{0}Cast:\n"
+                "{1}Tom Hanks (Forrest Gump)\n"
+                "{1}Sally Field (Mrs. Gump)\n"
+                "{1}Robin Wright (Jenny Curran)\n"
+                "{1}Mykelti Williamson (Bubba Blue)",
+                rtc::pretty_print::indentation{ L },
+                rtc::pretty_print::indentation{ L + 1 }
+            );
+        }
+
 
         // Director
         static inline const tmcppc::movies::director director{ "Robert Zemeckis" };
+        static inline const std::string director_output{ "Robert Zemeckis" };
+
+
         // Directors
         static inline const tmcppc::movies::directors directors{ {
             director  // Robert Zemeckis
         } };
+        template <size_t L = 0>
+        auto get_directors_1_output() {
+            return fmt::format(
+                "{0}Directors:\n"
+                "{1}Lana Wachowski\n"
+                "{1}Lilly Wachowski",
+                rtc::pretty_print::indentation{ L },
+                rtc::pretty_print::indentation{ L + 1 }
+            );
+        }
+        template <size_t L = 0>
+        auto get_directors_2_output() {
+            return fmt::format(
+                "{0}Directors:\n"
+                "{1}Robert Zemeckis",
+                rtc::pretty_print::indentation{ L },
+                rtc::pretty_print::indentation{ L + 1 }
+            );
+        }
+
 
         // Writer
         static inline const tmcppc::movies::writer writer{ "Winston Groom" };
+        static inline const std::string writer_output{ "Winston Groom" };
+
+
         // Writers
         static inline const tmcppc::movies::writers writers{ {
             writer,  // Winston Groom
             { "Eric Roth" }
         } };
+        template <size_t L = 0>
+        auto get_writers_1_output() {
+            return fmt::format(
+                "{0}Writers:\n"
+                "{1}Lana Wachowski\n"
+                "{1}Lilly Wachowski",
+                rtc::pretty_print::indentation{ L },
+                rtc::pretty_print::indentation{ L + 1 }
+            );
+        }
+        template <size_t L = 0>
+        auto get_writers_2_output() {
+            return fmt::format(
+                "{0}Writers:\n"
+                "{1}Winston Groom\n"
+                "{1}Eric Roth",
+                rtc::pretty_print::indentation{ L },
+                rtc::pretty_print::indentation{ L + 1 }
+            );
+        }
+
 
         // Media file
         static inline const tmcppc::movies::media_file media_file_without_description{ 1, "./res/db/poster.png" };
         static inline const tmcppc::movies::media_file media_file{ 1, "./res/db/poster.png", "Front cover" };
+        template <size_t L = 0>
+        auto get_media_file_without_description_output() {
+            return fmt::format(
+                "{0}Media file:\n"
+                "{1}id: 1\n"
+                "{1}path: './res/db/poster.png'\n"
+                "{1}description: ''",
+                rtc::pretty_print::indentation{ L },
+                rtc::pretty_print::indentation{ L + 1 }
+            );
+        }
+        template <size_t L = 0>
+        auto get_media_file_1_output() {
+            return fmt::format(
+                "{0}Media file:\n"
+                "{1}id: 1\n"
+                "{1}path: './res/db/poster.png'\n"
+                "{1}description: 'Front cover'",
+                rtc::pretty_print::indentation{ L },
+                rtc::pretty_print::indentation{ L + 1 }
+            );
+        }
+        template <size_t L = 0>
+        auto get_media_file_2_output() {
+            return fmt::format(
+                "{0}Media file:\n"
+                "{1}id: 2\n"
+                "{1}path: './res/db/city.jpg'\n"
+                "{1}description: 'Los Angeles'",
+                rtc::pretty_print::indentation{ L },
+                rtc::pretty_print::indentation{ L + 1 }
+            );
+        }
+
+
         // Media files
         static inline const tmcppc::movies::media_files media_files{ {
             media_file,  // 1, poster.png, Front cover
             { 2, "./res/db/city.jpg", "Los Angeles" }
         } };
+        template <size_t L = 0>
+        auto get_media_files_output() {
+            return fmt::format(
+                "{}Media files:\n"
+                "{}\n"
+                "{}",
+                rtc::pretty_print::indentation{ L },
+                get_media_file_1_output<L + 1>(),
+                get_media_file_2_output<L + 1>()
+            );
+        }
+
 
         // Movie
         static inline const tmcppc::movies::movie movie{
@@ -53,7 +179,6 @@ namespace tmcppc::movies {
             .directors = directors,
             .writers = writers
         };
-        // Movie with default ID
         static inline const tmcppc::movies::movie movie_with_default_id{
             .id = 0,
             .title = "Forrest Gump",
@@ -63,7 +188,6 @@ namespace tmcppc::movies {
             .directors = directors,
             .writers = writers
         };
-        // Movie with default ID
         static inline const tmcppc::movies::movie movie_with_id_initialized_after_database_insertion{
             .id = 2,
             .title = "Forrest Gump",
@@ -73,6 +197,45 @@ namespace tmcppc::movies {
             .directors = directors,
             .writers = writers
         };
+        template <size_t L = 0>
+        auto get_movie_1_output() {
+            return fmt::format(
+                "{0}Movie:\n"
+                "{1}id: 11001\n"
+                "{1}title: The Matrix\n"
+                "{1}year: 1999\n"
+                "{1}length: 196\n"
+                "{2}\n"
+                "{3}\n"
+                "{4}\n"
+                "{1}Media files: []",
+                rtc::pretty_print::indentation{ L },
+                rtc::pretty_print::indentation{ L + 1 },
+                get_cast_1_output<L + 1>(),
+                get_directors_1_output<L + 1>(),
+                get_writers_1_output<L + 1>()
+            );
+        }
+        template <size_t L = 0>
+        auto get_movie_2_output() {
+            return fmt::format(
+                "{0}Movie:\n"
+                "{1}id: 9871\n"
+                "{1}title: Forrest Gump\n"
+                "{1}year: 1994\n"
+                "{1}length: 202\n"
+                "{2}\n"
+                "{3}\n"
+                "{4}\n"
+                "{1}Media files: []",
+                rtc::pretty_print::indentation{ L },
+                rtc::pretty_print::indentation{ L + 1 },
+                get_cast_2_output<L + 1>(),
+                get_directors_2_output<L + 1>(),
+                get_writers_2_output<L + 1>()
+            );
+        }
+
 
         // Catalog
         static inline const tmcppc::movies::catalog catalog{ {
@@ -150,5 +313,16 @@ namespace tmcppc::movies {
             { 49, "Casablanca", ch::year{ 1942 }, 102 },
             { 50, "American History X", ch::year{ 1998 }, 119 }
         } };
+        template <size_t L = 0>
+        auto get_catalog_output() {
+            return fmt::format(
+                "{}Catalog:\n"
+                "{}\n"
+                "{}",
+                rtc::pretty_print::indentation{ L },
+                get_movie_1_output<L + 1>(),
+                get_movie_2_output<L + 1>()
+            );
+        }
     };  // namespace samples
 }  // namespace tmcppc::movies

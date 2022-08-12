@@ -1,7 +1,7 @@
-#include "chapter_12_networking_and_services/imap_connection.h"
+#include "chapter_12_networking_and_services/imap/connection.h"
 #include "chapter_12_networking_and_services/problem_098_fetching_emails_using_imap.h"
-#include "imap_connection/mock.h"
-#include "imap_connection/samples.h"
+#include "imap/mock.h"
+#include "imap/samples.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -73,9 +73,9 @@ TEST(test_imap_connection, DISABLED_output_wrong_folder_name) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_mailbox_folders())
-        .WillOnce(::testing::Return(R"(* LIST (\HasNoChildren) "/" "test/tmcppc/problem_98")""\r\n"));
+        .WillOnce(::testing::Return(samples::connector_response_text::mailbox_folders));
     EXPECT_CALL(connector, get_unread_email_ids("wrong_folder_name"sv))
-        .WillOnce(::testing::Throw(imap_connection_error{ "Login denied" }));
+        .WillOnce(::testing::Throw(imap_connection_error{ samples::connector_response_text::error }));
 
     std::istringstream iss{ "wrong_folder_name\n" };
     std::ostringstream oss{};
@@ -93,11 +93,11 @@ TEST(test_imap_connection, DISABLED_output) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_mailbox_folders())
-        .WillOnce(::testing::Return(R"(* LIST (\HasNoChildren) "/" "test/tmcppc/problem_98")""\r\n"));
+        .WillOnce(::testing::Return(samples::connector_response_text::mailbox_folders));
     EXPECT_CALL(connector, get_unread_email_ids("test/tmcppc/problem_98"sv))
-        .WillOnce(::testing::Return(R"(* SEARCH 1)""\r\n"));
+        .WillOnce(::testing::Return(samples::connector_response_text::unread_email_ids));
     EXPECT_CALL(connector, get_email("test/tmcppc/problem_98"sv, 1))
-        .WillOnce(::testing::Return(samples::email));
+        .WillOnce(::testing::Return(samples::connector_response_text::email));
 
     std::istringstream iss{ "test/tmcppc/problem_98\n" };
     std::ostringstream oss{};

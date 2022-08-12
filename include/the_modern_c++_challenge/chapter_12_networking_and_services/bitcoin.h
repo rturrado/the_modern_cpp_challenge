@@ -2,6 +2,7 @@
 
 #include "rtc/pretty_print.h"
 
+#include <algorithm>  // for_each
 #include <fmt/ostream.h>
 #include <map>
 #include <ostream>
@@ -20,7 +21,7 @@ namespace tmcppc::bitcoin {
 
         void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
             fmt::print(os, "{}{} symbol: {}, 15m: {:.2f}, last: {:.2f}, buy: {:.2f}, sell: {:.2f} {}",
-                indentation, "{", symbol, fifteen_minutes, last, buy, sell, "}");
+                indentation, '{', symbol, fifteen_minutes, last, buy, sell, '}');
         }
         auto operator<=>(const exchange_rate& other) const = default;
     };
@@ -34,15 +35,23 @@ namespace tmcppc::bitcoin {
         std::map<std::string, exchange_rate> data{};
 
         void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
-            fmt::print(os, "{}{}\n", indentation, "{");
-            for (auto& [_, er] : data) {
-                static size_t i{ 0 };
-                bool last{ i++ == data.size() - 1 };
-                fmt::print(os, "{}{}{}\n", indentation + 1, er, last ? "" : ",");
+            if (data.empty()) {
+                fmt::print(os, "{}{}{}", indentation, '{', '}');
+            } else {
+                fmt::print(os, "{}{}", indentation, '{');
+                std::ranges::for_each(data, [first = true, &os, &indentation](const auto& kvp) mutable {
+                    fmt::print(os, "{}\n{}{}", first ? "" : ",", indentation + 1, kvp.second);
+                    first = false;
+                });
+                fmt::print(os, "\n{}{}", indentation, '}');
             }
-            fmt::print(os, "{}{}", indentation, "}");
         }
-        auto operator<=>(const exchange_rates& other) const = default;
+        auto operator==(const exchange_rates& other) const { return data == other.data; }
+        auto operator!=(const exchange_rates& other) const { return not (data == other.data); }
+        auto operator<(const exchange_rates& other) const { return data < other.data; }
+        auto operator>(const exchange_rates& other) const { return not ((data < other.data) or (data == other.data)); }
+        auto operator<=(const exchange_rates& other) const { return not (data > other.data); }
+        auto operator>=(const exchange_rates& other) const { return not (data < other.data); }
     };
 
     inline std::ostream& operator<<(std::ostream& os, const exchange_rates& ers) {

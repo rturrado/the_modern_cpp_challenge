@@ -1,8 +1,13 @@
 #pragma once
 
-#include <iosfwd>
+#include "curl_easy.h"
+#include "curl_header.h"
+
+#include <fmt/format.h>
 #include <map>
 #include <memory>  // unique_ptr
+#include <regex>  // regex_match, smatch
+#include <sstream>  // ostringstream
 #include <stdexcept>  // runtime_error
 #include <string>
 #include <string_view>
@@ -66,9 +71,37 @@ namespace tmcppc::text_translation {
         static inline std::string_view endpoint{ "https://api.microsofttranslator.com/V2/Http.svc" };
         static inline std::string_view key_header{ "Ocp-Apim-Subscription-Key" };
     public:
-        provider_azure(std::string_view key);
+        provider_azure(std::string_view key)
+            : key_{ key }
+        {}
 
-        [[nodiscard]] virtual std::string translate(std::string_view text, language_code from, language_code to) const override;
+        [[nodiscard]] virtual std::string translate(std::string_view text, language_code from, language_code to) const override {
+            try {
+                std::ostringstream oss{};
+                curl::curl_ios<std::ostringstream> writer{ oss };
+                curl::curl_easy easy{ writer };
+
+                std::string url_encoded_text{ text };
+                easy.escape(url_encoded_text);
+
+                auto from_code_str{ language_code_to_string_map[from] };
+                auto to_code_str{ language_code_to_string_map[to] };
+
+                easy.add<CURLOPT_URL>(fmt::format(
+                    "{}/Translate?from={}&to={}&text={}", endpoint, from_code_str, to_code_str, url_encoded_text)
+                    .c_str());
+
+                curl::curl_header header{};
+                header.add(fmt::format("{}:{}", key_header, key_).c_str());
+                easy.add<CURLOPT_HTTPHEADER>(header.get());
+
+                easy.perform();
+
+                return oss.str();
+            } catch (const curl::curl_easy_exception& ex) {
+                throw translation_error{ ex.what() };
+            }
+        }
     protected:
         std::string key_{};
     };
@@ -76,11 +109,29 @@ namespace tmcppc::text_translation {
 
     class translator {
     private:
-        [[nodiscard]] translator_response parse_translate_response(const std::string& response) const;
+        [[nodiscard]] translator_response parse_translate_response(const std::string& response) const {
+            const std::regex pattern{ R"(<string xmlns="[^"]+">([^<]*)</string>)" };
+            const std::regex error_pattern{ R"(<html><body><h1>Argument Exception</h1>.*<p>Message: ([^<]+)</p>.*)" };
+            std::smatch matches{};
+            if (std::regex_match(response, matches, pattern)) {
+                return translation_response{ matches[1].str() };
+            } else if (std::regex_match(response, matches, error_pattern)) {
+                return error_response{ matches[1].str() };
+            }
+            return error_response{ "unknown provider response" };
+        }
     public:
-        translator(std::unique_ptr<provider_adaptor> provider);
+        translator(std::unique_ptr<provider_adaptor> provider)
+            : provider_{ std::move(provider) } {
 
-        [[nodiscard]] virtual translator_response translate(std::string_view text, language_code from, language_code to) const;
+            if (not provider_) {
+                throw translation_error{ "provider is null" };
+            }
+        }
+
+        [[nodiscard]] virtual translator_response translate(std::string_view text, language_code from, language_code to) const {
+            return parse_translate_response(provider_->translate(text, from, to));
+        }
     private:
         std::unique_ptr<provider_adaptor> provider_;
     };
