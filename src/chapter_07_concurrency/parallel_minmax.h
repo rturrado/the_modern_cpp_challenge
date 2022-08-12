@@ -1,3 +1,5 @@
+#pragma once
+
 #include <algorithm>  // max_element, min_element, shuffle
 #include <execution>
 #include <fmt/ostream.h>
