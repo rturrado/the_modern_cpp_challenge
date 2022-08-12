@@ -7,6 +7,5 @@ set(chapter_02_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_020_contains_any_all_or_none_from_a_range.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_021_system_handle_wrapper.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_022_temperature_scales_literals.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/unique_hdl.cpp"
     PARENT_SCOPE
 )

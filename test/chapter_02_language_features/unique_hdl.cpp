@@ -8,6 +8,7 @@
 #include <sstream>  // istringstream, ostringstream
 
 #ifdef _WIN32
+#define WINDOWS_LEAN_AND_MEAN
 #include <windows.h>  // CreateFileW, ReadFile
 #endif  // _WIN32
 

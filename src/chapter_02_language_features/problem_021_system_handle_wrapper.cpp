@@ -10,7 +10,8 @@
 #include <stdexcept>  // runtime_error
 
 #ifdef _WIN32
-#include <windows.h>  // CreateFileW
+#define WINDOWS_LEAN_AND_MEAN
+#include <windows.h>  // CreateFileW, ReadFile
 #endif  // _WIN32
 
 
