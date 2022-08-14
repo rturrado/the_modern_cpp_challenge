@@ -60,6 +60,7 @@ TEST(problem_32_main, DISABLED_output) {
         "\t[1, 8, 28, 56, 70, 56, 28, 8, 1]\n"
         "\t[1, 9, 36, 84, 126, 126, 84, 36, 9, 1]\n"
         "Pascal triangle for n = 40:\n"
-        "\tError: calling pascal_triangle with n > 30, n = 40\n"
+        "\tError: calling pascal_triangle with n > 30, n = 40\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

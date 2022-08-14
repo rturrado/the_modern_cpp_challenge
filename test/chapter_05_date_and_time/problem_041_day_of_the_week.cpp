@@ -37,6 +37,7 @@ TEST(problem_41_main, DISABLED_output) {
         "1946-08-11 was: 7 (Sun)\n"
         "1952-04-24 was: 4 (Thu)\n"
         "1972-07-09 was: 7 (Sun)\n"
-        "1977-05-23 was: 1 (Mon)\n"
+        "1977-05-23 was: 1 (Mon)\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

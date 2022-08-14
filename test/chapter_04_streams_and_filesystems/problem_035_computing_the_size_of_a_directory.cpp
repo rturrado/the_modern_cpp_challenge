@@ -60,6 +60,7 @@ TEST(problem_35_main, DISABLED_output) {
         ".*res/sample_folder: 365 KB\n"
         ".*res/sample_folder \\(following symlinks\\): 621 KB\n"
         ".*res/sample_subfolder: 255 KB\n"
-        ".*res/sample_subfolder \\(following symlinks\\): 255 KB\n"
+        ".*res/sample_subfolder \\(following symlinks\\): 255 KB\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

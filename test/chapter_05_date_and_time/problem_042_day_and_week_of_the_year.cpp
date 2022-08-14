@@ -43,6 +43,7 @@ TEST(problem_42_main, DISABLED_output) {
         "2012-03-02\t62\t\t10\n"
         "2012-03-03\t63\t\t10\n"
         "2012-03-04\t64\t\t10\n"
-        "2012-03-05\t65\t\t11\n"
+        "2012-03-05\t65\t\t11\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

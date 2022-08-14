@@ -26,6 +26,7 @@ TEST(problem_38_main, DISABLED_output) {
         "Writing out something else to logger_1...\n"
         "\tCU then xxxx\n"
         "Moving logger_1 from '.*log_1.txt' to '.*log_1-new.txt'\n"
-        "Asking for logger_1 location: '.*log_1-new.txt'\n"
+        "Asking for logger_1 location: '.*log_1-new.txt'\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

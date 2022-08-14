@@ -58,6 +58,7 @@ TEST(problem_37_main, DISABLED_output) {
         "\t'.*res/sample_subfolder/use_your_illussion_ii.jpg'\n"
         "Searching .*res/sample_subfolder for entries matching pattern .*:\n"
         "\t'.*res/sample_subfolder/use_your_illussion_ii.jpg'\n"
-        "Searching .*res/sample_subfolder for entries matching pattern .*:\n"
+        "Searching .*res/sample_subfolder for entries matching pattern .*:\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

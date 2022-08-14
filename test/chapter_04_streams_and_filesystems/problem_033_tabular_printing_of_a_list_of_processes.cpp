@@ -106,6 +106,7 @@ TEST(problem_33_main, DISABLED_output) {
         "10100 chrome.exe   Running   marius.bancila 222418 32-bit\n"
         "512   cmd.exe      Running   SYSTEM            144 64-bit\n"
         "7108  explorer.exe Running   marius.bancila   2883 64-bit\n"
-        "22456 skype.exe    Suspended marius.bancila  16474 64-bit\n"
+        "22456 skype.exe    Suspended marius.bancila  16474 64-bit\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

@@ -65,6 +65,7 @@ TEST(problem_36_main, DISABLED_output) {
         "\t'.*res/sample_folder/sample_subfolder/use_your_illussion_ii.jpg'\n"
         "\\(Not\\) deleting entries older than .* in '.*res/sample_subfolder':\n"
         "\\(Not\\) deleting entries older than .* in '.*res/sample_subfolder':\n"
-        "\t'.*res/sample_subfolder/use_your_illussion_ii.jpg'\n"
+        "\t'.*res/sample_subfolder/use_your_illussion_ii.jpg'\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

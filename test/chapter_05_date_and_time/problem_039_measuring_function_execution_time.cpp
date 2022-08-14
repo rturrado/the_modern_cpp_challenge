@@ -40,6 +40,7 @@ TEST(problem_39_main, DISABLED_output) {
         "\tsort_shuffle_vector\\(num_elems = 1000000, num_reps = 1\\): .*\n"
         "\n"
         "\tsort_iota_vector\\(num_elems = 1000, num_reps = 1000\\): .*\n"
-        "\tsort_shuffle_vector\\(num_elems = 1000, num_reps = 1000\\): .*\n"
+        "\tsort_shuffle_vector\\(num_elems = 1000, num_reps = 1000\\): .*\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

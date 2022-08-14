@@ -51,7 +51,8 @@ TEST(problem_43_main, DISABLED_output) {
         "\tNorbert    2021-10-24 01:00 +0700 Asia/Novosibirsk    \n"
         "\tSamuel     2021-10-24 02:00 +0800 Asia/Singapore      \n"
         "\tPaula      2021-10-24 02:00 +0800 Australia/Perth     \n"
-        "\tSusan      2021-10-24 05:00 +1100 Australia/Sydney    \n"
+        "\tSusan      2021-10-24 05:00 +1100 Australia/Sydney    \n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
 

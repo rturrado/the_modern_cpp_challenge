@@ -50,6 +50,7 @@ TEST(problem_40_main, DISABLED_output) {
         "\n"
         "First day: 2021-09-23\n"
         "Second day: 1977-05-23\n"
-        "Difference (in days): -16194\n"
+        "Difference (in days): -16194\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

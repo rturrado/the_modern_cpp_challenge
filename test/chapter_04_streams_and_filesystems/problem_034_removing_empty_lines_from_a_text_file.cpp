@@ -36,6 +36,7 @@ TEST(problem_34_main, DISABLED_output) {
     problem_34_main(oss);
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
         "Removing empty lines from input file '.*res/problem_034_input.txt'\n"
-        "And writing the result to output file '.*/problem_034_input.txt'\n"
+        "And writing the result to output file '.*/problem_034_input.txt'\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
