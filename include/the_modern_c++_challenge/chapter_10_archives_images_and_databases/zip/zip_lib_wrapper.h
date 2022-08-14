@@ -33,7 +33,7 @@ namespace tmcppc::zip {
 
     inline void add_file_to_archive(const fs::path& zip_file_path, const fs::path& input_path, const fs::path& in_archive_path,
         const std::string& password = {}) {
-        
+
         ZipFile::AddEncryptedFile(zip_file_path.string(), input_path.string(), in_archive_path.string(), password);
     }
 

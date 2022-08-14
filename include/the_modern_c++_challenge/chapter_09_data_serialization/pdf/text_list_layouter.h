@@ -24,7 +24,7 @@ namespace tmcppc::pdf {
         explicit text_list_layouter(int text_lines_per_page)
             : text_lines_per_page_{ text_lines_per_page }
             , text_line_counter_{ 0 } {
-        
+
             if (text_lines_per_page_ == 0) {
                 throw std::runtime_error("trying to create a text_list_layouter with a zero text_lines_per_page");
             }

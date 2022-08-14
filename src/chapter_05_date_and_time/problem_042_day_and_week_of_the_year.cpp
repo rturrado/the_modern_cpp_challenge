@@ -41,7 +41,7 @@ namespace tmcppc::problem_42 {
 
 void problem_42_main(std::ostream& os) {
     using namespace tmcppc::problem_42;
-    
+
     auto date_1{ 2020y / ch::December / 31 };
     auto date_2{ 2021y / ch::December / 31 };
     auto date_3{ 2022y / ch::January / 7 };

@@ -21,7 +21,7 @@ namespace tmcppc::process {
             std::string account_name,
             size_t mem_size_b,
             platform_t platform) noexcept
-            
+
             : id_{ id }
             , name_{ name }
             , status_{ status }
