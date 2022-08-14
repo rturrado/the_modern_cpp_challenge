@@ -54,6 +54,7 @@ TEST(problem_61_main, DISABLED_output) {
         "\n"
         "std::transform(v); v = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]\n"
         "std::transform(std::execution::par, v); v = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]\n"
-        "parallel_transform(v); v = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]\n"
+        "parallel_transform(v); v = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

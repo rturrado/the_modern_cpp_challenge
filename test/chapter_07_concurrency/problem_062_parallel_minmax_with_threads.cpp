@@ -67,6 +67,7 @@ TEST(problem_62_main, DISABLED_output) {
         "\n"
         "std::max_element(v) = 9\n"
         "std::max_element(std::execution::par, v) = 9\n"
-        "parallel_max (using threads) = 9\n"
+        "parallel_max (using threads) = 9\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

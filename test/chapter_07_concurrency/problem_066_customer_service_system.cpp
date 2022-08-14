@@ -72,4 +72,6 @@ TEST(problem_66_main, DISABLED_output) {
         EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Desk \\d: just served customer {}\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: finished\n", i)));
     }
+    EXPECT_THAT(oss.str(), ::testing::EndsWith("\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
