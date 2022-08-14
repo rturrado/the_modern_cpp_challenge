@@ -14,4 +14,5 @@ TEST(problem_84_main, DISABLED_output) {
         "Creating .*/9781123123456.png...\n\n"
         "Creating .*/5012345678900.png...\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

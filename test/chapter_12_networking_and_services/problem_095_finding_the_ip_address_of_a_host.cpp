@@ -19,6 +19,7 @@ TEST(problem_95_main, DISABLED_output) {
         "Getting IPv4 addresses for host = 'www.---.com' and service = 'http'\n"
         "\tError: resolve: No such host is known.\n"
         "Getting IPv4 addresses for host = 'www.boost.org' and service = 'blah'\n"
-        "\tError: resolve: The specified class was not found.\n"
+        "\tError: resolve: The specified class was not found.\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

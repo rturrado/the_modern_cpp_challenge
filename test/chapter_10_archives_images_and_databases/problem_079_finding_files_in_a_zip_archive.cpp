@@ -19,6 +19,7 @@ TEST(problem_79_main, DISABLED_output) {
         "\tsample_folder/dilbert.jpg\n"
         "\tsample_folder/guinness.jpg\n"
         "\tsample_folder/john_mccarthy.jpg\n"
-        "\tsample_folder/sample_subfolder/use_your_illussion_ii.jpg\n"
+        "\tsample_folder/sample_subfolder/use_your_illussion_ii.jpg\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

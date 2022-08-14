@@ -49,5 +49,7 @@ TEST(problem_93_main, DISABLED_output) {
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
         "Encrypting and decrypting file '.*res/fonts/calibri.ttf'\n"
         "Using AES and password 'Super secret password'\n"
+        "\tOK\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

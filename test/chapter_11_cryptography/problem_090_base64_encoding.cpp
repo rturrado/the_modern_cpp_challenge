@@ -43,6 +43,7 @@ TEST(problem_90_main, DISABLED_output) {
         "Encoding and decoding text 'Many hands make light work.'\n"
         "\tOK\n"
         "Encoding and decoding text 'Many hands make light work.'\n"
-        "\tOK\n"
+        "\tOK\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

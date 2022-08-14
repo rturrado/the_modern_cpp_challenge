@@ -25,6 +25,7 @@ TEST(problem_74_main, DISABLED_output) {
         "\n"
         "Last actor in the casting list for every movie:\n"
         "\tThe Matrix: Hugo Weaving\n"
-        "\tForrest Gump: Mykelti Williamson\n"
+        "\tForrest Gump: Mykelti Williamson\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

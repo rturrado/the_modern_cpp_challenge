@@ -79,8 +79,10 @@ TEST(problem_86_main, DISABLED_output) {
         "        Jim Uhls\n"
         "    Media files: []\n"
         "\n"
-        "Are you sure you want to add this movie to the movies database? [y/n] \tOK\n"  // y
-        "Choose method for adding a new movie (1 - Console, 2 - File, q - Quit): \tOK\n"  // 2
+        "Are you sure you want to add this movie to the movies database? [y/n] "  // y
+        "\tOK\n"
+        "Choose method for adding a new movie (1 - Console, 2 - File, q - Quit): "  // 2
+        "\tOK\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
         "Adding movies from .*/res/db/new_movies.txt\n"
@@ -101,7 +103,8 @@ TEST(problem_86_main, DISABLED_output) {
         "        Jim Uhls\n"
         "    Media files: []\n"
         "\n"
-        "Are you sure you want to add this movie to the movies database? [y/n] \tOK\n"  // n
+        "Are you sure you want to add this movie to the movies database? [y/n] "  // n
+        "\tOK\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "Movie:\n"
@@ -120,10 +123,12 @@ TEST(problem_86_main, DISABLED_output) {
         "        Philip K. Dick\n"
         "    Media files: []\n"
         "\n"
-        "Are you sure you want to add this movie to the movies database? [y/n] \tOK\n"  // y
+        "Are you sure you want to add this movie to the movies database? [y/n] "  // y
+        "\tOK\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "Choose method for adding a new movie (1 - Console, 2 - File, q - Quit): \tOK\n"  // q
+        "Choose method for adding a new movie (1 - Console, 2 - File, q - Quit): "  // q
+        "\tOK\n"
         "Catalog:\n"
         "    Movie:\n"
         "        id: 1\n"
@@ -192,6 +197,8 @@ TEST(problem_86_main, DISABLED_output) {
         "\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
-        "Are you sure you want to remove '.*/movies.db'\\? \\[y/n\\] \tOK\n"  // y
+        "Are you sure you want to remove '.*/movies.db'\\? \\[y/n\\] "  // y
+        "\tOK\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

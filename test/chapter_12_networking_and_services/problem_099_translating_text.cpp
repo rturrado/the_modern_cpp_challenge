@@ -51,7 +51,7 @@ TEST(test_text_translation, DISABLED_output) {
             "\tit: {}\n"
             "\tpl: {}\n"
             "\tpt-pt: {}\n"
-            "\tzh-Hans: {}\n",
+            "\tzh-Hans: {}\n\n",
             samples::english,
             samples::arabic_output,
             samples::german_output,
@@ -64,4 +64,5 @@ TEST(test_text_translation, DISABLED_output) {
             samples::chinese_simplified_output
         )
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

@@ -27,4 +27,6 @@ TEST(test_face_detection, DISABLED_output) {
     tmcppc::problem_100::test_face_detection(oss, detector{ std::move(provider_up) });
 
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_faces_response_output<1>()));
+    EXPECT_THAT(oss.str(), ::testing::EndsWith("\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

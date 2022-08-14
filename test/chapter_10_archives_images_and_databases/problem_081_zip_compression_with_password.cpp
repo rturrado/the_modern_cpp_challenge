@@ -29,6 +29,7 @@ TEST(problem_81_main, DISABLED_output) {
         "Checking input '.*res/sample_folder/sample_subfolder' and output '.*/sample_subfolder' are equal\n"
         "\tOK\n"
         "Are you sure you want to remove '.*' and all of its contents\\? \\[y/n\\] "  // n
-        "\tOK\n"
+        "\tOK\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

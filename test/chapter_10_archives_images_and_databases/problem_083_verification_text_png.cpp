@@ -25,5 +25,6 @@ TEST(paint_verification_text, DISABLED_png_file_creation) {
 TEST(problem_83_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_83_main(oss);
-    EXPECT_THAT(oss.str(), ::testing::ContainsRegex("Creating .*/captcha.png...\n"));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex("Creating .*/captcha.png...\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

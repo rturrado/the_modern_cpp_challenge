@@ -54,4 +54,6 @@ TEST(problem_96_main, DISABLED_output) {
     ));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("[server] Exiting\n"));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("[client] Exiting\n"));
+    EXPECT_THAT(oss.str(), ::testing::EndsWith("\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

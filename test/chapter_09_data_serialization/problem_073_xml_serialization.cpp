@@ -13,6 +13,7 @@ TEST(problem_73_main, DISABLED_output) {
         "Writing XML out to: .*/list_of_movies.xml\n"
         "Reading XML in from: .*/list_of_movies.xml\n"
         "\n"
-        "Checking if serializing and deserializing the XML object created the same object... OK\n"
+        "Checking if serializing and deserializing the XML object created the same object... OK\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

@@ -76,4 +76,6 @@ TEST(problem_91_main, DISABLED_output) {
         "\tError: username not found\n"
         "Please enter username ('quit' for exiting): "  // quit
     ));
+    EXPECT_THAT(oss.str(), ::testing::EndsWith("\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n")));
 }

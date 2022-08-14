@@ -48,6 +48,7 @@ TEST(problem_85_main, DISABLED_output) {
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
         "Are you sure you want to remove '.*/movies.db'\\? \\[y/n\\] "
-        "\tOK\n"
+        "\tOK\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

@@ -13,6 +13,7 @@ TEST(problem_75_main, DISABLED_output) {
         "Writing JSON out to: .*/list_of_movies.json\n"
         "Reading JSON in from: .*/list_of_movies.json\n"
         "\n"
-        "Checking if serializing and deserializing the JSON object created the same object... OK\n"
+        "Checking if serializing and deserializing the JSON object created the same object... OK\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

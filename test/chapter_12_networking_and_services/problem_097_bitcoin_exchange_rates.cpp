@@ -15,5 +15,7 @@ TEST(problem_97_main, DISABLED_output) {
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
         "\\{ symbol: \\w\\w\\w, 15m: \\d+\\.\\d\\d, last: \\d+\\.\\d\\d, buy: \\d+\\.\\d\\d, sell: \\d+\\.\\d\\d \\},\n.*"
         "\\{ symbol: \\w\\w\\w, 15m: \\d+\\.\\d\\d, last: \\d+\\.\\d\\d, buy: \\d+\\.\\d\\d, sell: \\d+\\.\\d\\d \\}\n"
+        "\\}\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

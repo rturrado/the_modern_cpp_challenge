@@ -34,5 +34,6 @@ TEST(paint_romania_flag, DISABLED_png_output) {
 TEST(problem_82_main, DISABLED_ostream_output) {
     std::ostringstream oss{};
     problem_82_main(oss);
-    EXPECT_THAT(oss.str(), ::testing::ContainsRegex("Creating .*/romania_flag.png..."));
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex("Creating .*/romania_flag.png...\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

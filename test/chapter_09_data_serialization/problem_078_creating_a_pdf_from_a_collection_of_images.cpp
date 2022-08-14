@@ -10,6 +10,7 @@ TEST(problem_78_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_78_main(oss);
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
-        "Writing PDF out to: .*/list_of_images.pdf\n"
+        "Writing PDF out to: .*/list_of_images.pdf\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

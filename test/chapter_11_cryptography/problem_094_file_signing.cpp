@@ -87,6 +87,7 @@ TEST(problem_94_main, DISABLED_output) {
         "\tInput file: '.*res/fonts/calibri.ttf'\n"
         "\tSignature file: '.*signature.txt'\n"
         "Verifying file with public key\n"
-        "\tOK\n"
+        "\tOK\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

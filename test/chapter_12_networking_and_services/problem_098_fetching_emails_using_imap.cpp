@@ -85,8 +85,9 @@ TEST(test_imap_connection, DISABLED_output_wrong_folder_name) {
         "List of folders from the mailbox:\n"
         "\ttest/tmcppc/problem_98\n"
         "Please enter a folder name: "  // wrong_folder_name
-        "\tError: Login denied\n"
+        "\tError: Login denied\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
 
 TEST(test_imap_connection, DISABLED_output) {
@@ -108,6 +109,7 @@ TEST(test_imap_connection, DISABLED_output) {
         "\ttest/tmcppc/problem_98\n"
         "Please enter a folder name: "  // test/tmcppc/problem_98
         "List of unread emails from folder 'test/tmcppc/problem_98':\n"
-        "\tSubject: =?UTF-8?Q?Harry_Potter=E2=80=99s_acceptance_letter_in_Harry_Potter_a?=\n"
+        "\tSubject: =?UTF-8?Q?Harry_Potter=E2=80=99s_acceptance_letter_in_Harry_Potter_a?=\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
