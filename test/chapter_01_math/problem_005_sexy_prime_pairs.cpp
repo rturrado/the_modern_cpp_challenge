@@ -10,40 +10,19 @@
 using namespace tmcppc::problem_5;
 
 
-TEST(sexy_prime_pairs_up_to, DISABLED_zero) {
-    std::vector<std::pair<size_t, size_t>> result{};
-    EXPECT_EQ(sexy_prime_pairs_up_to(0), result);
-}
-TEST(sexy_prime_pairs_up_to, DISABLED_one) {
-    std::vector<std::pair<size_t, size_t>> result{};
-    EXPECT_EQ(sexy_prime_pairs_up_to(1), result);
-}
-TEST(sexy_prime_pairs_up_to, DISABLED_two) {
-    std::vector<std::pair<size_t, size_t>> result{};
-    EXPECT_EQ(sexy_prime_pairs_up_to(2), result);
-}
-TEST(sexy_prime_pairs_up_to, DISABLED_three) {
-    std::vector<std::pair<size_t, size_t>> result{};
-    EXPECT_EQ(sexy_prime_pairs_up_to(3), result);
-}
-TEST(sexy_prime_pairs_up_to, DISABLED_four) {
-    std::vector<std::pair<size_t, size_t>> result{};
-    EXPECT_EQ(sexy_prime_pairs_up_to(4), result);
-}
-TEST(sexy_prime_pairs_up_to, DISABLED_five) {
-    std::vector<std::pair<size_t, size_t>> result{};
-    EXPECT_EQ(sexy_prime_pairs_up_to(5), result);
-}
-TEST(sexy_prime_pairs_up_to, DISABLED_six) {
-    std::vector<std::pair<size_t, size_t>> result{};
-    EXPECT_EQ(sexy_prime_pairs_up_to(6), result);
-}
+TEST(sexy_prime_pairs_up_to, DISABLED_limit_0) { EXPECT_TRUE(sexy_prime_pairs_up_to(0).empty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_limit_1) { EXPECT_TRUE(sexy_prime_pairs_up_to(1).empty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_limit_2) { EXPECT_TRUE(sexy_prime_pairs_up_to(2).empty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_limit_3) { EXPECT_TRUE(sexy_prime_pairs_up_to(3).empty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_limit_4) { EXPECT_TRUE(sexy_prime_pairs_up_to(4).empty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_limit_5) { EXPECT_TRUE(sexy_prime_pairs_up_to(5).empty()); }
+TEST(sexy_prime_pairs_up_to, DISABLED_limit_6) { EXPECT_TRUE(sexy_prime_pairs_up_to(6).empty()); }
 
-TEST(sexy_prime_pairs_up_to, DISABLED_seven) {
+TEST(sexy_prime_pairs_up_to, DISABLED_limit_7) {
     EXPECT_THAT(sexy_prime_pairs_up_to(7), ::testing::ElementsAre(::testing::Pair<size_t, size_t>(1, 7)));
 }
 
-TEST(sexy_prime_pairs_up_to, DISABLED_forty_eight) {
+TEST(sexy_prime_pairs_up_to, DISABLED_limit_48) {
     EXPECT_THAT(sexy_prime_pairs_up_to(48), ::testing::ElementsAre(
         ::testing::Pair<size_t, size_t>(1, 7),
         ::testing::Pair<size_t, size_t>(5, 11),
@@ -58,9 +37,10 @@ TEST(sexy_prime_pairs_up_to, DISABLED_forty_eight) {
     ));
 }
 
-TEST(program_5_main, DISABLED_seven) {
+TEST(program_5_main, DISABLED_limit_7) {
     std::istringstream iss{ "7\n" };
     std::ostringstream oss{};
     problem_5_main(iss, oss);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Sexy prime pairs up to 7:\n\t(1, 7)"));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Sexy prime pairs up to 7:\n\t(1, 7)\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

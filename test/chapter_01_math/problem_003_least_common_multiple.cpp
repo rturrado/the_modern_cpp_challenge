@@ -5,40 +5,21 @@
 
 #include <limits>
 #include <sstream>  // istringstream, ostringstream
+#include <stdexcept>  // runtime_error
 #include <vector>
 
 using namespace tmcppc::problem_3;
 
 
-TEST(lcm, DISABLED_empty_v) {
-    std::ostringstream oss{};
-    std::vector<int> v{};
-    EXPECT_EQ(lcm(oss, v), -1);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with an empty list."));
-}
+TEST(lcm, DISABLED_empty_v) { EXPECT_THROW(lcm(std::vector<int>{}), std::runtime_error); }
+TEST(lcm, DISABLED_zero_element) { EXPECT_THROW(lcm(std::vector<int>{ 10, 0 }), std::runtime_error); }
+TEST(lcm, DISABLED_negative_element) { EXPECT_THROW(lcm(std::vector<int>{ -5, 10 }), std::runtime_error); }
+TEST(lcm, DISABLED_v_15_50) { EXPECT_EQ(lcm(std::vector<int>{ 15, 50 }), 150); }
 
-TEST(lcm, DISABLED_zero_element) {
-    std::ostringstream oss{};
-    std::vector<int> v{ 10, 0 };
-    EXPECT_EQ(lcm(oss, v), -1);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with a negative or zero value."));
-}
-
-TEST(lcm, DISABLED_negative_element) {
-    std::ostringstream oss{};
-    std::vector<int> v{ -5, 10 };
-    EXPECT_EQ(lcm(oss, v), -1);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Error: calling lcm(v) with a negative or zero value."));
-}
-
-TEST(lcm, DISABLED_fifteen_and_fifty) {
-    std::vector<int> v{ 15, 50 };
-    EXPECT_EQ(lcm(v), 150);
-}
-
-TEST(problem_3_main, DISABLED_fifteen_and_fifty) {
+TEST(problem_3_main, DISABLED_v_15_50) {
     std::istringstream iss{ "15 50 quit\n" };
     std::ostringstream oss{};
     problem_3_main(iss, oss);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr("The least common multiple of [15, 50] is: 150"));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("The least common multiple of [15, 50] is: 150\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

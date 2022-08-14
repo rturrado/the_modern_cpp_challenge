@@ -11,6 +11,8 @@ TEST(problem_11_main, DISABLED_n_2022) {
     std::ostringstream oss{};
     problem_11_main(iss, oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "Number\tRoman numeral equivalent\n2022\tMMXXII"
+        "Number\tRoman numeral equivalent\n"
+        "2022\tMMXXII\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

@@ -56,6 +56,7 @@ TEST(problem_10_main, DISABLED_5_bit_numbers) {
         "28\t11100\t10010\t\t28\n"
         "29\t11101\t10011\t\t29\n"
         "30\t11110\t10001\t\t30\n"
-        "31\t11111\t10000\t\t31\n"
+        "31\t11111\t10000\t\t31\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

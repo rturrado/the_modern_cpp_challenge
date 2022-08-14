@@ -4,7 +4,6 @@
 
 
 namespace tmcppc::problem_2 {
-    int gcd(std::ostream& os, int m, int n);
     int gcd(int m, int n);
 }  // namespace tmcppc::problem_2
 

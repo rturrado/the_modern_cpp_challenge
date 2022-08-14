@@ -34,7 +34,7 @@ namespace tmcppc::problem_14 {
 
             if (number_of_digits != n or
                 ret.size() != number_of_digits + number_of_separators) {
-                fmt::print(os, "\tError: invalid input\n");
+                fmt::print(os, "\tError: invalid input.\n");
             } else {
                 valid_input = true;
             }
@@ -78,11 +78,11 @@ void problem_14_main(std::istream& is, std::ostream& os) {
 
     auto str = read_n_digit_isbn(is, os, 10);
     auto valid = validate_10_digit_isbn(str);
-    fmt::print(os, "\t{} is {}a valid 10-digit ISBN\n\n", str, (valid ? "" : "NOT "));
+    fmt::print(os, "\t{} {} a valid 10-digit ISBN\n\n", str, (valid ? "is" : "is NOT"));
 
     str = read_n_digit_isbn(is, os, 13);
     valid = validate_13_digit_isbn(str);
-    fmt::print(os, "\t{} is {}a valid 13-digit ISBN\n\n", str, (valid ? "" : "NOT "));
+    fmt::print(os, "\t{} {} a valid 13-digit ISBN\n\n", str, (valid ? "is" : "is NOT"));
 }
 
 

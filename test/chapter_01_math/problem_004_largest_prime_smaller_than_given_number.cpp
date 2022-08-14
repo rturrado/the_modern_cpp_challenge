@@ -17,5 +17,6 @@ TEST(problem_4_main, DISABLED_forty_eight) {
     std::istringstream iss{ "48\n" };
     std::ostringstream oss{};
     problem_4_main(iss, oss);
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Biggest prime number smaller than 48 is: 47"));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("Biggest prime number smaller than 48 is: 47\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

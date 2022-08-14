@@ -8,19 +8,18 @@
 #include <iostream>  // cin, cout
 #include <istream>
 #include <ostream>
+#include <stdexcept>  // runtime_error
 #include <vector>
 
 
 namespace tmcppc::problem_3 {
     // Note this function doesn't check for overflows
-    long lcm(std::ostream& os, std::vector<int> v) {
+    long lcm(std::vector<int> v) {
         if (v.size() == 0) {
-            fmt::print(os, "Error: calling lcm(v) with an empty list.\n");
-            return -1;
+            throw std::runtime_error{ "calling lcm(v) with an empty list" };
         }
         if (std::ranges::any_of(v, [](int n) { return n <= 0;  })) {
-            fmt::print(os, "Error: calling lcm(v) with a negative or zero value.\n");
-            return -1;
+            throw std::runtime_error{ "calling lcm(v) with a negative or zero value" };
         }
 
         // Sort the vector of numbers
@@ -39,11 +38,6 @@ namespace tmcppc::problem_3 {
         }
         return -1;
     };
-
-
-    long lcm(std::vector<int> v) {
-        return lcm(std::cerr, v);
-    }
 }  // namespace tmcppc::problem_3
 
 
@@ -53,7 +47,11 @@ void problem_3_main(std::istream& is, std::ostream& os) {
     auto v{ rtc::console::read_list_of_positive_numbers(is, os,
         "Please enter 2 or more numbers (>= 1) ('quit' to finish the list): ", 2, 1) };
 
-    fmt::print(os, "The least common multiple of {} is: {}\n\n", v, lcm(v));
+    try {
+        fmt::print(os, "The least common multiple of {} is: {}\n\n", v, lcm(v));
+    } catch (const std::exception& ex) {
+        fmt::print(os, "Error: {}.\n", ex.what());
+    }
 }
 
 

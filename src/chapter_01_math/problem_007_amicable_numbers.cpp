@@ -62,6 +62,7 @@ void playing_with_tmp(std::ostream& os) {
         // fatal error C1202: recursive type or function dependency context too complex
         // fmt::print(os, "Amicable number of 898216: {}\n", amicable<898216>::value);
     }
+    fmt::print(os, "\n");
 }
 
 

@@ -66,8 +66,9 @@ TEST(problem_7_main, DISABLED_limit_1000000) {
         "\t(726104, 796696)\n"
         "\t(802725, 863835)\n"
         "\t(879712, 901424)\n"
-        "\t(898216, 980984)\n"
+        "\t(898216, 980984)\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
 
 TEST(playing_with_tmp, DISABLED_n_220) {
@@ -75,6 +76,7 @@ TEST(playing_with_tmp, DISABLED_n_220) {
     playing_with_tmp(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "Divisors sum of 220: 284\n"
-        "Amicable number of 220: 284\n"
+        "Amicable number of 220: 284\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

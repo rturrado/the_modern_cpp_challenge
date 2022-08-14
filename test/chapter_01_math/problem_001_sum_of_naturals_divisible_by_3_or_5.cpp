@@ -35,5 +35,6 @@ TEST(problem_1_main, DISABLED_number_47) {
     problem_1_main(iss, oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "The sum of all natural numbers divisible by either 3 or 5 and up to 47 is:\n\t"
-        "495 [0, 3, 5, 6, 9, 10, 12, 15, 18, 20, 21, 24, 25, 27, 30, 33, 35, 36, 39, 40, 42, 45]"));
+        "495 [0, 3, 5, 6, 9, 10, 12, 15, 18, 20, 21, 24, 25, 27, 30, 33, 35, 36, 39, 40, 42, 45]\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

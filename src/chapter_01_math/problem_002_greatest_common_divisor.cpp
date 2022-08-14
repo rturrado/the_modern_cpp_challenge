@@ -7,14 +7,14 @@
 #include <iostream>  // cin, cout
 #include <istream>
 #include <ostream>
+#include <stdexcept>  // runtime_error
 #include <utility>  // exchange
 
 
 namespace tmcppc::problem_2 {
-    int gcd(std::ostream& os, int m, int n) {
+    int gcd(int m, int n) {
         if (m <= 0 or n <= 0) {
-            fmt::print(os, "Error: calling gcd(m, n) with a negative or zero value.\n");
-            return -1;
+            throw std::runtime_error{ "calling gcd(m, n) with a negative or zero value" };
         }
 
         // Sort m and n so that m >= n
@@ -29,11 +29,6 @@ namespace tmcppc::problem_2 {
         }
         return -1;
     }
-
-
-    int gcd(int m, int n) {
-        return gcd(std::cerr, m, n);
-    }
 }  // namespace tmcppc::problem_2
 
 
@@ -43,7 +38,11 @@ void problem_2_main(std::istream& is, std::ostream& os) {
     auto m{ rtc::console::read_positive_number(is, os, "Please enter a first number (>= 1): ", 1) };
     auto n{ rtc::console::read_positive_number(is, os, "Please enter a second number (>= 1): ", 1) };
 
-    fmt::print(os, "The greatest common divisor of {} and {} is: {}\n\n", m, n, gcd(os, m, n));
+    try {
+        fmt::print(os, "The greatest common divisor of {} and {} is: {}\n\n", m, n, gcd(m, n));
+    } catch (const std::exception& ex) {
+        fmt::print(os, "Error: {}.\n\n", ex.what());
+    }
 }
 
 

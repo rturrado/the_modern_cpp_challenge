@@ -33,8 +33,13 @@ void problem_6_main(std::istream& is, std::ostream& os) {
     auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 1): ", 1) };
 
     fmt::print(os, "Abundant numbers up to {} [list of divisors] (and their abundance):\n", limit);
-    for (auto&& result : abundant_numbers_up_to(limit)) {
-        fmt::print(os, "\t{} {} ({})\n", result.number, result.divisors, result.abundance);
+    const auto& result{ abundant_numbers_up_to(limit) };
+    if (result.empty()) {
+        fmt::print(os, "\t[]\n");
+    } else {
+        for (const auto& result : result) {
+            fmt::print(os, "\t{} {} ({})\n", result.number, result.divisors, result.abundance);
+        }
     }
     fmt::print(os, "\n");
 }

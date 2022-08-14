@@ -68,6 +68,7 @@ TEST(problem_8_main, DISABLED_n_1000) {
         "\t153\n"
         "\t370\n"
         "\t371\n"
-        "\t407\n"
+        "\t407\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

@@ -20,4 +20,6 @@ TEST(problem_13_main, DISABLED_value_of_pi_with_a_precision_of_two_decimal_digit
     std::ostringstream oss{};
     problem_13_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("Estimated value of pi: 3.14"));
+    EXPECT_THAT(oss.str(), ::testing::EndsWith("\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
