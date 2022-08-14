@@ -35,6 +35,7 @@ TEST(problem_28_main, DISABLED_output) {
         "Longest palindromic substring in \"s\" is: \"s\"\n"
         "Longest palindromic substring in \"level\" is: \"level\"\n"
         "Longest palindromic substring in \"sahararahnide\" is: \"hararah\"\n"
-        "Longest palindromic substring in \"123aba3218888888888c\" is: \"8888888888\"\n"
+        "Longest palindromic substring in \"123aba3218888888888c\" is: \"8888888888\"\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

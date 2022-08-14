@@ -31,6 +31,7 @@ TEST(problem_25_main, DISABLED_output) {
     problem_25_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "Capitalizing word \"the c++ challenger\": \"The C++ Challenger\"\n"
-        "Capitalizing word \"THIS IS an ExamplE, should wORk!\": \"This Is An Example, Should Work!\"\n"
+        "Capitalizing word \"THIS IS an ExamplE, should wORk!\": \"This Is An Example, Should Work!\"\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

@@ -55,6 +55,7 @@ TEST(problem_29_main, DISABLED_output) {
         "Is \"AAA-AA 123\" a valid license plate?: true\n"
         "Is \"ABC-DE 1234\" a valid license plate?: true\n"
         "List of valid license plates in \"AAA-AA 123qwe-ty 1234 ABC-DE 123456..XYZ-WW 0001\":\n"
-        "\t[\"AAA-AA 123\", \"ABC-DE 1234\", \"XYZ-WW 0001\"]\n"
+        "\t[\"AAA-AA 123\", \"ABC-DE 1234\", \"XYZ-WW 0001\"]\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

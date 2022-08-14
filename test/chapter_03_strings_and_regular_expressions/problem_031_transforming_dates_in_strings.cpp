@@ -37,6 +37,7 @@ TEST(problem_31_main, DISABLED_output) {
         "Input string: 1.1-1980\n"
         "\tError: invalid date format: \"1.1-1980\"\n"
         "Input string: 1/1/1980\n"
-        "\tError: invalid date format: \"1/1/1980\"\n"
+        "\tError: invalid date format: \"1/1/1980\"\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

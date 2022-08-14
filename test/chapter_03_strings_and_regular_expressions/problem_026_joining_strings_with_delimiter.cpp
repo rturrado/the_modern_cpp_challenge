@@ -33,6 +33,7 @@ TEST(problem_26_main, DISABLED_output) {
         "Joining [] with delimiter \"#\": \n"
         "Joining [Joe] with delimiter \"#\": Joe\n"
         "Joining [this, is, an, example] with delimiter \" \": this is an example\n"
-        "Joining [yet, another, one!] with delimiter \"---\": yet---another---one!\n"
+        "Joining [yet, another, one!] with delimiter \"---\": yet---another---one!\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

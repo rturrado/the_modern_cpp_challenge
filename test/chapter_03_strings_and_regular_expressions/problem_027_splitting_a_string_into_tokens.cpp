@@ -29,6 +29,7 @@ TEST(problem_27_main, DISABLED_output) {
     problem_27_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "Splitting string \"this,is.a sample!!\" using any delimiter of \",.! \" into: [this, is, a, sample]\n"
-        "Splitting string \"this,is.a sample!!\" using any delimiter of \"#\" into: [this,is.a sample!!]\n"
+        "Splitting string \"this,is.a sample!!\" using any delimiter of \"#\" into: [this,is.a sample!!]\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

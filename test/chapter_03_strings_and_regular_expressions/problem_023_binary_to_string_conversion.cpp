@@ -34,4 +34,5 @@ TEST(problem_23_main, DISABLED_output) {
         "Converting vector [0xba, 0xad, 0xf0, 0xd] to string \"baadf00d\"\n"
         "Converting array [0x1, 0x2, 0x3, 0x4, 0x5, 0x6] to string \"010203040506\"\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

@@ -70,6 +70,8 @@ TEST(problem_24_main, DISABLED_output) {
         "Converting string \"53CC1\" to vector [0x5, 0x3c, 0xc1]\n"
         "Converting string \"00,FF,23,45\" to vector [0x0, 0xff, 0x23, 0x45]\n"
         "Converting string \"1##dd##87\" to vector [0x1, 0xdd, 0x87]\n"
-        "Error: parsing string \"1##dd##87\"."
+        "Error: parsing string \"1##dd##87\""
     ));
+    EXPECT_THAT(oss.str(), ::testing::EndsWith("\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

@@ -30,6 +30,7 @@ TEST(problem_30_main, DISABLED_output) {
         "\tFragment: wings\n"
         "]\n"
         "\n"
-        "Error: invalid URL: \"This is not a valid URL!\"\n"
+        "Error: invalid URL: \"This is not a valid URL!\"\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
