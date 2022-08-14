@@ -78,6 +78,7 @@ TEST(problem_69_main, DISABLED_output) {
         "SSNs for \\[  Male, 2006/Sep/18\\]: Northerian = ..............., and Southerian = ..............\n"
         "SSNs for \\[  Male, 2012/Oct/22\\]: Northerian = ..............., and Southerian = ..............\n"
         "SSNs for \\[  Male, 2018/Nov/26\\]: Northerian = ..............., and Southerian = ..............\n"
-        "SSNs for \\[  Male, 2021/Dec/31\\]: Northerian = ..............., and Southerian = ..............\n"
+        "SSNs for \\[  Male, 2021/Dec/31\\]: Northerian = ..............., and Southerian = ..............\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

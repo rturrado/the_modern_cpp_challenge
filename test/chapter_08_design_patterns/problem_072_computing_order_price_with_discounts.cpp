@@ -209,6 +209,7 @@ TEST(problem_72_main, DISABLED_output) {
         "Cumulative price for order 1: 37.4\n"
         "Cumulative price for order 2: 99.36\n"
         "Non cumulative price for order 1: 37.4\n"
-        "Non cumulative price for order 2: 108\n"
+        "Non cumulative price for order 2: 108\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

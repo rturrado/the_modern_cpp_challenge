@@ -148,6 +148,7 @@ TEST(problem_71_main, DISABLED_output) {
         "\t\\[observer \\d+\\] sum of elements of observable vector \\d+: 12\n"
         "\n"
         "Detaching from ov_0:\n"
-        "Pushing back to ov_0:\n"
+        "Pushing back to ov_0:\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

@@ -87,6 +87,7 @@ TEST(problem_70_main, DISABLED_output) {
         "\tExpense \"Laptop\" of value 2500.00 approved by Joe Biden.\n"
         "\tExpense \"Car\" of value 25000.00 approved by Joe Biden.\n"
         "\tExpense \"Boat\" of value 250000.00 approved by Joe Biden.\n"
-        "\tExpense \"House\" of value 2500000.00 approved by Joe Biden.\n"
+        "\tExpense \"House\" of value 2500000.00 approved by Joe Biden.\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

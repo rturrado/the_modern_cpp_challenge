@@ -144,6 +144,7 @@ TEST(problem_67_main, DISABLED_output) {
         "\t'holaqueta!' is not valid: password has to contain at least one 'digit'.\n"
         "\t'h0laqueta!' is not valid: password has to contain at least one 'uppercase'.\n"
         "\t'H0LAQUETA!' is not valid: password has to contain at least one 'lowercase'.\n"
-        "\t'h0laQueTa!' is a valid password.\n"
+        "\t'h0laQueTa!' is a valid password.\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
