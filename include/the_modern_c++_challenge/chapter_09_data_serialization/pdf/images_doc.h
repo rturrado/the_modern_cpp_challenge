@@ -67,7 +67,7 @@ namespace tmcppc::pdf {
         [[nodiscard]] bool is_image_file(const std::filesystem::path& path) const {
             static const std::vector<std::string> valid_image_file_extensions{ ".jpg", ".jpeg", ".png", ".tiff" };
             auto file_extension{ rtc::string::to_lowercase(path.extension().string()) };
-            return std::any_of(std::cbegin(valid_image_file_extensions), std::cend(valid_image_file_extensions),
+            return std::ranges::any_of(valid_image_file_extensions,
                 [&file_extension](auto& s) { return s == file_extension; });
         }
 

@@ -1,5 +1,4 @@
 #include "../face_detection/samples.h"
-
 #include "chapter_12_networking_and_services/face_detection/samples.h"
 #include "chapter_12_networking_and_services/json/faces.h"
 

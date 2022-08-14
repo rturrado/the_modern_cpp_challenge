@@ -49,7 +49,7 @@ void problem_17_main(std::ostream& os) {
         // Then modified using transform()
         // transform() uses difference_type operator-()
         auto arr5{ arr1 };
-        std::transform(arr1.cbegin(), arr1.cend(), arr5.begin(), [](auto n) { return n + 1; });
+        std::ranges::transform(arr1, arr5.begin(), [](auto n) { return n + 1; });
         fmt::print(os, "arr5 = arr1 + 1:\n{}\n\n", arr5);
         fmt::print(os, "arr1:\n{}\n\n", arr1);
 

@@ -1,6 +1,6 @@
 #include "chapter_06_algorithms_and_data_structures/problem_052_generating_all_the_permutations_of_a_string.h"
 
-#include <algorithm>  // for_each, next_permutation, sort
+#include <algorithm>  // next_permutation, sort
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
 #include <iostream>  // cout
@@ -39,10 +39,10 @@ namespace tmcppc::problem_52 {
         }
 
         permutations ret{};
-        std::sort(begin(str), end(str));
+        std::ranges::sort(str);
         do {
             ret.push_back(str);
-        } while (std::next_permutation(begin(str), end(str)));
+        } while (std::ranges::next_permutation(str).found);
         return ret;
     }
 }  // namespace tmcppc::problem_52

@@ -1,9 +1,9 @@
 #include "chapter_07_concurrency/problem_066_customer_service_system.h"
 
-#include <fmt/format.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <fmt/format.h>
 #include <sstream>  // istringstream, ostringstream
 
 using namespace tmcppc::office;

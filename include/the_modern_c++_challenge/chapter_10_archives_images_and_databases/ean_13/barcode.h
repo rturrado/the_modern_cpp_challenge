@@ -1,6 +1,6 @@
 #pragma once
 
-#include <algorithm>  // all_of, copy, transform
+#include <algorithm>  // all_of, transform
 #include <array>
 #include <bitset>
 #include <cassert>  // assert

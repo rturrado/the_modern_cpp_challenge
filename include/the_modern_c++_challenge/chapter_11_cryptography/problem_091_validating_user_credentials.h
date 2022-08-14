@@ -1,13 +1,13 @@
 #pragma once
 
+#include "cryptopp/cryptlib.h"
+#include "cryptopp/sha.h"
+
 #include <fmt/ostream.h>
 #include <istream>
 #include <ostream>
 #include <stdexcept>  // runtime_error
 #include <string>  // getline
-
-#include "cryptopp/cryptlib.h"
-#include "cryptopp/sha.h"
 
 
 namespace tmcppc::crypto {

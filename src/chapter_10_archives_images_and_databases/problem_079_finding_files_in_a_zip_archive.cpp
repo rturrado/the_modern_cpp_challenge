@@ -4,7 +4,6 @@
 #include "ZipArchive.h"
 #include "ZipFile.h"
 
-#include <algorithm>  // move
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <iostream>  // cout

@@ -1,14 +1,9 @@
 #include "chapter_06_algorithms_and_data_structures/problem_048_most_frequent_element_in_a_range.h"
 
-#include <algorithm>  // copy_if, max_element
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <functional>  // greater
-#include <map>  // multimap
 #include <iostream>  // cout
-#include <iterator>  // back_inserter
 #include <ostream>
-#include <utility>  // pair
 #include <vector>
 
 

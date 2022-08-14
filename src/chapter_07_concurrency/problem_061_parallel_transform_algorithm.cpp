@@ -17,7 +17,7 @@ void problem_61_main(std::ostream& os) {
 
     fmt::print(os, "v = {}\n\n", v);
 
-    std::transform(std::cbegin(v), std::cend(v), std::begin(w), square);
+    std::ranges::transform(v, std::begin(w), square);
     fmt::print(os, "std::transform(v); v = {}\n", w);
 
     std::transform(std::execution::par, std::cbegin(v), std::cend(v), std::begin(w), square);

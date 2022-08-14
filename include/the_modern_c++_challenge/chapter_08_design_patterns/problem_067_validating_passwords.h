@@ -12,22 +12,22 @@
 
 namespace tmcppc::password {
     inline auto contains_symbol = [](std::string_view sv) {
-        return std::any_of(std::cbegin(sv), std::cend(sv),
+        return std::ranges::any_of(sv,
             [](unsigned char c) { return std::ispunct(c); }
         );
     };
     inline auto contains_digit = [](std::string_view sv) {
-        return std::any_of(std::cbegin(sv), std::cend(sv),
+        return std::ranges::any_of(sv,
             [](unsigned char c) { return std::isdigit(c); }
         );
     };
     inline auto contains_lowercase = [](std::string_view sv) {
-        return std::any_of(std::cbegin(sv), std::cend(sv),
+        return std::ranges::any_of(sv,
             [](unsigned char c) { return std::islower(c); }
         );
     };
     inline auto contains_uppercase = [](std::string_view sv) {
-        return std::any_of(std::cbegin(sv), std::cend(sv),
+        return std::ranges::any_of(sv,
             [](unsigned char c) { return std::isupper(c); }
         );
     };

@@ -18,7 +18,7 @@ namespace tmcppc::problem_50 {
         std::smatch matches{};
         // + is optional, country code should be followed by a 9-digit number
         const std::regex pattern{ R"(^\+?([[:digit:]]+)[[:digit:]]{9}$)" };
-        std::copy_if(cbegin(ph_nos), cend(ph_nos), std::back_inserter(ret), [&matches, &pattern, &cc](const auto& ph_no) {
+        std::ranges::copy_if(ph_nos, std::back_inserter(ret), [&matches, &pattern, &cc](const auto& ph_no) {
             return (
                 std::regex_match(ph_no, matches, pattern) and
                 std::stoi(matches[1]) == static_cast<int>(cc)  // matches[1] is country code

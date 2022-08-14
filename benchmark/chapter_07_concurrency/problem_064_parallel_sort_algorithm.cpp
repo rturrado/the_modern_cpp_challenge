@@ -29,7 +29,7 @@ void cb_sort_algorithm() {
             auto w{ v };
             auto t{ function_timer<>::duration(
                 [&w]() {
-                    std::sort(std::begin(w), std::end(w));
+                    std::ranges::sort(w);
                 })
             };
             fmt::print("\tstd::sort: {}\n", std::chrono::duration<double, std::milli>(t));

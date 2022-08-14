@@ -22,7 +22,7 @@ namespace tmcppc::problem_56 {
         requires requires (T&& t, F&& f) { f(t); }
     auto select(const std::vector<T>& v, F&& f) {
         std::vector<std::remove_cvref_t<std::invoke_result_t<F, const T&>>> ret{};
-        std::transform(cbegin(v), cend(v), std::back_inserter(ret), std::forward<F>(f));
+        std::ranges::transform(v, std::back_inserter(ret), std::forward<F>(f));
         return ret;
     }
 }  // namespace tmcppc::problem_56

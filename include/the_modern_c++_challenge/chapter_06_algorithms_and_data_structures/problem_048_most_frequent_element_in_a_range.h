@@ -87,14 +87,14 @@ namespace tmcppc::problem_48 {
         }
 
         // Get iterator to element with greatest count
-        auto element_with_highest_count_it{ std::max_element(cbegin(counts), cend(counts),
+        auto element_with_highest_count_it{ std::ranges::max_element(counts,
             [](const auto& kvp1, const auto& kvp2) {
                 return kvp1.second < kvp2.second; }
         )};
 
         // Build return list of elements and counts
         std::vector<std::pair<T, size_t>> ret{};
-        std::copy_if(cbegin(counts), cend(counts), std::back_inserter(ret),
+        std::ranges::copy_if(counts, std::back_inserter(ret),
             [&element_with_highest_count_it](const auto& kvp) {
                 return kvp.second == element_with_highest_count_it->second;
         });

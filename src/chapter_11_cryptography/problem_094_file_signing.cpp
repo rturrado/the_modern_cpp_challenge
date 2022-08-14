@@ -3,15 +3,15 @@
 
 #include "rtc/filesystem.h"
 
-#include <filesystem>
-#include <fmt/ostream.h>
-#include <iostream>  // cout
-#include <ostream>
-
 #include "cryptopp/osrng.h"  // AutoSeededRandomPool
 #include "cryptopp/rsa.h"  // RSAES_OAEP_SHA_{Decryptor, Encryptor}, RSASSA_PKCS1v15_SHA_{Signer, Verifier}
 #include "cryptopp/files.h"  // FileSink, FileSource
 #include "cryptopp/hex.h"  // HexDecoder, HexEncoder
+
+#include <filesystem>
+#include <fmt/ostream.h>
+#include <iostream>  // cout
+#include <ostream>
 
 namespace fs = std::filesystem;
 

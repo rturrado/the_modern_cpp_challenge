@@ -2,16 +2,16 @@
 
 #include "rtc/filesystem.h"
 
-#include <filesystem>
-#include <iosfwd>
-#include <string>
-
 #define CRYPTOPP_ENABLE_NAMESPACE_WEAK 1
 
 #include "cryptopp/cryptlib.h"
 #include "cryptopp/files.h"  // FileSource
 #include "cryptopp/filters.h"  // HashFilter, StringSink
 #include "cryptopp/hex.h"  // HexEncoder
+
+#include <filesystem>
+#include <iosfwd>
+#include <string>
 
 
 namespace tmcppc::crypto {

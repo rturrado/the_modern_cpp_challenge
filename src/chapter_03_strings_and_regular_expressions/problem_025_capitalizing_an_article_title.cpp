@@ -12,7 +12,7 @@
 namespace tmcppc::problem_25 {
     std::string capitalize(std::string_view s) {
         std::string ret{ s };
-        std::for_each(begin(ret), end(ret), [parsing_word = false](char& c) mutable {
+        std::ranges::for_each(ret, [parsing_word = false](char& c) mutable {
             if (parsing_word) {
                 if (not std::isalpha(c)) {
                     // End of word. Update parsing word flag

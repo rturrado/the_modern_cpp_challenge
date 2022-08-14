@@ -1,13 +1,13 @@
 #include "chapter_11_cryptography/problem_092_computing_file_hashes.h"
 #include "env.h"
 
+#include "cryptopp/md5.h"  // MD5
+#include "cryptopp/sha.h"  // SHA1, SHA256
+
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
-
-#include "cryptopp/md5.h"  // MD5
-#include "cryptopp/sha.h"  // SHA1, SHA256
 
 
 void problem_92_main(std::ostream& os) {

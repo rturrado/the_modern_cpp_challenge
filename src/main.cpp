@@ -67,8 +67,7 @@ int main_impl(int argc, char** argv, std::istream& is, std::ostream& os) {
                 fmt::print(os, "\tError: invalid input\n");
             }
         }
-    }
-    catch (const std::exception& ex) {
+    } catch (const std::exception& ex) {
         fmt::print("Error: {}\n", ex.what());
         return 1;
     }

@@ -9,7 +9,6 @@
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <initializer_list>
-#include <iostream>  // cout
 #include <numeric>  // accumulate
 #include <ostream>
 #include <sstream>  // ostringstream
@@ -69,7 +68,7 @@ namespace tmcppc::ssn {
 
                 if (random_number_str_cache_.contains(rn_str)) {
                     auto& v{ random_number_str_cache_.find(rn_str)->second };
-                    if (std::binary_search(std::cbegin(v), std::cend(v), birth_date_str)) {
+                    if (std::ranges::binary_search(v, birth_date_str)) {
                         continue;
                     }
 

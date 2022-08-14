@@ -1,14 +1,14 @@
 #include "env.h"
 
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #include <charconv>  // from_chars
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
 #include <system_error>  // errc
-
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
 
 namespace fs = std::filesystem;
 

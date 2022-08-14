@@ -1,6 +1,5 @@
 #include "../imap/mock.h"
 #include "../imap/samples.h"
-
 #include "chapter_12_networking_and_services/imap/connection.h"
 
 #include <gmock/gmock.h>

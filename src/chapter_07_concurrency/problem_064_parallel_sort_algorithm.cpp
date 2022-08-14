@@ -18,7 +18,7 @@ void problem_64_main(std::ostream& os) {
     fmt::print(os, "v = {}\n\n", v);
     {
         auto w{ v };
-        std::sort(std::begin(w), std::end(w));
+        std::ranges::sort(w);
         fmt::print(os, "std::sort(v); v = {}\n", w);
     }
     {

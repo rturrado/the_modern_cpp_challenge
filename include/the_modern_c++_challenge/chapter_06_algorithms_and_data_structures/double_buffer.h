@@ -29,7 +29,7 @@ namespace tmcppc::data_structures {
             if (pos + v.size() > buffer_write_.size()) {
                 throw std::out_of_range{ "trying to write beyond the end of the double buffer" };
             }
-            std::copy(cbegin(v), cend(v), begin(buffer_write_) + pos);
+            std::ranges::copy(v, begin(buffer_write_) + pos);
             swap_buffers();
         }
         [[nodiscard]] constexpr T read(size_type pos) const {

@@ -35,7 +35,7 @@ void cb_parallel_transform() {
     {
         auto t{ function_timer<>::duration(
             [&v, &v1]() {
-                std::transform(std::cbegin(v), std::cend(v), std::begin(v1), square);
+                std::ranges::transform(v, std::begin(v1), square);
             }
         ) };
         fmt::print("\tstd::transform: {}\n", std::chrono::duration<double, std::milli>(t));

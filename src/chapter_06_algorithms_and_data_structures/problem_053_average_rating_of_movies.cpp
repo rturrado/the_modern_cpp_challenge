@@ -12,7 +12,7 @@ namespace tmcppc::problem_53 {
             return double{ 0.0 };
         }
 
-        std::sort(begin(rs), end(rs));
+        std::ranges::sort(rs);
 
         size_t ratings_to_remove{ static_cast<size_t>(rs.size() * 0.1 + 0.5) };  // removing a 10% instead of a 5%
         rs.erase(begin(rs), begin(rs) + ratings_to_remove);

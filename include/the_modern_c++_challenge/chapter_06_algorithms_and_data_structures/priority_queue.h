@@ -27,16 +27,16 @@ namespace tmcppc::data_structures {
         template <typename InputIt>
         priority_queue(InputIt first, InputIt last, const Compare& comp = Compare{})
             : container_{ first, last }, compare_{ comp } {
-            std::make_heap(container_.begin(), container_.end(), compare_);
+            std::ranges::make_heap(container_, compare_);
         }
 
         constexpr void push(const T& t) noexcept {
             container_.push_back(t);
-            std::push_heap(container_.begin(), container_.end(), compare_);
+            std::ranges::push_heap(container_, compare_);
         }
         constexpr void pop() {
             throw_if_empty();
-            std::pop_heap(container_.begin(), container_.end(), compare_);
+            std::ranges::pop_heap(container_, compare_);
             container_.pop_back();
         }
         [[nodiscard]] constexpr T& top() {

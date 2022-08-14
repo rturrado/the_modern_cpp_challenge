@@ -1,6 +1,5 @@
 #include "../bitcoin/mock.h"
 #include "../bitcoin/samples.h"
-
 #include "chapter_12_networking_and_services/bitcoin/connection.h"
 
 #include <gmock/gmock.h>

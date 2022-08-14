@@ -1,5 +1,4 @@
 #include "../bitcoin/samples.h"
-
 #include "chapter_12_networking_and_services/json/bitcoin.h"
 #include "chapter_12_networking_and_services/bitcoin/samples.h"
 

@@ -2,6 +2,7 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+
 #include <stdexcept>  // out_of_range
 
 using namespace tmcppc::date;

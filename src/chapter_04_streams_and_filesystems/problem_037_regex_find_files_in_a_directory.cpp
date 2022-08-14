@@ -3,7 +3,7 @@
 
 #include "rtc/filesystem.h"
 
-#include <algorithm>
+#include <algorithm>  // copy_if
 #include <exception>
 #include <filesystem>
 #include <fmt/ostream.h>

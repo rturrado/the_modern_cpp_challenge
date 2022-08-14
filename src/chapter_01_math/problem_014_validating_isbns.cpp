@@ -25,10 +25,10 @@ namespace tmcppc::problem_14 {
 
             std::getline(is, ret);
 
-            auto number_of_digits{ std::count_if(ret.begin(), ret.end(), [](auto& n) {
+            auto number_of_digits{ std::ranges::count_if(ret, [](auto& n) {
                 return std::isdigit(n) != 0;
             }) };
-            auto number_of_separators{ std::count_if(ret.begin(), ret.end(), [&separators](char c) {
+            auto number_of_separators{ std::ranges::count_if(ret, [&separators](char c) {
                 return separators.find(c) != std::string::npos;
             }) };
 

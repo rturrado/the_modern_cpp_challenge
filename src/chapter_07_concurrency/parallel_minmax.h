@@ -4,7 +4,6 @@
 #include <execution>
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <iostream>  // cout
 #include <numeric>  // iota
 #include <ostream>
 #include <random>  // default_random_engine, random_device

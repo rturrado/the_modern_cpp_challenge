@@ -18,13 +18,13 @@ namespace tmcppc::problem_3 {
             fmt::print(os, "Error: calling lcm(v) with an empty list.\n");
             return -1;
         }
-        if (std::any_of(std::cbegin(v), std::cend(v), [](int n) { return n <= 0;  })) {
+        if (std::ranges::any_of(v, [](int n) { return n <= 0;  })) {
             fmt::print(os, "Error: calling lcm(v) with a negative or zero value.\n");
             return -1;
         }
 
         // Sort the vector of numbers
-        std::sort(v.begin(), v.end());
+        std::ranges::sort(v);
 
         // Take the bigger number
         // Then, find the number that is 1, 2... i times the bigger one,

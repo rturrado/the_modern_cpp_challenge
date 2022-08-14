@@ -16,8 +16,7 @@ namespace tmcppc::math {
         digits(T n) {
             if (n == 0) {
                 data_.push_back(0);
-            }
-            else {
+            } else {
                 for (; n != 0; n /= 10) {
                     data_.push_front(n % 10);
                 }
@@ -28,8 +27,9 @@ namespace tmcppc::math {
 
         [[nodiscard]] std::string to_string() const {
             std::string ret(data_.size(), '0');
-            std::transform(data_.cbegin(), data_.cend(), ret.begin(),
-                [](const auto& n) { return static_cast<char>(n) + '0'; });
+            std::ranges::transform(data_, ret.begin(), [](const auto& n) {
+                return static_cast<char>(n) + '0';
+            });
             return ret;
         }
 
@@ -38,8 +38,7 @@ namespace tmcppc::math {
                 auto& digit = *it;
                 if (digit == 9) {
                     digit = 0;
-                }
-                else {
+                } else {
                     ++digit;
                     break;
                 }
@@ -58,8 +57,7 @@ namespace tmcppc::math {
                 auto& digit = *it;
                 if (digit == 0) {
                     digit = 9;
-                }
-                else {
+                } else {
                     --digit;
                     break;
                 }

@@ -101,7 +101,7 @@ void test_2(std::ostream& os) {
         for (auto i{ 0 }; i < 10; ++i) {
             db.write(0, v);
             std::this_thread::sleep_for(100ms);
-            std::for_each(begin(v), end(v), [](auto& n) { n += 10; });
+            std::ranges::for_each(v, [](auto& n) { n += 10; });
         }
     };
 

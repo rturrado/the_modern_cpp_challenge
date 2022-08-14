@@ -1,7 +1,6 @@
 #include "chapter_09_data_serialization/movies.h"
 #include "chapter_09_data_serialization/movies/samples.h"
 #include "chapter_10_archives_images_and_databases/sql/movies.h"
-
 #include "env.h"
 
 #include <gmock/gmock.h>

@@ -1,12 +1,11 @@
 #pragma once
 
-#include <algorithm>
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <iostream>  // cout
 #include <ostream>
 #include <string>
+#include <utility>  // forward
 
 
 namespace tmcppc::problem_18 {

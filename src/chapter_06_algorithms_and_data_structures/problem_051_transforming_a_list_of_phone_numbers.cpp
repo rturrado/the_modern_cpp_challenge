@@ -14,7 +14,7 @@
 
 namespace tmcppc::problem_51 {
     void format_phone_numbers(phone_numbers& ph_nos, const country_code& cc) {
-        std::transform(begin(ph_nos), end(ph_nos), begin(ph_nos), [&cc](auto& ph_no) {
+        std::ranges::transform(ph_nos, begin(ph_nos), [&cc](auto& ph_no) {
             // Remove whitespaces
             std::regex space_pattern{ R"([[:space:]])" };
             ph_no = std::regex_replace(ph_no, space_pattern, "");

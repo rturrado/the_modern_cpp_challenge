@@ -3,7 +3,7 @@
 #include "env.h"
 
 #include <cassert>  // assert
-#include <iostream>  // cout
+#include <iostream>  // wcout
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <vector>

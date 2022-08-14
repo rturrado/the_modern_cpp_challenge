@@ -14,7 +14,7 @@
 
 namespace tmcppc::problem_39 {
     void sort_vector(std::vector<int>& v) {
-        std::sort(begin(v), end(v));
+        std::ranges::sort(v);
         assert(v[0] == 1);
     };
 
@@ -32,7 +32,7 @@ namespace tmcppc::problem_39 {
         assert(num_elems > 0);
         std::vector<int> v(num_elems);
         std::iota(begin(v), end(v), 1);
-        std::shuffle(begin(v), end(v), std::mt19937{ std::random_device{}() });
+        std::ranges::shuffle(v, std::mt19937{ std::random_device{}() });
         while (num_reps-- != 0) {
             auto w{ v };
             sort_vector(w);

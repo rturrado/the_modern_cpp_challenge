@@ -1,6 +1,6 @@
 #include "chapter_08_design_patterns/problem_071_observable_vector_container.h"
 
-#include <algorithm>  // transfomr
+#include <algorithm>  // transform
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
 #include <initializer_list>
