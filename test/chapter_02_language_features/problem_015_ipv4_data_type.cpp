@@ -12,4 +12,6 @@ TEST(problem_15_main, DISABLED_ip_127_0_0_1_and_abc) {
     problem_15_main(iss, oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("\tYou've entered a valid IPv4 address: 127.0.0.1\n"));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("\tError: invalid IPv4 address: abc\n"));
+    EXPECT_THAT(oss.str(), ::testing::EndsWith("\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n")));
 }

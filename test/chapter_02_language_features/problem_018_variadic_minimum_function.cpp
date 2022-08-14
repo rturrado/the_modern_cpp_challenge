@@ -47,6 +47,7 @@ TEST(problem_18_main, DISABLED_output) {
         "minimum(un, lugar, de, la, Mancha) = Mancha\n"
         "\n"
         "compare_with(more_than, 1, 7, -3, 42) = 42\n"
-        "compare_with(std::greater, un, lugar, de, la, Mancha) = un\n"
+        "compare_with(std::greater, un, lugar, de, la, Mancha) = un\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

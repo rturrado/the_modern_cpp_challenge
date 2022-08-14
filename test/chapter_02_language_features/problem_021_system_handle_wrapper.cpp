@@ -14,14 +14,16 @@ TEST(problem_21_main, DISABLED_output) {
     std::wstring woss_str{ woss.str() };
     std::string oss_str(woss_str.size(), 0);
     std::ranges::transform(woss_str, std::begin(oss_str),
-        [](wchar_t c) { return static_cast<char>(c); });
+        [](wchar_t c) { return static_cast<char>(c);
+    });
 #ifdef _WIN32
     EXPECT_THAT(oss_str, ::testing::ContainsRegex(
         "Opened: .*res/sample_file.txt"
     ));
     EXPECT_THAT(oss_str, ::testing::HasSubstr(
         "Read 1024 bytes from file\n"
-        "Error: I'm a throwing function!\n"
+        "Error: I'm a throwing function!\n\n"
     ));
 #endif
+    EXPECT_THAT(oss_str, ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

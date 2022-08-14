@@ -57,6 +57,7 @@ TEST(problem_19_main, DISABLED_output) {
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "Adding 10, 20, and 30 to an empty vector of ints: [10, 20, 30]\n"
         "Adding \"Hey\", \"Joe!\", and \"Voodoo\" to an empty vector of strings: [\"Hey\", \"Joe!\", \"Voodoo\"]\n"
-        "Adding 3.14f, 0.99f, and -273.0f ot an empty list of floats: [3.14, 0.99, -273]\n"
+        "Adding 3.14f, 0.99f, and -273.0f ot an empty list of floats: [3.14, 0.99, -273]\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

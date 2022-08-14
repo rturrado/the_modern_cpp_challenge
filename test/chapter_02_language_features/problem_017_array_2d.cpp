@@ -61,6 +61,7 @@ TEST(problem_17_main, DISABLED_array_2d_basic_operations) {
         "[  7, 6, 5 ]\n"
         "[  4, 3, 2 ]\n"
         "\n"
-        "Error: left_row (zero based index) = 3 and height = 3.\n"
+        "Error: left_row (zero based index) = 3 and height = 3.\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

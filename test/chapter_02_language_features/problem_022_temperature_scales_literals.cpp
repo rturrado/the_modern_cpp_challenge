@@ -32,4 +32,5 @@ TEST(problem_22_main, DISABLED_output) {
         "\t12.30 Celsius + 12.30 Fahrenheit = 1.36 Celsius. 12.30 Fahrenheit == -10.94 Celsius\n"
         "\t12.30 Celsius - 12.30 Kelvin = 273.15 Celsius. 12.30 Kelvin == -260.85 Celsius\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

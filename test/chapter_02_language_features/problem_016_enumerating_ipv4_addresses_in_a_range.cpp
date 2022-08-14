@@ -17,6 +17,7 @@ TEST(problem_16_main, DISABLED_invalid_and_invalid_range_and_valid) {
         "\t127.0.0.2\n"
         "\t127.0.0.3\n"
         "\t127.0.0.4\n"
-        "\t127.0.0.5\n"
+        "\t127.0.0.5\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
