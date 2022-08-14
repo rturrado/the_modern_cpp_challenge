@@ -17,7 +17,6 @@
 #include <vector>
 
 namespace ch = std::chrono;
-using namespace ch;
 
 
 namespace tmcppc::ssn {

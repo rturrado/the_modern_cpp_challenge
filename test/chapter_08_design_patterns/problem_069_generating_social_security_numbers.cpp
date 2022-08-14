@@ -27,7 +27,7 @@ std::string encode_crc(const std::string& str, int crc_modulo) {
 
 
 TEST(northeria_ssn_generator, DISABLED_generate_female_1_1_1970) {
-    auto result{ northeria_ssn_generator::get_instance().generate(person{ sex::female, 1970y / January / 1 }) };
+    auto result{ northeria_ssn_generator::get_instance().generate(person{ sex::female, 1970y / ch::January / 1 }) };
     EXPECT_TRUE(std::ranges::all_of(result.substr(0, 14), [](unsigned char c) { return std::isdigit(c); }));
     EXPECT_EQ(result[0], '9');
     EXPECT_EQ(result.substr(1, 8), "19700101");
@@ -36,7 +36,7 @@ TEST(northeria_ssn_generator, DISABLED_generate_female_1_1_1970) {
     EXPECT_EQ(expected_crc, actual_crc);
 }
 TEST(northeria_ssn_generator, DISABLED_generate_male_1_1_1970) {
-    auto result{ northeria_ssn_generator::get_instance().generate(person{ sex::male, 1970y / January / 1 }) };
+    auto result{ northeria_ssn_generator::get_instance().generate(person{ sex::male, 1970y / ch::January / 1 }) };
     EXPECT_TRUE(std::ranges::all_of(result.substr(0, 14), [](unsigned char c) { return std::isdigit(c); }));
     EXPECT_EQ(result[0], '7');
     EXPECT_EQ(result.substr(1, 8), "19700101");
@@ -46,7 +46,7 @@ TEST(northeria_ssn_generator, DISABLED_generate_male_1_1_1970) {
 }
 
 TEST(southeria_ssn_generator, DISABLED_generate_female_1_1_1970) {
-    auto result{ southeria_ssn_generator::get_instance().generate(person{ sex::female, 2000y / August / 14 }) };
+    auto result{ southeria_ssn_generator::get_instance().generate(person{ sex::female, 2000y / ch::August / 14 }) };
     EXPECT_TRUE(std::ranges::all_of(result, [](unsigned char c) { return std::isdigit(c); }));
     EXPECT_EQ(result[0], '1');
     EXPECT_EQ(result.substr(1, 8), "20000814");
@@ -55,7 +55,7 @@ TEST(southeria_ssn_generator, DISABLED_generate_female_1_1_1970) {
     EXPECT_EQ(expected_crc, actual_crc);
 }
 TEST(southeria_ssn_generator, DISABLED_generate_male_1_1_1970) {
-    auto result{ southeria_ssn_generator::get_instance().generate(person{ sex::male, 2000y / August / 14 }) };
+    auto result{ southeria_ssn_generator::get_instance().generate(person{ sex::male, 2000y / ch::August / 14 }) };
     EXPECT_TRUE(std::ranges::all_of(result, [](unsigned char c) { return std::isdigit(c); }));
     EXPECT_EQ(result[0], '2');
     EXPECT_EQ(result.substr(1, 8), "20000814");

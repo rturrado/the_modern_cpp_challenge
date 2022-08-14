@@ -44,12 +44,12 @@ namespace tmcppc::problem_44 {
 
 
 void problem_44_main(std::ostream& os) {
-    using namespace ch;
+    using namespace std::chrono_literals;
     using namespace tmcppc::problem_44;
     
     using vector_of_pairs_year_month = std::vector<std::pair<ch::year, ch::month>>;
 
-    for (const auto& [year, month] : vector_of_pairs_year_month{ {1970y, January}, {1977y, May}, {2012y, February} }) {
+    for (const auto& [year, month] : vector_of_pairs_year_month{ {1970y, ch::January}, {1977y, ch::May}, {2012y, ch::February} }) {
         print_calendar_month(os, year, month);
         os << "\n\n";
     }
