@@ -50,4 +50,6 @@ TEST(problem_59_main, DISABLED_output) {
     std::ostringstream oss{};
     problem_59_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("METHINKS IT IS LIKE A WEASEL"));
+    EXPECT_THAT(oss.str(), ::testing::EndsWith("\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

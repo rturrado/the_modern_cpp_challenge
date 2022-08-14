@@ -50,5 +50,7 @@ TEST(problem_53_main, DISABLED_output) {
         "Average rating of movies:\n"
         "\tThe Godfather: 8.3\n"
         "\tThe Godfather II: 7.7\n"
-        "\tThe Godfather III: 7.4\n"));
+        "\tThe Godfather III: 7.4\n\n"
+    ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

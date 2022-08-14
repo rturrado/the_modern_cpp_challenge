@@ -40,6 +40,7 @@ TEST(problem_55_main, DISABLED_output) {
         "\t[(1, 1), (2, 1), (3, 3), (4, 5), (5, 8), (6, 13), (7, 21)]\n"
         "\n"
         "Zipping [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] and [a, b, c, d, e]:\n"
-        "\t[(1, 'a'), (2, 'b'), (3, 'c'), (4, 'd'), (5, 'e')]\n"
+        "\t[(1, 'a'), (2, 'b'), (3, 'c'), (4, 'd'), (5, 'e')]\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

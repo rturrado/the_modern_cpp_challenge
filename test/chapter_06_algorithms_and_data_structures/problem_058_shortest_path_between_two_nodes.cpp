@@ -53,6 +53,7 @@ TEST(problem_58_main, DISABLED_output) {
         "\tF -> C : 2\tF -> C\n"
         "\tF -> D : 13\tF -> C -> D\n"
         "\tF -> E : 9\tF -> E\n"
-        "\tF -> F : 0\tF\n"
+        "\tF -> F : 0\tF\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

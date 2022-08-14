@@ -39,6 +39,7 @@ TEST(problem_54_main, DISABLED_output) {
     problem_54_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "Zipping [1, 1, 2, 3, 5, 8] with next: [(1, 1), (2, 3), (5, 8)]\n"
-        "Zipping [1, 1, 2, 3, 5, 8, 13] with next: [(1, 1), (2, 3), (5, 8)]\n"
+        "Zipping [1, 1, 2, 3, 5, 8, 13] with next: [(1, 1), (2, 3), (5, 8)]\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

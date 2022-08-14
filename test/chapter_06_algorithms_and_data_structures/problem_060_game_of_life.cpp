@@ -43,4 +43,6 @@ TEST(problem_60_main, DISABLED_output) {
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex("\\s+"));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex("\\*+"));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex("\n+"));
+    EXPECT_THAT(oss.str(), ::testing::EndsWith("\n\n"));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

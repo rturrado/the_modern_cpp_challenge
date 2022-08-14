@@ -42,6 +42,7 @@ TEST(problem_56_main, DISABLED_output) {
         "\t[\"The C++ Programming Language\", \"Effective Modern C++\", \"The Modern C++ Programming Cookbook\"]\n"
         "\n"
         "Selecting authors:\n"
-        "\t[\"Bjarne Stroustrup\", \"Scott Meyers\", \"Marius Bancila\"]\n"
+        "\t[\"Bjarne Stroustrup\", \"Scott Meyers\", \"Marius Bancila\"]\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

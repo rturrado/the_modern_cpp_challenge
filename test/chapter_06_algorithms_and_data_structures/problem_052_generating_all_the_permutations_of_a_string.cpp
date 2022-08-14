@@ -60,6 +60,7 @@ TEST(problem_52_main, DISABLED_output) {
         "adyn, dayn, dyan, dyna, aydn, yadn, ydan, ydna, aynd, yand, ynad, ynda]\n"
         "\t2) Not using recursion:\n"
         "\t\t[adny, adyn, andy, anyd, aydn, aynd, dany, dayn, dnay, dnya, dyan, dyna, "
-        "nady, nayd, nday, ndya, nyad, nyda, yadn, yand, ydan, ydna, ynad, ynda]\n"
+        "nady, nayd, nday, ndya, nyad, nyda, yadn, yand, ydan, ydna, ynad, ynda]\n\n"
     ));
+    EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
