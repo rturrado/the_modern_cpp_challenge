@@ -2,11 +2,11 @@
 include(FetchContent)
 FetchContent_Declare(googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG "af29db7ec28d6df1c7f0f745186884091e602e07"
+    GIT_TAG "61720589cbef9707b3c5247d02141a7c31e2876f"
 )
 FetchContent_Declare(perceptualdiff
     GIT_REPOSITORY https://github.com/rturrado/perceptualdiff.git
-    GIT_TAG "9d1ea3600693471a392a59aa3d6dbcdef8b15c49"
+    GIT_TAG "dea8936e12c2659ffa943fcfda16ff328ae5a117"
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(

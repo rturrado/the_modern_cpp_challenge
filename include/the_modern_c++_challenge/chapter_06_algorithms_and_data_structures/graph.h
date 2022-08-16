@@ -135,7 +135,7 @@ namespace tmcppc::data_structures {
         distance_map<Node, Distance> distances{};
 
         // Start with infinite distances between the source node and all the other nodes
-        std::ranges::transform(ds, std::inserter(distances, end(distances)), [&s](const auto& d) {
+        std::ranges::transform(ds, std::inserter(distances, end(distances)), [](const auto& d) {
             return std::make_pair(d, std::numeric_limits<Distance>::max());
         });
 

@@ -11,6 +11,7 @@
 #include <ostream>
 #include <sstream>  // ostringstream
 #include <string>
+#include <string_view>
 
 namespace fs = std::filesystem;
 
@@ -48,7 +49,7 @@ namespace tmcppc::problem_35 {
     std::string directory_size_in_bytes_to_string(uintmax_t n) {
         double d{ static_cast<double>(n) };
         std::ostringstream oss{};
-        for (auto& unit : { "b", "KB", "MB", "GB" }) {
+        for (std::string_view unit : { "b", "KB", "MB", "GB" }) {
             if (d < 1024 or unit == "GB") {
                 fmt::print(oss, "{:.0f} {}", std::floor(d), unit);
                 break;

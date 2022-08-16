@@ -64,7 +64,7 @@ namespace tmcppc::data_structures {
 
         protected:
             const circular_buffer<T>& cb_;
-            TPtr_ ptr_{ front_pos_ };
+            TPtr_ ptr_{};
             // begin and end will point to the same position in a full circular buffer
             // This flag will help us differentiate them at the beginning of a loop
             bool last_{};

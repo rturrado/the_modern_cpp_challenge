@@ -11,8 +11,6 @@
 void problem_72_main(std::ostream& os) {
     using namespace tmcppc::store;
 
-    const size_t store_articles_size{ 15 };
-
     // Discounts
     auto d1{ std::make_shared<article_fixed_discount>(0.05f) };
     auto d2{ std::make_shared<order_line_volume_discount>(0.2f, 3) };
@@ -70,10 +68,6 @@ void problem_72_main(std::ostream& os) {
     o2.print(os, indentation{ 1 });
     fmt::print(os, "\n\n");
 
-    auto equal = [](float a, float b) {
-        return (std::abs(a - b) < std::numeric_limits<float>::epsilon());
-    };
-
     // Price calculations
     cumulative_price_calculator cpc{};
     non_cumulative_price_calculator ncpc{};
@@ -82,6 +76,10 @@ void problem_72_main(std::ostream& os) {
     auto cp2{ cpc.calculate(o2) };
     auto ncp1{ ncpc.calculate(o1) };
     auto ncp2{ ncpc.calculate(o2) };
+
+    auto equal = [](float a, float b) {
+        return (std::abs(a - b) < std::numeric_limits<float>::epsilon());
+    };
 
     assert(equal(cp1, 37.4f) and "Error: calculating cumulative price for order 1");
     assert(equal(cp2, 99.36f) and "Error: calculating cumulative price for order 2");

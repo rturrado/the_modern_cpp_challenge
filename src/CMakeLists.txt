@@ -5,17 +5,17 @@ set(include_dir ${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME})
 include(FetchContent)
 FetchContent_Declare(asio
     GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
-    GIT_TAG "f0a1e1c7c0387ad16358c81eb52528f190df625c"
+    GIT_TAG "147f7225a96d45a2807a64e443177f621844e51c"
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
 )
 FetchContent_Declare(cryptopp-cmake
     GIT_REPOSITORY https://github.com/rturrado/cryptopp-cmake.git
-    GIT_TAG "1689327135734081fade00be1c783711276f0d23"
+    GIT_TAG "356dcea19a7ae6b0c9c635b107df2ef872500c8d"
 )
 FetchContent_Declare(curlcpp
-    GIT_REPOSITORY https://github.com/JosephP91/curlcpp.git
-    GIT_TAG "4be41c6ed651d0e19eca10d08cb27605af117566"
+    GIT_REPOSITORY https://github.com/rturrado/curlcpp.git
+    GIT_TAG "b3e8eff8bb224defdd43cd1a1a9d77f68d7b72cd"
 )
 FetchContent_Declare(fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
@@ -26,15 +26,15 @@ FetchContent_Declare(nlohmann-json
 )
 FetchContent_Declare(PDF-Writer
     GIT_REPOSITORY https://github.com/rturrado/PDF-Writer.git
-    GIT_TAG "66fc2954fbce1e9903a8ff4b2f7fe90e1f61d36b"
+    GIT_TAG "9fc510b67f7fa1876f0a4039811b49befcf9df8e"
 )
 FetchContent_Declare(PNGwriter
     GIT_REPOSITORY https://github.com/rturrado/pngwriter.git
-    GIT_TAG "a25a1272dc244590708d91d59ac549e3761d9652"
+    GIT_TAG "aff0a89a287eb0cc58204a1b164876b09a204bfb"
 )
 FetchContent_Declare(pugixml
-    GIT_REPOSITORY https://github.com/zeux/pugixml.git
-    GIT_TAG "363ebdde91214e456943822ddf422860af8bb54d"
+    GIT_REPOSITORY https://github.com/rturrado/pugixml.git
+    GIT_TAG "87775d1a844ed6796a294434f370ce3f67349f0d"
 )
 FetchContent_Declare(range-v3
     GIT_REPOSITORY https://github.com/ericniebler/range-v3.git
@@ -42,7 +42,7 @@ FetchContent_Declare(range-v3
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "e82da7dbf57ebe3356c78495af3980ca056f7865"
+    GIT_TAG "20ed48af66cd71e6677119bb5f24878576afafe2"
 )
 FetchContent_Declare(SqliteModernCpp
     GIT_REPOSITORY https://github.com/SqliteModernCpp/sqlite_modern_cpp.git
@@ -57,7 +57,7 @@ FetchContent_Declare(sqlite
 )
 FetchContent_Declare(ZipLib
     GIT_REPOSITORY https://github.com/rturrado/ZipLib.git
-    GIT_TAG "606ec487b6f6050db5bb5b195514f393928eebe8"
+    GIT_TAG "0cd3909b16377d05b62a1c34dd72a1758ba56653"
 )
 FetchContent_MakeAvailable(
     asio

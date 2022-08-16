@@ -42,7 +42,7 @@ namespace tmcppc::problem_49 {
             [](auto total, auto& kvp) { return total + kvp.second;
         });
 
-        auto print_histogram_line = [&os, &histogram_width, &total_count](char c, size_t count) {
+        auto print_histogram_line = [&os, &total_count](char c, size_t count) {
             double frequency{ (count * 100.0) / total_count };
 
             // Subtract 13 for line header, e.g.: 'e ( 13.27 %) '

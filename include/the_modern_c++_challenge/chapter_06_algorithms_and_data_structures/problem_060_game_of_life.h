@@ -49,8 +49,6 @@ namespace tmcppc::game_of_life {
         // Fill grid randomly
         game_of_life(std::ostream& os, size_t rows = 20, size_t columns = 50)
             : os_{ os }
-            , rows_{ rows }
-            , columns_{ columns }
             , data_{ std::vector(rows, std::vector(columns, cell{})) } {
 
             std::ranges::for_each(data_, [](auto& row) {
@@ -83,8 +81,6 @@ namespace tmcppc::game_of_life {
 
     private:
         std::ostream& os_;
-        size_t rows_{ 20 };
-        size_t columns_{ 50 };
         grid data_{};
 
         size_t count_live_cell_neighbours(int i, int j) {

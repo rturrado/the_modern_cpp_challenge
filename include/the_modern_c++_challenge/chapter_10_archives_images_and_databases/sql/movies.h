@@ -322,7 +322,7 @@ namespace tmcppc::movies::sql {
         };
     }
     inline void to_db(sqlite::database& db, size_t movie_id, const cast& cast) {
-        for (auto& role : cast.cast_) {
+        for (const auto& role : cast.cast_) {
             to_db(db, movie_id, role);
         }
     }
@@ -357,7 +357,7 @@ namespace tmcppc::movies::sql {
         };
     }
     inline void to_db(sqlite::database& db, size_t movie_id, const writers& writers) {
-        for (auto& writer : writers.writers_) {
+        for (const auto& writer : writers.writers_) {
             to_db(db, movie_id, writer);
         }
     }
@@ -393,7 +393,7 @@ namespace tmcppc::movies::sql {
         };
     }
     inline void to_db(sqlite::database& db, size_t movie_id, const directors& directors) {
-        for (auto& director : directors.directors_) {
+        for (const auto& director : directors.directors_) {
             to_db(db, movie_id, director);
         }
     }
@@ -453,7 +453,7 @@ namespace tmcppc::movies::sql {
     // Catalog
     inline void from_db(sqlite::database& db, catalog& catalog) {
         db << "select rowid,title,year,length from Movies;"
-            >> [&db, &catalog](int rowid, std::string title, int year, int length) {
+            >> [&catalog](int rowid, std::string title, int year, int length) {
             catalog.movies.emplace_back(rowid, title, std::chrono::year{ year }, length);
         };
         for (auto& movie : catalog.movies) {

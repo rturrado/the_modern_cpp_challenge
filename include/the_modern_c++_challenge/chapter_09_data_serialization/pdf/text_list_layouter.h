@@ -30,7 +30,7 @@ namespace tmcppc::pdf {
             }
         }
 
-        [[nodiscard]] virtual image_control position_image(doc*, double, double) {
+        [[nodiscard]] virtual image_control position_image(doc*, double, double) override {
             return {};
         };
 
