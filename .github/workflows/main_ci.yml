@@ -21,7 +21,7 @@ env:
   BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download
 
 jobs:
-  windows-x64-Debug-test-asan:
+  windows-x64-Debug-test:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -61,12 +61,12 @@ jobs:
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build tests
         run: |
-          cmake --preset test-asan
-          cmake --build --preset x64-Debug-test-asan
+          cmake --preset test
+          cmake --build --preset x64-Debug-test
 
       - name: Run tests
         working-directory: ${{github.workspace}}
-        run: ./build/NinjaMultiConfig/test-asan/test/Debug/the_modern_c++_challenge_test.exe res --gtest_brief=1 --gtest_also_run_disabled_tests
+        run: ./build/NinjaMultiConfig/test/test/Debug/the_modern_c++_challenge_test.exe res --gtest_brief=1 --gtest_also_run_disabled_tests
         shell: bash
 
   windows-x64-Release-benchmark:
