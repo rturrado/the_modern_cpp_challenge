@@ -2,6 +2,7 @@
 #include "chapter_12_networking_and_services/problem_097_bitcoin_exchange_rates.h"
 
 #include <fmt/ostream.h>
+#include <memory>  // make_unique
 #include <iostream>  // cout
 #include <ostream>
 

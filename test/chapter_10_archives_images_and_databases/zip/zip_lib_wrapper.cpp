@@ -40,7 +40,9 @@ TEST(zip_compress, DISABLED_input_path_does_not_exist) {
 }
 TEST(zip_compress, DISABLED_empty_folder) {
     std::ostringstream oss{};
-    const auto input_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_empty_folder" };
+    const auto input_path{ fs::temp_directory_path() / "sample_empty_folder" };
+    fs::remove_all(input_path);
+    fs::create_directories(input_path);
     const auto zip_file_path{ create_zip_file_path(fs::temp_directory_path(), input_path) };
     tmcppc::zip::compress(oss, input_path, zip_file_path);
     EXPECT_FALSE(fs::exists(zip_file_path));
