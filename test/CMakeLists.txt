@@ -62,7 +62,11 @@ message(STATUS
     "[${PROJECT_NAME}_test] Target include directories:\n"
     "      perceptualdiff: ${perceptualdiff_SOURCE_DIR}\n"
 )
-target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_23)
+if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
+    target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_23)
+elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_20)
+endif()
 target_link_libraries(${PROJECT_NAME}_test PUBLIC
     lib_${PROJECT_NAME}
     gmock

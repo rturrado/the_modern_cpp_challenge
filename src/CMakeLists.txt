@@ -179,7 +179,11 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${include_dir}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
+if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
+    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
+elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
+endif()
 target_link_libraries(${PROJECT_NAME} lib_${PROJECT_NAME})
 
 

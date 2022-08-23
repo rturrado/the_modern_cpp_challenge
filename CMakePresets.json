@@ -7,10 +7,11 @@
     },
     "configurePresets": [
         {
-            "name": "base",
+            "name": "conf-common",
             "hidden": true,
             "description": "Configure with vcpkg toolchain and generate Ninja project files for all configurations",
-            "binaryDir": "${sourceDir}/build/NinjaMultiConfig/${presetName}",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "installDir": "${sourceDir}/out/build/${presetName}",
             "generator": "Ninja Multi-Config",
             "cacheVariables": {
                 "BOOST_ROOT": {
@@ -24,77 +25,147 @@
             "debug": {
                 "output": true
             }
-        },
+        },/*
         {
-            "name": "test",
-            "inherits": "base",
-            "cacheVariables": {
-                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true
+            "name": "conf-windows-common",
+            "description": "Windows settings for MSBuild toolchain that apply to msvc and clang",
+            "hidden": true,
+            "inherits": "conf-common",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "toolset": {
+                "value": "host=x64",
+                "strategy": "external"
             }
-        },
+        },*/
         {
-            "name": "test-asan",
-            "inherits": "test",
+            "name": "conf-unixlike-common",
+            "description": "Unix-like OS settings for gcc and clang toolchains",
+            "hidden": true,
+            "inherits": "conf-common",
+            "condition": {
+                "type": "inList",
+                "string": "${hostSystemName}",
+                "list": [
+                    "Linux",
+                    "Darwin"
+                ]
+            },
+            "vendor": {
+                "microsoft.com/VisualStudioRemoteSettings/CMake/1.0": {
+                    "sourceDir": "$env{HOME}/.vs/$ms{projectDirName}"
+                }
+            }
+        },/*
+        {
+            "name": "windows-msvc-debug",
+            "displayName": "msvc Debug",
+            "description": "Target Windows with the msvc compiler, debug build type",
+            "inherits": "conf-windows-common",
             "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl",
+                "CMAKE_CXX_COMPILER": "cl",
+                "CMAKE_BUILD_TYPE": "Debug",
+                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true,
                 "ASAN_ENABLED": true
             }
         },
         {
-            "name": "benchmark",
-            "inherits": "base",
+            "name": "windows-msvc-release",
+            "displayName": "msvc Release",
+            "description": "Target Windows with the msvc compiler, release build type",
+            "inherits": "conf-windows-common",
             "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl",
+                "CMAKE_CXX_COMPILER": "cl",
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
                 "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true,
                 "BUILD_TESTING": false
             }
-        }
+        },
+        {
+            "name": "unixlike-gcc-debug",
+            "displayName": "gcc Debug",
+            "description": "Target Unix-like OS with the gcc compiler, debug build type",
+            "inherits": "conf-unixlike-common",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_BUILD_TYPE": "Debug",
+                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true,
+                "ASAN_ENABLED": true
+            }
+        },
+        {
+            "name": "unixlike-gcc-release",
+            "displayName": "gcc Release",
+            "description": "Target Unix-like OS with the gcc compiler, release build type",
+            "inherits": "conf-unixlike-common",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true,
+                "BUILD_TESTING": false
+            }
+        },*/
+        {
+            "name": "unixlike-clang-debug",
+            "displayName": "clang Debug",
+            "description": "Target Unix-like OS with the clang compiler, debug build type",
+            "inherits": "conf-unixlike-common",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++",
+                "CMAKE_BUILD_TYPE": "Debug",
+                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true,
+                "ASAN_ENABLED": true
+            }
+        }/*,
+        {
+            "name": "unixlike-clang-release",
+            "displayName": "clang Release",
+            "description": "Target Unix-like OS with the clang compiler, release build type",
+            "inherits": "conf-unixlike-common",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++",
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true,
+                "BUILD_TESTING": false
+            }
+        }*/
     ],
-    "buildPresets": [
+    "buildPresets": [ /*
         {
-            "name": "x64-Debug-test",
-            "configurePreset": "test",
-            "displayName": "Build x64-Debug-test",
-            "description": "Build test Debug configuration",
+            "name": "windows-msvc-debug",
+            "configurePreset": "windows-msvc-debug",
+            "displayName": "Build windows-msvc-debug",
+            "description": "Build x64 Windows MSVC Debug",
             "configuration": "Debug",
             "verbose": true
         },
         {
-            "name": "x64-Release-test",
-            "configurePreset": "test",
-            "displayName": "Build x64-Release-test",
-            "description": "Build test Release configuration",
-            "configuration": "Release",
-            "verbose": true
-        },
-        {
-            "name": "x64-Debug-test-asan",
-            "configurePreset": "test-asan",
-            "displayName": "Build x64-Debug-test-asan",
-            "description": "Build test-asan Debug configuration",
+            "name": "unixlike-gcc-debug",
+            "configurePreset": "unixlike-gcc-debug",
+            "displayName": "Build unixlike-gcc-debug",
+            "description": "Build x64 Unix-like OS gcc Debug",
             "configuration": "Debug",
             "verbose": true
-        },
+        },*/
         {
-            "name": "x64-RelWithDebInfo-test-asan",
-            "configurePreset": "test-asan",
-            "displayName": "Build x64-RelWithDebInfo-test-asan",
-            "description": "Build test-asan RelWithDebInfo configuration",
-            "configuration": "RelWithDebInfo",
-            "verbose": true
-        },
-        {
-            "name": "x64-Release-benchmark",
-            "configurePreset": "benchmark",
-            "displayName": "Build x64-Release-benchmark",
-            "description": "Build benchmark Release configuration",
-            "configuration": "Release",
-            "verbose": true
-        },
-        {
-            "name": "x64-RelWithDebInfo-benchmark",
-            "configurePreset": "benchmark",
-            "displayName": "Build x64-RelWithDebInfo-benchmark",
-            "description": "Build benchmark RelWithDebInfo configuration",
-            "configuration": "RelWithDebInfo",
+            "name": "unixlike-clang-debug",
+            "configurePreset": "unixlike-clang-debug",
+            "displayName": "Build unixlike-clang-debug",
+            "description": "Build x64 Unix-like OS clang Debug",
+            "configuration": "Debug",
             "verbose": true
         }
     ]
