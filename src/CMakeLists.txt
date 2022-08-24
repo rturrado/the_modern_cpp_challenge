@@ -153,7 +153,7 @@ message(STATUS
 set_target_properties(lib_${PROJECT_NAME} PROPERTIES
     OUTPUT_NAME ${PROJECT_NAME}-${PROJECT_VERSION}
 )
-if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
+if(MSVC)
     target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_23)
 elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
     target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_20)
@@ -183,7 +183,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${include_dir}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
-if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
+if(MSVC)
     target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
 elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
     target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)

@@ -25,7 +25,7 @@ set(benchmark_sources
 
 # Benchmark executable
 add_executable(${PROJECT_NAME}_benchmark main.cpp benchmark.h ${benchmark_sources})
-if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
+if(MSVC)
     target_compile_features(${PROJECT_NAME}_benchmark PRIVATE cxx_std_23)
 elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
     target_compile_features(${PROJECT_NAME}_benchmark PRIVATE cxx_std_20)
