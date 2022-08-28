@@ -9,14 +9,14 @@
 using namespace tmcppc::office;
 
 
-TEST(ticketing_machine, DISABLED_get_ticket_number) {
+TEST(ticketing_machine, get_ticket_number) {
     ticketing_machine tm{};
     EXPECT_EQ(tm.get_ticket_number(), 1);
     EXPECT_EQ(tm.get_ticket_number(), 2);
     EXPECT_EQ(tm.get_ticket_number(), 3);
 }
 
-TEST(office_simulator, DISABLED_one_client_one_desk) {
+TEST(office_simulator, one_client_one_desk) {
     office_simulator office_simulator{ 1, 1 };
     std::ostringstream oss{};
     office_simulator.run(oss);
@@ -32,7 +32,7 @@ TEST(office_simulator, DISABLED_one_client_one_desk) {
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer 1: finished\n")));
 }
 
-TEST(office_simulator, DISABLED_ten_clients_one_desk) {
+TEST(office_simulator, ten_clients_one_desk) {
     size_t number_of_customers{ 10 };
     size_t number_of_desks{ 1 };
     office_simulator office_simulator{ number_of_customers, number_of_desks };
@@ -52,7 +52,7 @@ TEST(office_simulator, DISABLED_ten_clients_one_desk) {
     }
 }
 
-TEST(problem_66_main, DISABLED_output) {
+TEST(problem_66_main, output) {
     size_t number_of_customers{ 7 };
     size_t number_of_desks{ 3 };
     std::istringstream iss{ "7\n3\n" };

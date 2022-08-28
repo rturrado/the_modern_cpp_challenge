@@ -14,7 +14,7 @@ using namespace tmcppc::movies;
 using namespace tmcppc::movies::file;
 
 
-TEST(from_file, DISABLED_cast) {
+TEST(from_file, cast) {
     const std::filesystem::path temp_file_path{ std::filesystem::temp_directory_path() / "test_from_console_cast.txt" };
     std::ofstream ofs{ temp_file_path, std::ios_base::out | std::ios_base::trunc };
     fmt::print(ofs,
@@ -35,7 +35,7 @@ TEST(from_file, DISABLED_cast) {
 }
 
 
-TEST(from_file, DISABLED_writers) {
+TEST(from_file, writers) {
     const std::filesystem::path temp_file_path{ std::filesystem::temp_directory_path() / "test_from_console_writers.txt" };
     std::ofstream ofs{ temp_file_path, std::ios_base::out | std::ios_base::trunc };
     fmt::print(ofs,
@@ -50,7 +50,7 @@ TEST(from_file, DISABLED_writers) {
 }
 
 
-TEST(from_file, DISABLED_directors) {
+TEST(from_file, directors) {
     const std::filesystem::path temp_file_path{ std::filesystem::temp_directory_path() / "test_from_console_directors.txt" };
     std::ofstream ofs{ temp_file_path, std::ios_base::out | std::ios_base::trunc };
     fmt::print(ofs,
@@ -64,7 +64,7 @@ TEST(from_file, DISABLED_directors) {
 }
 
 
-TEST(from_file, DISABLED_movie) {
+TEST(from_file, movie) {
     const std::filesystem::path temp_file_path{ std::filesystem::temp_directory_path() / "test_from_console_movie.txt" };
     std::ofstream ofs{ temp_file_path, std::ios_base::out | std::ios_base::trunc };
     ofs <<

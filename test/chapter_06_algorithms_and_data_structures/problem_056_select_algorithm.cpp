@@ -11,22 +11,22 @@
 using namespace tmcppc::problem_56;
 
 
-TEST(select, DISABLED_empty_range) {
+TEST(select, empty_range) {
     EXPECT_TRUE(select(std::vector<int>{}, std::identity{}).empty());
 }
-TEST(select, DISABLED_identity) {
+TEST(select, identity) {
     EXPECT_THAT(select(std::vector<int>{ 1, 2, 3 }, std::identity{}), ::testing::ElementsAre(1, 2, 3));
 }
-TEST(select, DISABLED_square) {
+TEST(select, square) {
     EXPECT_THAT(select(std::vector<int>{ 1, 2, 3 }, [](int i) { return i * i; }), ::testing::ElementsAre(1, 4, 9));
 }
-TEST(select, DISABLED_tuple_get_0) {
+TEST(select, tuple_get_0) {
     EXPECT_THAT(select(std::vector<std::tuple<int, char>>{ { 1, 'a' }, { 2, 'b' } }, [](const auto& t) { return std::get<0>(t); }),
         ::testing::ElementsAre(1, 2));
 }
 
 
-TEST(problem_56_main, DISABLED_output) {
+TEST(problem_56_main, output) {
     std::ostringstream oss{};
     problem_56_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

@@ -15,7 +15,7 @@
 using namespace tmcppc::text_translation;
 
 
-TEST(test_text_translation, DISABLED_output) {
+TEST(test_text_translation, output) {
     std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
     auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     EXPECT_CALL(provider, translate(samples::english, language_code::English, language_code::Arabic))

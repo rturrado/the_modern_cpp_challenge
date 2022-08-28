@@ -16,7 +16,7 @@ using namespace tmcppc::problem_82;
 namespace fs = std::filesystem;
 
 
-TEST(paint_romania_flag, DISABLED_png_output) {
+TEST(paint_romania_flag, png_output) {
     const auto master_image_file_path{ tmcppc::env::get_instance().get_resource_folder_path()
         / "images" / "masters" / "romania_flag.png" };
     const auto image_file_path{ create_png_file_path(std::filesystem::temp_directory_path(), "test_paint_romania_flag") };
@@ -31,7 +31,7 @@ TEST(paint_romania_flag, DISABLED_png_output) {
     EXPECT_TRUE(pdiff::yee_compare(*decoded_output_image, *decoded_master_image));
 }
 
-TEST(problem_82_main, DISABLED_ostream_output) {
+TEST(problem_82_main, ostream_output) {
     std::ostringstream oss{};
     problem_82_main(oss);
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex("Creating .*/romania_flag.png...\n\n"));

@@ -13,13 +13,13 @@ using namespace std::chrono_literals;
 using namespace tmcppc::problem_44;
 
 
-TEST(print_calendar_month, DISABLED_invalid_month) {
+TEST(print_calendar_month, invalid_month) {
     std::ostringstream oss{};
     EXPECT_THROW(print_calendar_month(oss, 2022y, ch::month{ 20 }), rtc::chrono::invalid_month_error);
 }
 
 
-TEST(print_calendar_month, DISABLED_january_1970) {
+TEST(print_calendar_month, january_1970) {
     std::ostringstream oss{};
     print_calendar_month(oss, 1970y, ch::month{ 1 });
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
@@ -34,7 +34,7 @@ TEST(print_calendar_month, DISABLED_january_1970) {
 }
 
 
-TEST(problem_44_main, DISABLED_output) {
+TEST(problem_44_main, output) {
     std::ostringstream oss{};
     problem_44_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

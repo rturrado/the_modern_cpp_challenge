@@ -6,7 +6,7 @@
 #include <sstream>  // ostringstream
 
 
-TEST(problem_90_main, DISABLED_output) {
+TEST(problem_90_main, output) {
     std::ostringstream oss{};
     problem_90_main(oss);
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(

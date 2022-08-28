@@ -15,7 +15,7 @@ using namespace tmcppc::pugixml;
 
 
 // Role
-TEST(xml_role, DISABLED_to_xml_and_from_xml) {
+TEST(xml_role, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "role") };
     to_xml(n, samples::role);
@@ -25,7 +25,7 @@ TEST(xml_role, DISABLED_to_xml_and_from_xml) {
 }
 
 // Cast
-TEST(xml_cast, DISABLED_to_xml_and_from_xml) {
+TEST(xml_cast, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "cast") };
     to_xml(n, samples::cast);
@@ -35,7 +35,7 @@ TEST(xml_cast, DISABLED_to_xml_and_from_xml) {
 }
 
 // Director
-TEST(xml_director, DISABLED_to_xml_and_from_xml) {
+TEST(xml_director, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "director") };
     to_xml(n, samples::director);
@@ -45,7 +45,7 @@ TEST(xml_director, DISABLED_to_xml_and_from_xml) {
 }
 
 // Directors
-TEST(xml_directors, DISABLED_to_xml_and_from_xml) {
+TEST(xml_directors, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "directors") };
     to_xml(n, samples::directors);
@@ -55,7 +55,7 @@ TEST(xml_directors, DISABLED_to_xml_and_from_xml) {
 }
 
 // Writer
-TEST(xml_writer, DISABLED_to_xml_and_from_xml) {
+TEST(xml_writer, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "writer") };
     to_xml(n, samples::writer);
@@ -65,7 +65,7 @@ TEST(xml_writer, DISABLED_to_xml_and_from_xml) {
 }
 
 // Writers
-TEST(xml_writers, DISABLED_to_xml_and_from_xml) {
+TEST(xml_writers, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "writers") };
     to_xml(n, samples::writers);
@@ -75,7 +75,7 @@ TEST(xml_writers, DISABLED_to_xml_and_from_xml) {
 }
 
 // Movie
-TEST(xml_movie, DISABLED_to_xml_and_from_xml) {
+TEST(xml_movie, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "movie") };
     to_xml(n, samples::movie);
@@ -85,7 +85,7 @@ TEST(xml_movie, DISABLED_to_xml_and_from_xml) {
 }
 
 // Catalog
-TEST(xml_catalog, DISABLED_to_xml_and_from_xml) {
+TEST(xml_catalog, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "catalog") };
     to_xml(n, samples::catalog);
@@ -95,7 +95,7 @@ TEST(xml_catalog, DISABLED_to_xml_and_from_xml) {
 }
 
 // XML document
-TEST(xml_doc, DISABLED_save_to_and_load_from) {
+TEST(xml_doc, save_to_and_load_from) {
     const auto temp_file_path{ std::filesystem::temp_directory_path() / "test_doc_save_to_and_load_from.xml" };
     doc out_doc{ samples::catalog };
     out_doc.save_to(temp_file_path);

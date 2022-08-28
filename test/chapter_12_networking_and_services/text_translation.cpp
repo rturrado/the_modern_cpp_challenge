@@ -12,10 +12,10 @@
 using namespace tmcppc::text_translation;
 
 
-TEST(translator, DISABLED_provider_is_null) { EXPECT_THROW(translator{ nullptr }, translation_error); }
+TEST(translator, provider_is_null) { EXPECT_THROW(translator{ nullptr }, translation_error); }
 
 
-TEST(translator, DISABLED_translate_and_provider_returns_an_error_response) {
+TEST(translator, translate_and_provider_returns_an_error_response) {
     std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
     auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     std::string_view text{ samples::english };
@@ -29,7 +29,7 @@ TEST(translator, DISABLED_translate_and_provider_returns_an_error_response) {
 }
 
 
-TEST(translator, DISABLED_translate_and_provider_returns_a_translation_response) {
+TEST(translator, translate_and_provider_returns_a_translation_response) {
     std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
     auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     std::string_view text{ samples::english };

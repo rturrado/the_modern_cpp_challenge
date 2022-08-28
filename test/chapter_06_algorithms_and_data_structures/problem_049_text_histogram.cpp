@@ -8,10 +8,10 @@
 using namespace tmcppc::problem_49;
 
 
-TEST(count_letters, DISABLED_empty_text) {
+TEST(count_letters, empty_text) {
     EXPECT_TRUE(count_letters("").empty());
 }
-TEST(count_letters, DISABLED_text) {
+TEST(count_letters, text) {
     auto result{ count_letters("We find ourselves only by looking to what we’re not.") };
     EXPECT_THAT(result, ::testing::UnorderedElementsAre(
         std::pair<char, size_t>{ 'W', 1 },
@@ -38,12 +38,12 @@ TEST(count_letters, DISABLED_text) {
 }
 
 
-TEST(print_histogram, DISABLED_empty_counts) {
+TEST(print_histogram, empty_counts) {
     std::ostringstream oss{};
     print_histogram(oss, letter_counts{});
     EXPECT_TRUE(oss.str().empty());
 }
-TEST(print_histogram, DISABLED_counts_has_only_one_entry) {
+TEST(print_histogram, counts_has_only_one_entry) {
     std::ostringstream oss{};
     letter_counts counts{ { 'a', 1 } };
     print_histogram(oss, counts);
@@ -54,7 +54,7 @@ TEST(print_histogram, DISABLED_counts_has_only_one_entry) {
         "======================================================================================>\n"
     ));
 }
-TEST(print_histogram, DISABLED_counts_has_three_entries) {
+TEST(print_histogram, counts_has_three_entries) {
     std::ostringstream oss{};
     letter_counts counts{ { 'a', 1 }, { 'b', 1 }, { 'c', 1 } };
     print_histogram(oss, counts);
@@ -67,7 +67,7 @@ TEST(print_histogram, DISABLED_counts_has_three_entries) {
         "==============================================================================================>\n"
     ));
 }
-TEST(print_histogram, DISABLED_counts_has_four_entries) {
+TEST(print_histogram, counts_has_four_entries) {
     std::ostringstream oss{};
     letter_counts counts{ { 'H', 1 }, { 'e', 1 }, { 'l', 2 }, { 'o', 1 } };
     print_histogram(oss, counts);
@@ -81,7 +81,7 @@ TEST(print_histogram, DISABLED_counts_has_four_entries) {
 }
 
 
-TEST(problem_49_main, DISABLED_output) {
+TEST(problem_49_main, output) {
     std::ostringstream oss{};
     problem_49_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

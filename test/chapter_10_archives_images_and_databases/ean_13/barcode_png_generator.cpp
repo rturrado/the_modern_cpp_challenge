@@ -13,7 +13,7 @@
 namespace fs = std::filesystem;
 
 
-TEST(ean_13_barcode_png_generator, DISABLED_operator_function_call) {
+TEST(ean_13_barcode_png_generator, operator_function_call) {
     const auto master_image_file_path{ tmcppc::env::get_instance().get_resource_folder_path()
         / "images" / "masters" / "2407014001944.png" };
     const auto image_file_path{ tmcppc::png::create_png_file_path(std::filesystem::temp_directory_path(),

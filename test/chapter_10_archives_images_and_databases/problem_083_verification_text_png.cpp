@@ -12,7 +12,7 @@ using namespace tmcppc::problem_83;
 namespace fs = std::filesystem;
 
 
-TEST(paint_verification_text, DISABLED_png_file_creation) {
+TEST(paint_verification_text, png_file_creation) {
     const auto image_file_path{ create_png_file_path(std::filesystem::temp_directory_path(), "test_paint_verification_text") };
     {
         png_writer png_writer(300, 200, 0.0, image_file_path);
@@ -22,7 +22,7 @@ TEST(paint_verification_text, DISABLED_png_file_creation) {
     EXPECT_FALSE(fs::is_empty(image_file_path));
 }
 
-TEST(problem_83_main, DISABLED_output) {
+TEST(problem_83_main, output) {
     std::ostringstream oss{};
     problem_83_main(oss);
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex("Creating .*/captcha.png...\n\n"));

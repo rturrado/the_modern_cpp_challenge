@@ -10,19 +10,19 @@
 using namespace tmcppc::problem_7;
 
 
-TEST(amicable_numbers_up_to, DISABLED_limit_0) {
+TEST(amicable_numbers_up_to, limit_0) {
     std::vector<std::pair<size_t, size_t>> result{};
     EXPECT_EQ(amicable_numbers_up_to(0), result);
 }
-TEST(amicable_numbers_up_to, DISABLED_limit_250) {
+TEST(amicable_numbers_up_to, limit_250) {
     std::vector<std::pair<size_t, size_t>> result{};
     EXPECT_EQ(amicable_numbers_up_to(0), result);
 }
-TEST(amicable_numbers_up_to, DISABLED_limit_300) { EXPECT_THAT(amicable_numbers_up_to(300), ::testing::ElementsAre(
+TEST(amicable_numbers_up_to, limit_300) { EXPECT_THAT(amicable_numbers_up_to(300), ::testing::ElementsAre(
     ::testing::Pair(220, 284)));
 }
 
-TEST(problem_7_main, DISABLED_limit_1000000) {
+TEST(problem_7_main, limit_1000000) {
     std::ostringstream oss{};
     problem_7_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
@@ -71,7 +71,7 @@ TEST(problem_7_main, DISABLED_limit_1000000) {
     EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }
 
-TEST(playing_with_tmp, DISABLED_n_220) {
+TEST(playing_with_tmp, n_220) {
     std::ostringstream oss{};
     playing_with_tmp(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

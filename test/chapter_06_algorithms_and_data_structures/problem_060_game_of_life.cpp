@@ -12,12 +12,12 @@
 using namespace tmcppc::game_of_life;
 
 
-TEST(cell, DISABLED_constructor) {
+TEST(cell, constructor) {
     EXPECT_TRUE(cell{}.is_dead());
 }
 
 
-TEST(game_of_life, DISABLED_three_by_three_display) {
+TEST(game_of_life, three_by_three_display) {
     using namespace std::chrono_literals;
     std::ostringstream oss{};
     stop_game = false;
@@ -35,7 +35,7 @@ TEST(game_of_life, DISABLED_three_by_three_display) {
 }
 
 
-TEST(problem_60_main, DISABLED_output) {
+TEST(problem_60_main, output) {
     using namespace std::chrono_literals;
 
     std::ostringstream oss{};

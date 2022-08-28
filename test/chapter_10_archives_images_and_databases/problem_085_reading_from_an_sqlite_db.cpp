@@ -6,7 +6,7 @@
 #include <sstream>  // istringstream, ostringstream
 
 
-TEST(problem_85_main, DISABLED_output) {
+TEST(problem_85_main, output) {
     std::istringstream iss{ "y\n" };
     std::ostringstream oss{};
     problem_85_main(iss, oss);

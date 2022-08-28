@@ -12,7 +12,7 @@ using namespace std::chrono_literals;
 using namespace tmcppc::problem_39;
 
 
-TEST(measure_time, DISABLED_f_no_args) {
+TEST(measure_time, f_no_args) {
     auto duration{
         measure_time<ch::milliseconds>(
             []() { std::this_thread::sleep_for(10ms); }
@@ -20,7 +20,7 @@ TEST(measure_time, DISABLED_f_no_args) {
     };
     EXPECT_GT(duration, 5ms);
 }
-TEST(measure_time, DISABLED_f_args) {
+TEST(measure_time, f_args) {
     auto duration{
         measure_time<ch::milliseconds>(
             [](const auto& duration) { std::this_thread::sleep_for(duration); },
@@ -31,7 +31,7 @@ TEST(measure_time, DISABLED_f_args) {
 }
 
 
-TEST(problem_39_main, DISABLED_output) {
+TEST(problem_39_main, output) {
     std::ostringstream oss{};
     problem_39_main(oss);
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(

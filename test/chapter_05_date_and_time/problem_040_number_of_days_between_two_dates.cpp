@@ -12,27 +12,27 @@ using namespace std::chrono_literals;
 using namespace tmcppc::problem_40;
 
 
-TEST(difference_in_days, DISABLED_invalid_start_date) {
+TEST(difference_in_days, invalid_start_date) {
     EXPECT_THROW(difference_in_days(2012y / 20 / 50, 2012y / 6 / 22), rtc::chrono::invalid_date_error);
 }
-TEST(difference_in_days, DISABLED_invalid_end_date) {
+TEST(difference_in_days, invalid_end_date) {
     EXPECT_THROW(difference_in_days(2012y / 6 / 22, 2012y / 20 / 50), rtc::chrono::invalid_date_error);
 }
-TEST(difference_in_days, DISABLED_end_date_is_earlier_than_start_date) {
+TEST(difference_in_days, end_date_is_earlier_than_start_date) {
     EXPECT_EQ(difference_in_days(2012y / 6 / 29, 2012y / 6 / 22), -7);
 }
-TEST(difference_in_days, DISABLED_end_date_is_later_than_start_date) {
+TEST(difference_in_days, end_date_is_later_than_start_date) {
     EXPECT_EQ(difference_in_days(2012y / 6 / 22, 2012y / 6 / 29), 7);
 }
-TEST(difference_in_days, DISABLED_same_day) {
+TEST(difference_in_days, same_day) {
     EXPECT_EQ(difference_in_days(2012y / 6 / 22, 2012y / 6 / 22), 0);
 }
-TEST(difference_in_days, DISABLED_leap_year) {
+TEST(difference_in_days, leap_year) {
     EXPECT_EQ(difference_in_days(2020y / 2 / 28, 2020y / 3 / 1), 2);
 }
 
 
-TEST(problem_40_main, DISABLED_output) {
+TEST(problem_40_main, output) {
     std::ostringstream oss{};
     problem_40_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

@@ -11,12 +11,12 @@
 using namespace tmcppc::problem_3;
 
 
-TEST(lcm, DISABLED_empty_v) { EXPECT_THROW(lcm(std::vector<int>{}), std::runtime_error); }
-TEST(lcm, DISABLED_zero_element) { EXPECT_THROW(lcm(std::vector<int>{ 10, 0 }), std::runtime_error); }
-TEST(lcm, DISABLED_negative_element) { EXPECT_THROW(lcm(std::vector<int>{ -5, 10 }), std::runtime_error); }
-TEST(lcm, DISABLED_v_15_50) { EXPECT_EQ(lcm(std::vector<int>{ 15, 50 }), 150); }
+TEST(lcm, empty_v) { EXPECT_THROW(lcm(std::vector<int>{}), std::runtime_error); }
+TEST(lcm, zero_element) { EXPECT_THROW(lcm(std::vector<int>{ 10, 0 }), std::runtime_error); }
+TEST(lcm, negative_element) { EXPECT_THROW(lcm(std::vector<int>{ -5, 10 }), std::runtime_error); }
+TEST(lcm, v_15_50) { EXPECT_EQ(lcm(std::vector<int>{ 15, 50 }), 150); }
 
-TEST(problem_3_main, DISABLED_v_15_50) {
+TEST(problem_3_main, v_15_50) {
     std::istringstream iss{ "15 50 quit\n" };
     std::ostringstream oss{};
     problem_3_main(iss, oss);

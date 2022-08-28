@@ -12,22 +12,22 @@ using namespace tmcppc::face_detection;
 
 
 // Error
-TEST(error, DISABLED_print) {
+TEST(error, print) {
     std::ostringstream oss{};
     samples::error.print(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::error_output));
 }
-TEST(error, DISABLED_println) {
+TEST(error, println) {
     std::ostringstream oss{};
     samples::error.println(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::error_output + "\n"));
 }
-TEST(error, DISABLED_operator_insertion) {
+TEST(error, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::error;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::error_output));
 }
-TEST(error, DISABLED_fmt_format) {
+TEST(error, fmt_format) {
     EXPECT_THAT(
         fmt::format("{}", samples::error),
         ::testing::HasSubstr(samples::error_output)
@@ -36,22 +36,22 @@ TEST(error, DISABLED_fmt_format) {
 
 
 // Error response
-TEST(error_response, DISABLED_print) {
+TEST(error_response, print) {
     std::ostringstream oss{};
     samples::error_response.print(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::error_response_output));
 }
-TEST(error_response, DISABLED_println) {
+TEST(error_response, println) {
     std::ostringstream oss{};
     samples::error_response.println(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::error_response_output + "\n"));
 }
-TEST(error_response, DISABLED_operator_insertion) {
+TEST(error_response, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::error_response;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::error_response_output));
 }
-TEST(error_response, DISABLED_fmt_format) {
+TEST(error_response, fmt_format) {
     EXPECT_THAT(
         fmt::format("{}", samples::error_response),
         ::testing::HasSubstr(samples::error_response_output)
@@ -60,22 +60,22 @@ TEST(error_response, DISABLED_fmt_format) {
 
 
 // Point
-TEST(point, DISABLED_print) {
+TEST(point, print) {
     std::ostringstream oss{};
     samples::point.print(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::point_output));
 }
-TEST(point, DISABLED_println) {
+TEST(point, println) {
     std::ostringstream oss{};
     samples::point.println(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::point_output + "\n"));
 }
-TEST(point, DISABLED_operator_insertion) {
+TEST(point, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::point;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::point_output));
 }
-TEST(point, DISABLED_fmt_format) {
+TEST(point, fmt_format) {
     EXPECT_THAT(
         fmt::format("{}", samples::point),
         ::testing::HasSubstr(samples::point_output)
@@ -84,22 +84,22 @@ TEST(point, DISABLED_fmt_format) {
 
 
 // Rectangle
-TEST(rectangle, DISABLED_print) {
+TEST(rectangle, print) {
     std::ostringstream oss{};
     samples::rectangle.print(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::rectangle_output));
 }
-TEST(rectangle, DISABLED_println) {
+TEST(rectangle, println) {
     std::ostringstream oss{};
     samples::rectangle.println(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::rectangle_output + "\n"));
 }
-TEST(rectangle, DISABLED_operator_insertion) {
+TEST(rectangle, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::rectangle;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::rectangle_output));
 }
-TEST(rectangle, DISABLED_fmt_format) {
+TEST(rectangle, fmt_format) {
     EXPECT_THAT(
         fmt::format("{}", samples::rectangle),
         ::testing::HasSubstr(samples::rectangle_output)
@@ -108,22 +108,22 @@ TEST(rectangle, DISABLED_fmt_format) {
 
 
 // Face landmarks
-TEST(face_landmarks, DISABLED_print) {
+TEST(face_landmarks, print) {
     std::ostringstream oss{};
     samples::face_landmarks_1.print(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_face_landmarks_1_output()));
 }
-TEST(face_landmarks, DISABLED_println) {
+TEST(face_landmarks, println) {
     std::ostringstream oss{};
     samples::face_landmarks_1.println(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_face_landmarks_1_output() + "\n"));
 }
-TEST(face_landmarks, DISABLED_operator_insertion) {
+TEST(face_landmarks, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::face_landmarks_1;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_face_landmarks_1_output()));
 }
-TEST(face_landmarks, DISABLED_fmt_format) {
+TEST(face_landmarks, fmt_format) {
     EXPECT_THAT(
         fmt::format("{}", samples::face_landmarks_1),
         ::testing::HasSubstr(samples::get_face_landmarks_1_output())
@@ -132,22 +132,22 @@ TEST(face_landmarks, DISABLED_fmt_format) {
 
 
 // Emotion
-TEST(emotion, DISABLED_print) {
+TEST(emotion, print) {
     std::ostringstream oss{};
     samples::emotion_1.print(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_emotion_1_output()));
 }
-TEST(emotion, DISABLED_println) {
+TEST(emotion, println) {
     std::ostringstream oss{};
     samples::emotion_1.println(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_emotion_1_output() + "\n"));
 }
-TEST(emotion, DISABLED_operator_insertion) {
+TEST(emotion, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::emotion_1;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_emotion_1_output()));
 }
-TEST(emotion, DISABLED_fmt_format) {
+TEST(emotion, fmt_format) {
     EXPECT_THAT(
         fmt::format("{}", samples::emotion_1),
         ::testing::HasSubstr(samples::get_emotion_1_output())
@@ -156,22 +156,22 @@ TEST(emotion, DISABLED_fmt_format) {
 
 
 // Face attributes
-TEST(face_attributes, DISABLED_print) {
+TEST(face_attributes, print) {
     std::ostringstream oss{};
     samples::face_attributes_1.print(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_face_attributes_1_output()));
 }
-TEST(face_attributes, DISABLED_println) {
+TEST(face_attributes, println) {
     std::ostringstream oss{};
     samples::face_attributes_1.println(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_face_attributes_1_output() + "\n"));
 }
-TEST(face_attributes, DISABLED_operator_insertion) {
+TEST(face_attributes, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::face_attributes_1;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_face_attributes_1_output()));
 }
-TEST(face_attributes, DISABLED_fmt_format) {
+TEST(face_attributes, fmt_format) {
     EXPECT_THAT(
         fmt::format("{}", samples::face_attributes_1),
         ::testing::HasSubstr(samples::get_face_attributes_1_output())
@@ -180,22 +180,22 @@ TEST(face_attributes, DISABLED_fmt_format) {
 
 
 // Face
-TEST(face, DISABLED_print) {
+TEST(face, print) {
     std::ostringstream oss{};
     samples::face_1.print(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_face_1_output()));
 }
-TEST(face, DISABLED_println) {
+TEST(face, println) {
     std::ostringstream oss{};
     samples::face_1.println(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_face_1_output() + "\n"));
 }
-TEST(face, DISABLED_operator_insertion) {
+TEST(face, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::face_1;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_face_1_output()));
 }
-TEST(face, DISABLED_fmt_format) {
+TEST(face, fmt_format) {
     EXPECT_THAT(
         fmt::format("{}", samples::face_1),
         ::testing::HasSubstr(samples::get_face_1_output())
@@ -204,22 +204,22 @@ TEST(face, DISABLED_fmt_format) {
 
 
 // Faces response
-TEST(faces_response, DISABLED_print) {
+TEST(faces_response, print) {
     std::ostringstream oss{};
     samples::faces_response.print(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_faces_response_output()));
 }
-TEST(faces_response, DISABLED_println) {
+TEST(faces_response, println) {
     std::ostringstream oss{};
     samples::faces_response.println(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_faces_response_output() + "\n"));
 }
-TEST(faces_response, DISABLED_operator_insertion) {
+TEST(faces_response, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::faces_response;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(samples::get_faces_response_output()));
 }
-TEST(faces_response, DISABLED_fmt_format) {
+TEST(faces_response, fmt_format) {
     EXPECT_THAT(
         fmt::format("{}", samples::faces_response),
         ::testing::HasSubstr(samples::get_faces_response_output())

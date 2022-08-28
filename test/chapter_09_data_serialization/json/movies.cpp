@@ -14,7 +14,7 @@ using namespace tmcppc::movies;
 
 
 // Role
-TEST(json_role, DISABLED_to_json_and_from_json) {
+TEST(json_role, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::role);
     role r{};
@@ -23,7 +23,7 @@ TEST(json_role, DISABLED_to_json_and_from_json) {
 }
 
 // Cast
-TEST(json_cast, DISABLED_to_json_and_from_json) {
+TEST(json_cast, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::cast);
     cast c{};
@@ -32,7 +32,7 @@ TEST(json_cast, DISABLED_to_json_and_from_json) {
 }
 
 // Director
-TEST(json_director, DISABLED_to_json_and_from_json) {
+TEST(json_director, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::director);
     director d{};
@@ -41,7 +41,7 @@ TEST(json_director, DISABLED_to_json_and_from_json) {
 }
 
 // Directors
-TEST(json_directors, DISABLED_to_json_and_from_json) {
+TEST(json_directors, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::directors);
     directors ds{};
@@ -50,7 +50,7 @@ TEST(json_directors, DISABLED_to_json_and_from_json) {
 }
 
 // Writer
-TEST(json_writer, DISABLED_to_json_and_from_json) {
+TEST(json_writer, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::writer);
     writer w{};
@@ -59,7 +59,7 @@ TEST(json_writer, DISABLED_to_json_and_from_json) {
 }
 
 // Writers
-TEST(json_writers, DISABLED_to_json_and_from_json) {
+TEST(json_writers, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::writers);
     writers ws{};
@@ -68,7 +68,7 @@ TEST(json_writers, DISABLED_to_json_and_from_json) {
 }
 
 // Movie
-TEST(json_movie, DISABLED_to_json_and_from_json) {
+TEST(json_movie, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::movie);
     movie mv{};
@@ -77,7 +77,7 @@ TEST(json_movie, DISABLED_to_json_and_from_json) {
 }
 
 // Catalog
-TEST(json_catalog, DISABLED_to_json_and_from_json) {
+TEST(json_catalog, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::catalog);
     catalog c{};
@@ -86,7 +86,7 @@ TEST(json_catalog, DISABLED_to_json_and_from_json) {
 }
 
 // JSON document
-TEST(json_doc, DISABLED_save_to_and_load_from) {
+TEST(json_doc, save_to_and_load_from) {
     const auto temp_file_path{ std::filesystem::temp_directory_path() / "test_doc_save_to_and_load_from.json" };
     doc out_doc{ samples::catalog };
     out_doc.save_to(temp_file_path);

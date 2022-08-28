@@ -8,7 +8,7 @@
 using namespace tmcppc::problem_29;
 
 
-TEST(validate_license_plate, DISABLED_invalid) {
+TEST(validate_license_plate, invalid) {
     EXPECT_FALSE(validate_license_plate(""));  // empty string
     EXPECT_FALSE(validate_license_plate("aaa-BB 123"));  // lowercase instead of uppercase
     EXPECT_FALSE(validate_license_plate("123-BB 123"));  // numbers in first block of letters
@@ -25,29 +25,29 @@ TEST(validate_license_plate, DISABLED_invalid) {
     EXPECT_FALSE(validate_license_plate("blah AAA-BB 123"));  // extra characters
     EXPECT_FALSE(validate_license_plate("AAA-BB 123 blah"));
 }
-TEST(validate_license_plate, DISABLED_valid) {
+TEST(validate_license_plate, valid) {
     EXPECT_TRUE(validate_license_plate("AAA-BB 123"));
     EXPECT_TRUE(validate_license_plate("AAA-BB 1234"));
 }
 
-TEST(extract_all_license_plates, DISABLED_empty_string) {
+TEST(extract_all_license_plates, empty_string) {
     auto license_plates{ extract_all_license_plates("") };
     EXPECT_TRUE(license_plates.empty());
 }
-TEST(extract_all_license_plates, DISABLED_no_license_plates) {
+TEST(extract_all_license_plates, no_license_plates) {
     auto license_plates{ extract_all_license_plates("En un lugar de la Mancha") };
     EXPECT_TRUE(license_plates.empty());
 }
-TEST(extract_all_license_plates, DISABLED_one_valid_license_plate) {
+TEST(extract_all_license_plates, one_valid_license_plate) {
     auto license_plates{ extract_all_license_plates("En un lugar ABC-DE 1234 de la Mancha") };
     EXPECT_THAT(license_plates, ::testing::ElementsAre("ABC-DE 1234"));
 }
-TEST(extract_all_license_plates, DISABLED_many_valid_license_plates) {
+TEST(extract_all_license_plates, many_valid_license_plates) {
     auto license_plates{ extract_all_license_plates("AAA-AA 123qwe-ty 1234 ABC-DE 123456..XYZ-WW 0001") };
     EXPECT_THAT(license_plates, ::testing::ElementsAre("AAA-AA 123", "ABC-DE 1234", "XYZ-WW 0001"));
 }
 
-TEST(problem_29_main, DISABLED_output) {
+TEST(problem_29_main, output) {
     std::ostringstream oss{};
     problem_29_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

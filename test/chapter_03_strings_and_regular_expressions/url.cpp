@@ -10,9 +10,9 @@
 using namespace tmcppc::network;
 
 
-TEST(url, DISABLED_constructor_empty_string) { EXPECT_THROW(url{ "" }, invalid_url_error); }
-TEST(url, DISABLED_constructor_invalid_url) { EXPECT_THROW(url{ "This is not a valid URL!" }, invalid_url_error); }
-TEST(url, DISABLED_valid_url) {
+TEST(url, constructor_empty_string) { EXPECT_THROW(url{ "" }, invalid_url_error); }
+TEST(url, constructor_invalid_url) { EXPECT_THROW(url{ "This is not a valid URL!" }, invalid_url_error); }
+TEST(url, valid_url) {
     url url{ "http://user:pass@example.com:992/animal/bird?species=seagull#wings" };
     EXPECT_EQ(url.protocol(), "http");
     EXPECT_EQ(*url.login(), "user:pass");
@@ -23,7 +23,7 @@ TEST(url, DISABLED_valid_url) {
     EXPECT_EQ(*url.fragment(), "wings");
 }
 
-TEST(url, DISABLED_fmt_format) {
+TEST(url, fmt_format) {
     url url{ "http://user:pass@example.com:992/animal/bird?species=seagull#wings" };
     EXPECT_EQ(fmt::format("{}\n", url),
         "[\n"
@@ -37,7 +37,7 @@ TEST(url, DISABLED_fmt_format) {
         "]\n"
     );
 }
-TEST(url, DISABLED_operator_insertion) {
+TEST(url, operator_insertion) {
     std::ostringstream oss{};
     url u{ "http://user:pass@example.com:992/animal/bird?species=seagull#wings" };
     oss << u << "\n";

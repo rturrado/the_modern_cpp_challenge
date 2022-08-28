@@ -8,39 +8,39 @@
 using namespace tmcppc::crypto;
 
 
-TEST(login, DISABLED_add_new_user) {
+TEST(login, add_new_user) {
     login l{};
     l.add_user("john", "deacon-1951");
     EXPECT_TRUE(l.exists_user("john"));
 }
-TEST(login, DISABLED_add_existing_user) {
+TEST(login, add_existing_user) {
     login l{};
     l.add_user("john", "deacon-1951");
     EXPECT_THROW(l.add_user("john", "deacon-1951"), login::user_exists_error);
 }
-TEST(login, DISABLED_exists_user_fails) {
+TEST(login, exists_user_fails) {
     login l{};
     l.add_user("john", "deacon-1951");
     EXPECT_FALSE(l.exists_user("roger"));
 }
-TEST(login, DISABLED_exists_user_suceeds) {
+TEST(login, exists_user_suceeds) {
     login l{};
     l.add_user("john", "deacon-1951");
     EXPECT_TRUE(l.exists_user("john"));
 }
-TEST(login, DISABLED_is_valid_password_fails) {
+TEST(login, is_valid_password_fails) {
     login l{};
     l.add_user("john", "deacon-1951");
     EXPECT_FALSE(l.is_valid_password("john", "taylor-1949"));
 }
-TEST(login, DISABLED_is_valid_password_succeeds) {
+TEST(login, is_valid_password_succeeds) {
     login l{};
     l.add_user("john", "deacon-1951");
     EXPECT_TRUE(l.is_valid_password("john", "deacon-1951"));
 }
 
 
-TEST(problem_91_main, DISABLED_output) {
+TEST(problem_91_main, output) {
     std::istringstream iss{
         "marcos\nzuck3rb3rg!\n"
         "bill\nw1ndoze&g4tes\n"

@@ -10,38 +10,38 @@
 using namespace tmcppc::password;
 
 
-TEST(symbol_generator, DISABLED_zero_length) { EXPECT_TRUE(symbol_generator{ 0 }.generate().empty()); }
-TEST(symbol_generator, DISABLED_nonzero_length) {
+TEST(symbol_generator, zero_length) { EXPECT_TRUE(symbol_generator{ 0 }.generate().empty()); }
+TEST(symbol_generator, nonzero_length) {
     auto result{ symbol_generator{5}.generate() };
     EXPECT_EQ(result.size(), 5);
     EXPECT_TRUE(std::ranges::all_of(result, [](unsigned char c) { return std::ispunct(c); }));
 }
 
 
-TEST(contains_digit_generator, DISABLED_zero_length) { EXPECT_TRUE(contains_generator<digit_range>{ 0 }.generate().empty()); }
-TEST(contains_digit_generator, DISABLED_nonzero_length) {
+TEST(contains_digit_generator, zero_length) { EXPECT_TRUE(contains_generator<digit_range>{ 0 }.generate().empty()); }
+TEST(contains_digit_generator, nonzero_length) {
     auto result{ contains_generator<digit_range>{5}.generate() };
     EXPECT_EQ(result.size(), 5);
     EXPECT_TRUE(std::ranges::all_of(result, [](unsigned char c) { return std::isdigit(c); }));
 }
 
-TEST(contains_uppercase_generator, DISABLED_zero_length) { EXPECT_TRUE(contains_generator<uppercase_range>{ 0 }.generate().empty()); }
-TEST(contains_uppercase_generator, DISABLED_nonzero_length) {
+TEST(contains_uppercase_generator, zero_length) { EXPECT_TRUE(contains_generator<uppercase_range>{ 0 }.generate().empty()); }
+TEST(contains_uppercase_generator, nonzero_length) {
     auto result{ contains_generator<uppercase_range>{5}.generate() };
     EXPECT_EQ(result.size(), 5);
     EXPECT_TRUE(std::ranges::all_of(result, [](unsigned char c) { return std::isupper(c); }));
 }
 
-TEST(contains_lowercase_generator, DISABLED_zero_length) { EXPECT_TRUE(contains_generator<lowercase_range>{ 0 }.generate().empty()); }
-TEST(contains_lowercase_generator, DISABLED_nonzero_length) {
+TEST(contains_lowercase_generator, zero_length) { EXPECT_TRUE(contains_generator<lowercase_range>{ 0 }.generate().empty()); }
+TEST(contains_lowercase_generator, nonzero_length) {
     auto result{ contains_generator<lowercase_range>{5}.generate() };
     EXPECT_EQ(result.size(), 5);
     EXPECT_TRUE(std::ranges::all_of(result, [](unsigned char c) { return std::islower(c); }));
 }
 
 
-TEST(composite_password_generator, DISABLED_no_generators) { EXPECT_TRUE(composite_password_generator{}.generate().empty()); }
-TEST(composite_password_generator, DISABLED_some_generators) {
+TEST(composite_password_generator, no_generators) { EXPECT_TRUE(composite_password_generator{}.generate().empty()); }
+TEST(composite_password_generator, some_generators) {
     composite_password_generator cpg{};
     cpg.add_generator(std::make_unique<symbol_generator>(2));
     cpg.add_generator(std::make_unique<contains_generator<digit_range>>(2));
@@ -56,7 +56,7 @@ TEST(composite_password_generator, DISABLED_some_generators) {
 }
 
 
-TEST(problem_68_main, DISABLED_output) {
+TEST(problem_68_main, output) {
     std::ostringstream oss{};
     problem_68_main(oss);
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(

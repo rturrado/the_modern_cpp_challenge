@@ -12,22 +12,22 @@ using tmcppc::data_structures::element_count;
 using tmcppc::data_structures::element_count_list;
 
 
-TEST(most_frequent_elements_v1, DISABLED_empty_vector) {
+TEST(most_frequent_elements_v1, empty_vector) {
     EXPECT_TRUE(most_frequent_elements_v1(std::vector<int>{}).empty());
 }
-TEST(most_frequent_elements_v1, DISABLED_vector_1_1_1) {
+TEST(most_frequent_elements_v1, vector_1_1_1) {
     EXPECT_THAT(most_frequent_elements_v1(std::vector<int>{ 1, 1, 1 }), ::testing::ElementsAre(element_count<int>{ 1, 3 }));
 }
-TEST(most_frequent_elements_v1, DISABLED_vector_1_1_2) {
+TEST(most_frequent_elements_v1, vector_1_1_2) {
     EXPECT_THAT(most_frequent_elements_v1(std::vector<int>{ 1, 1, 2 }), ::testing::ElementsAre(element_count<int>{ 1, 2 }));
 }
-TEST(most_frequent_elements_v1, DISABLED_vector_1_1_2_2) {
+TEST(most_frequent_elements_v1, vector_1_1_2_2) {
     EXPECT_THAT(most_frequent_elements_v1(std::vector<int>{ 1, 1, 2, 2 }), ::testing::ElementsAre(
         element_count<int>{ 1, 2 },
         element_count<int>{ 2, 2 }
     ));
 }
-TEST(most_frequent_elements_v1, DISABLED_vector_1_2_3) {
+TEST(most_frequent_elements_v1, vector_1_2_3) {
     EXPECT_THAT(most_frequent_elements_v1(std::vector<int>{ 1, 2, 3 }), ::testing::ElementsAre(
         element_count<int>{ 1, 1 },
         element_count<int>{ 2, 1 },
@@ -36,22 +36,22 @@ TEST(most_frequent_elements_v1, DISABLED_vector_1_2_3) {
 }
 
 
-TEST(most_frequent_elements_v2, DISABLED_empty_vector) {
+TEST(most_frequent_elements_v2, empty_vector) {
     EXPECT_TRUE(most_frequent_elements_v2(std::vector<int>{}).empty());
 }
-TEST(most_frequent_elements_v2, DISABLED_vector_1_1_1) {
+TEST(most_frequent_elements_v2, vector_1_1_1) {
     EXPECT_THAT(most_frequent_elements_v2(std::vector<int>{ 1, 1, 1 }), ::testing::ElementsAre(std::pair<int, size_t>{ 1, 3 }));
 }
-TEST(most_frequent_elements_v2, DISABLED_vector_1_1_2) {
+TEST(most_frequent_elements_v2, vector_1_1_2) {
     EXPECT_THAT(most_frequent_elements_v2(std::vector<int>{ 1, 1, 2 }), ::testing::ElementsAre(std::pair<int, size_t>{ 1, 2 }));
 }
-TEST(most_frequent_elements_v2, DISABLED_vector_1_1_2_2) {
+TEST(most_frequent_elements_v2, vector_1_1_2_2) {
     EXPECT_THAT(most_frequent_elements_v2(std::vector<int>{ 1, 1, 2, 2 }), ::testing::ElementsAre(
         std::pair<int, size_t>{ 1, 2 },
         std::pair<int, size_t>{ 2, 2 }
     ));
 }
-TEST(most_frequent_elements_v2, DISABLED_vector_1_2_3) {
+TEST(most_frequent_elements_v2, vector_1_2_3) {
     EXPECT_THAT(most_frequent_elements_v2(std::vector<int>{ 1, 2, 3 }), ::testing::ElementsAre(
         std::pair<int, size_t>{ 1, 1 },
         std::pair<int, size_t>{ 2, 1 },
@@ -60,7 +60,7 @@ TEST(most_frequent_elements_v2, DISABLED_vector_1_2_3) {
 }
 
 
-TEST(problem_48_main, DISABLED_output) {
+TEST(problem_48_main, output) {
     std::ostringstream oss{};
     problem_48_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

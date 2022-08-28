@@ -14,38 +14,38 @@
 using namespace tmcppc::data_structures;
 
 
-TEST(array_2d, DISABLED_default_constructor) {
+TEST(array_2d, default_constructor) {
     array_2d<int> arr{};
     EXPECT_TRUE(arr.empty());
     EXPECT_EQ(arr.width(), static_cast<size_t>(0));
     EXPECT_EQ(arr.height(), static_cast<size_t>(0));
 }
-TEST(array_2d, DISABLED_width_height_constructor) {
+TEST(array_2d, width_height_constructor) {
     array_2d<int> arr{3, 3};
     EXPECT_FALSE(arr.empty());
     EXPECT_EQ(arr.width(), static_cast<size_t>(3));
     EXPECT_EQ(arr.height(), static_cast<size_t>(3));
 }
-TEST(array_2d, DISABLED_initializer_list_constructor) {
+TEST(array_2d, initializer_list_constructor) {
     array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     EXPECT_FALSE(arr.empty());
     EXPECT_EQ(arr.width(), static_cast<size_t>(2));
     EXPECT_EQ(arr.height(), static_cast<size_t>(3));
 }
-TEST(array_2d, DISABLED_copy_constructor) {
+TEST(array_2d, copy_constructor) {
     array_2d<int> arr1{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto arr2{ arr1 };
     EXPECT_EQ(arr1, arr2);
     EXPECT_NE(arr1.data(), arr2.data());
 }
-TEST(array_2d, DISABLED_copy_assignment_operator) {
+TEST(array_2d, copy_assignment_operator) {
     array_2d<int> arr1{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     array_2d<int> arr2{};
     arr2 = arr1;
     EXPECT_EQ(arr1, arr2);
     EXPECT_NE(arr1.data(), arr2.data());
 }
-TEST(array_2d, DISABLED_move_constructor) {
+TEST(array_2d, move_constructor) {
     array_2d<int> arr1{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto arr2{ std::move(arr1) };
     EXPECT_FALSE(arr2.empty());
@@ -55,7 +55,7 @@ TEST(array_2d, DISABLED_move_constructor) {
     EXPECT_EQ(arr1.width(), static_cast<size_t>(0));
     EXPECT_EQ(arr1.height(), static_cast<size_t>(0));
 }
-TEST(array_2d, DISABLED_move_assignment_operator) {
+TEST(array_2d, move_assignment_operator) {
     array_2d<int> arr1{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     array_2d<int> arr2{};
     arr2 = std::move(arr1);
@@ -67,7 +67,7 @@ TEST(array_2d, DISABLED_move_assignment_operator) {
     EXPECT_EQ(arr1.height(), static_cast<size_t>(0));
 }
 
-TEST(array_2d, DISABLED_at) {
+TEST(array_2d, at) {
     array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     EXPECT_EQ(arr.at(0, 0), 0);
     EXPECT_EQ(arr.at(0, 1), 1);
@@ -76,35 +76,35 @@ TEST(array_2d, DISABLED_at) {
     EXPECT_THROW((void) arr.at(3, 0), std::out_of_range);
 }
 
-TEST(array_2d, DISABLED_data) {
+TEST(array_2d, data) {
     array_2d<int> arr1{};
     EXPECT_EQ(arr1.data(), nullptr);
 }
-TEST(array_2d, DISABLED_const_data) {
+TEST(array_2d, const_data) {
     const array_2d<int> arr2{};
     EXPECT_EQ(arr2.data(), nullptr);
 }
 
-TEST(array_2d, DISABLED_empty) {
+TEST(array_2d, empty) {
     array_2d<int> arr1{};
     EXPECT_TRUE(arr1.empty());
     array_2d<int> arr2{ { 0 } };
     EXPECT_FALSE(arr2.empty());
 }
-TEST(array_2d, DISABLED_height) {
+TEST(array_2d, height) {
     array_2d<int> arr1{};
     EXPECT_EQ(arr1.height(), 0);
     array_2d<int> arr2{ { 0 }, { 1 }, { 2 } };
     EXPECT_EQ(arr2.height(), 3);
 }
-TEST(array_2d, DISABLED_width) {
+TEST(array_2d, width) {
     array_2d<int> arr1{};
     EXPECT_EQ(arr1.width(), 0);
     array_2d<int> arr2{ { 0, 1, 2 } };
     EXPECT_EQ(arr2.width(), 3);
 }
 
-TEST(array_2d, DISABLED_begin) {
+TEST(array_2d, begin) {
     array_2d<int> arr1{};
     EXPECT_EQ(arr1.begin(), arr1.end());
     array_2d<int> arr2{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
@@ -113,49 +113,49 @@ TEST(array_2d, DISABLED_begin) {
     *it = 5;
     EXPECT_EQ(*it, 5);
 }
-TEST(array_2d, DISABLED_end) {
+TEST(array_2d, end) {
     array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr.end() };
     EXPECT_EQ(*--it, 5);
 }
-TEST(array_2d, DISABLED_const_begin) {
+TEST(array_2d, const_begin) {
     const array_2d<int> arr1{};
     EXPECT_EQ(arr1.begin(), arr1.end());
     const array_2d<int> arr2{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr2.begin() };
     EXPECT_EQ(*it, 0);
 }
-TEST(array_2d, DISABLED_const_end) {
+TEST(array_2d, const_end) {
     const array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr.end() };
     EXPECT_EQ(*--it, 5);
 }
-TEST(array_2d, DISABLED_cbegin) {
+TEST(array_2d, cbegin) {
     array_2d<int> arr1{};
     EXPECT_EQ(arr1.cbegin(), arr1.cend());
     array_2d<int> arr2{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr2.cbegin() };
     EXPECT_EQ(*it, 0);
 }
-TEST(array_2d, DISABLED_cend) {
+TEST(array_2d, cend) {
     array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr.cend() };
     EXPECT_EQ(*--it, 5);
 }
-TEST(array_2d, DISABLED_const_cbegin) {
+TEST(array_2d, const_cbegin) {
     const array_2d<int> arr1{};
     EXPECT_EQ(arr1.cbegin(), arr1.cend());
     const array_2d<int> arr2{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr2.cbegin() };
     EXPECT_EQ(*it, 0);
 }
-TEST(array_2d, DISABLED_const_cend) {
+TEST(array_2d, const_cend) {
     const array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr.cend() };
     EXPECT_EQ(*--it, 5);
 }
 
-TEST(array_2d, DISABLED_rbegin) {
+TEST(array_2d, rbegin) {
     array_2d<int> arr1{};
     EXPECT_EQ(arr1.rbegin(), arr1.rend());
     array_2d<int> arr2{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
@@ -164,49 +164,49 @@ TEST(array_2d, DISABLED_rbegin) {
     *it = 6;
     EXPECT_EQ(*it, 6);
 }
-TEST(array_2d, DISABLED_rend) {
+TEST(array_2d, rend) {
     array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr.rend() };
     EXPECT_EQ(*--it, 0);
 }
-TEST(array_2d, DISABLED_const_rbegin) {
+TEST(array_2d, const_rbegin) {
     const array_2d<int> arr1{};
     EXPECT_EQ(arr1.rbegin(), arr1.rend());
     const array_2d<int> arr2{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr2.rbegin() };
     EXPECT_EQ(*it, 5);
 }
-TEST(array_2d, DISABLED_const_rend) {
+TEST(array_2d, const_rend) {
     const array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr.rend() };
     EXPECT_EQ(*--it, 0);
 }
-TEST(array_2d, DISABLED_crbegin) {
+TEST(array_2d, crbegin) {
     array_2d<int> arr1{};
     EXPECT_EQ(arr1.crbegin(), arr1.crend());
     array_2d<int> arr2{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr2.crbegin() };
     EXPECT_EQ(*it, 5);
 }
-TEST(array_2d, DISABLED_crend) {
+TEST(array_2d, crend) {
     array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr.crend() };
     EXPECT_EQ(*--it, 0);
 }
-TEST(array_2d, DISABLED_const_crbegin) {
+TEST(array_2d, const_crbegin) {
     const array_2d<int> arr1{};
     EXPECT_EQ(arr1.crbegin(), arr1.crend());
     const array_2d<int> arr2{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr2.crbegin() };
     EXPECT_EQ(*it, 5);
 }
-TEST(array_2d, DISABLED_const_crend) {
+TEST(array_2d, const_crend) {
     const array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto it{ arr.crend() };
     EXPECT_EQ(*--it, 0);
 }
 
-TEST(array_2d, DISABLED_operator_spaceship) {
+TEST(array_2d, operator_spaceship) {
     const array_2d<int> arr1{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     const array_2d<int> arr2{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     const array_2d<int> arr3{ { 0, 1 }, { 7, 8 }, { 4, 5 } };
@@ -220,7 +220,7 @@ TEST(array_2d, DISABLED_operator_spaceship) {
     EXPECT_TRUE(arr3 >= arr1);
 }
 
-TEST(array_2d, DISABLED_swap) {
+TEST(array_2d, swap) {
     array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     arr.swap(1, 0, 1, 1);
     EXPECT_EQ(arr.at(1, 0), 3);
@@ -229,7 +229,7 @@ TEST(array_2d, DISABLED_swap) {
     EXPECT_THROW(arr.swap(3, 0, 1, 1), std::out_of_range);
 }
 
-TEST(array_2d, DISABLED_sub_array) {
+TEST(array_2d, sub_array) {
     array_2d<int> arr{
         { 0, 1 },
         { 2, 3 },
@@ -241,26 +241,26 @@ TEST(array_2d, DISABLED_sub_array) {
     EXPECT_THROW((void) arr.sub_array(3, 0, 2, 1), std::out_of_range);
 }
 
-TEST(array_2d, DISABLED_row_as_vector) {
+TEST(array_2d, row_as_vector) {
     const array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto row{ std::vector<int>{2, 3} };
     EXPECT_EQ(arr.row_as_vector(1), row);
     EXPECT_THROW((void) arr.row_as_vector(3), std::out_of_range);
 }
-TEST(array_2d, DISABLED_column_as_vector) {
+TEST(array_2d, column_as_vector) {
     const array_2d<int> arr{ { 0, 1 }, { 2, 3 }, { 4, 5 } };
     auto col{ std::vector<int>{1, 3, 5} };
     EXPECT_EQ(arr.column_as_vector(1), col);
     EXPECT_THROW((void) arr.column_as_vector(2), std::out_of_range);
 }
 
-TEST(array_2d, DISABLED_get_column_width) {
+TEST(array_2d, get_column_width) {
     const array_2d<std::string> arr{ { "En", "un", "lugar" }, { "de", "la", "Mancha" } };
     EXPECT_EQ(get_column_width(arr, 0), 2);
     EXPECT_EQ(get_column_width(arr, 2), 6);
     EXPECT_THROW((void) get_column_width(arr, 3), std::out_of_range);
 }
-TEST(array_2d, DISABLED_get_column_widths) {
+TEST(array_2d, get_column_widths) {
     const array_2d<std::string> arr{ { "En", "un", "lugar" }, { "de", "la", "Mancha" } };
     auto ws{ get_column_widths(arr) };
     EXPECT_EQ(ws[0], 2);
@@ -268,7 +268,7 @@ TEST(array_2d, DISABLED_get_column_widths) {
     EXPECT_THROW((void) ws.at(3), std::out_of_range);
 }
 
-TEST(array_2d, DISABLED_operator_insertion) {
+TEST(array_2d, operator_insertion) {
     const array_2d<std::string> arr{ { "En", "un", "lugar" }, { "de", "la", "Mancha" } };
     std::ostringstream oss{};
     oss << arr;
@@ -277,7 +277,7 @@ TEST(array_2d, DISABLED_operator_insertion) {
         "[ de, la, Mancha ]"
     ));
 }
-TEST(array_2d, DISABLED_fmt_format) {
+TEST(array_2d, fmt_format) {
     const array_2d<std::string> arr{ { "En", "un", "lugar" }, { "de", "la", "Mancha" } };
     EXPECT_EQ(fmt::format("{}", arr),
         "[ En, un,  lugar ]\n"

@@ -15,59 +15,59 @@ bool simple_compare_floats(float a, float b) {
 }
 
 
-TEST(article_fixed_discount_percentage, DISABLED_discount_0) {
+TEST(article_fixed_discount_percentage, discount_0) {
     std::unique_ptr<discount> d{ std::make_unique<article_fixed_discount>(0.0f) };
     EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
 }
-TEST(article_fixed_discount_percentage, DISABLED_discount_0_5) {
+TEST(article_fixed_discount_percentage, discount_0_5) {
     std::unique_ptr<discount> d{ std::make_unique<article_fixed_discount>(0.5f) };
     EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.5f));
 }
 
 
-TEST(order_line_volume_discount_percentage, DISABLED_discount_0) {
+TEST(order_line_volume_discount_percentage, discount_0) {
     std::unique_ptr<discount> d{ std::make_unique<order_line_volume_discount>(0.0f, 0) };
     EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
 }
-TEST(order_line_volume_discount_percentage, DISABLED_discount_0_5_minimum_article_quantity_0) {
+TEST(order_line_volume_discount_percentage, discount_0_5_minimum_article_quantity_0) {
     std::unique_ptr<discount> d{ std::make_unique<order_line_volume_discount>(0.5f, 0) };
     EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.5f));
 }
-TEST(order_line_volume_discount_percentage, DISABLED_discount_0_5_minimum_article_quantity_5) {
+TEST(order_line_volume_discount_percentage, discount_0_5_minimum_article_quantity_5) {
     std::unique_ptr<discount> d{ std::make_unique<order_line_volume_discount>(0.5f, 5) };
     EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
 }
 
 
-TEST(order_line_price_discount_percentage, DISABLED_discount_0) {
+TEST(order_line_price_discount_percentage, discount_0) {
     std::unique_ptr<discount> d{ std::make_unique<order_line_price_discount>(0.0f, 0.0f) };
     EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
 }
-TEST(order_line_price_discount_percentage, DISABLED_discount_0_5_minimum_total_article_price_0) {
+TEST(order_line_price_discount_percentage, discount_0_5_minimum_total_article_price_0) {
     std::unique_ptr<discount> d{ std::make_unique<order_line_price_discount>(0.5f, 0.0f) };
     EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.5f));
 }
-TEST(order_line_price_discount_percentage, DISABLED_discount_0_5_minimum_total_article_price_100) {
+TEST(order_line_price_discount_percentage, discount_0_5_minimum_total_article_price_100) {
     std::unique_ptr<discount> d{ std::make_unique<order_line_price_discount>(0.5f, 100.0f) };
     EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
 }
 
 
-TEST(order_price_discount_percentage, DISABLED_discount_0) {
+TEST(order_price_discount_percentage, discount_0) {
     std::unique_ptr<discount> d{ std::make_unique<order_price_discount>(0.0f, 0.0f) };
     EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
 }
-TEST(order_price_discount_percentage, DISABLED_discount_0_5_minimum_total_order_price_0) {
+TEST(order_price_discount_percentage, discount_0_5_minimum_total_order_price_0) {
     std::unique_ptr<discount> d{ std::make_unique<order_price_discount>(0.5f, 0.0f) };
     EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.5f));
 }
-TEST(order_price_discount_percentage, DISABLED_discount_0_5_minimum_total_order_price_100) {
+TEST(order_price_discount_percentage, discount_0_5_minimum_total_order_price_100) {
     std::unique_ptr<discount> d{ std::make_unique<order_price_discount>(0.5f, 100.0f) };
     EXPECT_TRUE(simple_compare_floats(d->percentage(1, 10.0f), 0.0f));
 }
 
 
-TEST(price_calculator, DISABLED_calculate) {
+TEST(price_calculator, calculate) {
     auto d1{ std::make_shared<article_fixed_discount>(0.05f) };
     auto d3{ std::make_shared<order_line_price_discount>(0.1f, 20.0f) };
     auto d4{ std::make_shared<order_price_discount>(0.03f, 100.0f) };
@@ -88,7 +88,7 @@ TEST(price_calculator, DISABLED_calculate) {
 }
 
 
-TEST(problem_72_main, DISABLED_output) {
+TEST(problem_72_main, output) {
     std::ostringstream oss{};
     problem_72_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

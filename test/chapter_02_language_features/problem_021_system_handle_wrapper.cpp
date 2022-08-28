@@ -8,7 +8,7 @@
 #include <string>  // wstring
 
 
-TEST(problem_21_main, DISABLED_output) {
+TEST(problem_21_main, output) {
     std::wostringstream woss{};
     problem_21_main(woss);
     std::wstring woss_str{ woss.str() };

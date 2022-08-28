@@ -14,36 +14,36 @@ bool simple_compare_doubles(double a, double b) {
 }
 
 
-TEST(average_rating, DISABLED_empty_ratings) {
+TEST(average_rating, empty_ratings) {
     EXPECT_TRUE(simple_compare_doubles(average_rating(ratings{}), 0.0));
 }
-TEST(average_ratings, DISABLED_one_rating) {
+TEST(average_ratings, one_rating) {
     EXPECT_TRUE(simple_compare_doubles(average_rating(ratings{ 10 }), 10.0));
 }
-TEST(average_ratings, DISABLED_two_ratings) {
+TEST(average_ratings, two_ratings) {
     EXPECT_TRUE(simple_compare_doubles(average_rating(ratings{ 10, 9 }), 9.5));
 }
-TEST(average_ratings, DISABLED_three_ratings) {
+TEST(average_ratings, three_ratings) {
     EXPECT_TRUE(simple_compare_doubles(average_rating(ratings{ 10, 9, 8 }), 9.0));
 }
-TEST(average_ratings, DISABLED_four_ratings) {
+TEST(average_ratings, four_ratings) {
     EXPECT_TRUE(simple_compare_doubles(average_rating(ratings{ 10, 9, 8, 7 }), 8.5));
 }
-TEST(average_ratings, DISABLED_five_ratings) {
+TEST(average_ratings, five_ratings) {
     EXPECT_TRUE(simple_compare_doubles(average_rating(ratings{ 10, 9, 8, 7, 1 }), 8));  // 10 and 1 are removed
 }
-TEST(average_ratings, DISABLED_six_ratings) {
+TEST(average_ratings, six_ratings) {
     EXPECT_TRUE(simple_compare_doubles(average_rating(ratings{ 10, 9, 8, 7, 6, 1 }), 7.5));  // 10 and 1 are removed
 }
-TEST(average_ratings, DISABLED_seven_ratings) {
+TEST(average_ratings, seven_ratings) {
     EXPECT_TRUE(simple_compare_doubles(average_rating(ratings{ 10, 9, 8, 7, 6, 5, 1 }), 7));  // 10 and 1 are removed
 }
-TEST(average_ratings, DISABLED_ten_ratings) {
+TEST(average_ratings, ten_ratings) {
     EXPECT_TRUE(simple_compare_doubles(average_rating(ratings{ 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 }), 5.5));  // 10 and 1 are removed
 }
 
 
-TEST(problem_53_main, DISABLED_output) {
+TEST(problem_53_main, output) {
     std::ostringstream oss{};
     problem_53_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
