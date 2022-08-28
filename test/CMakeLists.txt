@@ -6,7 +6,7 @@ FetchContent_Declare(googletest
 )
 FetchContent_Declare(perceptualdiff
     GIT_REPOSITORY https://github.com/rturrado/perceptualdiff.git
-    GIT_TAG "dea8936e12c2659ffa943fcfda16ff328ae5a117"
+    GIT_TAG "5aa1de51b33f05b9e6318c7a961a865ddb61d602"
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(

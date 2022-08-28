@@ -26,6 +26,10 @@
             }
         },
         {
+            "name": "no-test",
+            "inherits": "base"
+        },
+        {
             "name": "test",
             "inherits": "base",
             "cacheVariables": {
@@ -49,6 +53,22 @@
         }
     ],
     "buildPresets": [
+        {
+            "name": "x64-Debug-no-test",
+            "configurePreset": "no-test",
+            "displayName": "Build x64-Debug-no-test",
+            "description": "Build no-test Debug configuration",
+            "configuration": "Debug",
+            "verbose": true
+        },
+        {
+            "name": "x64-Release-no-test",
+            "configurePreset": "no-test",
+            "displayName": "Build x64-Release-no-test",
+            "description": "Build no-test Release configuration",
+            "configuration": "Release",
+            "verbose": true
+        },
         {
             "name": "x64-Debug-test",
             "configurePreset": "test",

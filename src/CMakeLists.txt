@@ -11,11 +11,11 @@ FetchContent_Declare(asio
 )
 FetchContent_Declare(cryptopp-cmake
     GIT_REPOSITORY https://github.com/rturrado/cryptopp-cmake.git
-    GIT_TAG "356dcea19a7ae6b0c9c635b107df2ef872500c8d"
+    GIT_TAG "5c2a51ef07e4b351d967f5bb22fcf380eff9d52b"
 )
 FetchContent_Declare(curlcpp
     GIT_REPOSITORY https://github.com/rturrado/curlcpp.git
-    GIT_TAG "b3e8eff8bb224defdd43cd1a1a9d77f68d7b72cd"
+    GIT_TAG "e18bffcc23bca3a405c47f892b7f0c0cb9a49a26"
 )
 FetchContent_Declare(fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
@@ -26,15 +26,15 @@ FetchContent_Declare(nlohmann-json
 )
 FetchContent_Declare(PDF-Writer
     GIT_REPOSITORY https://github.com/rturrado/PDF-Writer.git
-    GIT_TAG "9fc510b67f7fa1876f0a4039811b49befcf9df8e"
+    GIT_TAG "84aec314414a137227f768042b94c86c3bfa389e"
 )
 FetchContent_Declare(PNGwriter
     GIT_REPOSITORY https://github.com/rturrado/pngwriter.git
-    GIT_TAG "aff0a89a287eb0cc58204a1b164876b09a204bfb"
+    GIT_TAG "ccaf07f8dfbb4a9fdffd418c3ccb04837a8f7f50"
 )
 FetchContent_Declare(pugixml
     GIT_REPOSITORY https://github.com/rturrado/pugixml.git
-    GIT_TAG "87775d1a844ed6796a294434f370ce3f67349f0d"
+    GIT_TAG "bc6e2f2cdd82e74b8a99ecca4eb174e9afb0f123"
 )
 FetchContent_Declare(range-v3
     GIT_REPOSITORY https://github.com/ericniebler/range-v3.git
@@ -42,7 +42,7 @@ FetchContent_Declare(range-v3
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "20ed48af66cd71e6677119bb5f24878576afafe2"
+    GIT_TAG "7d6d6128ea4c70579d95eb77705588fb1aafbd36"
 )
 FetchContent_Declare(SqliteModernCpp
     GIT_REPOSITORY https://github.com/SqliteModernCpp/sqlite_modern_cpp.git
@@ -57,7 +57,7 @@ FetchContent_Declare(sqlite
 )
 FetchContent_Declare(ZipLib
     GIT_REPOSITORY https://github.com/rturrado/ZipLib.git
-    GIT_TAG "0cd3909b16377d05b62a1c34dd72a1758ba56653"
+    GIT_TAG "e1a2ef7989d38ab06a0f9a2a6b87228807b6521e"
 )
 FetchContent_MakeAvailable(
     asio
