@@ -152,24 +152,25 @@ The following libraries are used in this project, but are automatically download
 - [nlohmann/json](github.com/nlohmann/json): JSON support.
 - [range-v3](github.com/ericniebler/range-v3): range library with many more features than what have been added to C++20.
 - [rtc](github.com/rturrado/rtc): some utilities I use in different C++ projects.
-- [SQLite](sqlite.org/2022/sqlite-amalgamation-3380500.zip): an in-process relational database management library. The link points to the SQLite amalgamation, a compact version containing only two files.
-- [SQLite Modern CPP](github.com/SqliteModernCpp/sqlite_modern_cpp.git): C++ wrapper for SQLite.
+- [SQLite](sqlite.org/2022/sqlite-amalgamation-3380500.zip): in-process relational database management library. The link points to the SQLite amalgamation, a compact version containing only two files.
+- [SQLite Modern CPP](github.com/SqliteModernCpp/sqlite_modern_cpp.git): modern C++ wrapper around SQLite C API.
 
 The same happens with the list below. I'm showing them apart because they are forks of my own. You can check their README files to see how I adapted the original libraries to use them in this project.
 
-- [Crypto++](github.com/rturrado/cryptopp-cmake.git): cryptographic functionalities.
+- [Crypto++ CMake](github.com/rturrado/cryptopp-cmake.git): C++ library of cryptographic schemes.
 - [curlcpp](github.com/rturrado/curlcpp.git): C++ wrapper for curl.
-- [PerceptualDiff](github.com/rturrado/perceptualdiff.git): used in the tests to compare PNG files.
-- [PDF writer](github.com/rturrado/PDF-Writer.git): creating, parsing and manipulating PDF files and streams.
-- [PNG writer](github.com/rturrado/pngwriter.git): C+ wrapper for libpng.
+- [FreeImage](github.com/mlomb/FreeImage.git): open source library project for developers who would like to support popular graphics image formats like PNG, BMP, JPEG, TIFF and others.
+- [PDF-Writer](github.com/rturrado/PDF-Writer.git): creation, parsing and manipulation of PDF files and streams.
+- [perceptualdiff](github.com/rturrado/perceptualdiff.git): program that compares two images using a perceptually based image metric. Used in the tests to compare PNG files. It makes use of the FreeImage library.
+- [PNGwriter](github.com/rturrado/pngwriter.git): C+ wrapper for libpng.
 - [pugixml](github.com/rturrado/pugixml.git): XML processing.
-- [ZipLib](github.com/rturrado/ZipLib.git): working with ZIP archives.
+- [ZipLib](github.com/rturrado/ZipLib.git): ZIP archives support.
 
 Finally, this group of libraries is automatically managed via `vcpkg`:
 
-- [curl](curl.se): transferring data over a network.
-- [freetype](freetype.org): rendering of fonts.
-- [libpng](libpng.org): working with PNG files.
+- [cURL](curl.se): command line tool and library for transferring data with URLs.
+- [FreeType](freetype.org): software font engine.
+- [libpng](libpng.org): official PNG reference library.
 - [zlib](github.com/madler/zlib): general purpose data compression library.
 
 
