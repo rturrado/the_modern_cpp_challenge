@@ -30,26 +30,35 @@ Most of the required software can be installed from the [Visual Studio 2022 Inst
 - **CMake**: *Individual components* tab, *Compilers, build tools, and runtimes* section, *C++ CMake tools for Windows* item.
 - **git**: *Individual components* tab, *Code tools* section, *Git for Windows* item.
 
-You can download the current version of the **Boost libraries** from https://www.boost.org/users/download/. Notice it's not necessary to build them, since the code only uses headers.
+You can download the current version of the **Boost libraries** from https://www.boost.org/users/download/.
+- Notice it's not necessary to build them, since the code only uses headers.
+- Create a `BOOST_ROOT` environment variable, and set it to Boost libraries's root directory (e.g. C:\libraries\boost_1_78_0).
 
 ### Clone
 
-From [GitHub](github.com/rturrado/the_modern_cpp_challenge), click the green *Code* button, then *Open with Visual Studio*, choose a destination folder, and *Clone*.
-
-Or, from the command line:
+From the command line:
 ```bash
-git clone https://github.com/rturrado/the_modern_cpp_challenge
+git clone --recurse-submodules https://github.com/rturrado/the_modern_cpp_challenge
 ```
 
-### Build
+### Config
 
-Create a `BOOST_ROOT` environment variable, and set it to Boost libraries's root directory (e.g. C:\libraries\boost_1_78_0).
-
-From Visual Studio, choose the *Configuration* and the *Build Preset* (e.g. `no-test` and `x64-Release-no-test`). This should start running CMake. If that weren't the case, you can also run CMake from the *Project > Configure Cache* menu. Once CMake finishes, build from *Build > Build All* menu.
+From Visual Studio:
+- CMake config should start automatically when opening `the_modern_cpp_challenge` project.
+- You can choose the *Configuration* and the *Build Preset* (e.g. `no-test` and `x64-Release-no-test`) from the menu bar. This should also start running CMake.
+- You can also run CMake manually from the *Project > Configure Cache* menu.
 
 Or, from the command line:
 ```bash
 cmake --preset no-test
+```
+
+### Build
+
+From Visual Studio, once CMake finishes, type CTRL+B or build from *Build > Build All* menu.
+
+Or, from the command line:
+```bash
 cmake --build --preset x64-Release-no-test
 ```
 
@@ -67,7 +76,7 @@ Builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON` will als
 
 ### Run
 
-From Visual Studio: the main binary receives a `res` folder as an argument (a resource directory used by some of the problems). The way to set this parameter from within Visual Studio is via the `.vs\launch.vs.json`, which is not in the repository since it is a user file. The example below shows a possible `launch.vs.json` file. Notice `args` only contains the path of the `res` folder. Notice also that you should provide one configuration entry per output binary.
+From Visual Studio: the main binary receives a `res` folder as an argument (a resource directory used by some of the problems). The way to set this parameter from within Visual Studio is via the `.vs\launch.vs.json`, which is not in the repository since it is a user file. The example below shows a possible `launch.vs.json` file. Notice `args` only contains the path of the `res` folder. Notice also that you should provide one configuration entry per output binary (not for the benchmark binary).
 
 ```json
 {
