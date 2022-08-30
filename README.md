@@ -36,21 +36,20 @@ You can download the current version of the **Boost libraries** from https://www
 
 ### Clone
 
-From the command line:
+From a `cmd`, as administrator:
 ```bash
-git clone --recurse-submodules https://github.com/rturrado/the_modern_cpp_challenge
+C:\projects> git clone --recurse-submodules https://github.com/rturrado/the_modern_cpp_challenge
 ```
 
 ### Config
 
-From Visual Studio:
-- CMake config should start automatically when opening `the_modern_cpp_challenge` project.
-- You can choose the *Configuration* and the *Build Preset* (e.g. `no-test` and `x64-Release-no-test`) from the menu bar. This should also start running CMake.
-- You can also run CMake manually from the *Project > Configure Cache* menu.
-
-Or, from the command line:
+There are several options to run CMake from Visual Studio.
+- CMake should start automatically, with a `test` configuration preset and an `x64-Debug-test` build preset, when opening `the_modern_cpp_challenge` project.
+- CMake should also start automatically when choosing a *Configuration* and a *Build Preset* (e.g. `no-test` and `x64-Release-no-test`) in the tool bar.
+- CMake can be started manually from the *Configure Cache* option in the *Project* menu.
+- Finally, CMake can also be started manually from a *Developer Command Prompt* (*Tools* menu, *Command Line* option):
 ```bash
-cmake --preset no-test
+C:\projects\the_modern_cpp_challenge> cmake --preset no-test
 ```
 
 ### Build
@@ -59,7 +58,7 @@ From Visual Studio, once CMake finishes, type CTRL+B or build from *Build > Buil
 
 Or, from the command line:
 ```bash
-cmake --build --preset x64-Release-no-test
+C:\projects\the_modern_cpp_challenge> cmake --build --preset x64-Release-no-test
 ```
 
 #### Output binaries
@@ -100,7 +99,7 @@ Choose `the_modern_c++_challenge.exe` from *Select Startup Item*, and click the 
 
 Or, from the command line:
 ```bash
-./build/NinjaMultiConfig/test/src/Release/the_modern_c++_challenge.exe res
+C:\projects\the_modern_cpp_challenge> ./build/NinjaMultiConfig/test/src/Release/the_modern_c++_challenge.exe res
 ```
 
 ### Tests
@@ -113,37 +112,37 @@ cmake --build --preset x64-Release-test
 
 You can run the test executable directly:
 ```bash
-./build/NinjaMultiConfig/test/test/Release/the_modern_c++_challenge_test.exe res
+C:\projects\the_modern_cpp_challenge> ./build/NinjaMultiConfig/test/test/Release/the_modern_c++_challenge_test.exe res
 ```
 
 Or execute the tests via `ctest`:
 ```bash
-cd build/NinjaMultiConfig/test
-ctest -C Release --output-on-failure
+C:\projects\the_modern_cpp_challenge> cd build/NinjaMultiConfig/test
+C:\projects\the_modern_cpp_challenge\build\NinjaMultiConfig\test> ctest -C Release --output-on-failure
 ```
 
 Alternatively, if you want a less verbose ouptut:
 ```bash
-./build/NinjaMultiConfig/test/test/Release/the_modern_c++_challenge_test.exe res --gtest_brief=1
+C:\projects\the_modern_cpp_challenge> ./build/NinjaMultiConfig/test/test/Release/the_modern_c++_challenge_test.exe res --gtest_brief=1
 ```
 
 Or:
 ```bash
-cd build/NinjaMultiConfig/test
-ctest -C Release --output-on-failure --progress
+C:\projects\the_modern_cpp_challenge> cd build/NinjaMultiConfig/test
+C:\projects\the_modern_cpp_challenge\build\NinjaMultiConfig\test> ctest -C Release --output-on-failure --progress
 ```
 
 ### Benchmarks
 
 Build with:
 ```bash
-cmake --preset benchmark
-cmake --build --preset x64-Release-benchmark
+C:\projects\the_modern_cpp_challenge> cmake --preset benchmark
+C:\projects\the_modern_cpp_challenge> cmake --build --preset x64-Release-benchmark
 ```
 
 And run with:
 ```bash
-./build/NinjaMultiConfig/benchmark/benchmark/Release/the_modern_c++_challenge_benchmark.exe res
+C:\projects\the_modern_cpp_challenge> ./build/NinjaMultiConfig/benchmark/benchmark/Release/the_modern_c++_challenge_benchmark.exe res
 ```
 
 ## Dependencies
