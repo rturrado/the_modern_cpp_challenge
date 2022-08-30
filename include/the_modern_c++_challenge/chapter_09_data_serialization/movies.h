@@ -3,6 +3,7 @@
 #include "rtc/pretty_print.h"
 
 #include <chrono>
+#include <cstdint>  // int64_t
 #include <fmt/ostream.h>
 #include <filesystem>
 #include <optional>
@@ -150,7 +151,7 @@ namespace tmcppc::movies {
 
     // Media file
     struct media_file {
-        size_t id{};
+        std::int64_t id{};
         std::filesystem::path file_path{};
         std::optional<std::string> description{};
 
@@ -229,7 +230,7 @@ namespace tmcppc::movies {
 
     // Movie
     struct movie {
-        size_t id{};
+        std::int64_t id{};
         std::string title{};
         std::chrono::year year{};
         size_t length{};

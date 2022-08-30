@@ -145,7 +145,7 @@ namespace tmcppc::office {
 
     // Customer
     //
-    inline auto customer = [](int id, office& office, logger& logger, std::ostream& os) {
+    inline auto customer = [](size_t id, office& office, logger& logger, std::ostream& os) {
         using namespace tmcppc::logging::v2;
 
         logger.log(os, "\tCustomer ", id, ": started\n");
@@ -168,7 +168,7 @@ namespace tmcppc::office {
 
     // Desk
     //
-    inline auto desk = [](std::stop_token stoken, int id, office& office, logger& logger, std::ostream& os) {
+    inline auto desk = [](std::stop_token stoken, size_t id, office& office, logger& logger, std::ostream& os) {
         using namespace tmcppc::logging::v2;
 
         logger.log(os, "Desk ", id, ": started\n");
@@ -204,10 +204,10 @@ namespace tmcppc::office {
         void run(std::ostream& os) {
             std::vector<std::jthread> customers{};
             std::vector<std::jthread> desks{};
-            for (auto i{ 1 }; i <= office_.get_number_of_desks(); ++i) {
+            for (size_t i{ 1 }; i <= office_.get_number_of_desks(); ++i) {
                 desks.emplace_back(desk, i, std::ref(office_), std::ref(logger_), std::ref(os));
             }
-            for (auto i{ 1 }; i <= office_.get_number_of_customers(); ++i) {
+            for (size_t i{ 1 }; i <= office_.get_number_of_customers(); ++i) {
                 customers.emplace_back(customer, i, std::ref(office_), std::ref(logger_), std::ref(os));
             }
             std::for_each(std::begin(customers), std::end(customers), [](auto& t) { t.join(); });

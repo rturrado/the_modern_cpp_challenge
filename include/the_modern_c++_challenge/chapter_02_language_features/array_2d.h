@@ -245,7 +245,7 @@ namespace tmcppc::data_structures {
             verify_indexed_access(column, width_, "column", "width");
 
             std::vector<T> column_vector{};
-            for (auto row{ 0 }; row < height_; ++row) {
+            for (size_t row{ 0 }; row < height_; ++row) {
                 column_vector.emplace_back(data_[row * width_ + column]);
             }
             return column_vector;
@@ -264,7 +264,7 @@ namespace tmcppc::data_structures {
                 return std::vector<size_t>{};
             }
             std::vector<size_t> column_widths(arr.width_);
-            for (auto col{ 0 }; col < arr.width_; ++col) {
+            for (size_t col{ 0 }; col < arr.width_; ++col) {
                 column_widths[col] = get_column_width(arr, col);
             }
             return column_widths;
@@ -298,9 +298,9 @@ struct fmt::formatter<tmcppc::data_structures::array_2d<T>> {
         } else {
             auto column_widths{ get_column_widths(arr) };
 
-            for (auto row{ 0 }; row < arr.height_; ++row) {
+            for (size_t row{ 0 }; row < arr.height_; ++row) {
                 fmt::format_to(ctx.out(), "{}{}", (row == 0 ? "" : "\n"), "[ ");
-                for (auto col{ 0 }; col < arr.width_; ++col) {
+                for (size_t col{ 0 }; col < arr.width_; ++col) {
                     fmt::format_to(ctx.out(), "{0}{2:>{1}}", (col == 0 ? "" : ", "), column_widths[col], arr.at(row, col));
                 }
                 fmt::format_to(ctx.out(), "{}", " ]");

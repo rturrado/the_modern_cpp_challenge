@@ -83,16 +83,16 @@ namespace tmcppc::game_of_life {
         std::ostream& os_;
         grid data_{};
 
-        size_t count_live_cell_neighbours(int i, int j) {
+        size_t count_live_cell_neighbours(size_t i, size_t j) {
             size_t ret{ 0 };
-            for (int ii{ i - 1 }; ii <= i + 1; ++ii) {
+            for (size_t ii{ i - 1 }; ii <= i + 1; ++ii) {
                 if (ii < 0 or ii >= data_.size()) {
                     continue;
                 }
 
                 auto& row{ data_[ii] };
 
-                for (int jj{ j - 1 }; jj <= j + 1; ++jj) {
+                for (size_t jj{ j - 1 }; jj <= j + 1; ++jj) {
                     if (jj < 0 or jj >= row.size()) {
                         continue;
                     }
@@ -117,10 +117,10 @@ namespace tmcppc::game_of_life {
         }
 
         void step() {
-            for (auto i{ 0 }; i < data_.size(); ++i) {
+            for (size_t i{ 0 }; i < data_.size(); ++i) {
                 auto& row{ data_[i] };
 
-                for (auto j{ 0 }; j < row.size(); ++j) {
+                for (size_t j{ 0 }; j < row.size(); ++j) {
                     step_cell(row[j], count_live_cell_neighbours(i, j));
                 }
             }

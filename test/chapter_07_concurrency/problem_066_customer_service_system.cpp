@@ -40,7 +40,7 @@ TEST(office_simulator, ten_clients_one_desk) {
     office_simulator.run(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Desk 1: started\n")));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Desk 1: finished\n")));
-    for (auto i{ 1 }; i <= number_of_customers; ++i) {
+    for (size_t i{ 1 }; i <= number_of_customers; ++i) {
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: started\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: got to the office\n", i)));
         EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Customer {}: got ticket number \\d+\n", i)));
@@ -58,11 +58,11 @@ TEST(problem_66_main, output) {
     std::istringstream iss{ "7\n3\n" };
     std::ostringstream oss{};
     problem_66_main(iss, oss);
-    for (auto i{ 1 }; i <= number_of_desks; ++i) {
+    for (size_t i{ 1 }; i <= number_of_desks; ++i) {
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Desk {}: started\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Desk {}: finished\n", i)));
     }
-    for (auto i{ 1 }; i <= number_of_customers; ++i) {
+    for (size_t i{ 1 }; i <= number_of_customers; ++i) {
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: started\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: got to the office\n", i)));
         EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Customer {}: got ticket number \\d\n", i)));

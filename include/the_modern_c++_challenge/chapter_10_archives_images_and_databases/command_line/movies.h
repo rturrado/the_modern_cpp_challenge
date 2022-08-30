@@ -8,6 +8,7 @@
 #include "rtc/string.h"  // to_lowercase, trim_right
 
 #include <algorithm>  // find
+#include <cstdint>  // int64_t
 #include <exception>
 #include <filesystem>
 #include <fmt/format.h>
@@ -31,8 +32,8 @@ namespace tmcppc::movies::command_line {
     enum class subcommand_t { media, movie };
 
     struct command_line_options {
-        int movie_id{};
-        int media_id{};
+        std::int64_t movie_id{};
+        std::int64_t media_id{};
         std::regex movie_title_regex{};
         std::filesystem::path media_file_path{};
         std::optional<std::string> media_file_description{};
@@ -208,7 +209,7 @@ namespace tmcppc::movies::command_line {
         std::smatch matches{};
         const std::regex pattern{ R"(\s*([\d]+)\s*,\s*([^,]+)(?:,\s*(.*))?)" };
         if (std::regex_match(line, matches, pattern)) {
-            options.movie_id = std::stoi(matches[1].str());
+            options.movie_id = std::stoll(matches[1].str());
             options.media_file_path = rtc::string::trim_right(matches[2].str());
             if (matches.size() == 4) {
                 options.media_file_description = rtc::string::trim_right(matches[3].str());
@@ -268,7 +269,7 @@ namespace tmcppc::movies::command_line {
 
 
     void add_media(std::ostream& os, tmcppc::movies::sql::database& movies_db,
-        size_t movie_id, const fs::path& media_file_path, std::optional<std::string> media_file_description) {
+        std::int64_t movie_id, const fs::path& media_file_path, std::optional<std::string> media_file_description) {
 
         if (not fs::exists(media_file_path)) {
             fmt::print(os, "Error: media file not found: {}\n", media_file_path.generic_string());
@@ -284,7 +285,7 @@ namespace tmcppc::movies::command_line {
         }
     }
 
-    void delete_media(std::ostream& os, tmcppc::movies::sql::database& movies_db, size_t media_id) {
+    void delete_media(std::ostream& os, tmcppc::movies::sql::database& movies_db, std::int64_t media_id) {
         try {
             movies_db.delete_media_file(media_id);
             fmt::print(os, "{}\n", movies_db);
@@ -293,7 +294,7 @@ namespace tmcppc::movies::command_line {
         }
     }
 
-    void list_media(std::ostream& os, const tmcppc::movies::sql::database& movies_db, size_t movie_id) {
+    void list_media(std::ostream& os, const tmcppc::movies::sql::database& movies_db, std::int64_t movie_id) {
         try {
             fmt::print(os, "{}\n", movies_db.get_media_files(movie_id));
         } catch (const tmcppc::movies::sql::movie_id_not_found_error& ex) {

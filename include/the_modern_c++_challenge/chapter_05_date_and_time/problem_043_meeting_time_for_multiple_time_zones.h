@@ -17,7 +17,7 @@ namespace tmcppc::problem_43 {
         const vector_of_participants_and_time_zones& participants) {
 
         os << "Local meeting times:\n";
-        for (auto i{ 0 }; i < participants.size(); ++i) {
+        for (size_t i{ 0 }; i < participants.size(); ++i) {
             const auto& p{ participants[i].first };
             const auto& tz{ participants[i].second };
 

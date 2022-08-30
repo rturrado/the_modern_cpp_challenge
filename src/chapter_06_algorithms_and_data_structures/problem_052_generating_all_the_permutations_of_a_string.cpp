@@ -14,7 +14,7 @@ namespace tmcppc::problem_52 {
             ret.push_back(str);
         } else {
             for (const auto& s : all_permutations_rec_impl(str.substr(1))) {
-                for (auto i{ 0 }; i <= s.size(); ++i) {
+                for (size_t i{ 0 }; i <= s.size(); ++i) {
                     ret.push_back(s.substr(0, i) + str[0] + s.substr(i));
                 }
             }

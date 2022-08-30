@@ -119,8 +119,8 @@ namespace tmcppc::zip {
         fmt::print(os, "\tOpening archive file: {}\n", zip_file_path.generic_string());
         auto archive{ ZipFile::Open(zip_file_path.generic_string()) };
 
-        for (auto i{ 0 }; i < archive->GetEntriesCount(); ++i) {
-            auto entry{ archive->GetEntry(i) };
+        for (size_t i{ 0 }; i < archive->GetEntriesCount(); ++i) {
+            auto entry{ archive->GetEntry(static_cast<int>(i)) };
 
             fs::path entry_file_path{ entry->GetFullName() };
             fs::path entry_relative_file_path{ entry_file_path.relative_path() };
