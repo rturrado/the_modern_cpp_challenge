@@ -40,3 +40,4 @@
 /build/NinjaMultiConfig/benchmark
 /build/NinjaMultiConfig/test
 /build/NinjaMultiConfig/test-asan
+/build/NinjaMultiConfig/no-test
