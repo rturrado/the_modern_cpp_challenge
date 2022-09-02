@@ -87,27 +87,27 @@ namespace tmcppc::temperature::v1 {
     //
     // C to F: (C * 9/5) + 32
     template <typename Rep_>
-    constexpr Rep_ celsius_to_fahrenheit(Rep_ c) { return (c * 9.0 / 5.0) + 32.0; }
+    constexpr Rep_ celsius_to_fahrenheit(Rep_ c) { return static_cast<Rep_>((c * 9.0 / 5.0) + 32.0); }
 
     // F to C: (F - 32) * 5/9
     template <typename Rep_>
-    constexpr Rep_ fahrenheit_to_celsius(Rep_ f) { return (f - 32.0) * 5.0 / 9.0; }
+    constexpr Rep_ fahrenheit_to_celsius(Rep_ f) { return static_cast<Rep_>((f - 32.0) * 5.0 / 9.0); }
 
     // C to K: C + 273.15
     template <typename Rep_>
-    constexpr Rep_ celsius_to_kelvin(Rep_ c) { return c + 273.15; }
+    constexpr Rep_ celsius_to_kelvin(Rep_ c) { return static_cast<Rep_>(c + 273.15); }
 
     // K to C: K - 273.15
     template <typename Rep_>
-    constexpr Rep_ kelvin_to_celsius(Rep_ k) { return k - 273.15; }
+    constexpr Rep_ kelvin_to_celsius(Rep_ k) { return static_cast<Rep_>(k - 273.15); }
 
     // F to K: (F - 32) * 5/9 + 273.15
     template <typename Rep_>
-    constexpr Rep_ fahrenheit_to_kelvin(Rep_ f) { return (f - 32.0) * 5.0 / 9.0 + 273.15; }
+    constexpr Rep_ fahrenheit_to_kelvin(Rep_ f) { return static_cast<Rep_>((f - 32.0) * 5.0 / 9.0 + 273.15); }
 
     // K to F: (K - 273.15) * 9/5 + 32
     template <typename Rep_>
-    constexpr Rep_ kelvin_to_fahrenheit(Rep_ k) { return (k - 273.15) * 9.0 / 5.0 + 32.0; }
+    constexpr Rep_ kelvin_to_fahrenheit(Rep_ k) { return static_cast<Rep_>((k - 273.15) * 9.0 / 5.0 + 32.0); }
 
     template <typename Rep_>
     [[nodiscard]] constexpr Rep_ to_celsius(const temperature<Rep_>& t) {
