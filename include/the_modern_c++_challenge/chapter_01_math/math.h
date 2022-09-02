@@ -69,8 +69,7 @@ namespace tmcppc::math {
 }  // namespace tmcppc::math
 
 
-namespace tmcppc::math::tmp
-{
+namespace tmcppc::math::tmp {
     // I couldn't use the more efficient version of divisors starting from sqrt(N) and adding j=N/I when I!=j
     // <--- std::sqrt is not constexpr
 
