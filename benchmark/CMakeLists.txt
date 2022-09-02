@@ -27,3 +27,8 @@ set(benchmark_sources
 add_executable(${PROJECT_NAME}_benchmark main.cpp benchmark.h ${benchmark_sources})
 target_compile_features(${PROJECT_NAME}_benchmark PRIVATE cxx_std_23)
 target_link_libraries(${PROJECT_NAME}_benchmark lib_${PROJECT_NAME} benchmark::benchmark Threads::Threads)
+if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
+    target_compile_options(${PROJECT_NAME}_benchmark PRIVATE  /D_CONSOLE /DCONSOLE /D_UNICODE /DUNICODE /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /W3 /WX /w34996 /utf-8 /Zc:inline)
+elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    target_compile_options(${PROJECT_NAME}_benchmark PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
+endif()

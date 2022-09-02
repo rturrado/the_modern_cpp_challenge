@@ -17,7 +17,7 @@ TEST(double_buffer, write_on_zero_capacity_buffer) {
     EXPECT_THROW(double_buffer<int>{ 0 }.write(0, container<int>{ 1, 2, 3 }), std::out_of_range);
 }
 TEST(double_buffer, read_on_zero_capacity_buffer) {
-    EXPECT_THROW(double_buffer<int>{ 0 }.read(0, 3), std::out_of_range);
+    EXPECT_THROW((void) double_buffer<int>{ 0 }.read(0, 3), std::out_of_range);
 }
 TEST(double_buffer, read_after_no_write) {
     double_buffer<int> db{ 5 };

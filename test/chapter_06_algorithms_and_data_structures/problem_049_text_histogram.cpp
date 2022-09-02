@@ -12,7 +12,7 @@ TEST(count_letters, empty_text) {
     EXPECT_TRUE(count_letters("").empty());
 }
 TEST(count_letters, text) {
-    auto result{ count_letters("We find ourselves only by looking to what we’re not.") };
+    auto result{ count_letters("We find ourselves only by looking to what we're not.") };
     EXPECT_THAT(result, ::testing::UnorderedElementsAre(
         std::pair<char, size_t>{ 'W', 1 },
         std::pair<char, size_t>{ 'a', 1 },

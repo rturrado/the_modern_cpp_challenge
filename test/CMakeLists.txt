@@ -69,11 +69,11 @@ target_link_libraries(${PROJECT_NAME}_test PUBLIC
     gtest
     pdiff
 )
-
-
-# Target compile options
-target_compile_options(${PROJECT_NAME}_test PRIVATE "$<$<C_COMPILER_ID:MSVC>:/utf-8>")
-target_compile_options(${PROJECT_NAME}_test PRIVATE "$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
+    target_compile_options(${PROJECT_NAME}_test PRIVATE  /D_CONSOLE /DCONSOLE /D_UNICODE /DUNICODE /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /W3 /WX /w34996 /utf-8 /Zc:inline)
+elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    target_compile_options(${PROJECT_NAME}_test PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
+endif()
 
 
 # Copy DLLs the target depends on
