@@ -8,7 +8,7 @@
 #include <iostream>  // cout
 #include <numeric>  // iota
 #include <ostream>
-#include <thread>  // this_thread
+#include <thread>  // sleep_for
 #include <vector>
 
 

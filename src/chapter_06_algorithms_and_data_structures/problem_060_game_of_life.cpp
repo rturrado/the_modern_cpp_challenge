@@ -1,4 +1,6 @@
+#include "chapter_06_algorithms_and_data_structures/console.h"
 #include "chapter_06_algorithms_and_data_structures/problem_060_game_of_life.h"
+#include "chapter_06_algorithms_and_data_structures/timer.h"
 
 #include <chrono>
 #include <fmt/ostream.h>
@@ -6,16 +8,18 @@
 #include <iostream>  // cout
 #include <thread>  // sleep_for
 
+using namespace tmcppc::chrono;
+using namespace tmcppc::game_of_life;
+using namespace tmcppc::system;
 
-void problem_60_main(std::ostream& os, std::chrono::duration<int> timeout) {
-    using namespace tmcppc::game_of_life;
 
+void problem_60_main(std::ostream& os, const console& console, const timer& timer, std::chrono::duration<double> timeout) {
     // Initialize stop game flag
     stop_game = false;
 
     // Start game of life asynchronously
-    auto fut_game = std::async(std::launch::async, [&os]() {
-        game_of_life{os}.run();
+    auto fut_game = std::async(std::launch::async, [&os, &console, &timer]() {
+        game_of_life{ os, console, timer }.run();
     });
     // Wait for timeout and stop game
     auto fut_timeout = std::async(std::launch::async, [&timeout]() {
@@ -47,5 +51,10 @@ void problem_60_main(std::ostream& os, std::chrono::duration<int> timeout) {
 void problem_60_main() {
     using namespace std::chrono_literals;
 
-    problem_60_main(std::cout, 5s);
+    problem_60_main(
+        std::cout
+        , console{ std::make_unique<console_impl>() }
+        , timer{ std::make_unique<timer_impl>() }
+        , 5s
+    );
 }

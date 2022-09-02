@@ -1,14 +1,19 @@
 #pragma once
 
-#include "rtc/console.h"
+#include "console.h"
+#include "timer.h"
+
 #include "rtc/random.h"
 
 #include <algorithm>  // for_each
 #include <atomic>
 #include <chrono>
+#include <iostream>  // flush
 #include <ostream>
-#include <thread>  // this_thread
+#include <thread>  // sleep_for
 #include <vector>
+
+namespace ch = std::chrono;
 
 
 namespace tmcppc::game_of_life {
@@ -47,8 +52,12 @@ namespace tmcppc::game_of_life {
 
     public:
         // Fill grid randomly
-        game_of_life(std::ostream& os, size_t rows = 20, size_t columns = 50)
+        game_of_life(std::ostream& os, const tmcppc::system::console& console, const tmcppc::chrono::timer& timer,
+            size_t rows = 20, size_t columns = 50)
+
             : os_{ os }
+            , console_{ console }
+            , timer_{ timer }
             , data_{ std::vector(rows, std::vector(columns, cell{})) } {
 
             std::ranges::for_each(data_, [](auto& row) {
@@ -63,13 +72,13 @@ namespace tmcppc::game_of_life {
             while (not stop_game) {
                 step();
                 display();
-                std::this_thread::sleep_for(200ms);
+                timer_.sleep_for(200ms);
             }
         }
 
         // Print grid
         void display() {
-            rtc::console::clear_screen();
+            console_.clear_screen();
 
             std::ranges::for_each(data_, [this](const auto& row) {
                 std::ranges::for_each(row, [this](const auto& cell) {
@@ -77,10 +86,13 @@ namespace tmcppc::game_of_life {
                 });
                 fmt::print(os_, "\n");
             });
+            os_ << std::flush;
         }
 
     private:
         std::ostream& os_;
+        const tmcppc::system::console& console_;
+        const tmcppc::chrono::timer& timer_;
         grid data_{};
 
         size_t count_live_cell_neighbours(size_t i, size_t j) {
@@ -129,5 +141,6 @@ namespace tmcppc::game_of_life {
 }  // namespace tmcppc::game_of_life
 
 
-void problem_60_main(std::ostream& os, std::chrono::duration<int> timeout = {});
+void problem_60_main(std::ostream& os, const tmcppc::system::console& console, const tmcppc::chrono::timer& timer,
+    std::chrono::duration<double> timeout = {});
 void problem_60_main();
