@@ -6,6 +6,7 @@
 
 #include <filesystem>
 #include <sstream>  // istringstream, ostringstream
+#include <utility>  // move
 
 #ifdef _WIN32
 #define WINDOWS_LEAN_AND_MEAN

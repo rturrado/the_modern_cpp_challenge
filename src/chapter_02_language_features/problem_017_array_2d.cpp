@@ -8,6 +8,7 @@
 #include <iostream>  // cout
 #include <numeric>  // iota
 #include <ostream>
+#include <utility>  // move
 
 
 void problem_17_main(std::ostream& os) {

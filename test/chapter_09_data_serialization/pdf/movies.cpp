@@ -8,6 +8,7 @@
 
 #include <chrono>
 #include <filesystem>
+#include <memory>  // make_unique
 #include <vector>
 
 using namespace std::chrono_literals;

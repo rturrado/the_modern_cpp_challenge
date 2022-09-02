@@ -9,6 +9,7 @@
 #include <string>
 #include <string_view>
 #include <system_error>  // error_code, system_category
+#include <utility>  // move
 
 #define BOOST_ASIO_STANDALONE
 #include <asio.hpp>

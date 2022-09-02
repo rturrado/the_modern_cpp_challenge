@@ -9,6 +9,7 @@
 #include <istream>
 #include <numeric>  // accumulate
 #include <ostream>
+#include <utility>  // move
 #include <vector>
 
 

@@ -5,6 +5,7 @@
 
 #include <algorithm>  // all_of
 #include <cctype>  // isdigit, islower, ispunct, isupper
+#include <memory>  // make_unique
 #include <sstream>  // ostringstream
 
 using namespace tmcppc::password;

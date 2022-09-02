@@ -4,7 +4,7 @@
 
 #include <fmt/ostream.h>
 #include <future>
-#include <mutex>
+#include <mutex>  // lock_guard
 #include <iostream>  // cin, cout
 #include <istream>
 #include <memory>  // unique_ptr
@@ -12,7 +12,7 @@
 #include <string>  // getline
 #include <string_view>
 #include <system_error>  // errc, error_code
-#include <thread>  // lock_guard
+#include <utility>  // move
 
 
 namespace tmcppc::fizz_buzz {

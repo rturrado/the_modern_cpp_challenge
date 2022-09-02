@@ -12,6 +12,7 @@
 
 #include <filesystem>
 #include <memory>  // make_unique, unique_ptr
+#include <utility>  // move
 #include <variant>  // get, holds_alternative
 
 using namespace tmcppc::face_detection;

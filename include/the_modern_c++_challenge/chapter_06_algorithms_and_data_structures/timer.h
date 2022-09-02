@@ -5,6 +5,7 @@
 #include <stdexcept>  // runtime_error
 #include <string_view>
 #include <thread>  // sleep_for
+#include <utility>  // move
 
 namespace ch = std::chrono;
 

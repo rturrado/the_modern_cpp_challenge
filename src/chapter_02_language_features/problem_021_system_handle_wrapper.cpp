@@ -3,11 +3,12 @@
 #include "env.h"
 
 #include <cassert>  // assert
-#include <iostream>  // wcout
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <vector>
+#include <iostream>  // wcout
 #include <stdexcept>  // runtime_error
+#include <utility>  // move
+#include <vector>
 
 #ifdef _WIN32
 #define WINDOWS_LEAN_AND_MEAN

@@ -11,6 +11,7 @@
 #include <memory>  // make_unique, unique_ptr
 #include <sstream>  // ostringstream
 #include <string_view>
+#include <utility>  // move
 
 using namespace tmcppc::text_translation;
 

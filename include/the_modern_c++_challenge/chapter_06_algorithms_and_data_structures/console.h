@@ -5,6 +5,7 @@
 #include <memory>  // unique_ptr
 #include <stdexcept>  // runtime_error
 #include <string_view>
+#include <utility>  // move
 
 
 namespace tmcppc::system {

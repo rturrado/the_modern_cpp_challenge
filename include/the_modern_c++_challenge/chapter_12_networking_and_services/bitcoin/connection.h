@@ -10,6 +10,7 @@
 #include <stdexcept>  // runtime_error
 #include <string>
 #include <string_view>
+#include <utility>  // move
 
 
 namespace tmcppc::bitcoin {

@@ -11,6 +11,7 @@
 #include <stdexcept>  // runtime_error
 #include <string>
 #include <string_view>
+#include <utility>  // move
 #include <vector>
 
 using namespace std::string_view_literals;

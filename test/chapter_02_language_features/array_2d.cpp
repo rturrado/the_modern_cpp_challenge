@@ -9,6 +9,7 @@
 #include <sstream>  // ostringstream
 #include <stdexcept>  // out_of_range
 #include <string>
+#include <utility>  // move
 #include <vector>
 
 using namespace tmcppc::data_structures;

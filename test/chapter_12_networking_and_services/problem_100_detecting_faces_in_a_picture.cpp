@@ -12,6 +12,7 @@
 #include <filesystem>
 #include <memory>  // make_unique, unique_ptr
 #include <sstream>  // ostringstream
+#include <utility>  // move
 #include <variant>
 
 using namespace tmcppc::face_detection;
