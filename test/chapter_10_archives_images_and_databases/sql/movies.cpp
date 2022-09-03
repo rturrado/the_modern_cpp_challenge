@@ -52,11 +52,11 @@ static auto get_ok_db() {
 }
 
 
-TEST(sql_cast, DISABLED_to_db_movie_does_not_exist) {
+TEST(sql_cast, to_db_movie_does_not_exist) {
     auto sqlite_db{ get_empty_sqlite_db() };
     EXPECT_THROW(to_db(sqlite_db, 111, samples::cast), movie_id_not_found_error);
 }
-TEST(sql_cast, DISABLED_to_db_cast_and_one_of_the_roles_already_exists) {
+TEST(sql_cast, to_db_cast_and_one_of_the_roles_already_exists) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
@@ -66,7 +66,7 @@ TEST(sql_cast, DISABLED_to_db_cast_and_one_of_the_roles_already_exists) {
     from_db(sqlite_db, 1, c);
     EXPECT_EQ(c, samples::cast);
 }
-TEST(sql_cast, DISABLED_to_db_and_from_db) {
+TEST(sql_cast, to_db_and_from_db) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
@@ -76,11 +76,11 @@ TEST(sql_cast, DISABLED_to_db_and_from_db) {
     EXPECT_EQ(c, samples::cast);
 }
 
-TEST(sql_writers, DISABLED_to_db_movie_does_not_exist) {
+TEST(sql_writers, to_db_movie_does_not_exist) {
     auto sqlite_db{ get_empty_sqlite_db() };
     EXPECT_THROW(to_db(sqlite_db, 111, samples::writers), movie_id_not_found_error);
 }
-TEST(sql_writers, DISABLED_to_db_writers_and_one_of_the_writers_already_exists) {
+TEST(sql_writers, to_db_writers_and_one_of_the_writers_already_exists) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
@@ -90,7 +90,7 @@ TEST(sql_writers, DISABLED_to_db_writers_and_one_of_the_writers_already_exists) 
     from_db(sqlite_db, 1, ws);
     EXPECT_EQ(ws, samples::writers);
 }
-TEST(sql_writers, DISABLED_to_db_and_from_db) {
+TEST(sql_writers, to_db_and_from_db) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
@@ -100,11 +100,11 @@ TEST(sql_writers, DISABLED_to_db_and_from_db) {
     EXPECT_EQ(ws, samples::writers);
 }
 
-TEST(sql_directors, DISABLED_to_db_movie_does_not_exist) {
+TEST(sql_directors, to_db_movie_does_not_exist) {
     auto sqlite_db{ get_empty_sqlite_db() };
     EXPECT_THROW(to_db(sqlite_db, 111, samples::directors), movie_id_not_found_error);
 }
-TEST(sql_directors, DISABLED_to_db_directors_and_one_of_the_directors_already_exists) {
+TEST(sql_directors, to_db_directors_and_one_of_the_directors_already_exists) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
@@ -114,7 +114,7 @@ TEST(sql_directors, DISABLED_to_db_directors_and_one_of_the_directors_already_ex
     from_db(sqlite_db, 1, ds);
     EXPECT_EQ(ds, samples::directors);
 }
-TEST(sql_directors, DISABLED_to_db_and_from_db) {
+TEST(sql_directors, to_db_and_from_db) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     to_db(sqlite_db, m);
@@ -124,12 +124,12 @@ TEST(sql_directors, DISABLED_to_db_and_from_db) {
     EXPECT_EQ(ds, samples::directors);
 }
 
-TEST(sql_media_files, DISABLED_to_db_movie_does_not_exist) {
+TEST(sql_media_files, to_db_movie_does_not_exist) {
     auto sqlite_db{ get_empty_sqlite_db() };
     auto non_const_media_files_sample_copy{ samples::media_files };
     EXPECT_THROW(to_db(sqlite_db, 111, non_const_media_files_sample_copy), movie_id_not_found_error);
 }
-TEST(sql_media_files, DISABLED_to_db_media_files_and_one_of_the_media_files_already_exists) {
+TEST(sql_media_files, to_db_media_files_and_one_of_the_media_files_already_exists) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 1, "Blade Runner", 1982y, 117 };
     to_db(sqlite_db, m);
@@ -140,7 +140,7 @@ TEST(sql_media_files, DISABLED_to_db_media_files_and_one_of_the_media_files_alre
     from_db(sqlite_db, 1, mfs);
     EXPECT_EQ(mfs, updated_media_files_sample);
 }
-TEST(sql_media_files, DISABLED_to_db_and_from_db) {
+TEST(sql_media_files, to_db_and_from_db) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 1, "Blade Runner", 1982y, 117 };
     to_db(sqlite_db, m);
@@ -151,7 +151,7 @@ TEST(sql_media_files, DISABLED_to_db_and_from_db) {
     EXPECT_EQ(mfs, updated_media_files_sample);
 }
 
-TEST(sql_catalog, DISABLED_to_db_and_from_db_movie_already_exists) {
+TEST(sql_catalog, to_db_and_from_db_movie_already_exists) {
     auto sqlite_db{ get_empty_sqlite_db() };
     catalog updated_catalog_sample{ get_updated_catalog_sample() };
     to_db(sqlite_db, updated_catalog_sample.movies[0]);
@@ -161,7 +161,7 @@ TEST(sql_catalog, DISABLED_to_db_and_from_db_movie_already_exists) {
     from_db(sqlite_db, c);
     EXPECT_EQ(c, updated_catalog_sample);
 }
-TEST(sql_catalog, DISABLED_to_db_and_from_db) {
+TEST(sql_catalog, to_db_and_from_db) {
     auto sqlite_db{ get_empty_sqlite_db() };
     catalog updated_catalog_sample{ get_updated_catalog_sample() };
     to_db(sqlite_db, updated_catalog_sample.movies[0]);
@@ -171,26 +171,26 @@ TEST(sql_catalog, DISABLED_to_db_and_from_db) {
     EXPECT_EQ(c, updated_catalog_sample);
 }
 
-TEST(database, DISABLED_constructor_file_does_not_exist) {
+TEST(database, constructor_file_does_not_exist) {
     EXPECT_THROW(database{ fs::path{} }, sqlite::sqlite_exception);
 }
-TEST(database, DISABLED_constructor_file_does_not_contain_an_sqlite_db) {
+TEST(database, constructor_file_does_not_contain_an_sqlite_db) {
     sqlite::database db_file_path{ ":memory:" };
     EXPECT_THROW(database{ db_file_path }, sqlite::sqlite_exception);
 }
 
-TEST(database, DISABLED_get_movies_does_not_get_any_movie) {
+TEST(database, get_movies_does_not_get_any_movie) {
     auto db{ get_ok_db() };
     auto ret{ db.get_movies(std::regex{ R"(.*scent.*)" }) };
     EXPECT_TRUE(ret.movies.empty());
 }
-TEST(database, DISABLED_get_movies_gets_one_movie) {
+TEST(database, get_movies_gets_one_movie) {
     auto db{ get_ok_db() };
     auto ret{ db.get_movies(std::regex{ R"(.*Forrest.*)" }) };
     EXPECT_EQ(ret.movies.size(), 1);
     EXPECT_EQ(ret.movies[0], samples::movie_with_id_initialized_after_database_insertion);
 }
-TEST(database, DISABLED_get_movies_gets_all_movies) {
+TEST(database, get_movies_gets_all_movies) {
     auto db{ get_ok_db() };
     auto ret{ db.get_movies(std::regex{ R"(.*)" }) };
     EXPECT_EQ(ret.movies.size(), 2);
@@ -200,18 +200,18 @@ TEST(database, DISABLED_get_movies_gets_all_movies) {
     EXPECT_EQ(ret, updated_catalog_sample);
 }
 
-TEST(database, DISABLED_get_media_files_does_not_find_movie_id) {
+TEST(database, get_media_files_does_not_find_movie_id) {
     auto db{ get_ok_db() };
     EXPECT_THROW((void) db.get_media_files(12345), movie_id_not_found_error);
 }
-TEST(database, DISABLED_get_media_files_finds_movie_id_but_movie_does_not_have_media_files) {
+TEST(database, get_media_files_finds_movie_id_but_movie_does_not_have_media_files) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 1, "Blade Runner", 1982y, 117 };
     to_db(sqlite_db, m);
     database db{ sqlite_db };
     EXPECT_TRUE(db.get_media_files(1).media_files_.empty());
 }
-TEST(database, DISABLED_get_media_files_finds_movie_id_and_gets_media_files) {
+TEST(database, get_media_files_finds_movie_id_and_gets_media_files) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 1, "Blade Runner", 1982y, 117 };
     to_db(sqlite_db, m);
@@ -221,14 +221,14 @@ TEST(database, DISABLED_get_media_files_finds_movie_id_and_gets_media_files) {
     EXPECT_EQ(db.get_media_files(1), updated_media_files_sample);
 }
 
-TEST(database, DISABLED_insert_movie_that_does_not_exist) {
+TEST(database, insert_movie_that_does_not_exist) {
     auto sqlite_db{ get_empty_sqlite_db() };
     database db{ sqlite_db };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
     db.insert_movie(m);
     EXPECT_EQ(db.catalog_.movies.size(), 1);
 }
-TEST(database, DISABLED_insert_movie_that_exists_already) {
+TEST(database, insert_movie_that_exists_already) {
     auto sqlite_db{ get_empty_sqlite_db() };
     database db{ sqlite_db };
     movie m{ 2, "Forrest Gump", 1994y, 202 };
@@ -237,7 +237,7 @@ TEST(database, DISABLED_insert_movie_that_exists_already) {
     EXPECT_EQ(db.catalog_.movies.size(), 1);
 }
 
-TEST(database, DISABLED_insert_media_file_that_does_not_exist) {
+TEST(database, insert_media_file_that_does_not_exist) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 1, "Blade Runner", 1982y, 117 };
     to_db(sqlite_db, m);
@@ -247,7 +247,7 @@ TEST(database, DISABLED_insert_media_file_that_does_not_exist) {
     db.insert_media_file(1, mf);
     EXPECT_EQ(db.get_media_files(1), mfs);
 }
-TEST(database, DISABLED_insert_media_file_that_exists_already) {
+TEST(database, insert_media_file_that_exists_already) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 1, "Blade Runner", 1982y, 117 };
     to_db(sqlite_db, m);
@@ -259,11 +259,11 @@ TEST(database, DISABLED_insert_media_file_that_exists_already) {
     EXPECT_EQ(db.get_media_files(1), mfs);
 }
 
-TEST(database, DISABLED_delete_media_file_does_not_find_media_id) {
+TEST(database, delete_media_file_does_not_find_media_id) {
     auto db{ get_empty_db() };
     EXPECT_THROW(db.delete_media_file(1991), media_file_id_not_found_error);
 }
-TEST(database, DISABLED_delete_media_file_finds_media_id) {
+TEST(database, delete_media_file_finds_media_id) {
     auto sqlite_db{ get_empty_sqlite_db() };
     movie m{ 1, "Blade Runner", 1982y, 117 };
     media_files mfs{ { get_updated_media_file_sample() } };

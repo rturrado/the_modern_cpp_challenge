@@ -9,24 +9,24 @@
 using namespace tmcppc::problem_25;
 
 
-TEST(capitalize, DISABLED_empty_string) {
+TEST(capitalize, empty_string) {
     std::string result{};
     EXPECT_EQ(capitalize(""), result);
 }
-TEST(capitalize, DISABLED_all_lowercase) {
+TEST(capitalize, all_lowercase) {
     EXPECT_THAT(capitalize("the c++ challenger"), ::testing::StrEq("The C++ Challenger"));
 }
-TEST(capitalize, DISABLED_all_uppercase) {
+TEST(capitalize, all_uppercase) {
     EXPECT_THAT(capitalize("THE C++ CHALLENGER"), ::testing::StrEq("The C++ Challenger"));
 }
-TEST(capitalize, DISABLED_uppercase_and_lowercase) {
+TEST(capitalize, uppercase_and_lowercase) {
     EXPECT_THAT(capitalize("THIS IS an ExamplE, should wORk!"), ::testing::StrEq("This Is An Example, Should Work!"));
 }
-TEST(capitalize, DISABLED_all_letters) {
+TEST(capitalize, all_letters) {
     EXPECT_THAT(capitalize("SUPERCalIfragiListicoeSPialiDOSo"), ::testing::StrEq("Supercalifragilisticoespialidoso"));
 }
 
-TEST(problem_25_main, DISABLED_output) {
+TEST(problem_25_main, output) {
     std::ostringstream oss{};
     problem_25_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

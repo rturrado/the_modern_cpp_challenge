@@ -1,7 +1,7 @@
 #pragma once
 
-#include <algorithm>  // copy
-#include <mutex>
+#include <algorithm>  // copy, swap
+#include <mutex>  // scoped_lock
 #include <vector>
 
 

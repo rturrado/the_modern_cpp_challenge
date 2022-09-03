@@ -9,7 +9,7 @@
 #include <sstream>  // istringstream, ostringstream
 
 
-TEST(problem_87_main, DISABLED_output) {
+TEST(problem_87_main, output) {
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
     std::istringstream iss{ fmt::format(
         // Problem 86 input

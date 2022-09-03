@@ -11,7 +11,7 @@ using namespace std::chrono_literals;
 using namespace tmcppc::problem_43;
 
 
-TEST(display_local_meeting_times, DISABLED_no_participants) {
+TEST(display_local_meeting_times, no_participants) {
     std::ostringstream oss{};
     ch::zoned_time<ch::minutes> meeting_zt{ "Europe/Madrid", ch::sys_days{2021y / ch::October / 23} + 18h };
     vector_of_participants_and_time_zones participants{};
@@ -20,7 +20,7 @@ TEST(display_local_meeting_times, DISABLED_no_participants) {
 }
 
 
-TEST(display_local_meeting_times, DISABLED_some_participants) {
+TEST(display_local_meeting_times, some_participants) {
     std::ostringstream oss{};
     ch::zoned_time<ch::minutes> meeting_zt{ "Europe/Madrid", ch::sys_days{2021y / ch::October / 23} + 18h };
     auto participants = vector_of_participants_and_time_zones{
@@ -36,7 +36,7 @@ TEST(display_local_meeting_times, DISABLED_some_participants) {
 }
 
 
-TEST(problem_43_main, DISABLED_output) {
+TEST(problem_43_main, output) {
     std::ostringstream oss{};
     problem_43_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

@@ -8,7 +8,7 @@
 #include <iostream>  // cout
 #include <numeric>  // iota
 #include <ostream>
-#include <thread>  // this_thread
+#include <thread>  // sleep_for
 #include <vector>
 
 
@@ -48,13 +48,13 @@ void test_1(std::ostream& os) {
     fmt::print(os, "Test 1:\n\t");
 
     // We work over a double buffer of 10 elements, initially set to 0
-    double_buffer<int> db{ 10 };
+    double_buffer<size_t> db{ 10 };
 
     // Thread 1 writes every 100ms
     // It writes a sequence of numbers starting from 1
     auto thread_1_l = [&os, &db]() {
         fmt::print(os, "(thread 1 writing)");
-        for (auto i{ 0 }; i < db.size(); ++i) {
+        for (size_t i{ 0 }; i < db.size(); ++i) {
             db.write(i, i + 1);
             fmt::print(os, " w_{}", i + 1);
             std::this_thread::sleep_for(100ms);
@@ -63,7 +63,7 @@ void test_1(std::ostream& os) {
     // Thread 2 reads every 100ms
     auto thread_2_l = [&os, &db]() {
         fmt::print(os, " (thread 2 reading)");
-        for (auto i{ 0 }; i < db.size(); ++i) {
+        for (size_t i{ 0 }; i < db.size(); ++i) {
             fmt::print(os, " r_{}", db.read(i));
             std::this_thread::sleep_for(100ms);
         }
@@ -90,15 +90,15 @@ void test_2(std::ostream& os) {
 
     fmt::print(os, "Test 2:\n");
 
-    double_buffer<int> db{ 10 };
+    double_buffer<size_t> db{ 10 };
 
     // Thread 1 writes the full buffer 10 times, every 100ms
     // First time, it writes a sequence of numbers from 0 to 9
     // Every successive time it adds 10 to the the sequence of numbers
     auto thread_1_l = [&db]() {
-        std::vector<int> v(db.size());
+        std::vector<size_t> v(db.size());
         std::iota(begin(v), end(v), 0);
-        for (auto i{ 0 }; i < 10; ++i) {
+        for (size_t i{ 0 }; i < 10; ++i) {
             db.write(0, v);
             std::this_thread::sleep_for(100ms);
             std::ranges::for_each(v, [](auto& n) { n += 10; });
@@ -107,8 +107,8 @@ void test_2(std::ostream& os) {
 
     // Thread 2 reads and prints the full buffer 10 times, every 150ms
     auto thread_2_l = [&os, &db]() {
-        std::vector<int> v(db.size());
-        for (auto i{ 0 }; i < 10; ++i) {
+        std::vector<size_t> v(db.size());
+        for (size_t i{ 0 }; i < 10; ++i) {
             v = db.read(0, v.size());
             fmt::print(os, "\t[{:2}]\n", fmt::join(v, ", "));
             std::this_thread::sleep_for(150ms);

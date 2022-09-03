@@ -13,15 +13,15 @@ using namespace std::chrono_literals;
 using namespace tmcppc::problem_42;
 
 
-TEST(daynum, DISABLED_invalid_date) { EXPECT_THROW(daynum(2022y / 20 / 40), rtc::chrono::invalid_date_error); }
-TEST(daynum, DISABLED_january_1_2022) { EXPECT_EQ(daynum(2022y / 1 / 1), 1); }
-TEST(daynum, DISABLED_december_31_2022) { EXPECT_EQ(daynum(2022y / 12 / 31), 365); }
+TEST(daynum, invalid_date) { EXPECT_THROW(daynum(2022y / 20 / 40), rtc::chrono::invalid_date_error); }
+TEST(daynum, january_1_2022) { EXPECT_EQ(daynum(2022y / 1 / 1), 1); }
+TEST(daynum, december_31_2022) { EXPECT_EQ(daynum(2022y / 12 / 31), 365); }
 
-TEST(weeknum, DISABLED_invalid_date) { EXPECT_THROW(weeknum(2022y / 20 / 40), rtc::chrono::invalid_date_error); }
-TEST(weeknum, DISABLED_january_1_2022) { EXPECT_EQ(weeknum(2022y / 1 / 1), 1); }
-TEST(weeknum, DISABLED_december_31_2022) { EXPECT_EQ(weeknum(2022y / 12 / 31), 53); }
+TEST(weeknum, invalid_date) { EXPECT_THROW(weeknum(2022y / 20 / 40), rtc::chrono::invalid_date_error); }
+TEST(weeknum, january_1_2022) { EXPECT_EQ(weeknum(2022y / 1 / 1), 1); }
+TEST(weeknum, december_31_2022) { EXPECT_EQ(weeknum(2022y / 12 / 31), 53); }
 
-TEST(problem_42_main, DISABLED_output) {
+TEST(problem_42_main, output) {
     std::ostringstream oss{};
     problem_42_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

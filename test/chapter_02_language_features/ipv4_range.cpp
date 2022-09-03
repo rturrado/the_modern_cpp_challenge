@@ -10,37 +10,37 @@
 using namespace tmcppc::network;
 
 
-TEST(ipv4_iterator, DISABLED_operator_star) {
+TEST(ipv4_iterator, operator_star) {
     ipv4_iterator it{ ipv4{ "1.2.3.4" } };
     EXPECT_EQ(*it, ipv4{ "1.2.3.4" });
 }
 
-TEST(ipv4_iterator, DISABLED_operator_pointer) {
+TEST(ipv4_iterator, operator_pointer) {
     ipv4_iterator it{ ipv4{ "1.2.3.4" } };
     EXPECT_EQ(it->to_string(), "1.2.3.4");
 }
 
-TEST(ipv4_iterator, DISABLED_pre_increment) {
+TEST(ipv4_iterator, pre_increment) {
     ipv4_iterator it{ ipv4{ "1.2.3.4" } };
     EXPECT_EQ(*++it, ipv4{ "1.2.3.5" });
 }
 
-TEST(ipv4_iterator, DISABLED_post_increment) {
+TEST(ipv4_iterator, post_increment) {
     ipv4_iterator it{ ipv4{ "1.2.3.4" } };
     EXPECT_EQ(*it++, ipv4{ "1.2.3.4" });
     EXPECT_EQ(*it, ipv4{ "1.2.3.5" });
 }
 
-TEST(ipv4_iterator, DISABLED_equals) {
+TEST(ipv4_iterator, equals) {
     EXPECT_EQ(ipv4_iterator{ ipv4{ "1.2.3.4" } }, ipv4_iterator{ ipv4{ "1.2.3.4" } });
 }
 
-TEST(ipv4_iterator, DISABLED_distinct) {
+TEST(ipv4_iterator, distinct) {
     EXPECT_NE(ipv4_iterator{ ipv4{ "1.2.3.4" } }, ipv4_iterator{ ipv4{ "1.2.3.5" } });
 }
 
 
-TEST(ipv4_range, DISABLED_is_an_lvalue) {
+TEST(ipv4_range, is_an_lvalue) {
     const ipv4_range range{ ipv4{ "10.10.10.10" }, ipv4{ "10.10.10.15" } };
     std::ostringstream oss{};
     for (const auto& address : range) {
@@ -55,7 +55,7 @@ TEST(ipv4_range, DISABLED_is_an_lvalue) {
     ));
 }
 
-TEST(ipv4_range, DISABLED_is_an_rvalue_but_constructed_from_two_ipv4_lvalues) {
+TEST(ipv4_range, is_an_rvalue_but_constructed_from_two_ipv4_lvalues) {
     ipv4 a1{ "10.10.10.10" };
     ipv4 a2{ "10.10.10.15" };
     std::ostringstream oss{};
@@ -73,7 +73,7 @@ TEST(ipv4_range, DISABLED_is_an_rvalue_but_constructed_from_two_ipv4_lvalues) {
     ));
 }
 
-TEST(ipv4_range, DISABLED_is_an_rvalue_and_constructed_from_two_ipv4_rvalues) {
+TEST(ipv4_range, is_an_rvalue_and_constructed_from_two_ipv4_rvalues) {
     std::ostringstream oss{};
     for (auto&& address : ipv4_range{ ipv4{ "10.10.10.10" }, ipv4{ "10.10.10.15" } }) {
         fmt::print(oss, "{}\n", address);
@@ -87,7 +87,7 @@ TEST(ipv4_range, DISABLED_is_an_rvalue_and_constructed_from_two_ipv4_rvalues) {
     ));
 }
 
-TEST(ipv4_range, DISABLED_begin_end) {
+TEST(ipv4_range, begin_end) {
     ipv4_range range{ ipv4{ "10.10.10.10" }, ipv4{ "10.10.10.15" } };
     std::ostringstream oss{};
     for (auto it{ range.begin() }; it != range.end(); ++it) {
@@ -103,7 +103,7 @@ TEST(ipv4_range, DISABLED_begin_end) {
 }
 
 
-TEST(ipv4_range, DISABLED_begin_end_on_const_range) {
+TEST(ipv4_range, begin_end_on_const_range) {
     const ipv4_range range{ ipv4{ "10.10.10.10" }, ipv4{ "10.10.10.15" } };
     std::ostringstream oss{};
     for (auto it{ range.begin() }; it != range.end(); ++it) {
@@ -118,7 +118,7 @@ TEST(ipv4_range, DISABLED_begin_end_on_const_range) {
     ));
 }
 
-TEST(ipv4_range, DISABLED_cbegin_cend) {
+TEST(ipv4_range, cbegin_cend) {
     const ipv4_range range{ ipv4{ "10.10.10.10" }, ipv4{ "10.10.10.15" } };
     std::ostringstream oss{};
     for (auto it{ range.cbegin() }; it != range.cend(); ++it) {

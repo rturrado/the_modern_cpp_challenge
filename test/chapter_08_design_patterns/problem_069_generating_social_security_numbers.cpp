@@ -26,7 +26,7 @@ std::string encode_crc(const std::string& str, int crc_modulo) {
 }
 
 
-TEST(northeria_ssn_generator, DISABLED_generate_female_1_1_1970) {
+TEST(northeria_ssn_generator, generate_female_1_1_1970) {
     auto result{ northeria_ssn_generator::get_instance().generate(person{ sex::female, 1970y / ch::January / 1 }) };
     EXPECT_TRUE(std::ranges::all_of(result.substr(0, 14), [](unsigned char c) { return std::isdigit(c); }));
     EXPECT_EQ(result[0], '9');
@@ -35,7 +35,7 @@ TEST(northeria_ssn_generator, DISABLED_generate_female_1_1_1970) {
     auto actual_crc{ result.substr(14, 1) };
     EXPECT_EQ(expected_crc, actual_crc);
 }
-TEST(northeria_ssn_generator, DISABLED_generate_male_1_1_1970) {
+TEST(northeria_ssn_generator, generate_male_1_1_1970) {
     auto result{ northeria_ssn_generator::get_instance().generate(person{ sex::male, 1970y / ch::January / 1 }) };
     EXPECT_TRUE(std::ranges::all_of(result.substr(0, 14), [](unsigned char c) { return std::isdigit(c); }));
     EXPECT_EQ(result[0], '7');
@@ -45,7 +45,7 @@ TEST(northeria_ssn_generator, DISABLED_generate_male_1_1_1970) {
     EXPECT_EQ(expected_crc, actual_crc);
 }
 
-TEST(southeria_ssn_generator, DISABLED_generate_female_1_1_1970) {
+TEST(southeria_ssn_generator, generate_female_1_1_1970) {
     auto result{ southeria_ssn_generator::get_instance().generate(person{ sex::female, 2000y / ch::August / 14 }) };
     EXPECT_TRUE(std::ranges::all_of(result, [](unsigned char c) { return std::isdigit(c); }));
     EXPECT_EQ(result[0], '1');
@@ -54,7 +54,7 @@ TEST(southeria_ssn_generator, DISABLED_generate_female_1_1_1970) {
     auto actual_crc{ result.substr(13, 1) };
     EXPECT_EQ(expected_crc, actual_crc);
 }
-TEST(southeria_ssn_generator, DISABLED_generate_male_1_1_1970) {
+TEST(southeria_ssn_generator, generate_male_1_1_1970) {
     auto result{ southeria_ssn_generator::get_instance().generate(person{ sex::male, 2000y / ch::August / 14 }) };
     EXPECT_TRUE(std::ranges::all_of(result, [](unsigned char c) { return std::isdigit(c); }));
     EXPECT_EQ(result[0], '2');
@@ -65,7 +65,7 @@ TEST(southeria_ssn_generator, DISABLED_generate_male_1_1_1970) {
 }
 
 
-TEST(problem_69_main, DISABLED_output) {
+TEST(problem_69_main, output) {
     std::ostringstream oss{};
     problem_69_main(oss);
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(

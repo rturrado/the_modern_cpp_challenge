@@ -2,7 +2,7 @@
 
 #include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <memory>  // make_unique, unique_ptr
+#include <memory>  // make_unique
 #include <ostream>
 
 

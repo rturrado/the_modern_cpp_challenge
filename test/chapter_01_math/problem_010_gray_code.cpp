@@ -8,19 +8,19 @@
 using namespace tmcppc::problem_10;
 
 
-TEST(binary_to_gray, DISABLED_n_0) { EXPECT_EQ(binary_to_gray(0), 0); }
-TEST(binary_to_gray, DISABLED_n_10) { EXPECT_EQ(binary_to_gray(10), 15); }
-TEST(binary_to_gray, DISABLED_n_20) { EXPECT_EQ(binary_to_gray(20), 30); }
-TEST(binary_to_gray, DISABLED_n_31) { EXPECT_EQ(binary_to_gray(31), 16); }
+TEST(binary_to_gray, n_0) { EXPECT_EQ(binary_to_gray(0), 0); }
+TEST(binary_to_gray, n_10) { EXPECT_EQ(binary_to_gray(10), 15); }
+TEST(binary_to_gray, n_20) { EXPECT_EQ(binary_to_gray(20), 30); }
+TEST(binary_to_gray, n_31) { EXPECT_EQ(binary_to_gray(31), 16); }
 
 
-TEST(gray_to_binary, DISABLED_n_0) { EXPECT_EQ(gray_to_binary(0), 0); }
-TEST(gray_to_binary, DISABLED_n_10) { EXPECT_EQ(gray_to_binary(10), 12); }
-TEST(gray_to_binary, DISABLED_n_20) { EXPECT_EQ(gray_to_binary(20), 24); }
-TEST(gray_to_binary, DISABLED_n_31) { EXPECT_EQ(gray_to_binary(31), 21); }
+TEST(gray_to_binary, n_0) { EXPECT_EQ(gray_to_binary(0), 0); }
+TEST(gray_to_binary, n_10) { EXPECT_EQ(gray_to_binary(10), 12); }
+TEST(gray_to_binary, n_20) { EXPECT_EQ(gray_to_binary(20), 24); }
+TEST(gray_to_binary, n_31) { EXPECT_EQ(gray_to_binary(31), 21); }
 
 
-TEST(problem_10_main, DISABLED_5_bit_numbers) {
+TEST(problem_10_main, 5_bit_numbers) {
     std::ostringstream oss{};
     problem_10_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

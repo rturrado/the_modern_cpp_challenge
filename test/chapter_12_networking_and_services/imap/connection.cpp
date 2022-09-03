@@ -5,16 +5,18 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <memory>  // make_unique, unique_ptr
 #include <string_view>
+#include <utility>  // move
 
 using namespace std::string_view_literals;
 using namespace tmcppc::imap;
 
 
-TEST(imap_connection, DISABLED_connnector_is_null) { EXPECT_THROW(imap_connection{ nullptr }, imap_connection_error); }
+TEST(imap_connection, connnector_is_null) { EXPECT_THROW(imap_connection{ nullptr }, imap_connection_error); }
 
 
-TEST(imap_connection, DISABLED_get_mailbox_folders_and_connector_throws) {
+TEST(imap_connection, get_mailbox_folders_and_connector_throws) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_mailbox_folders())
@@ -23,7 +25,7 @@ TEST(imap_connection, DISABLED_get_mailbox_folders_and_connector_throws) {
     imap_connection connection{ std::move(connector_up) };
     EXPECT_THROW((void) connection.get_mailbox_folders(), imap_connection_error);
 }
-TEST(imap_connection, DISABLED_get_mailbox_folders_and_connector_returns_a_correct_response) {
+TEST(imap_connection, get_mailbox_folders_and_connector_returns_a_correct_response) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_mailbox_folders())
@@ -34,7 +36,7 @@ TEST(imap_connection, DISABLED_get_mailbox_folders_and_connector_returns_a_corre
 }
 
 
-TEST(imap_connection, DISABLED_get_unread_email_ids_response_and_connector_throws) {
+TEST(imap_connection, get_unread_email_ids_response_and_connector_throws) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_unread_email_ids("wrong_folder_name"sv))
@@ -43,7 +45,7 @@ TEST(imap_connection, DISABLED_get_unread_email_ids_response_and_connector_throw
     imap_connection connection{ std::move(connector_up) };
     EXPECT_THROW((void) connection.get_unread_email_ids("wrong_folder_name"sv), imap_connection_error);
 }
-TEST(imap_connection, DISABLED_get_unread_email_ids_and_connector_returns_a_correct_response) {
+TEST(imap_connection, get_unread_email_ids_and_connector_returns_a_correct_response) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_unread_email_ids("test/tmcppc/problem_98"sv))
@@ -54,7 +56,7 @@ TEST(imap_connection, DISABLED_get_unread_email_ids_and_connector_returns_a_corr
 }
 
 
-TEST(imap_connection, DISABLED_get_email_and_connector_throws) {
+TEST(imap_connection, get_email_and_connector_throws) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_email("inbox"sv, 333))
@@ -63,7 +65,7 @@ TEST(imap_connection, DISABLED_get_email_and_connector_throws) {
     imap_connection connection{ std::move(connector_up) };
     EXPECT_THROW((void) connection.get_email("inbox"sv, 333), imap_connection_error);
 }
-TEST(imap_connection, DISABLED_get_email_and_connector_returns_a_correct_response) {
+TEST(imap_connection, get_email_and_connector_returns_a_correct_response) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_email("test/tmcppc/problem_98"sv, 1))
@@ -74,7 +76,7 @@ TEST(imap_connection, DISABLED_get_email_and_connector_returns_a_correct_respons
 }
 
 
-TEST(imap_connection, DISABLED_get_email_subject_and_connector_throws) {
+TEST(imap_connection, get_email_subject_and_connector_throws) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_email("inbox"sv, 333))
@@ -83,7 +85,7 @@ TEST(imap_connection, DISABLED_get_email_subject_and_connector_throws) {
     imap_connection connection{ std::move(connector_up) };
     EXPECT_THROW((void) connection.get_email_subject("inbox"sv, 333), imap_connection_error);
 }
-TEST(imap_connection, DISABLED_get_email_subject_and_connector_returns_a_correct_response) {
+TEST(imap_connection, get_email_subject_and_connector_returns_a_correct_response) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_email("test/tmcppc/problem_98"sv, 1))

@@ -11,7 +11,7 @@ using namespace tmcppc::movies;
 using namespace tmcppc::movies::console;
 
 
-TEST(from_console, DISABLED_cast) {
+TEST(from_console, cast) {
     std::istringstream iss{
         "Tom Hanks\n"
         "Forrest Gump\n"
@@ -30,7 +30,7 @@ TEST(from_console, DISABLED_cast) {
 }
 
 
-TEST(from_console, DISABLED_writers) {
+TEST(from_console, writers) {
     std::istringstream iss{
         "Winston Groom\n"
         "Eric Roth\n"
@@ -43,7 +43,7 @@ TEST(from_console, DISABLED_writers) {
 }
 
 
-TEST(from_console, DISABLED_directors) {
+TEST(from_console, directors) {
     std::istringstream iss{
         "Robert Zemeckis\n"
         "quit\n"
@@ -55,7 +55,7 @@ TEST(from_console, DISABLED_directors) {
 }
 
 
-TEST(from_console, DISABLED_movie) {
+TEST(from_console, movie) {
     std::istringstream iss{
         "Forrest Gump\n"
         "1994\n"

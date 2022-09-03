@@ -14,65 +14,65 @@ using namespace tmcppc::data_structures;
 
 // Undirected graph
 //
-TEST(undirected_graph_map, DISABLED_constructor_with_empty_list) {
+TEST(undirected_graph_map, constructor_with_empty_list) {
     undirected_graph_map<char, int> ugm{};
     EXPECT_EQ(ugm.begin(), ugm.end());
 }
-TEST(undirected_graph_map, DISABLED_constructor) {
+TEST(undirected_graph_map, constructor) {
     undirected_graph_map<char, int> ugm{ {{ 'A', 'B' }, 7} };
     EXPECT_EQ(std::next(ugm.begin()), ugm.end());
 }
-TEST(undirected_graph_map, DISABLED_contains) {
+TEST(undirected_graph_map, contains) {
     undirected_graph_map<char, int> ugm{ {{ 'A', 'B' }, 7} };
     EXPECT_TRUE(ugm.contains({ 'A','B' }));
 }
-TEST(undirected_graph_map, DISABLED_operator_subscript_with_new_key) {
+TEST(undirected_graph_map, operator_subscript_with_new_key) {
     undirected_graph_map<char, int> ugm{};
     ugm[{'A', 'B'}] = 7;
     EXPECT_TRUE(ugm.contains({ 'A','B' }));
     EXPECT_EQ(ugm.at({ 'A','B' }), 7);
 }
-TEST(undirected_graph_map, DISABLED_operator_subscript_with_existing_key) {
+TEST(undirected_graph_map, operator_subscript_with_existing_key) {
     undirected_graph_map<char, int> ugm{ {{ 'A', 'B' }, 7} };
     auto result{ ugm[{ 'A', 'B' }] };
     EXPECT_EQ(result, 7);
 }
-TEST(undirected_graph_map, DISABLED_operator_at_with_new_key) {
+TEST(undirected_graph_map, operator_at_with_new_key) {
     undirected_graph_map<char, int> ugm{};
     EXPECT_THROW((void) ugm.at({ 'A', 'B' }), std::out_of_range);
 }
-TEST(undirected_graph_map, DISABLED_operator_at_with_existing_key) {
+TEST(undirected_graph_map, operator_at_with_existing_key) {
     undirected_graph_map<char, int> ugm{ {{ 'A', 'B' }, 7} };
     EXPECT_EQ(ugm.at({ 'A', 'B' }), 7);
 }
-TEST(undirected_graph_map, DISABLED_operator_at_with_existing_key_on_const_graph) {
+TEST(undirected_graph_map, operator_at_with_existing_key_on_const_graph) {
     undirected_graph_map<char, int> ugm{ {{ 'A', 'B' }, 7} };
     EXPECT_EQ(std::as_const(ugm).at({ 'A', 'B' }), 7);
 }
-TEST(undirected_graph_map, DISABLED_begin) {
+TEST(undirected_graph_map, begin) {
     undirected_graph_map<char, int> ugm{ { {'A', 'B' }, 7} };
     std::pair<const std::pair<char, char>, int> result{ { 'A', 'B' }, 7 };
     EXPECT_EQ(*ugm.begin(), result);
 }
-TEST(undirected_graph_map, DISABLED_end) {
+TEST(undirected_graph_map, end) {
     undirected_graph_map<char, int> ugm{ {{ 'A', 'B' }, 7} };
     EXPECT_EQ(++ugm.begin(), ugm.end());
 }
-TEST(undirected_graph_map, DISABLED_begin_on_const_buffer) {
+TEST(undirected_graph_map, begin_on_const_buffer) {
     undirected_graph_map<char, int> ugm{ {{ 'A', 'B' }, 7} };
     std::pair<const std::pair<char, char>, int> result{ { 'A', 'B' }, 7 };
     EXPECT_EQ(*std::as_const(ugm).begin(), result);
 }
-TEST(undirected_graph_map, DISABLED_end_on_const_buffer) {
+TEST(undirected_graph_map, end_on_const_buffer) {
     undirected_graph_map<char, int> ugm{ {{ 'A', 'B' }, 7} };
     EXPECT_EQ(++std::as_const(ugm).begin(), std::as_const(ugm).end());
 }
-TEST(undirected_graph_map, DISABLED_ugmegin) {
+TEST(undirected_graph_map, ugmegin) {
     undirected_graph_map<char, int> ugm{ { {'A', 'B' }, 7} };
     std::pair<const std::pair<char, char>, int> result{ { 'A', 'B' }, 7 };
     EXPECT_EQ(*std::as_const(ugm).cbegin(), result);
 }
-TEST(undirected_graph_map, DISABLED_cend) {
+TEST(undirected_graph_map, cend) {
     undirected_graph_map<char, int> ugm{ {{ 'A', 'B' }, 7} };
     EXPECT_EQ(++std::as_const(ugm).cbegin(), std::as_const(ugm).cend());
 }
@@ -80,68 +80,68 @@ TEST(undirected_graph_map, DISABLED_cend) {
 
 // Directed graph
 //
-TEST(directed_graph_map, DISABLED_constructor_with_empty_list) {
+TEST(directed_graph_map, constructor_with_empty_list) {
     directed_graph_map<char, int> dgm{};
     EXPECT_EQ(dgm.begin(), dgm.end());
 }
-TEST(directed_graph_map, DISABLED_constructor) {
+TEST(directed_graph_map, constructor) {
     directed_graph_map<char, int> dgm{ {'A', { 'B', 7 }} };
     EXPECT_EQ(std::next(dgm.begin()), dgm.end());
 }
-TEST(directed_graph_map, DISABLED_contains) {
+TEST(directed_graph_map, contains) {
     directed_graph_map<char, int> dgm{ {'A', { 'B', 7 }} };
     EXPECT_TRUE(dgm.contains( 'A' ));
 }
-TEST(directed_graph_map, DISABLED_operator_subscript_with_new_key) {
+TEST(directed_graph_map, operator_subscript_with_new_key) {
     directed_graph_map<char, int> dgm{};
     dgm['A'] = { 'B', 7 };
     EXPECT_TRUE(dgm.contains('A'));
     std::pair<char, int> result{ 'B', 7 };
     EXPECT_EQ(dgm.at('A'), result);
 }
-TEST(directed_graph_map, DISABLED_operator_subscript_with_existing_key) {
+TEST(directed_graph_map, operator_subscript_with_existing_key) {
     directed_graph_map<char, int> dgm{ {'A', { 'B', 7 }} };
     std::pair<char, int> result{ 'B', 7 };
     EXPECT_EQ(dgm['A'], result);
 }
-TEST(directed_graph_map, DISABLED_operator_at_with_new_key) {
+TEST(directed_graph_map, operator_at_with_new_key) {
     directed_graph_map<char, int> dgm{};
     EXPECT_THROW((void) dgm.at('A'), std::out_of_range);
 }
-TEST(directed_graph_map, DISABLED_operator_at_with_existing_key) {
+TEST(directed_graph_map, operator_at_with_existing_key) {
     directed_graph_map<char, int> dgm{ {'A', { 'B', 7 }} };
     std::pair<char, int> result{ 'B', 7 };
     EXPECT_EQ(dgm.at('A'), result);
 }
-TEST(directed_graph_map, DISABLED_operator_at_with_existing_key_on_const_graph) {
+TEST(directed_graph_map, operator_at_with_existing_key_on_const_graph) {
     directed_graph_map<char, int> dgm{ {'A', { 'B', 7 }} };
     std::pair<char, int> result{ 'B', 7 };
     EXPECT_EQ(std::as_const(dgm).at('A'), result);
 }
-TEST(directed_graph_map, DISABLED_begin) {
+TEST(directed_graph_map, begin) {
     directed_graph_map<char, int> dgm{ {'A', { 'B', 7 }} };
     std::pair<const char, std::pair<char, int>> result{ 'A', { 'B', 7 } };
     EXPECT_EQ(*dgm.begin(), result);
 }
-TEST(directed_graph_map, DISABLED_end) {
+TEST(directed_graph_map, end) {
     directed_graph_map<char, int> dgm{ {'A', { 'B', 7 }} };
     EXPECT_EQ(++dgm.begin(), dgm.end());
 }
-TEST(directed_graph_map, DISABLED_begin_on_const_buffer) {
+TEST(directed_graph_map, begin_on_const_buffer) {
     directed_graph_map<char, int> dgm{ { 'A', { 'B', 7 } } };
     std::pair<const char, std::pair<char, int>> result{ 'A', { 'B', 7 } };
     EXPECT_EQ(*std::as_const(dgm).begin(), result);
 }
-TEST(directed_graph_map, DISABLED_end_on_const_buffer) {
+TEST(directed_graph_map, end_on_const_buffer) {
     directed_graph_map<char, int> dgm{ {'A', { 'B', 7 }} };
     EXPECT_EQ(++std::as_const(dgm).begin(), std::as_const(dgm).end());
 }
-TEST(directed_graph_map, DISABLED_dgmegin) {
+TEST(directed_graph_map, dgmegin) {
     directed_graph_map<char, int> dgm{ {'A', { 'B', 7 }} };
     std::pair<const char, std::pair<char, int>> result{ 'A', { 'B', 7 } };
     EXPECT_EQ(*std::as_const(dgm).cbegin(), result);
 }
-TEST(directed_graph_map, DISABLED_cend) {
+TEST(directed_graph_map, cend) {
     directed_graph_map<char, int> dgm{ {'A', { 'B', 7 }} };
     EXPECT_EQ(++std::as_const(dgm).begin(), std::as_const(dgm).end());
 }
@@ -149,10 +149,10 @@ TEST(directed_graph_map, DISABLED_cend) {
 
 // Get node list
 //
-TEST(get_node_list, DISABLED_empty_graph) {
+TEST(get_node_list, empty_graph) {
     EXPECT_TRUE(get_node_list(undirected_graph_map<char, int>{}).empty());
 }
-TEST(get_node_list, DISABLED_graph) {
+TEST(get_node_list, graph) {
     undirected_graph_map<char, int> ugm{ {{ 'A', 'B' }, 7}, {{ 'A', 'C' }, 9} };
     EXPECT_THAT(get_node_list(ugm), ::testing::ElementsAre('A', 'B', 'C'));
 }
@@ -160,7 +160,7 @@ TEST(get_node_list, DISABLED_graph) {
 
 // Get nearest node not in shortest paths set
 //
-TEST(get_nearest_node_not_in_sp_set, DISABLED_first_iteration) {
+TEST(get_nearest_node_not_in_sp_set, first_iteration) {
     distance_map<char, int> distances{
         { 'A', 0 },
         { 'B', std::numeric_limits<int>::max() },
@@ -170,7 +170,7 @@ TEST(get_nearest_node_not_in_sp_set, DISABLED_first_iteration) {
     node_set<char> sp_set{};
     EXPECT_EQ(get_nearest_node_not_in_sp_set(distances, sp_set), 'A');
 }
-TEST(get_nearest_node_not_in_sp_set, DISABLED_second_iteration) {
+TEST(get_nearest_node_not_in_sp_set, second_iteration) {
     distance_map<char, int> distances{
         { 'A', 0 },
         { 'B', 7 },
@@ -180,7 +180,7 @@ TEST(get_nearest_node_not_in_sp_set, DISABLED_second_iteration) {
     node_set<char> sp_set{ 'A' };
     EXPECT_EQ(get_nearest_node_not_in_sp_set(distances, sp_set), 'B');
 }
-TEST(get_nearest_node_not_in_sp_set, DISABLED_third_iteration) {
+TEST(get_nearest_node_not_in_sp_set, third_iteration) {
     distance_map<char, int> distances{
         { 'A', 0 },
         { 'B', 7 },
@@ -194,7 +194,7 @@ TEST(get_nearest_node_not_in_sp_set, DISABLED_third_iteration) {
 
 // Get shortest paths digraph
 //
-TEST(get_shortest_paths_digraph, DISABLED_closed_graph) {
+TEST(get_shortest_paths_digraph, closed_graph) {
     undirected_graph_map<char, int> ugm{ {{ 'A', 'B' }, 7}, {{ 'A', 'C' }, 9}, {{'B', 'C'}, 1} };
     char s{ 'A' };
     EXPECT_THAT(get_shortest_paths_digraph(ugm, s), ::testing::ElementsAre(
@@ -203,7 +203,7 @@ TEST(get_shortest_paths_digraph, DISABLED_closed_graph) {
         std::pair<const char, std::pair<char, int>>{'C', { 'B', 1 }}
     ));
 }
-TEST(get_shortest_paths_digraph, DISABLED_open_graph) {
+TEST(get_shortest_paths_digraph, open_graph) {
     undirected_graph_map<char, int> ugm{
         {{ 'A', 'B' }, 7},
         {{ 'A', 'D' }, 1},
@@ -223,7 +223,7 @@ TEST(get_shortest_paths_digraph, DISABLED_open_graph) {
 
 // Get shortest path distance
 //
-TEST(get_shortest_path_distance, DISABLED_open_graph) {
+TEST(get_shortest_path_distance, open_graph) {
     directed_graph_map<char, int> dgm{
         {'A', { 'A', 0 }},
         {'B', { 'A', 7 }},
@@ -247,7 +247,7 @@ TEST(get_shortest_path_distance, DISABLED_open_graph) {
 
 // Get shortest path string
 //
-TEST(get_shortest_path_string, DISABLED_open_graph) {
+TEST(get_shortest_path_string, open_graph) {
     directed_graph_map<char, int> dgm{
         {'A', { 'A', 0 }},
         {'B', { 'A', 7 }},
@@ -271,7 +271,7 @@ TEST(get_shortest_path_string, DISABLED_open_graph) {
 
 // Print shortest paths digraph
 //
-TEST(print_shortest_paths_digraph, DISABLED_open_graph) {
+TEST(print_shortest_paths_digraph, open_graph) {
     std::ostringstream oss{};
     directed_graph_map<char, int> dgm{
         {'A', { 'A', 0 }},

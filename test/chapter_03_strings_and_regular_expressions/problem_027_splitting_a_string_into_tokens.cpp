@@ -10,21 +10,21 @@
 using namespace tmcppc::problem_27;
 
 
-TEST(split, DISABLED_empty_string) {
+TEST(split, empty_string) {
     std::vector<std::string> result{};
     EXPECT_EQ(split("", " "), result);
 }
-TEST(split, DISABLED_delimiter_not_found) {
+TEST(split, delimiter_not_found) {
     EXPECT_THAT(split("a;b;c", "-"), ::testing::ElementsAre("a;b;c"));
 }
-TEST(split, DISABLED_delimiter_found) {
+TEST(split, delimiter_found) {
     EXPECT_THAT(split("a;b;c", ";"), ::testing::ElementsAre("a", "b", "c"));
 }
-TEST(split, DISABLED_many_delimiters) {
+TEST(split, many_delimiters) {
     EXPECT_THAT(split("a;b\tc", ";\t"), ::testing::ElementsAre("a", "b", "c"));
 }
 
-TEST(problem_27_main, DISABLED_output) {
+TEST(problem_27_main, output) {
     std::ostringstream oss{};
     problem_27_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

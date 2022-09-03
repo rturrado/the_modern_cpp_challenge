@@ -5,10 +5,13 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#include <memory>  // make_unique, unique_ptr
+#include <utility>  // move
+
 using namespace tmcppc::bitcoin;
 
 
-TEST(bitcoin_connection, DISABLED_get_current_exchange_rates_and_connector_throws) {
+TEST(bitcoin_connection, get_current_exchange_rates_and_connector_throws) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_current_exchange_rates())
@@ -19,7 +22,7 @@ TEST(bitcoin_connection, DISABLED_get_current_exchange_rates_and_connector_throw
 }
 
 
-TEST(bitcoin_connection, DISABLED_get_current_exchange_rates_and_connector_returns_a_correct_response) {
+TEST(bitcoin_connection, get_current_exchange_rates_and_connector_returns_a_correct_response) {
     std::unique_ptr<connector_adaptor> connector_up{ std::make_unique<connector_mock>() };
     const auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     EXPECT_CALL(connector, get_current_exchange_rates())

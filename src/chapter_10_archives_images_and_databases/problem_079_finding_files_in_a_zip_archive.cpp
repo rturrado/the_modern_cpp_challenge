@@ -25,8 +25,8 @@ namespace tmcppc::problem_79 {
             std::vector<std::string> file_paths{};
 
             auto archive{ ZipFile::Open(file_path.generic_string()) };
-            for (auto i{ 0 }; i < archive->GetEntriesCount(); ++i) {
-                auto entry{ archive->GetEntry(i) };
+            for (size_t i{ 0 }; i < archive->GetEntriesCount(); ++i) {
+                auto entry{ archive->GetEntry(static_cast<int>(i)) };
                 if (not entry->IsDirectory()) {
                     auto& entry_file_path{ entry->GetFullName() };
                     if (std::regex_match(entry_file_path, pattern)) {

@@ -49,8 +49,7 @@ namespace tmcppc::date {
         }
     }
 
-    inline std::string tens_to_roman(size_t n)
-    {
+    inline std::string tens_to_roman(size_t n) {
         switch (n) {
             case 0: return "";
             case 1: return "X";
@@ -110,10 +109,10 @@ namespace tmcppc::date {
     // We use a tuple for getting the letter that means one unit, five units, and ten units for each digit position
     inline std::string to_roman_v2(size_t n, digit_position dp) {
         static const std::map<digit_position, std::tuple<char, char, char>> roman_letters_for_digit_position{
-            {digit_position::thousands, {'M', ' ', ' '}},
-            {digit_position::hundreds, {'C', 'D', 'M'}},
-            {digit_position::tens, {'X', 'L', 'C'}},
-            {digit_position::units, {'I', 'V', 'X'}},
+            { digit_position::thousands, { 'M', ' ', ' ' } },
+            { digit_position::hundreds, { 'C', 'D', 'M' } },
+            { digit_position::tens, { 'X', 'L', 'C' } },
+            { digit_position::units, { 'I', 'V', 'X' } },
         };
 
         std::string one{ get<0>(roman_letters_for_digit_position.at(dp)) };

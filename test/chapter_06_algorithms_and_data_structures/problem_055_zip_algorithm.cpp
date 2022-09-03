@@ -8,23 +8,23 @@
 using namespace tmcppc::problem_55;
 
 
-TEST(zip, DISABLED_empty_ranges_with_empty_range) {
+TEST(zip, empty_ranges_with_empty_range) {
     EXPECT_TRUE(zip(std::vector<int>{}, std::vector<int>{}).empty());
 }
-TEST(zip, DISABLED_empty_range_with_one_element_range) {
+TEST(zip, empty_range_with_one_element_range) {
     EXPECT_TRUE(zip(std::vector<int>{}, std::vector<int>{ 1 }).empty());
 }
-TEST(zip, DISABLED_one_element_range_with_one_element_range) {
+TEST(zip, one_element_range_with_one_element_range) {
     EXPECT_THAT(zip(std::vector<int>{ 1 }, std::vector<char>{ 'a' }), ::testing::ElementsAre(
         std::pair<int, char>{ 1, 'a' }
     ));
 }
-TEST(zip, DISABLED_one_element_range_with_two_elements_range) {
+TEST(zip, one_element_range_with_two_elements_range) {
     EXPECT_THAT(zip(std::vector<int>{ 1 }, std::vector<char>{ 'a', 'b' }), ::testing::ElementsAre(
         std::pair<int, char>{ 1, 'a' }
     ));
 }
-TEST(zip, DISABLED_two_elements_range_with_two_elements_range) {
+TEST(zip, two_elements_range_with_two_elements_range) {
     EXPECT_THAT(zip(std::vector<int>{ 1, 2 }, std::vector<char>{ 'a', 'b' }), ::testing::ElementsAre(
         std::pair<int, char>{ 1, 'a' },
         std::pair<int, char>{ 2, 'b' }
@@ -32,7 +32,7 @@ TEST(zip, DISABLED_two_elements_range_with_two_elements_range) {
 }
 
 
-TEST(problem_55_main, DISABLED_output) {
+TEST(problem_55_main, output) {
     std::ostringstream oss{};
     problem_55_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

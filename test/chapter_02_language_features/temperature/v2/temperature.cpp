@@ -9,39 +9,39 @@
 using namespace tmcppc::temperature::v2;
 
 
-TEST(temperature_v2, DISABLED_operator_insertion_celsius) {
+TEST(temperature_v2, operator_insertion_celsius) {
     std::ostringstream oss{};
     temperature<float, scale::celsius> t{ 25.0f };
     oss << t;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("25.00 Celsius"));
 }
-TEST(temperature_v2, DISABLED_operator_insertion_fahrenheit) {
+TEST(temperature_v2, operator_insertion_fahrenheit) {
     std::ostringstream oss{};
     temperature<float, scale::fahrenheit> t{ 25.0f };
     oss << t;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("25.00 Fahrenheit"));
 }
-TEST(temperature_v2, DISABLED_operator_insertion_kelvin) {
+TEST(temperature_v2, operator_insertion_kelvin) {
     std::ostringstream oss{};
     temperature<float, scale::kelvin> t{ 25.0f };
     oss << t;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("25.00 Kelvin"));
 }
 
-TEST(temperature_v2, DISABLED_fmt_format_celsius) {
+TEST(temperature_v2, fmt_format_celsius) {
     temperature<float, scale::celsius> t{ 25.0f };
     EXPECT_THAT(fmt::format("{}", t), "25.00 Celsius");
 }
-TEST(temperature_v2, DISABLED_fmt_format_fahrenheit) {
+TEST(temperature_v2, fmt_format_fahrenheit) {
     temperature<float, scale::fahrenheit> t{ 25.0f };
     EXPECT_EQ(fmt::format("{}", t), "25.00 Fahrenheit");
 }
-TEST(temperature_v2, DISABLED_fmt_format_kelvin) {
+TEST(temperature_v2, fmt_format_kelvin) {
     temperature<float, scale::kelvin> t{ 25.0f };
     EXPECT_EQ(fmt::format("{}", t), "25.00 Kelvin");
 }
 
-TEST(temperature_v2, DISABLED_conversion_helper) {
+TEST(temperature_v2, conversion_helper) {
     double fahrenheit_d{ 77.0 };
     double kelvin_d{ 298.15 };
     float fahrenheit_f{ 77.0f };
@@ -72,7 +72,7 @@ TEST(temperature_v2, DISABLED_conversion_helper) {
         conversion_helper<float, scale::celsius, double, scale::kelvin>::convert(t1f.value())
     ));
 }
-TEST(temperature_v2, DISABLED_temperature_cast) {
+TEST(temperature_v2, temperature_cast) {
     temperature<double, scale::celsius> t1d{ 25.0 };
     temperature<double, scale::fahrenheit> t2d{ 77.0 };
     temperature<double, scale::kelvin> t3d{ 298.15 };
@@ -87,7 +87,7 @@ TEST(temperature_v2, DISABLED_temperature_cast) {
     EXPECT_TRUE(t3d == (temperature_cast<double, scale::kelvin>(t1f)));
 }
 
-TEST(temperature_v2, DISABLED_comparisons) {
+TEST(temperature_v2, comparisons) {
     temperature<float, scale::celsius> t1{ 20.0f };
     temperature<float, scale::celsius> t2{ 25.0f };
     temperature<float, scale::fahrenheit> t3{ 77.0f };
@@ -104,7 +104,7 @@ TEST(temperature_v2, DISABLED_comparisons) {
     EXPECT_TRUE(t2 <= (temperature_cast<float, scale::celsius>(t4)));
     EXPECT_TRUE(t4 >= (temperature_cast<float, scale::kelvin>(t2)));
 }
-TEST(temperature_v2, DISABLED_equality_precision) {
+TEST(temperature_v2, equality_precision) {
     temperature<float, scale::celsius> t1{ 25.0f };
     temperature<float, scale::celsius> slightly_above_t1{ 25.01f };
     temperature<float, scale::fahrenheit> t2{ 77.0f };
@@ -122,7 +122,7 @@ TEST(temperature_v2, DISABLED_equality_precision) {
     EXPECT_FALSE(t3 == (temperature_cast<double, scale::kelvin>(slightly_above_t2)));
 }
 
-TEST(temperature_v2, DISABLED_arithmetic) {
+TEST(temperature_v2, arithmetic) {
     temperature<double, scale::celsius> t1d{ 25.0 };
     temperature<double, scale::fahrenheit> t2d{ 77.0 };
     temperature<double, scale::kelvin> t3d{ 298.15 };
@@ -149,7 +149,7 @@ TEST(temperature_v2, DISABLED_arithmetic) {
     EXPECT_TRUE(t3f - t3f == difference_k);
 }
 
-TEST(temperature_v2, DISABLED_user_defined_literals) {
+TEST(temperature_v2, user_defined_literals) {
     using namespace literals;
     temperature<double, scale::celsius> t1{ 25.0 };
     temperature<double, scale::fahrenheit> t2{ 77.0 };

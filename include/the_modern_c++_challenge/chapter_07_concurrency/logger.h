@@ -2,9 +2,8 @@
 
 #include "rtc/print.h"  // printable
 
-#include <mutex>
+#include <mutex>  // lock_guard
 #include <ostream>
-#include <thread>  // lock_guard
 
 
 namespace tmcppc::logging::v2 {

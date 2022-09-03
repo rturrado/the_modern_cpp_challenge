@@ -4,10 +4,11 @@
 #include <cctype>  // isdigit, islower, ispunct, isupper
 #include <fmt/format.h>
 #include <iosfwd>
-#include <memory>  // make_unique, unique_ptr
+#include <memory>  // unique_ptr
 #include <optional>
 #include <string>
 #include <string_view>
+#include <utility>  // move
 
 
 namespace tmcppc::password {

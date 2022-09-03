@@ -10,10 +10,10 @@
 using namespace tmcppc::weasel;
 
 
-TEST(weasel_sequence, DISABLED_constructor_with_empty_target) {
+TEST(weasel_sequence, constructor_with_empty_target) {
     EXPECT_TRUE(weasel_sequence{ "" }.str().empty());
 }
-TEST(weasel_sequence, DISABLED_mutate) {
+TEST(weasel_sequence, mutate) {
     weasel_sequence ws{ "METHINKS IT IS LIKE A WEASEL" };
     auto str_before_mutation{ ws.str() };
     ws.mutate();
@@ -28,25 +28,25 @@ TEST(weasel_sequence, DISABLED_mutate) {
         <= 1
     );
 }
-TEST(weasel_sequence, DISABLED_score) {
+TEST(weasel_sequence, score) {
     weasel_sequence ws{ "METHINKS IT IS LIKE A WEASEL" };
     auto score_before_mutation{ ws.score() };
     ws.mutate();
     auto score_after_mutation{ ws.score() };
     EXPECT_TRUE(std::abs(score_before_mutation - score_after_mutation) <= 1);
 }
-TEST(weasel_sequence, DISABLED_end) {
+TEST(weasel_sequence, end) {
     std::string target{ "METHINKS IT IS LIKE A WEASEL" };
     weasel_sequence ws{ target };
     EXPECT_EQ(ws.end(), ws.str() == target);
 }
-TEST(weasel_sequence, DISABLED_size) {
+TEST(weasel_sequence, size) {
     std::string target{ "METHINKS IT IS LIKE A WEASEL" };
     EXPECT_EQ(weasel_sequence{ target }.str().size(), target.size());
 }
 
 
-TEST(problem_59_main, DISABLED_output) {
+TEST(problem_59_main, output) {
     std::ostringstream oss{};
     problem_59_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("METHINKS IT IS LIKE A WEASEL"));

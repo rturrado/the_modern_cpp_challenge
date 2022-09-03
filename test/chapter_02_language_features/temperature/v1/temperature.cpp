@@ -9,49 +9,49 @@
 using namespace tmcppc::temperature::v1;
 
 
-TEST(temperature_v1, DISABLED_operator_insertion_invalid) {
+TEST(temperature_v1, operator_insertion_invalid) {
     std::ostringstream oss{};
     temperature<float> t{ 25.0f, scale::invalid };
     oss << t;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("<invalid temperature>"));
 }
-TEST(temperature_v1, DISABLED_operator_insertion_celsius) {
+TEST(temperature_v1, operator_insertion_celsius) {
     std::ostringstream oss{};
     temperature<float> t{ 25.0f, scale::celsius };
     oss << t;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("25.00 Celsius"));
 }
-TEST(temperature_v1, DISABLED_operator_insertion_fahrenheit) {
+TEST(temperature_v1, operator_insertion_fahrenheit) {
     std::ostringstream oss{};
     temperature<float> t{ 25.0f, scale::fahrenheit };
     oss << t;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("25.00 Fahrenheit"));
 }
-TEST(temperature_v1, DISABLED_operator_insertion_kelvin) {
+TEST(temperature_v1, operator_insertion_kelvin) {
     std::ostringstream oss{};
     temperature<float> t{ 25.0f, scale::kelvin };
     oss << t;
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("25.00 Kelvin"));
 }
 
-TEST(temperature_v1, DISABLED_fmt_format_invalid) {
+TEST(temperature_v1, fmt_format_invalid) {
     temperature<float> t{ 25.0f, scale::invalid };
     EXPECT_EQ(fmt::format("{}", t), "<invalid temperature>");
 }
-TEST(temperature_v1, DISABLED_fmt_format_celsius) {
+TEST(temperature_v1, fmt_format_celsius) {
     temperature<float> t{ 25.0f, scale::celsius };
     EXPECT_EQ(fmt::format("{}", t), "25.00 Celsius");
 }
-TEST(temperature_v1, DISABLED_fmt_format_fahrenheit) {
+TEST(temperature_v1, fmt_format_fahrenheit) {
     temperature<float> t{ 25.0f, scale::fahrenheit };
     EXPECT_EQ(fmt::format("{}", t), "25.00 Fahrenheit");
 }
-TEST(temperature_v1, DISABLED_fmt_format_kelvin) {
+TEST(temperature_v1, fmt_format_kelvin) {
     temperature<float> t{ 25.0f, scale::kelvin };
     EXPECT_EQ(fmt::format("{}", t), "25.00 Kelvin");
 }
 
-TEST(temperature_v1, DISABLED_conversion_of_values) {
+TEST(temperature_v1, conversion_of_values) {
     double c{ 25.0 };
     double f{ 77.0 };
     double k{ 298.15 };
@@ -62,7 +62,7 @@ TEST(temperature_v1, DISABLED_conversion_of_values) {
     EXPECT_TRUE(simple_compare_long_doubles(k, celsius_to_kelvin(c)));
     EXPECT_TRUE(simple_compare_long_doubles(k, fahrenheit_to_kelvin(f)));
 }
-TEST(temperature_v1, DISABLED_conversion_of_temperatures) {
+TEST(temperature_v1, conversion_of_temperatures) {
     temperature<double> t0{ 25.0, scale::invalid };
     temperature<double> t1{ 25.0, scale::celsius };
     temperature<double> t2{ 77.0, scale::fahrenheit };
@@ -78,7 +78,7 @@ TEST(temperature_v1, DISABLED_conversion_of_temperatures) {
     EXPECT_TRUE(simple_compare_long_doubles(t3.value(), to_kelvin(t2)));
 }
 
-TEST(temperature_v1, DISABLED_comparisons) {
+TEST(temperature_v1, comparisons) {
     temperature<float> t1{ 20.0f, scale::celsius };
     temperature<float> t2{ 25.0f, scale::celsius };
     temperature<float> t3{ 77.0f, scale::fahrenheit };
@@ -95,7 +95,7 @@ TEST(temperature_v1, DISABLED_comparisons) {
     EXPECT_TRUE(t2 <= t4);
     EXPECT_TRUE(t4 >= t2);
 }
-TEST(temperature_v1, DISABLED_equality_precision) {
+TEST(temperature_v1, equality_precision) {
     temperature<float> t1{ 25.0f, scale::celsius };
     temperature<float> slightly_above_t1{ 25.01f, scale::celsius };
     temperature<float> t2{ 77.0f, scale::fahrenheit };
@@ -113,7 +113,7 @@ TEST(temperature_v1, DISABLED_equality_precision) {
     EXPECT_FALSE(simple_compare_long_doubles(t3.value(), to_kelvin(slightly_above_t2)));
 }
 
-TEST(temperature_v1, DISABLED_arithmetic) {
+TEST(temperature_v1, arithmetic) {
     temperature<double> t0{ 25.0, scale::invalid };
     temperature<double> t1{ 25.0, scale::celsius };
     temperature<double> t2d{ 77.0, scale::fahrenheit };
@@ -144,7 +144,7 @@ TEST(temperature_v1, DISABLED_arithmetic) {
     EXPECT_TRUE(t1 - t3f == difference);
 }
 
-TEST(temperature_v1, DISABLED_user_defined_literals) {
+TEST(temperature_v1, user_defined_literals) {
     using namespace literals;
     temperature<double> t1{ 25.0, scale::celsius };
     temperature<double> t2{ 77.0, scale::fahrenheit };

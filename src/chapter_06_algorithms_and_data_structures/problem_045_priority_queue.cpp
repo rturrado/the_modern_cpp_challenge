@@ -7,6 +7,7 @@
 #include <fmt/ranges.h>
 #include <functional>  // greater, less
 #include <iostream>  // cout
+#include <stdexcept>  // runtime_error
 #include <vector>
 
 

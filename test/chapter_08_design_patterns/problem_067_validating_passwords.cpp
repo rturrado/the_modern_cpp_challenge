@@ -13,120 +13,120 @@ using tmcppc::password::validator::v2::contains_lowercase_or_error;
 using tmcppc::password::validator::v2::contains_uppercase_or_error;
 using tmcppc::password::validator::v2::contains_validator;
 
-TEST(contains_symbol, DISABLED_empty_string) { EXPECT_FALSE(contains_symbol("")); }
-TEST(contains_symbol, DISABLED_string_without_symbols) { EXPECT_FALSE(contains_symbol("abcdefABCDEF0123456789")); }
-TEST(contains_symbol, DISABLED_string_with_symbols) { EXPECT_TRUE(contains_symbol("abcdefABCDEF0123456789.,;:!?")); }
+TEST(contains_symbol, empty_string) { EXPECT_FALSE(contains_symbol("")); }
+TEST(contains_symbol, string_without_symbols) { EXPECT_FALSE(contains_symbol("abcdefABCDEF0123456789")); }
+TEST(contains_symbol, string_with_symbols) { EXPECT_TRUE(contains_symbol("abcdefABCDEF0123456789.,;:!?")); }
 
-TEST(contains_digit, DISABLED_empty_string) { EXPECT_FALSE(contains_digit("")); }
-TEST(contains_digit, DISABLED_string_without_digits) { EXPECT_FALSE(contains_digit("abcdefABCDEF.,;:!?")); }
-TEST(contains_digit, DISABLED_string_with_digits) { EXPECT_TRUE(contains_digit("abcdefABCDEF0123456789.,;:!?")); }
+TEST(contains_digit, empty_string) { EXPECT_FALSE(contains_digit("")); }
+TEST(contains_digit, string_without_digits) { EXPECT_FALSE(contains_digit("abcdefABCDEF.,;:!?")); }
+TEST(contains_digit, string_with_digits) { EXPECT_TRUE(contains_digit("abcdefABCDEF0123456789.,;:!?")); }
 
-TEST(contains_lowercase, DISABLED_empty_string) { EXPECT_FALSE(contains_lowercase("")); }
-TEST(contains_lowercase, DISABLED_string_without_lowercase) { EXPECT_FALSE(contains_lowercase("ABCDEF0123456789.,;:!?")); }
-TEST(contains_lowercase, DISABLED_string_with_lowercase) { EXPECT_TRUE(contains_lowercase("abcdefABCDEF0123456789.,;:!?")); }
+TEST(contains_lowercase, empty_string) { EXPECT_FALSE(contains_lowercase("")); }
+TEST(contains_lowercase, string_without_lowercase) { EXPECT_FALSE(contains_lowercase("ABCDEF0123456789.,;:!?")); }
+TEST(contains_lowercase, string_with_lowercase) { EXPECT_TRUE(contains_lowercase("abcdefABCDEF0123456789.,;:!?")); }
 
-TEST(contains_uppercase, DISABLED_empty_string) { EXPECT_FALSE(contains_uppercase("")); }
-TEST(contains_uppercase, DISABLED_string_without_uppercase) { EXPECT_FALSE(contains_uppercase("abcdef0123456789.,;:!?")); }
-TEST(contains_uppercase, DISABLED_string_with_uppercase) { EXPECT_TRUE(contains_uppercase("abcdefABCDEF0123456789.,;:!?")); }
+TEST(contains_uppercase, empty_string) { EXPECT_FALSE(contains_uppercase("")); }
+TEST(contains_uppercase, string_without_uppercase) { EXPECT_FALSE(contains_uppercase("abcdef0123456789.,;:!?")); }
+TEST(contains_uppercase, string_with_uppercase) { EXPECT_TRUE(contains_uppercase("abcdefABCDEF0123456789.,;:!?")); }
 
 
-TEST(v1_minimum_length_validator, DISABLED_empty_string_and_zero_minimum_length) {
+TEST(v1_minimum_length_validator, empty_string_and_zero_minimum_length) {
     EXPECT_FALSE(tmcppc::password::validator::v1::minimum_length_validator{ 0 }.validate(""));
 }
-TEST(v1_minimum_length_validator, DISABLED_empty_string_and_nonzero_minimum_length) {
+TEST(v1_minimum_length_validator, empty_string_and_nonzero_minimum_length) {
     EXPECT_TRUE(tmcppc::password::validator::v1::minimum_length_validator{ 10 }.validate(""));
 }
 
-TEST(v1_contains_symbol_validator, DISABLED_empty_string) {
+TEST(v1_contains_symbol_validator, empty_string) {
     EXPECT_TRUE(tmcppc::password::validator::v1::contains_symbol_validator.validate(""));
 }
-TEST(v1_contains_symbol_validator, DISABLED_string_without_symbols) {
+TEST(v1_contains_symbol_validator, string_without_symbols) {
     EXPECT_TRUE(tmcppc::password::validator::v1::contains_symbol_validator.validate("abcdefABCDEF0123456789"));
 }
-TEST(v1_contains_symbol_validator, DISABLED_string_with_symbols) {
+TEST(v1_contains_symbol_validator, string_with_symbols) {
     EXPECT_FALSE(tmcppc::password::validator::v1::contains_symbol_validator.validate("abcdefABCDEF0123456789.,;:!?"));
 }
 
-TEST(v1_contains_digit_validator, DISABLED_empty_string) {
+TEST(v1_contains_digit_validator, empty_string) {
     EXPECT_TRUE(tmcppc::password::validator::v1::contains_digit_validator.validate(""));
 }
-TEST(v1_contains_digit_validator, DISABLED_string_without_digits) {
+TEST(v1_contains_digit_validator, string_without_digits) {
     EXPECT_TRUE(tmcppc::password::validator::v1::contains_digit_validator.validate("abcdefABCDEF.,;:!?"));
 }
-TEST(v1_contains_digit_validator, DISABLED_string_with_digits) {
+TEST(v1_contains_digit_validator, string_with_digits) {
     EXPECT_FALSE(tmcppc::password::validator::v1::contains_digit_validator.validate("abcdefABCDEF0123456789.,;:!?"));
 }
 
-TEST(v1_contains_lowercase_validator, DISABLED_empty_string) {
+TEST(v1_contains_lowercase_validator, empty_string) {
     EXPECT_TRUE(tmcppc::password::validator::v1::contains_lowercase_validator.validate(""));
 }
-TEST(v1_contains_lowercase_validator, DISABLED_string_without_lowercase) {
+TEST(v1_contains_lowercase_validator, string_without_lowercase) {
     EXPECT_TRUE(tmcppc::password::validator::v1::contains_lowercase_validator.validate("ABCDEF0123456789.,;:!?"));
 }
-TEST(v1_contains_lowercase_validator, DISABLED_string_with_lowercase) {
+TEST(v1_contains_lowercase_validator, string_with_lowercase) {
     EXPECT_FALSE(tmcppc::password::validator::v1::contains_lowercase_validator.validate("abcdefABCDEF0123456789.,;:!?"));
 }
 
-TEST(v1_contains_uppercase_validator, DISABLED_empty_string) {
+TEST(v1_contains_uppercase_validator, empty_string) {
     EXPECT_TRUE(tmcppc::password::validator::v1::contains_uppercase_validator.validate(""));
 }
-TEST(v1_contains_uppercase_validator, DISABLED_string_without_uppercase) {
+TEST(v1_contains_uppercase_validator, string_without_uppercase) {
     EXPECT_TRUE(tmcppc::password::validator::v1::contains_uppercase_validator.validate("abcdef0123456789.,;:!?"));
 }
-TEST(v1_contains_uppercase_validator, DISABLED_string_with_uppercase) {
+TEST(v1_contains_uppercase_validator, string_with_uppercase) {
     EXPECT_FALSE(tmcppc::password::validator::v1::contains_uppercase_validator.validate("abcdefABCDEF0123456789.,;:!?"));
 }
 
 
-TEST(v2_minimum_length_validator, DISABLED_empty_string_and_zero_minimum_length) {
+TEST(v2_minimum_length_validator, empty_string_and_zero_minimum_length) {
     EXPECT_FALSE(tmcppc::password::validator::v2::minimum_length_validator{ 0 }.validate(""));
 }
-TEST(v2_minimum_length_validator, DISABLED_empty_string_and_nonzero_minimum_length) {
+TEST(v2_minimum_length_validator, empty_string_and_nonzero_minimum_length) {
     EXPECT_TRUE(tmcppc::password::validator::v2::minimum_length_validator{ 10 }.validate(""));
 }
 
-TEST(v2_contains_symbol_validator, DISABLED_empty_string) {
+TEST(v2_contains_symbol_validator, empty_string) {
     EXPECT_TRUE(contains_validator{ contains_symbol_or_error }.validate(""));
 }
-TEST(v2_contains_symbol_validator, DISABLED_string_without_symbols) {
+TEST(v2_contains_symbol_validator, string_without_symbols) {
     EXPECT_TRUE(contains_validator{ contains_symbol_or_error }.validate("abcdefABCDEF0123456789"));
 }
-TEST(v2_contains_symbol_validator, DISABLED_string_with_symbols) {
+TEST(v2_contains_symbol_validator, string_with_symbols) {
     EXPECT_FALSE(contains_validator{ contains_symbol_or_error }.validate("abcdefABCDEF0123456789.,;:!?"));
 }
 
-TEST(v2_contains_digit_validator, DISABLED_empty_string) {
+TEST(v2_contains_digit_validator, empty_string) {
     EXPECT_TRUE(contains_validator{ contains_digit_or_error }.validate(""));
 }
-TEST(v2_contains_digit_validator, DISABLED_string_without_digits) {
+TEST(v2_contains_digit_validator, string_without_digits) {
     EXPECT_TRUE(contains_validator{ contains_digit_or_error }.validate("abcdefABCDEF.,;:!?"));
 }
-TEST(v2_contains_digit_validator, DISABLED_string_with_digits) {
+TEST(v2_contains_digit_validator, string_with_digits) {
     EXPECT_FALSE(contains_validator{ contains_digit_or_error }.validate("abcdefABCDEF0123456789.,;:!?"));
 }
 
-TEST(v2_contains_lowercase_validator, DISABLED_empty_string) {
+TEST(v2_contains_lowercase_validator, empty_string) {
     EXPECT_TRUE(contains_validator{ contains_lowercase_or_error }.validate(""));
 }
-TEST(v2_contains_lowercase_validator, DISABLED_string_without_lowercase) {
+TEST(v2_contains_lowercase_validator, string_without_lowercase) {
     EXPECT_TRUE(contains_validator{ contains_lowercase_or_error }.validate("ABCDEF0123456789.,;:!?"));
 }
-TEST(v2_contains_lowercase_validator, DISABLED_string_with_lowercase) {
+TEST(v2_contains_lowercase_validator, string_with_lowercase) {
     EXPECT_FALSE(contains_validator{ contains_lowercase_or_error }.validate("abcdefABCDEF0123456789.,;:!?"));
 }
 
-TEST(v2_contains_uppercase_validator, DISABLED_empty_string) {
+TEST(v2_contains_uppercase_validator, empty_string) {
     EXPECT_TRUE(contains_validator{ contains_uppercase_or_error }.validate(""));
 }
-TEST(v2_contains_uppercase_validator, DISABLED_string_without_uppercase) {
+TEST(v2_contains_uppercase_validator, string_without_uppercase) {
     EXPECT_TRUE(contains_validator{ contains_uppercase_or_error }.validate("abcdef0123456789.,;:!?"));
 }
-TEST(v2_contains_uppercase_validator, DISABLED_string_with_uppercase) {
+TEST(v2_contains_uppercase_validator, string_with_uppercase) {
     EXPECT_FALSE(contains_validator{ contains_uppercase_or_error }.validate("abcdefABCDEF0123456789.,;:!?"));
 }
 
 
-TEST(problem_67_main, DISABLED_output) {
+TEST(problem_67_main, output) {
     std::ostringstream oss{};
     problem_67_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

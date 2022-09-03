@@ -9,6 +9,7 @@
 #include <string>
 #include <string_view>
 #include <system_error>  // error_code, system_category
+#include <utility>  // move
 
 #define BOOST_ASIO_STANDALONE
 #include <asio.hpp>
@@ -21,14 +22,14 @@ using namespace tmcppc::fizz_buzz;
 using namespace tmcppc::tcp;
 
 
-TEST(remove_newline, DISABLED_empty_text) { EXPECT_TRUE(remove_newline("").empty()); }
-TEST(remove_newline, DISABLED_text_without_newline) { EXPECT_EQ(remove_newline("abcd"), "abcd"); }
-TEST(remove_newline, DISABLED_text_with_newline_at_the_beggining) { EXPECT_EQ(remove_newline("\nabcd"), "\nabcd"); }
-TEST(remove_newline, DISABLED_text_with_newline_at_the_middle) { EXPECT_EQ(remove_newline("ab\ncd"), "ab\ncd"); }
-TEST(remove_newline, DISABLED_text_with_newline_at_the_end) { EXPECT_EQ(remove_newline("abcd\n"), "abcd"); }
+TEST(remove_newline, empty_text) { EXPECT_TRUE(remove_newline("").empty()); }
+TEST(remove_newline, text_without_newline) { EXPECT_EQ(remove_newline("abcd"), "abcd"); }
+TEST(remove_newline, text_with_newline_at_the_beggining) { EXPECT_EQ(remove_newline("\nabcd"), "\nabcd"); }
+TEST(remove_newline, text_with_newline_at_the_middle) { EXPECT_EQ(remove_newline("ab\ncd"), "ab\ncd"); }
+TEST(remove_newline, text_with_newline_at_the_end) { EXPECT_EQ(remove_newline("abcd\n"), "abcd"); }
 
 
-TEST(read_line, DISABLED_read_line_until_returns_ab_and_newline) {
+TEST(read_line, read_line_until_returns_ab_and_newline) {
     std::unique_ptr<connector> connector_up{ std::make_unique<connector_mock>() };
     auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     std::string ret{};
@@ -38,7 +39,7 @@ TEST(read_line, DISABLED_read_line_until_returns_ab_and_newline) {
     std::ostringstream oss{};
     EXPECT_EQ(read_line(oss, connector_up.get()), "ab");
 }
-TEST(read_line, DISABLED_read_line_until_returns_error_code) {
+TEST(read_line, read_line_until_returns_error_code) {
     std::unique_ptr<connector> connector_up{ std::make_unique<connector_mock>() };
     auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     std::string ret{};
@@ -51,7 +52,7 @@ TEST(read_line, DISABLED_read_line_until_returns_error_code) {
 }
 
 
-TEST(write_line, DISABLED_write_returns_error_code) {
+TEST(write_line, write_returns_error_code) {
     std::unique_ptr<connector> connector_up{ std::make_unique<connector_mock>() };
     auto& connector{ *(dynamic_cast<connector_mock*>(connector_up.get())) };
     std::string message{ "abcd" };
@@ -64,7 +65,7 @@ TEST(write_line, DISABLED_write_returns_error_code) {
 }
 
 
-TEST(server, DISABLED_run) {
+TEST(server, run) {
     std::ostringstream oss{};
     std::unique_ptr<connector> server_connector_up{ std::make_unique<connector_mock>() };
     auto& server_connector{ *(dynamic_cast<connector_mock*>(server_connector_up.get())) };
@@ -91,7 +92,7 @@ TEST(server, DISABLED_run) {
 }
 
 
-TEST(client, DISABLED_run) {
+TEST(client, run) {
     std::istringstream iss{
         "1\n"
         "3\n"

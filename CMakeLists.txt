@@ -18,7 +18,7 @@ set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems
 
 
 project("the_modern_c++_challenge"
-    VERSION 1.1
+    VERSION 1.0
     DESCRIPTION "My solutions to the 100 problems of The Modern C++ Challenge, a book by Marius Bancila's (published by Packt)."
     HOMEPAGE_URL https://github.com/rturrado/the_modern_cpp_challenge.git
     LANGUAGES C CXX

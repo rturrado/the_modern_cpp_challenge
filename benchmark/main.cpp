@@ -4,8 +4,7 @@
 #include <fmt/core.h>
 
 
-void run_custom_benchmarks()
-{
+void run_custom_benchmarks() {
     cb_armstrong_numbers_up_to_a_limit();  // problem 8
     cb_to_roman();  // problem 11
     cb_get_longest_collatz_sequence();  // problem 12
@@ -16,15 +15,13 @@ void run_custom_benchmarks()
 }
 
 
-void run_google_benchmarks()
-{
+void run_google_benchmarks() {
     fmt::print("[google benchmark]\n\n");
     ::benchmark::RunSpecifiedBenchmarks();
 }
 
 
-int main()
-{
+int main() {
     run_custom_benchmarks();
     fmt::print("\n");
     run_google_benchmarks();

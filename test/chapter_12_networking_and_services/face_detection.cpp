@@ -12,23 +12,24 @@
 
 #include <filesystem>
 #include <memory>  // make_unique, unique_ptr
+#include <utility>  // move
 #include <variant>  // get, holds_alternative
 
 using namespace tmcppc::face_detection;
 namespace fs = std::filesystem;
 
 
-TEST(detector, DISABLED_provider_is_null) { EXPECT_THROW(detector{ nullptr }, detection_error); }
+TEST(detector, provider_is_null) { EXPECT_THROW(detector{ nullptr }, detection_error); }
 
 
-TEST(detector, DISABLED_detect_and_file_does_not_exist) {
+TEST(detector, detect_and_file_does_not_exist) {
     EXPECT_THROW((void) detector{ std::make_unique<provider_mock>() }.detect(fs::path{}),
         rtc::filesystem::file_path_does_not_exist_error
     );
 }
 
 
-TEST(detector, DISABLED_detect_and_provider_returns_an_error_response) {
+TEST(detector, detect_and_provider_returns_an_error_response) {
     std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
     auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
@@ -42,7 +43,7 @@ TEST(detector, DISABLED_detect_and_provider_returns_an_error_response) {
 }
 
 
-TEST(detector, DISABLED_detect_and_provider_returns_a_faces_response) {
+TEST(detector, detect_and_provider_returns_a_faces_response) {
     std::unique_ptr<provider_adaptor> provider_up{ std::make_unique<provider_mock>() };
     auto& provider{ *(dynamic_cast<provider_mock*>(provider_up.get())) };
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg" };

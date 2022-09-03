@@ -17,7 +17,7 @@ namespace tmcppc::problem_5 {
         using namespace tmcppc::math;
 
         std::vector<std::pair<size_t, size_t>> ret{};
-        for (auto i{ 7 }; i <= limit; ++i) {
+        for (size_t i{ 7 }; i <= limit; ++i) {
             if (tmcppc::math::is_prime(i) and tmcppc::math::is_prime(i - 6)) {
                 ret.push_back({ i - 6, i });
             }

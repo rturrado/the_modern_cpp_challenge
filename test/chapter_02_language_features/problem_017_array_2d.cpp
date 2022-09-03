@@ -6,7 +6,7 @@
 #include <sstream>  // ostringstream
 
 
-TEST(problem_17_main, DISABLED_array_2d_basic_operations) {
+TEST(problem_17_main, array_2d_basic_operations) {
     std::ostringstream oss{};
     problem_17_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

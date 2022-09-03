@@ -12,51 +12,51 @@ using tmcppc::algorithm::thread::parallel_min;
 using tmcppc::algorithm::thread::parallel_max;
 
 
-TEST(thread_parallel_min, DISABLED_empty_input_range) {
+TEST(thread_parallel_min, empty_input_range) {
     std::vector<int> v{};
     EXPECT_EQ(parallel_min(v), v.end());
 }
-TEST(thread_parallel_min, DISABLED_zero_thread_pool_size) {
+TEST(thread_parallel_min, zero_thread_pool_size) {
     std::vector<int> v(1000);
     std::iota(v.begin(), v.end(), -500);
     EXPECT_EQ(*parallel_min(v, 0), -500);
 }
-TEST(thread_parallel_min, DISABLED_zero_block_size) {
+TEST(thread_parallel_min, zero_block_size) {
     std::vector<int> v(1000);
     std::iota(v.begin(), v.end(), -500);
     EXPECT_EQ(*parallel_min(v, 4, 0), -500);
 }
-TEST(thread_parallel_min, DISABLED_rvalue_range) {
+TEST(thread_parallel_min, rvalue_range) {
     EXPECT_EQ(*parallel_min(std::vector<int>{ -5, -2, 1, 4 }), -5);
 }
-TEST(thread_parallel_min, DISABLED_view) {
+TEST(thread_parallel_min, view) {
     EXPECT_EQ(*parallel_min(std::views::iota(-500, 500)), -500);
 }
 
 
-TEST(thread_parallel_max, DISABLED_empty_input_range) {
+TEST(thread_parallel_max, empty_input_range) {
     std::vector<int> v{};
     EXPECT_EQ(parallel_max(v), v.end());
 }
-TEST(thread_parallel_max, DISABLED_zero_thread_pool_size) {
+TEST(thread_parallel_max, zero_thread_pool_size) {
     std::vector<int> v(1000);
     std::iota(v.begin(), v.end(), -500);
     EXPECT_EQ(*parallel_max(v, 0), 499);
 }
-TEST(thread_parallel_max, DISABLED_zero_block_size) {
+TEST(thread_parallel_max, zero_block_size) {
     std::vector<int> v(1000);
     std::iota(v.begin(), v.end(), -500);
     EXPECT_EQ(*parallel_max(v, 4, 0), 499);
 }
-TEST(thread_parallel_max, DISABLED_rvalue_range) {
+TEST(thread_parallel_max, rvalue_range) {
     EXPECT_EQ(*parallel_max(std::vector<int>{ -5, -2, 1, 4 }), 4);
 }
-TEST(thread_parallel_max, DISABLED_view) {
+TEST(thread_parallel_max, view) {
     EXPECT_EQ(*parallel_max(std::views::iota(-500, 500)), 499);
 }
 
 
-TEST(problem_62_main, DISABLED_output) {
+TEST(problem_62_main, output) {
     std::ostringstream oss{};
     problem_62_main(oss);
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex("v = \\[.*\\]\n\n"));

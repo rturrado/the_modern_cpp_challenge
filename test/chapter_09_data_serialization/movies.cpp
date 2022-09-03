@@ -12,176 +12,176 @@ using namespace tmcppc::movies;
 
 
 // Role
-TEST(role, DISABLED_print) {
+TEST(role, print) {
     std::ostringstream oss{};
     samples::role.print(oss);
     EXPECT_EQ(oss.str(), samples::role_output);
 }
-TEST(role, DISABLED_operator_insertion) {
+TEST(role, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::role;
     EXPECT_EQ(oss.str(), samples::role_output);
 }
-TEST(role, DISABLED_fmt_format) {
+TEST(role, fmt_format) {
     EXPECT_EQ(fmt::format("{}", samples::role), samples::role_output);
 }
 
 // Cast
-TEST(cast, DISABLED_print_empty_cast) {
+TEST(cast, print_empty_cast) {
     std::ostringstream oss{};
     cast{}.print(oss);
     EXPECT_EQ(oss.str(), fmt::format("Cast: []"));
 }
-TEST(cast, DISABLED_print) {
+TEST(cast, print) {
     std::ostringstream oss{};
     samples::cast.print(oss);
     EXPECT_EQ(oss.str(), samples::get_cast_2_output());
 }
-TEST(cast, DISABLED_operator_insertion) {
+TEST(cast, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::cast;
     EXPECT_EQ(oss.str(), samples::get_cast_2_output());
 }
-TEST(cast, DISABLED_fmt_format) {
+TEST(cast, fmt_format) {
     EXPECT_EQ(fmt::format("{}", samples::cast), samples::get_cast_2_output());
 }
 
 // Director
-TEST(director, DISABLED_print) {
+TEST(director, print) {
     std::ostringstream oss{};
     samples::director.print(oss);
     EXPECT_EQ(oss.str(), samples::director_output);
 }
-TEST(director, DISABLED_operator_insertion) {
+TEST(director, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::director;
     EXPECT_EQ(oss.str(), samples::director_output);
 }
-TEST(director, DISABLED_fmt_format) {
+TEST(director, fmt_format) {
     EXPECT_EQ(fmt::format("{}", samples::director), samples::director_output);
 }
 
 // Directors
-TEST(directors, DISABLED_print_empty_directors) {
+TEST(directors, print_empty_directors) {
     std::ostringstream oss{};
     directors{}.print(oss);
     EXPECT_EQ(oss.str(), fmt::format("Directors: []"));
 }
-TEST(directors, DISABLED_print) {
+TEST(directors, print) {
     std::ostringstream oss{};
     samples::directors.print(oss);
     EXPECT_EQ(oss.str(), samples::get_directors_2_output());
 }
-TEST(directors, DISABLED_operator_insertion) {
+TEST(directors, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::directors;
     EXPECT_EQ(oss.str(), samples::get_directors_2_output());
 }
-TEST(directors, DISABLED_fmt_format) {
+TEST(directors, fmt_format) {
     EXPECT_EQ(fmt::format("{}", samples::directors), samples::get_directors_2_output());
 }
 
 // Writer
-TEST(writer, DISABLED_print) {
+TEST(writer, print) {
     std::ostringstream oss{};
     samples::writer.print(oss);
     EXPECT_EQ(oss.str(), samples::writer_output);
 }
-TEST(writer, DISABLED_operator_insertion) {
+TEST(writer, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::writer;
     EXPECT_EQ(oss.str(), samples::writer_output);
 }
-TEST(writer, DISABLED_fmt_format) {
+TEST(writer, fmt_format) {
     EXPECT_EQ(fmt::format("{}", samples::writer), samples::writer_output);
 }
 
 // Writers
-TEST(writers, DISABLED_print_empty_writers) {
+TEST(writers, print_empty_writers) {
     std::ostringstream oss{};
     writers{}.print(oss);
     EXPECT_EQ(oss.str(), fmt::format("Writers: []"));
 }
-TEST(writers, DISABLED_print) {
+TEST(writers, print) {
     std::ostringstream oss{};
     samples::writers.print(oss);
     EXPECT_EQ(oss.str(), samples::get_writers_2_output());
 }
-TEST(writers, DISABLED_operator_insertion) {
+TEST(writers, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::writers;
     EXPECT_EQ(oss.str(), samples::get_writers_2_output());
 }
-TEST(writers, DISABLED_fmt_format) {
+TEST(writers, fmt_format) {
     EXPECT_EQ(fmt::format("{}", samples::writers), samples::get_writers_2_output());
 }
 
 // Media file
-TEST(media_file, DISABLED_print_empty_description) {
+TEST(media_file, print_empty_description) {
     std::ostringstream oss{};
     samples::media_file_without_description.print(oss);
     EXPECT_EQ(oss.str(), samples::get_media_file_without_description_output());
 }
-TEST(media_file, DISABLED_print_description) {
+TEST(media_file, print_description) {
     std::ostringstream oss{};
     samples::media_file.print(oss);
     EXPECT_EQ(oss.str(), samples::get_media_file_1_output());
 }
-TEST(media_file, DISABLED_operator_insertion) {
+TEST(media_file, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::media_file;
     EXPECT_EQ(oss.str(), samples::get_media_file_1_output());
 }
-TEST(media_file, DISABLED_fmt_format) {
+TEST(media_file, fmt_format) {
     EXPECT_EQ(fmt::format("{}", samples::media_file), samples::get_media_file_1_output());
 }
 
 // Media files
-TEST(media_files, DISABLED_print_empty_media_files) {
+TEST(media_files, print_empty_media_files) {
     std::ostringstream oss{};
     media_files{}.print(oss);
     EXPECT_EQ(oss.str(), fmt::format("Media files: []"));
 }
-TEST(media_files, DISABLED_print) {
+TEST(media_files, print) {
     std::ostringstream oss{};
     samples::media_files.print(oss);
     EXPECT_EQ(oss.str(), samples::get_media_files_output());
 }
-TEST(media_files, DISABLED_operator_insertion) {
+TEST(media_files, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::media_files;
     EXPECT_EQ(oss.str(), samples::get_media_files_output());
 }
-TEST(media_files, DISABLED_fmt_format) {
+TEST(media_files, fmt_format) {
     EXPECT_EQ(fmt::format("{}", samples::media_files), samples::get_media_files_output());
 }
 
 // Movie
-TEST(movie, DISABLED_print) {
+TEST(movie, print) {
     std::ostringstream oss{};
     samples::movie.print(oss);
     EXPECT_EQ(oss.str(), samples::get_movie_2_output());
 }
-TEST(movie, DISABLED_operator_insertion) {
+TEST(movie, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::movie;
     EXPECT_EQ(oss.str(), samples::get_movie_2_output());
 }
-TEST(movie, DISABLED_fmt_format) {
+TEST(movie, fmt_format) {
     EXPECT_EQ(fmt::format("{}", samples::movie), samples::get_movie_2_output());
 }
 
 // Catalog
-TEST(catalog, DISABLED_print) {
+TEST(catalog, print) {
     std::ostringstream oss{};
     samples::catalog.print(oss);
     EXPECT_EQ(oss.str(), samples::get_catalog_output());
 }
-TEST(catalog, DISABLED_operator_insertion) {
+TEST(catalog, operator_insertion) {
     std::ostringstream oss{};
     oss << samples::catalog;
     EXPECT_EQ(oss.str(), samples::get_catalog_output());
 }
-TEST(catalog, DISABLED_fmt_format) {
+TEST(catalog, fmt_format) {
     EXPECT_EQ(fmt::format("{}", samples::catalog), samples::get_catalog_output());
 }

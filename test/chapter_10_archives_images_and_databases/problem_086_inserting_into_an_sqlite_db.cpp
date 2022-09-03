@@ -6,7 +6,7 @@
 #include <sstream>  // istringstream, ostringstream
 
 
-TEST(problem_86_main, DISABLED_output) {
+TEST(problem_86_main, output) {
     std::istringstream iss{
         "1\n"  // 1 for Console
         "Fight Club\n"  // title

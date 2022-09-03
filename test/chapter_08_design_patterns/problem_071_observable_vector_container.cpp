@@ -10,7 +10,7 @@
 using namespace tmcppc::data_structures;
 
 
-TEST(observable_vector, DISABLED_copy_assignment) {
+TEST(observable_vector, copy_assignment) {
     std::ostringstream oss{};
     auto sp_ov_1{ std::make_shared<observable_vector<char>>(std::initializer_list<char>{ 'a', 'b', 'c' }) };
     auto sp_co_1{ std::make_shared<concrete_observer_1<char>>(oss, sp_ov_1) };
@@ -25,7 +25,7 @@ TEST(observable_vector, DISABLED_copy_assignment) {
     ));
 }
 
-TEST(observable_vector, DISABLED_move_assignment) {
+TEST(observable_vector, move_assignment) {
     std::ostringstream oss{};
     auto sp_ov{ std::make_shared<observable_vector<char>>(std::initializer_list<char>{ 'a', 'b', 'c' }) };
     auto sp_co_1{ std::make_shared<concrete_observer_1<char>>(oss, sp_ov) };
@@ -39,7 +39,7 @@ TEST(observable_vector, DISABLED_move_assignment) {
     ));
 }
 
-TEST(observable_vector, DISABLED_push_back) {
+TEST(observable_vector, push_back) {
     std::ostringstream oss{};
     auto sp_ov{ std::make_shared<observable_vector<char>>(std::initializer_list<char>{ 'a', 'b', 'c' }) };
     auto sp_co_1{ std::make_shared<concrete_observer_1<char>>(oss, sp_ov) };
@@ -53,7 +53,7 @@ TEST(observable_vector, DISABLED_push_back) {
     ));
 }
 
-TEST(observable_vector, DISABLED_pop_back) {
+TEST(observable_vector, pop_back) {
     std::ostringstream oss{};
     auto sp_ov{ std::make_shared<observable_vector<char>>(std::initializer_list<char>{ 'a', 'b', 'c' }) };
     auto sp_co_1{ std::make_shared<concrete_observer_1<char>>(oss, sp_ov) };
@@ -66,7 +66,7 @@ TEST(observable_vector, DISABLED_pop_back) {
     ));
 }
 
-TEST(observable_vector, DISABLED_clear) {
+TEST(observable_vector, clear) {
     std::ostringstream oss{};
     auto sp_ov{ std::make_shared<observable_vector<char>>(std::initializer_list<char>{ 'a', 'b', 'c' }) };
     auto sp_co_1{ std::make_shared<concrete_observer_1<char>>(oss, sp_ov) };
@@ -79,7 +79,7 @@ TEST(observable_vector, DISABLED_clear) {
     ));
 }
 
-TEST(observable_vector, DISABLED_detach) {
+TEST(observable_vector, detach) {
     std::ostringstream oss{};
     auto sp_ov{ std::make_shared<observable_vector<char>>(std::initializer_list<char>{ 'a', 'b', 'c' }) };
     auto sp_co_1{ std::make_shared<concrete_observer_1<char>>(oss, sp_ov) };
@@ -90,14 +90,14 @@ TEST(observable_vector, DISABLED_detach) {
     EXPECT_TRUE(oss.str().empty());
 }
 
-TEST(observable_vector, DISABLED_no_observers) {
+TEST(observable_vector, no_observers) {
     observable_vector<char> ov{ 'a', 'b', 'c' };
     ov.push_back('d');
     EXPECT_EQ(ov.size(), 4);
     EXPECT_EQ(fmt::format("{}", ov), "['a', 'b', 'c', 'd']");
 }
 
-TEST(observable_vector, DISABLED_two_observers) {
+TEST(observable_vector, two_observers) {
     std::ostringstream oss{};
     auto sp_ov{ std::make_shared<observable_vector<int>>(std::initializer_list<int>{ -1000, 0, 500 }) };
     auto sp_co_1{ std::make_shared<concrete_observer_1<int>>(oss, sp_ov) };
@@ -116,7 +116,7 @@ TEST(observable_vector, DISABLED_two_observers) {
 }
 
 
-TEST(problem_71_main, DISABLED_output) {
+TEST(problem_71_main, output) {
     std::ostringstream oss{};
     problem_71_main(oss);
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(

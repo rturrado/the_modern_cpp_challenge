@@ -8,6 +8,7 @@
 #include <iostream>  // cout
 #include <numeric>  // iota
 #include <ostream>
+#include <utility>  // move
 
 
 void problem_17_main(std::ostream& os) {
@@ -24,8 +25,8 @@ void problem_17_main(std::ostream& os) {
         // Then modified using at()
         array_2d<float> arr2(3, 3);
         float f{ 2.37f };
-        for (auto row{ 0 }; row < arr2.height(); ++row) {
-            for (auto col{ 0 }; col < arr2.width(); ++col) {
+        for (size_t row{ 0 }; row < arr2.height(); ++row) {
+            for (size_t col{ 0 }; col < arr2.width(); ++col) {
                 arr2.at(row, col) = f;
                 f *= 2;
             }

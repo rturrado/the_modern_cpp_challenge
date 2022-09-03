@@ -9,25 +9,25 @@
 using namespace tmcppc::problem_28;
 
 
-TEST(is_palindrome, DISABLED_empty_string) { EXPECT_TRUE(is_palindrome("")); }
-TEST(is_palindrome, DISABLED_one_character_string) { EXPECT_TRUE(is_palindrome("a")); }
-TEST(is_palindrome, DISABLED_valid_palindrome) { EXPECT_TRUE(is_palindrome("1111aaa8bb8aaa1111")); }
-TEST(is_palindrome, DISABLED_invalid_palindrome) { EXPECT_FALSE(is_palindrome("1111aaa8bb8aaa11110")); }
+TEST(is_palindrome, empty_string) { EXPECT_TRUE(is_palindrome("")); }
+TEST(is_palindrome, one_character_string) { EXPECT_TRUE(is_palindrome("a")); }
+TEST(is_palindrome, valid_palindrome) { EXPECT_TRUE(is_palindrome("1111aaa8bb8aaa1111")); }
+TEST(is_palindrome, invalid_palindrome) { EXPECT_FALSE(is_palindrome("1111aaa8bb8aaa11110")); }
 
-TEST(longest_palindromic_substring, DISABLED_empty_string) {
+TEST(longest_palindromic_substring, empty_string) {
     EXPECT_EQ(get_longest_palindromic_substring(""), "");
 }
-TEST(longest_palindromic_substring, DISABLED_one_character_string) {
+TEST(longest_palindromic_substring, one_character_string) {
     EXPECT_THAT(get_longest_palindromic_substring("a"), "a");
 }
-TEST(longest_palindromic_substring, DISABLED_string_is_palindrome) {
+TEST(longest_palindromic_substring, string_is_palindrome) {
     EXPECT_THAT(get_longest_palindromic_substring("level"), "level");
 }
-TEST(longest_palindromic_substring, DISABLED_s_123aba3218888888888c) {
+TEST(longest_palindromic_substring, s_123aba3218888888888c) {
     EXPECT_THAT(get_longest_palindromic_substring("123aba3218888888888c"), "8888888888");
 }
 
-TEST(problem_28_main, DISABLED_output) {
+TEST(problem_28_main, output) {
     std::ostringstream oss{};
     problem_28_main(oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(

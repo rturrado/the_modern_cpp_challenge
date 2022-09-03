@@ -6,6 +6,7 @@
 
 #include <filesystem>
 #include <sstream>  // istringstream, ostringstream
+#include <utility>  // move
 
 #ifdef _WIN32
 #define WINDOWS_LEAN_AND_MEAN
@@ -16,13 +17,13 @@ using namespace tmcppc::data_structures;
 using handle = unique_hdl<HANDLE, handle_traits>;
 
 
-TEST(unique_hdl, DISABLED_default_constructor) {
+TEST(unique_hdl, default_constructor) {
     handle hdl{};
     EXPECT_FALSE(static_cast<bool>(hdl));
     EXPECT_EQ(hdl.get(), handle_traits::invalid());
 }
 
-TEST(unique_hdl, DISABLED_handle_constructor_file_does_not_exist) {
+TEST(unique_hdl, handle_constructor_file_does_not_exist) {
 #ifdef _WIN32
     const std::filesystem::path file_path{ "" };
     handle hdl{
@@ -40,7 +41,7 @@ TEST(unique_hdl, DISABLED_handle_constructor_file_does_not_exist) {
 #endif
 }
 
-TEST(unique_hdl, DISABLED_handle_constructor_file_exists) {
+TEST(unique_hdl, handle_constructor_file_exists) {
 #ifdef _WIN32
     const auto file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
     handle hdl{
@@ -58,7 +59,7 @@ TEST(unique_hdl, DISABLED_handle_constructor_file_exists) {
 #endif
 }
 
-TEST(unique_hdl, DISABLED_move_constructor_invalid_handle) {
+TEST(unique_hdl, move_constructor_invalid_handle) {
     handle h1{};
     auto h2{ std::move(h1) };
     EXPECT_FALSE(static_cast<bool>(h1));
@@ -67,7 +68,7 @@ TEST(unique_hdl, DISABLED_move_constructor_invalid_handle) {
     EXPECT_EQ(h2.get(), handle_traits::invalid());
 }
 
-TEST(unique_hdl, DISABLED_move_constructor_valid_file_handle) {
+TEST(unique_hdl, move_constructor_valid_file_handle) {
 #ifdef _WIN32
     const auto file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
     handle h1{
@@ -90,13 +91,13 @@ TEST(unique_hdl, DISABLED_move_constructor_valid_file_handle) {
 #endif
 }
 
-TEST(unique_hdl, DISABLED_reset_invalid_handle_to_invalid_handle) {
+TEST(unique_hdl, reset_invalid_handle_to_invalid_handle) {
     handle hdl{};
     EXPECT_FALSE(static_cast<bool>(hdl));
     EXPECT_FALSE(hdl.reset());
 }
 
-TEST(unique_hdl, DISABLED_reset_invalid_handle_to_valid_file_handle) {
+TEST(unique_hdl, reset_invalid_handle_to_valid_file_handle) {
 #ifdef _WIN32
     const auto file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
     handle hdl{};
@@ -113,7 +114,7 @@ TEST(unique_hdl, DISABLED_reset_invalid_handle_to_valid_file_handle) {
 #endif
 }
 
-TEST(unique_hdl, DISABLED_reset_valid_file_handle_to_invalid_handle) {
+TEST(unique_hdl, reset_valid_file_handle_to_invalid_handle) {
 #ifdef _WIN32
     const auto file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
     handle hdl{
@@ -131,7 +132,7 @@ TEST(unique_hdl, DISABLED_reset_valid_file_handle_to_invalid_handle) {
 #endif
 }
 
-TEST(unique_hdl, DISABLED_reset_valid_file_handle_to_valid_file_handle) {
+TEST(unique_hdl, reset_valid_file_handle_to_valid_file_handle) {
 #ifdef _WIN32
     const auto file_path_1{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
     const auto file_path_2{ tmcppc::env::get_instance().get_resource_folder_path() / "faces.jpg" };
@@ -159,14 +160,14 @@ TEST(unique_hdl, DISABLED_reset_valid_file_handle_to_valid_file_handle) {
 #endif
 }
 
-TEST(unique_hdl, DISABLED_release_invalid_handle) {
+TEST(unique_hdl, release_invalid_handle) {
     handle h1{};
     handle h2{ h1.release() };
     EXPECT_FALSE(static_cast<bool>(h1));
     EXPECT_FALSE(static_cast<bool>(h2));
 }
 
-TEST(unique_hdl, DISABLED_release_valid_file_handle) {
+TEST(unique_hdl, release_valid_file_handle) {
 #ifdef _WIN32
     const auto file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
     handle h1{
