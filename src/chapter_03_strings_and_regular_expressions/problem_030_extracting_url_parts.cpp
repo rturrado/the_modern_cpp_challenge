@@ -1,10 +1,10 @@
 #include "chapter_03_strings_and_regular_expressions/problem_030_extracting_url_parts.h"
 #include "chapter_03_strings_and_regular_expressions/url.h"
 
+#include "fmt/ostream.h"
+
 #include <exception>
-#include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <ostream>
 
 
 void problem_30_main(std::ostream& os) {

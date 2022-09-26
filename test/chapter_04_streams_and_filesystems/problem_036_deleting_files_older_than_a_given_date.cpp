@@ -3,8 +3,8 @@
 
 #include "rtc/filesystem.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <chrono>
 #include <sstream>  // ostringstream
@@ -42,12 +42,13 @@ TEST(delete_directory_entries_older_than, now) {
         "\t'.*res/sample_folder/sample_subfolder/use_your_illussion_ii.jpg'\n"
     ));
 }
-TEST(delete_directory_entries_older_than, five_hundred_years_ago) {
+TEST(delete_directory_entries_older_than, january_1_1970) {
     std::ostringstream oss{};
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
     const auto in_dir_path{ resource_folder_path / "sample_folder" };
-    const auto tp{ ch::time_point<ch::file_clock>{ ch::file_clock::now() - ch::years{ 500 } } };
-    delete_directory_entries_older_than(oss, in_dir_path, tp);
+    const auto tp_sys{ ch::sys_days{ 1970y / ch::January / 1 } };
+    const auto tp_file{ ch::file_clock::from_sys(ch::round<ch::seconds>(tp_sys)) };
+    delete_directory_entries_older_than(oss, in_dir_path, tp_file);
     EXPECT_TRUE(oss.str().empty());
 }
 

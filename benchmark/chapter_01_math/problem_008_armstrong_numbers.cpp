@@ -2,11 +2,14 @@
 
 #include "rtc/timer.h"  // function_timer
 
-#include <benchmark/benchmark.h>  // google benchmark
-#include <cassert>  // assert
+#include "benchmark/benchmark.h"  // google benchmark
+#include "fmt/chrono.h"
+#include "fmt/ranges.h"
+
 #include <chrono>  // duration, milli
-#include <fmt/chrono.h>
-#include <fmt/ranges.h>
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 using namespace tmcppc::problem_8;
 

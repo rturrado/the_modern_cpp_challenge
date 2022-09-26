@@ -6,7 +6,7 @@ FetchContent_Declare(googletest
 )
 FetchContent_Declare(perceptualdiff
     GIT_REPOSITORY https://github.com/rturrado/perceptualdiff.git
-    GIT_TAG "5aa1de51b33f05b9e6318c7a961a865ddb61d602"
+    GIT_TAG "7fd158dbd90e0a0beddcbbb37063ad6000fdef80"
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(
@@ -14,7 +14,6 @@ FetchContent_MakeAvailable(
     perceptualdiff
 )
 find_package(Boost 1.78.0 REQUIRED)
-
 
 # Subdirectories
 add_subdirectory(chapter_01_math)
@@ -54,7 +53,7 @@ list(APPEND app_sources ${test_sources})
 
 # Test executable
 add_executable(${PROJECT_NAME}_test ${app_sources})
-target_include_directories(${PROJECT_NAME}_test PUBLIC
+target_include_directories(${PROJECT_NAME}_test SYSTEM PRIVATE
     ${Boost_INCLUDE_DIRS}
     ${perceptualdiff_SOURCE_DIR}
 )
@@ -62,30 +61,44 @@ message(STATUS
     "[${PROJECT_NAME}_test] Target include directories:\n"
     "      perceptualdiff: ${perceptualdiff_SOURCE_DIR}\n"
 )
-if(MSVC)
-    target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_23)
-elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_20)
-endif()
-target_link_libraries(${PROJECT_NAME}_test PUBLIC
+target_compile_features(${PROJECT_NAME}_test PRIVATE cxx_std_23)
+target_link_libraries(${PROJECT_NAME}_test PRIVATE
     lib_${PROJECT_NAME}
     gmock
     gtest
     pdiff
 )
-if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
-    target_compile_options(${PROJECT_NAME}_test PRIVATE  /D_CONSOLE /DCONSOLE /D_UNICODE /DUNICODE /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /W3 /WX /w34996 /utf-8 /Zc:inline)
+if(MSVC)
+    target_compile_options(${PROJECT_NAME}_test PRIVATE
+        /W3 /WX /w34996
+        /D_CONSOLE /DCONSOLE
+        /D_UNICODE /DUNICODE
+        /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /utf-8 /Zc:inline
+    )
 elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    target_compile_options(${PROJECT_NAME}_test PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
+    target_compile_options(${PROJECT_NAME}_test PRIVATE
+        -pedantic-errors -Werror -Wall -Wextra
+        -Wl,-z,defs
+        -Wno-deprecated
+        # -Wconversion -Wsign-conversion -Wno-sign-conversion  # do not sort flags; order matters
+    )
 endif()
 
 
-# Copy DLLs the target depends on
-add_custom_command(
-    TARGET ${PROJECT_NAME}_test POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:${PROJECT_NAME}_test> $<TARGET_FILE_DIR:${PROJECT_NAME}_test>
-    COMMAND_EXPAND_LISTS
-)
+# Shared libraries
+if(WIN32)
+    # Copy DLLs the target depends on
+    add_custom_command(
+        TARGET ${PROJECT_NAME}_test POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:${PROJECT_NAME}_test> $<TARGET_FILE_DIR:${PROJECT_NAME}_test>
+        COMMAND_EXPAND_LISTS
+    )
+elseif(UNIX)
+    if(APPLE)
+        set(CMAKE_MACOSX_RPATH 1)
+    endif()
+    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+endif()
 
 
 include(GoogleTest)

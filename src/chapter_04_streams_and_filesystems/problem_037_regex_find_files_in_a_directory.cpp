@@ -3,13 +3,12 @@
 
 #include "rtc/filesystem.h"
 
-#include <algorithm>  // copy_if
+#include "fmt/ostream.h"
+
+#include <algorithm>  // copy_if, sort
 #include <exception>
 #include <filesystem>
-#include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <iterator>  // back_inserter
-#include <ostream>
 #include <regex>  // regex_match
 #include <string>
 #include <vector>
@@ -37,6 +36,7 @@ namespace tmcppc::problem_37 {
                 return (fs::is_regular_file(entry) and std::regex_match(entry.path().filename().string(), pattern));
             }
         );
+        std::ranges::sort(ret);
         return ret;
     }
 }  // namespace tmcppc::problem_37

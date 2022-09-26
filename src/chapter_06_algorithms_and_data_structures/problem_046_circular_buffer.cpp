@@ -1,10 +1,10 @@
 #include "chapter_06_algorithms_and_data_structures/problem_046_circular_buffer.h"
 #include "chapter_06_algorithms_and_data_structures/circular_buffer.h"
 
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
+#include "fmt/ostream.h"
+#include "fmt/ranges.h"
+
 #include <iostream>  // cout
-#include <ostream>
 #include <stdexcept>  // runtime_error
 #include <string_view>
 
@@ -38,7 +38,7 @@ void problem_46_main(std::ostream& os) {
     print_circular_buffer("cb_3", cb_3);
     fmt::print(os, "\n");
 
-    for (auto i{ 1 }; i < static_cast<int>(1.5 * cb_3.capacity()); ++i) {
+    for (auto i{ 1 }; i < static_cast<int>(1.5 * static_cast<double>(cb_3.capacity())); ++i) {
         cb_3.push_back(i);
         fmt::print(os, "cb_3.push_back({});\n", i);
         print_circular_buffer("cb_3", cb_3);

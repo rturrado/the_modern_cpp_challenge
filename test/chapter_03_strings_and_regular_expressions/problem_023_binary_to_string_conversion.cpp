@@ -1,11 +1,11 @@
 #include "chapter_03_strings_and_regular_expressions/problem_023_binary_to_string_conversion.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <array>
+#include <list>
 #include <numeric>  // iota
-#include <sstream>  // ostringstream
 #include <string>
 #include <vector>
 

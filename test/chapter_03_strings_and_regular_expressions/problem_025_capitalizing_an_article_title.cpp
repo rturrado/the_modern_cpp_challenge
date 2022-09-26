@@ -1,9 +1,8 @@
 #include "chapter_03_strings_and_regular_expressions/problem_025_capitalizing_an_article_title.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-#include <sstream>  // ostringstream
 #include <string>
 
 using namespace tmcppc::problem_25;

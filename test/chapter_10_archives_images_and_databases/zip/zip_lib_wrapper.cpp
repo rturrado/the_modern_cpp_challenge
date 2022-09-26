@@ -3,8 +3,7 @@
 
 #include "rtc/filesystem.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 #include <filesystem>
 #include <sstream>  // ostringstream
@@ -67,5 +66,6 @@ TEST(zip_compress_decompress, non_empty_folder) {
     const auto zip_file_path{ create_zip_file_path(fs::temp_directory_path(), input_path) };
     tmcppc::zip::compress(oss, input_path, zip_file_path);
     tmcppc::zip::decompress(oss, zip_file_path, output_root_path);
-    EXPECT_TRUE(rtc::filesystem::are_filesystem_entries_equal(input_path, output_path));
+    auto options{ fs::directory_options::skip_permission_denied | fs::directory_options::follow_directory_symlink };
+    EXPECT_TRUE(rtc::filesystem::are_filesystem_trees_equal(input_path, output_path, options));
 }

@@ -1,7 +1,7 @@
 #include "chapter_11_cryptography/problem_089_vigenere_cipher.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <sstream>  // ostringstream
 

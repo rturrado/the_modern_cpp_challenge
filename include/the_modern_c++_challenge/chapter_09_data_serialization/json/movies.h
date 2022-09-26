@@ -6,6 +6,7 @@
 
 #include <filesystem>
 #include <fstream>  // ifstream, ofstream
+#include <utility>
 #include <vector>
 
 
@@ -13,56 +14,56 @@
 // to be in the same namespace as the types it works on
 namespace tmcppc::movies {
     // Role
-    inline void to_json(nlohmann::json& j, const role& role) {
+    inline void to_json(nlohmann::json& j, const role_t& role) {
         j = nlohmann::json{ {"star", role.star}, {"name", role.name} };
     }
-    inline void from_json(const nlohmann::json& j, role& role) {
+    inline void from_json(const nlohmann::json& j, role_t& role) {
         j.at("star").get_to(role.star);
         j.at("name").get_to(role.name);
     }
 
     // Cast
-    inline void to_json(nlohmann::json& j, const cast& cast) {
-        j = cast.cast_;
+    inline void to_json(nlohmann::json& j, const cast_t& cast) {
+        j = cast.data;
     }
-    inline void from_json(const nlohmann::json& j, cast& cast) {
-        cast.cast_ = j.get<std::vector<role>>();
+    inline void from_json(const nlohmann::json& j, cast_t& cast) {
+        cast.data = j.get<std::vector<role_t>>();
     }
 
     // Director
-    inline void to_json(nlohmann::json& j, const director& director) {
+    inline void to_json(nlohmann::json& j, const director_t& director) {
         j = director.name;
     }
-    inline void from_json(const nlohmann::json& j, director& director) {
+    inline void from_json(const nlohmann::json& j, director_t& director) {
         j.get_to(director.name);
     }
 
     // Directors
-    inline void to_json(nlohmann::json& j, const directors& directors) {
-        j = directors.directors_;
+    inline void to_json(nlohmann::json& j, const directors_t& directors) {
+        j = directors.data;
     }
-    inline void from_json(const nlohmann::json& j, directors& directors) {
-        directors.directors_ = j.get<std::vector<director>>();
+    inline void from_json(const nlohmann::json& j, directors_t& directors) {
+        directors.data = j.get<std::vector<director_t>>();
     }
 
     // Writer
-    inline void to_json(nlohmann::json& j, const writer& writer) {
+    inline void to_json(nlohmann::json& j, const writer_t& writer) {
         j = writer.name;
     }
-    inline void from_json(const nlohmann::json& j, writer& writer) {
+    inline void from_json(const nlohmann::json& j, writer_t& writer) {
         j.get_to(writer.name);
     }
 
     // Writers
-    inline void to_json(nlohmann::json& j, const writers& writers) {
-        j = writers.writers_;
+    inline void to_json(nlohmann::json& j, const writers_t& writers) {
+        j = writers.data;
     }
-    inline void from_json(const nlohmann::json& j, writers& writers) {
-        writers.writers_ = j.get<std::vector<writer>>();
+    inline void from_json(const nlohmann::json& j, writers_t& writers) {
+        writers.data = j.get<std::vector<writer_t>>();
     }
 
     // Movie
-    inline void to_json(nlohmann::json& j, const movie& movie) {
+    inline void to_json(nlohmann::json& j, const movie_t& movie) {
         j = nlohmann::json{
             { "id", movie.id },
             { "title", movie.title },
@@ -73,7 +74,7 @@ namespace tmcppc::movies {
             { "writers", movie.writers }
         };
     }
-    inline void from_json(const nlohmann::json& j, movie& movie) {
+    inline void from_json(const nlohmann::json& j, movie_t& movie) {
         j.at("id").get_to(movie.id);
         j.at("title").get_to(movie.title);
         movie.year = std::chrono::year{ j.at("year").get<int>() };
@@ -84,21 +85,21 @@ namespace tmcppc::movies {
     }
 
     // Catalog
-    inline void to_json(nlohmann::json& j, const catalog& catalog) {
+    inline void to_json(nlohmann::json& j, const catalog_t& catalog) {
         j = catalog.movies;
     }
-    inline void from_json(const nlohmann::json& j, catalog& catalog) {
-        catalog.movies = j.get<std::vector<movie>>();
+    inline void from_json(const nlohmann::json& j, catalog_t& catalog) {
+        catalog.movies = j.get<std::vector<movie_t>>();
     }
 
     // JSON document
     struct doc {
-        catalog catalog_{};
+        catalog_t catalog_{};
 
         doc() = default;
-        doc(const catalog& c) : catalog_{ c } {}
+        explicit doc(catalog_t c) : catalog_{ std::move(c) } {}
 
-        void save_to(const std::filesystem::path& output_file_path) {
+        void save_to(const std::filesystem::path& output_file_path) const {
             std::ofstream ofs{ output_file_path };
             nlohmann::json j{};
             to_json(j, catalog_);

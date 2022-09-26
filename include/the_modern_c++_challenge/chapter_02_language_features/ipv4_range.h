@@ -19,7 +19,7 @@ namespace tmcppc::network {
         auto operator->() const { return &value_; }
 
         ipv4_iterator& operator++() { ++value_; return *this; }
-        ipv4_iterator operator++(int) { ipv4_iterator tmp{ *this }; ++(*this); return tmp; }
+        ipv4_iterator operator++(int) & { ipv4_iterator tmp{ *this }; ++(*this); return tmp; }
 
         bool operator==(const ipv4_iterator& other) const { return value_ == other.value_; }
         bool operator!=(const ipv4_iterator& other) const { return value_ != other.value_; }
@@ -33,10 +33,10 @@ namespace tmcppc::network {
         ipv4_range(const ipv4& start, const ipv4& end) : start_{ start }, end_{ end } { ++end_; }
         auto begin() { return ipv4_iterator{ start_ }; }
         auto end() { return ipv4_iterator{ end_ }; }
-        auto begin() const { return ipv4_iterator{ start_ }; };
-        auto end() const { return ipv4_iterator{ end_ }; }
-        auto cbegin() const { return ipv4_iterator{ start_ }; };
-        auto cend() const { return ipv4_iterator{ end_ }; }
+        [[nodiscard]] auto begin() const { return ipv4_iterator{ start_ }; };
+        [[nodiscard]] auto end() const { return ipv4_iterator{ end_ }; }
+        [[nodiscard]] auto cbegin() const { return ipv4_iterator{ start_ }; };
+        [[nodiscard]] auto cend() const { return ipv4_iterator{ end_ }; }
     private:
         ipv4 start_;
         ipv4 end_;

@@ -4,8 +4,9 @@
 #include "cryptopp/md5.h"  // MD5
 #include "cryptopp/sha.h"  // SHA1, SHA256
 
+#include "fmt/ostream.h"
+
 #include <filesystem>
-#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
 

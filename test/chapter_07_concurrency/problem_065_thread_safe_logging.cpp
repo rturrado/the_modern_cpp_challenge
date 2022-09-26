@@ -1,7 +1,7 @@
 #include "chapter_07_concurrency/problem_065_thread_safe_logging.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <sstream>  // ostringstream
 

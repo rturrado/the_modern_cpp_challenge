@@ -2,12 +2,10 @@
 #include "chapter_10_archives_images_and_databases/ean_13/barcode_png_generator.h"
 #include "chapter_10_archives_images_and_databases/problem_084_ean_13_barcode_generator.h"
 
-#include <bitset>
+#include "fmt/ostream.h"
+
 #include <filesystem>
-#include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <ostream>
-#include <string>
 
 
 void problem_84_main(std::ostream& os) {

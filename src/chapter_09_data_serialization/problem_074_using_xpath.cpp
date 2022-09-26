@@ -6,11 +6,10 @@
 
 #include "pugixml.hpp"
 
+#include "fmt/ostream.h"
+
 #include <cassert>  // assert
-#include <chrono>
-#include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <ostream>
 
 
 namespace tmcppc::problem_74 {
@@ -34,11 +33,11 @@ namespace tmcppc::problem_74 {
     void print_last_actor_in_casting_list_for_every_movie(std::ostream& os, const tmcppc::movies::xml::doc& doc) {
         fmt::print(os, "Last actor in the casting list for every movie:\n");
 
-        const pugi::xpath_query query{ "/movies/movie" };
+        pugi::xpath_query query{ "/movies/movie" };
         auto movies{ query.evaluate_node_set(doc.get_pugi_xml_root()) };
 
+        query = pugi::xpath_query{ "cast/role[last()]" };
         for (auto&& movie : movies) {
-            const pugi::xpath_query query{ "cast/role[last()]" };
             auto actor{ query.evaluate_node(movie) };
 
             fmt::print(os, "\t{}: {}\n",

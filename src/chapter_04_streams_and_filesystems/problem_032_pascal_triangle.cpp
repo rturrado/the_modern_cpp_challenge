@@ -1,19 +1,19 @@
 #include "chapter_04_streams_and_filesystems/problem_032_pascal_triangle.h"
 
+#include "fmt/ostream.h"
+#include "fmt/ranges.h"
+
 #include <exception>
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <functional>  // plus
 #include <iostream>  // cout
 #include <numeric>  // adjacent_difference
-#include <ostream>
 #include <stdexcept>  // out_of_range
 #include <string>  // to_string
 #include <vector>
 
 
 namespace tmcppc::problem_32 {
-    pascal_triangle_t pascal_triangle(const size_t n) {
+    pascal_triangle_t pascal_triangle(size_t n) {
         if (n > 30) {
             throw std::out_of_range{ std::string{"calling pascal_triangle with n > 30, n = "} + std::to_string(n) };
         }
@@ -47,10 +47,10 @@ namespace tmcppc::problem_32 {
 void problem_32_main(std::ostream& os) {
     using namespace tmcppc::problem_32;
 
-    for (size_t n : { 0, 1, 2, 10, 40 }) {
+    for (auto n : { 0, 1, 2, 10, 40 }) {
         try {
             fmt::print(os, "Pascal triangle for n = {}:\n", n);
-            auto ret{ pascal_triangle(n) };
+            auto ret{ pascal_triangle(static_cast<size_t>(n)) };
             fmt::print(os, "\t{}\n", ret.empty() ? "[]" : fmt::format("{}", fmt::join(ret, "\n\t")));
         } catch (const std::exception& err) {
             fmt::print(os, "\tError: {}\n", err.what());

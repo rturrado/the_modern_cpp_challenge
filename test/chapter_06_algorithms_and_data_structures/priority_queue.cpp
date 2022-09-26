@@ -1,10 +1,8 @@
 #include "chapter_06_algorithms_and_data_structures/priority_queue.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-#include <functional>  // greater
-#include <sstream>  // ostringstream
 #include <stdexcept>  // runtime_error
 #include <utility>  // as_const
 #include <vector>
@@ -26,7 +24,7 @@ TEST(priority_queue, custom_constructor) {
 }
 TEST(priority_queue, custom_constructor_with_compare_function) {
     std::vector<int> v{ 1, 5, 10 };
-    priority_queue<int, std::greater<int>> pq{ v.cbegin(), v.cend() };
+    priority_queue<int, std::greater<>> pq{ v.cbegin(), v.cend() };
     EXPECT_FALSE(pq.empty());
     EXPECT_EQ(pq.size(), 3);
     std::vector<int> w{ pq.cbegin(), pq.cend() };

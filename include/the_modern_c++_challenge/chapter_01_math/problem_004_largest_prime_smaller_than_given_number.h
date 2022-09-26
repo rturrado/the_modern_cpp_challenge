@@ -4,7 +4,7 @@
 
 
 namespace tmcppc::problem_4 {
-    size_t biggest_prime_smaller_than(const size_t n);
+    size_t biggest_prime_smaller_than(size_t n);
 }  // namespace tmcppc::problem_4
 
 

@@ -1,12 +1,11 @@
 ﻿#include "chapter_12_networking_and_services/problem_099_translating_text.h"
 #include "chapter_12_networking_and_services/text_translation.h"
 
+#include "fmt/ostream.h"
+
 #include <exception>
-#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
-#include <istream>
 #include <memory>  // make_unique
-#include <ostream>
 #include <string>  // getline
 #include <string_view>
 #include <variant>  // get, holds_alternative

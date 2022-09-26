@@ -1,11 +1,9 @@
 #include "chapter_09_data_serialization/pdf/images_doc.h"
 #include "chapter_09_data_serialization/pdf/image_list_layouter.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 #include <filesystem>
-#include <memory>  // make_unique
 
 using namespace tmcppc::pdf;
 namespace fs = std::filesystem;

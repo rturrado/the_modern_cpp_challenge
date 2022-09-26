@@ -1,7 +1,7 @@
 #include "chapter_06_algorithms_and_data_structures/problem_059_weasel_program.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <cmath>  // abs
 #include <numeric>  // transform_reduce

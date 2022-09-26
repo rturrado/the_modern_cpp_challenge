@@ -1,7 +1,7 @@
 #pragma once
 
 #include <algorithm>  // for_each
-#include <fmt/ostream.h>
+#include "fmt/ostream.h"
 #include <iosfwd>
 #include <sstream>  // ostringstream
 #include <string>

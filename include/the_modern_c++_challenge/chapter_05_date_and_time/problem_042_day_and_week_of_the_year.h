@@ -1,13 +1,14 @@
 #pragma once
 
-#include <chrono>
+#include "date/date.h"
+
 #include <iosfwd>
 
 
 namespace tmcppc::problem_42 {
-    unsigned int daynum(const std::chrono::year_month_day& date);  // starting from 1
+    unsigned int daynum(const date::year_month_day& date);  // starting from 1
 
-    unsigned int weeknum(const std::chrono::year_month_day& date);  // starting from 1
+    unsigned int weeknum(const date::year_month_day& date);  // starting from 1
 }  // namespace tmcppc::problem_42
 
 

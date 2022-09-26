@@ -3,12 +3,10 @@
 
 #include "rtc/console.h"  // read_positive_number
 
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
+#include "fmt/ostream.h"
+
 #include <iostream>  // cin, cout
-#include <istream>
 #include <numeric>  // accumulate
-#include <ostream>
 #include <utility>  // move
 #include <vector>
 
@@ -34,11 +32,11 @@ void problem_6_main(std::istream& is, std::ostream& os) {
     auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 1): ", 1) };
 
     fmt::print(os, "Abundant numbers up to {} [list of divisors] (and their abundance):\n", limit);
-    const auto& result{ abundant_numbers_up_to(limit) };
-    if (result.empty()) {
+    const auto& results{ abundant_numbers_up_to(static_cast<size_t>(limit)) };
+    if (results.empty()) {
         fmt::print(os, "\t[]\n");
     } else {
-        for (const auto& result : result) {
+        for (const auto& result : results) {
             fmt::print(os, "\t{} {} ({})\n", result.number, result.divisors, result.abundance);
         }
     }

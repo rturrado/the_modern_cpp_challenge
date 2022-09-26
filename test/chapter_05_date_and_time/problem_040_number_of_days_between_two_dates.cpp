@@ -2,33 +2,33 @@
 
 #include "rtc/chrono.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "date/date.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-#include <chrono>
 #include <sstream>  // ostringstream
 
-using namespace std::chrono_literals;
+using namespace date::literals;  // 2012_y
 using namespace tmcppc::problem_40;
 
 
 TEST(difference_in_days, invalid_start_date) {
-    EXPECT_THROW(difference_in_days(2012y / 20 / 50, 2012y / 6 / 22), rtc::chrono::invalid_date_error);
+    EXPECT_THROW(difference_in_days(2012_y / 20 / 50, 2012_y / 6 / 22), rtc::chrono::invalid_date_error);
 }
 TEST(difference_in_days, invalid_end_date) {
-    EXPECT_THROW(difference_in_days(2012y / 6 / 22, 2012y / 20 / 50), rtc::chrono::invalid_date_error);
+    EXPECT_THROW(difference_in_days(2012_y / 6 / 22, 2012_y / 20 / 50), rtc::chrono::invalid_date_error);
 }
 TEST(difference_in_days, end_date_is_earlier_than_start_date) {
-    EXPECT_EQ(difference_in_days(2012y / 6 / 29, 2012y / 6 / 22), -7);
+    EXPECT_EQ(difference_in_days(2012_y / 6 / 29, 2012_y / 6 / 22), -7);
 }
 TEST(difference_in_days, end_date_is_later_than_start_date) {
-    EXPECT_EQ(difference_in_days(2012y / 6 / 22, 2012y / 6 / 29), 7);
+    EXPECT_EQ(difference_in_days(2012_y / 6 / 22, 2012_y / 6 / 29), 7);
 }
 TEST(difference_in_days, same_day) {
-    EXPECT_EQ(difference_in_days(2012y / 6 / 22, 2012y / 6 / 22), 0);
+    EXPECT_EQ(difference_in_days(2012_y / 6 / 22, 2012_y / 6 / 22), 0);
 }
 TEST(difference_in_days, leap_year) {
-    EXPECT_EQ(difference_in_days(2020y / 2 / 28, 2020y / 3 / 1), 2);
+    EXPECT_EQ(difference_in_days(2020_y / 2 / 28, 2020_y / 3 / 1), 2);
 }
 
 

@@ -2,26 +2,25 @@
 
 #include "rtc/chrono.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "date/date.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-#include <chrono>
 #include <sstream>  // ostringstream
 
-namespace ch = std::chrono;
-using namespace std::chrono_literals;
+using namespace date::literals;
 using namespace tmcppc::problem_44;
 
 
 TEST(print_calendar_month, invalid_month) {
     std::ostringstream oss{};
-    EXPECT_THROW(print_calendar_month(oss, 2022y, ch::month{ 20 }), rtc::chrono::invalid_month_error);
+    EXPECT_THROW(print_calendar_month(oss, 2022_y, date::month{ 20 }), rtc::chrono::invalid_month_error);
 }
 
 
 TEST(print_calendar_month, january_1970) {
     std::ostringstream oss{};
-    print_calendar_month(oss, 1970y, ch::month{ 1 });
+    print_calendar_month(oss, 1970_y, date::month{ 1 });
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
         "1970/Jan\n"
         " Mon Tue Wed Thu Fri Sat Sun\n"

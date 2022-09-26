@@ -7,11 +7,10 @@
 
 #include "rtc/filesystem.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <filesystem>
-#include <memory>  // make_unique, unique_ptr
 #include <utility>  // move
 #include <variant>  // get, holds_alternative
 

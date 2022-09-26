@@ -3,12 +3,11 @@
 #include "chapter_09_data_serialization/pdf/movies_doc.h"
 #include "chapter_09_data_serialization/pdf/text_list_layouter.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <chrono>
 #include <filesystem>
-#include <memory>  // make_unique
 #include <vector>
 
 using namespace std::chrono_literals;
@@ -19,13 +18,13 @@ namespace fs = std::filesystem;
 
 TEST(movies_doc, save_to_text_list_layouter_of_zero_text_lines_per_page) {
     const auto temp_file_path{ fs::temp_directory_path() / "test_pdf_doc_save_to_text_list_layouter_of_zero_text_lines_per_page.pdf" };
-    movies_doc out_doc{ catalog{} };
+    movies_doc out_doc{catalog_t{} };
     EXPECT_THROW(out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(0)), std::runtime_error);
 }
 
 TEST(movies_doc, save_to_empty_list_of_movies) {
     const auto temp_file_path{ fs::temp_directory_path() / "test_pdf_doc_save_to_empty_list_of_movies.pdf" };
-    movies_doc out_doc{ catalog{} };
+    movies_doc out_doc{catalog_t{} };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(10));
     EXPECT_TRUE(fs::exists(temp_file_path));
     EXPECT_FALSE(fs::is_empty(temp_file_path));
@@ -33,7 +32,7 @@ TEST(movies_doc, save_to_empty_list_of_movies) {
 
 TEST(movies_doc, save_to_list_of_2_movies) {
     const auto temp_file_path{ fs::temp_directory_path() / "test_pdf_doc_save_to_list_of_2_movies.pdf" };
-    const catalog catalog_of_2_movies{ std::vector<movie>(
+    const catalog_t catalog_of_2_movies{std::vector<movie_t>(
         samples::catalog_of_50_movies.movies.cbegin(), samples::catalog_of_50_movies.movies.cbegin() + 2) };
     movies_doc out_doc{ catalog_of_2_movies };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(10));
@@ -43,7 +42,7 @@ TEST(movies_doc, save_to_list_of_2_movies) {
 
 TEST(movies_doc, save_to_list_of_30_movies_with_10_per_page) {
     const auto temp_file_path{ fs::temp_directory_path() / "test_pdf_doc_save_to_list_of_30_movies_with_10_per_page.pdf" };
-    const catalog catalog_of_30_movies{ std::vector<movie>(
+    const catalog_t catalog_of_30_movies{std::vector<movie_t>(
         samples::catalog_of_50_movies.movies.cbegin(), samples::catalog_of_50_movies.movies.cbegin() + 30) };
     movies_doc out_doc{ catalog_of_30_movies };
     out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(10));

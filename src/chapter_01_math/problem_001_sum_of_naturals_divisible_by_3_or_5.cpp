@@ -2,18 +2,17 @@
 
 #include "rtc/console.h"  // read_positive_number
 
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
+#include "fmt/ostream.h"
+#include "range/v3/range/conversion.hpp"  // to
+#include "range/v3/view/filter.hpp"
+#include "range/v3/view/iota.hpp"
+#include "range/v3/view/take.hpp"
+
 #include <iostream>  // cin, cout
-#include <istream>
 #include <numeric>  // accumulate
-#include <ostream>
-#include <range/v3/core.hpp>
-#include <range/v3/range/conversion.hpp>  // to
-#include <range/v3/view/filter.hpp>
-#include <range/v3/view/iota.hpp>
-#include <range/v3/view/take.hpp>
 #include <vector>
+
+namespace rv3 = ranges;
 
 
 namespace tmcppc::problem_1 {
@@ -29,10 +28,10 @@ namespace tmcppc::problem_1 {
 
 
     std::vector<size_t> naturals_divisible_by_3_or_5_up_to_limit_v2(size_t limit) {
-        return ranges::views::iota(0)
-            | ranges::views::take(limit + 1)
-            | ranges::views::filter([](auto i) { return (i % 3 == 0) or (i % 5 == 0); })
-            | ranges::to<std::vector<size_t>>();
+        return rv3::views::iota(0)
+            | rv3::views::take(static_cast<long>(limit + 1))
+            | rv3::views::filter([](auto i) { return (i % 3 == 0) or (i % 5 == 0); })
+            | rv3::to<std::vector<size_t>>();
     }
 }  // namespace tmcppc::problem_1
 
@@ -43,7 +42,7 @@ void problem_1_main(std::istream& is, std::ostream& os) {
     auto n{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 0): ", 0) };
 
     for (auto f : { naturals_divisible_by_3_or_5_up_to_limit_v1 , naturals_divisible_by_3_or_5_up_to_limit_v2 }) {
-        auto v{ f(n) };
+        auto v{ f(static_cast<size_t>(n)) };
 
         fmt::print(os, "The sum of all natural numbers divisible by either 3 or 5 and up to {} is:\n\t{} {}\n\n",
             n, std::accumulate(std::cbegin(v), std::cend(v), static_cast<size_t>(0)), v);

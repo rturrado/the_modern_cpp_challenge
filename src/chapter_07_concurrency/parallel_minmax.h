@@ -1,9 +1,10 @@
 #pragma once
 
+#include "fmt/ostream.h"
+#include "fmt/ranges.h"
+
 #include <algorithm>  // max_element, min_element, shuffle
 #include <execution>
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <numeric>  // iota
 #include <ostream>
 #include <random>  // default_random_engine, random_device

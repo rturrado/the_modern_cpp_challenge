@@ -1,8 +1,9 @@
 #include "chapter_06_algorithms_and_data_structures/problem_052_generating_all_the_permutations_of_a_string.h"
 
+#include "fmt/ostream.h"
+#include "fmt/ranges.h"
+
 #include <algorithm>  // next_permutation, sort
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <string>
 

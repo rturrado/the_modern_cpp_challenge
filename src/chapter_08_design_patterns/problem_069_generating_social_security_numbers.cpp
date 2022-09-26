@@ -1,7 +1,8 @@
 #include "chapter_08_design_patterns/problem_069_generating_social_security_numbers.h"
 
+#include "fmt/ostream.h"
+
 #include <chrono>
-#include <fmt/ostream.h>
 #include <initializer_list>
 #include <iostream>  // cout
 #include <ostream>
@@ -40,14 +41,14 @@ void problem_69_main(std::ostream& os) {
 //
 // - In Northeria, the numbers have the format SYYYYMMDDNNNNNC, where
 //   S is a digit representing the sex, 9 for females and 7 for males,
-//   YYYYMMDD is the birth date,
+//   YYYYMMDD is the birthdate,
 //   NNNNN is a five-digit random number, unique for a day
 //   (meaning that the same number can appear twice for two different dates, but not the same date), and
 //   C is a digit picked so that the checksum computed as described later is a multiple of 11.
 //
 // - In Southeria, the numbers have the format SYYYYMMDDNNNNC, where
 //   S is a digit representing the sex, 1 for females and 2 for males,
-//   YYYYMMDD is the birth date,
+//   YYYYMMDD is the birthdate,
 //   NNNN is a four-digit random number, unique for a day, and
 //   C is a digit picked so that the checksum computed as described below is a multiple of 10.
 //

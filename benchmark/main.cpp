@@ -1,7 +1,7 @@
 #include "benchmark.h"  // custom benchmark
 
-#include <benchmark/benchmark.h>  // google benchmark
-#include <fmt/core.h>
+#include "benchmark/benchmark.h"  // google benchmark
+#include "fmt/core.h"
 
 
 void run_custom_benchmarks() {

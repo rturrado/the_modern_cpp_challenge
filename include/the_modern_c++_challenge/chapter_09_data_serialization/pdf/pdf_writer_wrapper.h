@@ -17,32 +17,32 @@ namespace tmcppc::pdf_writer {
 
     // Runtime errors
     struct start_pdf_error : public std::runtime_error {
-        start_pdf_error(const std::string& path) : std::runtime_error{ message_ + path } {}
+        explicit start_pdf_error(const std::string& path) : std::runtime_error{ message_ + path } {}
     private:
         static inline std::string message_{ "trying to start PDF: " };
     };
     struct end_pdf_error : public std::runtime_error {
-        end_pdf_error(const std::string& path) : std::runtime_error{ message_ + path } {}
+        explicit end_pdf_error(const std::string& path) : std::runtime_error{ message_ + path } {}
     private:
         static inline std::string message_{ "trying to end PDF: " };
     };
     struct end_page_content_context_error : public std::runtime_error {
-        end_page_content_context_error(const std::string& path) : std::runtime_error{ message_ + path } {}
+        explicit end_page_content_context_error(const std::string& path) : std::runtime_error{ message_ + path } {}
     private:
         static inline std::string message_{ "trying to end page content context: " };
     };
     struct write_page_and_release_error : public std::runtime_error {
-        write_page_and_release_error(const std::string& path) : std::runtime_error{ message_ + path } {}
+        explicit write_page_and_release_error(const std::string& path) : std::runtime_error{ message_ + path } {}
     private:
         static inline std::string message_{ "trying to write page and release: " };
     };
     struct get_font_for_file_error : public std::runtime_error {
-        get_font_for_file_error(const std::string& path) : std::runtime_error{ message_ + path } {}
+        explicit get_font_for_file_error(const std::string& path) : std::runtime_error{ message_ + path } {}
     private:
         static inline std::string message_{ "trying to get font for file: " };
     };
     struct get_image_dimensions_error : public std::runtime_error {
-        get_image_dimensions_error(const std::string& path) : std::runtime_error{ message_ + path } {}
+        explicit get_image_dimensions_error(const std::string& path) : std::runtime_error{ message_ + path } {}
     private:
         static inline std::string message_{ "trying to get image dimensions for file: " };
     };
@@ -112,8 +112,8 @@ namespace tmcppc::pdf_writer {
         }
         if (*ppage and pctx and not *pctx) {
             *pctx = start_page_content_context(pdf_writer, *ppage);
-        };
-    };
+        }
+    }
     inline void end_page_and_page_content_context(PDFWriter& pdf_writer, PDFPage** ppage, PageContentContext** pctx) {
         if (pctx and *pctx) {
             end_page_content_context(pdf_writer, *pctx);
@@ -123,5 +123,5 @@ namespace tmcppc::pdf_writer {
             tmcppc::pdf_writer::write_page_and_release(pdf_writer, *ppage);
             *ppage = nullptr;
         }
-    };
+    }
 }  // tmcppc::pdf_writer

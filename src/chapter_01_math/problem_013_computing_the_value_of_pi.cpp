@@ -1,9 +1,8 @@
 #include "chapter_01_math/problem_013_computing_the_value_of_pi.h"
 
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
+#include "fmt/ostream.h"
+
 #include <iostream>  // cout
-#include <ostream>
 #include <random>
 
 
@@ -32,7 +31,7 @@ namespace tmcppc::problem_13 {
             }
         }
 
-        return (4.0 * dots_within_circle_count) / dots_within_square_count;
+        return (4.0 * static_cast<double>(dots_within_circle_count)) / static_cast<double>(dots_within_square_count);
     }
 }  // namespace tmcppc::problem_13
 
@@ -40,8 +39,8 @@ namespace tmcppc::problem_13 {
 void problem_13_main(std::ostream& os) {
     using namespace tmcppc::problem_13;
 
-    for (size_t number_of_iterations : {10, 100, 1'000, 10'000, 100'000, 1'000'000, 10'000'000 }) {
-        fmt::print(os, "Estimated value of pi: {}\n", compute_pi(number_of_iterations));
+    for (auto number_of_iterations : {10, 100, 1'000, 10'000, 100'000, 1'000'000, 10'000'000 }) {
+        fmt::print(os, "Estimated value of pi: {}\n", compute_pi(static_cast<size_t>(number_of_iterations)));
     }
     fmt::print(os, "\n");
 }

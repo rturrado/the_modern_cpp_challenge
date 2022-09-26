@@ -1,7 +1,7 @@
 #include "chapter_03_strings_and_regular_expressions/problem_029_license_plate_validation.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <sstream>  // ostringstream
 

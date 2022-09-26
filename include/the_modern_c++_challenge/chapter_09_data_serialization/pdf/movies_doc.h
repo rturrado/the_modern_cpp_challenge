@@ -12,8 +12,9 @@
 #include "PDFWriter/PDFRectangle.h"
 #include "PDFWriter/PDFWriter.h"
 
+#include "fmt/format.h"
+
 #include <filesystem>
-#include <fmt/format.h>
 #include <memory>  // unique_ptr
 #include <string>
 #include <utility>  // move
@@ -21,17 +22,17 @@
 
 namespace tmcppc::pdf {
     class movies_doc : public doc {
-        using catalog = tmcppc::movies::catalog;
+        using catalog = tmcppc::movies::catalog_t;
 
     public:
-        movies_doc(const catalog& c) : catalog_{ c } {}
+        explicit movies_doc(catalog c) : catalog_{ std::move(c) } {}
 
-        virtual void start_pdf(const std::filesystem::path& output_file_path) override {
+        void start_pdf(const std::filesystem::path& output_file_path) override {
             tmcppc::pdf_writer::start_pdf(pdf_writer_, output_file_path);
             set_font();
         }
 
-        virtual void start_page(double page_width, double page_height) override {
+        void start_page(double page_width, double page_height) override {
             tmcppc::pdf_writer::start_page_and_page_content_context(pdf_writer_, &current_page_, &current_ctx_, page_width, page_height);
             page_counter_++;
             if (is_first_page()) {
@@ -40,19 +41,19 @@ namespace tmcppc::pdf {
             print_line_separator();
         }
 
-        virtual void end_pdf() override {
+        void end_pdf() override {
             end_page();
             tmcppc::pdf_writer::end_pdf(pdf_writer_);
         }
 
-        virtual void end_page() override{
+        void end_page() override{
             if (current_page_ and current_ctx_) {
                 print_line_separator();
                 tmcppc::pdf_writer::end_page_and_page_content_context(pdf_writer_, &current_page_, &current_ctx_);
             }
         }
 
-        virtual void save_to(const std::filesystem::path& output_file_path, std::unique_ptr<layouter> layouter) override {
+        void save_to(const std::filesystem::path& output_file_path, std::unique_ptr<layouter> layouter) override {
             layouter_ = std::move(layouter);
             start_pdf(output_file_path);
             start_page(layouter_->get_page_width(), layouter_->get_page_height());

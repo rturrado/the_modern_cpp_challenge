@@ -1,7 +1,6 @@
 #include "chapter_01_math/digits.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 using namespace tmcppc::math;
 

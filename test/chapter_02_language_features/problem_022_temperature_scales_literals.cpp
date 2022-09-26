@@ -1,7 +1,7 @@
 #include "chapter_02_language_features/problem_022_temperature_scales_literals.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <sstream>  // ostringstream
 

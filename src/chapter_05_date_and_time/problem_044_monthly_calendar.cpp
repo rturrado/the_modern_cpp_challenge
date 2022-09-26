@@ -2,39 +2,39 @@
 
 #include "rtc/chrono.h"
 
-#include <chrono>
-#include <format>
+#include "date/date.h"
+#include "fmt/chrono.h"
+#include "fmt/format.h"
+
 #include <iostream>  // cout
 #include <ostream>
 #include <utility>  // pair
 #include <vector>
 
-namespace ch = std::chrono;
-
 
 namespace tmcppc::problem_44 {
-    void print_calendar_month(std::ostream& os, const ch::year& y, const ch::month& m) {
+    void print_calendar_month(std::ostream& os, const date::year& y, const date::month& m) {
         if (not m.ok()) {
             throw rtc::chrono::invalid_month_error{ m };
         }
 
         // Header
-        os << ch::year_month{ y / m } << "\n";
+        os << date::year_month{ y / m } << "\n";
         for (unsigned int i{ 1 }; i <= 7; ++i) {
-            os << std::format("{:>4}", ch::weekday{ i });
+            os << fmt::format(" {}", fmt::weekday{ i });
         }
         os << "\n";
 
         // Blank days
-        unsigned int y_m_1_iso_wd{ (ch::weekday{y / m / 1}).iso_encoding() - 1 };
+        unsigned int y_m_1_iso_wd{ (date::weekday{y / m / 1}).iso_encoding() - 1 };
         for (unsigned int i{ 0 }; i < y_m_1_iso_wd; ++i) {
-            os << std::format("{:>4}", ' ');
+            os << fmt::format("{:>4}", ' ');
         }
 
         // Month days
-        unsigned int y_m_d_last{ ch::year_month_day_last{y / m / ch::last}.day() };
+        unsigned int y_m_d_last{ date::year_month_day_last{y / m / date::last}.day() };
         for (unsigned int i{ 1 }; i <= y_m_d_last; ++i) {
-            os << std::format("{:>4}", i);
+            os << fmt::format("{:>4}", i);
             if ((i != y_m_d_last) and ((y_m_1_iso_wd + i) % 7 == 0)) {
                 os << "\n";
             }
@@ -44,12 +44,16 @@ namespace tmcppc::problem_44 {
 
 
 void problem_44_main(std::ostream& os) {
-    using namespace std::chrono_literals;
+    using namespace date::literals;
     using namespace tmcppc::problem_44;
 
-    using vector_of_pairs_year_month = std::vector<std::pair<ch::year, ch::month>>;
+    auto pairs_years_months = std::vector<std::pair<date::year, date::month>>{
+        {1970_y, date::January},
+        {1977_y, date::May},
+        {2012_y, date::February}
+    };
 
-    for (const auto& [year, month] : vector_of_pairs_year_month{ {1970y, ch::January}, {1977y, ch::May}, {2012y, ch::February} }) {
+    for (const auto& [year, month] : pairs_years_months) {
         print_calendar_month(os, year, month);
         os << "\n\n";
     }

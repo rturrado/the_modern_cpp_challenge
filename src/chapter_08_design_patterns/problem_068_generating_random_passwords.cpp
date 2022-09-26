@@ -1,6 +1,7 @@
 #include "chapter_08_design_patterns/problem_068_generating_random_passwords.h"
 
-#include <fmt/ostream.h>
+#include "fmt/ostream.h"
+
 #include <iostream>  // cout
 #include <memory>  // make_unique
 #include <ostream>

@@ -1,10 +1,10 @@
 #include "chapter_03_strings_and_regular_expressions/problem_031_transforming_dates_in_strings.h"
 
+#include "fmt/ostream.h"
+
 #include <exception>
-#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <regex>  // regex_match, regex_replace, smatch
-#include <sstream>  // ostringstream
 #include <string>  // stoi
 #include <string_view>
 
@@ -22,9 +22,9 @@ namespace tmcppc::problem_31 {
             std::regex_match(s, matches, valid_format_pattern_2)) and
             matches.size() == 4) {
 
-            day = std::stoi(matches[1].str());
-            month = std::stoi(matches[2].str());
-            year = std::stoi(matches[3].str());
+            day = static_cast<uint16_t>(std::stoi(matches[1].str()));
+            month = static_cast<uint16_t>(std::stoi(matches[2].str()));
+            year = static_cast<uint16_t>(std::stoi(matches[3].str()));
         } else {
             throw invalid_date_format_error(s);
         }

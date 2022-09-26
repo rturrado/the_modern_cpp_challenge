@@ -1,11 +1,14 @@
 #include "chapter_02_language_features/problem_020_contains_any_all_or_none_from_a_range.h"
 
+#include "fmt/ostream.h"
+
 #include <array>
-#include <cassert>  // assert
-#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <list>
 #include <vector>
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 
 void problem_20_main(std::ostream& os) {

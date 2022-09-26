@@ -2,39 +2,38 @@
 
 #include "rtc/chrono.h"
 
-#include <chrono>
+#include "date/date.h"
+
 #include <exception>
 #include <iostream>  // cout
 #include <ostream>
 #include <utility>  // pair
 #include <vector>
 
-namespace ch = std::chrono;
-
 
 namespace tmcppc::problem_40 {
-    int difference_in_days(ch::year_month_day start_date, ch::year_month_day end_date) {
+    int difference_in_days(date::year_month_day start_date, date::year_month_day end_date) {
         if (not start_date.ok()) {
             throw rtc::chrono::invalid_date_error{ start_date };
         }
         if (not end_date.ok()) {
             throw rtc::chrono::invalid_date_error{ end_date };
         }
-        return (ch::sys_days{ end_date } - ch::sys_days{ start_date }).count();
+        return (date::sys_days{ end_date } - date::sys_days{ start_date }).count();
     }
 }  // namespace tmcppc::problem_40
 
 
 void problem_40_main(std::ostream& os) {
-    using namespace std::chrono_literals;
+    using namespace date::literals;  // 2012_y
     using namespace tmcppc::problem_40;
 
-    auto x{ 2012y / 1 / 24 };
-    auto y{ 2013y / 1 / 8 };
-    auto a{ 1977y / 5 / 23 };
-    auto b{ 2021y / 9 / 23 };
+    auto x{ 2012_y / 1 / 24 };
+    auto y{ 2013_y / 1 / 8 };
+    auto a{ 1977_y / 5 / 23 };
+    auto b{ 2021_y / 9 / 23 };
 
-    using vector_of_date_pairs = std::vector<std::pair<ch::year_month_day, ch::year_month_day>>;
+    using vector_of_date_pairs = std::vector<std::pair<date::year_month_day, date::year_month_day>>;
     for (const auto& [start_date, end_date] : vector_of_date_pairs{ {x, y}, {y, x}, {a, b}, {b, a} }) {
         try {
             os << "First day: " << start_date << "\n";

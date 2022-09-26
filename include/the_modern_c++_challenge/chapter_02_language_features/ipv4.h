@@ -1,10 +1,12 @@
 #pragma once
 
+#include "fmt/format.h"
+#include "fmt/ostream.h"
+
 #include <algorithm>  // for_each
 #include <array>
+#include <charconv>  // from_chars
 #include <cstdint>  // uint8_t, uint32_t
-#include <fmt/format.h>
-#include <fmt/ostream.h>
 #include <ios>  // ios_base
 #include <istream>
 #include <numeric>
@@ -17,10 +19,10 @@
 
 namespace tmcppc::network {
     struct invalid_ipv4_address_error : public std::runtime_error {
-        invalid_ipv4_address_error(const std::string& address) : std::runtime_error{ "" } {
+        explicit invalid_ipv4_address_error(const std::string& address) : std::runtime_error{ "" } {
             message_ = fmt::format("{}: {}", message_, address);
         }
-        const char* what() const noexcept { return message_.c_str(); }
+        [[nodiscard]] const char* what() const noexcept override { return message_.c_str(); }
     private:
         std::string message_{ "invalid IPv4 address" };
     };
@@ -34,7 +36,7 @@ namespace tmcppc::network {
     // std::array is movable if its elements are movable
     // That makes implementation of move constructor and move assignment operator unnecessary for the IPv4 class,
     // since all the members are movable
-    // Copy construction, copy assignment operator and destructor are also unnecesary
+    // Copy construction, copy assignment operator and destructor are also unnecessary
     //
     // operator<< and operator>> implemented as non-member functions and friends
     class ipv4 {
@@ -52,27 +54,30 @@ namespace tmcppc::network {
         {}
 
         explicit constexpr ipv4(std::uint32_t address)
-            : octets_{ (address >> 24) & 0xff, (address >> 16) & 0xff, (address >> 8) & 0xff, address & 0xff }
+            : octets_{
+                static_cast<uint8_t>((address >> 24) & 0xff),
+                static_cast<uint8_t>((address >> 16) & 0xff),
+                static_cast<uint8_t>((address >> 8) & 0xff),
+                static_cast<uint8_t>(address & 0xff)
+            }
         {}
 
         constexpr ipv4(std::uint8_t o0, std::uint8_t o1, std::uint8_t o2, std::uint8_t o3)
             : octets_{ o0, o1, o2, o3 }
         {}
 
-        [[nodiscard]] std::string to_string() const {
-            return fmt::format("{}", *this);
-        }
+        [[nodiscard]] std::string to_string() const;
 
         [[nodiscard]] constexpr unsigned long to_ulong() const noexcept {
             return static_cast<unsigned long>((octets_[0] << 24) | (octets_[1] << 16) | (octets_[2] << 8) | octets_[3]);
         }
 
         ipv4& operator++() {
-            *this = ipv4{ this->to_ulong() + 1 };
+            *this = ipv4{ static_cast<uint32_t>(this->to_ulong() + 1) };
             return *this;
         }
 
-        ipv4 operator++(int) {
+        ipv4 operator++(int) & {
             ipv4 tmp{ *this };
             ++(*this);
             return tmp;
@@ -96,8 +101,6 @@ namespace tmcppc::network {
         }
 
         friend std::istream& operator>>(std::istream& is, ipv4& address) {
-            bool error{ false };
-
             std::string str{};
             is >> str;
 
@@ -114,10 +117,14 @@ namespace tmcppc::network {
             std::regex pattern{ R"(^([[:digit:]]{1,3})\.([[:digit:]]{1,3})\.([[:digit:]]{1,3})\.([[:digit:]]{1,3})$)" };
             std::smatch matches;
             if (std::regex_search(str, matches, pattern)) {
-                int i{ 0 };
+                size_t i{ 0 };
                 for (auto match{ std::next(cbegin(matches)) }; match != cend(matches); ++match) {
-                    int octet{ std::stoi(*match) };
-                    if (octet > 255) {
+                    uint8_t octet{};
+                    const auto& match_str{ match->str() };
+                    const auto match_begin{ match_str.data() };
+                    const auto match_end{ match_begin + match_str.size() };
+                    auto [ptr, ec] = std::from_chars(match_begin, match_end, octet);
+                    if (ec != std::errc{} or ptr != match_end) {
                         ret = false;
                         break;
                     }
@@ -153,3 +160,10 @@ struct fmt::formatter<tmcppc::network::ipv4> {
             address.octets_[0], address.octets_[1], address.octets_[2], address.octets_[3]);
     }
 };
+
+
+namespace tmcppc::network {
+    [[nodiscard]] inline std::string ipv4::to_string() const {
+        return fmt::format("{}", *this);
+    }
+}  // namespace tmcppc::network

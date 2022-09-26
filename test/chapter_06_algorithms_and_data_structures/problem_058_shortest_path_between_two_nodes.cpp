@@ -1,7 +1,7 @@
 #include "chapter_06_algorithms_and_data_structures/problem_058_shortest_path_between_two_nodes.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <sstream>  // ostringstream
 

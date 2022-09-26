@@ -154,14 +154,14 @@ namespace tmcppc::face_detection {
     inline void to_json(nlohmann::json& j, const face& face) {
         j = nlohmann::json{
             { "faceId", face.id },
-            { "faceRectangle", face.rectangle },
+            { "faceRectangle", face.bounding_box },
             { "faceLandmarks", face.landmarks },
             { "faceAttributes", face.attributes }
         };
     }
     inline void from_json(const nlohmann::json& j, face& face) {
         j.at("faceId").get_to(face.id);
-        j.at("faceRectangle").get_to(face.rectangle);
+        j.at("faceRectangle").get_to(face.bounding_box);
         j.at("faceLandmarks").get_to(face.landmarks);
         j.at("faceAttributes").get_to(face.attributes);
     }

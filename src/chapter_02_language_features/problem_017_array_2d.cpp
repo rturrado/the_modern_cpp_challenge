@@ -1,13 +1,12 @@
 #include "chapter_02_language_features/array_2d.h"
 #include "chapter_02_language_features/problem_017_array_2d.h"
 
+#include "fmt/ostream.h"
+
 #include <algorithm>  // transform
 #include <exception>
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <numeric>  // iota
-#include <ostream>
 #include <utility>  // move
 
 
@@ -33,7 +32,7 @@ void problem_17_main(std::ostream& os) {
         }
         fmt::print(os, "arr2:\n{}\n\n", arr2);
 
-        // Array initialized with a initializer list of initializer lists
+        // Array initialized with an initializer list of initializer lists
         array_2d<std::string> arr3{
             { "En", "un", "lugar", "de" },
             { "la", "Mancha", "de", "cuyo" },

@@ -2,11 +2,10 @@
 
 #include "rtc/timer.h"  // function_timer
 
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
+#include "fmt/ostream.h"
+
 #include <iostream>  // cout
 #include <map>
-#include <ostream>
 #include <utility>  // pair
 #include <vector>
 
@@ -85,7 +84,7 @@ namespace tmcppc::problem_12 {
 
         for (size_t i{ 2 }; i <= limit; ++i) {
             auto n{ i };
-            long steps{ 0 };
+            size_t steps{ 0 };
             while (n != 1 and n >= i) {
                 if ((n % 2) == 0) {
                     n = n / 2;
@@ -112,15 +111,13 @@ void problem_12_main(std::ostream& os) {
 
     constexpr size_t limit{ 1'000'000 };
 
-    // Determine n and Collatz sequence size for n
+    // Determine n and Collatz sequence size for n,
     // n being the number up to limit with longest Collatz sequence
-    size_t n{ 1 };
-    size_t n_collatz_sequence_size{ 1 };
-    auto result = get_longest_collatz_sequence_v1(limit);
+    auto [n, n_collatz_sequence_size] = get_longest_collatz_sequence_v1(limit);
 
     // Print results
     fmt::print(os, "Number between 1 and {0} with longest Collatz sequence ({2} elements) is: {1}\n\n",
-        limit, result.first, result.second);
+        limit, n, n_collatz_sequence_size);
 }
 
 

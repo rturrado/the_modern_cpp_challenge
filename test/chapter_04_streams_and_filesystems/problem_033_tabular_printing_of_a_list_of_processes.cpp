@@ -1,9 +1,9 @@
 #include "chapter_04_streams_and_filesystems/problem_033_tabular_printing_of_a_list_of_processes.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "fmt/format.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-#include <fmt/format.h>
 #include <sstream>  // ostringstream
 
 using namespace tmcppc::problem_33;

@@ -1,7 +1,7 @@
 #include "chapter_06_algorithms_and_data_structures/double_buffer.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <stdexcept>  // out_of_range
 

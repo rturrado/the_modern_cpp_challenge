@@ -1,7 +1,7 @@
 #include "chapter_03_strings_and_regular_expressions/problem_024_string_to_binary_conversion.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <sstream>  // ostringstream
 

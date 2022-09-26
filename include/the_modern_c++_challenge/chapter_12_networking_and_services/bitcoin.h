@@ -2,10 +2,13 @@
 
 #include "rtc/pretty_print.h"
 
+#include "fmt/core.h"
+#include "fmt/ostream.h"
+
 #include <algorithm>  // for_each
-#include <fmt/ostream.h>
 #include <map>
 #include <ostream>
+#include <sstream>
 #include <string>
 
 
@@ -29,8 +32,26 @@ namespace tmcppc::bitcoin {
         er.print(os);
         return os;
     }
+}  // namespace tmcppc::bitcoin
 
 
+template <>
+struct fmt::formatter<tmcppc::bitcoin::exchange_rate> {
+    template <typename ParseContext>
+    constexpr auto parse(ParseContext& ctx) {
+        return ctx.begin();
+    }
+
+    template <typename FormatContext>
+    auto format(const tmcppc::bitcoin::exchange_rate& exchange_rate, FormatContext& ctx) const -> decltype(ctx.out()) {
+        std::ostringstream oss{};
+        exchange_rate.print(oss);
+        return fmt::format_to(ctx.out(), "{}", oss.str());
+    }
+};
+
+
+namespace tmcppc::bitcoin {
     struct exchange_rates {
         std::map<std::string, exchange_rate> data{};
 
@@ -58,24 +79,7 @@ namespace tmcppc::bitcoin {
         ers.print(os);
         return os;
     }
-
 }  // namespace tmcppc::bitcoin
-
-
-template <>
-struct fmt::formatter<tmcppc::bitcoin::exchange_rate> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::bitcoin::exchange_rate& exchange_rate, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        exchange_rate.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
 
 
 template <>

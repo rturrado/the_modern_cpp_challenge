@@ -23,7 +23,7 @@ namespace tmcppc::office {
     //
     class ticketing_machine {
     public:
-        ticketing_machine() {}
+        ticketing_machine() = default;
         ticketing_machine(const ticketing_machine& other) = delete;
         ticketing_machine& operator=(const ticketing_machine& other) = delete;
 
@@ -49,8 +49,8 @@ namespace tmcppc::office {
         office(const office& other) = delete;
         office& operator=(const office& other) = delete;
 
-        constexpr size_t get_number_of_customers() const { return number_of_customers_; }
-        constexpr size_t get_number_of_desks() const { return number_of_desks_; }
+        [[nodiscard]] constexpr size_t get_number_of_customers() const { return number_of_customers_; }
+        [[nodiscard]] constexpr size_t get_number_of_desks() const { return number_of_desks_; }
 
         // Ticket number
         auto customer_gets_ticket_number() { return ticketing_machine_.get_ticket_number(); }
@@ -140,7 +140,7 @@ namespace tmcppc::office {
     inline void random_sleep_for(int min, int max) {
         std::chrono::milliseconds t{ rtc::random::random_int{ min, max }() };
         std::this_thread::sleep_for(t);
-    };
+    }
 
 
     // Customer
@@ -192,14 +192,12 @@ namespace tmcppc::office {
     //
     class office_simulator {
     public:
-        office_simulator(size_t number_of_customers = 7, size_t number_of_desks = 3)
+        explicit office_simulator(size_t number_of_customers = 7, size_t number_of_desks = 3)
             : office_{ number_of_customers, number_of_desks }
             , logger_{ logger::get_instance() }
         {}
         office_simulator(const office_simulator& other) = delete;
         office_simulator& operator=(const office_simulator& other) = delete;
-
-        office& get_office() { return office_; }
 
         void run(std::ostream& os) {
             std::vector<std::jthread> customers{};

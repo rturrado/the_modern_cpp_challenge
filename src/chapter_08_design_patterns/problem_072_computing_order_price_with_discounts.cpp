@@ -1,11 +1,13 @@
 #include "chapter_08_design_patterns/problem_072_computing_order_price_with_discounts.h"
 
-#include <cassert>  // assert
 #include <cmath>  // abs
 #include <iostream>  // cout
 #include <limits>  // epsilon, numeric_limits
 #include <memory>  // make_shared
 #include <ostream>
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 
 void problem_72_main(std::ostream& os) {
@@ -18,11 +20,11 @@ void problem_72_main(std::ostream& os) {
     auto d4{ std::make_shared<order_price_discount>(0.03f, 100.0f) };
 
     // Articles
-    auto a1{ std::make_shared<article>(0, 1.0f, std::vector<std::shared_ptr<discount>>{}) };
-    auto a2{ std::make_shared<article>(1, 2.0f, std::vector<std::shared_ptr<discount>>{ d1 }) };
-    auto a3{ std::make_shared<article>(2, 4.0f, std::vector<std::shared_ptr<discount>>{}) };
-    auto a4{ std::make_shared<article>(3, 8.0f, std::vector<std::shared_ptr<discount>>{}) };
-    auto a5{ std::make_shared<article>(5, 16.0f, std::vector<std::shared_ptr<discount>>{}) };
+    auto a1{ std::make_shared<article_t>(0, 1.0f, std::vector<std::shared_ptr<discount>>{}) };
+    auto a2{ std::make_shared<article_t>(1, 2.0f, std::vector<std::shared_ptr<discount>>{ d1 }) };
+    auto a3{ std::make_shared<article_t>(2, 4.0f, std::vector<std::shared_ptr<discount>>{}) };
+    auto a4{ std::make_shared<article_t>(3, 8.0f, std::vector<std::shared_ptr<discount>>{}) };
+    auto a5{ std::make_shared<article_t>(5, 16.0f, std::vector<std::shared_ptr<discount>>{}) };
 
     // Store
     store store{};
@@ -37,11 +39,11 @@ void problem_72_main(std::ostream& os) {
     fmt::print(os, "\n\n");
 
     // Customers
-    auto c1{ std::make_shared<customer>(0, std::vector<std::shared_ptr<discount>>{}) };
-    auto c2{ std::make_shared<customer>(1, std::vector<std::shared_ptr<discount>>{ d1 }) };
+    auto c1{ std::make_shared<customer_t>(0, std::vector<std::shared_ptr<discount>>{}) };
+    auto c2{ std::make_shared<customer_t>(1, std::vector<std::shared_ptr<discount>>{ d1 }) };
 
     // Orders
-    order o1{
+    order_t o1{
         .id = 0,
         .order_lines = {
             { a1, 6, std::vector<std::shared_ptr<discount>>{ d2 } },
@@ -51,7 +53,7 @@ void problem_72_main(std::ostream& os) {
         .customer = c1,
         .discounts = std::vector<std::shared_ptr<discount>>{}
     };
-    order o2{
+    order_t o2{
         .id = 1,
         .order_lines = {
             { a3, 10, std::vector<std::shared_ptr<discount>>{ d3 } },

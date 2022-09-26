@@ -1,14 +1,12 @@
 #include "chapter_10_archives_images_and_databases/problem_079_finding_files_in_a_zip_archive.h"
 #include "env.h"
 
-#include "ZipArchive.h"
 #include "ZipFile.h"
 
+#include "fmt/ostream.h"
+
 #include <filesystem>
-#include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <iterator>  // back_inserter
-#include <ostream>
 #include <regex>  // regex_match
 #include <string>
 
@@ -39,7 +37,7 @@ namespace tmcppc::problem_79 {
             fmt::print(os, "Error: {}\n", ex.what());
             return {};
         }
-    };
+    }
 }  // namespace tmcppc::problem_79
 
 

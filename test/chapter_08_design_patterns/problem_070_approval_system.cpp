@@ -1,7 +1,7 @@
 #include "chapter_08_design_patterns/problem_070_approval_system.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <memory>  // make_shared, make_unique
 #include <sstream>  // ostringstream

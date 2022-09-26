@@ -23,12 +23,12 @@ namespace tmcppc::logging::v2 {
         // Let's print a variadic list of printable arguments instead
         void log(std::ostream& os, rtc::print::printable auto ... messages) {
             std::lock_guard<std::mutex> lock{ m_ };
-            (os << ... << messages);
+            (void) (os << ... << messages);
         }
 
     private:
         std::mutex m_{};
 
-        logger() {};
+        logger() = default;
     };
 }  // namespace tmcppc::logging::v2

@@ -1,11 +1,10 @@
 #include "chapter_07_concurrency/problem_062_parallel_minmax_with_threads.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <numeric>  // iota
 #include <ranges>  // views::iota
-#include <sstream>  // ostringstream
 #include <vector>
 
 using tmcppc::algorithm::thread::parallel_min;

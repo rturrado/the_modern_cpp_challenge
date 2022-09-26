@@ -1,5 +1,8 @@
 #pragma once
 
+#include "date/tz.h"
+#include "fmt/format.h"
+
 #include <chrono>
 #include <ostream>
 #include <vector>
@@ -13,15 +16,18 @@ namespace tmcppc::problem_43 {
     template <typename Duration>
     void display_local_meeting_times(
         std::ostream& os,
-        const std::chrono::zoned_time<Duration>& meeting_zt,
+        const date::zoned_time<Duration>& meeting_zt,
         const vector_of_participants_and_time_zones& participants) {
+
+        namespace ch = std::chrono;
 
         os << "Local meeting times:\n";
         for (size_t i{ 0 }; i < participants.size(); ++i) {
             const auto& p{ participants[i].first };
             const auto& tz{ participants[i].second };
+            const auto& zt{ date::zoned_time<ch::minutes>{ tz, meeting_zt } };
 
-            os << std::format("\t{:10} {:%F %R %z} {:20}\n", p, std::chrono::zoned_time{ tz, meeting_zt }, tz);
+            os << fmt::format("\t{:10} ", p) << date::format("%F %R %z", zt) << fmt::format(" {:20}\n", tz);
         }
     }
 }  // namespace tmcppc::problem_43

@@ -8,10 +8,10 @@
 #include "curl_easy.h"
 #include "curl_header.h"
 
+#include "fmt/format.h"
 #include "nlohmann/json.hpp"
 
 #include <filesystem>
-#include <fmt/format.h>
 #include <memory>  // unique_ptr
 #include <ostream>
 #include <sstream>  // ostringstream
@@ -28,7 +28,7 @@ namespace tmcppc::face_detection {
 
 
     struct detection_error : public std::runtime_error {
-        detection_error(std::string_view message)
+        explicit detection_error(std::string_view message)
             : std::runtime_error{ message.data() }
         {}
     };
@@ -53,11 +53,11 @@ namespace tmcppc::face_detection {
         static inline std::string_view key_header{ "Ocp-Apim-Subscription-Key" };
         static inline std::string_view content_type_header{ "Content-Type:application/octet-stream" };
     public:
-        provider_azure(std::string_view key)
+        explicit provider_azure(std::string_view key)
             : key_{ key }
         {}
 
-        [[nodiscard]] virtual provider_response detect(const std::filesystem::path& path) const override {
+        [[nodiscard]] provider_response detect(const std::filesystem::path& path) const override {
             try {
                 std::ostringstream oss{};
                 curl::curl_ios<std::ostringstream> writer{ oss };
@@ -71,11 +71,11 @@ namespace tmcppc::face_detection {
                 );
 
                 curl::curl_header header{};
-                header.add(fmt::format("{}:{}", key_header, key_).c_str());
+                header.add(fmt::format("{}:{}", key_header, key_));
                 header.add(content_type_header.data());
                 auto file_content{ rtc::filesystem::get_binary_file_content<char>(path) };
                 easy.add<CURLOPT_HTTPHEADER>(header.get());
-                easy.add<CURLOPT_POSTFIELDSIZE>(static_cast<long>(file_content.size()));
+                easy.add<CURLOPT_POSTFIELDSIZE>(std::ssize(file_content));
                 easy.add<CURLOPT_POSTFIELDS>(file_content.data());
 
                 easy.perform();
@@ -95,7 +95,7 @@ namespace tmcppc::face_detection {
 
     class detector {
     private:
-        [[nodiscard]] detector_response_t parse_detect_response(const provider_response& response) const {
+        [[nodiscard]] static detector_response_t parse_detect_response(const provider_response& response) {
             auto& [status, text] = response;
             nlohmann::json j = nlohmann::json::parse(text);
             if (status == 200) {
@@ -108,7 +108,7 @@ namespace tmcppc::face_detection {
             return faces_response{};
         }
     public:
-        detector(std::unique_ptr<provider_adaptor> provider)
+        explicit detector(std::unique_ptr<provider_adaptor> provider)
             : provider_{ std::move(provider) } {
 
             if (not provider_) {

@@ -11,10 +11,10 @@ namespace tmcppc::data_structures {
     public:
         using container = std::vector<T>;
         using container_type = container;
-        using const_reference = container::const_reference;
-        using reference = container::reference;
-        using size_type = container::size_type;
-        using value_type = container::value_type;
+        using const_reference = typename container::const_reference;
+        using reference = typename container::reference;
+        using size_type = typename container::size_type;
+        using value_type = typename container::value_type;
 
         explicit double_buffer(size_type size)
             : buffer_write_(size), buffer_read_(size) {}
@@ -32,11 +32,11 @@ namespace tmcppc::data_structures {
             std::ranges::copy(v, begin(buffer_write_) + pos);
             swap_buffers();
         }
-        [[nodiscard]] constexpr T read(size_type pos) const {
+        [[nodiscard]] T read(size_type pos) const {
             std::scoped_lock sl{ buffers_mutex };
             return buffer_read_.at(pos);
         }
-        [[nodiscard]] constexpr container read(size_type pos, size_type size) const {
+        [[nodiscard]] container read(size_type pos, size_type size) const {
             if (pos + size > buffer_read_.size()) {
                 throw std::out_of_range{ "trying to read beyond the end of the double buffer" };
             }
@@ -47,7 +47,7 @@ namespace tmcppc::data_structures {
         }
 
     private:
-        constexpr void swap_buffers() noexcept {
+        void swap_buffers() noexcept {
             std::scoped_lock sl{ buffers_mutex };
             std::swap(buffer_write_, buffer_read_);
         }

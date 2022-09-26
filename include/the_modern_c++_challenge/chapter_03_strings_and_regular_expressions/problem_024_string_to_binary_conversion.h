@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include <fmt/format.h>
+#include "fmt/format.h"
 #include <iosfwd>
 #include <stdexcept>  // runtime_error
 #include <string>
@@ -10,11 +10,11 @@
 
 namespace tmcppc::problem_24 {
     struct from_hex_char_error : public std::runtime_error {
-        from_hex_char_error(char c) : std::runtime_error{ fmt::format("'{}' is not a valid hex char", c) } {}
+        explicit from_hex_char_error(char c) : std::runtime_error{ fmt::format("'{}' is not a valid hex char", c) } {}
     };
 
     struct from_hex_string_parse_error : public std::runtime_error {
-        from_hex_string_parse_error(const std::string& message) : std::runtime_error{ message } {}
+        explicit from_hex_string_parse_error(const std::string& message) : std::runtime_error{ message } {}
     };
 
     // Char to uint8_t

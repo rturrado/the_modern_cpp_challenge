@@ -1,12 +1,11 @@
 #include "chapter_01_math/digits.h"
 #include "chapter_01_math/problem_008_armstrong_numbers.h"
 
+#include "fmt/ostream.h"
+
 #include <cmath>  // pow
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <numeric>  // accumulate
-#include <ostream>
 #include <string>  // to_string
 #include <vector>
 
@@ -56,15 +55,15 @@ namespace tmcppc::problem_8 {
 
     // Write a function that determines the Armstrong numbers up to a limit, regardless of their number of digits
     // v3: book's version
-    std::vector<int> armstrong_numbers_up_to_a_limit_v3(const int n) {
+    std::vector<int> armstrong_numbers_up_to_a_limit_v3(int n) {
         std::vector<int> ret{};
 
         for (int i{ 0 }; i <= n; ++i) {
             std::vector<int> digits;
-            int n{ i };
-            while (n > 0) {
-                digits.push_back(n % 10);
-                n = n / 10;
+            int d{i };
+            while (d > 0) {
+                digits.push_back(d % 10);
+                d = d / 10;
             }
 
             int arm = std::accumulate(std::begin(digits), std::end(digits), 0,

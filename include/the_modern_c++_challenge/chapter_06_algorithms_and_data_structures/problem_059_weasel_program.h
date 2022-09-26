@@ -12,7 +12,7 @@ namespace tmcppc::weasel {
     class weasel_sequence {
     public:
         // Fill data_ randomly
-        weasel_sequence(const std::string& target)
+        explicit weasel_sequence(const std::string& target)
             : target_{ target }, data_(target.size(), '\0') {
 
             for (char& c : data_) {
@@ -26,8 +26,12 @@ namespace tmcppc::weasel {
             data_[get_random_index()] = get_random_letter();
         }
 
-        [[nodiscard]] constexpr size_t size() const noexcept {
+        [[nodiscard]] constexpr auto size() const noexcept {
             return target_.size();
+        }
+
+        [[nodiscard]] constexpr auto ssize() const noexcept {
+            return std::ssize(target_);
         }
 
         // Return number of characters that are equal to the target string
@@ -41,7 +45,7 @@ namespace tmcppc::weasel {
         }
 
         [[nodiscard]] bool end() const noexcept {
-            return score() == size();
+            return score() == ssize();
         }
 
         [[nodiscard]] std::string str() const noexcept {
@@ -52,8 +56,8 @@ namespace tmcppc::weasel {
         std::string target_{};
         std::string data_{};
 
-        size_t get_random_index() {
-            return get_random_int(0, static_cast<int>(size()) - 1);
+        [[nodiscard]] size_t get_random_index() const {
+            return get_random_int(0, static_cast<int>(ssize()) - 1);
         }
 
         static char get_random_letter() {

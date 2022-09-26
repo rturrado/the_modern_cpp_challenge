@@ -3,11 +3,9 @@
 
 #include "rtc/console.h"  // read_positive_number
 
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
+#include "fmt/ostream.h"
+
 #include <iostream>  // cin, cout
-#include <istream>
-#include <ostream>
 
 
 void problem_9_main(std::istream& is, std::ostream& os) {

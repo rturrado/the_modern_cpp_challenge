@@ -5,11 +5,10 @@
 #include "metric.h"
 #include "rgba_image.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <filesystem>
-#include <sstream>  // ostringstream
 
 using namespace tmcppc::png;
 using namespace tmcppc::problem_82;

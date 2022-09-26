@@ -1,9 +1,8 @@
 #include "chapter_02_language_features/problem_019_adding_a_range_of_values_to_a_container.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-#include <sstream>  // ostringstream
 #include <vector>
 
 using namespace tmcppc::problem_19;

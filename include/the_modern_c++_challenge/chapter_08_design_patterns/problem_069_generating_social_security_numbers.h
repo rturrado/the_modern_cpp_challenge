@@ -4,10 +4,10 @@
 
 #include <algorithm>  // binary_search, sort
 #include <chrono>
-#include <fmt/chrono.h>
-#include <fmt/core.h>
-#include <fmt/format.h>
-#include <fmt/ostream.h>
+#include "fmt/chrono.h"
+#include "fmt/core.h"
+#include "fmt/format.h"
+#include "fmt/ostream.h"
 #include <initializer_list>
 #include <numeric>  // accumulate
 #include <ostream>
@@ -56,14 +56,14 @@ namespace tmcppc::ssn {
         [[nodiscard]] std::string encode_sex(sex sex) const noexcept {
             return fmt::format("{}", (sex == sex::female) ? get_sex_female_code() : get_sex_male_code());
         }
-        [[nodiscard]] std::string encode_birth_date(const ch::year_month_day& birth_date) const noexcept {
+        [[nodiscard]] static std::string encode_birth_date(const ch::year_month_day& birth_date) noexcept {
             return fmt::format("{:%Y%m%d}", ch::sys_days(birth_date));
         }
         [[nodiscard]] std::string encode_random_number(const std::string& birth_date_str) const noexcept {
             rtc::random::random_int random_int{ 0, get_random_number_max() };
 
             for (;;) {
-                const auto rn_str{ random_number_to_string(random_int()) };
+                auto rn_str{ random_number_to_string(random_int()) };
 
                 if (random_number_str_cache_.contains(rn_str)) {
                     auto& v{ random_number_str_cache_.find(rn_str)->second };
@@ -85,7 +85,7 @@ namespace tmcppc::ssn {
         }
         [[nodiscard]] std::string encode_crc(const std::string& str) const noexcept {
             auto str_sum{ std::accumulate(std::cbegin(str), std::cend(str), 0,
-                [pos = static_cast<int>(str.size() + 1)](auto total, unsigned char c) mutable {
+                [pos = std::ssize(str) + 1](auto total, unsigned char c) mutable {
                     return total + (c - '0') * pos--; }
             )};
             auto crc_modulo{ get_crc_modulo() };
@@ -105,11 +105,11 @@ namespace tmcppc::ssn {
         }
 
     protected:
-        [[nodiscard]] virtual int get_sex_female_code() const noexcept override { return sex_female_code_; }
-        [[nodiscard]] virtual int get_sex_male_code() const noexcept override { return sex_male_code_; }
-        [[nodiscard]] virtual int get_random_number_max() const noexcept override { return random_number_max_; }
-        [[nodiscard]] virtual int get_random_number_str_size() const noexcept override { return random_number_str_size_; }
-        [[nodiscard]] virtual int get_crc_modulo() const noexcept override { return crc_modulo_; }
+        [[nodiscard]] int get_sex_female_code() const noexcept override { return sex_female_code_; }
+        [[nodiscard]] int get_sex_male_code() const noexcept override { return sex_male_code_; }
+        [[nodiscard]] int get_random_number_max() const noexcept override { return random_number_max_; }
+        [[nodiscard]] int get_random_number_str_size() const noexcept override { return random_number_str_size_; }
+        [[nodiscard]] int get_crc_modulo() const noexcept override { return crc_modulo_; }
 
     private:
         northeria_ssn_generator() = default;
@@ -130,11 +130,11 @@ namespace tmcppc::ssn {
         }
 
     protected:
-        [[nodiscard]] virtual int get_sex_female_code() const noexcept override { return sex_female_code_; }
-        [[nodiscard]] virtual int get_sex_male_code() const noexcept override { return sex_male_code_; }
-        [[nodiscard]] virtual int get_random_number_max() const noexcept override { return random_number_max_; }
-        [[nodiscard]] virtual int get_random_number_str_size() const noexcept override { return random_number_str_size_; }
-        [[nodiscard]] virtual int get_crc_modulo() const noexcept override { return crc_modulo_; }
+        [[nodiscard]] int get_sex_female_code() const noexcept override { return sex_female_code_; }
+        [[nodiscard]] int get_sex_male_code() const noexcept override { return sex_male_code_; }
+        [[nodiscard]] int get_random_number_max() const noexcept override { return random_number_max_; }
+        [[nodiscard]] int get_random_number_str_size() const noexcept override { return random_number_str_size_; }
+        [[nodiscard]] int get_crc_modulo() const noexcept override { return crc_modulo_; }
 
     private:
         southeria_ssn_generator() = default;

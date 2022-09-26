@@ -1,7 +1,7 @@
 #include "chapter_08_design_patterns/problem_067_validating_passwords.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <sstream>  // ostringstream
 

@@ -1,9 +1,7 @@
 #include "chapter_03_strings_and_regular_expressions/problem_031_transforming_dates_in_strings.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
-
-#include <sstream>  // ostringstream
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 using namespace tmcppc::problem_31;
 

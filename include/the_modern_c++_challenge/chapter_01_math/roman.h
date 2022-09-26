@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cassert>  // assert
-#include <fmt/core.h>
+#include "fmt/core.h"
 #include <map>
 #include <stdexcept>  // out_of_range
 #include <string>
@@ -26,7 +26,7 @@ namespace tmcppc::date {
             case 2: return "MM";
             case 3: return "MMM";
             default:
-                assert(0 <= n && n <= 3);
+                assert(n <= 3);
                 return "";
         }
     }
@@ -44,7 +44,7 @@ namespace tmcppc::date {
             case 8: return "DCCC";
             case 9: return "CM";
             default:
-                assert(0 <= n && n <= 9);
+                assert(n <= 9);
                 return "";
         }
     }
@@ -62,7 +62,7 @@ namespace tmcppc::date {
             case 8: return "LXXX";
             case 9: return "XC";
             default:
-                assert(0 <= n && n <= 9);
+                assert(n <= 9);
                 return "";
         }
     }
@@ -80,7 +80,7 @@ namespace tmcppc::date {
             case 8: return "VIII";
             case 9: return "IX";
             default:
-                assert(0 <= n && n <= 9);
+                assert(n <= 9);
                 return "";
         }
     }
@@ -131,10 +131,10 @@ namespace tmcppc::date {
             case 8: return five + one + one + one;
             case 9: return one + ten;
             default:
-                assert(0 <= n && n <= 9);
+                assert(n <= 9);
                 return "";
         }
-    };
+    }
 
     inline std::string to_roman_v2(size_t n) {
         if (n == 0 or n > max_roman_numeral) {
@@ -183,10 +183,10 @@ namespace tmcppc::date {
             case 8: return five + one + one + one;
             case 9: return one + ten;
             default:
-                assert(0 <= n && n <= 9);
+                assert(n <= 9);
                 return "";
         }
-    };
+    }
 
     inline std::string to_roman_v3(size_t n) {
         if (n == 0 or n > max_roman_numeral) {

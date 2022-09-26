@@ -7,7 +7,7 @@
 #include "ZipFile.h"
 
 #include <filesystem>
-#include <fmt/ostream.h>
+#include "fmt/ostream.h"
 #include <istream>
 #include <ostream>
 #include <string>

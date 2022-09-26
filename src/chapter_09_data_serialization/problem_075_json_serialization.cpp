@@ -3,7 +3,8 @@
 #include "chapter_09_data_serialization/movies/samples.h"
 #include "chapter_09_data_serialization/problem_075_json_serialization.h"
 
-#include <fmt/ostream.h>
+#include "fmt/ostream.h"
+
 #include <iostream>  // cout
 #include <ostream>
 

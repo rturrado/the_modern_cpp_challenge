@@ -2,12 +2,11 @@
 #include "chapter_10_archives_images_and_databases/problem_087_handling_images_in_an_sqlite_db.h"
 #include "chapter_10_archives_images_and_databases/sql/movies.h"
 
+#include "fmt/ostream.h"
+
 #include <exception>
 #include <filesystem>
-#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
-#include <istream>
-#include <ostream>
 
 namespace fs = std::filesystem;
 

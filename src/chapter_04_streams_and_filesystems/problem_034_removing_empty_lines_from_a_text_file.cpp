@@ -3,13 +3,12 @@
 
 #include "rtc/filesystem.h"
 
+#include "fmt/ostream.h"
+
 #include <exception>
 #include <filesystem>
-#include <fmt/ostream.h>
-#include <fstream>
 #include <ios>  // in, out
 #include <iostream>  // cout
-#include <ostream>
 #include <regex>  // regex_search
 
 namespace fs = std::filesystem;
@@ -56,7 +55,7 @@ void problem_34_main(std::ostream& os) {
     const auto in_file_path{ resource_folder_path / "problem_034_input.txt" };
 
     try {
-        auto out_file_path{ remove_empty_lines(os, in_file_path) };
+        [[maybe_unused]] auto out_file_path{ remove_empty_lines(os, in_file_path) };
 
         //std::filesystem::rename(out_file_path, in_file_path);  // commented out so that we don't really overwrite input file
     } catch (const std::exception& ex) {

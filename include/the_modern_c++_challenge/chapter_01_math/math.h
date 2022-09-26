@@ -40,9 +40,9 @@ namespace tmcppc::math {
     template <typename T>
     auto divisors(const T n) {
         std::vector<T> ret{ 1 };
-        for (T i = 2; i <= std::sqrt(n); ++i) {
+        for (T i = 2; i <= static_cast<T>(std::sqrt(n)); ++i) {
             if (n % i == 0) {
-                T j{ n / i };
+                T j{ static_cast<T>(n / i) };
                 ret.push_back(i);
                 if (i != j) {
                     ret.push_back(j);
@@ -58,10 +58,12 @@ namespace tmcppc::math {
     template <typename T>
     T divisors_sum(const T n) {
         T ret{ 1 };
-        for (T i = 2; i <= std::sqrt(n); ++i) {
+        for (T i = 2; i <= static_cast<T>(std::sqrt(n)); ++i) {
             if (n % i == 0) {
-                T j{ n / i };
-                ret += (i == j) ? i : (i + j);
+                T j{ static_cast<T>(n / i) };
+                ret = static_cast<T>(ret +
+                    ( (i == j) ? i : (i + j) )
+                );
             }
         }
         return ret;

@@ -1,13 +1,12 @@
 #include "chapter_08_design_patterns/problem_069_generating_social_security_numbers.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <algorithm>  // all_of
 #include <cctype>  // isdigit
 #include <chrono>
 #include <numeric>  // accumulate
-#include <sstream>  // ostringstream
 #include <string>  // to_string
 
 using namespace std::chrono_literals;
@@ -16,7 +15,7 @@ using namespace tmcppc::ssn;
 
 std::string encode_crc(const std::string& str, int crc_modulo) {
     auto str_sum{ std::accumulate(std::cbegin(str), std::cend(str), 0,
-        [pos = static_cast<int>(str.size() + 1)](auto total, unsigned char c) mutable {
+        [pos = std::ssize(str) + 1](auto total, unsigned char c) mutable {
             return total + (c - '0') * pos--; }
     )};
     auto check_digit{ crc_modulo - (str_sum % crc_modulo) };

@@ -4,11 +4,9 @@
 
 #include "rtc/console.h"  // clear_istream
 
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
+#include "fmt/ostream.h"
+
 #include <iostream>  // cin, cout
-#include <istream>
-#include <ostream>
 
 
 void problem_16_main(std::istream& is, std::ostream& os) {
@@ -49,7 +47,7 @@ void problem_16_main(std::istream& is, std::ostream& os) {
 
 
 // Enumerating IPv4 addresses in a range
-// Write a program tha allows the user to input two IPv4 addreses representing a range and
+// Write a program tha allows the user to input two IPv4 addresses representing a range and
 // list all the addresses in that range.
 // Extend the structure defined for the previous problem to implement the requested functionality.
 void problem_16_main() {

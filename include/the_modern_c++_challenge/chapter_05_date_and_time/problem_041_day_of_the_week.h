@@ -1,13 +1,14 @@
 #pragma once
 
-#include <chrono>
+#include "date/date.h"
+
 #include <iosfwd>
 
 
 namespace tmcppc::problem_41 {
-    std::chrono::weekday date_to_weekday(const std::chrono::year_month_day& date);
+    date::weekday date_to_weekday(const date::year_month_day& date);
 
-    unsigned int weekday_to_number(const std::chrono::weekday& wd);
+    unsigned int weekday_to_number(const date::weekday& wd);
 }  // namespace tmcppc::problem_41
 
 

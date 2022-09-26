@@ -1,7 +1,7 @@
 #include "chapter_09_data_serialization/problem_074_using_xpath.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <sstream>  // ostringstream
 

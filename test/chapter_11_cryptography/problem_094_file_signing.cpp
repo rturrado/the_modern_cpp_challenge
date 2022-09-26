@@ -3,8 +3,8 @@
 
 #include "rtc/filesystem.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <filesystem>
 #include <sstream>  // ostringstream
@@ -62,7 +62,6 @@ TEST(verify_file, public_key_file_does_not_exist) {
 }
 TEST(verify_file, signature_file_does_not_exist) {
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
-    const auto rsa_private_key_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "private_key.txt" };
     const auto rsa_public_key_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "crypto" / "public_key.txt" };
 
     EXPECT_THROW(verify_file(input_file_path, rsa_public_key_file_path, fs::path{}), rtc::filesystem::file_path_does_not_exist_error);

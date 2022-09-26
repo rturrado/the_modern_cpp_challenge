@@ -1,11 +1,9 @@
 #include "chapter_06_algorithms_and_data_structures/graph.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <map>
-#include <ostream>
-#include <sstream>  // ostringstream
 #include <stdexcept>  // out_of_range
 #include <utility>  // as_const, pair
 
@@ -221,7 +219,7 @@ TEST(get_shortest_paths_digraph, open_graph) {
 }
 
 
-// Get shortest path distance
+// Get the shortest path distance
 //
 TEST(get_shortest_path_distance, open_graph) {
     directed_graph_map<char, int> dgm{
@@ -245,7 +243,7 @@ TEST(get_shortest_path_distance, open_graph) {
 }
 
 
-// Get shortest path string
+// Get the shortest path string
 //
 TEST(get_shortest_path_string, open_graph) {
     directed_graph_map<char, int> dgm{

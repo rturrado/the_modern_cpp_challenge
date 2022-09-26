@@ -1,6 +1,5 @@
 #pragma once
 
-#include <format>
 #include <initializer_list>
 #include <iosfwd>
 #include <limits>  // numeric_limits
@@ -28,7 +27,7 @@ namespace tmcppc::company {
 
     class president : public employee_role {
     public:
-        [[nodiscard]] virtual double get_approval_limit() const noexcept override {
+        [[nodiscard]] double get_approval_limit() const noexcept override {
             return expense_approval_limit_;
         };
     private:
@@ -38,7 +37,7 @@ namespace tmcppc::company {
 
     class department_manager : public employee_role {
     public:
-        [[nodiscard]] virtual double get_approval_limit() const noexcept override {
+        [[nodiscard]] double get_approval_limit() const noexcept override {
             return expense_approval_limit_;
         };
     private:
@@ -48,7 +47,7 @@ namespace tmcppc::company {
 
     class team_manager : public employee_role {
     public:
-        [[nodiscard]] virtual double get_approval_limit() const noexcept override {
+        [[nodiscard]] double get_approval_limit() const noexcept override {
             return expense_approval_limit_;
         };
     private:
@@ -58,7 +57,7 @@ namespace tmcppc::company {
 
     class regular_employee : public employee_role {
     public:
-        [[nodiscard]] virtual double get_approval_limit() const noexcept override {
+        [[nodiscard]] double get_approval_limit() const noexcept override {
             return expense_approval_limit_;
         };
     private:
@@ -68,8 +67,8 @@ namespace tmcppc::company {
 
     class employee {
     public:
-        employee(const std::string& name, std::unique_ptr<employee_role> role)
-            : name_{ name }
+        employee(std::string name, std::unique_ptr<employee_role> role)
+            : name_{ std::move(name) }
             , role_{ std::move(role) }
         {}
 

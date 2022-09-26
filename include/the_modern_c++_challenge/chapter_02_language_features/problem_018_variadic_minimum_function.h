@@ -1,8 +1,8 @@
 #pragma once
 
-#include <fmt/format.h>
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
+#include "fmt/format.h"
+#include "fmt/ostream.h"
+#include "fmt/ranges.h"
 #include <ostream>
 #include <string>
 #include <utility>  // forward
@@ -13,14 +13,14 @@ namespace tmcppc::problem_18 {
     //
     template <typename T>
     bool more_than(T left, T right) {
-        return (left > right) ? true : false;
-    };
+        return (left > right);
+    }
 
 
     // Variadic template for printing the elements of a list with a given string separator
     //
     template <typename T>
-    std::string to_string(const std::string& separator, T&& t) {
+    std::string to_string([[maybe_unused]] const std::string& separator, T&& t) {
         return fmt::format("{}", t);
     }
 

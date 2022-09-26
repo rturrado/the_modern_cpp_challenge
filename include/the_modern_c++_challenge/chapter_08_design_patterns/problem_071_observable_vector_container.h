@@ -1,9 +1,9 @@
 #pragma once
 
 #include <algorithm>  // for_each, remove_if
-#include <fmt/format.h>
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
+#include "fmt/format.h"
+#include "fmt/ostream.h"
+#include "fmt/ranges.h"
 #include <list>
 #include <map>
 #include <memory>  // shared_ptr
@@ -26,7 +26,7 @@ namespace tmcppc::data_structures {
 
     struct notification {
     public:
-        notification(notification_type t)
+        explicit notification(notification_type t)
             : id_{ id++ }
             , type_{ t }
         {}
@@ -98,7 +98,7 @@ namespace tmcppc::data_structures {
         explicit concrete_observer_1(std::ostream& os, std::shared_ptr<observable_vector<T>> sp_ov) noexcept
             : observer<T>::observer{ os, sp_ov } {}
     protected:
-        virtual void update(const notification& n) noexcept override {
+        void update(const notification& n) noexcept override {
             auto id{ observer<T>::get_id() };
             auto& ov{ observer<T>::get_observable_vector() };
             fmt::print(observer<T>::get_os(), "\t[observer {}] received notification: {}\n", id, n);
@@ -114,7 +114,7 @@ namespace tmcppc::data_structures {
         explicit concrete_observer_2(std::ostream& os, std::shared_ptr<observable_vector<T>> sp_ov) noexcept
             : observer<T>::observer{ os, sp_ov } {}
     protected:
-        virtual void update(const notification& n) noexcept override {
+        void update(const notification& n) noexcept override {
             auto id{ observer<T>::get_id() };
             auto& ov{ observer<T>::get_observable_vector() };
             fmt::print(observer<T>::get_os(), "\t[observer {}] received notification: {}\n", id, n);
@@ -147,7 +147,7 @@ namespace tmcppc::data_structures {
             other.id_ = static_cast<size_t>(-1);
             other.observers_.clear();
         }
-        constexpr subject& operator=(const subject& other) { return *this; }
+        constexpr subject& operator=([[maybe_unused]] const subject& other) { return *this; }
         constexpr subject& operator=(subject&& other) noexcept {
             other.id_ = static_cast<size_t>(-1);
             other.observers_.clear();

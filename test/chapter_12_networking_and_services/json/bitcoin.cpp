@@ -4,8 +4,7 @@
 
 #include "nlohmann/json.hpp"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 using namespace tmcppc::bitcoin;
 

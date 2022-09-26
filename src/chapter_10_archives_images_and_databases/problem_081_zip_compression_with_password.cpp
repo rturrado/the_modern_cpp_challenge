@@ -5,11 +5,10 @@
 #include "rtc/console.h"
 #include "rtc/filesystem.h"
 
-#include <fmt/format.h>
+#include "fmt/format.h"
+
 #include <filesystem>
 #include <iostream>  // cin, cout
-#include <istream>
-#include <ostream>
 #include <string>
 
 namespace fs = std::filesystem;
@@ -19,7 +18,8 @@ namespace tmcppc::problem_81 {
     void compare_input_and_output(std::ostream& os, const fs::path& input_path, const fs::path& output_path) {
         fmt::print(os, "Checking input '{}' and output '{}' are equal\n",
             input_path.generic_string(), output_path.generic_string());
-        if (not rtc::filesystem::are_filesystem_trees_equal(input_path, output_path)) {
+        auto options{ fs::directory_options::skip_permission_denied | fs::directory_options::follow_directory_symlink };
+        if (not rtc::filesystem::are_filesystem_trees_equal(input_path, output_path, options)) {
             fmt::print(os, "\tError: Input '{}' is different than output '{}'\n",
                 input_path.generic_string(), output_path.generic_string());
         } else {

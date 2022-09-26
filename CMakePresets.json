@@ -18,6 +18,7 @@
                     "type": "PATH",
                     "value": "$env{BOOST_ROOT}"
                 },
+                "BUILD_TZ_LIB": true,
                 "RANGE_V3_DOCS": false,
                 "RANGE_V3_EXAMPLES": false,
                 "RANGE_V3_TESTS": false
@@ -115,32 +116,6 @@
                 "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true,
                 "BUILD_TESTING": false
             }
-        },
-        {
-            "name": "unixlike-clang-debug",
-            "displayName": "clang Debug",
-            "description": "Target Unix-like OS with the clang compiler, debug build type",
-            "inherits": "conf-unixlike-common",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "clang",
-                "CMAKE_CXX_COMPILER": "clang++",
-                "CMAKE_BUILD_TYPE": "Debug",
-                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true,
-                "ASAN_ENABLED": true
-            }
-        },
-        {
-            "name": "unixlike-clang-release",
-            "displayName": "clang Release",
-            "description": "Target Unix-like OS with the clang compiler, release build type",
-            "inherits": "conf-unixlike-common",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "clang",
-                "CMAKE_CXX_COMPILER": "clang++",
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-                "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true,
-                "BUILD_TESTING": false
-            }
         }
     ],
     "buildPresets": [
@@ -153,6 +128,14 @@
             "verbose": true
         },
         {
+            "name": "windows-msvc-release",
+            "configurePreset": "windows-msvc-release",
+            "displayName": "Build windows-msvc-release",
+            "description": "Build x64 Windows MSVC Release",
+            "configuration": "Release",
+            "verbose": true
+        },
+        {
             "name": "unixlike-gcc-debug",
             "configurePreset": "unixlike-gcc-debug",
             "displayName": "Build unixlike-gcc-debug",
@@ -161,11 +144,11 @@
             "verbose": true
         },
         {
-            "name": "unixlike-clang-debug",
-            "configurePreset": "unixlike-clang-debug",
-            "displayName": "Build unixlike-clang-debug",
-            "description": "Build x64 Unix-like OS clang Debug",
-            "configuration": "Debug",
+            "name": "unixlike-gcc-release",
+            "configurePreset": "unixlike-gcc-release",
+            "displayName": "Build unixlike-gcc-release",
+            "description": "Build x64 Unix-like OS gcc Release",
+            "configuration": "Release",
             "verbose": true
         }
     ]

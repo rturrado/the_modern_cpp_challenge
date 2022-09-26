@@ -1,11 +1,12 @@
 #include "chapter_04_streams_and_filesystems/problem_036_deleting_files_older_than_a_given_date.h"
 #include "env.h"
 
+#include "fmt/chrono.h"
+#include "fmt/ostream.h"
+
 #include <chrono>
 #include <exception>
 #include <filesystem>
-#include <fmt/ostream.h>
-#include <format>
 #include <iostream>  // cout
 #include <ostream>
 
@@ -20,16 +21,15 @@ void problem_36_main(std::ostream& os) {
     const auto in_dir_path_1{ resource_folder_path / "sample_folder" };
     const auto in_dir_path_2{ resource_folder_path / "sample_subfolder" };
 
-    const ch::years duration_1{ 500 };
-    const ch::milliseconds duration_2{ 5 };
+    const auto tp_sys_clock_1{ ch::sys_days{ 1970y / ch::January / 1 } };
+    const auto tp_file_clock_1{ ch::file_clock::from_sys(ch::round<ch::milliseconds>(tp_sys_clock_1)) };
+    const auto tp_file_clock_2{ ch::round<ch::seconds>(ch::file_clock::now()) - ch::milliseconds{ 5 } };
 
     for (const auto& path : { in_dir_path_1, in_dir_path_2 }) {
-        for (const auto& tp : {
-            ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration_1 },
-            ch::time_point<ch::file_clock>{ ch::file_clock::now() - duration_2 } }) {
-
+        for (const auto& tp : { tp_file_clock_1, tp_file_clock_2 }) {
             try {
-                fmt::print(os, "(Not) deleting entries older than {} in '{}':\n", std::format("{:%F %T}", tp), path.generic_string());
+                fmt::print(os, "(Not) deleting entries older than {:%F %T} in '{}':\n",
+                    ch::file_clock::to_sys(tp), path.generic_string());
                 delete_directory_entries_older_than(os, path, tp);
             } catch (const std::exception& ex) {
                 fmt::print(os, "\n\tError: {}\n", ex.what());

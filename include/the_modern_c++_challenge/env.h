@@ -17,7 +17,7 @@ namespace tmcppc {
             resource_folder_path_ = p;
         }
     private:
-        env() {};
+        env() = default;
         std::filesystem::path resource_folder_path_{};
     };
 }  // namespace tmcppc

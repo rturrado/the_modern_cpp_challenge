@@ -12,15 +12,15 @@ namespace tmcppc::data_structures {
     public:
         using container = std::vector<T>;
         using container_type = container;
-        using const_reference = container::const_reference;
-        using reference = container::reference;
-        using size_type = container::size_type;
+        using const_reference = typename container::const_reference;
+        using reference = typename container::reference;
+        using size_type = typename container::size_type;
         using value_compare = Compare;
-        using value_type = container::value_type;
+        using value_type = typename container::value_type;
 
     public:
-        using const_iterator = container::const_iterator;
-        using iterator = container::iterator;
+        using const_iterator = typename container::const_iterator;
+        using iterator = typename container::iterator;
 
         priority_queue() = default;
 

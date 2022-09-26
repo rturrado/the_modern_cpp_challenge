@@ -8,7 +8,7 @@
 
 
 namespace tmcppc::movies::file {
-    inline void from_file(std::ifstream& ifs, cast& cast) {
+    inline void from_file(std::ifstream& ifs, cast_t& cast) {
         std::string line{};
         std::getline(ifs, line);
         int number_of_roles{ std::stoi(line) };
@@ -17,31 +17,31 @@ namespace tmcppc::movies::file {
             std::string role{};
             std::getline(ifs, star);
             std::getline(ifs, role);
-            cast.cast_.emplace_back(star, role);
+            cast.data.emplace_back(star, role);
         }
     }
 
-    inline void from_file(std::ifstream& ifs, writers& writers) {
+    inline void from_file(std::ifstream& ifs, writers_t& writers) {
         std::string line{};
         std::getline(ifs, line);
         int number_of_writers{ std::stoi(line) };
         while (number_of_writers--) {
             std::getline(ifs, line);
-            writers.writers_.emplace_back(line);
+            writers.data.emplace_back(line);
         }
     }
 
-    inline void from_file(std::ifstream& ifs, directors& directors) {
+    inline void from_file(std::ifstream& ifs, directors_t& directors) {
         std::string line{};
         std::getline(ifs, line);
         int number_of_directors{ std::stoi(line) };
         while (number_of_directors--) {
             std::getline(ifs, line);
-            directors.directors_.emplace_back(line);
+            directors.data.emplace_back(line);
         }
     }
 
-    inline void from_file(std::ifstream& ifs, movie& movie) {
+    inline void from_file(std::ifstream& ifs, movie_t& movie) {
         namespace ch = std::chrono;
 
         std::getline(ifs, movie.title);

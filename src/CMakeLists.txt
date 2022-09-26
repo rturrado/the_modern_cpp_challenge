@@ -6,8 +6,6 @@ include(FetchContent)
 FetchContent_Declare(asio
     GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
     GIT_TAG "147f7225a96d45a2807a64e443177f621844e51c"
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ""
 )
 FetchContent_Declare(cryptopp-cmake
     GIT_REPOSITORY https://github.com/rturrado/cryptopp-cmake.git
@@ -17,9 +15,13 @@ FetchContent_Declare(curlcpp
     GIT_REPOSITORY https://github.com/rturrado/curlcpp.git
     GIT_TAG "e18bffcc23bca3a405c47f892b7f0c0cb9a49a26"
 )
+FetchContent_Declare(date
+    GIT_REPOSITORY https://github.com/HowardHinnant/date.git
+    GIT_TAG "22ceabf205d8d678710a43154da5a06b701c5830"
+)
 FetchContent_Declare(fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-    GIT_TAG "4bb3af7a6ba4330284fb490b0f471172fda87f07"
+    GIT_TAG "a33701196adfad74917046096bf5a2aa0ab0bb50"
 )
 FetchContent_Declare(nlohmann-json
     URL https://github.com/nlohmann/json/releases/download/v3.10.5/json.tar.xz
@@ -42,27 +44,26 @@ FetchContent_Declare(range-v3
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "15969174aad04e2922247aa7cbc03a932ad777b0"
+    GIT_TAG "7a813a233fe07db4e4c6329b5815187d75124e77"
+)
+FetchContent_Declare(SQLite3
+    GIT_REPOSITORY https://github.com/algoritnl/sqlite-amalgamation.git
+    GIT_TAG "a7b66b8f24f755317d4e4313ab906d2e70b9b536"
 )
 FetchContent_Declare(SqliteModernCpp
     GIT_REPOSITORY https://github.com/SqliteModernCpp/sqlite_modern_cpp.git
     GIT_TAG "34f9b076348d731e0f952a8ff264a26230ce287b"
     SOURCE_SUBDIR "hdr"
 )
-FetchContent_Declare(sqlite
-    URL https://sqlite.org/2022/sqlite-amalgamation-3380500.zip
-    SOURCE_SUBDIR "sqlite-amalgamation-3380500"
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ""
-)
 FetchContent_Declare(ZipLib
     GIT_REPOSITORY https://github.com/rturrado/ZipLib.git
-    GIT_TAG "e1a2ef7989d38ab06a0f9a2a6b87228807b6521e"
+    GIT_TAG "f8d9ffb59ad6b470033e5c4a0e11a681fde797fe"
 )
 FetchContent_MakeAvailable(
     asio
     cryptopp-cmake
     curlcpp
+    date
     fmt
     nlohmann-json
     PDF-Writer
@@ -70,8 +71,8 @@ FetchContent_MakeAvailable(
     pugixml
     range-v3
     rtc
+    SQLite3
     SqliteModernCpp
-    sqlite
     ZipLib
 )
 find_package(Boost 1.78.0 REQUIRED)
@@ -128,15 +129,15 @@ target_include_directories(lib_${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${include_dir}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
-target_include_directories(lib_${PROJECT_NAME} PUBLIC
+target_include_directories(lib_${PROJECT_NAME} SYSTEM PUBLIC
     ${Boost_INCLUDE_DIRS}
     ${cryptopp_BINARY_DIR}
     ${curlcpp_SOURCE_DIR}/include
     ${PDFHUMMUS_SOURCE_DIR}
     ${pngwriter_SOURCE_DIR}/src
     ${pugixml_SOURCE_DIR}/src
+    ${sqlite3_SOURCE_DIR}
     ${sqlitemoderncpp_SOURCE_DIR}/hdr
-    ${sqlite_SOURCE_DIR}
     ${ziplib_SOURCE_DIR}
 )
 message(STATUS
@@ -146,23 +147,21 @@ message(STATUS
     "      PDF-Writer: ${PDFHUMMUS_SOURCE_DIR}\n"
     "      PNGwriter: ${pngwriter_SOURCE_DIR}/src\n"
     "      pugixml ${pugixml_SOURCE_DIR}/src\n"
+    "      SQLite3: ${sqlite3_SOURCE_DIR}\n"
     "      SqliteModernCpp: ${sqlitemoderncpp_SOURCE_DIR}/hdr\n"
-    "      sqlite: ${sqlite_SOURCE_DIR}\n"
     "      ZipLib: ${ziplib_SOURCE_DIR}"
 )
 set_target_properties(lib_${PROJECT_NAME} PROPERTIES
     OUTPUT_NAME ${PROJECT_NAME}-${PROJECT_VERSION}
 )
-if(MSVC)
-    target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_23)
-elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_20)
-endif()
+target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_23)
 # PDFWriter (which uses zlib.lib) has link conflicts with curlcpp (which uses libcurl.dll, which uses zlib1.dll)
 # Linking PDFWriter as public and curlcpp as private avoids those conflicts
 target_link_libraries(lib_${PROJECT_NAME} PUBLIC
     asio
     cryptopp-static
+    date
+    date-tz
     fmt
     nlohmann_json::nlohmann_json
     range-v3
@@ -170,6 +169,7 @@ target_link_libraries(lib_${PROJECT_NAME} PUBLIC
     PDFWriter
     PNGwriter
     pugixml::pugixml
+    SQLite3
     ZIPLIB
 )
 target_link_libraries(lib_${PROJECT_NAME} PRIVATE
@@ -183,21 +183,29 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "$<BUILD_INTERFACE:${include_dir}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
-if(MSVC)
-    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
-elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
-endif()
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
 target_link_libraries(${PROJECT_NAME} lib_${PROJECT_NAME})
 
 
 # Target compile options
-if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
-    target_compile_options(lib_${PROJECT_NAME} PRIVATE /D_CONSOLE /DCONSOLE /D_UNICODE /DUNICODE /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /W3 /WX /w34996 /utf-8 /Zc:inline)
-    target_compile_options(${PROJECT_NAME} PRIVATE  /D_CONSOLE /DCONSOLE /D_UNICODE /DUNICODE /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /W3 /WX /w34996 /utf-8 /Zc:inline)
+if(MSVC)
+    set(msvc_compile_options
+        /W3 /WX /w34996
+        /D_CONSOLE /DCONSOLE
+        /D_UNICODE /DUNICODE
+        /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /utf-8 /Zc:inline
+    )
+    target_compile_options(lib_${PROJECT_NAME} PRIVATE ${msvc_compile_options})
+    target_compile_options(${PROJECT_NAME} PRIVATE ${msvc_compile_options})
 elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    target_compile_options(lib_${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
-    target_compile_options(${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
+    set(unixlike_compile_options
+        -pedantic-errors -Werror -Wall -Wextra
+        -Wl,-z,defs
+        -Wno-deprecated
+        # -Wconversion -Wsign-conversion -Wno-sign-conversion  # do not sort flags; order matters
+    )
+    target_compile_options(lib_${PROJECT_NAME} PRIVATE ${unixlike_compile_options})
+    target_compile_options(${PROJECT_NAME} PRIVATE ${unixlike_compile_options})
 endif()
 
 

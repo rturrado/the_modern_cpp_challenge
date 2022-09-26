@@ -8,7 +8,7 @@
 
 
 namespace tmcppc::problem_79 {
-    std::vector<std::string> regex_search_in_zip_file(const std::filesystem::path& file_path, const std::regex& pattern);
+    std::vector<std::string> regex_search_in_zip_file(std::ostream& os, const std::filesystem::path& file_path, const std::regex& pattern);
 }  // namespace tmcppc::problem_79
 
 

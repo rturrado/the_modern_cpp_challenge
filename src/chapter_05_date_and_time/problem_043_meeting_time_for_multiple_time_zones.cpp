@@ -1,20 +1,21 @@
 #include "chapter_05_date_and_time/problem_043_meeting_time_for_multiple_time_zones.h"
 
+#include "date/date.h"
+#include "date/tz.h"
+#include "fmt/ostream.h"
+
 #include <chrono>
-#include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <ostream>
 #include <string_view>  // literals
-#include <utility>  // pair
-#include <vector>
 
 
 void problem_43_main(std::ostream& os) {
     namespace ch = std::chrono;
-    using namespace std::chrono_literals;
+    using namespace date::literals;  // 2021_y
+    using namespace std::chrono_literals;  // 18h
     using namespace tmcppc::problem_43;
 
-    ch::zoned_time<ch::minutes> meeting_zt{ "Europe/Madrid", ch::sys_days{2021y / ch::October / 23} + 18h };
+    date::zoned_time<ch::minutes> meeting_zt{ "Europe/Madrid", date::sys_days{2021_y / date::October / 23} + 18h };
 
     auto participants = vector_of_participants_and_time_zones{
         { "Laura", "America/Los_Angeles" },

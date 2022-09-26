@@ -1,9 +1,9 @@
 #include "chapter_07_concurrency/problem_066_customer_service_system.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "fmt/format.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-#include <fmt/format.h>
 #include <sstream>  // istringstream, ostringstream
 
 using namespace tmcppc::office;
@@ -43,7 +43,7 @@ TEST(office_simulator, ten_clients_one_desk) {
     for (size_t i{ 1 }; i <= number_of_customers; ++i) {
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: started\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: got to the office\n", i)));
-        EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Customer {}: got ticket number \\d+\n", i)));
+        EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Customer {}: got ticket number [0-9]+\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: waiting for service number\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: is being served\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Desk 1: about to serve customer {}\n", i)));
@@ -65,11 +65,11 @@ TEST(problem_66_main, output) {
     for (size_t i{ 1 }; i <= number_of_customers; ++i) {
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: started\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: got to the office\n", i)));
-        EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Customer {}: got ticket number \\d\n", i)));
+        EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Customer {}: got ticket number [0-9]\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: waiting for service number\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: is being served\n", i)));
-        EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Desk \\d: about to serve customer {}\n", i)));
-        EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Desk \\d: just served customer {}\n", i)));
+        EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Desk [0-9]: about to serve customer {}\n", i)));
+        EXPECT_THAT(oss.str(), ::testing::ContainsRegex(fmt::format("Desk [0-9]: just served customer {}\n", i)));
         EXPECT_THAT(oss.str(), ::testing::HasSubstr(fmt::format("Customer {}: finished\n", i)));
     }
     EXPECT_THAT(oss.str(), ::testing::EndsWith("\n\n"));

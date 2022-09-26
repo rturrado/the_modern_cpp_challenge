@@ -3,10 +3,10 @@
 #include "chapter_09_data_serialization/problem_073_xml_serialization.h"
 #include "chapter_09_data_serialization/xml/movies.h"
 
+#include "fmt/ostream.h"
+
 #include <cassert>  // assert
-#include <chrono>
 #include <filesystem>
-#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
 

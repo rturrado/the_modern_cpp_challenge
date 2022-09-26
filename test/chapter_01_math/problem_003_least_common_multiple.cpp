@@ -1,10 +1,8 @@
 #include "chapter_01_math/problem_003_least_common_multiple.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-#include <limits>
-#include <sstream>  // istringstream, ostringstream
 #include <stdexcept>  // runtime_error
 #include <vector>
 

@@ -2,8 +2,8 @@
 #include "../imap/samples.h"
 #include "chapter_12_networking_and_services/imap/connection.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <memory>  // make_unique, unique_ptr
 #include <string_view>

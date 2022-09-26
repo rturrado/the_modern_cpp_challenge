@@ -1,20 +1,28 @@
 #pragma once
 
-#include <algorithm>  // for_each, minmax, transform
-#include <fmt/format.h>
-#include <fmt/ostream.h>
+#include "fmt/format.h"
+#include "fmt/ostream.h"
+#include "range/v3/algorithm/for_each.hpp"
+#include "range/v3/algorithm/min_element.hpp"
+#include "range/v3/algorithm/transform.hpp"
+#include "range/v3/view/filter.hpp"
+
+#include <algorithm>  // minmax
+#include <functional>  // less
 #include <initializer_list>
 #include <iterator>  // inserter
 #include <limits>  // numeric_limits
 #include <map>
 #include <ostream>
-#include <ranges>
 #include <set>
 #include <string>
 #include <utility>  // initializer_list, make_pair, pair
 
 
 namespace tmcppc::data_structures {
+    namespace rv3 = ranges;
+
+
     // Undirected graph
     //
     // The graph is a map where the key is a pair of nodes, and the mapped value the distance between them
@@ -24,8 +32,8 @@ namespace tmcppc::data_structures {
         using key_type = std::pair<Node, Node>;
         using mapped_type = Distance;
         using value_type = std::pair<const key_type, Distance>;
-        using iterator = std::map<key_type, mapped_type>::iterator;
-        using const_iterator = std::map<key_type, mapped_type>::const_iterator;
+        using iterator = typename std::map<key_type, mapped_type>::iterator;
+        using const_iterator = typename std::map<key_type, mapped_type>::const_iterator;
 
         undirected_graph_map(std::initializer_list<value_type> init) : data_{ init } { }
 
@@ -55,8 +63,8 @@ namespace tmcppc::data_structures {
         using key_type = Node;
         using mapped_type = std::pair<Node, Distance>;
         using value_type = std::pair<const key_type, mapped_type>;
-        using iterator = std::map<key_type, mapped_type>::iterator;
-        using const_iterator = std::map<key_type, mapped_type>::const_iterator;
+        using iterator = typename std::map<key_type, mapped_type>::iterator;
+        using const_iterator = typename std::map<key_type, mapped_type>::const_iterator;
 
         directed_graph_map(std::initializer_list<value_type> init) : data_{ init } { }
 
@@ -91,7 +99,7 @@ namespace tmcppc::data_structures {
     node_set<Node> get_node_list(const undirected_graph_map<Node, Distance>& graph) {
         node_set<Node> ret{};
 
-        std::ranges::for_each(graph, [&ret](const auto& kvp) {
+        rv3::for_each(graph, [&ret](const auto& kvp) {
             const auto& p{ kvp.first };
             ret.merge(std::set{ p.first, p.second });
         });
@@ -106,10 +114,10 @@ namespace tmcppc::data_structures {
         auto is_not_in_sp_set = [&sp_set](const auto& kvp) { return not sp_set.contains(kvp.first); };
 
         // From the map of distances,
-        // filter out the destination nodes already in shortest paths set,
+        // filter out the destination nodes already in the shortest paths set,
         // and return the nearest of them
-        auto distances_to_nodes_not_in_sp_set{ distances | std::ranges::views::filter(is_not_in_sp_set) };
-        return std::ranges::min_element(
+        auto distances_to_nodes_not_in_sp_set{ distances | rv3::views::filter(is_not_in_sp_set) };
+        return rv3::min_element(
             distances_to_nodes_not_in_sp_set,
             std::less<Distance>{},
             [](const auto& kvp) { return kvp.second; }
@@ -135,7 +143,7 @@ namespace tmcppc::data_structures {
         distance_map<Node, Distance> distances{};
 
         // Start with infinite distances between the source node and all the other nodes
-        std::ranges::transform(ds, std::inserter(distances, end(distances)), [](const auto& d) {
+        rv3::transform(ds, std::inserter(distances, end(distances)), [](const auto& d) {
             return std::make_pair(d, std::numeric_limits<Distance>::max());
         });
 
@@ -168,7 +176,7 @@ namespace tmcppc::data_structures {
             };
 
             // Update distances[d] if
-            // - d is not in shortest path set, and
+            // - d is not in the shortest path set, and
             // - there is an edge from u to d, and
             // - the path from s to d is shorter through u
             for (auto& kvp : distances) {
@@ -205,7 +213,7 @@ namespace tmcppc::data_structures {
             return fmt::format("{}", s);
         } else {
             return fmt::format("{} -> {}", get_shortest_path_string(graph, graph.at(s).first, d), s);
-        };
+        }
     }
 
 

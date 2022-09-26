@@ -1,12 +1,10 @@
 #include "chapter_08_design_patterns/problem_071_observable_vector_container.h"
 
+#include "fmt/ostream.h"
+
 #include <algorithm>  // transform
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
-#include <initializer_list>
 #include <iostream>  // cout
 #include <memory>  // make_shared
-#include <ostream>
 #include <string>
 #include <utility>  // move
 
@@ -19,7 +17,7 @@ void problem_71_main(std::ostream& os) {
     auto sp_ov_0{ std::make_shared<observable_vector<std::string>>() };
     auto sp_ov_1{ std::make_shared<observable_vector<float>>(5) };
     std::ranges::transform(*sp_ov_1, std::begin(*sp_ov_1),
-        [i = 0](auto&& f) mutable { return 3.14f * i++; }
+        [i = 0]([[maybe_unused]] auto&& f) mutable { return 3.14f * static_cast<float>(i++); }
     );
     auto sp_ov_2{ std::make_shared<observable_vector<double>>(3, 1.5) };
     const char* cstr{ "Hello, universe!" };

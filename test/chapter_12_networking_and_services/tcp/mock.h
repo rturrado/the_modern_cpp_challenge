@@ -2,8 +2,8 @@
 
 #include "chapter_12_networking_and_services/tcp/connection.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <string>
 #include <string_view>
@@ -17,4 +17,4 @@ namespace tmcppc::tcp {
         MOCK_METHOD((void), accept, (), (override));
         MOCK_METHOD((void), connect, (), (override));
     };
-}  // naespace tmcppc::tcp
+}  // namespace tmcppc::tcp

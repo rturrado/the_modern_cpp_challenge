@@ -1,7 +1,6 @@
 #include "chapter_10_archives_images_and_databases/png/png_writer_wrapper.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 using namespace tmcppc::png;
 namespace fs = std::filesystem;

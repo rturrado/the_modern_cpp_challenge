@@ -5,8 +5,7 @@
 #include "metric.h"
 #include "rgba_image.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 #include <filesystem>
 

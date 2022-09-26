@@ -3,11 +3,9 @@
 
 #include "rtc/console.h"  // read_positive_number
 
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
+#include "fmt/ostream.h"
+
 #include <iostream>  // cin, cout
-#include <istream>
-#include <ostream>
 #include <utility>  // pair
 #include <vector>
 
@@ -19,7 +17,7 @@ namespace tmcppc::problem_5 {
         std::vector<std::pair<size_t, size_t>> ret{};
         for (size_t i{ 7 }; i <= limit; ++i) {
             if (tmcppc::math::is_prime(i) and tmcppc::math::is_prime(i - 6)) {
-                ret.push_back({ i - 6, i });
+                ret.emplace_back(i - 6, i);
             }
         }
         return ret;
@@ -33,7 +31,7 @@ void problem_5_main(std::istream& is, std::ostream& os) {
     auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 1): ", 1) };
 
     fmt::print(os, "Sexy prime pairs up to {}:\n", limit);
-    for (auto&& p : sexy_prime_pairs_up_to(limit)) {
+    for (auto&& p : sexy_prime_pairs_up_to(static_cast<size_t>(limit))) {
         fmt::print(os, "\t{}\n", p);
     }
     fmt::print(os, "\n");

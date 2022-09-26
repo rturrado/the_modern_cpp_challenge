@@ -1,7 +1,6 @@
 #include "chapter_11_cryptography/caesar.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gtest/gtest.h"
 
 #include <string_view>
 

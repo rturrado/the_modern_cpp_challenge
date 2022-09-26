@@ -2,7 +2,8 @@
 
 #include "rtc/pretty_print.h"
 
-#include <fmt/ostream.h>
+#include "fmt/ostream.h"
+
 #include <memory>  // shared_ptr
 #include <ostream>
 #include <sstream>  // ostringstream
@@ -19,7 +20,7 @@ namespace tmcppc::store {
 
         [[nodiscard]] virtual float percentage(size_t, float) const noexcept = 0;
 
-        virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept = 0;
+        virtual void print(std::ostream& os, const indentation& indentation) const noexcept = 0;
     };
 
     inline void print(
@@ -42,7 +43,7 @@ namespace tmcppc::store {
     }
 
     inline std::ostream& operator<<(std::ostream& os, const tmcppc::store::discount& d) {
-        d.print(os);
+        d.print(os, indentation{});
         return os;
     }
 
@@ -54,12 +55,12 @@ namespace tmcppc::store {
             : percentage_{ p }
         {}
 
-        virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
+        void print(std::ostream& os, const indentation& indentation) const noexcept override {
             fmt::print(os, "{}article_fixed_discount(percentage : {})", indentation, percentage_);
         }
 
     protected:
-        [[nodiscard]] virtual float percentage(size_t, float) const noexcept override {
+        [[nodiscard]] float percentage(size_t, float) const noexcept override {
             return percentage_;
         }
 
@@ -78,13 +79,13 @@ namespace tmcppc::store {
             , minimum_article_quantity_{ q }
         {}
 
-        virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
+        void print(std::ostream& os, const indentation& indentation) const noexcept override {
             fmt::print(os, "{}order_line_volume_discount(percentage : {}, minimum_article_quantity : {})",
                 indentation, percentage_, minimum_article_quantity_);
         }
 
     protected:
-        [[nodiscard]] virtual float percentage(size_t article_quantity, float) const noexcept override {
+        [[nodiscard]] float percentage(size_t article_quantity, float) const noexcept override {
             return (article_quantity >= minimum_article_quantity_) ? percentage_ : 0;
         }
 
@@ -102,14 +103,14 @@ namespace tmcppc::store {
     public:
         order_line_price_discount(float p, float mtap) : percentage_{ p }, minimum_total_article_price_{ mtap } {}
 
-        virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
+        void print(std::ostream& os, const indentation& indentation ) const noexcept override {
             fmt::print(os, "{}order_line_price_discount(percentage : {}, minimum_total_article_price : {})",
                 indentation, percentage_, minimum_total_article_price_);
         }
 
     protected:
-        [[nodiscard]] virtual float percentage(size_t article_quantity, float article_price) const noexcept override {
-            return (article_quantity * article_price > minimum_total_article_price_) ? percentage_ : 0;
+        [[nodiscard]] float percentage(size_t article_quantity, float article_price) const noexcept override {
+            return (static_cast<float>(article_quantity) * article_price > minimum_total_article_price_) ? percentage_ : 0;
         }
 
     private:
@@ -126,13 +127,13 @@ namespace tmcppc::store {
     public:
         order_price_discount(float p, float mtop) : percentage_{ p }, minimum_total_order_price_{ mtop } {}
 
-        virtual void print(std::ostream& os, const indentation& indentation = {}) const noexcept override {
+        void print(std::ostream& os, const indentation& indentation) const noexcept override {
             fmt::print(os, "{}order_price_discount(percentage : {}, minimum_total_order_price : {})",
                 indentation, percentage_, minimum_total_order_price_);
         }
 
     protected:
-        [[nodiscard]] virtual float percentage(size_t, float order_price) const noexcept override {
+        [[nodiscard]] float percentage(size_t, float order_price) const noexcept override {
             return (order_price > minimum_total_order_price_) ? percentage_ : 0;
         }
 
@@ -146,12 +147,12 @@ namespace tmcppc::store {
 
     // Article
     //
-    struct article {
+    struct article_t {
         size_t id{};
         float price{};
         std::vector<std::shared_ptr<discount>> discounts{};
 
-        void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
+        void print(std::ostream& os, const indentation& indentation) const noexcept {
             fmt::print(os, "{}article(\n", indentation);
             fmt::print(os, "{}id : {},\n", indentation + 1, id);
             fmt::print(os, "{}price : {},\n", indentation + 1, price);
@@ -160,7 +161,7 @@ namespace tmcppc::store {
         }
     };
 
-    inline void print(std::ostream& os, const std::vector<std::shared_ptr<article>>& articles, const indentation& indentation = {}) {
+    inline void print(std::ostream& os, const std::vector<std::shared_ptr<article_t>>& articles, const indentation& indentation) {
         bool first{ true };
         for (auto&& article : articles) {
             fmt::print(os, "{}", first ? "" : ",\n");
@@ -169,8 +170,8 @@ namespace tmcppc::store {
         }
     }
 
-    inline std::ostream& operator<<(std::ostream& os, const tmcppc::store::article& a) {
-        a.print(os);
+    inline std::ostream& operator<<(std::ostream& os, const tmcppc::store::article_t& a) {
+        a.print(os, indentation{});
         return os;
     }
 
@@ -178,9 +179,9 @@ namespace tmcppc::store {
     // Store
     //
     struct store {
-        std::vector<std::shared_ptr<article>> articles{};
+        std::vector<std::shared_ptr<article_t>> articles{};
 
-        void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
+        void print(std::ostream& os, const indentation& indentation) const noexcept {
             fmt::print(os, "{}store[\n", indentation);
             tmcppc::store::print(os, articles, indentation + 1);
             fmt::print(os, "\n{}]", indentation);
@@ -188,18 +189,18 @@ namespace tmcppc::store {
     };
 
     inline std::ostream& operator<<(std::ostream& os, const store& s) {
-        s.print(os);
+        s.print(os, indentation{});
         return os;
     }
 
 
     // Customer
     //
-    struct customer {
+    struct customer_t {
         size_t id{};
         std::vector<std::shared_ptr<discount>> discounts{};
 
-        void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
+        void print(std::ostream& os, const indentation& indentation) const noexcept {
             fmt::print(os, "{}customer(\n", indentation);
             fmt::print(os, "{}id : {},\n", indentation + 1, id);
             tmcppc::store::print(os, discounts, indentation + 1);
@@ -207,20 +208,20 @@ namespace tmcppc::store {
         }
     };
 
-    inline std::ostream& operator<<(std::ostream& os, const customer& c) {
-        c.print(os);
+    inline std::ostream& operator<<(std::ostream& os, const customer_t& c) {
+        c.print(os, indentation{});
         return os;
     }
 
 
     // Order line
     //
-    struct order_line {
-        std::shared_ptr<article> article{};
+    struct order_line_t {
+        std::shared_ptr<article_t> article{};
         size_t quantity{};
         std::vector<std::shared_ptr<discount>> discounts{};
 
-        void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
+        void print(std::ostream& os, const indentation& indentation) const noexcept {
             fmt::print(os, "{}order_line(\n", indentation);
             article->print(os, indentation + 1);
             fmt::print(os, ",\n");
@@ -230,12 +231,12 @@ namespace tmcppc::store {
         }
     };
 
-    inline std::ostream& operator<<(std::ostream& os, const order_line& order_line) {
-        order_line.print(os);
+    inline std::ostream& operator<<(std::ostream& os, const order_line_t& order_line) {
+        order_line.print(os, indentation{});
         return os;
     }
 
-    inline void print(std::ostream& os, const std::vector<order_line>& order_lines, const indentation& indentation = {}) {
+    inline void print(std::ostream& os, const std::vector<order_line_t>& order_lines, const indentation& indentation) {
         if (order_lines.empty()) {
             fmt::print(os, "{}order_lines : []", indentation);
         } else {
@@ -253,13 +254,13 @@ namespace tmcppc::store {
 
     // Order
     //
-    struct order {
+    struct order_t {
         size_t id{};
-        std::vector<order_line> order_lines{};
-        std::shared_ptr<customer> customer{};
+        std::vector<order_line_t> order_lines{};
+        std::shared_ptr<customer_t> customer{};
         std::vector<std::shared_ptr<discount>> discounts{};
 
-        void print(std::ostream& os, const indentation& indentation = {}) const noexcept {
+        void print(std::ostream& os, const indentation& indentation) const noexcept {
             fmt::print(os, "{}order(\n", indentation);
             fmt::print(os, "{}id : {},\n", indentation + 1, id);
             tmcppc::store::print(os, order_lines, indentation + 1);
@@ -271,8 +272,8 @@ namespace tmcppc::store {
         }
     };
 
-    inline std::ostream& operator<<(std::ostream& os, const order& order) {
-        order.print(os);
+    inline std::ostream& operator<<(std::ostream& os, const order_t& order) {
+        order.print(os, indentation{});
         return os;
     }
 
@@ -282,21 +283,21 @@ namespace tmcppc::store {
     struct price_calculator {
         virtual ~price_calculator() = default;
 
-        [[nodiscard]] virtual float calculate(const order& order) const noexcept = 0;
+        [[nodiscard]] virtual float calculate(const order_t& order) const noexcept = 0;
     };
 
 
     // Cumulative price calculator
     //
     struct cumulative_price_calculator : public price_calculator {
-        [[nodiscard]] virtual float calculate(const order& order) const noexcept override {
+        [[nodiscard]] float calculate(const order_t& order) const noexcept override {
             float ret{};
 
             for (auto&& order_line : order.order_lines) {
                 auto article{ order_line.article };
                 auto price{ article->price };
                 auto quantity{ order_line.quantity };
-                auto order_line_price{ price * quantity };
+                auto order_line_price{ price * static_cast<float>(quantity) };
 
                 float discount_percentages{};
                 for (auto&& article_discount : article->discounts) {
@@ -327,7 +328,7 @@ namespace tmcppc::store {
     // Non cumulative price calculator
     //
     struct non_cumulative_price_calculator : public price_calculator {
-        [[nodiscard]] virtual float calculate(const order& order) const noexcept override {
+        [[nodiscard]] float calculate(const order_t& order) const noexcept override {
             float ret{};
             float discountable_order_price{};
 
@@ -335,7 +336,7 @@ namespace tmcppc::store {
                 auto article{ order_line.article };
                 auto price{ article->price };
                 auto quantity{ order_line.quantity };
-                auto order_line_price{ price * quantity };
+                auto order_line_price{ price * static_cast<float>(quantity) };
 
                 float discount_percentages{};
                 for (auto&& article_discount : article->discounts) {
@@ -380,22 +381,22 @@ struct fmt::formatter<tmcppc::store::discount> {
     template <typename FormatContext>
     auto format(const tmcppc::store::discount& d, FormatContext& ctx) const -> decltype(ctx.out()) {
         std::ostringstream oss{};
-        d.print(oss);
+        d.print(oss, indentation{});
         return fmt::format_to(ctx.out(), "{}", oss.str());
     }
 };
 
 template <>
-struct fmt::formatter<tmcppc::store::article> {
+struct fmt::formatter<tmcppc::store::article_t> {
     template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::store::article& a, FormatContext& ctx) const -> decltype(ctx.out()) {
+    auto format(const tmcppc::store::article_t& a, FormatContext& ctx) const -> decltype(ctx.out()) {
         std::ostringstream oss{};
-        a.print(oss);
+        a.print(oss, indentation{});
         return fmt::format_to(ctx.out(), "{}", oss.str());
     }
 };
@@ -410,52 +411,52 @@ struct fmt::formatter<tmcppc::store::store> {
     template <typename FormatContext>
     auto format(const tmcppc::store::store& s, FormatContext& ctx) const -> decltype(ctx.out()) {
         std::ostringstream oss{};
-        s.print(oss);
+        s.print(oss, indentation{});
         return fmt::format_to(ctx.out(), "{}", oss.str());
     }
 };
 
 template <>
-struct fmt::formatter<tmcppc::store::customer> {
+struct fmt::formatter<tmcppc::store::customer_t> {
     template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::store::customer& c, FormatContext& ctx) const -> decltype(ctx.out()) {
+    auto format(const tmcppc::store::customer_t& c, FormatContext& ctx) const -> decltype(ctx.out()) {
         std::ostringstream oss{};
-        c.print(oss);
+        c.print(oss, indentation{});
         return fmt::format_to(ctx.out(), "{}", oss.str());
     }
 };
 
 template <>
-struct fmt::formatter<tmcppc::store::order_line> {
+struct fmt::formatter<tmcppc::store::order_line_t> {
     template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::store::order_line& order_line, FormatContext& ctx) const -> decltype(ctx.out()) {
+    auto format(const tmcppc::store::order_line_t& order_line, FormatContext& ctx) const -> decltype(ctx.out()) {
         std::ostringstream oss{};
-        order_line.print(oss);
+        order_line.print(oss, indentation{});
         return fmt::format_to(ctx.out(), "{}", oss.str());
     }
 };
 
 template <>
-struct fmt::formatter<tmcppc::store::order> {
+struct fmt::formatter<tmcppc::store::order_t> {
     template <typename ParseContext>
     constexpr auto parse(ParseContext& ctx) {
         return ctx.begin();
     }
 
     template <typename FormatContext>
-    auto format(const tmcppc::store::order& order, FormatContext& ctx) const -> decltype(ctx.out()) {
+    auto format(const tmcppc::store::order_t& order, FormatContext& ctx) const -> decltype(ctx.out()) {
         std::ostringstream oss{};
-        order.print(oss);
+        order.print(oss, indentation{});
         return fmt::format_to(ctx.out(), "{}", oss.str());
     }
 };

@@ -1,7 +1,8 @@
 #include "chapter_06_algorithms_and_data_structures/problem_059_weasel_program.h"
 
+#include "fmt/ostream.h"
+
 #include <algorithm>  // max_element
-#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
 #include <vector>
@@ -33,8 +34,8 @@ void problem_59_main(std::ostream& os) {
 
 // The Weasel program
 //
-// Write a program that implements Richard Dawkin's weasel computer simulation,
-// described in Dawkin's words as follows (The Blind Watchmaker, chapter 3):
+// Write a program that implements Richard Dawkins' weasel computer simulation,
+// described in Dawkins' words as follows (The Blind Watchmaker, chapter 3):
 //
 //     We again use our computer monkey, but with a crucial difference in its program.
 //     It again begins by choosing a random sequence of 28 letters, just as before ...

@@ -2,24 +2,23 @@
 
 #include "rtc/chrono.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "date/date.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-#include <chrono>
 #include <sstream>  // ostringstream
 
-namespace ch = std::chrono;
-using namespace std::chrono_literals;
+using namespace date::literals;  // 2022_y
 using namespace tmcppc::problem_42;
 
 
-TEST(daynum, invalid_date) { EXPECT_THROW(daynum(2022y / 20 / 40), rtc::chrono::invalid_date_error); }
-TEST(daynum, january_1_2022) { EXPECT_EQ(daynum(2022y / 1 / 1), 1); }
-TEST(daynum, december_31_2022) { EXPECT_EQ(daynum(2022y / 12 / 31), 365); }
+TEST(daynum, invalid_date) { EXPECT_THROW(daynum(2022_y / 20 / 40), rtc::chrono::invalid_date_error); }
+TEST(daynum, january_1_2022) { EXPECT_EQ(daynum(2022_y / 1 / 1), 1); }
+TEST(daynum, december_31_2022) { EXPECT_EQ(daynum(2022_y / 12 / 31), 365); }
 
-TEST(weeknum, invalid_date) { EXPECT_THROW(weeknum(2022y / 20 / 40), rtc::chrono::invalid_date_error); }
-TEST(weeknum, january_1_2022) { EXPECT_EQ(weeknum(2022y / 1 / 1), 1); }
-TEST(weeknum, december_31_2022) { EXPECT_EQ(weeknum(2022y / 12 / 31), 53); }
+TEST(weeknum, invalid_date) { EXPECT_THROW(weeknum(2022_y / 20 / 40), rtc::chrono::invalid_date_error); }
+TEST(weeknum, january_1_2022) { EXPECT_EQ(weeknum(2022_y / 1 / 1), 1); }
+TEST(weeknum, december_31_2022) { EXPECT_EQ(weeknum(2022_y / 12 / 31), 53); }
 
 TEST(problem_42_main, output) {
     std::ostringstream oss{};

@@ -6,8 +6,8 @@
 #include "cryptopp/md5.h"  // MD5
 #include "cryptopp/sha.h"  // SHA1, SHA256
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <filesystem>
 #include <sstream>  // ostringstream

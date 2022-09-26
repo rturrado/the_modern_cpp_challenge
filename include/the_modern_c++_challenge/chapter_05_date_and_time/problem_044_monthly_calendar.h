@@ -1,11 +1,12 @@
 #pragma once
 
-#include <chrono>
+#include "date/date.h"
+
 #include <iosfwd>
 
 
 namespace tmcppc::problem_44 {
-    void print_calendar_month(std::ostream& os, const std::chrono::year& y, const std::chrono::month& m);
+    void print_calendar_month(std::ostream& os, const date::year& y, const date::month& m);
 }  // namespace tmcppc::problem_44
 
 

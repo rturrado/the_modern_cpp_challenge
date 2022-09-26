@@ -1,9 +1,8 @@
 #include "chapter_01_math/problem_001_sum_of_naturals_divisible_by_3_or_5.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-#include <sstream>  // istringstream, ostringstream
 #include <vector>
 
 using namespace tmcppc::problem_1;

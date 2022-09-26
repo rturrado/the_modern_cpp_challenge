@@ -1,9 +1,8 @@
 #include "chapter_04_streams_and_filesystems/problem_032_pascal_triangle.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
-#include <sstream>  // ostringstream
 #include <stdexcept>  // out_of_range
 
 using namespace tmcppc::problem_32;

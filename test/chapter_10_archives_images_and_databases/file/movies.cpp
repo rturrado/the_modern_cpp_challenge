@@ -2,11 +2,11 @@
 #include "chapter_09_data_serialization/movies/samples.h"
 #include "chapter_10_archives_images_and_databases/file/movies.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "fmt/ostream.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <filesystem>
-#include <fmt/ostream.h>
 #include <fstream>  // ifstream, ofstream
 #include <ios>  // ios_base
 
@@ -29,7 +29,7 @@ TEST(from_file, cast) {
         "Bubba Blue\n");
     ofs.close();
     std::ifstream ifs{ temp_file_path, std::ios_base::in };
-    cast c{};
+    cast_t c{};
     from_file(ifs, c);
     EXPECT_EQ(c, samples::cast);
 }
@@ -44,7 +44,7 @@ TEST(from_file, writers) {
         "Eric Roth\n");
     ofs.close();
     std::ifstream ifs{ temp_file_path, std::ios_base::in };
-    writers ws{};
+    writers_t ws{};
     from_file(ifs, ws);
     EXPECT_EQ(ws, samples::writers);
 }
@@ -58,7 +58,7 @@ TEST(from_file, directors) {
         "Robert Zemeckis\n");
     ofs.close();
     std::ifstream ifs{ temp_file_path, std::ios_base::in };
-    directors ds{};
+    directors_t ds{};
     from_file(ifs, ds);
     EXPECT_EQ(ds, samples::directors);
 }
@@ -87,7 +87,7 @@ TEST(from_file, movie) {
         "Eric Roth\n";
     ofs.close();
     std::ifstream ifs{ temp_file_path, std::ios_base::in };
-    movie m{};
+    movie_t m{};
     from_file(ifs, m);
     EXPECT_EQ(m, samples::movie_with_default_id);
 }

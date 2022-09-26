@@ -1,7 +1,7 @@
 #include "chapter_12_networking_and_services/problem_095_finding_the_ip_address_of_a_host.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <sstream>  // ostringstream
 
@@ -15,19 +15,19 @@ TEST(problem_95_main, output) {
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
         "Getting IPv4 addresses for host = 'www.boost.org' and service = 'http'\n"
-        "\t\\d+\\.\\d+\\.\\d+\\.\\d+\n"
+        "\t[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+\n"
     ));
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
         "Getting IPv4 addresses for host = 'www.google.com' and service = 'https'\n"
-        "\t\\d+\\.\\d+\\.\\d+\\.\\d+\n"
+        "\t[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+\n"
     ));
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
         "Getting IPv4 addresses for host = 'www.---.com' and service = 'http'\n"
-        "\tError: resolve: No such host is known.\n"
+        "\tError: resolve: .*\n"  // error messages are platform dependent
     ));
-    EXPECT_THAT(oss.str(), ::testing::HasSubstr(
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
         "Getting IPv4 addresses for host = 'www.boost.org' and service = 'blah'\n"
-        "\tError: resolve: The specified class was not found.\n\n"
+        "\tError: resolve: .*\n\n"  // error messages are platform dependent
     ));
     EXPECT_THAT(oss.str(), ::testing::Not(::testing::EndsWith("\n\n\n")));
 }

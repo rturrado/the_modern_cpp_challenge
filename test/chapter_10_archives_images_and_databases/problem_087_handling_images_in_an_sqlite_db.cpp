@@ -2,9 +2,9 @@
 #include "chapter_10_archives_images_and_databases/problem_087_handling_images_in_an_sqlite_db.h"
 #include "env.h"
 
-#include <fmt/format.h>
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "fmt/format.h"
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <sstream>  // istringstream, ostringstream
 

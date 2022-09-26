@@ -1,11 +1,12 @@
 #include "chapter_05_date_and_time/problem_039_measuring_function_execution_time.h"
 
+#include "fmt/chrono.h"
+#include "fmt/ostream.h"
+
 #include <algorithm>  // shuffle, sort
 #include <cassert>  // assert
 #include <chrono>
 #include <iostream>  // cout
-#include <fmt/chrono.h>
-#include <fmt/ostream.h>
 #include <numeric>  // iota
 #include <random>  // mt19937, random_device
 #include <utility>  // forward, pair
@@ -16,7 +17,7 @@ namespace tmcppc::problem_39 {
     void sort_vector(std::vector<int>& v) {
         std::ranges::sort(v);
         assert(v[0] == 1);
-    };
+    }
 
     void sort_iota_vector(size_t num_elems, size_t num_reps) {
         assert(num_elems > 0);

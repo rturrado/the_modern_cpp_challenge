@@ -1,7 +1,7 @@
 #include "chapter_05_date_and_time/problem_039_measuring_function_execution_time.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <chrono>
 #include <sstream>  // ostringstream

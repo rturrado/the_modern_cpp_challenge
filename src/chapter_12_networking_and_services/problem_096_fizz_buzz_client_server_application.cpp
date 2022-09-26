@@ -1,12 +1,11 @@
 #include "chapter_12_networking_and_services/fizz_buzz.h"
 #include "chapter_12_networking_and_services/problem_096_fizz_buzz_client_server_application.h"
 
-#include <fmt/ostream.h>
+#include "fmt/ostream.h"
+
 #include <future>  // async
 #include <iostream>  // cin, cout
-#include <istream>
 #include <memory>  // make_unique
-#include <ostream>
 
 #define BOOST_ASIO_STANDALONE
 #include <asio.hpp>
@@ -18,8 +17,8 @@ void problem_96_main(std::istream& is, std::ostream& os) {
 
     asio::io_context io{};
     asio::ip::tcp::endpoint ep{ asio::ip::make_address("127.0.0.1"), 5555 };
-    server s{ os, std::make_unique<connector_asio>(io, ep) };
-    client c{ is, os, std::make_unique<connector_asio>(io, ep) };
+    server s{ os, std::make_unique<connector_server_asio>(io, ep) };
+    client c{ is, os, std::make_unique<connector_client_asio>(io, ep) };
     auto server_future = std::async(std::launch::async, [&s]() { return s.run(); });
     auto client_future = std::async(std::launch::async, [&c]() { return c.run(); });
 
@@ -36,7 +35,7 @@ void problem_96_main(std::istream& is, std::ostream& os) {
 // The server should run indefinitely.
 // The client should run as long as the user enters numbers between 1 and 99.
 //
-// Fizz-Buzz is a game for children, intented to teach them arithmetic division.
+// Fizz-Buzz is a game for children, intended to teach them arithmetic division.
 // A player must say a number and another player should answer with:
 //   - Fizz, if the number is divisible by 3.
 //   - Buzz, if the number is divisible by 5.

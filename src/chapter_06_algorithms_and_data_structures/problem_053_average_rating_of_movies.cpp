@@ -1,7 +1,9 @@
 #include "chapter_06_algorithms_and_data_structures/problem_053_average_rating_of_movies.h"
 
+#include "fmt/ostream.h"
+
 #include <algorithm>  // sort
-#include <fmt/ostream.h>
+#include <cmath>
 #include <iostream>  // cout
 #include <numeric>  // accumulate
 
@@ -14,11 +16,15 @@ namespace tmcppc::problem_53 {
 
         std::ranges::sort(rs);
 
-        size_t ratings_to_remove{ static_cast<size_t>(rs.size() * 0.1 + 0.5) };  // removing a 10% instead of a 5%
+        auto ratings_to_remove{
+            static_cast<std::vector<int>::difference_type>(
+                lround(static_cast<double>(rs.size()) * 0.1)  // removing a 10% instead of a 5%
+            )
+        };
         rs.erase(begin(rs), begin(rs) + ratings_to_remove);
         rs.erase(end(rs) - ratings_to_remove, end(rs));
 
-        return std::accumulate(begin(rs), end(rs), 0.0) / rs.size();
+        return std::accumulate(begin(rs), end(rs), 0.0) / static_cast<double>(rs.size());
     }
 }  // namespace tmcppc::problem_53
 

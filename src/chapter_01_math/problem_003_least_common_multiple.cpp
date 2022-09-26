@@ -2,12 +2,10 @@
 
 #include "rtc/console.h"  // read_list_of_positive_numbers
 
+#include "fmt/ostream.h"
+
 #include <algorithm>  // all_of, any_of, sort
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cin, cout
-#include <istream>
-#include <ostream>
 #include <stdexcept>  // runtime_error
 #include <vector>
 
@@ -15,7 +13,7 @@
 namespace tmcppc::problem_3 {
     // Note this function doesn't check for overflows
     long lcm(std::vector<int> v) {
-        if (v.size() == 0) {
+        if (v.empty()) {
             throw std::runtime_error{ "calling lcm(v) with an empty list" };
         }
         if (std::ranges::any_of(v, [](int n) { return n <= 0;  })) {
@@ -36,8 +34,7 @@ namespace tmcppc::problem_3 {
                 return possible_lcm;
             }
         }
-        return -1;
-    };
+    }
 }  // namespace tmcppc::problem_3
 
 

@@ -2,7 +2,7 @@
 
 #include <algorithm>  // any_of
 #include <cctype>  // isdigit, islower, ispunct, isupper
-#include <fmt/format.h>
+#include "fmt/format.h"
 #include <iosfwd>
 #include <memory>  // unique_ptr
 #include <optional>
@@ -74,7 +74,7 @@ namespace tmcppc::password {
                 minimum_length_validator() = default;
                 explicit minimum_length_validator(size_t length) : length_{ length } {}
 
-                [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
+                [[nodiscard]] validate_return_type validate(std::string_view pw) const noexcept override {
                     if (pw.size() < length_) {
                         return fmt::format("{} {}", "password length has to be at least", length_);
                     } else {
@@ -95,7 +95,7 @@ namespace tmcppc::password {
                     , error_message_{ error_message }
                 {}
 
-                [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
+                [[nodiscard]] validate_return_type validate(std::string_view pw) const noexcept override {
                     if (not pred_(pw)) {
                         return error_message_;
                     } else {
@@ -169,12 +169,12 @@ namespace tmcppc::password {
             class minimum_length_validator : public password_strength_validator {
             public:
                 minimum_length_validator() = default;
-                minimum_length_validator(size_t length, std::unique_ptr<password_strength_validator> next = nullptr)
+                explicit minimum_length_validator(size_t length, std::unique_ptr<password_strength_validator> next = nullptr)
                     : password_strength_validator{ std::move(next) }
                     , length_{ length }
                 {}
 
-                [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
+                [[nodiscard]] validate_return_type validate(std::string_view pw) const noexcept override {
                     if (pw.size() < length_) {
                         return fmt::format("{} {}", "password length has to be at least", length_);
                     } else {
@@ -190,12 +190,12 @@ namespace tmcppc::password {
             class contains_validator : public password_strength_validator {
             public:
                 contains_validator() = delete;
-                contains_validator(ContainsOrErrorF f, std::unique_ptr<password_strength_validator> next = nullptr)
+                explicit contains_validator(ContainsOrErrorF f, std::unique_ptr<password_strength_validator> next = nullptr)
                     : password_strength_validator{ std::move(next) }
                     , contains_or_error_f_{ f }
                 {}
 
-                [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
+                [[nodiscard]] validate_return_type validate(std::string_view pw) const noexcept override {
                     if (auto error{ contains_or_error_f_(pw) }) {
                         return error.value();
                     } else {

@@ -2,15 +2,18 @@
 
 #include "rtc/timer.h"
 
+#include "benchmark/benchmark.h"
+#include "fmt/chrono.h"
+#include "fmt/core.h"
+
 #include <algorithm>  // transform
-#include <benchmark/benchmark.h>
-#include <cassert>  // assert
 #include <chrono>
 #include <execution>  // par
-#include <fmt/chrono.h>
-#include <fmt/core.h>
 #include <numeric>  // iota
 #include <vector>
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 
 auto square = [](int n) { return n * n; };

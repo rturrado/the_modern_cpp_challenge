@@ -1,7 +1,7 @@
 #include "chapter_06_algorithms_and_data_structures/problem_050_filtering_a_list_of_phone_numbers.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <sstream>  // ostringstream
 

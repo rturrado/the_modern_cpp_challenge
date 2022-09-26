@@ -3,7 +3,7 @@
 #include "pugixml.hpp"
 
 #include <cstddef>  // ptrdiff_t
-#include <fmt/format.h>
+#include "fmt/format.h"
 #include <stdexcept>  // runtime_error
 #include <string>
 
@@ -11,25 +11,25 @@
 namespace tmcppc::pugixml {
     // Runtime errors
     struct attribute_error : public std::runtime_error {
-        attribute_error(const std::string& name) : std::runtime_error{ message_ + name } {}
+        explicit attribute_error(const std::string& name) : std::runtime_error{ message_ + name } {}
     private:
         static inline std::string message_{ "trying to access attribute " };
     };
 
     struct child_error : public std::runtime_error {
-        child_error(const std::string& name) : std::runtime_error{ message_ + name } {}
+        explicit child_error(const std::string& name) : std::runtime_error{ message_ + name } {}
     private:
         static inline std::string message_{ "trying to access child " };
     };
 
     struct append_attribute_error : public std::runtime_error {
-        append_attribute_error(const std::string& name) : std::runtime_error{ message_ + name } {}
+        explicit append_attribute_error(const std::string& name) : std::runtime_error{ message_ + name } {}
     private:
         static inline std::string message_{ "trying to append attribute " };
     };
 
     struct append_child_error : public std::runtime_error {
-        append_child_error(const std::string& name) : std::runtime_error{ message_ + name } {}
+        explicit append_child_error(const std::string& name) : std::runtime_error{ message_ + name } {}
     private:
         static inline std::string message_{ "trying to append child " };
     };
@@ -38,16 +38,16 @@ namespace tmcppc::pugixml {
         load_from_error(const std::string& description, std::ptrdiff_t offset) : std::runtime_error{ "" } {
             message_ = fmt::format("trying to load from: \"{}\", at offset {}", description, offset);
         }
-        virtual const char* what() const noexcept override { return message_.c_str(); }
+        [[nodiscard]] const char* what() const noexcept override { return message_.c_str(); }
     private:
         static inline std::string message_{};
     };
 
     struct save_to_error : public std::runtime_error {
-        save_to_error(const std::string& file_path) : std::runtime_error{ "" } {
+        explicit save_to_error(const std::string& file_path) : std::runtime_error{ "" } {
             message_ = fmt::format("trying to save to: \"{}\"", file_path);
         }
-        virtual const char* what() const noexcept override { return message_.c_str(); }
+        [[nodiscard]] const char* what() const noexcept override { return message_.c_str(); }
     private:
         static inline std::string message_{};
     };

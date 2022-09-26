@@ -1,10 +1,9 @@
 #include "chapter_01_math/problem_010_gray_code.h"
 
+#include "fmt/ostream.h"
+
 #include <bitset>
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cout
-#include <ostream>
 
 
 namespace tmcppc::problem_10 {

@@ -1,8 +1,8 @@
 #include "chapter_03_strings_and_regular_expressions/problem_024_string_to_binary_conversion.h"
 
-#include <fmt/format.h>
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
+#include "fmt/format.h"
+#include "fmt/ostream.h"
+
 #include <iostream>  // cout
 #include <ostream>
 #include <string>
@@ -12,11 +12,11 @@
 namespace tmcppc::problem_24 {
     // Char to uint8_t
     uint8_t from_hex_char(char c) {
-        uint8_t ret{ 0 };
+        uint8_t ret{};
 
-        if ('0' <= c and c <= '9') { ret = c - '0'; }
-        else if ('a' <= c and c <= 'f') { ret = c - 'a' + 10; }
-        else if ('A' <= c and c <= 'F') { ret = c - 'A' + 10; }
+        if ('0' <= c and c <= '9') { ret = static_cast<uint8_t>(c - '0'); }
+        else if ('a' <= c and c <= 'f') { ret = static_cast<uint8_t>(c - 'a' + 10); }
+        else if ('A' <= c and c <= 'F') { ret = static_cast<uint8_t>(c - 'A' + 10); }
         else { throw from_hex_char_error{ c }; }
 
         return ret;
@@ -37,7 +37,7 @@ namespace tmcppc::problem_24 {
             return std::vector<uint8_t>{};
         }
         if (s.size() % 2 != 0) {
-            s.insert(0, "0");
+            s = std::string{ "0" } + std::move(s);
         }
 
         std::vector<uint8_t> ret(s.size() / 2);
@@ -59,11 +59,12 @@ namespace tmcppc::problem_24 {
         }
         std::vector<uint8_t> ret{};
 
-        for (size_t pos{ 0 }, previous_pos{ 0 }; pos = s.find(delimiter, pos); ) {
+        for (size_t pos{ 0 }, previous_pos{ 0 };;) {
+            pos = s.find(delimiter, pos);
             auto token{ s.substr(previous_pos, pos - previous_pos) };
 
             if (token.size() == 1) {
-                token.insert(0, "0");
+                token = std::string{ "0" } + std::move(token);
             } else if (token.size() != 2) {
                 throw from_hex_string_parse_error{
                     fmt::format("parsing string \"{}\". Found token \"{}\" of size '{}' at pos '{}'",

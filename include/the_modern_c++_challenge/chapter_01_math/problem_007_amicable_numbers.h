@@ -14,4 +14,3 @@ void problem_7_main(std::ostream& os);
 void problem_7_main();
 
 void playing_with_tmp(std::ostream& os);
-void playing_with_tmp();

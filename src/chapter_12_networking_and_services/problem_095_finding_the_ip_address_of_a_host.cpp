@@ -1,9 +1,9 @@
 #include "chapter_12_networking_and_services/problem_095_finding_the_ip_address_of_a_host.h"
 #include "chapter_12_networking_and_services/tcp/resolver.h"
 
-#include <fmt/ostream.h>
+#include "fmt/ostream.h"
+
 #include <iostream>  // cout
-#include <string>
 #include <string_view>
 #include <utility>  // pair
 #include <vector>
@@ -15,6 +15,8 @@
 void problem_95_main(std::ostream& os) {
     using namespace tmcppc::tcp;
 
+    asio::io_context io_context{};
+    resolver_asio resolver{ io_context };
     for (auto&& [host, service] : std::vector<std::pair<std::string_view, std::string_view>>{
         { "localhost", "8080" },
         { "www.boost.org", "http" },
@@ -23,8 +25,6 @@ void problem_95_main(std::ostream& os) {
         { "www.boost.org", "blah" } }) {
 
         fmt::print(os, "Getting IPv4 addresses for host = '{}' and service = '{}'\n", host, service);
-        asio::io_context io_context{};
-        resolver_asio resolver{ io_context };
         try {
             for (auto&& address : resolver.get_host_ipv4_addresses(host, service)) {
                 fmt::print(os, "\t{}\n", address);

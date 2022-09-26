@@ -3,7 +3,7 @@
 #include "curl_easy.h"
 #include "curl_header.h"
 
-#include <fmt/format.h>
+#include "fmt/format.h"
 #include <map>
 #include <memory>  // unique_ptr
 #include <regex>  // regex_match, smatch
@@ -53,7 +53,7 @@ namespace tmcppc::text_translation {
 
 
     struct translation_error : public std::runtime_error {
-        translation_error(std::string_view message)
+        explicit translation_error(std::string_view message)
             : std::runtime_error{ message.data() }
         {}
     };
@@ -72,11 +72,11 @@ namespace tmcppc::text_translation {
         static inline std::string_view endpoint{ "https://api.microsofttranslator.com/V2/Http.svc" };
         static inline std::string_view key_header{ "Ocp-Apim-Subscription-Key" };
     public:
-        provider_azure(std::string_view key)
+        explicit provider_azure(std::string_view key)
             : key_{ key }
         {}
 
-        [[nodiscard]] virtual std::string translate(std::string_view text, language_code from, language_code to) const override {
+        [[nodiscard]] std::string translate(std::string_view text, language_code from, language_code to) const override {
             try {
                 std::ostringstream oss{};
                 curl::curl_ios<std::ostringstream> writer{ oss };
@@ -93,7 +93,7 @@ namespace tmcppc::text_translation {
                     .c_str());
 
                 curl::curl_header header{};
-                header.add(fmt::format("{}:{}", key_header, key_).c_str());
+                header.add(fmt::format("{}:{}", key_header, key_));
                 easy.add<CURLOPT_HTTPHEADER>(header.get());
 
                 easy.perform();
@@ -110,7 +110,7 @@ namespace tmcppc::text_translation {
 
     class translator {
     private:
-        [[nodiscard]] translator_response parse_translate_response(const std::string& response) const {
+        [[nodiscard]] static translator_response parse_translate_response(const std::string& response) {
             const std::regex pattern{ R"(<string xmlns="[^"]+">([^<]*)</string>)" };
             const std::regex error_pattern{ R"(<html><body><h1>Argument Exception</h1>.*<p>Message: ([^<]+)</p>.*)" };
             std::smatch matches{};
@@ -122,7 +122,7 @@ namespace tmcppc::text_translation {
             return error_response{ "unknown provider response" };
         }
     public:
-        translator(std::unique_ptr<provider_adaptor> provider)
+        explicit translator(std::unique_ptr<provider_adaptor> provider)
             : provider_{ std::move(provider) } {
 
             if (not provider_) {

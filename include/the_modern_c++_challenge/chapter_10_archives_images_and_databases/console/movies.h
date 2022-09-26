@@ -5,14 +5,14 @@
 #include "rtc/console.h"
 
 #include <chrono>
-#include <fmt/ostream.h>
+#include "fmt/ostream.h"
 #include <istream>
 #include <ostream>
 #include <string>  // getline
 
 
 namespace tmcppc::movies::console {
-    inline void from_console(std::istream& is, std::ostream& os, cast& cast) {
+    inline void from_console(std::istream& is, std::ostream& os, cast_t& cast) {
         fmt::print(os, "Cast? ('quit' to end the list)\n");
         for (;;) {
             fmt::print(os, "Please enter a star's full name (e.g. Tom Hanks): ");
@@ -27,11 +27,11 @@ namespace tmcppc::movies::console {
             if (role == "quit") {
                 break;
             }
-            cast.cast_.push_back({ star, role });
+            cast.data.push_back({star, role });
         }
     }
 
-    inline void from_console(std::istream& is, std::ostream& os, writers& writers) {
+    inline void from_console(std::istream& is, std::ostream& os, writers_t& writers) {
         fmt::print(os, "Writers? ('quit' to end the list)\n");
         for (;;) {
             fmt::print(os, "Please enter a writer's full name (e.g. Eric Roth): ");
@@ -40,11 +40,11 @@ namespace tmcppc::movies::console {
             if (writer == "quit") {
                 break;
             }
-            writers.writers_.push_back({ writer });
+            writers.data.push_back({writer });
         }
     }
 
-    inline void from_console(std::istream& is, std::ostream& os, directors& directors) {
+    inline void from_console(std::istream& is, std::ostream& os, directors_t& directors) {
         fmt::print(os, "Directors? ('quit' to end the list)\n");
         for (;;) {
             fmt::print(os, "Please enter a director's full name (e.g. Robert Zemeckis): ");
@@ -53,11 +53,11 @@ namespace tmcppc::movies::console {
             if (director == "quit") {
                 break;
             }
-            directors.directors_.push_back({ director });
+            directors.data.push_back({director });
         }
     }
 
-    inline void from_console(std::istream& is, std::ostream& os, movie& movie) {
+    inline void from_console(std::istream& is, std::ostream& os, movie_t& movie) {
         namespace ch = std::chrono;
 
         fmt::print(os, "Title?\n");
@@ -75,4 +75,4 @@ namespace tmcppc::movies::console {
         from_console(is, os, movie.directors);
         from_console(is, os, movie.writers);
     }
-};  // namespace tmcppc::movies::console
+}  // namespace tmcppc::movies::console

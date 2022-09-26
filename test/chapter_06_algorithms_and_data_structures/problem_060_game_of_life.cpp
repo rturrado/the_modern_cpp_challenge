@@ -4,13 +4,12 @@
 #include "console/fake.h"
 #include "timer/fake.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <algorithm>  // all_of
 #include <chrono>
 #include <future>  // async
-#include <memory>  // make_unique
 #include <sstream>  // ostringstream
 #include <thread>  // sleep_for
 

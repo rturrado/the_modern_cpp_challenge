@@ -1,7 +1,7 @@
 #include "chapter_08_design_patterns/problem_072_computing_order_price_with_discounts.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 #include <cmath>  // fabs
 #include <memory>  // make_shared, make_unique, unique_ptr
@@ -71,10 +71,10 @@ TEST(price_calculator, calculate) {
     auto d1{ std::make_shared<article_fixed_discount>(0.05f) };
     auto d3{ std::make_shared<order_line_price_discount>(0.1f, 20.0f) };
     auto d4{ std::make_shared<order_price_discount>(0.03f, 100.0f) };
-    auto a3{ std::make_shared<article>(2, 4.0f, std::vector<std::shared_ptr<discount>>{}) };
-    auto a4{ std::make_shared<article>(3, 8.0f, std::vector<std::shared_ptr<discount>>{}) };
-    auto c2{ std::make_shared<customer>(1, std::vector<std::shared_ptr<discount>>{ d1 }) };
-    order o2{
+    auto a3{ std::make_shared<article_t>(2, 4.0f, std::vector<std::shared_ptr<discount>>{}) };
+    auto a4{ std::make_shared<article_t>(3, 8.0f, std::vector<std::shared_ptr<discount>>{}) };
+    auto c2{ std::make_shared<customer_t>(1, std::vector<std::shared_ptr<discount>>{ d1 }) };
+    order_t o2{
         .id = 1,
         .order_lines = {
             { a3, 10, std::vector<std::shared_ptr<discount>>{ d3 } },

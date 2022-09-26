@@ -1,11 +1,11 @@
 #include "chapter_07_concurrency/problem_062_parallel_minmax_with_threads.h"
 #include "parallel_minmax.h"
 
-#include <benchmark/benchmark.h>
-#include <cstdint>  // int64_t
+#include "benchmark/benchmark.h"
+#include "fmt/chrono.h"
+#include "fmt/core.h"
+
 #include <execution>
-#include <fmt/chrono.h>
-#include <fmt/core.h>
 
 
 // Custom benchmark
