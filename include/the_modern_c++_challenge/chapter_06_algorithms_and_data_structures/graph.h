@@ -32,8 +32,8 @@ namespace tmcppc::data_structures {
         using key_type = std::pair<Node, Node>;
         using mapped_type = Distance;
         using value_type = std::pair<const key_type, Distance>;
-        using iterator = typename std::map<key_type, mapped_type>::iterator;
-        using const_iterator = typename std::map<key_type, mapped_type>::const_iterator;
+        using iterator = std::map<key_type, mapped_type>::iterator;
+        using const_iterator = std::map<key_type, mapped_type>::const_iterator;
 
         undirected_graph_map(std::initializer_list<value_type> init) : data_{ init } { }
 
@@ -63,8 +63,8 @@ namespace tmcppc::data_structures {
         using key_type = Node;
         using mapped_type = std::pair<Node, Distance>;
         using value_type = std::pair<const key_type, mapped_type>;
-        using iterator = typename std::map<key_type, mapped_type>::iterator;
-        using const_iterator = typename std::map<key_type, mapped_type>::const_iterator;
+        using iterator = std::map<key_type, mapped_type>::iterator;
+        using const_iterator = std::map<key_type, mapped_type>::const_iterator;
 
         directed_graph_map(std::initializer_list<value_type> init) : data_{ init } { }
 

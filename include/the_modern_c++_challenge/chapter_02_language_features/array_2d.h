@@ -153,11 +153,11 @@ namespace tmcppc::data_structures {
         template <typename Iter>
         class reverse_iterator {
         public:
-            using difference_type = typename Iter::difference_type;
-            using iterator_category = typename Iter::iterator_category;
-            using pointer = typename Iter::pointer;
-            using reference = typename Iter::reference;
-            using value_type = typename Iter::value_type;
+            using difference_type = Iter::difference_type;
+            using iterator_category = Iter::iterator_category;
+            using pointer = Iter::pointer;
+            using reference = Iter::reference;
+            using value_type = Iter::value_type;
 
             template <typename>
             friend class reverse_iterator;
@@ -231,9 +231,9 @@ namespace tmcppc::data_structures {
         using const_reverse_iterator = reverse_iterator<const_iterator>;
         using reference = T&;
         using reverse_iterator_t = reverse_iterator<iterator>;
-        using size_type = typename std::vector<T>::size_type;
+        using size_type = std::vector<T>::size_type;
         using value_type = T;
-        using difference_type = typename const_iterator::difference_type;
+        using difference_type = const_iterator::difference_type;
 
     private:
         void verify_indexed_access(

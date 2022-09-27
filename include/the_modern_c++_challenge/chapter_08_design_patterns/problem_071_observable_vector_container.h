@@ -171,12 +171,12 @@ namespace tmcppc::data_structures {
     template <typename T>
     class observable_vector : public subject<T> {
     public:
-        using size_type = typename std::vector<T>::size_type;
-        using difference_type = typename std::vector<T>::difference_type;
-        using reference = typename std::vector<T>::reference;
-        using const_reference = typename std::vector<T>::const_reference;
-        using iterator = typename std::vector<T>::iterator;
-        using const_iterator = typename std::vector<T>::const_iterator;
+        using size_type = std::vector<T>::size_type;
+        using difference_type = std::vector<T>::difference_type;
+        using reference = std::vector<T>::reference;
+        using const_reference = std::vector<T>::const_reference;
+        using iterator = std::vector<T>::iterator;
+        using const_iterator = std::vector<T>::const_iterator;
 
         constexpr observable_vector() = default;
         constexpr explicit observable_vector(size_t s)

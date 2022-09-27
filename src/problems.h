@@ -35,7 +35,7 @@ public:
     }
 
 private:
-    problems() {};
+    problems() = default;
 
     std::vector<function_type> data_{
         // Math

@@ -11,10 +11,10 @@ namespace tmcppc::data_structures {
     public:
         using container = std::vector<T>;
         using container_type = container;
-        using const_reference = typename container::const_reference;
-        using reference = typename container::reference;
-        using size_type = typename container::size_type;
-        using value_type = typename container::value_type;
+        using const_reference = container::const_reference;
+        using reference = container::reference;
+        using size_type = container::size_type;
+        using value_type = container::value_type;
 
         explicit double_buffer(size_type size)
             : buffer_write_(size), buffer_read_(size) {}

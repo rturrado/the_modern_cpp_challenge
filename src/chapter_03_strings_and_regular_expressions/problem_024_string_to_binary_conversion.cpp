@@ -12,14 +12,10 @@
 namespace tmcppc::problem_24 {
     // Char to uint8_t
     uint8_t from_hex_char(char c) {
-        uint8_t ret{};
-
-        if ('0' <= c and c <= '9') { ret = static_cast<uint8_t>(c - '0'); }
-        else if ('a' <= c and c <= 'f') { ret = static_cast<uint8_t>(c - 'a' + 10); }
-        else if ('A' <= c and c <= 'F') { ret = static_cast<uint8_t>(c - 'A' + 10); }
+        if ('0' <= c and c <= '9') { return static_cast<uint8_t>(c - '0'); }
+        else if ('a' <= c and c <= 'f') { return static_cast<uint8_t>(c - 'a' + 10); }
+        else if ('A' <= c and c <= 'F') { return static_cast<uint8_t>(c - 'A' + 10); }
         else { throw from_hex_char_error{ c }; }
-
-        return ret;
     }
 
 

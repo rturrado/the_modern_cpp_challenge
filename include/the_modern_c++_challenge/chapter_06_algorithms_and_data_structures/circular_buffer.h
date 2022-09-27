@@ -15,16 +15,16 @@ namespace tmcppc::data_structures {
     public:
         using container = std::vector<T>;
         using container_type = container;
-        using const_reference = typename container::const_reference;
-        using reference = typename container::reference;
-        using size_type = typename container::size_type;
-        using value_type = typename container::value_type;
+        using const_reference = container::const_reference;
+        using reference = container::reference;
+        using size_type = container::size_type;
+        using value_type = container::value_type;
 
     private:
         class const_iterator {
         public:
             using iterator_category = std::random_access_iterator_tag;
-            using reference = typename container::const_reference;
+            using reference = container::const_reference;
 
             using TPtr_ = size_type;
 
@@ -71,7 +71,7 @@ namespace tmcppc::data_structures {
 
         public:
             using iterator_category = std::random_access_iterator_tag;
-            using reference = typename container::reference;
+            using reference = container::reference;
 
             constexpr iterator() noexcept : const_iterator{} {}
             constexpr iterator(circular_buffer& cb, typename MyBase_::TPtr_ pos) noexcept
