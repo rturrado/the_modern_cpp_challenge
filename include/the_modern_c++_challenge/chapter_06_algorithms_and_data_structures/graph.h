@@ -2,9 +2,6 @@
 
 #include "fmt/format.h"
 #include "fmt/ostream.h"
-#include "range/v3/algorithm/for_each.hpp"
-#include "range/v3/algorithm/min_element.hpp"
-#include "range/v3/algorithm/transform.hpp"
 #include "range/v3/view/filter.hpp"
 
 #include <algorithm>  // minmax
@@ -99,7 +96,7 @@ namespace tmcppc::data_structures {
     node_set<Node> get_node_list(const undirected_graph_map<Node, Distance>& graph) {
         node_set<Node> ret{};
 
-        rv3::for_each(graph, [&ret](const auto& kvp) {
+        std::ranges::for_each(graph, [&ret](const auto& kvp) {
             const auto& p{ kvp.first };
             ret.merge(std::set{ p.first, p.second });
         });
@@ -117,7 +114,7 @@ namespace tmcppc::data_structures {
         // filter out the destination nodes already in the shortest paths set,
         // and return the nearest of them
         auto distances_to_nodes_not_in_sp_set{ distances | rv3::views::filter(is_not_in_sp_set) };
-        return rv3::min_element(
+        return std::ranges::min_element(
             distances_to_nodes_not_in_sp_set,
             std::less<Distance>{},
             [](const auto& kvp) { return kvp.second; }
@@ -143,7 +140,7 @@ namespace tmcppc::data_structures {
         distance_map<Node, Distance> distances{};
 
         // Start with infinite distances between the source node and all the other nodes
-        rv3::transform(ds, std::inserter(distances, end(distances)), [](const auto& d) {
+        std::ranges::transform(ds, std::inserter(distances, end(distances)), [](const auto& d) {
             return std::make_pair(d, std::numeric_limits<Distance>::max());
         });
 

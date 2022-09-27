@@ -24,7 +24,7 @@ namespace tmcppc::problem_13 {
         size_t dots_within_square_count{ number_of_iterations };
         for (size_t i{ 0 }; i < number_of_iterations; ++i) {
             double x = die();  // roll the die: x becomes a value in [0.0:1.0]
-            double y = die();  // roll the die: x becomes a value in [0.0:1.0]
+            double y = die();  // roll the die: y becomes a value in [0.0:1.0]
 
             if (x * x + y * y <= 1) {
                 dots_within_circle_count++;
