@@ -184,12 +184,24 @@ target_link_libraries(${PROJECT_NAME} lib_${PROJECT_NAME})
 
 
 # Target compile options
-if(MSVC OR (${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" AND "${CMAKE_CXX_SIMULATE_ID}" STREQUAL "MSVC"))
-    target_compile_options(lib_${PROJECT_NAME} PRIVATE /D_CONSOLE /DCONSOLE /D_UNICODE /DUNICODE /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /W3 /WX /w34996 /utf-8 /Zc:inline)
-    target_compile_options(${PROJECT_NAME} PRIVATE  /D_CONSOLE /DCONSOLE /D_UNICODE /DUNICODE /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /W3 /WX /w34996 /utf-8 /Zc:inline)
+if(MSVC)
+    set(msvc_compile_options
+        /W3 /WX /w34996
+        /D_CONSOLE /DCONSOLE
+        /D_UNICODE /DUNICODE
+        /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /utf-8 /Zc:inline
+    )
+    target_compile_options(lib_${PROJECT_NAME} PRIVATE ${msvc_compile_options})
+    target_compile_options(${PROJECT_NAME} PRIVATE ${msvc_compile_options})
 elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    target_compile_options(lib_${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
-    target_compile_options(${PROJECT_NAME} PRIVATE -pedantic-errors -Werror -Wall -Wextra -Wconversion -Wsign-conversion)
+    set(unixlike_compile_options
+        -pedantic-errors -Werror -Wall -Wextra
+        -Wl,-z,defs
+        -Wno-deprecated
+        # -Wconversion -Wsign-conversion -Wno-sign-conversion  # do not sort flags; order matters
+    )
+    target_compile_options(lib_${PROJECT_NAME} PRIVATE ${unixlike_compile_options})
+    target_compile_options(${PROJECT_NAME} PRIVATE ${unixlike_compile_options})
 endif()
 
 

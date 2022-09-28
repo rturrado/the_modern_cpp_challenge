@@ -25,18 +25,18 @@ project("the_modern_c++_challenge"
 
 
 # Address sanitizer
+#[[
 if(ASAN_ENABLED)
     string(REGEX REPLACE "/RTC(su|[1su])" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}\n")
-    add_compile_options(-fsanitize=address
-        # This may be gcc-only
-        #-fsanitize=address,undefined -fno-omit-frame-pointer
-    )
-    # This may be gcc-only
-    #add_link_options(-fsanitize=address
-        #-fsanitize=address,undefined
-    #)
+    if(MSVC)
+        add_compile_options(-fsanitize=address)
+    elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+        add_compile_options(-fsanitize=address,undefined -fno-omit-frame-pointer)
+        add_link_options(-fsanitize=address,undefined)
+    endif()
 endif()
+]]#
 
 
 # Subdirectories
