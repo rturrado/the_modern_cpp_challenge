@@ -115,6 +115,7 @@ namespace tmcppc::data_structures {
         using reverse_iterator_t = reverse_iterator<iterator>;
         using size_type = std::vector<T>::size_type;
         using value_type = T;
+        using difference_type = const_iterator::difference_type;
 
     private:
         void verify_indexed_access(
@@ -204,8 +205,8 @@ namespace tmcppc::data_structures {
             verify_indexed_access(left_col, width_, "left_col", "width");
             verify_indexed_access(right_col, width_, "right_col", "width");
 
-            auto left_it{ begin() + left_row * width_ + left_col };
-            auto right_it{ begin() + right_row * width_ + right_col };
+            auto left_it{ begin() + static_cast<difference_type>(left_row * width_ + left_col) };
+            auto right_it{ begin() + static_cast<difference_type>(right_row * width_ + right_col) };
             *right_it = std::exchange(*left_it, *right_it);
         }
 
@@ -236,7 +237,10 @@ namespace tmcppc::data_structures {
         [[nodiscard]] constexpr auto row_as_vector(size_type row) const {
             verify_indexed_access(row, height_, "row", "height");
 
-            return std::vector<T>(begin() + row * width_, begin() + (row + 1) * width_);
+            return std::vector<T>(
+                        begin() + static_cast<difference_type>(row * width_),
+                        begin() + static_cast<difference_type>((row + 1) * width_)
+                    );
         }
 
         [[nodiscard]] constexpr auto column_as_vector(size_type column) const {

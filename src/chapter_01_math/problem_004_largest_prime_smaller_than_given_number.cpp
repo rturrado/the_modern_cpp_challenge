@@ -23,7 +23,8 @@ void problem_4_main(std::istream& is, std::ostream& os) {
 
     auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 2): ", 2) };
 
-    fmt::print(os, "Biggest prime number smaller than {} is: {}\n\n", limit, biggest_prime_smaller_than(limit));
+    fmt::print(os, "Biggest prime number smaller than {} is: {}\n\n", limit,
+               biggest_prime_smaller_than(static_cast<size_t>(limit)));
 }
 
 

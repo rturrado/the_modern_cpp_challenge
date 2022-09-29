@@ -46,10 +46,10 @@ namespace tmcppc::problem_32 {
 void problem_32_main(std::ostream& os) {
     using namespace tmcppc::problem_32;
 
-    for (size_t n : { 0, 1, 2, 10, 40 }) {
+    for (auto n : { 0, 1, 2, 10, 40 }) {
         try {
             fmt::print(os, "Pascal triangle for n = {}:\n", n);
-            auto ret{ pascal_triangle(n) };
+            auto ret{ pascal_triangle(static_cast<size_t>(n)) };
             fmt::print(os, "\t{}\n", ret.empty() ? "[]" : fmt::format("{}", fmt::join(ret, "\n\t")));
         } catch (const std::exception& err) {
             fmt::print(os, "\tError: {}\n", err.what());

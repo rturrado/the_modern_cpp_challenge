@@ -108,7 +108,7 @@ namespace tmcppc::store {
 
     protected:
         [[nodiscard]] virtual float percentage(size_t article_quantity, float article_price) const noexcept override {
-            return (article_quantity * article_price > minimum_total_article_price_) ? percentage_ : 0;
+            return (static_cast<float>(article_quantity) * article_price > minimum_total_article_price_) ? percentage_ : 0;
         }
 
     private:
@@ -295,7 +295,7 @@ namespace tmcppc::store {
                 auto article{ order_line.article };
                 auto price{ article->price };
                 auto quantity{ order_line.quantity };
-                auto order_line_price{ price * quantity };
+                auto order_line_price{ price * static_cast<float>(quantity) };
 
                 float discount_percentages{};
                 for (auto&& article_discount : article->discounts) {
@@ -334,7 +334,7 @@ namespace tmcppc::store {
                 auto article{ order_line.article };
                 auto price{ article->price };
                 auto quantity{ order_line.quantity };
-                auto order_line_price{ price * quantity };
+                auto order_line_price{ price * static_cast<float>(quantity) };
 
                 float discount_percentages{};
                 for (auto&& article_discount : article->discounts) {

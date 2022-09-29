@@ -21,9 +21,9 @@ namespace tmcppc::problem_31 {
             std::regex_match(s, matches, valid_format_pattern_2)) and
             matches.size() == 4) {
 
-            day = std::stoi(matches[1].str());
-            month = std::stoi(matches[2].str());
-            year = std::stoi(matches[3].str());
+            day = static_cast<uint16_t>(std::stoi(matches[1].str()));
+            month = static_cast<uint16_t>(std::stoi(matches[2].str()));
+            year = static_cast<uint16_t>(std::stoi(matches[3].str()));
         } else {
             throw invalid_date_format_error(s);
         }

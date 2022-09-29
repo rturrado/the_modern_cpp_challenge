@@ -22,8 +22,8 @@ namespace tmcppc::problem_49 {
         // the argument should first be converted to unsigned char.
         //
         // From CppReference: https://en.cppreference.com/w/cpp/string/byte/isalpha
-        std::ranges::for_each(text, [&ret](unsigned char c) {
-            if (std::isalpha(c)) {
+        std::ranges::for_each(text, [&ret](char c) {
+            if (std::isalpha(static_cast<unsigned char>(c))) {
                 ret[c]++;
             }
         });
@@ -39,7 +39,7 @@ namespace tmcppc::problem_49 {
         });
 
         auto print_histogram_line = [&os, &total_count](char c, size_t count) {
-            double frequency{ (count * 100.0) / total_count };
+            double frequency{ (static_cast<double>(count) * 100.0) / static_cast<double>(total_count) };
 
             // Subtract 13 for line header, e.g.: 'e ( 13.27 %) '
             size_t bar_width{ static_cast<size_t>(((histogram_width - 13) * frequency) / 100) };

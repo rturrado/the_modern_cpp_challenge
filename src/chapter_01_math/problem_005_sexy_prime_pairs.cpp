@@ -29,7 +29,7 @@ void problem_5_main(std::istream& is, std::ostream& os) {
     auto limit{ rtc::console::read_positive_number(is, os, "Please enter a number (>= 1): ", 1) };
 
     fmt::print(os, "Sexy prime pairs up to {}:\n", limit);
-    for (auto&& p : sexy_prime_pairs_up_to(limit)) {
+    for (auto&& p : sexy_prime_pairs_up_to(static_cast<size_t>(limit))) {
         fmt::print(os, "\t{}\n", p);
     }
     fmt::print(os, "\n");

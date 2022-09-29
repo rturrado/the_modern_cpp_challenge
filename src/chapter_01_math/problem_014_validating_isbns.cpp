@@ -30,8 +30,8 @@ namespace tmcppc::problem_14 {
                 return separators.find(c) != std::string::npos;
             }) };
 
-            if (number_of_digits != n or
-                ret.size() != number_of_digits + number_of_separators) {
+            if (n != static_cast<size_t>(number_of_digits) or
+                ret.size() != static_cast<size_t>(number_of_digits + number_of_separators)) {
                 fmt::print(os, "\tError: invalid input.\n");
             } else {
                 valid_input = true;
@@ -64,7 +64,7 @@ namespace tmcppc::problem_14 {
         assert(str.size() == number_of_digits);
 
         auto sum = std::accumulate(str.begin(), str.end(), static_cast<size_t>(0),
-            [i = 3](size_t sum, size_t c) mutable { i = (i == 1 ? 3 : 1); return sum + (c - '0') * i; });
+            [i = static_cast<size_t>(3)](size_t sum, size_t c) mutable { i = (i == 1 ? 3 : 1); return sum + (c - '0') * i; });
 
         return !(sum % 10);
     }

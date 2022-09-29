@@ -10,24 +10,25 @@
 namespace tmcppc::problem_25 {
     std::string capitalize(std::string_view s) {
         std::string ret{ s };
-        std::ranges::for_each(ret, [parsing_word = false](char& c) mutable {
+        auto parsing_word{ false };
+        for (auto& c : ret) {
             if (parsing_word) {
-                if (not std::isalpha(c)) {
+                if (not std::isalpha(static_cast<unsigned char>(c))) {
                     // End of word. Update parsing word flag
                     parsing_word = false;
                 } else {
                     // Else, just another word char
-                    c = std::tolower(c);
+                    c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
                 }
             } else {
                 // First word char. Capitalize it and update parsing word flag
                 if (std::isalpha(c)) {
-                    c = std::toupper(c);
+                    c = static_cast<char>(std::toupper(static_cast<unsigned char>(c)));
                     parsing_word = true;
                 }
                 // Else, just another non word char
             }
-        });
+        }
         return ret;
     }
 }  // namespace tmcppc::problem_25

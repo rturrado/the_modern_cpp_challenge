@@ -82,7 +82,7 @@ namespace tmcppc::problem_12 {
 
         for (size_t i{ 2 }; i <= limit; ++i) {
             auto n{ i };
-            long steps{ 0 };
+            size_t steps{ 0 };
             while (n != 1 and n >= i) {
                 if ((n % 2) == 0) {
                     n = n / 2;

@@ -47,7 +47,7 @@ namespace tmcppc::algorithm {
         if (begin < end) {
             auto pivot{ tmcppc::algorithm::partition(begin, end, compare) };
 
-            if (end - begin >= MINIMUM_PARTITION_SIZE_FOR_PARALLELISING) {
+            if (static_cast<size_t>(end - begin) >= MINIMUM_PARTITION_SIZE_FOR_PARALLELISING) {
                 auto future1 = std::async(std::launch::async,
                     [&begin, &pivot, &compare]() { parallel_quicksort(begin, pivot, compare); });
                 auto future2 = std::async(std::launch::async,

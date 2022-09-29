@@ -160,7 +160,7 @@ namespace tmcppc::ean_13::barcode_png {
                 point_2d start_position,
                 int width, int height) const {
 
-                for (int i{ static_cast<int>(bs.size()) - 1 }; i >= 0; i--) {
+                for (auto i{ std::ssize(bs) - 1 }; i >= 0; i--) {
                     if (bs[i]) {
                         paint_bar(png_writer, start_position, width, height);
                     }

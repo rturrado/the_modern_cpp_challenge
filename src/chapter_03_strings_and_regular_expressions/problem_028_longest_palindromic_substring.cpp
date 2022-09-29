@@ -9,8 +9,8 @@
 
 namespace tmcppc::problem_28 {
     bool is_palindrome(std::string_view s) {
-        return s.substr(0, s.size() / 2) == std::string{ crbegin(s), crbegin(s) + s.size() / 2 };
-    };
+        return s.substr(0, s.size() / 2) == std::string{ crbegin(s), crbegin(s) + std::ssize(s) / 2 };
+    }
 
 
     std::string_view get_longest_palindromic_substring(std::string_view s) {

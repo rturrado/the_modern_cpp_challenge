@@ -23,8 +23,8 @@ TEST(partition, range_of_numbers_in_ascending_order) {
 }
 TEST(partition, range_of_numbers_in_ascending_and_descending_order) {
     std::vector<int> v(1000);
-    std::iota(v.begin(), v.begin() + v.size() / 2, 1);
-    std::iota(v.rbegin(), v.rbegin() + v.size() / 2, 1);
+    std::iota(v.begin(), v.begin() + std::ssize(v) / 2, 1);
+    std::iota(v.rbegin(), v.rbegin() + std::ssize(v) / 2, 1);
     EXPECT_EQ(tmcppc::algorithm::partition(v.begin(), v.end(), std::less<int>{}), std::next(v.begin()));
 }
 TEST(partition, compare) {
@@ -63,8 +63,8 @@ TEST(quicksort, range_of_numbers_in_ascending_order) {
 }
 TEST(quicksort, range_of_numbers_in_ascending_and_descending_order) {
     std::vector<int> v(1000);
-    std::iota(v.begin(), v.begin() + v.size() / 2, 1);
-    std::iota(v.rbegin(), v.rbegin() + v.size() / 2, 1);
+    std::iota(v.begin(), v.begin() + std::ssize(v) / 2, 1);
+    std::iota(v.rbegin(), v.rbegin() + std::ssize(v) / 2, 1);
     std::vector<int> w(1000);
     std::ranges::generate(w, [i = 1]() mutable {
         auto j{ (i % 2 == 0) ? (i / 2) : (i / 2 + 1) };
@@ -87,7 +87,7 @@ TEST(quicksort, compare) {
 TEST(parallel_quicksort, range_of_more_than_100_000_numbers) {
     std::vector<int> v(250'000);
     std::iota(v.begin(), v.end(), 1);
-    std::iota(v.rbegin(), v.rbegin() + v.size() / 2, 1);
+    std::iota(v.rbegin(), v.rbegin() + std::ssize(v) / 2, 1);
     std::ranges::shuffle(v, std::mt19937{ std::random_device{}() });
     std::vector<int> w(250'000);
     std::ranges::generate(w, [i = 1]() mutable {

@@ -88,7 +88,7 @@ namespace tmcppc::pdf {
 
         [[nodiscard]] double get_text_x(const std::string& text, double font_width, const text_alignment& alignment) {
             switch (alignment) {
-                case text_alignment::right: return page_width_ - margin_right_ - font_width * text.size();
+                case text_alignment::right: return page_width_ - margin_right_ - font_width * static_cast<double>(text.size());
                 case text_alignment::left:
                 default: return margin_left_ + font_width;
             }

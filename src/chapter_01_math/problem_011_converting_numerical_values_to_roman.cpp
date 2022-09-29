@@ -13,7 +13,7 @@ void problem_11_main(std::istream& is, std::ostream& os) {
     auto n{ rtc::console::read_positive_number(is, os, message, 1, max_roman_numeral + 1) };
 
     fmt::print(os, "Number\tRoman numeral equivalent\n");
-    fmt::print(os, "{}\t{}\n\n", n, to_roman_v1(n));
+    fmt::print(os, "{}\t{}\n\n", n, to_roman_v1(static_cast<size_t>(n)));
 }
 
 
