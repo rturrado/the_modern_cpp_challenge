@@ -16,4 +16,4 @@ namespace tmcppc::tcp {
         MOCK_METHOD((void), accept, (), (override));
         MOCK_METHOD((void), connect, (), (override));
     };
-}  // naespace tmcppc::tcp
+}  // namespace tmcppc::tcp

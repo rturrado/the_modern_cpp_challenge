@@ -31,7 +31,7 @@ void problem_17_main(std::ostream& os) {
         }
         fmt::print(os, "arr2:\n{}\n\n", arr2);
 
-        // Array initialized with a initializer list of initializer lists
+        // Array initialized with an initializer list of initializer lists
         array_2d<std::string> arr3{
             { "En", "un", "lugar", "de" },
             { "la", "Mancha", "de", "cuyo" },

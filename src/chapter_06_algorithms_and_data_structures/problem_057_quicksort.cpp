@@ -24,7 +24,7 @@ void problem_57_main(std::ostream& os) {
 
 // Sort algorithm
 //
-// Write a function that, given a pair of random access InputItators to define its lower and upper bounds,
+// Write a function that, given a pair of random access Input Iterators to define its lower and upper bounds,
 // sorts the elements of the range using the quicksort algorithm.
 //
 // There should be two overloads of the function:

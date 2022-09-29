@@ -107,7 +107,7 @@ namespace tmcppc::data_structures {
         auto is_not_in_sp_set = [&sp_set](const auto& kvp) { return not sp_set.contains(kvp.first); };
 
         // From the map of distances,
-        // filter out the destination nodes already in shortest paths set,
+        // filter out the destination nodes already in the shortest paths set,
         // and return the nearest of them
         auto distances_to_nodes_not_in_sp_set{ distances | std::ranges::views::filter(is_not_in_sp_set) };
         return std::ranges::min_element(
@@ -169,7 +169,7 @@ namespace tmcppc::data_structures {
             };
 
             // Update distances[d] if
-            // - d is not in shortest path set, and
+            // - d is not in the shortest path set, and
             // - there is an edge from u to d, and
             // - the path from s to d is shorter through u
             for (auto& kvp : distances) {

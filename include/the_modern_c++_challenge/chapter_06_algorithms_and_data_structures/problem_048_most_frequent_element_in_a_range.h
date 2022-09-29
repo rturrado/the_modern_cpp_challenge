@@ -86,7 +86,7 @@ namespace tmcppc::problem_48 {
             counts[e]++;
         }
 
-        // Get iterator to element with greatest count
+        // Get iterator to element with the greatest count
         auto element_with_highest_count_it{ std::ranges::max_element(counts,
             [](const auto& kvp1, const auto& kvp2) {
                 return kvp1.second < kvp2.second; }

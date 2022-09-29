@@ -104,7 +104,7 @@ void problem_83_main(std::ostream& os) {
 // Such an images should have:
 //   - A gradient-coloured background.
 //   - A series of random letters displayed at different angles both to the right and left.
-//   - Several random lines of different colours accross the image (on top of the text).
+//   - Several random lines of different colours across the image (on top of the text).
 void problem_83_main() {
     problem_83_main(std::cout);
 }

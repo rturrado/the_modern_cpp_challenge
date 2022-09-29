@@ -92,7 +92,7 @@ void test_2(std::ostream& os) {
 
     // Thread 1 writes the full buffer 10 times, every 100ms
     // First time, it writes a sequence of numbers from 0 to 9
-    // Every successive time it adds 10 to the the sequence of numbers
+    // Every successive time it adds 10 to the sequence of numbers
     auto thread_1_l = [&db]() {
         std::vector<size_t> v(db.size());
         std::iota(begin(v), end(v), 0);

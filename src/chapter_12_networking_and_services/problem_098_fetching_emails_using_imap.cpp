@@ -101,7 +101,7 @@ void problem_98_main(std::istream& is, std::ostream& os) {
 // Note: I tested this:
 //   - with my gmail account,
 //   - getting a third-party application password, and using it as a password, and
-//   - marking some emails as unread in the doctorado folder (for some reason, I couldn't retrieve unread emails from the INBOX folder).
+//   - marking some emails as unread in the 'doctorado' folder (for some reason, I couldn't retrieve unread emails from the INBOX folder).
 void problem_98_main() {
     problem_98_main(std::cin, std::cout);
 }

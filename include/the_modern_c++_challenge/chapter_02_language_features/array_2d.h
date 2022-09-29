@@ -17,6 +17,7 @@
 namespace tmcppc::data_structures {
     using rtc::print::printable;
 
+
     template <printable T>
     class array_2d {
         class const_iterator {
@@ -49,9 +50,9 @@ namespace tmcppc::data_structures {
             TPtr_ ptr_{ nullptr };
         };
 
+
         class iterator : public const_iterator {
             using MyBase_ = const_iterator;
-
         public:
             using difference_type = std::ptrdiff_t;
             using iterator_category = std::random_access_iterator_tag;
@@ -71,6 +72,7 @@ namespace tmcppc::data_structures {
             constexpr iterator operator-(const difference_type offset) const noexcept { iterator tmp{ *this }; tmp -= offset; return tmp; }
             constexpr difference_type operator-(const iterator& other) const noexcept { return this->ptr_ - other.ptr_; }
         };
+
 
         template <typename Iter>
         class reverse_iterator {
@@ -107,6 +109,7 @@ namespace tmcppc::data_structures {
         protected:
             Iter current_{};
         };
+
 
     public:
         using const_reference = const T&;

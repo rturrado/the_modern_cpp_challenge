@@ -34,7 +34,7 @@ void problem_96_main(std::istream& is, std::ostream& os) {
 // The server should run indefinitely.
 // The client should run as long as the user enters numbers between 1 and 99.
 //
-// Fizz-Buzz is a game for children, intented to teach them arithmetic division.
+// Fizz-Buzz is a game for children, intended to teach them arithmetic division.
 // A player must say a number and another player should answer with:
 //   - Fizz, if the number is divisible by 3.
 //   - Buzz, if the number is divisible by 5.

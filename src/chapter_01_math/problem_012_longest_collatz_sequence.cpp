@@ -109,7 +109,7 @@ void problem_12_main(std::ostream& os) {
 
     constexpr size_t limit{ 1'000'000 };
 
-    // Determine n and Collatz sequence size for n
+    // Determine n and Collatz sequence size for n,
     // n being the number up to limit with longest Collatz sequence
     size_t n{ 1 };
     size_t n_collatz_sequence_size{ 1 };
