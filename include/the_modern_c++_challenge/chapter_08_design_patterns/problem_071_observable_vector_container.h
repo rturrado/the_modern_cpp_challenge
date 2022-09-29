@@ -26,7 +26,7 @@ namespace tmcppc::data_structures {
 
     struct notification {
     public:
-        notification(notification_type t)
+        explicit notification(notification_type t)
             : id_{ id++ }
             , type_{ t }
         {}

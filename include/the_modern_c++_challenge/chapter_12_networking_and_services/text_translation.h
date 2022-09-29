@@ -52,7 +52,7 @@ namespace tmcppc::text_translation {
 
 
     struct translation_error : public std::runtime_error {
-        translation_error(std::string_view message)
+        explicit translation_error(std::string_view message)
             : std::runtime_error{ message.data() }
         {}
     };
@@ -71,7 +71,7 @@ namespace tmcppc::text_translation {
         static inline std::string_view endpoint{ "https://api.microsofttranslator.com/V2/Http.svc" };
         static inline std::string_view key_header{ "Ocp-Apim-Subscription-Key" };
     public:
-        provider_azure(std::string_view key)
+        explicit provider_azure(std::string_view key)
             : key_{ key }
         {}
 
@@ -121,7 +121,7 @@ namespace tmcppc::text_translation {
             return error_response{ "unknown provider response" };
         }
     public:
-        translator(std::unique_ptr<provider_adaptor> provider)
+        explicit translator(std::unique_ptr<provider_adaptor> provider)
             : provider_{ std::move(provider) } {
 
             if (not provider_) {

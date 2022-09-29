@@ -14,7 +14,7 @@
 
 namespace tmcppc::bitcoin {
     struct bitcoin_connection_error : public std::runtime_error {
-        bitcoin_connection_error(std::string_view message)
+        explicit bitcoin_connection_error(std::string_view message)
             : std::runtime_error{ message.data() }
         {}
     };
@@ -57,7 +57,7 @@ namespace tmcppc::bitcoin {
             return exchange_rates{ j };
         }
     public:
-        bitcoin_connection(std::unique_ptr<connector_adaptor> connector)
+        explicit bitcoin_connection(std::unique_ptr<connector_adaptor> connector)
             : connector_{ std::move(connector) }
         {}
         [[nodiscard]] exchange_rates get_current_exchange_rates() const {

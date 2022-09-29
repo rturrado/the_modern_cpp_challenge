@@ -18,12 +18,12 @@ namespace tmcppc::temperature::v2 {
 
         temperature() = delete;
 
-        constexpr temperature(const Rep_& value) noexcept
+        constexpr explicit temperature(const Rep_& value) noexcept
             : value_{ value }
         {}
 
         template <typename Rep2_>
-        temperature(const temperature<Rep2_>& other) noexcept
+        explicit temperature(const temperature<Rep2_>& other) noexcept
             : value_{ static_cast<Rep_>(other.value_) }
         {}
 
@@ -34,7 +34,7 @@ namespace tmcppc::temperature::v2 {
         }
 
         template <typename Rep2_>
-        temperature(temperature<Rep2_>&& other) noexcept
+        explicit temperature(temperature<Rep2_>&& other) noexcept
             : value_{ static_cast<Rep_>(other.value_) } {
             other.value_ = 0.f;
         }

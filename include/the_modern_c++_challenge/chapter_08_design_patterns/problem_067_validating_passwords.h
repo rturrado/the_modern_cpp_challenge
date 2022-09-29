@@ -169,7 +169,7 @@ namespace tmcppc::password {
             class minimum_length_validator : public password_strength_validator {
             public:
                 minimum_length_validator() = default;
-                minimum_length_validator(size_t length, std::unique_ptr<password_strength_validator> next = nullptr)
+                explicit minimum_length_validator(size_t length, std::unique_ptr<password_strength_validator> next = nullptr)
                     : password_strength_validator{ std::move(next) }
                     , length_{ length }
                 {}
@@ -190,7 +190,7 @@ namespace tmcppc::password {
             class contains_validator : public password_strength_validator {
             public:
                 contains_validator() = delete;
-                contains_validator(ContainsOrErrorF f, std::unique_ptr<password_strength_validator> next = nullptr)
+                explicit contains_validator(ContainsOrErrorF f, std::unique_ptr<password_strength_validator> next = nullptr)
                     : password_strength_validator{ std::move(next) }
                     , contains_or_error_f_{ f }
                 {}

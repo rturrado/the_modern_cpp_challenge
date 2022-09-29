@@ -24,7 +24,7 @@ namespace tmcppc::tcp {
 
     class resolver_asio : public resolver {
     public:
-        resolver_asio(asio::io_context& io_context)
+        explicit resolver_asio(asio::io_context& io_context)
             : io_context_{ io_context }
         {}
 

@@ -133,7 +133,7 @@ namespace tmcppc::movies::xml {
         catalog catalog_{};
 
         doc() = default;
-        doc(const catalog& c) : catalog_{ c } {}
+        explicit doc(const catalog& c) : catalog_{ c } {}
 
         [[nodiscard]] pugi::xml_node get_pugi_xml_root() const { return pugi_xml_doc_.root(); }
 

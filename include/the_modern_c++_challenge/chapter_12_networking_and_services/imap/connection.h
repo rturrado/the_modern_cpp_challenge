@@ -35,7 +35,7 @@ namespace tmcppc::imap {
 
 
     struct imap_connection_error : public std::runtime_error {
-        imap_connection_error(std::string_view message)
+        explicit imap_connection_error(std::string_view message)
             : std::runtime_error{ message.data() }
         {}
     };
@@ -181,7 +181,7 @@ namespace tmcppc::imap {
             return {};
         }
     public:
-        imap_connection(std::unique_ptr<connector_adaptor> connector)
+        explicit imap_connection(std::unique_ptr<connector_adaptor> connector)
             : connector_{ std::move(connector) } {
 
             if (not connector_) {

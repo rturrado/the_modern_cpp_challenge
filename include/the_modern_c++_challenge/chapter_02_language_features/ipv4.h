@@ -17,7 +17,7 @@
 
 namespace tmcppc::network {
     struct invalid_ipv4_address_error : public std::runtime_error {
-        invalid_ipv4_address_error(const std::string& address) : std::runtime_error{ "" } {
+        explicit invalid_ipv4_address_error(const std::string& address) : std::runtime_error{ "" } {
             message_ = fmt::format("{}: {}", message_, address);
         }
         const char* what() const noexcept { return message_.c_str(); }

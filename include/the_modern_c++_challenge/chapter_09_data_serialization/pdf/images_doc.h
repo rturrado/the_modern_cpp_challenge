@@ -21,7 +21,7 @@
 namespace tmcppc::pdf {
     class images_doc : public doc {
     public:
-        images_doc(const std::filesystem::path& input_dir_path) : input_dir_path_{ input_dir_path } {
+        explicit images_doc(const std::filesystem::path& input_dir_path) : input_dir_path_{ input_dir_path } {
             if (not std::filesystem::is_directory(input_dir_path_)) {
                 throw rtc::filesystem::not_a_directory_error(input_dir_path_.generic_string());
             }

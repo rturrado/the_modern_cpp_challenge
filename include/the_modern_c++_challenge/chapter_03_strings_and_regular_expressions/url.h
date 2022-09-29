@@ -35,7 +35,7 @@ namespace tmcppc::network {
         const std::regex url_pattern{ url_str };
 
     public:
-        url(const std::string& s) {
+        explicit url(const std::string& s) {
             std::smatch matches{};
             if (std::regex_search(s, matches, url_pattern) and matches.size() == 8) {
                 protocol_ = matches[1];

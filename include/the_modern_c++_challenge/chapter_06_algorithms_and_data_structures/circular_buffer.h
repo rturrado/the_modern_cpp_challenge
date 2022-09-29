@@ -94,7 +94,7 @@ namespace tmcppc::data_structures {
         };
 
     public:
-        circular_buffer(size_type capacity)
+        explicit circular_buffer(size_type capacity)
             : container_(capacity), capacity_{ capacity } {
             if (capacity_ == 0) {
                 throw std::runtime_error{ "trying to create a circular_buffer with a fixed size of 0." };

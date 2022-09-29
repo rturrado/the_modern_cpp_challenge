@@ -9,7 +9,7 @@
 
 namespace tmcppc::system {
     struct console_error : public std::runtime_error {
-        console_error(std::string_view message)
+        explicit console_error(std::string_view message)
             : std::runtime_error{ message.data() }
         {}
     };
@@ -27,7 +27,7 @@ namespace tmcppc::system {
 
     class console {
     public:
-        console(std::unique_ptr<console_iface> impl_up)
+        explicit console(std::unique_ptr<console_iface> impl_up)
             : impl_up_{ std::move(impl_up) } {
 
             if (not impl_up_) {

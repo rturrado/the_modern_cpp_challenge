@@ -95,7 +95,7 @@ namespace tmcppc::movies {
         catalog catalog_{};
 
         doc() = default;
-        doc(const catalog& c) : catalog_{ c } {}
+        explicit doc(const catalog& c) : catalog_{ c } {}
 
         void save_to(const std::filesystem::path& output_file_path) {
             std::ofstream ofs{ output_file_path };

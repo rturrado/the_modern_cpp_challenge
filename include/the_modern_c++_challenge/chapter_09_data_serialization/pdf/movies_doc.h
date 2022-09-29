@@ -23,7 +23,7 @@ namespace tmcppc::pdf {
         using catalog = tmcppc::movies::catalog;
 
     public:
-        movies_doc(const catalog& c) : catalog_{ c } {}
+        explicit movies_doc(const catalog& c) : catalog_{ c } {}
 
         virtual void start_pdf(const std::filesystem::path& output_file_path) override {
             tmcppc::pdf_writer::start_pdf(pdf_writer_, output_file_path);

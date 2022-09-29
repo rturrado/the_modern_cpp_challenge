@@ -39,35 +39,35 @@ namespace tmcppc::movies::command_line {
 
 
     struct command_not_found_error : public std::runtime_error {
-        command_not_found_error(const std::string& command)
+        explicit command_not_found_error(const std::string& command)
             : std::runtime_error{ message_ + command }
         {}
     private:
         static inline std::string message_{ "command not found: " };
     };
     struct subcommand_not_found_error : public std::runtime_error {
-        subcommand_not_found_error(const std::string& subcommand)
+        explicit subcommand_not_found_error(const std::string& subcommand)
             : std::runtime_error{ message_ + subcommand }
         {}
     private:
         static inline std::string message_{ "subcommand not found: " };
     };
     struct invalid_media_id_error : public std::runtime_error {
-        invalid_media_id_error(const std::string& media_id_str)
+        explicit invalid_media_id_error(const std::string& media_id_str)
             : std::runtime_error{ message_ + media_id_str }
         {}
     private:
         static inline std::string message_{ "invalid media ID: " };
     };
     struct invalid_movie_id_error : public std::runtime_error {
-        invalid_movie_id_error(const std::string& movie_id_str)
+        explicit invalid_movie_id_error(const std::string& movie_id_str)
             : std::runtime_error{ message_ + movie_id_str }
         {}
     private:
         static inline std::string message_{ "invalid movie ID: " };
     };
     struct invalid_regex_error : public std::runtime_error {
-        invalid_regex_error(const std::string& regex_str)
+        explicit invalid_regex_error(const std::string& regex_str)
             : std::runtime_error{ message_ + regex_str }
         {}
     private:

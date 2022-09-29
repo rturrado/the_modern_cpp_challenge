@@ -40,11 +40,11 @@ namespace tmcppc::movies::sql {
     namespace fs = std::filesystem;
 
     struct error : public std::runtime_error {
-        error(const std::string& message) : std::runtime_error{ message } {}
+        explicit error(const std::string& message) : std::runtime_error{ message } {}
     };
 
     struct movie_id_not_found_error : public error {
-        movie_id_not_found_error(std::int64_t movie_id)
+        explicit movie_id_not_found_error(std::int64_t movie_id)
             : error{ message_ + std::to_string(movie_id) }
         {}
     private:
@@ -52,7 +52,7 @@ namespace tmcppc::movies::sql {
     };
 
     struct media_file_id_not_found_error : public error {
-        media_file_id_not_found_error(std::int64_t media_file_id)
+        explicit media_file_id_not_found_error(std::int64_t media_file_id)
             : error{ message_ + std::to_string(media_file_id) }
         {}
     private:
@@ -85,7 +85,7 @@ namespace tmcppc::movies::sql {
     };
 
     struct trying_to_insert_existing_movie_error : public error {
-        trying_to_insert_existing_movie_error(const movie& m)
+        explicit trying_to_insert_existing_movie_error(const movie& m)
             : error{ message_ + fmt::format("title = {}, year = {}, length = {}", m.title, int(m.year), m.length) }
         {}
     private:
@@ -471,11 +471,11 @@ namespace tmcppc::movies::sql {
     struct database {
         catalog catalog_{};
 
-        database(const fs::path& db_file_path)
+        explicit database(const fs::path& db_file_path)
             : sqlite_db_{ db_file_path.string() } {
             from_db(sqlite_db_, catalog_);
         }
-        database(sqlite::database& sqlite_db)
+        explicit database(sqlite::database& sqlite_db)
             : sqlite_db_{sqlite_db} {
             from_db(sqlite_db_, catalog_);
         }

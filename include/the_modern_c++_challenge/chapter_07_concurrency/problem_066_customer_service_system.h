@@ -191,7 +191,7 @@ namespace tmcppc::office {
     //
     class office_simulator {
     public:
-        office_simulator(size_t number_of_customers = 7, size_t number_of_desks = 3)
+        explicit office_simulator(size_t number_of_customers = 7, size_t number_of_desks = 3)
             : office_{ number_of_customers, number_of_desks }
             , logger_{ logger::get_instance() }
         {}

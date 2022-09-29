@@ -57,7 +57,7 @@ namespace tmcppc::password {
     class symbol_generator : public password_generator {
     public:
         symbol_generator() = default;
-        symbol_generator(size_t length) noexcept : length_{ length } {}
+        explicit symbol_generator(size_t length) noexcept : length_{ length } {}
 
         [[nodiscard]] virtual std::string generate() const noexcept override {
             static rtc::random::random_int random_character{ 0, 31 };  // 32 symbol characters
@@ -82,7 +82,7 @@ namespace tmcppc::password {
     class contains_generator : public password_generator {
     public:
         contains_generator() = default;
-        contains_generator(size_t length) noexcept
+        explicit contains_generator(size_t length) noexcept
             : length_{ length }
             , first_ascii_code_{ ascii_code_range.first }
             , last_ascii_code_{ ascii_code_range.second }

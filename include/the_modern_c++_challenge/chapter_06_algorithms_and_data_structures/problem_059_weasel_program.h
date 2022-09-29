@@ -11,7 +11,7 @@ namespace tmcppc::weasel {
     class weasel_sequence {
     public:
         // Fill data_ randomly
-        weasel_sequence(const std::string& target)
+        explicit weasel_sequence(const std::string& target)
             : target_{ target }, data_(target.size(), '\0') {
 
             for (char& c : data_) {

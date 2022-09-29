@@ -13,7 +13,7 @@ namespace tmcppc::math {
     public:
         digits() : data_{0} {}
 
-        digits(T n) {
+        explicit digits(T n) {
             if (n == 0) {
                 data_.push_back(0);
             } else {

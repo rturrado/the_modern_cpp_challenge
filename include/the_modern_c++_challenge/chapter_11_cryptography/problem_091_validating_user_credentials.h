@@ -25,7 +25,7 @@ namespace tmcppc::crypto {
 
     public:
         struct user_exists_error : std::runtime_error {
-            user_exists_error(const std::string& username) : std::runtime_error{ message_ + username } {}
+            explicit user_exists_error(const std::string& username) : std::runtime_error{ message_ + username } {}
         private:
             static inline std::string message_{ "Error: user already exits: " };
         };
