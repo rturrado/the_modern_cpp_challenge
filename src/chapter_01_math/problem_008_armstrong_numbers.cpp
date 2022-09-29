@@ -59,10 +59,10 @@ namespace tmcppc::problem_8 {
 
         for (int i{ 0 }; i <= n; ++i) {
             std::vector<int> digits;
-            int n{ i };
-            while (n > 0) {
-                digits.push_back(n % 10);
-                n = n / 10;
+            int d{ i };
+            while (d > 0) {
+                digits.push_back(d % 10);
+                d = d / 10;
             }
 
             int arm = std::accumulate(std::begin(digits), std::end(digits), 0,

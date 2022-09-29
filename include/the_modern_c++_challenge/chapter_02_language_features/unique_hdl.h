@@ -26,12 +26,12 @@ namespace tmcppc::data_structures {
             return nullptr;
 #endif  // _WIN32
         }
-        static void close(HANDLE hdl) noexcept {
+        static void close([[maybe_unused]] HANDLE hdl) noexcept {
 #ifdef _WIN32
             if (hdl != INVALID_HANDLE_VALUE) {
                 CloseHandle(hdl);
-#endif  // _WIN32
             }
+#endif  // _WIN32
         }
     };
 

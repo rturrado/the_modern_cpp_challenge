@@ -20,7 +20,7 @@ namespace tmcppc::problem_18 {
     // Variadic template for printing the elements of a list with a given string separator
     //
     template <typename T>
-    std::string to_string(const std::string& separator, T&& t) {
+    std::string to_string([[maybe_unused]] const std::string& separator, T&& t) {
         return fmt::format("{}", t);
     }
 

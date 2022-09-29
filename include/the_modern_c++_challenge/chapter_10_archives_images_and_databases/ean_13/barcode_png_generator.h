@@ -245,14 +245,14 @@ namespace tmcppc::ean_13::barcode_png {
             [[nodiscard]] virtual point_2d get_start_position() const override { return layout::first_digit::start_position; };
         };
         struct first_digit_group : public digit_group {
-            explicit first_digit_group(std::string_view digit_group)
-                : digit_group{ digit_group }
+            explicit first_digit_group(std::string_view dg)
+                : digit_group{ dg }
             {}
             [[nodiscard]] virtual point_2d get_start_position() const override { return layout::first_digit_group::start_position; };
         };
         struct second_digit_group : public digit_group {
-            explicit second_digit_group(std::string_view digit_group)
-                : digit_group{ digit_group }
+            explicit second_digit_group(std::string_view dg)
+                : digit_group{ dg }
             {}
             [[nodiscard]] virtual point_2d get_start_position() const override { return layout::second_digit_group::start_position; };
         };

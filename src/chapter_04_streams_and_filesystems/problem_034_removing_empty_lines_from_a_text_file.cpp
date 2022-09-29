@@ -53,7 +53,7 @@ void problem_34_main(std::ostream& os) {
     const auto in_file_path{ resource_folder_path / "problem_034_input.txt" };
 
     try {
-        auto out_file_path{ remove_empty_lines(os, in_file_path) };
+        [[maybe_unused]] auto out_file_path{ remove_empty_lines(os, in_file_path) };
 
         //std::filesystem::rename(out_file_path, in_file_path);  // commented out so that we don't really overwrite input file
     } catch (const std::exception& ex) {

@@ -32,7 +32,7 @@ namespace tmcppc::problem_24 {
             return std::vector<uint8_t>{};
         }
         if (s.size() % 2 != 0) {
-            s.insert(0, "0");
+            s = std::string{ "0" } + std::move(s);
         }
 
         std::vector<uint8_t> ret(s.size() / 2);
@@ -54,11 +54,12 @@ namespace tmcppc::problem_24 {
         }
         std::vector<uint8_t> ret{};
 
-        for (size_t pos{ 0 }, previous_pos{ 0 }; pos = s.find(delimiter, pos); ) {
+        for (size_t pos{ 0 }, previous_pos{ 0 }; ; ) {
+            pos = s.find(delimiter, pos);
             auto token{ s.substr(previous_pos, pos - previous_pos) };
 
             if (token.size() == 1) {
-                token.insert(0, "0");
+                token = std::string{ "0" } + std::move(token);
             } else if (token.size() != 2) {
                 throw from_hex_string_parse_error{
                     fmt::format("parsing string \"{}\". Found token \"{}\" of size '{}' at pos '{}'",
