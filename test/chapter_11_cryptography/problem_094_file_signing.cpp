@@ -7,8 +7,8 @@
 #include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
-using namespace tmcppc::crypto;
 namespace fs = std::filesystem;
+using namespace tmcppc::crypto;
 
 
 TEST(generate_keys, ok) {

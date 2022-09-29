@@ -2,8 +2,8 @@
 
 #include <gtest/gtest.h>
 
-using namespace tmcppc::png;
 namespace fs = std::filesystem;
+using namespace tmcppc::png;
 
 
 TEST(create_png_file_path, file_stem_has_no_extension) {

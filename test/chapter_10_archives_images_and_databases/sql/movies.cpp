@@ -7,10 +7,10 @@
 #include <filesystem>
 #include <gtest/gtest.h>
 
+namespace fs = std::filesystem;
 using namespace std::chrono_literals;
 using namespace tmcppc::movies;
 using namespace tmcppc::movies::sql;
-namespace fs = std::filesystem;
 
 
 auto get_updated_catalog_sample() {

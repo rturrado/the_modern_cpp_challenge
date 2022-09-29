@@ -7,8 +7,8 @@
 #include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
-using namespace tmcppc::crypto;
 namespace fs = std::filesystem;
+using namespace tmcppc::crypto;
 
 
 TEST(aes_encrypt, input_file_does_not_exist) {

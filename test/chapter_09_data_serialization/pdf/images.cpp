@@ -4,8 +4,8 @@
 #include <filesystem>
 #include <gtest/gtest.h>
 
-using namespace tmcppc::pdf;
 namespace fs = std::filesystem;
+using namespace tmcppc::pdf;
 
 
 TEST(images_doc, save_to_empty_list_of_images) {

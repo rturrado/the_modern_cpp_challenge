@@ -6,9 +6,9 @@
 #include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
+namespace fs = std::filesystem;
 using namespace tmcppc::png;
 using namespace tmcppc::problem_83;
-namespace fs = std::filesystem;
 
 
 TEST(paint_verification_text, png_file_creation) {

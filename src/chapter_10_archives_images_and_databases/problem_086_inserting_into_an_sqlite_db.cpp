@@ -12,9 +12,9 @@
 #include <regex>  // regex_replace
 #include <rtc/console.h>
 
+namespace fs = std::filesystem;
 using namespace tmcppc::movies;
 using namespace tmcppc::movies::sql;
-namespace fs = std::filesystem;
 
 
 namespace tmcppc::problem_86 {

@@ -10,9 +10,9 @@
 #include <string>  // getline
 #include <variant>  // get, holds_alternative
 
+namespace fs = std::filesystem;
 using namespace rtc::pretty_print;
 using namespace tmcppc::face_detection;
-namespace fs = std::filesystem;
 
 
 namespace tmcppc::problem_100 {

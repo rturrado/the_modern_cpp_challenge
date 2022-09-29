@@ -6,8 +6,8 @@
 #include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
-using namespace tmcppc::zip;
 namespace fs = std::filesystem;
+using namespace tmcppc::zip;
 
 
 TEST(create_zip_file_path, file_stem_has_no_extension) {

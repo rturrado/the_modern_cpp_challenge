@@ -9,8 +9,8 @@
 #include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
-using namespace tmcppc::crypto;
 namespace fs = std::filesystem;
+using namespace tmcppc::crypto;
 
 
 TEST(get_hash_as_hex_string, file_does_not_exist) {

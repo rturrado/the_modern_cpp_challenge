@@ -11,8 +11,8 @@
 
 
 void problem_36_main(std::ostream& os) {
-    namespace fs = std::filesystem;
     namespace ch = std::chrono;
+    namespace fs = std::filesystem;
     using namespace std::chrono_literals;
     using namespace tmcppc::problem_36;
 

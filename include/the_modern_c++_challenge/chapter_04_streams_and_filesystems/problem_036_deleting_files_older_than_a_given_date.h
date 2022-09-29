@@ -12,8 +12,8 @@ namespace tmcppc::problem_36 {
     void delete_directory_entries_older_than(
         std::ostream& os, const std::filesystem::path& in_dir_path, const std::chrono::file_time<Duration>& tp) {
 
-        namespace fs = std::filesystem;
         namespace ch = std::chrono;
+        namespace fs = std::filesystem;
 
         if (not fs::exists(in_dir_path)) {
             throw rtc::filesystem::file_path_does_not_exist_error{ in_dir_path.generic_string() };
