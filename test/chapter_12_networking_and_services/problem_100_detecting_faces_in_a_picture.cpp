@@ -1,16 +1,13 @@
 #include "chapter_12_networking_and_services/face_detection.h"
 #include "chapter_12_networking_and_services/face_detection/samples.h"
-#include "chapter_12_networking_and_services/faces.h"
 #include "chapter_12_networking_and_services/problem_100_detecting_faces_in_a_picture.h"
 #include "env.h"
 #include "face_detection/mock.h"
 #include "face_detection/samples.h"
 
+#include <filesystem>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <filesystem>
-#include <memory>  // make_unique, unique_ptr
 #include <sstream>  // ostringstream
 #include <utility>  // move
 #include <variant>

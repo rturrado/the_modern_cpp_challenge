@@ -1,15 +1,13 @@
 #pragma once
 
-#include "rtc/print.h"
-
 #include <algorithm>
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <format>
 #include <iostream>  // cout
 #include <iterator>
 #include <ranges>
+#include <rtc/print.h>
 #include <sstream>
 #include <stdexcept>
 #include <utility>  // exchange, move

@@ -2,9 +2,7 @@
 
 #include <bitset>
 #include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cout
-#include <ostream>
 
 
 namespace tmcppc::problem_10 {

@@ -2,8 +2,6 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <sstream>  // ostringstream
 #include <vector>
 
 using namespace tmcppc::problem_19;

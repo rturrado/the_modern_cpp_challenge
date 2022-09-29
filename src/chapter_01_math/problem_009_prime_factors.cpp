@@ -1,13 +1,9 @@
 #include "chapter_01_math/math.h"  // prime_factors
 #include "chapter_01_math/problem_009_prime_factors.h"
 
-#include "rtc/console.h"  // read_positive_number
-
 #include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cin, cout
-#include <istream>
-#include <ostream>
+#include <rtc/console.h>  // read_positive_number
 
 
 void problem_9_main(std::istream& is, std::ostream& os) {

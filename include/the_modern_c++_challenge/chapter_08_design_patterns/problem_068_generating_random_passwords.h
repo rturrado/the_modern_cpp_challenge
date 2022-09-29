@@ -1,11 +1,10 @@
 #pragma once
 
-#include "rtc/random.h"
-
 #include <algorithm>  // generate, shuffle
 #include <memory>  // unique_ptr
 #include <ostream>
 #include <random>  // default_random_engine, random_device
+#include <rtc/random.h>
 #include <string>
 #include <utility>  // move, pair
 #include <vector>

@@ -1,16 +1,14 @@
 #include "chapter_01_math/problem_014_validating_isbns.h"
 
-#include "rtc/console.h"  // clear_istream
-
 #include <algorithm>  // count_if, erase_if
-#include <cassert>  // assert
 #include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cin, cout
-#include <istream>
 #include <numeric>  // accumulate
-#include <ostream>
+#include <rtc/console.h>  // clear_istream
 #include <string>  // getline
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 
 namespace tmcppc::problem_14 {

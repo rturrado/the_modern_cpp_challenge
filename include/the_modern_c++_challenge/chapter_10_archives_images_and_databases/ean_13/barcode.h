@@ -3,13 +3,15 @@
 #include <algorithm>  // all_of, transform
 #include <array>
 #include <bitset>
-#include <cassert>  // assert
 #include <cctype>  // isdigit
 #include <cstdint>  // uint8_t
 #include <map>
 #include <stdexcept>  // runtime_error
 #include <string>
 #include <string_view>
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 
 namespace tmcppc::ean_13 {

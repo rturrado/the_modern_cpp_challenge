@@ -1,16 +1,13 @@
 #include "chapter_04_streams_and_filesystems/problem_034_removing_empty_lines_from_a_text_file.h"
 #include "env.h"
 
-#include "rtc/filesystem.h"
-
 #include <exception>
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <fstream>
 #include <ios>  // in, out
 #include <iostream>  // cout
-#include <ostream>
 #include <regex>  // regex_search
+#include <rtc/filesystem.h>
 
 namespace fs = std::filesystem;
 

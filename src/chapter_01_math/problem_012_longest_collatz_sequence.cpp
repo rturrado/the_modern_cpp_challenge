@@ -1,12 +1,9 @@
 #include "chapter_01_math/problem_012_longest_collatz_sequence.h"
 
-#include "rtc/timer.h"  // function_timer
-
 #include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <map>
-#include <ostream>
+#include <rtc/timer.h>  // function_timer
 #include <utility>  // pair
 #include <vector>
 

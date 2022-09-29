@@ -1,10 +1,8 @@
 #include "chapter_06_algorithms_and_data_structures/problem_053_average_rating_of_movies.h"
 
+#include <cmath>  // fabs
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <cmath>  // fabs
-#include <sstream>  // ostringstream
 
 using namespace tmcppc::problem_53;
 

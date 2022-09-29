@@ -23,7 +23,7 @@ namespace tmcppc::algorithm::async {
     auto parallel_binary_operation(Range&& rng, BinaryOperation&& binary_op,
         size_t thread_pool_size = THREAD_POOL_SIZE_DEFAULT, size_t block_size = BLOCK_SIZE_DEFAULT) {
 
-        using ForwardIt = typename std::ranges::iterator_t<Range>;
+        using ForwardIt = std::ranges::iterator_t<Range>;
 
         size_t size{ rng.size() };
         thread_pool_size = std::min(thread_pool_size, THREAD_POOL_SIZE_MAX);

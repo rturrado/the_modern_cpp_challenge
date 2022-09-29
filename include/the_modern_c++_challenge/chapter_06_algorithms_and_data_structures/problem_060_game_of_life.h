@@ -3,13 +3,12 @@
 #include "console.h"
 #include "timer.h"
 
-#include "rtc/random.h"
-
 #include <algorithm>  // for_each
 #include <atomic>
 #include <chrono>
 #include <iostream>  // flush
 #include <ostream>
+#include <rtc/random.h>
 #include <thread>  // sleep_for
 #include <vector>
 

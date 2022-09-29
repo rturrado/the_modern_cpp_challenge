@@ -1,8 +1,6 @@
 #include "chapter_06_algorithms_and_data_structures/problem_051_transforming_a_list_of_phone_numbers.h"
 #include "chapter_06_algorithms_and_data_structures/phone_numbers.h"
 
-#include "rtc/print.h"
-
 #include <algorithm>  // erase_if, transform
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>

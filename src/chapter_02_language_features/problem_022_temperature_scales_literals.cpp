@@ -3,7 +3,6 @@
 #include "chapter_02_language_features/temperature/v2/temperature.h"
 
 #include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cout
 
 

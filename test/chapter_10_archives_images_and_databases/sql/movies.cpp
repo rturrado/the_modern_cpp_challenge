@@ -3,11 +3,9 @@
 #include "chapter_10_archives_images_and_databases/sql/movies.h"
 #include "env.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
-
 #include <chrono>
 #include <filesystem>
+#include <gtest/gtest.h>
 
 using namespace std::chrono_literals;
 using namespace tmcppc::movies;

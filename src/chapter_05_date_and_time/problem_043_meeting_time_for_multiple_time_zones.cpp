@@ -3,10 +3,7 @@
 #include <chrono>
 #include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <ostream>
 #include <string_view>  // literals
-#include <utility>  // pair
-#include <vector>
 
 
 void problem_43_main(std::ostream& os) {

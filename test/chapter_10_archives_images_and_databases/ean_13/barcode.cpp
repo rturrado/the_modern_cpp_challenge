@@ -1,9 +1,8 @@
 #include "chapter_10_archives_images_and_databases/ean_13/barcode.h"
 
+#include <bitset>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <bitset>
 
 using namespace tmcppc::ean_13;
 

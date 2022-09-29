@@ -2,11 +2,8 @@
 
 #include <algorithm>  // transform
 #include <fmt/ostream.h>
-#include <fmt/ranges.h>
-#include <initializer_list>
 #include <iostream>  // cout
 #include <memory>  // make_shared
-#include <ostream>
 #include <string>
 #include <utility>  // move
 

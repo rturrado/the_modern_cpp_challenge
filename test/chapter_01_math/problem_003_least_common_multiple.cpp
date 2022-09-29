@@ -2,9 +2,6 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <limits>
-#include <sstream>  // istringstream, ostringstream
 #include <stdexcept>  // runtime_error
 #include <vector>
 

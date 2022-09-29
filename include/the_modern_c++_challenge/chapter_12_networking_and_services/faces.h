@@ -1,9 +1,8 @@
 #pragma once
 
-#include "rtc/pretty_print.h"
-
 #include <fmt/ostream.h>
 #include <ostream>
+#include <rtc/pretty_print.h>
 #include <sstream>  // ostringstream
 #include <vector>
 

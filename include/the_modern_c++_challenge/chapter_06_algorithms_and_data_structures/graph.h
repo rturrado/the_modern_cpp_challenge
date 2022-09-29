@@ -3,6 +3,7 @@
 #include <algorithm>  // for_each, minmax, transform
 #include <fmt/format.h>
 #include <fmt/ostream.h>
+#include <functional>  // less
 #include <initializer_list>
 #include <iterator>  // inserter
 #include <limits>  // numeric_limits

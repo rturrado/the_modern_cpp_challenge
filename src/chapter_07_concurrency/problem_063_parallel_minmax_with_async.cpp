@@ -3,7 +3,6 @@
 
 #include <iostream>  // cout
 #include <ostream>
-#include <vector>
 
 
 void problem_63_main(std::ostream& os) {

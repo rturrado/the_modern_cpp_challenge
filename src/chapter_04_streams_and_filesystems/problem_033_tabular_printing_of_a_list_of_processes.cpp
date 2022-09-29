@@ -4,9 +4,6 @@
 #include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <numeric>  // accumulate
-#include <ostream>
-#include <ranges>  // sort
-#include <sstream>  // ostringstream
 #include <string>  // string_literals, to_string
 #include <vector>
 

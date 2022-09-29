@@ -1,6 +1,5 @@
 #pragma once
 
-#include <format>
 #include <initializer_list>
 #include <iosfwd>
 #include <limits>  // numeric_limits

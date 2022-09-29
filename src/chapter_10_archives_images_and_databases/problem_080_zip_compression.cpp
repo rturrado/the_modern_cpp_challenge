@@ -3,8 +3,6 @@
 #include "chapter_10_archives_images_and_databases/zip/zip_lib_wrapper.h"
 
 #include <iostream>  // cin, cout
-#include <istream>
-#include <ostream>
 
 
 void problem_80_main(std::istream& is, std::ostream& os) {

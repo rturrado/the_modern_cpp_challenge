@@ -3,10 +3,8 @@
 
 #include <cmath>  // pow
 #include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <numeric>  // accumulate
-#include <ostream>
 #include <string>  // to_string
 #include <vector>
 

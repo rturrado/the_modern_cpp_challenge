@@ -1,10 +1,9 @@
 #pragma once
 
-#include "rtc/random.h"
-
 #include <functional>  // plus
 #include <iosfwd>
 #include <numeric>  // transform_reduce
+#include <rtc/random.h>
 #include <string>
 
 

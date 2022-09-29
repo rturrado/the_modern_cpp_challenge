@@ -1,9 +1,8 @@
 #include "chapter_06_algorithms_and_data_structures/phone_numbers.h"
 
+#include <fmt/format.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <fmt/format.h>
 
 using tmcppc::phone::country_code;
 

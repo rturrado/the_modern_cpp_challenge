@@ -1,16 +1,17 @@
 #include "chapter_07_concurrency/problem_061_parallel_transform_algorithm.h"
 
-#include "rtc/timer.h"
-
 #include <algorithm>  // transform
 #include <benchmark/benchmark.h>
-#include <cassert>  // assert
 #include <chrono>
 #include <execution>  // par
 #include <fmt/chrono.h>
 #include <fmt/core.h>
 #include <numeric>  // iota
+#include <rtc/timer.h>
 #include <vector>
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 
 auto square = [](int n) { return n * n; };

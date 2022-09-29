@@ -3,7 +3,6 @@
 #include <algorithm>  // transform
 #include <array>
 #include <bitset>
-#include <cassert>  // assert
 #include <cstdint>  // uint8_t
 #include <iterator>  // back_inserter
 #include <span>
@@ -11,6 +10,9 @@
 #include <string_view>
 #include <unordered_map>
 #include <vector>
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 
 namespace tmcppc::crypto {

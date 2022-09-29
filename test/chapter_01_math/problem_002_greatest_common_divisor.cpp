@@ -2,9 +2,7 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include <limits>  // numeric_limits
-#include <sstream>  // istringstream, ostringstream
 #include <stdexcept>  // runtime_error
 
 using namespace tmcppc::problem_2;

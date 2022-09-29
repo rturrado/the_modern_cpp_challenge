@@ -2,7 +2,6 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include <stdexcept>  // out_of_range
 
 using tmcppc::data_structures::double_buffer;

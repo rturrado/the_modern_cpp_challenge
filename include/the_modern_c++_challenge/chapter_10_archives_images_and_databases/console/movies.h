@@ -2,12 +2,11 @@
 
 #include "chapter_09_data_serialization/movies.h"
 
-#include "rtc/console.h"
-
 #include <chrono>
 #include <fmt/ostream.h>
 #include <istream>
 #include <ostream>
+#include <rtc/console.h>
 #include <string>  // getline
 
 

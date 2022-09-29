@@ -6,8 +6,6 @@
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <memory>  // make_unique
-#include <ostream>
 
 
 void problem_78_main(std::ostream& os) {

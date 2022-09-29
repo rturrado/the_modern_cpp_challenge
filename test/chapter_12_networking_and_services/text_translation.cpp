@@ -5,9 +5,7 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include <memory>  // make_unique, unique_ptr
-#include <fmt/format.h>
 #include <utility>  // move
 #include <variant>  // get, holds_alternative
 

@@ -2,12 +2,9 @@
 #include "chapter_04_streams_and_filesystems/problem_038_temporary_log_files.h"
 
 #include <exception>
-#include <filesystem>
 #include <fmt/ostream.h>
+#include <filesystem>
 #include <iostream>  // cout
-#include <ostream>
-#include <stdexcept>  // runtime_error
-#include <string>
 #include <string_view>
 
 

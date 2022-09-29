@@ -2,9 +2,6 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <functional>  // greater
-#include <sstream>  // ostringstream
 #include <stdexcept>  // runtime_error
 #include <utility>  // as_const
 #include <vector>

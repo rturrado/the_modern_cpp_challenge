@@ -3,9 +3,8 @@
 #include "doc.h"
 #include "layouter.h"
 
-#include "PDFWriter/AbstractContentContext.h"
-
 #include <cmath>  // max
+#include <PDFWriter/AbstractContentContext.h>
 #include <string>
 
 

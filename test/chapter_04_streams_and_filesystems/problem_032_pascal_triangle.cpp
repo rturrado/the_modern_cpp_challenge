@@ -2,8 +2,6 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <sstream>  // ostringstream
 #include <stdexcept>  // out_of_range
 
 using namespace tmcppc::problem_32;

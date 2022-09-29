@@ -3,17 +3,14 @@
 #include "chapter_12_networking_and_services/faces.h"
 #include "chapter_12_networking_and_services/json/faces.h"
 
-#include "rtc/filesystem.h"
-
-#include "curl_easy.h"
-#include "curl_header.h"
-
-#include "nlohmann/json.hpp"
-
-#include <filesystem>
+#include <curl_easy.h>
+#include <curl_header.h>
 #include <fmt/format.h>
+#include <filesystem>
 #include <memory>  // unique_ptr
+#include <nlohmann/json.hpp>
 #include <ostream>
+#include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 #include <stdexcept>  // runtime_error
 #include <string>

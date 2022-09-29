@@ -1,13 +1,9 @@
 #include "chapter_01_math/math.h"  // is_prime
 #include "chapter_01_math/problem_005_sexy_prime_pairs.h"
 
-#include "rtc/console.h"  // read_positive_number
-
 #include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cin, cout
-#include <istream>
-#include <ostream>
+#include <rtc/console.h>  // read_positive_number
 #include <utility>  // pair
 #include <vector>
 

@@ -2,10 +2,8 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include <numeric>  // iota
 #include <ranges>  // views::iota
-#include <sstream>  // ostringstream
 #include <vector>
 
 using tmcppc::algorithm::async::parallel_min;

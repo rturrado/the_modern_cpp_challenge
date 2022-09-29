@@ -4,7 +4,6 @@
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
 #include <iostream>  // cout
-#include <ostream>
 #include <stdexcept>  // runtime_error
 #include <string_view>
 

@@ -1,13 +1,9 @@
 #include "chapter_06_algorithms_and_data_structures/problem_045_priority_queue.h"
 #include "chapter_06_algorithms_and_data_structures/priority_queue.h"
 
-#include "rtc/print.h"
-
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <functional>  // greater, less
 #include <iostream>  // cout
-#include <stdexcept>  // runtime_error
 #include <vector>
 
 

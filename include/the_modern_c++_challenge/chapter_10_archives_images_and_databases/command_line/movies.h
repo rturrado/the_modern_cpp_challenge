@@ -1,11 +1,7 @@
 #pragma once
 
 #include "../sql/movies.h"
-
 #include "chapter_09_data_serialization/movies.h"
-
-#include "rtc/stream.h"  // get_unread
-#include "rtc/string.h"  // to_lowercase, trim_right
 
 #include <algorithm>  // find
 #include <cstdint>  // int64_t
@@ -18,6 +14,8 @@
 #include <ostream>
 #include <ranges>
 #include <regex>  // regex_match, smatch
+#include <rtc/stream.h>  // get_unread
+#include <rtc/string.h>  // to_lowercase, trim_right
 #include <sstream>  // istringstream
 #include <string>  // getline, stoi
 #include <tuple>

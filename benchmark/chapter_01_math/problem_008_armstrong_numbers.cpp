@@ -1,12 +1,13 @@
 #include "chapter_01_math/problem_008_armstrong_numbers.h"
 
-#include "rtc/timer.h"  // function_timer
-
 #include <benchmark/benchmark.h>  // google benchmark
-#include <cassert>  // assert
 #include <chrono>  // duration, milli
 #include <fmt/chrono.h>
 #include <fmt/ranges.h>
+#include <rtc/timer.h>  // function_timer
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 using namespace tmcppc::problem_8;
 

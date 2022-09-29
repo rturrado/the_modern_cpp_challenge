@@ -1,19 +1,15 @@
 #include "chapter_06_algorithms_and_data_structures/problem_049_text_histogram.h"
 #include "env.h"
 
-#include "rtc/filesystem.h"
-
 #include <algorithm>  // for_each
 #include <cctype>  // isalpha
 #include <exception>
 #include <filesystem>
-#include <fmt/format.h>
 #include <fmt/ostream.h>
-#include <fstream>  // ifstream
 #include <iostream>  // cout
 #include <map>
 #include <numeric>  // accumulate
-#include <stdexcept>  // runtime_error
+#include <rtc/filesystem.h>
 #include <string>  // getline
 
 

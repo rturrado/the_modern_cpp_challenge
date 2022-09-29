@@ -2,14 +2,11 @@
 #include "chapter_10_archives_images_and_databases/problem_082_national_flag_png.h"
 #include "env.h"
 
-#include "metric.h"
-#include "rgba_image.h"
-
+#include <filesystem>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <filesystem>
-#include <sstream>  // ostringstream
+#include <metric.h>  // pdiff
+#include <rgba_image.h>  // pdiff
 
 using namespace tmcppc::png;
 using namespace tmcppc::problem_82;

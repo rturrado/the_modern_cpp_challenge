@@ -2,6 +2,7 @@
 
 #include "tcp/connection.h"
 
+#include <charconv>  // from_chars
 #include <fmt/ostream.h>
 #include <future>
 #include <mutex>  // lock_guard

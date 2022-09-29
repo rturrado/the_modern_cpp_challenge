@@ -5,7 +5,6 @@
 #include <fmt/format.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include <sstream>  // istringstream, ostringstream
 
 

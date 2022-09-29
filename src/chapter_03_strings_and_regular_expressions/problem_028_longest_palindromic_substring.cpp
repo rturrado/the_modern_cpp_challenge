@@ -2,7 +2,6 @@
 
 #include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <ostream>
 #include <span>
 #include <string_view>
 #include <vector>

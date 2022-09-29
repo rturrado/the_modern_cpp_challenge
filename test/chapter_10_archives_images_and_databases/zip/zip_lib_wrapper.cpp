@@ -1,12 +1,9 @@
 #include "chapter_10_archives_images_and_databases/zip/zip_lib_wrapper.h"
 #include "env.h"
 
-#include "rtc/filesystem.h"
-
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
-
 #include <filesystem>
+#include <gtest/gtest.h>
+#include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
 using namespace tmcppc::zip;

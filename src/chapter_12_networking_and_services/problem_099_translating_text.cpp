@@ -4,11 +4,9 @@
 #include <exception>
 #include <fmt/ostream.h>
 #include <iostream>  // cin, cout
-#include <istream>
 #include <memory>  // make_unique
-#include <ostream>
-#include <string>  // getline
 #include <string_view>
+#include <string>  // getline
 #include <variant>  // get, holds_alternative
 
 using namespace tmcppc::text_translation;

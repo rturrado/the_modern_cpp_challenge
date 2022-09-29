@@ -1,10 +1,9 @@
 #include "chapter_02_language_features/ipv4.h"
 #include "chapter_02_language_features/ipv4_range.h"
 
+#include <fmt/ostream.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <fmt/ostream.h>
 #include <sstream>  // istringstream, ostringstream
 
 using namespace tmcppc::network;

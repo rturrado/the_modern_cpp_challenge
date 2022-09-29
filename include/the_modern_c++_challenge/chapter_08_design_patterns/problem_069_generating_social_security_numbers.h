@@ -1,7 +1,5 @@
 #pragma once
 
-#include "rtc/random.h"
-
 #include <algorithm>  // binary_search, sort
 #include <chrono>
 #include <fmt/chrono.h>
@@ -11,6 +9,7 @@
 #include <initializer_list>
 #include <numeric>  // accumulate
 #include <ostream>
+#include <rtc/random.h>
 #include <sstream>  // ostringstream
 #include <string>  // to_string
 #include <unordered_map>

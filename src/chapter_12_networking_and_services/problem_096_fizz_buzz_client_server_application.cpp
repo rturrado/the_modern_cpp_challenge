@@ -4,9 +4,7 @@
 #include <fmt/ostream.h>
 #include <future>  // async
 #include <iostream>  // cin, cout
-#include <istream>
 #include <memory>  // make_unique
-#include <ostream>
 
 #define BOOST_ASIO_STANDALONE
 #include <asio.hpp>

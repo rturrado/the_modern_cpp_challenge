@@ -1,12 +1,8 @@
 #include "chapter_02_language_features/array_2d.h"
 
+#include <fmt/format.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <fmt/format.h>
-#include <fmt/ostream.h>
-#include <fmt/ranges.h>
-#include <sstream>  // ostringstream
 #include <stdexcept>  // out_of_range
 #include <string>
 #include <utility>  // move

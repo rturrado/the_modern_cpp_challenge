@@ -1,9 +1,8 @@
 #include "chapter_08_design_patterns/problem_072_computing_order_price_with_discounts.h"
 
+#include <cmath>  // fabs
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <cmath>  // fabs
 #include <memory>  // make_shared, make_unique, unique_ptr
 #include <sstream>  // ostringstream
 

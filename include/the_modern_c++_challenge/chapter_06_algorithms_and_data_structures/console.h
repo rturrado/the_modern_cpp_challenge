@@ -1,8 +1,7 @@
 #pragma once
 
-#include "rtc/console.h"
-
 #include <memory>  // unique_ptr
+#include <rtc/console.h>
 #include <stdexcept>  // runtime_error
 #include <string_view>
 #include <utility>  // move

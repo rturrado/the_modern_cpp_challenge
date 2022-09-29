@@ -2,7 +2,6 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include <memory>  // make_shared, make_unique
 #include <sstream>  // ostringstream
 

@@ -2,10 +2,7 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include <map>
-#include <ostream>
-#include <sstream>  // ostringstream
 #include <stdexcept>  // out_of_range
 #include <utility>  // as_const, pair
 

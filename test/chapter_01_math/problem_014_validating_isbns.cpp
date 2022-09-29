@@ -3,8 +3,6 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
-#include <sstream>  // istringstream, ostringstream
-
 using namespace tmcppc::problem_14;
 
 

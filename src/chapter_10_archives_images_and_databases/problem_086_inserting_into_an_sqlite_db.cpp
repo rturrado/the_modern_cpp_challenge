@@ -5,15 +5,12 @@
 #include "chapter_10_archives_images_and_databases/sql/movies.h"
 #include "env.h"
 
-#include "rtc/console.h"
-
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <fstream>  // ifstream
 #include <iostream>  // cin, cout
-#include <istream>
 #include <ostream>
 #include <regex>  // regex_replace
+#include <rtc/console.h>
 
 using namespace tmcppc::movies;
 using namespace tmcppc::movies::sql;

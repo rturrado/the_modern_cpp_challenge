@@ -5,13 +5,10 @@
 #include "face_detection/mock.h"
 #include "face_detection/samples.h"
 
-#include "rtc/filesystem.h"
-
+#include <filesystem>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <filesystem>
-#include <memory>  // make_unique, unique_ptr
+#include <rtc/filesystem.h>
 #include <utility>  // move
 #include <variant>  // get, holds_alternative
 

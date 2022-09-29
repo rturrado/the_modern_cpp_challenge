@@ -2,7 +2,6 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include <sstream>  // ostringstream
 
 using namespace tmcppc::password;
@@ -12,6 +11,7 @@ using tmcppc::password::validator::v2::contains_digit_or_error;
 using tmcppc::password::validator::v2::contains_lowercase_or_error;
 using tmcppc::password::validator::v2::contains_uppercase_or_error;
 using tmcppc::password::validator::v2::contains_validator;
+
 
 TEST(contains_symbol, empty_string) { EXPECT_FALSE(contains_symbol("")); }
 TEST(contains_symbol, string_without_symbols) { EXPECT_FALSE(contains_symbol("abcdefABCDEF0123456789")); }

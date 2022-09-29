@@ -2,14 +2,13 @@
 
 #include "chapter_07_concurrency/logger.h"
 
-#include "rtc/random.h"  // random_int
-
 #include <chrono>  // milliseconds
 #include <condition_variable>  // condition_variable_any
 #include <iosfwd>
 #include <mutex>  // lock_guard, unique_lock
 #include <ostream>
 #include <queue>
+#include <rtc/random.h>  // random_int
 #include <stop_token>
 #include <thread>  // jthread, sleep_for
 #include <vector>

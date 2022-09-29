@@ -1,15 +1,12 @@
 #include "chapter_12_networking_and_services/imap/connection.h"
 #include "chapter_12_networking_and_services/problem_098_fetching_emails_using_imap.h"
 
-#include "rtc/console.h"  // read_positive_number
-
 #include <algorithm>  // transform
 #include <exception>
 #include <fmt/ostream.h>
 #include <iostream>  // cin, cout
-#include <istream>
 #include <memory>  // make_unique
-#include <ostream>
+#include <rtc/console.h>  // read_positive_number
 #include <string>  // getline
 
 using namespace tmcppc::imap;

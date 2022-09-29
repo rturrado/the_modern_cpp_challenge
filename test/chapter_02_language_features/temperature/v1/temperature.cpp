@@ -1,9 +1,8 @@
 #include "chapter_02_language_features/temperature/v1/temperature.h"
 
+#include <fmt/format.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <fmt/format.h>
 #include <sstream>  // ostringstream
 
 using namespace tmcppc::temperature::v1;

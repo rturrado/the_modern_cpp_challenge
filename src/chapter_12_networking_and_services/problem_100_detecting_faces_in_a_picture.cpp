@@ -3,14 +3,10 @@
 #include "chapter_12_networking_and_services/problem_100_detecting_faces_in_a_picture.h"
 #include "env.h"
 
-#include "rtc/pretty_print.h"
-
 #include <filesystem>
 #include <fmt/ostream.h>
 #include <iostream>  // cin, cout
-#include <istream>
-#include <memory>  // make_unique
-#include <ostream>
+#include <rtc/pretty_print.h>
 #include <string>  // getline
 #include <variant>  // get, holds_alternative
 

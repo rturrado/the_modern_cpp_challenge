@@ -3,7 +3,6 @@
 
 #include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <string>
 #include <string_view>
 #include <utility>  // pair
 #include <vector>

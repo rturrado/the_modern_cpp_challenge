@@ -1,11 +1,13 @@
 #include "chapter_08_design_patterns/problem_072_computing_order_price_with_discounts.h"
 
-#include <cassert>  // assert
 #include <cmath>  // abs
 #include <iostream>  // cout
 #include <limits>  // epsilon, numeric_limits
 #include <memory>  // make_shared
 #include <ostream>
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 
 void problem_72_main(std::ostream& os) {

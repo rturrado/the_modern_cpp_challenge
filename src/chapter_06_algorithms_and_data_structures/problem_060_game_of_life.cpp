@@ -6,7 +6,6 @@
 #include <fmt/ostream.h>
 #include <future>  // async
 #include <iostream>  // cout
-#include <memory>  // make_unique
 #include <thread>  // sleep_for
 
 using namespace tmcppc::chrono;

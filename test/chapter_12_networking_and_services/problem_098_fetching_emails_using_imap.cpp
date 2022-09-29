@@ -5,11 +5,7 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include <memory>  // make_unique, unique_ptr
-#include <sstream>  // istringstream, ostringstream
-#include <stdexcept>  // runtime_error
-#include <string>
 #include <string_view>
 #include <utility>  // move
 #include <vector>

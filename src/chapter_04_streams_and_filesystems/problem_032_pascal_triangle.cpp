@@ -6,7 +6,6 @@
 #include <functional>  // plus
 #include <iostream>  // cout
 #include <numeric>  // adjacent_difference
-#include <ostream>
 #include <stdexcept>  // out_of_range
 #include <string>  // to_string
 #include <vector>

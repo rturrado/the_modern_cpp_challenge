@@ -1,8 +1,7 @@
 #pragma once
 
-#include "curl_easy.h"
-#include "curl_header.h"
-
+#include <curl_easy.h>
+#include <curl_header.h>
 #include <fmt/format.h>
 #include <map>
 #include <memory>  // unique_ptr

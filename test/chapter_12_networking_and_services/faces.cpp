@@ -1,11 +1,9 @@
 #include "chapter_12_networking_and_services/face_detection/samples.h"
 #include "chapter_12_networking_and_services/faces.h"
 
+#include <fmt/format.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <fmt/format.h>
-#include <sstream>  // ostringstream
 #include <string>
 
 using namespace tmcppc::face_detection;

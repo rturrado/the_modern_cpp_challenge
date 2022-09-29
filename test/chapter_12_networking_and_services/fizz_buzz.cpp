@@ -3,17 +3,11 @@
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
 #include <memory>  // make_unique, unique_ptr
-#include <sstream>  // ostringstream
 #include <string>
 #include <string_view>
 #include <system_error>  // error_code, system_category
 #include <utility>  // move
-
-#define BOOST_ASIO_STANDALONE
-#include <asio.hpp>
-#include <boost/system/error_code.hpp>
 
 using namespace ::testing;
 using namespace std::string_literals;

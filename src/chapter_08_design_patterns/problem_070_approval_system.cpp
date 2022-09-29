@@ -4,7 +4,6 @@
 #include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <memory>  // make_shared, make_unique
-#include <ostream>
 #include <string>
 #include <utility>  // pair
 #include <vector>

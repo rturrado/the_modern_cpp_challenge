@@ -1,11 +1,9 @@
 #include "chapter_07_concurrency/problem_066_customer_service_system.h"
 
-#include "rtc/console.h"  // read_positive_number
-
 #include <fmt/ostream.h>
 #include <iostream>  // cin, cout
-#include <istream>
 #include <ostream>
+#include <rtc/console.h>  // read_positive_number
 
 
 void problem_66_main(std::istream& is, std::ostream& os) {

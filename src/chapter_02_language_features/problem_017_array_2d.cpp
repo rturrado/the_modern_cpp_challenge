@@ -4,10 +4,8 @@
 #include <algorithm>  // transform
 #include <exception>
 #include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <numeric>  // iota
-#include <ostream>
 #include <utility>  // move
 
 

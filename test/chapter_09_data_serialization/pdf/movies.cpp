@@ -3,12 +3,10 @@
 #include "chapter_09_data_serialization/pdf/movies_doc.h"
 #include "chapter_09_data_serialization/pdf/text_list_layouter.h"
 
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
-
 #include <chrono>
 #include <filesystem>
-#include <memory>  // make_unique
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <vector>
 
 using namespace std::chrono_literals;

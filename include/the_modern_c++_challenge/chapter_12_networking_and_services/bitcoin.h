@@ -1,11 +1,12 @@
 #pragma once
 
-#include "rtc/pretty_print.h"
-
 #include <algorithm>  // for_each
+#include <fmt/core.h>
 #include <fmt/ostream.h>
 #include <map>
 #include <ostream>
+#include <rtc/pretty_print.h>
+#include <sstream>  // ostringstream
 #include <string>
 
 

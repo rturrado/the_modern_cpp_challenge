@@ -4,7 +4,6 @@
 #include <exception>
 #include <fmt/ostream.h>
 #include <iostream>  // cout
-#include <ostream>
 
 
 void problem_30_main(std::ostream& os) {

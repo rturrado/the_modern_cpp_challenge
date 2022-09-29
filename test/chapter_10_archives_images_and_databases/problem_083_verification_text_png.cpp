@@ -1,10 +1,9 @@
 #include "chapter_10_archives_images_and_databases/png/png_writer_wrapper.h"
 #include "chapter_10_archives_images_and_databases/problem_083_verification_text_png.h"
 
+#include <filesystem>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <filesystem>
 #include <sstream>  // ostringstream
 
 using namespace tmcppc::png;

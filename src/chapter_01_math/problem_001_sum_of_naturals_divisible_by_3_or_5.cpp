@@ -1,18 +1,13 @@
 #include "chapter_01_math/problem_001_sum_of_naturals_divisible_by_3_or_5.h"
 
-#include "rtc/console.h"  // read_positive_number
-
 #include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cin, cout
-#include <istream>
 #include <numeric>  // accumulate
-#include <ostream>
-#include <range/v3/core.hpp>
 #include <range/v3/range/conversion.hpp>  // to
 #include <range/v3/view/filter.hpp>
 #include <range/v3/view/iota.hpp>
 #include <range/v3/view/take.hpp>
+#include <rtc/console.h>  // read_positive_number
 #include <vector>
 
 

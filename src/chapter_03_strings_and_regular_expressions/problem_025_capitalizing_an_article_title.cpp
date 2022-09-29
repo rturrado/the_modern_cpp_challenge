@@ -3,9 +3,7 @@
 #include <algorithm>  // for_each
 #include <cctype>  // isalpha, tolower, toupper
 #include <fmt/ostream.h>
-#include <fmt/ranges.h>
 #include <iostream>  // cout
-#include <string>
 #include <string_view>
 
 

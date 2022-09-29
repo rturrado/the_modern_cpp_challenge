@@ -1,15 +1,14 @@
 #include "chapter_02_language_features/unique_hdl.h"
-#include "env.h"
 
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <filesystem>
 #include <sstream>  // istringstream, ostringstream
 #include <utility>  // move
 
 #ifdef _WIN32
 #define WINDOWS_LEAN_AND_MEAN
+#include "env.h"
+
 #include <windows.h>  // CreateFileW, ReadFile
 #endif  // _WIN32
 

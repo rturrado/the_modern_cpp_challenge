@@ -3,8 +3,7 @@
 #include "chapter_12_networking_and_services/bitcoin.h"
 #include "chapter_12_networking_and_services/json/bitcoin.h"
 
-#include "curl_easy.h"
-
+#include <curl_easy.h>
 #include <memory>  // unique_ptr
 #include <sstream>  // ostringstream
 #include <stdexcept>  // runtime_error

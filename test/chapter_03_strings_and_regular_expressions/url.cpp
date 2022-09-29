@@ -1,10 +1,8 @@
 #include "chapter_03_strings_and_regular_expressions/url.h"
 
+#include <fmt/format.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-
-#include <fmt/format.h>
-#include <fmt/ostream.h>
 #include <sstream>  // ostringstream
 
 using namespace tmcppc::network;

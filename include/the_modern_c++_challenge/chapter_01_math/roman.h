@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cassert>  // assert
 #include <fmt/core.h>
 #include <map>
 #include <stdexcept>  // out_of_range
@@ -9,6 +8,9 @@
 #include <tuple>
 #include <utility>  // pair
 #include <vector>
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 
 namespace tmcppc::date {

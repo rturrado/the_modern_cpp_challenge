@@ -1,7 +1,4 @@
-#include "chapter_07_concurrency/problem_064_parallel_sort_algorithm.h"
 #include "chapter_07_concurrency/quicksort.h"
-
-#include "rtc/timer.h"  // function_timer
 
 #include <algorithm>  // shuffle, sort
 #include <benchmark/benchmark.h>  // google benchmark
@@ -10,6 +7,7 @@
 #include <fmt/ranges.h>
 #include <numeric>  // iota
 #include <random>  // default_random_engine, random_device
+#include <rtc/timer.h>  // function_timer
 #include <vector>
 
 
