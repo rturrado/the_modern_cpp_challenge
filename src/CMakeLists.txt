@@ -42,7 +42,7 @@ FetchContent_Declare(range-v3
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "15969174aad04e2922247aa7cbc03a932ad777b0"
+    GIT_TAG "c3603d2c3b9314ce914ee96064c273aed2a5011a"
 )
 FetchContent_Declare(SqliteModernCpp
     GIT_REPOSITORY https://github.com/SqliteModernCpp/sqlite_modern_cpp.git

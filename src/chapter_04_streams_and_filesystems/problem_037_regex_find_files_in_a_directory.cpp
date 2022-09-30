@@ -34,6 +34,7 @@ namespace tmcppc::problem_37 {
                 return (fs::is_regular_file(entry) and std::regex_match(entry.path().filename().string(), pattern));
             }
         );
+        std::ranges::sort(ret);
         return ret;
     }
 }  // namespace tmcppc::problem_37
