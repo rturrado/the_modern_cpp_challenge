@@ -195,15 +195,15 @@ namespace tmcppc::temperature::v1 {
     template <typename Rep_, typename Rep2_>
     constexpr auto operator+(const temperature<Rep_>& lhs, const temperature<Rep2_>& rhs) {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
-        return temperature<CT_>(
-            static_cast<long double>(to_celsius(lhs)) + static_cast<long double>(to_celsius(rhs)), scale_t::celsius);
+        return temperature<CT_>(static_cast<CT_>(
+            static_cast<long double>(to_celsius(lhs)) + static_cast<long double>(to_celsius(rhs))), scale_t::celsius);
     }
 
     template <typename Rep_, typename Rep2_>
     constexpr auto operator-(const temperature<Rep_>& lhs, const temperature<Rep2_>& rhs) {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
-        return temperature<CT_>(
-            static_cast<long double>(to_celsius(lhs)) - static_cast<long double>(to_celsius(rhs)), scale_t::celsius);
+        return temperature<CT_>(static_cast<CT_>(
+            static_cast<long double>(to_celsius(lhs)) - static_cast<long double>(to_celsius(rhs))), scale_t::celsius);
     }
 
     // User defined literals
