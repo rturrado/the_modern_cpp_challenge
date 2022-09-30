@@ -206,7 +206,7 @@ namespace tmcppc::data_structures {
             return fmt::format("{}", s);
         } else {
             return fmt::format("{} -> {}", get_shortest_path_string(graph, graph.at(s).first, d), s);
-        };
+        }
     }
 
 

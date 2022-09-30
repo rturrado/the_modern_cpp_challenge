@@ -79,7 +79,7 @@ namespace tmcppc::imap {
             , password_{ password }
         {}
 
-        [[nodiscard]] virtual std::string get_mailbox_folders() const override {
+        [[nodiscard]] std::string get_mailbox_folders() const override {
             try {
                 std::ostringstream oss{};
                 curl::curl_ios<std::ostringstream> writer{ oss };
@@ -94,7 +94,7 @@ namespace tmcppc::imap {
                 throw imap_connection_error{ ex.what() };
             }
         }
-        [[nodiscard]] virtual std::string get_unread_email_ids(std::string_view folder) const override {
+        [[nodiscard]] std::string get_unread_email_ids(std::string_view folder) const override {
             try {
                 std::ostringstream oss{};
                 curl::curl_ios<std::ostringstream> writer{ oss };
@@ -111,7 +111,7 @@ namespace tmcppc::imap {
                 throw imap_connection_error{ ex.what() };
             }
         }
-        [[nodiscard]] virtual std::string get_email(std::string_view folder, size_t id) const override {
+        [[nodiscard]] std::string get_email(std::string_view folder, size_t id) const override {
             try {
                 std::ostringstream oss{};
                 curl::curl_ios<std::ostringstream> writer{ oss };
@@ -137,7 +137,7 @@ namespace tmcppc::imap {
 
     class imap_connection {
     private:
-        [[nodiscard]] mailbox_folders_t parse_get_mailbox_folders_response(const std::string& response) const {
+        [[nodiscard]] static mailbox_folders_t parse_get_mailbox_folders_response(const std::string& response) {
             mailbox_folders_t ret{};
             std::istringstream iss{ response };
             std::string line{};
@@ -151,7 +151,7 @@ namespace tmcppc::imap {
             }
             return ret;
         }
-        [[nodiscard]] email_ids_t parse_get_unread_email_ids_response(std::string response) const {
+        [[nodiscard]] static email_ids_t parse_get_unread_email_ids_response(std::string response) {
             email_ids_t ret{};
             std::smatch matches{};
             boost::algorithm::trim_right(response);
@@ -162,12 +162,12 @@ namespace tmcppc::imap {
                     std::sregex_iterator{ std::cbegin(response), std::cend(response), id_pattern },
                     std::sregex_iterator{},
                     std::back_inserter(ret),
-                    [](const std::smatch match) { return static_cast<size_t>(std::stoull(match.str())); }
+                    [](const std::smatch& match) { return static_cast<size_t>(std::stoull(match.str())); }
                 );
             }
             return ret;
         }
-        [[nodiscard]] email_subject_t parse_email_subject(const std::string& email) const {
+        [[nodiscard]] static email_subject_t parse_email_subject(const std::string& email) {
             std::istringstream iss{ email };
             std::string line{};
             std::smatch matches{};

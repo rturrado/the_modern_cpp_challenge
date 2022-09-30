@@ -46,9 +46,13 @@ void problem_44_main(std::ostream& os) {
     using namespace std::chrono_literals;
     using namespace tmcppc::problem_44;
 
-    using vector_of_pairs_year_month = std::vector<std::pair<ch::year, ch::month>>;
+    auto pairs_years_months = std::vector<std::pair<ch::year, ch::month>>{
+        {1970y, ch::January},
+        {1977y, ch::May},
+        {2012y, ch::February}
+    };
 
-    for (const auto& [year, month] : vector_of_pairs_year_month{ {1970y, ch::January}, {1977y, ch::May}, {2012y, ch::February} }) {
+    for (const auto& [year, month] : pairs_years_months) {
         print_calendar_month(os, year, month);
         os << "\n\n";
     }

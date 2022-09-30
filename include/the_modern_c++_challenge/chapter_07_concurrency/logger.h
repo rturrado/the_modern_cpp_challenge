@@ -28,6 +28,6 @@ namespace tmcppc::logging::v2 {
     private:
         std::mutex m_{};
 
-        logger() {};
+        logger() = default;
     };
 }  // namespace tmcppc::logging::v2

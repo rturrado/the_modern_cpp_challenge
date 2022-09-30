@@ -5,6 +5,6 @@
 
 namespace tmcppc::system {
     struct console_fake : public console_iface {
-        virtual void clear_screen() const override {};
+        void clear_screen() const override {};
     };
 }  // namespace tmcppc::system

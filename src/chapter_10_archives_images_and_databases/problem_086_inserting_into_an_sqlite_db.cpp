@@ -82,7 +82,6 @@ namespace tmcppc::problem_86 {
                 default: break;
             }
         }
-        fmt::print(os, "\n");
     }
 }  // namespace tmcppc::problem_86
 

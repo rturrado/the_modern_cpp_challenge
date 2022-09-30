@@ -14,7 +14,7 @@ namespace tmcppc::problem_28 {
 
 
     std::string_view get_longest_palindromic_substring(std::string_view s) {
-        if (s.size() == 0) {
+        if (s.empty()) {
             return std::string_view{};
         }
 

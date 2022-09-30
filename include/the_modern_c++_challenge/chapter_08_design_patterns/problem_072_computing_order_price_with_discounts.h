@@ -53,12 +53,12 @@ namespace tmcppc::store {
             : percentage_{ p }
         {}
 
-        virtual void print(std::ostream& os, const indentation& indentation) const noexcept override {
+        void print(std::ostream& os, const indentation& indentation) const noexcept override {
             fmt::print(os, "{}article_fixed_discount(percentage : {})", indentation, percentage_);
         }
 
     protected:
-        [[nodiscard]] virtual float percentage(size_t, float) const noexcept override {
+        [[nodiscard]] float percentage(size_t, float) const noexcept override {
             return percentage_;
         }
 
@@ -77,13 +77,13 @@ namespace tmcppc::store {
             , minimum_article_quantity_{ q }
         {}
 
-        virtual void print(std::ostream& os, const indentation& indentation) const noexcept override {
+        void print(std::ostream& os, const indentation& indentation) const noexcept override {
             fmt::print(os, "{}order_line_volume_discount(percentage : {}, minimum_article_quantity : {})",
                 indentation, percentage_, minimum_article_quantity_);
         }
 
     protected:
-        [[nodiscard]] virtual float percentage(size_t article_quantity, float) const noexcept override {
+        [[nodiscard]] float percentage(size_t article_quantity, float) const noexcept override {
             return (article_quantity >= minimum_article_quantity_) ? percentage_ : 0;
         }
 
@@ -101,13 +101,13 @@ namespace tmcppc::store {
     public:
         order_line_price_discount(float p, float mtap) : percentage_{ p }, minimum_total_article_price_{ mtap } {}
 
-        virtual void print(std::ostream& os, const indentation& indentation) const noexcept override {
+        void print(std::ostream& os, const indentation& indentation ) const noexcept override {
             fmt::print(os, "{}order_line_price_discount(percentage : {}, minimum_total_article_price : {})",
                 indentation, percentage_, minimum_total_article_price_);
         }
 
     protected:
-        [[nodiscard]] virtual float percentage(size_t article_quantity, float article_price) const noexcept override {
+        [[nodiscard]] float percentage(size_t article_quantity, float article_price) const noexcept override {
             return (static_cast<float>(article_quantity) * article_price > minimum_total_article_price_) ? percentage_ : 0;
         }
 
@@ -125,13 +125,13 @@ namespace tmcppc::store {
     public:
         order_price_discount(float p, float mtop) : percentage_{ p }, minimum_total_order_price_{ mtop } {}
 
-        virtual void print(std::ostream& os, const indentation& indentation) const noexcept override {
+        void print(std::ostream& os, const indentation& indentation) const noexcept override {
             fmt::print(os, "{}order_price_discount(percentage : {}, minimum_total_order_price : {})",
                 indentation, percentage_, minimum_total_order_price_);
         }
 
     protected:
-        [[nodiscard]] virtual float percentage(size_t, float order_price) const noexcept override {
+        [[nodiscard]] float percentage(size_t, float order_price) const noexcept override {
             return (order_price > minimum_total_order_price_) ? percentage_ : 0;
         }
 
@@ -288,7 +288,7 @@ namespace tmcppc::store {
     // Cumulative price calculator
     //
     struct cumulative_price_calculator : public price_calculator {
-        [[nodiscard]] virtual float calculate(const order_t& order) const noexcept override {
+        [[nodiscard]] float calculate(const order_t& order) const noexcept override {
             float ret{};
 
             for (auto&& order_line : order.order_lines) {
@@ -326,7 +326,7 @@ namespace tmcppc::store {
     // Non cumulative price calculator
     //
     struct non_cumulative_price_calculator : public price_calculator {
-        [[nodiscard]] virtual float calculate(const order_t& order) const noexcept override {
+        [[nodiscard]] float calculate(const order_t& order) const noexcept override {
             float ret{};
             float discountable_order_price{};
 

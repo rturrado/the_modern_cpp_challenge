@@ -18,9 +18,9 @@ namespace tmcppc::pdf {
         image_list_layouter(image_list_layouter&& other) noexcept = delete;
         image_list_layouter& operator=(const image_list_layouter& other) = delete;
         image_list_layouter& operator=(image_list_layouter&& other) noexcept = delete;
-        ~image_list_layouter() = default;
+        ~image_list_layouter() override = default;
 
-        [[nodiscard]] virtual image_control position_image(doc* doc, double image_width, double image_height) override {
+        [[nodiscard]] image_control position_image(doc* doc, double image_width, double image_height) override {
             auto [scaled_image_width, scaled_image_height] = scale_image_to_fit_page(image_width, image_height);
 
             if (not image_fits_in_current_page(scaled_image_height)) {
@@ -36,9 +36,9 @@ namespace tmcppc::pdf {
             return image_control{ margin_left_, scaled_image_y, image_options };
         }
 
-        [[nodiscard]] virtual line_control position_line_separator() override { return {}; }
-        [[nodiscard]] virtual text_control position_text(doc*, const std::string&, bool, const text_alignment&) override { return {}; }
-        [[nodiscard]] virtual text_control position_title(doc*, const std::string&, const text_alignment&) override { return {}; }
+        [[nodiscard]] line_control position_line_separator() override { return {}; }
+        [[nodiscard]] text_control position_text(doc*, const std::string&, bool, const text_alignment&) override { return {}; }
+        [[nodiscard]] text_control position_title(doc*, const std::string&, const text_alignment&) override { return {}; }
 
     private:
         // Image spacing
@@ -67,7 +67,7 @@ namespace tmcppc::pdf {
             return image_dimensions{ image_width / ratio, image_height / ratio };
         }
 
-        [[nodiscard]] ImageOptions create_image_options_for_scaled_image(double scaled_image_width, double scaled_image_height) {
+        [[nodiscard]] static ImageOptions create_image_options_for_scaled_image(double scaled_image_width, double scaled_image_height) {
             ImageOptions image_options{};
             image_options.transformationMethod = AbstractContentContext::eFit;
             image_options.boundingBoxWidth = scaled_image_width;

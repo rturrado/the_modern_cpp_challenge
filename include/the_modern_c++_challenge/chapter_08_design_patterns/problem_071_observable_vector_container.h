@@ -98,7 +98,7 @@ namespace tmcppc::data_structures {
         explicit concrete_observer_1(std::ostream& os, std::shared_ptr<observable_vector<T>> sp_ov) noexcept
             : observer<T>::observer{ os, sp_ov } {}
     protected:
-        virtual void update(const notification& n) noexcept override {
+        void update(const notification& n) noexcept override {
             auto id{ observer<T>::get_id() };
             auto& ov{ observer<T>::get_observable_vector() };
             fmt::print(observer<T>::get_os(), "\t[observer {}] received notification: {}\n", id, n);
@@ -114,7 +114,7 @@ namespace tmcppc::data_structures {
         explicit concrete_observer_2(std::ostream& os, std::shared_ptr<observable_vector<T>> sp_ov) noexcept
             : observer<T>::observer{ os, sp_ov } {}
     protected:
-        virtual void update(const notification& n) noexcept override {
+        void update(const notification& n) noexcept override {
             auto id{ observer<T>::get_id() };
             auto& ov{ observer<T>::get_observable_vector() };
             fmt::print(observer<T>::get_os(), "\t[observer {}] received notification: {}\n", id, n);
@@ -147,7 +147,7 @@ namespace tmcppc::data_structures {
             other.id_ = static_cast<size_t>(-1);
             other.observers_.clear();
         }
-        constexpr subject& operator=(const subject& other) { return *this; }
+        constexpr subject& operator=([[maybe_unused]] const subject& other) { return *this; }
         constexpr subject& operator=(subject&& other) noexcept {
             other.id_ = static_cast<size_t>(-1);
             other.observers_.clear();
@@ -171,12 +171,12 @@ namespace tmcppc::data_structures {
     template <typename T>
     class observable_vector : public subject<T> {
     public:
-        using size_type = typename std::vector<T>::size_type;
-        using difference_type = typename std::vector<T>::difference_type;
-        using reference = typename std::vector<T>::reference;
-        using const_reference = typename std::vector<T>::const_reference;
-        using iterator = typename std::vector<T>::iterator;
-        using const_iterator = typename std::vector<T>::const_iterator;
+        using size_type = std::vector<T>::size_type;
+        using difference_type = std::vector<T>::difference_type;
+        using reference = std::vector<T>::reference;
+        using const_reference = std::vector<T>::const_reference;
+        using iterator = std::vector<T>::iterator;
+        using const_iterator = std::vector<T>::const_iterator;
 
         constexpr observable_vector() = default;
         constexpr explicit observable_vector(size_t s)

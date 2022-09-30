@@ -74,4 +74,4 @@ namespace tmcppc::movies::console {
         from_console(is, os, movie.directors);
         from_console(is, os, movie.writers);
     }
-};  // namespace tmcppc::movies::console
+}  // namespace tmcppc::movies::console

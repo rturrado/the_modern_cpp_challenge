@@ -173,15 +173,6 @@ namespace tmcppc::movies::sql {
         db << "commit;";
     }
 
-    [[nodiscard]] inline auto create_empty_movies_database(const fs::path& db_file_path) {
-        if (fs::exists(db_file_path)) {
-            std::ofstream ofs{ db_file_path, std::ios_base::out | std::ios_base::trunc };
-        }
-        sqlite::database db{ db_file_path.string() };
-        create_empty_movies_database(db);
-        return db;
-    }
-
     [[nodiscard]] inline auto create_movies_database(const fs::path& db_file_path) {
         if (fs::exists(db_file_path)) {
             return sqlite::database{ db_file_path.string() };
@@ -301,7 +292,7 @@ namespace tmcppc::movies::sql {
         if (exists_role(db, movie_id, role)) {
             throw trying_to_insert_existing_role_error{ movie_id, role };
         }
-        std::int64_t person_id{};
+        std::int64_t person_id;
         if (exists_person(db, role.star)) {
             person_id = get_person_id_from_person_name(db, role.star);
         } else {
@@ -320,7 +311,7 @@ namespace tmcppc::movies::sql {
             "from Persons P join Cast C on P.rowid = C.person_id "
             "where C.movie_id = (?);"
             << movie_id
-            >> [&cast](std::string name, std::string role) {
+            >> [&cast](const std::string& name, const std::string& role) {
             cast.data.emplace_back(name, role);
         };
     }
@@ -338,7 +329,7 @@ namespace tmcppc::movies::sql {
         if (exists_writer(db, movie_id, writer)) {
             throw trying_to_insert_existing_writer_error{ movie_id, writer };
         }
-        std::int64_t person_id{};
+        std::int64_t person_id;
         if (exists_person(db, writer.name)) {
             person_id = get_person_id_from_person_name(db, writer.name);
         } else {
@@ -355,7 +346,7 @@ namespace tmcppc::movies::sql {
         db << "select name from Persons P join Writers W on P.rowid = W.person_id "
             "where W.movie_id = (?);"
             << movie_id
-            >> [&writers](std::string name) {
+            >> [&writers](const std::string& name) {
             writers.data.emplace_back(name);
         };
     }
@@ -373,7 +364,7 @@ namespace tmcppc::movies::sql {
         if (exists_director(db, movie_id, director)) {
             throw trying_to_insert_existing_director_error{ movie_id, director };
         }
-        std::int64_t person_id{};
+        std::int64_t person_id;
         if (exists_person(db, director.name)) {
             person_id = get_person_id_from_person_name(db, director.name);
         } else {
@@ -391,7 +382,7 @@ namespace tmcppc::movies::sql {
         db << "select name from Persons P join Directors D on P.rowid = D.person_id "
             "where D.movie_id = (?);"
             << movie_id
-            >> [&directors](std::string name) {
+            >> [&directors](const std::string& name) {
             directors.data.emplace_back(name);
         };
     }
@@ -425,7 +416,7 @@ namespace tmcppc::movies::sql {
         db << "select rowid,name,description from Media "
             "where movie_id = (?);"
             << movie_id
-            >> [&media_files](int rowid, std::string name, std::optional<std::string> description) {
+            >> [&media_files](int rowid, const std::string& name, const std::optional<std::string>& description) {
             media_files.data.emplace_back(rowid, name, description);
         };
     }
@@ -456,7 +447,7 @@ namespace tmcppc::movies::sql {
     // Catalog
     inline void from_db(sqlite::database& db, catalog_t& catalog) {
         db << "select rowid,title,year,length from Movies;"
-            >> [&catalog](int rowid, std::string title, int year, int length) {
+            >> [&catalog](int rowid, const std::string& title, int year, int length) {
             catalog.movies.emplace_back(rowid, title, std::chrono::year{ year }, length);
         };
         for (auto& movie : catalog.movies) {
@@ -492,7 +483,7 @@ namespace tmcppc::movies::sql {
         [[nodiscard]] auto find_movie(std::int64_t movie_id) { return find_movie_impl(*this, movie_id); }
         [[nodiscard]] auto find_movie(std::int64_t movie_id) const { return find_movie_impl(*this, movie_id); }
 
-        [[nodiscard]] auto find_media_file(const movie_t& movie, std::int64_t media_file_id) const {
+        [[nodiscard]] static auto find_media_file(const movie_t& movie, std::int64_t media_file_id) {
             return
                 std::ranges::find_if(
                     movie.media_files.data,

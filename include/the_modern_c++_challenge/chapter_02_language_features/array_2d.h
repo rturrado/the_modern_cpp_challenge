@@ -30,22 +30,63 @@ namespace tmcppc::data_structures {
 
             using TPtr_ = T*;
 
-            constexpr const_iterator() noexcept : ptr_{} {}
-            constexpr const_iterator(TPtr_ ptr) noexcept : ptr_{ ptr } {}
-            constexpr reference operator*() const noexcept { return *ptr_; }
-            constexpr pointer operator->() const noexcept { return ptr_; }
-            constexpr const_iterator& operator++() noexcept { ++ptr_; return *this; }
-            constexpr const_iterator operator++(int) noexcept { const_iterator tmp{ *this }; ++(*this); return tmp; }
-            constexpr const_iterator& operator--() noexcept { --ptr_; return *this; }
-            constexpr const_iterator operator--(int) noexcept { const_iterator tmp{ *this }; --(*this); return tmp; }
-            constexpr const_iterator& operator+=(const difference_type offset) noexcept { ptr_ += offset; return *this; }
-            constexpr const_iterator operator+(const difference_type offset) const noexcept { const_iterator tmp{ *this }; tmp += offset; return tmp; }
-            constexpr const_iterator& operator-=(const difference_type offset) noexcept { *this += -offset; return *this; }
-            constexpr const_iterator operator-(const difference_type offset) const noexcept { const_iterator tmp{ *this }; tmp -= offset; return tmp; }
-            constexpr difference_type operator-(const const_iterator& other) const noexcept { return ptr_ - other.ptr_; }
-            constexpr bool operator==(const const_iterator& other) const noexcept { return ptr_ == other.ptr_; }
-            constexpr auto operator<=>(const const_iterator& other) const noexcept { return ptr_ <=> other.ptr_; }
-
+            constexpr const_iterator() noexcept
+                : ptr_{}
+            {}
+            constexpr const_iterator(TPtr_ ptr) noexcept
+                : ptr_{ ptr }
+            {}
+            [[nodiscard]] constexpr reference operator*() const noexcept {
+                return *ptr_;
+            }
+            [[nodiscard]] constexpr pointer operator->() const noexcept {
+                return ptr_;
+            }
+            constexpr const_iterator& operator++() noexcept {
+                ++ptr_;
+                return *this;
+            }
+            constexpr const_iterator operator++(int) & noexcept {
+                const_iterator tmp{ *this };
+                ++(*this);
+                return tmp;
+            }
+            constexpr const_iterator& operator--() noexcept {
+                --ptr_;
+                return *this;
+            }
+            constexpr const_iterator operator--(int) & noexcept {
+                const_iterator tmp{ *this };
+                --(*this);
+                return tmp;
+            }
+            constexpr const_iterator& operator+=(const difference_type offset) noexcept {
+                ptr_ += offset;
+                return *this;
+            }
+            [[nodiscard]] constexpr const_iterator operator+(const difference_type offset) const noexcept {
+                const_iterator tmp{ *this };
+                tmp += offset;
+                return tmp;
+            }
+            constexpr const_iterator& operator-=(const difference_type offset) noexcept {
+                *this += -offset;
+                return *this;
+            }
+            [[nodiscard]] constexpr const_iterator operator-(const difference_type offset) const noexcept {
+                const_iterator tmp{ *this };
+                tmp -= offset;
+                return tmp;
+            }
+            [[nodiscard]] constexpr difference_type operator-(const const_iterator& other) const noexcept {
+                return ptr_ - other.ptr_;
+            }
+            [[nodiscard]] constexpr bool operator==(const const_iterator& other) const noexcept {
+                return ptr_ == other.ptr_;
+            }
+            [[nodiscard]] constexpr auto operator<=>(const const_iterator& other) const noexcept {
+                return ptr_ <=> other.ptr_;
+            }
         protected:
             TPtr_ ptr_{ nullptr };
         };
@@ -60,17 +101,51 @@ namespace tmcppc::data_structures {
             using reference = T&;
             using value_type = T;
 
-            constexpr reference operator*() const noexcept { return const_cast<reference>(MyBase_::operator*()); }
-            constexpr pointer operator->() const noexcept { return this->ptr_; }
-            constexpr iterator& operator++() noexcept { MyBase_::operator++(); return *this; }
-            constexpr iterator operator++(int) noexcept { iterator tmp{ *this }; MyBase_::operator++(); return tmp; }
-            constexpr iterator& operator--() noexcept { MyBase_::operator--(); return *this; }
-            constexpr iterator operator--(int) noexcept { iterator tmp{ *this }; MyBase_::operator--(); return tmp; }
-            constexpr iterator& operator+=(const difference_type offset) noexcept { MyBase_::operator+=(offset); return *this; }
-            constexpr iterator operator+(const difference_type offset) const noexcept { iterator tmp{ *this }; tmp += offset; return tmp; }
-            constexpr iterator& operator-=(const difference_type offset) noexcept { MyBase_::operator-=(offset); return *this; }
-            constexpr iterator operator-(const difference_type offset) const noexcept { iterator tmp{ *this }; tmp -= offset; return tmp; }
-            constexpr difference_type operator-(const iterator& other) const noexcept { return this->ptr_ - other.ptr_; }
+            [[nodiscard]] constexpr reference operator*() const noexcept {
+                return const_cast<reference>(MyBase_::operator*());
+            }
+            [[nodiscard]] constexpr pointer operator->() const noexcept {
+                return this->ptr_;
+            }
+            constexpr iterator& operator++() noexcept {
+                MyBase_::operator++();
+                return *this;
+            }
+            constexpr iterator operator++(int) & noexcept {
+                iterator tmp{ *this };
+                MyBase_::operator++();
+                return tmp;
+            }
+            constexpr iterator& operator--() noexcept {
+                MyBase_::operator--();
+                return *this;
+            }
+            constexpr iterator operator--(int) & noexcept {
+                iterator tmp{ *this };
+                MyBase_::operator--();
+                return tmp;
+            }
+            constexpr iterator& operator+=(const difference_type offset) noexcept {
+                MyBase_::operator+=(offset);
+                return *this;
+            }
+            [[nodiscard]] constexpr iterator operator+(const difference_type offset) const noexcept {
+                iterator tmp{ *this };
+                tmp += offset;
+                return tmp;
+            }
+            constexpr iterator& operator-=(const difference_type offset) noexcept {
+                MyBase_::operator-=(offset);
+                return *this;
+            }
+            [[nodiscard]] constexpr iterator operator-(const difference_type offset) const noexcept {
+                iterator tmp{ *this };
+                tmp -= offset;
+                return tmp;
+            }
+            [[nodiscard]] constexpr difference_type operator-(const iterator& other) const noexcept {
+                return this->ptr_ - other.ptr_;
+            }
         };
 
 
@@ -86,26 +161,66 @@ namespace tmcppc::data_structures {
             template <typename>
             friend class reverse_iterator;
 
-            constexpr reverse_iterator(Iter it) noexcept : current_{ std::move(it) } {}
+            constexpr reverse_iterator(Iter it) noexcept
+                : current_{ std::move(it) }
+            {}
             template <typename OtherIter>
-            constexpr reverse_iterator(const reverse_iterator<OtherIter>& other) noexcept : current_{ other.current_ } {}
-            constexpr reference operator*() const noexcept { Iter tmp{ current_ }; return *(--tmp); }
-            constexpr pointer operator->() const noexcept { Iter tmp{ current_ }; --tmp; return tmp->operator->(); }
-            constexpr reverse_iterator& operator++() noexcept { --current_; return *this; }
-            constexpr reverse_iterator operator++(int) noexcept { reverse_iterator tmp{ *this }; --current_; return tmp; }
-            constexpr reverse_iterator& operator--() noexcept { ++current_; return *this; }
-            constexpr reverse_iterator operator--(int) noexcept { reverse_iterator tmp{ *this }; ++current_; return tmp; }
-            constexpr reverse_iterator& operator+=(const difference_type offset) noexcept { current_ -= offset; return *this; }
-            constexpr reverse_iterator operator+(const difference_type offset) const noexcept { return reverse_iterator{ current_ - offset }; }
-            constexpr reverse_iterator& operator-=(const difference_type offset) noexcept { current_ += offset; return *this; }
-            constexpr reverse_iterator operator-(const difference_type offset) const noexcept { return reverse_iterator{ current_ + offset }; }
+            constexpr reverse_iterator(const reverse_iterator<OtherIter>& other) noexcept
+                : current_{ other.current_ }
+            {}
+            [[nodiscard]] constexpr reference operator*() const noexcept {
+                Iter tmp{ current_ };
+                return *(--tmp);
+            }
+            [[nodiscard]] constexpr pointer operator->() const noexcept {
+                Iter tmp{ current_ };
+                --tmp;
+                return tmp->operator->();
+            }
+            constexpr reverse_iterator& operator++() noexcept {
+                --current_;
+                return *this;
+            }
+            constexpr reverse_iterator operator++(int) & noexcept {
+                reverse_iterator tmp{ *this };
+                --current_;
+                return tmp;
+            }
+            constexpr reverse_iterator& operator--() noexcept {
+                ++current_;
+                return *this;
+            }
+            constexpr reverse_iterator operator--(int) & noexcept {
+                reverse_iterator tmp{ *this };
+                ++current_;
+                return tmp;
+            }
+            constexpr reverse_iterator& operator+=(const difference_type offset) noexcept {
+                current_ -= offset;
+                return *this;
+            }
+            [[nodiscard]] constexpr reverse_iterator operator+(const difference_type offset) const noexcept {
+                return reverse_iterator{ current_ - offset };
+            }
+            constexpr reverse_iterator& operator-=(const difference_type offset) noexcept {
+                current_ += offset;
+                return *this;
+            }
+            [[nodiscard]] constexpr reverse_iterator operator-(const difference_type offset) const noexcept {
+                return reverse_iterator{ current_ + offset };
+            }
             template <typename OtherIter>
-            constexpr difference_type operator-(const reverse_iterator<OtherIter>& other) const noexcept { return current_ - other.current_; }
+            [[nodiscard]] constexpr difference_type operator-(const reverse_iterator<OtherIter>& other) const noexcept {
+                return current_ - other.current_;
+            }
             template <typename OtherIter>
-            constexpr bool operator==(const reverse_iterator<OtherIter>& other) const noexcept { return current_ == other.current_; }
+            [[nodiscard]] constexpr bool operator==(const reverse_iterator<OtherIter>& other) const noexcept {
+                return current_ == other.current_;
+            }
             template <typename OtherIter>
-            constexpr auto operator<=>(const reverse_iterator<OtherIter>& other) const noexcept { return current_ <=> other.current_; }
-
+            [[nodiscard]] constexpr auto operator<=>(const reverse_iterator<OtherIter>& other) const noexcept {
+                return current_ <=> other.current_;
+            }
         protected:
             Iter current_{};
         };
@@ -180,25 +295,59 @@ namespace tmcppc::data_structures {
             return data_.at(row * width_ + col);
         }
 
-        [[nodiscard]] constexpr T* data() noexcept { return data_.data(); }
-        [[nodiscard]] constexpr const T* data() const noexcept { return data_.data(); }
+        [[nodiscard]] constexpr T* data() noexcept {
+            return data_.data();
+        }
+        [[nodiscard]] constexpr const T* data() const noexcept {
+            return data_.data();
+        }
 
-        [[nodiscard]] constexpr bool empty() const noexcept { return data_.empty(); }
-        [[nodiscard]] constexpr size_type height() const noexcept { return height_; }
-        [[nodiscard]] constexpr size_type width() const noexcept { return width_; }
+        [[nodiscard]] constexpr bool empty() const noexcept {
+            return data_.empty();
+        }
+        [[nodiscard]] constexpr size_type height() const noexcept {
+            return height_;
+        }
+        [[nodiscard]] constexpr size_type width() const noexcept {
+            return width_;
+        }
 
-        [[nodiscard]] constexpr iterator begin() noexcept { return iterator(data_.data()); }
-        [[nodiscard]] constexpr iterator end() noexcept { return iterator(data_.data() + data_.size()); }
-        [[nodiscard]] constexpr const_iterator begin() const noexcept { return const_iterator(const_cast<T*>(data_.data())); }
-        [[nodiscard]] constexpr const_iterator end() const noexcept { return const_iterator(const_cast<T*>(data_.data()) + data_.size()); }
-        [[nodiscard]] constexpr reverse_iterator_t rbegin() noexcept { return reverse_iterator_t(end()); }
-        [[nodiscard]] constexpr reverse_iterator_t rend() noexcept { return reverse_iterator_t(begin()); }
-        [[nodiscard]] constexpr const_reverse_iterator rbegin() const noexcept { return const_reverse_iterator(end()); }
-        [[nodiscard]] constexpr const_reverse_iterator rend() const noexcept { return const_reverse_iterator(begin()); }
-        [[nodiscard]] constexpr const_iterator cbegin() const noexcept { return begin(); }
-        [[nodiscard]] constexpr const_iterator cend() const noexcept { return end(); }
-        [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept { return rbegin(); }
-        [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept { return rend(); }
+        [[nodiscard]] constexpr iterator begin() noexcept {
+            return iterator{ data_.data() };
+        }
+        [[nodiscard]] constexpr iterator end() noexcept {
+            return iterator{ data_.data() + data_.size() };
+        }
+        [[nodiscard]] constexpr const_iterator begin() const noexcept {
+            return const_iterator{ const_cast<T*>(data_.data()) };
+        }
+        [[nodiscard]] constexpr const_iterator end() const noexcept {
+            return const_iterator{ const_cast<T*>(data_.data()) + data_.size() };
+        }
+        [[nodiscard]] constexpr reverse_iterator_t rbegin() noexcept {
+            return reverse_iterator_t{ end() };
+        }
+        [[nodiscard]] constexpr reverse_iterator_t rend() noexcept {
+            return reverse_iterator_t{ begin() };
+        }
+        [[nodiscard]] constexpr const_reverse_iterator rbegin() const noexcept {
+            return const_reverse_iterator{ end() };
+        }
+        [[nodiscard]] constexpr const_reverse_iterator rend() const noexcept {
+            return const_reverse_iterator{ begin() };
+        }
+        [[nodiscard]] constexpr const_iterator cbegin() const noexcept {
+            return begin();
+        }
+        [[nodiscard]] constexpr const_iterator cend() const noexcept {
+            return end();
+        }
+        [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept {
+            return rbegin();
+        }
+        [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept {
+            return rend();
+        }
 
         [[nodiscard]] constexpr auto operator<=>(const array_2d& other) const = default;
 

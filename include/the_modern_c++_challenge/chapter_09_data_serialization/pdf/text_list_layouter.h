@@ -18,7 +18,7 @@ namespace tmcppc::pdf {
         text_list_layouter(text_list_layouter&& other) noexcept = delete;
         text_list_layouter& operator=(const text_list_layouter& other) = delete;
         text_list_layouter& operator=(text_list_layouter&& other) noexcept = delete;
-        ~text_list_layouter() = default;
+        ~text_list_layouter() override = default;
 
         explicit text_list_layouter(int text_lines_per_page)
             : text_lines_per_page_{ text_lines_per_page }
@@ -29,18 +29,18 @@ namespace tmcppc::pdf {
             }
         }
 
-        [[nodiscard]] virtual image_control position_image(doc*, double, double) override {
+        [[nodiscard]] image_control position_image(doc*, double, double) override {
             return {};
         };
 
-        [[nodiscard]] virtual line_control position_line_separator() override {
+        [[nodiscard]] line_control position_line_separator() override {
             set_cursor(current_y_ - line_spacing_);
             double start_x{ margin_left_ };
             double end_x{ page_width_ - margin_right_ };
             return { start_x, current_y_, end_x, current_y_ };
         }
 
-        [[nodiscard]] virtual text_control position_text(doc* doc, const std::string& text, bool add_new_line,
+        [[nodiscard]] text_control position_text(doc* doc, const std::string& text, bool add_new_line,
             const text_alignment& alignment) override {
 
             if (add_new_line) {
@@ -56,7 +56,7 @@ namespace tmcppc::pdf {
             return text_control{ x, current_y_, get_text_options(doc) };
         }
 
-        [[nodiscard]] virtual text_control position_title(doc* doc, const std::string& text,
+        [[nodiscard]] text_control position_title(doc* doc, const std::string& text,
             const text_alignment& alignment) override {
 
             set_cursor(current_y_ - title_font_height_);

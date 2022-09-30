@@ -79,7 +79,7 @@ namespace tmcppc::movies::command_line {
 
             message_ = fmt::format("invalid subcommand '{}' for command '{}'", command_str, subcommand_str);
         }
-        virtual const char* what() const noexcept override { return message_.c_str(); }
+        [[nodiscard]] const char* what() const noexcept override { return message_.c_str(); }
     private:
         std::string message_{};
     };
@@ -227,7 +227,7 @@ namespace tmcppc::movies::command_line {
         parse_media_id_option(iss, options);
     }
 
-    auto parse_command_line(std::string command_line) {
+    auto parse_command_line(const std::string& command_line) {
         std::istringstream iss{ command_line };
 
         command_t command{}; parse_command(iss, command);
@@ -251,7 +251,7 @@ namespace tmcppc::movies::command_line {
                         break;
                     }
                     default: break;
-                };
+                }
                 break;
             }
             case command_t::quit: break;
@@ -267,7 +267,7 @@ namespace tmcppc::movies::command_line {
 
 
     void add_media(std::ostream& os, tmcppc::movies::sql::database& movies_db,
-        std::int64_t movie_id, const fs::path& media_file_path, std::optional<std::string> media_file_description) {
+        std::int64_t movie_id, const fs::path& media_file_path, const std::optional<std::string>& media_file_description) {
 
         if (not fs::exists(media_file_path)) {
             fmt::print(os, "Error: media file not found: {}\n", media_file_path.generic_string());
@@ -327,7 +327,7 @@ namespace tmcppc::movies::command_line {
                         break;
                     }
                     default: break;
-                };
+                }
                 break;
             case command_t::remove: {
                 delete_media(os, movies_db, options.media_id);

@@ -145,8 +145,6 @@ namespace tmcppc::face_detection::samples {
             point_output
         );
     }
-    const std::string face_landmarks_2_output{
-    };
     template <size_t L = 0>
     auto get_face_landmarks_2_output() {
         return fmt::format(

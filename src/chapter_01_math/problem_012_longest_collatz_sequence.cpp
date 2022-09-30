@@ -111,13 +111,11 @@ void problem_12_main(std::ostream& os) {
 
     // Determine n and Collatz sequence size for n,
     // n being the number up to limit with longest Collatz sequence
-    size_t n{ 1 };
-    size_t n_collatz_sequence_size{ 1 };
-    auto result = get_longest_collatz_sequence_v1(limit);
+    auto [n, n_collatz_sequence_size] = get_longest_collatz_sequence_v1(limit);
 
     // Print results
     fmt::print(os, "Number between 1 and {0} with longest Collatz sequence ({2} elements) is: {1}\n\n",
-        limit, result.first, result.second);
+        limit, n, n_collatz_sequence_size);
 }
 
 

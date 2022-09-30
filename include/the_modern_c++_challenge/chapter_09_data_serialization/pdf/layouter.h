@@ -70,8 +70,8 @@ namespace tmcppc::pdf {
         double current_y_{ 0 };
 
         // Page heights (double) equality and comparison
-        bool equals(double a, double b) { return (a - b < 0.1) and (b - a < 0.1); };
-        bool less_than(double a, double b) { return (b - a > 0.1); };
+        static bool equals(double a, double b) { return (a - b < 0.1) and (b - a < 0.1); };
+        static bool less_than(double a, double b) { return (b - a > 0.1); };
 
         void reset_cursor() noexcept { current_y_ = page_height_ - margin_top_; }
         void set_cursor(double y) noexcept { current_y_ = y; }

@@ -37,7 +37,7 @@ namespace tmcppc::pugixml {
         load_from_error(const std::string& description, std::ptrdiff_t offset) : std::runtime_error{ "" } {
             message_ = fmt::format("trying to load from: \"{}\", at offset {}", description, offset);
         }
-        virtual const char* what() const noexcept override { return message_.c_str(); }
+        [[nodiscard]] const char* what() const noexcept override { return message_.c_str(); }
     private:
         static inline std::string message_{};
     };
@@ -46,7 +46,7 @@ namespace tmcppc::pugixml {
         explicit save_to_error(const std::string& file_path) : std::runtime_error{ "" } {
             message_ = fmt::format("trying to save to: \"{}\"", file_path);
         }
-        virtual const char* what() const noexcept override { return message_.c_str(); }
+        [[nodiscard]] const char* what() const noexcept override { return message_.c_str(); }
     private:
         static inline std::string message_{};
     };

@@ -27,7 +27,7 @@ namespace tmcppc::password {
     class composite_password_generator : public password_generator {
     public:
         composite_password_generator() = default;
-        ~composite_password_generator() = default;
+        ~composite_password_generator() override = default;
         composite_password_generator(const composite_password_generator& other) = delete;
         composite_password_generator& operator=(const composite_password_generator& other) = delete;
         composite_password_generator(composite_password_generator&& other) noexcept
@@ -40,7 +40,7 @@ namespace tmcppc::password {
 
         void add_generator(std::unique_ptr<password_generator> g) noexcept { gs_.push_back(std::move(g)); }
 
-        [[nodiscard]] virtual std::string generate() const noexcept override {
+        [[nodiscard]] std::string generate() const noexcept override {
             std::string ret{};
             for (auto&& g : gs_) {
                 ret += g->generate();
@@ -59,7 +59,7 @@ namespace tmcppc::password {
         symbol_generator() = default;
         explicit symbol_generator(size_t length) noexcept : length_{ length } {}
 
-        [[nodiscard]] virtual std::string generate() const noexcept override {
+        [[nodiscard]] std::string generate() const noexcept override {
             static rtc::random::random_int random_character{ 0, 31 };  // 32 symbol characters
             std::string ret(length_, '!');
             std::ranges::generate(ret, []() {
@@ -88,7 +88,7 @@ namespace tmcppc::password {
             , last_ascii_code_{ ascii_code_range.second }
         {}
 
-        [[nodiscard]] virtual std::string generate() const noexcept override {
+        [[nodiscard]] std::string generate() const noexcept override {
             static rtc::random::random_int random_character{ first_ascii_code_, last_ascii_code_ };
             std::string ret(length_, static_cast<unsigned char>(first_ascii_code_));
             std::ranges::generate(ret, []() { return static_cast<unsigned char>(random_character()); });

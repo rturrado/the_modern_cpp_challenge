@@ -5,6 +5,7 @@
 #include <ostream>
 #include <sstream>  // ostringstream
 #include <string>
+#include <utility>  // move
 #include <vector>
 
 
@@ -23,9 +24,9 @@ namespace tmcppc::process {
             platform_t platform) noexcept
 
             : id_{ id }
-            , name_{ name }
+            , name_{ std::move(name) }
             , status_{ status }
-            , account_name_{ account_name }
+            , account_name_{ std::move(account_name) }
             , mem_size_b_{ mem_size_b }
             , platform_{ platform }
         {}

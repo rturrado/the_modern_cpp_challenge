@@ -5,6 +5,7 @@
 #include <filesystem>
 #include <fstream>  // ifstream, ofstream
 #include <nlohmann/json.hpp>
+#include <utility>
 #include <vector>
 
 
@@ -95,9 +96,9 @@ namespace tmcppc::movies {
         catalog_t catalog_{};
 
         doc() = default;
-        explicit doc(const catalog_t& c) : catalog_{ c } {}
+        explicit doc(catalog_t c) : catalog_{ std::move(c) } {}
 
-        void save_to(const std::filesystem::path& output_file_path) {
+        void save_to(const std::filesystem::path& output_file_path) const {
             std::ofstream ofs{ output_file_path };
             nlohmann::json j{};
             to_json(j, catalog_);

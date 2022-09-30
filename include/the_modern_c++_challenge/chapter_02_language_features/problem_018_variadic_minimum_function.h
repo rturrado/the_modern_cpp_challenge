@@ -13,8 +13,8 @@ namespace tmcppc::problem_18 {
     //
     template <typename T>
     bool more_than(T left, T right) {
-        return (left > right) ? true : false;
-    };
+        return (left > right);
+    }
 
 
     // Variadic template for printing the elements of a list with a given string separator

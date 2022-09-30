@@ -137,13 +137,13 @@ namespace tmcppc::ean_13::barcode_png {
         struct base {
             virtual void paint(png_writer& png_writer) const = 0;
             [[nodiscard]] virtual point_2d get_start_position() const = 0;
-            virtual ~base() {}
+            virtual ~base() = default;
         };
 
         // Bar groups
         //
         struct bar_group : public base {
-            void paint_bar(png_writer& png_writer, const point_2d start_position, int width, int height) const {
+            static void paint_bar(png_writer& png_writer, const point_2d start_position, int width, int height) {
                 png_writer.plot_filled_rectangle(
                     rectangle_2d{
                         .bottom_left = { start_position.x, start_position.y },
@@ -170,28 +170,28 @@ namespace tmcppc::ean_13::barcode_png {
             }
         };
         struct start_marker : public bar_group {
-            virtual void paint(png_writer& writer) const override {
+            void paint(png_writer& writer) const override {
                 paint_bar_group(writer, barcode::start_marker, get_start_position(), layout::bar::width, layout::marker::height);
             }
-            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::start_marker::start_position; };
+            [[nodiscard]] point_2d get_start_position() const override { return layout::start_marker::start_position; };
         };
         struct center_marker : public bar_group {
-            virtual void paint(png_writer& writer) const override {
+            void paint(png_writer& writer) const override {
                 paint_bar_group(writer, barcode::center_marker, get_start_position(), layout::bar::width, layout::marker::height);
             }
-            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::center_marker::start_position; };
+            [[nodiscard]] point_2d get_start_position() const override { return layout::center_marker::start_position; };
         };
         struct end_marker : public bar_group {
-            virtual void paint(png_writer& writer) const override {
+            void paint(png_writer& writer) const override {
                 paint_bar_group(writer, barcode::end_marker, get_start_position(), layout::bar::width, layout::marker::height);
             }
-            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::end_marker::start_position; };
+            [[nodiscard]] point_2d get_start_position() const override { return layout::end_marker::start_position; };
         };
         struct digit_bar_group : public bar_group {
             explicit digit_bar_group(const digit_group_bs& bs)
                 : bs_{ bs }
             {}
-            virtual void paint(png_writer& writer) const override {
+            void paint(png_writer& writer) const override {
                 auto start_position{ get_start_position() };
                 for (const auto& digit_bs : bs_) {
                     paint_bar_group(writer, digit_bs, start_position, layout::bar::width, layout::digit_bar::height);
@@ -205,13 +205,13 @@ namespace tmcppc::ean_13::barcode_png {
             explicit first_digit_bar_group(const digit_group_bs& bs)
                 : digit_bar_group{ bs }
             {}
-            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::first_digit_bar_group::start_position; };
+            [[nodiscard]] point_2d get_start_position() const override { return layout::first_digit_bar_group::start_position; };
         };
         struct second_digit_bar_group : public digit_bar_group {
             explicit second_digit_bar_group(const digit_group_bs& bs)
                 : digit_bar_group{ bs }
             {}
-            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::second_digit_bar_group::start_position; };
+            [[nodiscard]] point_2d get_start_position() const override { return layout::second_digit_bar_group::start_position; };
         };
 
         // Digit groups
@@ -220,7 +220,7 @@ namespace tmcppc::ean_13::barcode_png {
             explicit digit_group(std::string_view digit_group)
                 : digit_group_{ digit_group }
             {}
-            virtual void paint(png_writer& writer) const override {
+            void paint(png_writer& writer) const override {
                 const auto font_file_path{ env::get_instance().get_resource_folder_path() / "fonts" / "calibri.ttf" };
                 auto start_position{ get_start_position() };
                 for (auto&& digit : digit_group_) {
@@ -242,25 +242,25 @@ namespace tmcppc::ean_13::barcode_png {
             explicit first_digit(std::string_view digit)
                 : digit_group{ digit }
             {}
-            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::first_digit::start_position; };
+            [[nodiscard]] point_2d get_start_position() const override { return layout::first_digit::start_position; };
         };
         struct first_digit_group : public digit_group {
             explicit first_digit_group(std::string_view dg)
                 : digit_group{ dg }
             {}
-            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::first_digit_group::start_position; };
+            [[nodiscard]] point_2d get_start_position() const override { return layout::first_digit_group::start_position; };
         };
         struct second_digit_group : public digit_group {
             explicit second_digit_group(std::string_view dg)
                 : digit_group{ dg }
             {}
-            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::second_digit_group::start_position; };
+            [[nodiscard]] point_2d get_start_position() const override { return layout::second_digit_group::start_position; };
         };
 
         // LMI
         //
         struct lmi : public base {
-            virtual void paint(png_writer& writer) const override {
+            void paint(png_writer& writer) const override {
                 // It should be an angle, two lines, but I find a triangle more beautiful
                 writer.plot_filled_triangle(
                     { layout::lmi::start_position.x + layout::lmi::x_offset, layout::lmi::start_position.y + layout::lmi::height },
@@ -269,7 +269,7 @@ namespace tmcppc::ean_13::barcode_png {
                     rgb{}
                 );
             }
-            [[nodiscard]] virtual point_2d get_start_position() const override { return layout::lmi::start_position; };
+            [[nodiscard]] point_2d get_start_position() const override { return layout::lmi::start_position; };
         };
     }  // namespace controls
 

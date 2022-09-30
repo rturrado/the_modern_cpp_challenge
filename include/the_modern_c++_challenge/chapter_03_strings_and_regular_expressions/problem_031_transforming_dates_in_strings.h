@@ -9,7 +9,7 @@
 namespace tmcppc::problem_31 {
     struct invalid_date_format_error : public std::exception {
         explicit invalid_date_format_error(const std::string& date) noexcept { message_ += "\"" + date + "\""; }
-        const char* what() const noexcept { return message_.c_str(); }
+        [[nodiscard]] const char* what() const noexcept override { return message_.c_str(); }
     private:
         std::string message_{ "invalid date format: " };
     };

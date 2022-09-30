@@ -74,7 +74,7 @@ namespace tmcppc::password {
                 minimum_length_validator() = default;
                 explicit minimum_length_validator(size_t length) : length_{ length } {}
 
-                [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
+                [[nodiscard]] validate_return_type validate(std::string_view pw) const noexcept override {
                     if (pw.size() < length_) {
                         return fmt::format("{} {}", "password length has to be at least", length_);
                     } else {
@@ -95,7 +95,7 @@ namespace tmcppc::password {
                     , error_message_{ error_message }
                 {}
 
-                [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
+                [[nodiscard]] validate_return_type validate(std::string_view pw) const noexcept override {
                     if (not pred_(pw)) {
                         return error_message_;
                     } else {
@@ -174,7 +174,7 @@ namespace tmcppc::password {
                     , length_{ length }
                 {}
 
-                [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
+                [[nodiscard]] validate_return_type validate(std::string_view pw) const noexcept override {
                     if (pw.size() < length_) {
                         return fmt::format("{} {}", "password length has to be at least", length_);
                     } else {
@@ -195,7 +195,7 @@ namespace tmcppc::password {
                     , contains_or_error_f_{ f }
                 {}
 
-                [[nodiscard]] virtual validate_return_type validate(std::string_view pw) const noexcept override {
+                [[nodiscard]] validate_return_type validate(std::string_view pw) const noexcept override {
                     if (auto error{ contains_or_error_f_(pw) }) {
                         return error.value();
                     } else {

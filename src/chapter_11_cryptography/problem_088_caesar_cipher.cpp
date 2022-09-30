@@ -1,4 +1,5 @@
 #include "chapter_11_cryptography/caesar.h"
+#include "chapter_11_cryptography/crypt.h"
 #include "chapter_11_cryptography/problem_088_caesar_cipher.h"
 #include "env.h"
 
@@ -10,6 +11,7 @@
 
 void problem_88_main(std::ostream& os) {
     using namespace tmcppc::crypto;
+    using crypt = tmcppc::crypto::crypt;
 
     const auto input_file_path{ tmcppc::env::get_instance().get_resource_folder_path() / "sample_file.txt" };
     const auto input_file_content{ rtc::filesystem::get_text_file_content(input_file_path) };

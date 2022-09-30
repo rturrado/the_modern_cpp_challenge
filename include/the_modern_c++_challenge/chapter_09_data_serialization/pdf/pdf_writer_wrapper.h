@@ -111,8 +111,8 @@ namespace tmcppc::pdf_writer {
         }
         if (*ppage and pctx and not *pctx) {
             *pctx = start_page_content_context(pdf_writer, *ppage);
-        };
-    };
+        }
+    }
     inline void end_page_and_page_content_context(PDFWriter& pdf_writer, PDFPage** ppage, PageContentContext** pctx) {
         if (pctx and *pctx) {
             end_page_content_context(pdf_writer, *pctx);
@@ -122,5 +122,5 @@ namespace tmcppc::pdf_writer {
             tmcppc::pdf_writer::write_page_and_release(pdf_writer, *ppage);
             *ppage = nullptr;
         }
-    };
+    }
 }  // tmcppc::pdf_writer

@@ -19,7 +19,7 @@ namespace tmcppc::crypto {
     public:
         caesar() : shift_value_{ static_cast<unsigned char>(rtc::random::random_int{0, letters_size_ - 1}()) } {}
 
-        [[nodiscard]] virtual std::string encrypt(std::string_view text) const override {
+        [[nodiscard]] std::string encrypt(std::string_view text) const override {
             auto encrypt_char = [this](unsigned char c) {
                 if (not std::isalpha(c)) {
                     return c;
@@ -39,7 +39,7 @@ namespace tmcppc::crypto {
             return ret;
         }
 
-        [[nodiscard]] virtual std::string decrypt(std::string_view text) const override {
+        [[nodiscard]] std::string decrypt(std::string_view text) const override {
             auto decrypt_char = [this](unsigned char c) {
                 if (not std::isalpha(c)) {
                     return c;

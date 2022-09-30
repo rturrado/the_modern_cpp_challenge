@@ -21,7 +21,7 @@ namespace tmcppc::problem_7 {
             auto k{ (j < limit and i < j) ? divisors_sum(j) : 0 };
 
             if (i == k) {
-                ret.push_back({ i, j });
+                ret.emplace_back(i, j);
             }
         }
 
@@ -62,9 +62,4 @@ void playing_with_tmp(std::ostream& os) {
         // fmt::print(os, "Amicable number of 898216: {}\n", amicable<898216>::value);
     }
     fmt::print(os, "\n");
-}
-
-
-void playing_with_tmp() {
-    playing_with_tmp(std::cout);
 }

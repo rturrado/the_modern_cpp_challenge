@@ -75,7 +75,7 @@ namespace tmcppc::text_translation {
             : key_{ key }
         {}
 
-        [[nodiscard]] virtual std::string translate(std::string_view text, language_code from, language_code to) const override {
+        [[nodiscard]] std::string translate(std::string_view text, language_code from, language_code to) const override {
             try {
                 std::ostringstream oss{};
                 curl::curl_ios<std::ostringstream> writer{ oss };
@@ -92,7 +92,7 @@ namespace tmcppc::text_translation {
                     .c_str());
 
                 curl::curl_header header{};
-                header.add(fmt::format("{}:{}", key_header, key_).c_str());
+                header.add(fmt::format("{}:{}", key_header, key_));
                 easy.add<CURLOPT_HTTPHEADER>(header.get());
 
                 easy.perform();
@@ -109,7 +109,7 @@ namespace tmcppc::text_translation {
 
     class translator {
     private:
-        [[nodiscard]] translator_response parse_translate_response(const std::string& response) const {
+        [[nodiscard]] static translator_response parse_translate_response(const std::string& response) {
             const std::regex pattern{ R"(<string xmlns="[^"]+">([^<]*)</string>)" };
             const std::regex error_pattern{ R"(<html><body><h1>Argument Exception</h1>.*<p>Message: ([^<]+)</p>.*)" };
             std::smatch matches{};

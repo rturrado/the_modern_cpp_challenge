@@ -62,7 +62,7 @@ namespace tmcppc::math {
                     break;
                 }
             }
-            if (data_.size() > 0 and data_.front() == 0) {
+            if ((not data_.empty()) and data_.front() == 0) {
                 data_.pop_front();
             }
             return *this;

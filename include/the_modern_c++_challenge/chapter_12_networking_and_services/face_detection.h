@@ -54,7 +54,7 @@ namespace tmcppc::face_detection {
             : key_{ key }
         {}
 
-        [[nodiscard]] virtual provider_response detect(const std::filesystem::path& path) const override {
+        [[nodiscard]] provider_response detect(const std::filesystem::path& path) const override {
             try {
                 std::ostringstream oss{};
                 curl::curl_ios<std::ostringstream> writer{ oss };
@@ -68,7 +68,7 @@ namespace tmcppc::face_detection {
                 );
 
                 curl::curl_header header{};
-                header.add(fmt::format("{}:{}", key_header, key_).c_str());
+                header.add(fmt::format("{}:{}", key_header, key_));
                 header.add(content_type_header.data());
                 auto file_content{ rtc::filesystem::get_binary_file_content<char>(path) };
                 easy.add<CURLOPT_HTTPHEADER>(header.get());
@@ -92,7 +92,7 @@ namespace tmcppc::face_detection {
 
     class detector {
     private:
-        [[nodiscard]] detector_response_t parse_detect_response(const provider_response& response) const {
+        [[nodiscard]] static detector_response_t parse_detect_response(const provider_response& response) {
             auto& [status, text] = response;
             nlohmann::json j = nlohmann::json::parse(text);
             if (status == 200) {

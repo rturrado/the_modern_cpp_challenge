@@ -24,8 +24,8 @@ void problem_45_main(std::ostream& os) {
     // Both are valid heaps. Which one is created depends on insertion order.
     //
     // From Stack Overflow: https://stackoverflow.com/a/38365848/260313
-    priority_queue<int, std::greater<int>> pq_2{ cbegin(v), cend(v) };
-    fmt::print(os, "priority_queue<int, std::greater<int>> pq_2(cbegin(v), cend(v));\n");
+    priority_queue<int, std::greater<>> pq_2{ cbegin(v), cend(v) };
+    fmt::print(os, "priority_queue<int, std::greater<>> pq_2(cbegin(v), cend(v));\n");
     fmt::print(os, "\tpq_2: {}\n", pq_2);
     // priority_queue<int, std::less<int>> pq_4{ pq_1 };  // wrong: argument types are priority_queue<int, std::greater<int>>
 
@@ -72,8 +72,8 @@ void problem_45_main(std::ostream& os) {
     fmt::print(os, "pq_3.empty(): {}\n", pq_3.empty());
     fmt::print(os, "pq_5.empty(): {}\n", pq_5.empty());
 
-    priority_queue<int, std::greater<int>> pq_6{};
-    fmt::print(os, "priority_queue<int, std::greater<int>> pq_6();\n");
+    priority_queue<int, std::greater<>> pq_6{};
+    fmt::print(os, "priority_queue<int, std::greater<>> pq_6();\n");
     fmt::print(os, "\tpq_6: {}\n", pq_6);
 
     for (int i{ 9 }; i > 0; --i) {

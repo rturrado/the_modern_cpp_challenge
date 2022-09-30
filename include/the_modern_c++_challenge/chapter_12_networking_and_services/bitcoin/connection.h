@@ -31,7 +31,7 @@ namespace tmcppc::bitcoin {
     private:
         std::string_view bitcoin_service_url{ "https://blockchain.info/ticker" };
     public:
-        [[nodiscard]] virtual std::string get_current_exchange_rates() const override {
+        [[nodiscard]] std::string get_current_exchange_rates() const override {
             try {
                 std::ostringstream oss{};
                 curl::curl_ios<std::ostringstream> writer{ oss };
@@ -52,7 +52,7 @@ namespace tmcppc::bitcoin {
 
     class bitcoin_connection {
     private:
-        [[nodiscard]] exchange_rates parse_exchange_rates(const std::string& response) const {
+        [[nodiscard]] static exchange_rates parse_exchange_rates(const std::string& response) {
             nlohmann::json j = nlohmann::json::parse(response);
             return exchange_rates{ j };
         }

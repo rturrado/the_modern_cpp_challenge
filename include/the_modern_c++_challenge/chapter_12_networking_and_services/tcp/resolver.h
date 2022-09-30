@@ -28,7 +28,7 @@ namespace tmcppc::tcp {
             : io_context_{ io_context }
         {}
 
-        [[nodiscard]] virtual ipv4_addresses get_host_ipv4_addresses(std::string_view host,
+        [[nodiscard]] ipv4_addresses get_host_ipv4_addresses(std::string_view host,
             std::string_view service) const override {
 
             ipv4_addresses ret{};

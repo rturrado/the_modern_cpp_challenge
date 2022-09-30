@@ -13,9 +13,8 @@ namespace tmcppc::problem_90 {
     using base64 = tmcppc::crypto::base64;
 
     void test_base_64(std::ostream& os, const base64::data_t& input_data, bool use_padding) {
-        static const auto b64{ base64{} };
-        const auto encoded_data{ b64.encode(input_data, use_padding) };
-        const auto decoded_data{ b64.decode(encoded_data) };
+        const auto encoded_data{ base64::encode(input_data, use_padding) };
+        const auto decoded_data{ base64::decode(encoded_data) };
 
         if (input_data == decoded_data) {
             fmt::print(os, "\tOK\n");

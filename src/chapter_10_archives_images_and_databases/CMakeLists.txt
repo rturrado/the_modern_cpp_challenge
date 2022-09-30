@@ -8,7 +8,5 @@ set(chapter_10_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_085_reading_from_an_sqlite_db.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_086_inserting_into_an_sqlite_db.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problem_087_handling_images_in_an_sqlite_db.cpp"
-    "${sqlite_SOURCE_DIR}/sqlite3.h"
-    "${sqlite_SOURCE_DIR}/sqlite3.c"
     PARENT_SCOPE
 )

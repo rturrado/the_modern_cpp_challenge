@@ -23,7 +23,7 @@ namespace tmcppc::fizz_buzz {
 
 
     inline std::string remove_newline(std::string_view text) {
-        if (text.size() > 0 and text.ends_with('\n')) {
+        if ((not text.empty()) and text.ends_with('\n')) {
             text.remove_suffix(1);
         }
         return std::string{ text };
@@ -81,7 +81,7 @@ namespace tmcppc::fizz_buzz {
             connector_->accept();
         }
 
-        std::string fizz_buzz(size_t number) {
+        static std::string fizz_buzz(size_t number) {
             std::string ret{};
             if (number % 3 == 0 and number % 5 == 0) { ret = "fizz-buzz"; }
             else if (number % 3 == 0) { ret = "fizz"; }

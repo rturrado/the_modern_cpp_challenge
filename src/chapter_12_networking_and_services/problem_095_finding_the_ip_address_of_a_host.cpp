@@ -14,6 +14,8 @@
 void problem_95_main(std::ostream& os) {
     using namespace tmcppc::tcp;
 
+    asio::io_context io_context{};
+    resolver_asio resolver{ io_context };
     for (auto&& [host, service] : std::vector<std::pair<std::string_view, std::string_view>>{
         { "localhost", "8080" },
         { "www.boost.org", "http" },
@@ -22,8 +24,6 @@ void problem_95_main(std::ostream& os) {
         { "www.boost.org", "blah" } }) {
 
         fmt::print(os, "Getting IPv4 addresses for host = '{}' and service = '{}'\n", host, service);
-        asio::io_context io_context{};
-        resolver_asio resolver{ io_context };
         try {
             for (auto&& address : resolver.get_host_ipv4_addresses(host, service)) {
                 fmt::print(os, "\t{}\n", address);

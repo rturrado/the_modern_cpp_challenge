@@ -17,6 +17,7 @@ namespace tmcppc::temperature::v1 {
             case scale_t::celsius: return "Celsius";
             case scale_t::fahrenheit: return "Fahrenheit";
             case scale_t::kelvin: return "Kelvin";
+            case scale_t::invalid: return "<invalid temperature>";
         }
         return "<invalid temperature>";
     }

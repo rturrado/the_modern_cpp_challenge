@@ -92,11 +92,11 @@ namespace tmcppc::png {
         }
 
         void plot_text(
-            fs::path font_file_path,
+            const fs::path& font_file_path,
             int font_size,
             const point_2d& bottom_left_position,
             double angle,
-            std::string text,
+            const std::string& text,
             const rgb& colour) {
 
             writer_.plot_text(

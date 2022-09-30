@@ -47,7 +47,7 @@ namespace tmcppc::crypto {
 
         }
 
-        [[nodiscard]] virtual std::string encrypt(std::string_view text) const override {
+        [[nodiscard]] std::string encrypt(std::string_view text) const override {
             auto encrypt_char = [this](unsigned char c, size_t key_index) {
                 if (not std::isalpha(c)) {
                     return c;
@@ -73,7 +73,7 @@ namespace tmcppc::crypto {
             return ret;
         }
 
-        [[nodiscard]] virtual std::string decrypt(std::string_view text) const override {
+        [[nodiscard]] std::string decrypt(std::string_view text) const override {
             auto decrypt_char = [this](unsigned char c, size_t key_index) {
                 if (not std::isalpha(c)) {
                     return c;

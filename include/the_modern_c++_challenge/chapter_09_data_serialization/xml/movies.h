@@ -6,6 +6,7 @@
 #include <chrono>
 #include <filesystem>
 #include <pugixml.hpp>
+#include <utility>
 
 
 namespace tmcppc::movies::xml {
@@ -133,7 +134,7 @@ namespace tmcppc::movies::xml {
         catalog_t catalog_{};
 
         doc() = default;
-        explicit doc(const catalog_t& c) : catalog_{ c } {}
+        explicit doc(catalog_t c) : catalog_{ std::move(c) } {}
 
         [[nodiscard]] pugi::xml_node get_pugi_xml_root() const { return pugi_xml_doc_.root(); }
 

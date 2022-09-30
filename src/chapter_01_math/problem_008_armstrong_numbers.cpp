@@ -54,7 +54,7 @@ namespace tmcppc::problem_8 {
 
     // Write a function that determines the Armstrong numbers up to a limit, regardless of their number of digits
     // v3: book's version
-    std::vector<int> armstrong_numbers_up_to_a_limit_v3(const int n) {
+    std::vector<int> armstrong_numbers_up_to_a_limit_v3(int n) {
         std::vector<int> ret{};
 
         for (int i{ 0 }; i <= n; ++i) {

@@ -17,18 +17,18 @@
 namespace tmcppc::ean_13 {
     inline auto to_uint8_t(const unsigned char c) {
         return static_cast<uint8_t>(c - '0');
-    };
+    }
 
     struct invalid_code_size_exception : public std::runtime_error {
-        invalid_code_size_exception(std::string_view code_sv) : std::runtime_error{ "" } { message_ += code_sv; }
-        virtual const char* what() const noexcept override { return message_.c_str(); }
+        explicit invalid_code_size_exception(std::string_view code_sv) : std::runtime_error{ "" } { message_ += code_sv; }
+        [[nodiscard]] const char* what() const noexcept override { return message_.c_str(); }
     private:
         static inline std::string message_{ "invalid code size exception: " };
     };
 
     struct invalid_code_exception : public std::runtime_error {
-        invalid_code_exception(std::string_view code_sv) : std::runtime_error{ "" } { message_ += code_sv; }
-        virtual const char* what() const noexcept override { return message_.c_str(); }
+        explicit invalid_code_exception(std::string_view code_sv) : std::runtime_error{ "" } { message_ += code_sv; }
+        [[nodiscard]] const char* what() const noexcept override { return message_.c_str(); }
     private:
         static inline std::string message_{ "invalid code exception: " };
     };

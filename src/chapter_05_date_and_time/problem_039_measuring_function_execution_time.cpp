@@ -18,7 +18,7 @@ namespace tmcppc::problem_39 {
     void sort_vector(std::vector<int>& v) {
         std::ranges::sort(v);
         assert(v[0] == 1);
-    };
+    }
 
     void sort_iota_vector(size_t num_elems, size_t num_reps) {
         assert(num_elems > 0);

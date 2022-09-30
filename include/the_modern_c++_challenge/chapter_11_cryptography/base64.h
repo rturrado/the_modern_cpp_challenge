@@ -54,7 +54,7 @@ namespace tmcppc::crypto {
         };
 
     public:
-        [[nodiscard]] std::string encode(const data_t& data, bool use_padding = true) const {
+        [[nodiscard]] static std::string encode(const data_t& data, bool use_padding = true) {
             std::string ret{};
             size_t line_characters_counter{};
 
@@ -138,7 +138,7 @@ namespace tmcppc::crypto {
             return ret;
         }
 
-        [[nodiscard]] data_t decode(std::string_view data) const {
+        [[nodiscard]] static data_t decode(std::string_view data) {
             data_t ret{};
 
             auto get_decoded_data_t_size = [&data]() {

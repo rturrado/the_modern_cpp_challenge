@@ -29,16 +29,15 @@ namespace tmcppc::data_structures {
             using TPtr_ = size_type;
 
             constexpr const_iterator() noexcept : ptr_{} {}
-            constexpr const_iterator(const circular_buffer& cb, TPtr_ pos, bool last) noexcept
-                : cb_{ cb }, ptr_{ pos }, last_{ last } {}
+            constexpr const_iterator(const circular_buffer& cb, TPtr_ pos) noexcept
+                : cb_{ cb }, ptr_{ pos } {}
             constexpr reference operator*() const noexcept { return cb_.container_[ptr_]; }
             constexpr reference operator->() const noexcept { return cb_.container_[ptr_]; }
             constexpr const_iterator& operator++() noexcept {
                 ptr_ = cb_.next_pos(ptr_);
-                last_ = (ptr_ == cb_.next_pos(cb_.back_pos_));
                 return *this;
             }
-            constexpr const_iterator operator++(int) noexcept {
+            constexpr const_iterator operator++(int) & noexcept {
                 const_iterator tmp{ *this };
                 ++(*this);
                 return tmp;
@@ -65,9 +64,6 @@ namespace tmcppc::data_structures {
         protected:
             const circular_buffer<T>& cb_;
             TPtr_ ptr_{};
-            // begin and end will point to the same position in a full circular buffer
-            // This flag will help us differentiate them at the beginning of a loop
-            bool last_{};
         };
 
         class iterator : public const_iterator {
@@ -78,15 +74,15 @@ namespace tmcppc::data_structures {
             using reference = container::reference;
 
             constexpr iterator() noexcept : const_iterator{} {}
-            constexpr iterator(circular_buffer& cb, MyBase_::TPtr_ pos, bool last) noexcept
-                : const_iterator{ cb, pos, last } {}
+            constexpr iterator(circular_buffer& cb, MyBase_::TPtr_ pos) noexcept
+                : const_iterator{ cb, pos } {}
             constexpr reference operator*() const noexcept { return const_cast<reference>(MyBase_::operator*()); }
             constexpr reference operator->() const noexcept { return const_cast<reference>(MyBase_::operator->()); }
             constexpr iterator& operator++() noexcept {
                 MyBase_::operator++();
                 return *this;
             }
-            constexpr iterator operator++(int) noexcept {
+            constexpr iterator operator++(int) & noexcept {
                 iterator tmp{ *this };
                 MyBase_::operator++();
                 return tmp;
@@ -145,12 +141,12 @@ namespace tmcppc::data_structures {
 
         constexpr void clear() noexcept { size_ = 0; }
 
-        constexpr iterator begin() noexcept { return iterator{ *this, front_pos_, empty() }; }
-        constexpr iterator end() noexcept { return iterator{ *this, empty() ? front_pos_ : next_pos(back_pos_), true }; }
+        constexpr iterator begin() noexcept { return iterator{ *this, front_pos_ }; }
+        constexpr iterator end() noexcept { return iterator{ *this, empty() ? front_pos_ : next_pos(back_pos_) }; }
         constexpr const_iterator begin() const noexcept { return cbegin(); }
         constexpr const_iterator end() const noexcept { return cend(); }
-        constexpr const_iterator cbegin() const noexcept { return const_iterator{ *this, front_pos_, empty() }; }
-        constexpr const_iterator cend() const noexcept { return const_iterator{ *this, empty() ? front_pos_ : next_pos(back_pos_), true }; }
+        constexpr const_iterator cbegin() const noexcept { return const_iterator{ *this, front_pos_ }; }
+        constexpr const_iterator cend() const noexcept { return const_iterator{ *this, empty() ? front_pos_ : next_pos(back_pos_) }; }
 
         auto operator<=>(const circular_buffer& other) const noexcept = default;
 

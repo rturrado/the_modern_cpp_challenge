@@ -35,7 +35,7 @@ namespace tmcppc::problem_79 {
             fmt::print(os, "Error: {}\n", ex.what());
             return {};
         }
-    };
+    }
 }  // namespace tmcppc::problem_79
 
 
