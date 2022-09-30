@@ -18,7 +18,7 @@ TEST(xml_role, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "role") };
     to_xml(n, samples::role);
-	role r{};
+	role_t r{};
 	from_xml(n, r);
 	EXPECT_EQ(samples::role, r);
 }
@@ -28,7 +28,7 @@ TEST(xml_cast, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "cast") };
     to_xml(n, samples::cast);
-    cast c{};
+    cast_t c{};
     from_xml(n, c);
     EXPECT_EQ(samples::cast, c);
 }
@@ -38,7 +38,7 @@ TEST(xml_director, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "director") };
     to_xml(n, samples::director);
-    director d{};
+    director_t d{};
     from_xml(n, d);
     EXPECT_EQ(samples::director, d);
 }
@@ -48,7 +48,7 @@ TEST(xml_directors, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "directors") };
     to_xml(n, samples::directors);
-    directors ds{};
+    directors_t ds{};
     from_xml(n, ds);
     EXPECT_EQ(samples::directors, ds);
 }
@@ -58,7 +58,7 @@ TEST(xml_writer, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "writer") };
     to_xml(n, samples::writer);
-    writer w{};
+    writer_t w{};
     from_xml(n, w);
     EXPECT_EQ(samples::writer, w);
 }
@@ -68,7 +68,7 @@ TEST(xml_writers, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "writers") };
     to_xml(n, samples::writers);
-    writers ws{};
+    writers_t ws{};
     from_xml(n, ws);
     EXPECT_EQ(samples::writers, ws);
 }
@@ -78,7 +78,7 @@ TEST(xml_movie, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "movie") };
     to_xml(n, samples::movie);
-    movie mv{};
+    movie_t mv{};
     from_xml(n, mv);
     EXPECT_EQ(samples::movie, mv);
 }
@@ -88,7 +88,7 @@ TEST(xml_catalog, to_xml_and_from_xml) {
     pugi::xml_document doc{};
     auto n{ append_child_or_throw(doc, "catalog") };
     to_xml(n, samples::catalog);
-    catalog mvs{};
+    catalog_t mvs{};
     from_xml(n, mvs);
     EXPECT_EQ(samples::catalog, mvs);
 }

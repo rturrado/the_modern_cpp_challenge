@@ -279,13 +279,13 @@ namespace tmcppc::face_detection::samples {
     // Face
     static inline const tmcppc::face_detection::face face_1{
         .id = "473bc81f-6c04-498d-8581-0d22184b1637",
-        .rectangle = { .top = 118, .left = 615, .width = 100, .height = 100 },
+        .bounding_box = { .top = 118, .left = 615, .width = 100, .height = 100 },
         .landmarks = face_landmarks_1,
         .attributes = face_attributes_1
     };
     static inline const tmcppc::face_detection::face face_2{
         .id = "a4834808-6727-4004-8e7a-b16d5f857694",
-        .rectangle = { .top = 29, .left = 268, .width = 94, .height = 94 },
+        .bounding_box = { .top = 29, .left = 268, .width = 94, .height = 94 },
         .landmarks = face_landmarks_2,
         .attributes = face_attributes_2
     };
@@ -294,7 +294,7 @@ namespace tmcppc::face_detection::samples {
         return fmt::format(
             "{0}Face:\n"
             "{1}ID: 473bc81f-6c04-498d-8581-0d22184b1637\n"
-            "{1}Rectangle: {2}\n"
+            "{1}Bounding box: {2}\n"
             "{3}\n"
             "{4}",
             rtc::pretty_print::indentation{ L },
@@ -309,7 +309,7 @@ namespace tmcppc::face_detection::samples {
         return fmt::format(
             "{0}Face:\n"
             "{1}ID: a4834808-6727-4004-8e7a-b16d5f857694\n"
-            "{1}Rectangle: (top: 29.0, left: 268.0, width: 94.0, height: 94.0)\n"
+            "{1}Bounding box: (top: 29.0, left: 268.0, width: 94.0, height: 94.0)\n"
             "{2}\n"
             "{3}",
             rtc::pretty_print::indentation{ L },

@@ -13,12 +13,12 @@ namespace tmcppc::movies {
         namespace ch = std::chrono;
 
         // Role
-        static inline const tmcppc::movies::role role{ "Tom Hanks", "Forrest Gump" };
+        static inline const tmcppc::movies::role_t role{ "Tom Hanks", "Forrest Gump" };
         static inline const std::string role_output{ "Tom Hanks (Forrest Gump)" };
 
 
         // Cast
-        static inline const tmcppc::movies::cast cast{ {
+        static inline const tmcppc::movies::cast_t cast{ {
             role,  // Tom Hanks, Forrest Gump
             { .star = "Sally Field", .name = "Mrs. Gump" },
             { .star = "Robin Wright", .name = "Jenny Curran" },
@@ -51,12 +51,12 @@ namespace tmcppc::movies {
 
 
         // Director
-        static inline const tmcppc::movies::director director{ "Robert Zemeckis" };
+        static inline const tmcppc::movies::director_t director{ "Robert Zemeckis" };
         static inline const std::string director_output{ "Robert Zemeckis" };
 
 
         // Directors
-        static inline const tmcppc::movies::directors directors{ {
+        static inline const tmcppc::movies::directors_t directors{ {
             director  // Robert Zemeckis
         } };
         template <size_t L = 0>
@@ -81,12 +81,12 @@ namespace tmcppc::movies {
 
 
         // Writer
-        static inline const tmcppc::movies::writer writer{ "Winston Groom" };
+        static inline const tmcppc::movies::writer_t writer{ "Winston Groom" };
         static inline const std::string writer_output{ "Winston Groom" };
 
 
         // Writers
-        static inline const tmcppc::movies::writers writers{ {
+        static inline const tmcppc::movies::writers_t writers{ {
             writer,  // Winston Groom
             { "Eric Roth" }
         } };
@@ -113,8 +113,8 @@ namespace tmcppc::movies {
 
 
         // Media file
-        static inline const tmcppc::movies::media_file media_file_without_description{ 1, "./res/db/poster.png" };
-        static inline const tmcppc::movies::media_file media_file{ 1, "./res/db/poster.png", "Front cover" };
+        static inline const tmcppc::movies::media_file_t media_file_without_description{ 1, "./res/db/poster.png" };
+        static inline const tmcppc::movies::media_file_t media_file{ 1, "./res/db/poster.png", "Front cover" };
         template <size_t L = 0>
         auto get_media_file_without_description_output() {
             return fmt::format(
@@ -151,7 +151,7 @@ namespace tmcppc::movies {
 
 
         // Media files
-        static inline const tmcppc::movies::media_files media_files{ {
+        static inline const tmcppc::movies::media_files_t media_files{ {
             media_file,  // 1, poster.png, Front cover
             { 2, "./res/db/city.jpg", "Los Angeles" }
         } };
@@ -169,7 +169,7 @@ namespace tmcppc::movies {
 
 
         // Movie
-        static inline const tmcppc::movies::movie movie{
+        static inline const tmcppc::movies::movie_t movie{
             .id = 9871,
             .title = "Forrest Gump",
             .year = ch::year{ 1994 },
@@ -178,7 +178,7 @@ namespace tmcppc::movies {
             .directors = directors,
             .writers = writers
         };
-        static inline const tmcppc::movies::movie movie_with_default_id{
+        static inline const tmcppc::movies::movie_t movie_with_default_id{
             .id = 0,
             .title = "Forrest Gump",
             .year = ch::year{ 1994 },
@@ -187,7 +187,7 @@ namespace tmcppc::movies {
             .directors = directors,
             .writers = writers
         };
-        static inline const tmcppc::movies::movie movie_with_id_initialized_after_database_insertion{
+        static inline const tmcppc::movies::movie_t movie_with_id_initialized_after_database_insertion{
             .id = 2,
             .title = "Forrest Gump",
             .year = ch::year{ 1994 },
@@ -237,30 +237,30 @@ namespace tmcppc::movies {
 
 
         // Catalog
-        static inline const tmcppc::movies::catalog catalog{ {
+        static inline const tmcppc::movies::catalog_t catalog{ {
             {
                 .id = 11001,
                 .title = "The Matrix",
                 .year = ch::year{ 1999 },
                 .length = 196,
-                .cast = tmcppc::movies::cast{ {
+                .cast = tmcppc::movies::cast_t{ {
                     { .star = "Keanu Reeves", .name = "Neo" },
                     { .star = "Laurence Fishburne", .name = "Morpheus" },
                     { .star = "Carrie-Anne Moss", .name = "Trinity" },
                     { .star = "Hugo Weaving", .name = "Agent Smith" }
                 } },
-                .directors = tmcppc::movies::directors{ {
+                .directors = tmcppc::movies::directors_t{ {
                     { .name = "Lana Wachowski" },
                     { .name = "Lilly Wachowski" }
                 } },
-                .writers = tmcppc::movies::writers{ {
+                .writers = tmcppc::movies::writers_t{ {
                     { .name = "Lana Wachowski" },
                     { .name = "Lilly Wachowski" }
                 } }
             },
             movie  // Forrest Gump
         } };
-        static inline const tmcppc::movies::catalog catalog_of_50_movies{ {
+        static inline const tmcppc::movies::catalog_t catalog_of_50_movies{ {
             { 1, "The Matrix", ch::year{ 1999 }, 136 },
             { 2, "Forrest Gump", ch::year{ 1994 }, 142 },
             { 3, "The Truman Show", ch::year{ 1998 }, 103 },

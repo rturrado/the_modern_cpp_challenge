@@ -15,9 +15,9 @@ void test_temperature_v1(std::ostream& os) {
     fmt::print(os, "\t{} in Fahrenheit: {:.2f} Fahrenheit\n", 35.5_deg, to_fahrenheit(35.5_deg));
     fmt::print(os, "\t{} in Kelvin: {:.2f} Kelvin\n\n", 35.5_deg, to_kelvin(35.5_deg));
 
-    temperature t1{ 12.3, scale::celsius };
-    temperature t2{ 12.3, scale::fahrenheit };
-    temperature t3{ 12.3, scale::kelvin };
+    temperature t1{ 12.3, scale_t::celsius };
+    temperature t2{ 12.3, scale_t::fahrenheit };
+    temperature t3{ 12.3, scale_t::kelvin };
 
     fmt::print(os, "\t{} == {}? {}. ", t1, t2, t1 == t2);
     fmt::print(os, "{} == {:.2f} Celsius\n", t2, to_celsius(t2));
@@ -39,26 +39,26 @@ void test_temperature_v2(std::ostream& os) {
 
     fmt::print(os, "Using temperature::v2:\n");
 
-    fmt::print(os, "\t{} in Fahrenheit: {}\n", 35.5_deg, temperature_cast<long double, scale::fahrenheit>(35.5_deg));
-    fmt::print(os, "\t{} in Kelvin: {}\n\n", 35.5_deg, temperature_cast<long double, scale::kelvin>(35.5_deg));
+    fmt::print(os, "\t{} in Fahrenheit: {}\n", 35.5_deg, temperature_cast<long double, scale_t::fahrenheit>(35.5_deg));
+    fmt::print(os, "\t{} in Kelvin: {}\n\n", 35.5_deg, temperature_cast<long double, scale_t::kelvin>(35.5_deg));
 
-    temperature<float, scale::celsius> t1{ static_cast<float>(12.3) };
-    temperature<float, scale::fahrenheit> t2{ static_cast<float>(12.3) };
-    temperature<float, scale::kelvin> t3{ static_cast<float>(12.3) };
+    temperature<float, scale_t::celsius> t1{ static_cast<float>(12.3) };
+    temperature<float, scale_t::fahrenheit> t2{ static_cast<float>(12.3) };
+    temperature<float, scale_t::kelvin> t3{ static_cast<float>(12.3) };
 
     // Now, we can only compare temperatures on the same scale
-    fmt::print(os, "\t{} == {}? {}. ", t1, t2, t1 == temperature_cast<float, scale::celsius>(t2));
-    fmt::print(os, "{} == {}\n", t2, temperature_cast<float, scale::celsius>(t2));
-    fmt::print(os, "\t{} < {}? {}. ", t1, t2, t1 < temperature_cast<float, scale::celsius>(t2));
-    fmt::print(os, "{} == {}\n", t2, temperature_cast<float, scale::celsius>(t2));
-    fmt::print(os, "\t{} > {}? {}. ", t1, t3, t1 > temperature_cast<float, scale::celsius>(t3));
-    fmt::print(os, "{} == {}\n\n", t3, temperature_cast<float, scale::celsius>(t3));
+    fmt::print(os, "\t{} == {}? {}. ", t1, t2, t1 == temperature_cast<float, scale_t::celsius>(t2));
+    fmt::print(os, "{} == {}\n", t2, temperature_cast<float, scale_t::celsius>(t2));
+    fmt::print(os, "\t{} < {}? {}. ", t1, t2, t1 < temperature_cast<float, scale_t::celsius>(t2));
+    fmt::print(os, "{} == {}\n", t2, temperature_cast<float, scale_t::celsius>(t2));
+    fmt::print(os, "\t{} > {}? {}. ", t1, t3, t1 > temperature_cast<float, scale_t::celsius>(t3));
+    fmt::print(os, "{} == {}\n\n", t3, temperature_cast<float, scale_t::celsius>(t3));
 
     // Same for arithmetic operations
-    fmt::print(os, "\t{} + {} = {}. ", t1, t2, t1 + temperature_cast<float, scale::celsius>(t2));
-    fmt::print(os, "{} == {}\n", t2, temperature_cast<float, scale::celsius>(t2));
-    fmt::print(os, "\t{} - {} = {}. ", t1, t3, t1 - temperature_cast<float, scale::celsius>(t3));
-    fmt::print(os, "{} == {}\n\n", t3, temperature_cast<float, scale::celsius>(t3));
+    fmt::print(os, "\t{} + {} = {}. ", t1, t2, t1 + temperature_cast<float, scale_t::celsius>(t2));
+    fmt::print(os, "{} == {}\n", t2, temperature_cast<float, scale_t::celsius>(t2));
+    fmt::print(os, "\t{} - {} = {}. ", t1, t3, t1 - temperature_cast<float, scale_t::celsius>(t3));
+    fmt::print(os, "{} == {}\n\n", t3, temperature_cast<float, scale_t::celsius>(t3));
 }
 
 

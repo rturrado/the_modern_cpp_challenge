@@ -60,7 +60,7 @@ namespace tmcppc::movies::sql {
     };
 
     struct trying_to_insert_existing_role_error : public error {
-        trying_to_insert_existing_role_error(std::int64_t movie_id, const role& r)
+        trying_to_insert_existing_role_error(std::int64_t movie_id, const role_t& r)
             : error{ message_ + fmt::format("movie id = {}, star = {}, role = {}",
                 movie_id, r.star, r.name) }
         {}
@@ -69,7 +69,7 @@ namespace tmcppc::movies::sql {
     };
 
     struct trying_to_insert_existing_writer_error : public error {
-        trying_to_insert_existing_writer_error(std::int64_t movie_id, const writer& w)
+        trying_to_insert_existing_writer_error(std::int64_t movie_id, const writer_t& w)
             : error{ message_ + fmt::format("movie id = {}, name = {}", movie_id, w.name) }
         {}
     private:
@@ -77,7 +77,7 @@ namespace tmcppc::movies::sql {
     };
 
     struct trying_to_insert_existing_director_error : public error {
-        trying_to_insert_existing_director_error(std::int64_t movie_id, const director& d)
+        trying_to_insert_existing_director_error(std::int64_t movie_id, const director_t& d)
             : error{ message_ + fmt::format("movie id = {}, name = {}", movie_id, d.name) }
         {}
     private:
@@ -85,15 +85,15 @@ namespace tmcppc::movies::sql {
     };
 
     struct trying_to_insert_existing_movie_error : public error {
-        explicit trying_to_insert_existing_movie_error(const movie& m)
+        explicit trying_to_insert_existing_movie_error(const movie_t& m)
             : error{ message_ + fmt::format("title = {}, year = {}, length = {}", m.title, int(m.year), m.length) }
         {}
     private:
-        static inline std::string message_{ "trying to insert existing movie: " };
+        static inline std::string message_{ "trying to insert existing movie_t: " };
     };
 
     struct trying_to_insert_existing_media_file_error : public error {
-        trying_to_insert_existing_media_file_error(std::int64_t movie_id, const media_file& mf)
+        trying_to_insert_existing_media_file_error(std::int64_t movie_id, const media_file_t& mf)
             : error{ message_ + fmt::format("movie id = {}, file_path = {}, description = '{}'",
                 movie_id, mf.file_path.generic_string(), mf.description.value_or("")) }
         {}
@@ -202,7 +202,7 @@ namespace tmcppc::movies::sql {
         }
     }
 
-    [[nodiscard]] inline bool exists_director(sqlite::database& db, std::int64_t movie_id, const director& director) {
+    [[nodiscard]] inline bool exists_director(sqlite::database& db, std::int64_t movie_id, const director_t& director) {
         bool ret{ false };
         db << "select 1 from Persons P join Directors D on P.rowid == D.person_id "
             "where D.movie_id = (?) and P.name = (?);"
@@ -248,7 +248,7 @@ namespace tmcppc::movies::sql {
         return ret;
     }
 
-    [[nodiscard]] inline bool exists_role(sqlite::database& db, std::int64_t movie_id, const role& role) {
+    [[nodiscard]] inline bool exists_role(sqlite::database& db, std::int64_t movie_id, const role_t& role) {
         bool ret{ false };
         db << "select 1 from Persons P join Cast C on P.rowid == C.person_id "
             "where C.movie_id = (?) and P.name = (?) and C.role = (?);"
@@ -266,7 +266,7 @@ namespace tmcppc::movies::sql {
         return ret;
     }
 
-    [[nodiscard]] inline bool exists_writer(sqlite::database& db, std::int64_t movie_id, const writer& writer) {
+    [[nodiscard]] inline bool exists_writer(sqlite::database& db, std::int64_t movie_id, const writer_t& writer) {
         bool ret{ false };
         db << "select 1 from Persons P join Writers W on P.rowid == W.person_id "
             "where W.movie_id = (?) and P.name = (?);"
@@ -294,7 +294,7 @@ namespace tmcppc::movies::sql {
     }
 
     // Role
-    inline void to_db(sqlite::database& db, std::int64_t movie_id, const role& role) {
+    inline void to_db(sqlite::database& db, std::int64_t movie_id, const role_t& role) {
         if (not exists_movie(db, movie_id)) {
             throw movie_id_not_found_error{ movie_id };
         }
@@ -315,23 +315,23 @@ namespace tmcppc::movies::sql {
     }
 
     // Cast
-    inline void from_db(sqlite::database& db, std::int64_t movie_id, cast& cast) {
+    inline void from_db(sqlite::database& db, std::int64_t movie_id, cast_t& cast) {
         db << "select P.name as name, C.role as role "
             "from Persons P join Cast C on P.rowid = C.person_id "
             "where C.movie_id = (?);"
             << movie_id
             >> [&cast](std::string name, std::string role) {
-            cast.cast_.emplace_back(name, role);
+            cast.data.emplace_back(name, role);
         };
     }
-    inline void to_db(sqlite::database& db, std::int64_t movie_id, const cast& cast) {
-        for (const auto& role : cast.cast_) {
+    inline void to_db(sqlite::database& db, std::int64_t movie_id, const cast_t& cast) {
+        for (const auto& role : cast.data) {
             to_db(db, movie_id, role);
         }
     }
 
     // Writer
-    inline void to_db(sqlite::database& db, std::int64_t movie_id, const writer& writer) {
+    inline void to_db(sqlite::database& db, std::int64_t movie_id, const writer_t& writer) {
         if (not exists_movie(db, movie_id)) {
             throw movie_id_not_found_error{ movie_id };
         }
@@ -351,22 +351,22 @@ namespace tmcppc::movies::sql {
     }
 
     // Writers
-    inline void from_db(sqlite::database& db, std::int64_t movie_id, writers& writers) {
+    inline void from_db(sqlite::database& db, std::int64_t movie_id, writers_t& writers) {
         db << "select name from Persons P join Writers W on P.rowid = W.person_id "
             "where W.movie_id = (?);"
             << movie_id
             >> [&writers](std::string name) {
-            writers.writers_.emplace_back(name);
+            writers.data.emplace_back(name);
         };
     }
-    inline void to_db(sqlite::database& db, std::int64_t movie_id, const writers& writers) {
-        for (const auto& writer : writers.writers_) {
+    inline void to_db(sqlite::database& db, std::int64_t movie_id, const writers_t& writers) {
+        for (const auto& writer : writers.data) {
             to_db(db, movie_id, writer);
         }
     }
 
     // Director
-    inline void to_db(sqlite::database& db, std::int64_t movie_id, const director& director) {
+    inline void to_db(sqlite::database& db, std::int64_t movie_id, const director_t& director) {
         if (not exists_movie(db, movie_id)) {
             throw movie_id_not_found_error{ movie_id };
         }
@@ -387,16 +387,16 @@ namespace tmcppc::movies::sql {
     }
 
     // Directors
-    inline void from_db(sqlite::database& db, std::int64_t movie_id, directors& directors) {
+    inline void from_db(sqlite::database& db, std::int64_t movie_id, directors_t& directors) {
         db << "select name from Persons P join Directors D on P.rowid = D.person_id "
             "where D.movie_id = (?);"
             << movie_id
             >> [&directors](std::string name) {
-            directors.directors_.emplace_back(name);
+            directors.data.emplace_back(name);
         };
     }
-    inline void to_db(sqlite::database& db, std::int64_t movie_id, const directors& directors) {
-        for (const auto& director : directors.directors_) {
+    inline void to_db(sqlite::database& db, std::int64_t movie_id, const directors_t& directors) {
+        for (const auto& director : directors.data) {
             to_db(db, movie_id, director);
         }
     }
@@ -404,7 +404,7 @@ namespace tmcppc::movies::sql {
     // Media file
     //
     // to_db updates media_file.id
-    inline void to_db(sqlite::database& db, std::int64_t movie_id, media_file& media_file) {
+    inline void to_db(sqlite::database& db, std::int64_t movie_id, media_file_t& media_file) {
         if (not exists_movie(db, movie_id)) {
             throw movie_id_not_found_error{ movie_id };
         }
@@ -421,16 +421,16 @@ namespace tmcppc::movies::sql {
     }
 
     // Media files
-    inline void from_db(sqlite::database& db, std::int64_t movie_id, media_files& media_files) {
+    inline void from_db(sqlite::database& db, std::int64_t movie_id, media_files_t& media_files) {
         db << "select rowid,name,description from Media "
             "where movie_id = (?);"
             << movie_id
             >> [&media_files](int rowid, std::string name, std::optional<std::string> description) {
-            media_files.media_files_.emplace_back(rowid, name, description);
+            media_files.data.emplace_back(rowid, name, description);
         };
     }
-    inline void to_db(sqlite::database& db, std::int64_t movie_id, media_files& media_files) {
-        for (auto& media_file : media_files.media_files_) {
+    inline void to_db(sqlite::database& db, std::int64_t movie_id, media_files_t& media_files) {
+        for (auto& media_file : media_files.data) {
             to_db(db, movie_id, media_file);
         }
     }
@@ -438,7 +438,7 @@ namespace tmcppc::movies::sql {
     // Movie
     //
     // to_db updates movie.id
-    inline void to_db(sqlite::database& db, movie& movie) {
+    inline void to_db(sqlite::database& db, movie_t& movie) {
         if (exists_movie(db, movie.title, movie.year, movie.length)) {
             throw trying_to_insert_existing_movie_error{ movie };
         }
@@ -454,7 +454,7 @@ namespace tmcppc::movies::sql {
     }
 
     // Catalog
-    inline void from_db(sqlite::database& db, catalog& catalog) {
+    inline void from_db(sqlite::database& db, catalog_t& catalog) {
         db << "select rowid,title,year,length from Movies;"
             >> [&catalog](int rowid, std::string title, int year, int length) {
             catalog.movies.emplace_back(rowid, title, std::chrono::year{ year }, length);
@@ -469,7 +469,7 @@ namespace tmcppc::movies::sql {
 
     // Database
     struct database {
-        catalog catalog_{};
+        catalog_t catalog_{};
 
         explicit database(const fs::path& db_file_path)
             : sqlite_db_{ db_file_path.string() } {
@@ -487,27 +487,27 @@ namespace tmcppc::movies::sql {
                 std::ranges::find_if(
                     db.catalog_.movies,
                     [&movie_id](std::int64_t id) { return id == movie_id; },
-                    &movie::id);
+                    &movie_t::id);
         }
         [[nodiscard]] auto find_movie(std::int64_t movie_id) { return find_movie_impl(*this, movie_id); }
         [[nodiscard]] auto find_movie(std::int64_t movie_id) const { return find_movie_impl(*this, movie_id); }
 
-        [[nodiscard]] auto find_media_file(const movie& movie, std::int64_t media_file_id) const {
+        [[nodiscard]] auto find_media_file(const movie_t& movie, std::int64_t media_file_id) const {
             return
                 std::ranges::find_if(
-                    movie.media_files.media_files_,
+                    movie.media_files.data,
                     [&media_file_id](std::int64_t id) { return id == media_file_id; },
-                    &media_file::id);
+                    &media_file_t::id);
         }
 
     public:
         [[nodiscard]] auto get_movies(const std::regex& pattern) const noexcept {
-            tmcppc::movies::catalog ret{};
+            tmcppc::movies::catalog_t ret{};
             std::ranges::copy_if(
                 catalog_.movies,
                 std::back_inserter(ret.movies),
                 [&pattern](const auto& title) { return std::regex_match(title.c_str(), pattern); },
-                &movie::title);
+                &movie_t::title);
             return ret;
         }
 
@@ -522,7 +522,7 @@ namespace tmcppc::movies::sql {
         }
 
         // to_db updates movie.id
-        void insert_movie(movie& movie) {
+        void insert_movie(movie_t& movie) {
             try {
                 sqlite_db_ << "begin;";
                 to_db(sqlite_db_, movie);
@@ -536,8 +536,8 @@ namespace tmcppc::movies::sql {
             }
         }
 
-        // to_db updates media_file.id
-        void insert_media_file(std::int64_t movie_id, media_file& media_file) {
+        // to_db updates media_file_t.id
+        void insert_media_file(std::int64_t movie_id, media_file_t& media_file) {
             auto movie_it{ find_movie(movie_id) };
 
             if (movie_it == std::end(catalog_.movies)) {
@@ -549,7 +549,7 @@ namespace tmcppc::movies::sql {
                 to_db(sqlite_db_, movie_id, media_file);
                 sqlite_db_ << "commit;";
 
-                movie_it->media_files.media_files_.push_back(media_file);
+                movie_it->media_files.data.push_back(media_file);
             } catch (const sqlite::sqlite_exception&) {
                 sqlite_db_ << "rollback;";
 
@@ -570,7 +570,7 @@ namespace tmcppc::movies::sql {
                 sqlite_db_ << "delete from Media where rowid = (?);" << media_file_id;
                 sqlite_db_ << "commit;";
 
-                movie_it->media_files.media_files_.erase(media_file_it);
+                movie_it->media_files.data.erase(media_file_it);
             } catch (const sqlite::sqlite_exception&) {
                 sqlite_db_ << "rollback;";
 

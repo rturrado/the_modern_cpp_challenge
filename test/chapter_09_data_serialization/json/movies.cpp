@@ -14,7 +14,7 @@ using namespace tmcppc::movies;
 TEST(json_role, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::role);
-    role r{};
+    role_t r{};
     from_json(j, r);
     EXPECT_EQ(samples::role, r);
 }
@@ -23,7 +23,7 @@ TEST(json_role, to_json_and_from_json) {
 TEST(json_cast, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::cast);
-    cast c{};
+    cast_t c{};
     from_json(j, c);
     EXPECT_EQ(samples::cast, c);
 }
@@ -32,7 +32,7 @@ TEST(json_cast, to_json_and_from_json) {
 TEST(json_director, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::director);
-    director d{};
+    director_t d{};
     from_json(j, d);
     EXPECT_EQ(samples::director, d);
 }
@@ -41,7 +41,7 @@ TEST(json_director, to_json_and_from_json) {
 TEST(json_directors, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::directors);
-    directors ds{};
+    directors_t ds{};
     from_json(j, ds);
     EXPECT_EQ(samples::directors, ds);
 }
@@ -50,7 +50,7 @@ TEST(json_directors, to_json_and_from_json) {
 TEST(json_writer, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::writer);
-    writer w{};
+    writer_t w{};
     from_json(j, w);
     EXPECT_EQ(samples::writer, w);
 }
@@ -59,7 +59,7 @@ TEST(json_writer, to_json_and_from_json) {
 TEST(json_writers, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::writers);
-    writers ws{};
+    writers_t ws{};
     from_json(j, ws);
     EXPECT_EQ(samples::writers, ws);
 }
@@ -68,7 +68,7 @@ TEST(json_writers, to_json_and_from_json) {
 TEST(json_movie, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::movie);
-    movie mv{};
+    movie_t mv{};
     from_json(j, mv);
     EXPECT_EQ(samples::movie, mv);
 }
@@ -77,7 +77,7 @@ TEST(json_movie, to_json_and_from_json) {
 TEST(json_catalog, to_json_and_from_json) {
     nlohmann::json j{};
     to_json(j, samples::catalog);
-    catalog c{};
+    catalog_t c{};
     from_json(j, c);
     EXPECT_EQ(samples::catalog, c);
 }

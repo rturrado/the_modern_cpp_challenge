@@ -275,7 +275,7 @@ namespace tmcppc::movies::command_line {
         }
 
         try {
-            auto media_file{ tmcppc::movies::media_file{ movie_id, media_file_path, media_file_description } };
+            auto media_file{ tmcppc::movies::media_file_t{ movie_id, media_file_path, media_file_description } };
             movies_db.insert_media_file(movie_id, media_file);
             fmt::print(os, "{}\n", movies_db);
         } catch (const tmcppc::movies::sql::movie_id_not_found_error& ex) {

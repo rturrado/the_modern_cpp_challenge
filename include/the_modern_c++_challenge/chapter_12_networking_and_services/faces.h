@@ -244,15 +244,15 @@ namespace tmcppc::face_detection {
     // Face
     struct face {
         std::string id{};
-        rectangle rectangle{};
+        rectangle bounding_box{};
         face_landmarks landmarks{};
         face_attributes attributes{};
 
         void print(std::ostream& os, const rtc::pretty_print::indentation& indentation = {}) const {
             fmt::print(os, "{}Face:\n", indentation);
             fmt::print(os, "{}ID: {}\n", indentation + 1, id);
-            fmt::print(os, "{}Rectangle: ", indentation + 1);
-            rectangle.println(os);
+            fmt::print(os, "{}Bounding box: ", indentation + 1);
+            bounding_box.println(os);
             landmarks.println(os, indentation + 1);
             attributes.print(os, indentation + 1);
         }

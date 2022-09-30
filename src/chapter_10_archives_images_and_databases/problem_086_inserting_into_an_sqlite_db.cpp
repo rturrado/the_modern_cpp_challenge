@@ -25,7 +25,7 @@ namespace tmcppc::problem_86 {
 
 
     // insert_movie updates movie.id
-    void add_new_movie(std::istream& is, std::ostream& os, database& movies_db, movie& movie) {
+    void add_new_movie(std::istream& is, std::ostream& os, database& movies_db, movie_t& movie) {
         auto c{
             rtc::console::read_char(is, os,
                 fmt::format(
@@ -42,7 +42,7 @@ namespace tmcppc::problem_86 {
 
     void add_new_movie_from_console(std::istream& is, std::ostream& os, database& movies_db) {
         fmt::print(os, "Please enter the movie data:\n");
-        movie movie{};
+        movie_t movie{};
         tmcppc::movies::console::from_console(is, os, movie);
         add_new_movie(is, os, movies_db, movie);
     }
@@ -58,7 +58,7 @@ namespace tmcppc::problem_86 {
             std::getline(ifs, line);
             int number_of_movies{ std::stoi(line) };
             while (number_of_movies--) {
-                movie movie{};
+                movie_t movie{};
                 tmcppc::movies::file::from_file(ifs, movie);
                 add_new_movie(is, os, movies_db, movie);
             }

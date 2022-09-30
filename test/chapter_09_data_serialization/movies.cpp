@@ -28,7 +28,7 @@ TEST(role, fmt_format) {
 // Cast
 TEST(cast, print_empty_cast) {
     std::ostringstream oss{};
-    cast{}.print(oss);
+    cast_t{}.print(oss);
     EXPECT_EQ(oss.str(), fmt::format("Cast: []"));
 }
 TEST(cast, print) {
@@ -63,7 +63,7 @@ TEST(director, fmt_format) {
 // Directors
 TEST(directors, print_empty_directors) {
     std::ostringstream oss{};
-    directors{}.print(oss);
+    directors_t{}.print(oss);
     EXPECT_EQ(oss.str(), fmt::format("Directors: []"));
 }
 TEST(directors, print) {
@@ -98,7 +98,7 @@ TEST(writer, fmt_format) {
 // Writers
 TEST(writers, print_empty_writers) {
     std::ostringstream oss{};
-    writers{}.print(oss);
+    writers_t{}.print(oss);
     EXPECT_EQ(oss.str(), fmt::format("Writers: []"));
 }
 TEST(writers, print) {
@@ -138,7 +138,7 @@ TEST(media_file, fmt_format) {
 // Media files
 TEST(media_files, print_empty_media_files) {
     std::ostringstream oss{};
-    media_files{}.print(oss);
+    media_files_t{}.print(oss);
     EXPECT_EQ(oss.str(), fmt::format("Media files: []"));
 }
 TEST(media_files, print) {

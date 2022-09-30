@@ -20,7 +20,7 @@
 
 namespace tmcppc::pdf {
     class movies_doc : public doc {
-        using catalog = tmcppc::movies::catalog;
+        using catalog = tmcppc::movies::catalog_t;
 
     public:
         explicit movies_doc(const catalog& c) : catalog_{ c } {}

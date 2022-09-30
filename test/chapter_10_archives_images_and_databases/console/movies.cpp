@@ -22,7 +22,7 @@ TEST(from_console, cast) {
         "quit\n"
     };
     std::ostringstream oss{};
-    cast c{};
+    cast_t c{};
     from_console(iss, oss, c);
     EXPECT_EQ(c, samples::cast);
 }
@@ -35,7 +35,7 @@ TEST(from_console, writers) {
         "quit\n"
     };
     std::ostringstream oss{};
-    writers ws{};
+    writers_t ws{};
     from_console(iss, oss, ws);
     EXPECT_EQ(ws, samples::writers);
 }
@@ -47,7 +47,7 @@ TEST(from_console, directors) {
         "quit\n"
     };
     std::ostringstream oss{};
-    directors ds{};
+    directors_t ds{};
     from_console(iss, oss, ds);
     EXPECT_EQ(ds, samples::directors);
 }
@@ -74,7 +74,7 @@ TEST(from_console, movie) {
         "quit\n"
     };
     std::ostringstream oss{};
-    movie m{};
+    movie_t m{};
     from_console(iss, oss, m);
     EXPECT_EQ(m, samples::movie_with_default_id);
 }

@@ -10,13 +10,13 @@
 //
 // temperature class is only templated on the representation type
 namespace tmcppc::temperature::v1 {
-    enum class scale { invalid = -1, celsius, fahrenheit, kelvin };
+    enum class scale_t { invalid = -1, celsius, fahrenheit, kelvin };
 
-    [[nodiscard]] inline std::string to_string(const scale& s) {
+    [[nodiscard]] inline std::string to_string(const scale_t& s) {
         switch (s) {
-            case scale::celsius: return "Celsius";
-            case scale::fahrenheit: return "Fahrenheit";
-            case scale::kelvin: return "Kelvin";
+            case scale_t::celsius: return "Celsius";
+            case scale_t::fahrenheit: return "Fahrenheit";
+            case scale_t::kelvin: return "Kelvin";
         }
         return "<invalid temperature>";
     }
@@ -30,7 +30,7 @@ namespace tmcppc::temperature::v1 {
     public:
         temperature() = delete;
 
-        constexpr temperature(const Rep_& v, const scale& s) noexcept
+        constexpr temperature(const Rep_& v, const scale_t& s) noexcept
             : value_{ v }
             , scale_{ s }
         {}
@@ -53,7 +53,7 @@ namespace tmcppc::temperature::v1 {
             : value_{ static_cast<Rep_>(other.value_) }
             , scale_{ other.scale_ } {
             other.value_ = 0;
-            other.scale_ = scale::invalid;
+            other.scale_ = scale_t::invalid;
         }
 
         template <typename Rep2_>
@@ -61,18 +61,18 @@ namespace tmcppc::temperature::v1 {
             value_ = static_cast<Rep_>(other.value_);
             scale_ = other.scale_;
             other.value_ = 0;
-            other.scale_ = scale::invalid;
+            other.scale_ = scale_t::invalid;
             return *this;
         }
 
         [[nodiscard]] Rep_ value() const noexcept { return value_; }
-        [[nodiscard]] scale scale() const noexcept { return scale_; }
+        [[nodiscard]] scale_t scale() const noexcept { return scale_; }
 
     private:
         friend struct fmt::formatter<temperature>;
 
         Rep_ value_{ 0 };
-        enum class scale scale_{ scale::invalid };
+        enum scale_t scale_{ scale_t::invalid };
     };
 
     // Operator insertion
@@ -113,10 +113,10 @@ namespace tmcppc::temperature::v1 {
     [[nodiscard]] constexpr Rep_ to_celsius(const temperature<Rep_>& t) {
         Rep_ ret{};
         switch (t.scale()) {
-            case scale::invalid: throw invalid_temperature_error{};
-            case scale::celsius: ret = ret = t.value(); break;
-            case scale::fahrenheit: ret = fahrenheit_to_celsius<Rep_>(t.value()); break;
-            case scale::kelvin: ret = kelvin_to_celsius<Rep_>(t.value()); break;
+            case scale_t::invalid: throw invalid_temperature_error{};
+            case scale_t::celsius: ret = t.value(); break;
+            case scale_t::fahrenheit: ret = fahrenheit_to_celsius<Rep_>(t.value()); break;
+            case scale_t::kelvin: ret = kelvin_to_celsius<Rep_>(t.value()); break;
             default: break;
         }
         return ret;
@@ -126,10 +126,10 @@ namespace tmcppc::temperature::v1 {
     [[nodiscard]] constexpr Rep_ to_fahrenheit(const temperature<Rep_>& t) {
         Rep_ ret{};
         switch (t.scale()) {
-            case scale::invalid: throw invalid_temperature_error{};
-            case scale::celsius: ret = celsius_to_fahrenheit<Rep_>(t.value()); break;
-            case scale::fahrenheit: ret = t.value(); break;
-            case scale::kelvin: ret = kelvin_to_fahrenheit<Rep_>(t.value()); break;
+            case scale_t::invalid: throw invalid_temperature_error{};
+            case scale_t::celsius: ret = celsius_to_fahrenheit<Rep_>(t.value()); break;
+            case scale_t::fahrenheit: ret = t.value(); break;
+            case scale_t::kelvin: ret = kelvin_to_fahrenheit<Rep_>(t.value()); break;
             default: break;
         }
         return ret;
@@ -139,10 +139,10 @@ namespace tmcppc::temperature::v1 {
     [[nodiscard]] constexpr Rep_ to_kelvin(const temperature<Rep_>& t) {
         Rep_ ret{};
         switch (t.scale()) {
-            case scale::invalid: throw invalid_temperature_error{};
-            case scale::celsius: ret = celsius_to_kelvin<Rep_>(t.value()); break;
-            case scale::fahrenheit: ret = fahrenheit_to_kelvin<Rep_>(t.value()); break;
-            case scale::kelvin: ret = t.value(); break;
+            case scale_t::invalid: throw invalid_temperature_error{};
+            case scale_t::celsius: ret = celsius_to_kelvin<Rep_>(t.value()); break;
+            case scale_t::fahrenheit: ret = fahrenheit_to_kelvin<Rep_>(t.value()); break;
+            case scale_t::kelvin: ret = t.value(); break;
             default: break;
         }
         return ret;
@@ -196,22 +196,22 @@ namespace tmcppc::temperature::v1 {
     constexpr auto operator+(const temperature<Rep_>& lhs, const temperature<Rep2_>& rhs) {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         return temperature<CT_>(
-            static_cast<long double>(to_celsius(lhs)) + static_cast<long double>(to_celsius(rhs)), scale::celsius);
+            static_cast<long double>(to_celsius(lhs)) + static_cast<long double>(to_celsius(rhs)), scale_t::celsius);
     }
 
     template <typename Rep_, typename Rep2_>
     constexpr auto operator-(const temperature<Rep_>& lhs, const temperature<Rep2_>& rhs) {
         using CT_ = std::common_type_t<Rep_, Rep2_>;
         return temperature<CT_>(
-            static_cast<long double>(to_celsius(lhs)) - static_cast<long double>(to_celsius(rhs)), scale::celsius);
+            static_cast<long double>(to_celsius(lhs)) - static_cast<long double>(to_celsius(rhs)), scale_t::celsius);
     }
 
     // User defined literals
     //
     namespace literals {
-        constexpr auto operator"" _deg(long double value) { return temperature<long double>(value, scale::celsius); }
-        constexpr auto operator"" _f(long double value) { return temperature<long double>(value, scale::fahrenheit); }
-        constexpr auto operator"" _K(long double value) { return temperature<long double>(value, scale::kelvin); }
+        constexpr auto operator"" _deg(long double value) { return temperature<long double>(value, scale_t::celsius); }
+        constexpr auto operator"" _f(long double value) { return temperature<long double>(value, scale_t::fahrenheit); }
+        constexpr auto operator"" _K(long double value) { return temperature<long double>(value, scale_t::kelvin); }
     }  // namespace my_temperature_literals
 }  // namespace tmcppc::temperature::v1
 
@@ -226,7 +226,7 @@ struct fmt::formatter<tmcppc::temperature::v1::temperature<Rep_>> {
     template <typename FormatContext>
     auto format(const tmcppc::temperature::v1::temperature<Rep_>& t, FormatContext& ctx) const -> decltype(ctx.out()) {
         const auto& s{ t.scale() };
-        if (s == tmcppc::temperature::v1::scale::invalid) {
+        if (s == tmcppc::temperature::v1::scale_t::invalid) {
             return fmt::format_to(ctx.out(), "{}", to_string(s));
         }
         return fmt::format_to(ctx.out(), "{:.2f} {}", t.value(), to_string(s));
