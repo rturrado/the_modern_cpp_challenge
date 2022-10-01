@@ -29,7 +29,7 @@ namespace tmcppc::algorithm::thread {
         thread_pool_size = std::max(thread_pool_size, THREAD_POOL_SIZE_MIN);
         block_size = std::max(block_size, BLOCK_SIZE_MIN);
 
-        std::counting_semaphore task_slots(thread_pool_size);
+        std::counting_semaphore task_slots(static_cast<std::ptrdiff_t>(thread_pool_size));
         size_t num_blocks{ (size < block_size) ? 1 : (size / block_size) + (size % block_size ? 1 : 0) };
         auto threads{ std::vector<std::thread>(num_blocks) };
         auto block_results{ std::vector<ForwardIt>(num_blocks) };

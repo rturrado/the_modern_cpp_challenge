@@ -23,7 +23,7 @@ namespace tmcppc::chrono {
     };
 
     struct timer_impl : public timer_iface {
-        virtual void sleep_for(const ch::duration<double>& duration) const override {
+        void sleep_for(const ch::duration<double>& duration) const override {
             std::this_thread::sleep_for(duration);
         }
     };

@@ -25,7 +25,7 @@ namespace tmcppc::face_detection {
 
 
     struct detection_error : public std::runtime_error {
-        detection_error(std::string_view message)
+        explicit detection_error(std::string_view message)
             : std::runtime_error{ message.data() }
         {}
     };
@@ -50,7 +50,7 @@ namespace tmcppc::face_detection {
         static inline std::string_view key_header{ "Ocp-Apim-Subscription-Key" };
         static inline std::string_view content_type_header{ "Content-Type:application/octet-stream" };
     public:
-        provider_azure(std::string_view key)
+        explicit provider_azure(std::string_view key)
             : key_{ key }
         {}
 
@@ -72,7 +72,7 @@ namespace tmcppc::face_detection {
                 header.add(content_type_header.data());
                 auto file_content{ rtc::filesystem::get_binary_file_content<char>(path) };
                 easy.add<CURLOPT_HTTPHEADER>(header.get());
-                easy.add<CURLOPT_POSTFIELDSIZE>(static_cast<long>(file_content.size()));
+                easy.add<CURLOPT_POSTFIELDSIZE>(static_cast<long>(std::ssize(file_content)));
                 easy.add<CURLOPT_POSTFIELDS>(file_content.data());
 
                 easy.perform();
@@ -105,7 +105,7 @@ namespace tmcppc::face_detection {
             return faces_response{};
         }
     public:
-        detector(std::unique_ptr<provider_adaptor> provider)
+        explicit detector(std::unique_ptr<provider_adaptor> provider)
             : provider_{ std::move(provider) } {
 
             if (not provider_) {

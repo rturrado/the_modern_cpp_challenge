@@ -12,7 +12,7 @@
 namespace tmcppc::network {
     struct invalid_url_error : public std::exception {
         explicit invalid_url_error(const std::string& url) noexcept { message_ += "\"" + url + "\""; }
-        const char* what() const noexcept { return message_.c_str(); }
+        [[nodiscard]] const char* what() const noexcept override { return message_.c_str(); }
     private:
         std::string message_{ "invalid URL: " };
     };
@@ -20,19 +20,19 @@ namespace tmcppc::network {
 
     class url {
     private:
-        const std::string protocol_str{ R"((^[[:alnum:]]+))" };  // ^\w+
-        const std::string login_str{ R"((?:(.+?)@)?)" };  // :(.+?)@, this part is optional, and we don't capture the final @
-        const std::string domain_str{ R"(([^\:/\?#]+))" };  // [^:/\?#]+
-        const std::string port_str{ R"((?:(?:\:([0-9]+))?))" };  // :\d+, this part is optional, and we don't capture the initial :
-        const std::string path_str{ R"((?:(?:/([^\?#]+))?))" };  // /[^\?#]+, this part is optional, and we don't capture the initial /
-        const std::string query_str{ R"((?:(?:\?([^#]+))?))" };  // \?[^#]+, this part is optional, and we don't capture the initial ?
-        const std::string fragment_str{ R"((?:(?:#(.*$))?))" };  // #[^\?#]+, this part is optional, and we don't capture the initial #
+        inline static const std::string protocol_str{ R"((^[[:alnum:]]+))" };  // ^\w+
+        inline static const std::string login_str{ R"((?:(.+?)@)?)" };  // :(.+?)@, this part is optional, and we don't capture the final @
+        inline static const std::string domain_str{ R"(([^\:/\?#]+))" };  // [^:/\?#]+
+        inline static const std::string port_str{ R"((?:(?:\:([0-9]+))?))" };  // :\d+, this part is optional, and we don't capture the initial :
+        inline static const std::string path_str{ R"((?:(?:/([^\?#]+))?))" };  // /[^\?#]+, this part is optional, and we don't capture the initial /
+        inline static const std::string query_str{ R"((?:(?:\?([^#]+))?))" };  // \?[^#]+, this part is optional, and we don't capture the initial ?
+        inline static const std::string fragment_str{ R"((?:(?:#(.*$))?))" };  // #[^\?#]+, this part is optional, and we don't capture the initial #
 
-        const std::string url_str{
+        inline static const std::string url_str{
             protocol_str + R"((?:\://))" + login_str + domain_str + port_str + path_str + query_str + fragment_str
         };
 
-        const std::regex url_pattern{ url_str };
+        inline static const std::regex url_pattern{ url_str };
 
     public:
         explicit url(const std::string& s) {
