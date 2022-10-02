@@ -44,7 +44,7 @@ FetchContent_Declare(range-v3
 )
 FetchContent_Declare(rtc
     GIT_REPOSITORY https://github.com/rturrado/rtc.git
-    GIT_TAG "7a813a233fe07db4e4c6329b5815187d75124e77"
+    GIT_TAG "68b1a72e1babe9a3e101b234984bd0991ef3290b"
 )
 FetchContent_Declare(SQLite3
     GIT_REPOSITORY https://github.com/algoritnl/sqlite-amalgamation.git
