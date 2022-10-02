@@ -1,11 +1,9 @@
 #include "chapter_04_streams_and_filesystems/problem_035_computing_the_size_of_a_directory.h"
 #include "env.h"
 
-#include "rtc/filesystem.h"
-
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+#include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
 using namespace rtc::filesystem;

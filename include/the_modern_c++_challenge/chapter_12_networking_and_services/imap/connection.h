@@ -1,10 +1,9 @@
 #pragma once
 
-#include "curl_easy.h"
-
 #include <algorithm>  // transform
 #include <boost/algorithm/string.hpp>
-#include "fmt/format.h"
+#include <curl_easy.h>
+#include <fmt/format.h>
 #include <iterator>  // back_inserter
 #include <memory>  // unique_ptr
 #include <ostream>

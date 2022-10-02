@@ -1,8 +1,7 @@
 #include "chapter_07_concurrency/logger.h"
 #include "chapter_07_concurrency/problem_065_thread_safe_logging.h"
 
-#include "fmt/ostream.h"
-
+#include <fmt/ostream.h>
 #include <future>  // async
 #include <iostream>  // cout
 #include <mutex>  // lock_guard

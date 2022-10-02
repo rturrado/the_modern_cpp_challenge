@@ -1,15 +1,13 @@
 #include "chapter_07_concurrency/quicksort.h"
 
-#include "rtc/timer.h"  // function_timer
-
-#include "benchmark/benchmark.h"  // google benchmark
-#include "fmt/chrono.h"
-#include "fmt/ranges.h"
-
 #include <algorithm>  // shuffle, sort
+#include <benchmark/benchmark.h>  // google benchmark
 #include <chrono>  // duration, milli
+#include <fmt/chrono.h>
+#include <fmt/ranges.h>
 #include <numeric>  // iota
 #include <random>  // default_random_engine, random_device
+#include <rtc/timer.h>  // function_timer
 #include <vector>
 
 

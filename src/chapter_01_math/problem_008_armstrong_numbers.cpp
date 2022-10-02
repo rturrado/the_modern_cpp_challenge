@@ -1,9 +1,8 @@
 #include "chapter_01_math/digits.h"
 #include "chapter_01_math/problem_008_armstrong_numbers.h"
 
-#include "fmt/ostream.h"
-
 #include <cmath>  // pow
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <numeric>  // accumulate
 #include <string>  // to_string
@@ -60,7 +59,7 @@ namespace tmcppc::problem_8 {
 
         for (int i{ 0 }; i <= n; ++i) {
             std::vector<int> digits;
-            int d{i };
+            int d{ i };
             while (d > 0) {
                 digits.push_back(d % 10);
                 d = d / 10;

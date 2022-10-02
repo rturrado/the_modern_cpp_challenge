@@ -1,7 +1,7 @@
 #include "chapter_06_algorithms_and_data_structures/problem_052_generating_all_the_permutations_of_a_string.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 using namespace tmcppc::problem_52;
 

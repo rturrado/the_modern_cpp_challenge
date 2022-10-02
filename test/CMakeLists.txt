@@ -6,7 +6,7 @@ FetchContent_Declare(googletest
 )
 FetchContent_Declare(perceptualdiff
     GIT_REPOSITORY https://github.com/rturrado/perceptualdiff.git
-    GIT_TAG "7fd158dbd90e0a0beddcbbb37063ad6000fdef80"
+    GIT_TAG "2ecda597578f44f3f062348d8fde54af76d4fd78"
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(
@@ -14,6 +14,7 @@ FetchContent_MakeAvailable(
     perceptualdiff
 )
 find_package(Boost 1.78.0 REQUIRED)
+
 
 # Subdirectories
 add_subdirectory(chapter_01_math)

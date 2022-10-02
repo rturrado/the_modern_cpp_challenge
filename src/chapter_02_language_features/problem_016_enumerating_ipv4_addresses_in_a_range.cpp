@@ -2,11 +2,9 @@
 #include "chapter_02_language_features/ipv4_range.h"
 #include "chapter_02_language_features/problem_016_enumerating_ipv4_addresses_in_a_range.h"
 
-#include "rtc/console.h"  // clear_istream
-
-#include "fmt/ostream.h"
-
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
+#include <rtc/console.h>  // clear_istream
 
 
 void problem_16_main(std::istream& is, std::ostream& os) {

@@ -3,8 +3,7 @@
 #include "doc.h"
 #include "layouter.h"
 
-#include "PDFWriter/AbstractContentContext.h"
-
+#include <PDFWriter/AbstractContentContext.h>
 #include <stdexcept>  // runtime_error
 #include <string>
 

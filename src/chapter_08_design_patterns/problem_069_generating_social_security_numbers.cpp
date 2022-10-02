@@ -1,8 +1,7 @@
 #include "chapter_08_design_patterns/problem_069_generating_social_security_numbers.h"
 
-#include "fmt/ostream.h"
-
 #include <chrono>
+#include <fmt/ostream.h>
 #include <initializer_list>
 #include <iostream>  // cout
 #include <ostream>

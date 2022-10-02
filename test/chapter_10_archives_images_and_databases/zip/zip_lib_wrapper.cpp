@@ -1,15 +1,13 @@
 #include "chapter_10_archives_images_and_databases/zip/zip_lib_wrapper.h"
 #include "env.h"
 
-#include "rtc/filesystem.h"
-
-#include "gtest/gtest.h"
-
 #include <filesystem>
+#include <gtest/gtest.h>
+#include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
-using namespace tmcppc::zip;
 namespace fs = std::filesystem;
+using namespace tmcppc::zip;
 
 
 TEST(create_zip_file_path, file_stem_has_no_extension) {

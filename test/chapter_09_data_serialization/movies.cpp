@@ -1,10 +1,9 @@
 #include "chapter_09_data_serialization/movies.h"
 #include "chapter_09_data_serialization/movies/samples.h"
 
-#include "fmt/format.h"
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <fmt/format.h>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
 using namespace rtc::pretty_print;

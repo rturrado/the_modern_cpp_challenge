@@ -13,9 +13,11 @@
 #include "chapter_11_cryptography/problems.h"
 #include "chapter_12_networking_and_services/problems.h"
 
-#include <cassert>  // assert
 #include <functional>  // function, invoke
 #include <vector>
+
+#undef NDEBUG
+#include <cassert>
 
 
 class problems {

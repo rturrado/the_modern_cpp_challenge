@@ -1,11 +1,9 @@
 #include "chapter_04_streams_and_filesystems/logger.h"
 
-#include "rtc/filesystem.h"
-
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include <filesystem>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+#include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
 namespace fs = std::filesystem;

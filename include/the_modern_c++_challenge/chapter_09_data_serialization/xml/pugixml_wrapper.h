@@ -1,9 +1,8 @@
 #pragma once
 
-#include "pugixml.hpp"
-
 #include <cstddef>  // ptrdiff_t
-#include "fmt/format.h"
+#include <fmt/format.h>
+#include <pugixml.hpp>
 #include <stdexcept>  // runtime_error
 #include <string>
 

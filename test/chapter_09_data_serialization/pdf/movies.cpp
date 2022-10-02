@@ -3,17 +3,16 @@
 #include "chapter_09_data_serialization/pdf/movies_doc.h"
 #include "chapter_09_data_serialization/pdf/text_list_layouter.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include <chrono>
 #include <filesystem>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <vector>
 
+namespace fs = std::filesystem;
 using namespace std::chrono_literals;
 using namespace tmcppc::movies;
 using namespace tmcppc::pdf;
-namespace fs = std::filesystem;
 
 
 TEST(movies_doc, save_to_text_list_layouter_of_zero_text_lines_per_page) {

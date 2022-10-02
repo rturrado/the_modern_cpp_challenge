@@ -1,14 +1,12 @@
 #include "chapter_04_streams_and_filesystems/problem_035_computing_the_size_of_a_directory.h"
 #include "env.h"
 
-#include "rtc/filesystem.h"
-
-#include "fmt/ostream.h"
-
 #include <cmath>
 #include <cstdint>  // uintmax_t
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
+#include <rtc/filesystem.h>
 #include <string_view>
 
 namespace fs = std::filesystem;

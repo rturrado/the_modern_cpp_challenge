@@ -4,6 +4,7 @@
 
 #include <iosfwd>
 
+
 namespace tmcppc::problem_83 {
     void paint_gradient_background(tmcppc::png::png_writer& png_writer);
     void paint_random_letters(tmcppc::png::png_writer& png_writer);

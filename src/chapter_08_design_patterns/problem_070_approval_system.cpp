@@ -1,8 +1,7 @@
 #include "chapter_08_design_patterns/problem_070_approval_system.h"
 
-#include "fmt/format.h"
-#include "fmt/ostream.h"
-
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <memory>  // make_shared, make_unique
 #include <string>

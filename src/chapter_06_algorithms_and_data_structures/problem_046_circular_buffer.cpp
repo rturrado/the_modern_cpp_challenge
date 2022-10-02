@@ -1,9 +1,8 @@
 #include "chapter_06_algorithms_and_data_structures/problem_046_circular_buffer.h"
 #include "chapter_06_algorithms_and_data_structures/circular_buffer.h"
 
-#include "fmt/ostream.h"
-#include "fmt/ranges.h"
-
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <stdexcept>  // runtime_error
 #include <string_view>

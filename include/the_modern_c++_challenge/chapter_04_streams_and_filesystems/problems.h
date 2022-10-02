@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "problem_032_pascal_triangle.h"
 #include "problem_033_tabular_printing_of_a_list_of_processes.h"
 #include "problem_034_removing_empty_lines_from_a_text_file.h"

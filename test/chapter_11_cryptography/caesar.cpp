@@ -1,7 +1,6 @@
 #include "chapter_11_cryptography/caesar.h"
 
-#include "gtest/gtest.h"
-
+#include <gtest/gtest.h>
 #include <string_view>
 
 using namespace std::string_view_literals;

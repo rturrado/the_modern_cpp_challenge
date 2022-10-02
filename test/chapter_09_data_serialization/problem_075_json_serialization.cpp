@@ -1,8 +1,7 @@
 #include "chapter_09_data_serialization/problem_075_json_serialization.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
 

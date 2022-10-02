@@ -3,18 +3,16 @@
 #include "chapter_12_networking_and_services/problem_100_detecting_faces_in_a_picture.h"
 #include "env.h"
 
-#include "rtc/pretty_print.h"
-
-#include "fmt/ostream.h"
-
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
+#include <rtc/pretty_print.h>
 #include <string>  // getline
 #include <variant>  // get, holds_alternative
 
+namespace fs = std::filesystem;
 using namespace rtc::pretty_print;
 using namespace tmcppc::face_detection;
-namespace fs = std::filesystem;
 
 
 namespace tmcppc::problem_100 {

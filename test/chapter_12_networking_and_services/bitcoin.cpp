@@ -1,10 +1,9 @@
 #include "chapter_12_networking_and_services/bitcoin.h"
 #include "chapter_12_networking_and_services/bitcoin/samples.h"
 
-#include "fmt/format.h"
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <fmt/format.h>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
 using namespace rtc::pretty_print;

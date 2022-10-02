@@ -1,8 +1,7 @@
 #pragma once
 
-#include "rtc/print.h"  // printable
-
 #include <mutex>  // lock_guard
+#include <rtc/print.h>  // printable
 #include <ostream>
 
 

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <algorithm>  // copy_if, max_element
-#include "fmt/format.h"
-#include "fmt/ostream.h"
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <functional>  // greater
 #include <iterator>  // back_inserter
 #include <map>  // multimap

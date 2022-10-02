@@ -1,8 +1,7 @@
 #include "chapter_06_algorithms_and_data_structures/problem_048_most_frequent_element_in_a_range.h"
 
-#include "fmt/ostream.h"
-#include "fmt/ranges.h"
-
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <ostream>
 #include <vector>

@@ -1,19 +1,18 @@
 #include "chapter_04_streams_and_filesystems/problem_036_deleting_files_older_than_a_given_date.h"
 #include "env.h"
 
-#include "fmt/chrono.h"
-#include "fmt/ostream.h"
-
 #include <chrono>
 #include <exception>
 #include <filesystem>
+#include <fmt/chrono.h>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
 
 
 void problem_36_main(std::ostream& os) {
-    namespace fs = std::filesystem;
     namespace ch = std::chrono;
+    namespace fs = std::filesystem;
     using namespace std::chrono_literals;
     using namespace tmcppc::problem_36;
 
@@ -21,12 +20,12 @@ void problem_36_main(std::ostream& os) {
     const auto in_dir_path_1{ resource_folder_path / "sample_folder" };
     const auto in_dir_path_2{ resource_folder_path / "sample_subfolder" };
 
-    const auto tp_sys_clock_1{ ch::sys_days{ 1970y / ch::January / 1 } };
-    const auto tp_file_clock_1{ ch::file_clock::from_sys(ch::round<ch::milliseconds>(tp_sys_clock_1)) };
-    const auto tp_file_clock_2{ ch::round<ch::seconds>(ch::file_clock::now()) - ch::milliseconds{ 5 } };
+    const auto tp_sc_1970_jan_01{ ch::sys_days{ 1970y / ch::January / 1 } };
+    const auto tp_fc_1970_jan_01{ ch::file_clock::from_sys(ch::round<ch::milliseconds>(tp_sc_1970_jan_01)) };
+    const auto tp_fc_5_ms_ago{ ch::round<ch::seconds>(ch::file_clock::now()) - ch::milliseconds{ 5 } };
 
     for (const auto& path : { in_dir_path_1, in_dir_path_2 }) {
-        for (const auto& tp : { tp_file_clock_1, tp_file_clock_2 }) {
+        for (const auto& tp : { tp_fc_1970_jan_01, tp_fc_5_ms_ago }) {
             try {
                 fmt::print(os, "(Not) deleting entries older than {:%F %T} in '{}':\n",
                     ch::file_clock::to_sys(tp), path.generic_string());

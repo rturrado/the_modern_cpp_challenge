@@ -2,9 +2,8 @@
 
 #include "../bitcoin.h"
 
-#include "nlohmann/json.hpp"
-
 #include <map>
+#include <nlohmann/json.hpp>
 #include <string>
 
 

@@ -3,10 +3,9 @@
 #include "chapter_09_data_serialization/xml/pugixml_wrapper.h"
 #include "chapter_09_data_serialization/xml/movies.h"
 
-#include "pugixml.hpp"
-
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+#include <pugixml.hpp>
 
 using namespace std::chrono_literals;
 using namespace tmcppc::movies;

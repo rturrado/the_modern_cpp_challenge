@@ -1,8 +1,7 @@
 #include "chapter_03_strings_and_regular_expressions/problem_028_longest_palindromic_substring.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <string_view>
 
 using namespace tmcppc::problem_28;

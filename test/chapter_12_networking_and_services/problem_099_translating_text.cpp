@@ -4,10 +4,9 @@
 #include "text_translation/mock.h"
 #include "text_translation/samples.h"
 
-#include "fmt/format.h"
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <fmt/format.h>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <memory>  // make_unique, unique_ptr
 #include <string_view>
 #include <utility>  // move

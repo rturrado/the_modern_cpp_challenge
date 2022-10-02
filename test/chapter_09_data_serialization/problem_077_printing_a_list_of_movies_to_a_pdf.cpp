@@ -1,8 +1,7 @@
 #include "chapter_09_data_serialization/problem_077_printing_a_list_of_movies_to_a_pdf.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
 

@@ -1,8 +1,7 @@
 #include "chapter_11_cryptography/problem_091_validating_user_credentials.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // istringstream, ostringstream
 
 using namespace tmcppc::crypto;

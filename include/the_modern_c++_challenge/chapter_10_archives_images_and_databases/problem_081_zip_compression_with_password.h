@@ -6,7 +6,8 @@
 
 
 namespace tmcppc::problem_81 {
-    void compare_input_and_output(std::ostream& os, const std::filesystem::path& input_path, const std::filesystem::path& output_path);
+    void compare_input_and_output(std::ostream& os, const std::filesystem::path& input_path, const std::filesystem::path& output_path,
+        const std::filesystem::directory_options& options);
     void remove_output(std::istream& is, std::ostream& os, const std::filesystem::path& path);
     void test_zip_lib(std::istream& is, std::ostream& os, const std::string& password = {});
 }  // namespace tmcppc::problem_81

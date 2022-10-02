@@ -1,10 +1,8 @@
 #include "chapter_01_math/problem_002_greatest_common_divisor.h"
 
-#include "rtc/console.h"  // read_positive_number
-
-#include "fmt/ostream.h"
-
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
+#include <rtc/console.h>  // read_positive_number
 #include <stdexcept>  // runtime_error
 #include <utility>  // exchange
 

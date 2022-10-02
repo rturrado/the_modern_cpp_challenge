@@ -2,17 +2,15 @@
 #include "chapter_10_archives_images_and_databases/problem_082_national_flag_png.h"
 #include "env.h"
 
-#include "metric.h"
-#include "rgba_image.h"
-
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include <filesystem>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+#include <metric.h>  // pdiff
+#include <rgba_image.h>  // pdiff
 
+namespace fs = std::filesystem;
 using namespace tmcppc::png;
 using namespace tmcppc::problem_82;
-namespace fs = std::filesystem;
 
 
 TEST(paint_romania_flag, png_output) {

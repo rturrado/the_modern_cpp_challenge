@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "problem_045_priority_queue.h"
 #include "problem_046_circular_buffer.h"
 #include "problem_047_double_buffer.h"

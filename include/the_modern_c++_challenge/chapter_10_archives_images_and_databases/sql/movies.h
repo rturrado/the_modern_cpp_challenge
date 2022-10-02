@@ -2,28 +2,12 @@
 
 #include "chapter_09_data_serialization/movies.h"
 
-#include "rtc/console.h"  // read_char
-#include "rtc/filesystem.h"
-
-#ifndef __GNUC__
-    #pragma warning(disable:4065)
-    #pragma warning(disable:4267)
-    #pragma warning(disable:4996)
-#endif
-#define MODERN_SQLITE_STD_OPTIONAL_SUPPORT
-#include "sqlite_modern_cpp.h"
-#ifndef __GNUC__
-    #pragma warning(default:4065)
-    #pragma warning(default:4267)
-    #pragma warning(default:4996)
-#endif
-
 #include <algorithm>  // copy_if
 #include <chrono>
 #include <cstdint>  // int64_t
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <filesystem>
-#include "fmt/format.h"
-#include "fmt/ostream.h"
 #include <fstream>  // ofstream
 #include <ios>  // ios_base
 #include <istream>
@@ -32,7 +16,21 @@
 #include <ostream>
 #include <ranges>
 #include <regex>
+#include <rtc/console.h>  // read_char
+#include <rtc/filesystem.h>
 #include <stdexcept>  // runtime_error
+#ifndef __GNUC__
+#pragma warning(disable:4065)
+#pragma warning(disable:4267)
+#pragma warning(disable:4996)
+#endif
+#define MODERN_SQLITE_STD_OPTIONAL_SUPPORT
+#include <sqlite_modern_cpp.h>
+#ifndef __GNUC__
+#pragma warning(default:4065)
+#pragma warning(default:4267)
+#pragma warning(default:4996)
+#endif
 #include <sstream>  // ostringstream
 #include <string>
 #include <vector>

@@ -1,10 +1,8 @@
 #include "env.h"
 
-#include "gtest/gtest.h"
-
-#include "fmt/ostream.h"
-
 #include <filesystem>
+#include <fmt/ostream.h>
+#include <gtest/gtest.h>
 #include <iostream>  // cout
 #include <system_error>  // errc
 

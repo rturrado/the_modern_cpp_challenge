@@ -1,7 +1,6 @@
 #include "chapter_11_cryptography/base64.h"
 
-#include "gtest/gtest.h"
-
+#include <gtest/gtest.h>
 #include <string>
 #include <vector>
 

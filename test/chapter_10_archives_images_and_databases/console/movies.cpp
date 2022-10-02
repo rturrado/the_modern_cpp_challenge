@@ -2,8 +2,7 @@
 #include "chapter_09_data_serialization/movies/samples.h"
 #include "chapter_10_archives_images_and_databases/console/movies.h"
 
-#include "gtest/gtest.h"
-
+#include <gtest/gtest.h>
 #include <sstream>  // istringstream, ostringstream
 
 using namespace tmcppc::movies;

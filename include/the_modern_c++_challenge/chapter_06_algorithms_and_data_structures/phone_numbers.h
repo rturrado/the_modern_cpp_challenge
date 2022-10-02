@@ -1,7 +1,7 @@
 #pragma once
 
-#include "fmt/format.h"
-#include "fmt/ostream.h"
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <ostream>
 #include <string>
 #include <vector>

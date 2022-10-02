@@ -1,9 +1,8 @@
 #include "chapter_01_math/math.h"  // amicable, divisors_sum
 #include "chapter_01_math/problem_007_amicable_numbers.h"
 
-#include "fmt/ostream.h"
-#include "fmt/ranges.h"
-
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <utility>  // pair
 #include <vector>
@@ -57,8 +56,10 @@ void playing_with_tmp(std::ostream& os) {
     fmt::print(os, "Divisors sum of 220: {}\n", divisors_sum<220>::value);
     // fatal error C1202: recursive type or function dependency context too complex
     // fmt::print("Divisors sum of 898216: {}\n", divisors_sum<898216>::value);
-    fmt::print(os, "Amicable number of 220: {}\n", amicable<220>::value);
-    // fatal error C1202: recursive type or function dependency context too complex
-    // fmt::print(os, "Amicable number of 898216: {}\n", amicable<898216>::value);
+    if constexpr (amicable<220>::has_amicable) {
+        fmt::print(os, "Amicable number of 220: {}\n", amicable<220>::value);
+        // fatal error C1202: recursive type or function dependency context too complex
+        // fmt::print(os, "Amicable number of 898216: {}\n", amicable<898216>::value);
+    }
     fmt::print(os, "\n");
 }

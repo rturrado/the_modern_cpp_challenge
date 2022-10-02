@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdint>
-#include "fmt/format.h"
+#include <fmt/format.h>
 #include <iosfwd>
 #include <stdexcept>  // runtime_error
 #include <string>

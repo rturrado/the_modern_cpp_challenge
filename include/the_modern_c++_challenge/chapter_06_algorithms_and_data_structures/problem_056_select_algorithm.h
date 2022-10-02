@@ -1,8 +1,8 @@
 #pragma once
 
 #include <algorithm>  // transform
-#include "fmt/format.h"
-#include "fmt/ostream.h"
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <iterator>  // back_inserter
 #include <ostream>
 #include <string>

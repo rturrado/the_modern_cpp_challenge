@@ -1,9 +1,9 @@
 #include "chapter_10_archives_images_and_databases/png/png_writer_wrapper.h"
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
-using namespace tmcppc::png;
 namespace fs = std::filesystem;
+using namespace tmcppc::png;
 
 
 TEST(create_png_file_path, file_stem_has_no_extension) {

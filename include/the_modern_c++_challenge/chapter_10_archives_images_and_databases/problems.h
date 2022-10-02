@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "problem_079_finding_files_in_a_zip_archive.h"
 #include "problem_080_zip_compression.h"
 #include "problem_081_zip_compression_with_password.h"

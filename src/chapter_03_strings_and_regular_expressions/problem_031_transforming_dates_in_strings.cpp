@@ -1,8 +1,7 @@
 #include "chapter_03_strings_and_regular_expressions/problem_031_transforming_dates_in_strings.h"
 
-#include "fmt/ostream.h"
-
 #include <exception>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <regex>  // regex_match, regex_replace, smatch
 #include <string>  // stoi

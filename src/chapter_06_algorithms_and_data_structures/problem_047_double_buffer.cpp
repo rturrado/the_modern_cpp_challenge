@@ -1,10 +1,9 @@
 #include "chapter_06_algorithms_and_data_structures/problem_047_double_buffer.h"
 #include "chapter_06_algorithms_and_data_structures/double_buffer.h"
 
-#include "fmt/ostream.h"
-#include "fmt/ranges.h"
-
 #include <algorithm>  // for_each
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <numeric>  // iota
 #include <thread>  // sleep_for

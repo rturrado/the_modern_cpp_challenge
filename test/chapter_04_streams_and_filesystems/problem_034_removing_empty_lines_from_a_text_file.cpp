@@ -1,11 +1,9 @@
 #include "chapter_04_streams_and_filesystems/problem_034_removing_empty_lines_from_a_text_file.h"
 #include "env.h"
 
-#include "rtc/filesystem.h"
-
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+#include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
 using namespace rtc::filesystem;

@@ -1,8 +1,7 @@
 #include "chapter_07_concurrency/problem_063_parallel_minmax_with_async.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <numeric>  // iota
 #include <ranges>  // views::iota
 #include <vector>

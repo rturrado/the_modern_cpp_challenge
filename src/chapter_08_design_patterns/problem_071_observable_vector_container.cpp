@@ -1,8 +1,7 @@
 #include "chapter_08_design_patterns/problem_071_observable_vector_container.h"
 
-#include "fmt/ostream.h"
-
 #include <algorithm>  // transform
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <memory>  // make_shared
 #include <string>

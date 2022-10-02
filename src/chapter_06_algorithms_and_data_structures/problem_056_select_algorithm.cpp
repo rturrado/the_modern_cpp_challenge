@@ -1,8 +1,7 @@
 #include "chapter_06_algorithms_and_data_structures/problem_056_select_algorithm.h"
 
-#include "fmt/ostream.h"
-#include "fmt/ranges.h"
-
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>
 #include <vector>
 

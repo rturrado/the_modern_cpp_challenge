@@ -1,9 +1,8 @@
 #include "chapter_06_algorithms_and_data_structures/problem_053_average_rating_of_movies.h"
 
-#include "fmt/ostream.h"
-
 #include <algorithm>  // sort
-#include <cmath>
+#include <cmath>  // lround
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <numeric>  // accumulate
 

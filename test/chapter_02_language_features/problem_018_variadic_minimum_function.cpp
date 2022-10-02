@@ -1,9 +1,8 @@
 #include "chapter_02_language_features/problem_018_variadic_minimum_function.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include <functional>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
 using namespace tmcppc::problem_18;

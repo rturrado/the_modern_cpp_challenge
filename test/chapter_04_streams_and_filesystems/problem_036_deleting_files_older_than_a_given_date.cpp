@@ -1,12 +1,10 @@
 #include "chapter_04_streams_and_filesystems/problem_036_deleting_files_older_than_a_given_date.h"
 #include "env.h"
 
-#include "rtc/filesystem.h"
-
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include <chrono>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+#include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
 namespace ch = std::chrono;
@@ -46,9 +44,9 @@ TEST(delete_directory_entries_older_than, january_1_1970) {
     std::ostringstream oss{};
     const auto resource_folder_path{ tmcppc::env::get_instance().get_resource_folder_path() };
     const auto in_dir_path{ resource_folder_path / "sample_folder" };
-    const auto tp_sys{ ch::sys_days{ 1970y / ch::January / 1 } };
-    const auto tp_file{ ch::file_clock::from_sys(ch::round<ch::seconds>(tp_sys)) };
-    delete_directory_entries_older_than(oss, in_dir_path, tp_file);
+    const auto tp_sc_1970_jan_01{ ch::sys_days{ 1970y / ch::January / 1 } };
+    const auto tp_fc_1970_jan_01{ ch::file_clock::from_sys(ch::round<ch::seconds>(tp_sc_1970_jan_01)) };
+    delete_directory_entries_older_than(oss, in_dir_path, tp_fc_1970_jan_01);
     EXPECT_TRUE(oss.str().empty());
 }
 

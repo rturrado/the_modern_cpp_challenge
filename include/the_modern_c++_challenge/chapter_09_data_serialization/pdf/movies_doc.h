@@ -6,16 +6,14 @@
 #include "layouter.h"
 #include "pdf_writer_wrapper.h"
 
-#include "PDFWriter/AbstractContentContext.h"
-#include "PDFWriter/PageContentContext.h"
-#include "PDFWriter/PDFPage.h"
-#include "PDFWriter/PDFRectangle.h"
-#include "PDFWriter/PDFWriter.h"
-
-#include "fmt/format.h"
-
 #include <filesystem>
+#include <fmt/format.h>
 #include <memory>  // unique_ptr
+#include <PDFWriter/AbstractContentContext.h>
+#include <PDFWriter/PageContentContext.h>
+#include <PDFWriter/PDFPage.h>
+#include <PDFWriter/PDFRectangle.h>
+#include <PDFWriter/PDFWriter.h>
 #include <string>
 #include <utility>  // move
 

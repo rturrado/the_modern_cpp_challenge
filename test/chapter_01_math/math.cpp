@@ -1,7 +1,7 @@
 #include "chapter_01_math/math.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 using namespace tmcppc::math;
 

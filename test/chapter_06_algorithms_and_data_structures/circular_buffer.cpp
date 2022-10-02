@@ -1,8 +1,7 @@
 #include "chapter_06_algorithms_and_data_structures/circular_buffer.h"
 
-#include "fmt/format.h"
-#include "gtest/gtest.h"
-
+#include <fmt/format.h>
+#include <gtest/gtest.h>
 #include <stdexcept>  // runtime_error
 #include <utility>  // as_const
 

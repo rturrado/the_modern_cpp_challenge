@@ -1,12 +1,11 @@
 #include "chapter_09_data_serialization/pdf/images_doc.h"
 #include "chapter_09_data_serialization/pdf/image_list_layouter.h"
 
-#include "gtest/gtest.h"
-
 #include <filesystem>
+#include <gtest/gtest.h>
 
-using namespace tmcppc::pdf;
 namespace fs = std::filesystem;
+using namespace tmcppc::pdf;
 
 
 TEST(images_doc, save_to_empty_list_of_images) {

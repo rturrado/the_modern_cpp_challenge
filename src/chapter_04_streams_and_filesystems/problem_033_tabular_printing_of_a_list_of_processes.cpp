@@ -1,8 +1,7 @@
 #include "chapter_04_streams_and_filesystems/problem_033_tabular_printing_of_a_list_of_processes.h"
 
-#include "fmt/ostream.h"
-
 #include <algorithm>  // max
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <numeric>  // accumulate
 #include <string>  // string_literals, to_string

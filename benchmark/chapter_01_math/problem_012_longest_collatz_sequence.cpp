@@ -1,12 +1,10 @@
 #include "chapter_01_math/problem_012_longest_collatz_sequence.h"
 
-#include "rtc/timer.h"  // function_timer
-
-#include "benchmark/benchmark.h"  // google benchmark
-#include "fmt/chrono.h"
-#include "fmt/ranges.h"
-
+#include <benchmark/benchmark.h>  // google benchmark
 #include <chrono>  // duration, milli
+#include <fmt/chrono.h>
+#include <fmt/ranges.h>
+#include <rtc/timer.h>  // function_timer
 
 using namespace tmcppc::problem_12;
 

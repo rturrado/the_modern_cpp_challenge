@@ -1,10 +1,8 @@
 #pragma once
 
-#include "fmt/format.h"
-#include "fmt/ostream.h"
-
 #include <exception>
-#include <execution>
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <optional>
 #include <ostream>
 #include <regex>  // regex_search, smatch

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <algorithm>  // min
-#include "fmt/format.h"
-#include "fmt/ostream.h"
-#include "fmt/ranges.h"
+#include <fmt/format.h>
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <stdexcept>  // out_of_range
 #include <type_traits>  // false_type
 #include <vector>
@@ -74,7 +74,7 @@ namespace tmcppc::data_structures {
             using reference = container::reference;
 
             constexpr iterator() noexcept : const_iterator{} {}
-            constexpr iterator(circular_buffer& cb, typename MyBase_::TPtr_ pos) noexcept
+            constexpr iterator(circular_buffer& cb, MyBase_::TPtr_ pos) noexcept
                 : const_iterator{ cb, pos } {}
             constexpr reference operator*() const noexcept { return const_cast<reference>(MyBase_::operator*()); }
             constexpr reference operator->() const noexcept { return const_cast<reference>(MyBase_::operator->()); }

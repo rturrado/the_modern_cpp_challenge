@@ -1,8 +1,7 @@
 #include "chapter_12_networking_and_services/fizz_buzz.h"
 #include "chapter_12_networking_and_services/problem_096_fizz_buzz_client_server_application.h"
 
-#include "fmt/ostream.h"
-
+#include <fmt/ostream.h>
 #include <future>  // async
 #include <iostream>  // cin, cout
 #include <memory>  // make_unique

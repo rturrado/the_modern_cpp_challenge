@@ -1,10 +1,9 @@
 #include "chapter_12_networking_and_services/bitcoin/connection.h"
 #include "chapter_12_networking_and_services/problem_097_bitcoin_exchange_rates.h"
 
-#include "fmt/ostream.h"
-
-#include <memory>  // make_unique
+#include <fmt/ostream.h>
 #include <iostream>  // cout
+#include <memory>  // make_unique
 
 
 void problem_97_main(std::ostream& os) {

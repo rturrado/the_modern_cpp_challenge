@@ -1,8 +1,7 @@
 #include "chapter_06_algorithms_and_data_structures/problem_048_most_frequent_element_in_a_range.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 #include <utility>  // pair
 #include <vector>

@@ -1,19 +1,16 @@
 #include "chapter_11_cryptography/problem_092_computing_file_hashes.h"
 #include "env.h"
 
-#include "rtc/filesystem.h"
-
-#include "cryptopp/md5.h"  // MD5
-#include "cryptopp/sha.h"  // SHA1, SHA256
-
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <cryptopp/md5.h>  // MD5
+#include <cryptopp/sha.h>  // SHA1, SHA256
 #include <filesystem>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+#include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
-using namespace tmcppc::crypto;
 namespace fs = std::filesystem;
+using namespace tmcppc::crypto;
 
 
 TEST(get_hash_as_hex_string, file_does_not_exist) {

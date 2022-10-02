@@ -1,8 +1,7 @@
 #include "chapter_02_language_features/problem_020_contains_any_all_or_none_from_a_range.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <ranges>
 #include <sstream>  // ostringstream
 

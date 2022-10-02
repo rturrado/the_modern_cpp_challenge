@@ -2,10 +2,9 @@
 
 #include "../movies.h"
 
-#include "rtc/pretty_print.h"
-
 #include <chrono>
-#include "fmt/format.h"
+#include <fmt/format.h>
+#include <rtc/pretty_print.h>
 #include <string>
 
 

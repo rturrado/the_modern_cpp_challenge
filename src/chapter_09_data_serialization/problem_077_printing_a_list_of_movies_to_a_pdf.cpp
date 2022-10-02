@@ -4,9 +4,8 @@
 #include "chapter_09_data_serialization/pdf/text_list_layouter.h"
 #include "chapter_09_data_serialization/problem_077_printing_a_list_of_movies_to_a_pdf.h"
 
-#include "fmt/ostream.h"
-
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
 

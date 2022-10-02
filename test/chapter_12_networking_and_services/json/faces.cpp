@@ -2,9 +2,8 @@
 #include "chapter_12_networking_and_services/face_detection/samples.h"
 #include "chapter_12_networking_and_services/json/faces.h"
 
-#include "nlohmann/json.hpp"
-
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
+#include <nlohmann/json.hpp>
 
 using namespace tmcppc::face_detection;
 

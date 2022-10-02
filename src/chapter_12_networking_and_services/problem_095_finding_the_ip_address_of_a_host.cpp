@@ -1,8 +1,7 @@
 #include "chapter_12_networking_and_services/problem_095_finding_the_ip_address_of_a_host.h"
 #include "chapter_12_networking_and_services/tcp/resolver.h"
 
-#include "fmt/ostream.h"
-
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <string_view>
 #include <utility>  // pair

@@ -1,9 +1,8 @@
 #include "chapter_02_language_features/problem_021_system_handle_wrapper.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include <algorithm>  // transform
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <string>  // wstring
 
 

@@ -1,8 +1,7 @@
 #include "chapter_09_data_serialization/problem_078_creating_a_pdf_from_a_collection_of_images.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
 

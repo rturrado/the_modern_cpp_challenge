@@ -1,8 +1,7 @@
 #include "chapter_02_language_features/problem_015_ipv4_data_type.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // istringstream, ostringstream
 
 

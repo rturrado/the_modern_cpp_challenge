@@ -1,12 +1,10 @@
 #include "chapter_01_math/problem_014_validating_isbns.h"
 
-#include "rtc/console.h"  // clear_istream
-
-#include "fmt/ostream.h"
-
 #include <algorithm>  // count_if, erase_if
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
 #include <numeric>  // accumulate
+#include <rtc/console.h>  // clear_istream
 #include <string>  // getline
 
 #undef NDEBUG

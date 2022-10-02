@@ -1,15 +1,13 @@
 #pragma once
 
-#include "rtc/print.h"
-
-#include "fmt/format.h"
-#include "fmt/ostream.h"
-#include "fmt/ranges.h"
-
 #include <algorithm>
+#include <fmt/format.h>
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <iterator>
 #include <ranges>
+#include <rtc/print.h>
 #include <sstream>
 #include <stdexcept>
 #include <utility>  // exchange, move
@@ -18,6 +16,7 @@
 
 namespace tmcppc::data_structures {
     using rtc::print::printable;
+
 
     template <printable T>
     class array_2d {
@@ -225,6 +224,7 @@ namespace tmcppc::data_structures {
         protected:
             Iter current_{};
         };
+
 
     public:
         using const_reference = const T&;

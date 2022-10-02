@@ -1,23 +1,20 @@
 #include "chapter_02_language_features/problem_021_system_handle_wrapper.h"
+
+#include <fmt/ostream.h>
+#include <iostream>  // wcout
+#include <stdexcept>  // runtime_error
+
 #ifdef _WIN32
 #include "chapter_02_language_features/unique_hdl.h"
 #include "env.h"
-#endif  // _WIN32
 
-#include "fmt/ostream.h"
-
-#ifdef _WIN32
-#include <cassert>  // assert
 #include <filesystem>
-#endif  // _WIN32
-#include <iostream>  // wcout
-#include <stdexcept>  // runtime_error
-#ifdef _WIN32
 #include <utility>  // move
 #include <vector>
-#endif  // _WIN32
 
-#ifdef _WIN32
+#undef NDEBUG
+#include <cassert>
+
 #define WINDOWS_LEAN_AND_MEAN
 #include <windows.h>  // CreateFileW, ReadFile
 #endif  // _WIN32

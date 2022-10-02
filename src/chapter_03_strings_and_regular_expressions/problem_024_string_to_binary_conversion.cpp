@@ -1,8 +1,7 @@
 #include "chapter_03_strings_and_regular_expressions/problem_024_string_to_binary_conversion.h"
 
-#include "fmt/format.h"
-#include "fmt/ostream.h"
-
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
 #include <string>
@@ -55,7 +54,7 @@ namespace tmcppc::problem_24 {
         }
         std::vector<uint8_t> ret{};
 
-        for (size_t pos{ 0 }, previous_pos{ 0 };;) {
+        for (size_t pos{ 0 }, previous_pos{ 0 }; ; ) {
             pos = s.find(delimiter, pos);
             auto token{ s.substr(previous_pos, pos - previous_pos) };
 

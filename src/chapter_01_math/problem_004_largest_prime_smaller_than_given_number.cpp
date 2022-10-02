@@ -1,11 +1,9 @@
 #include "chapter_01_math/math.h"  // is_prime
 #include "chapter_01_math/problem_004_largest_prime_smaller_than_given_number.h"
 
-#include "rtc/console.h"  // read_positive_number
-
-#include "fmt/ostream.h"
-
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
+#include <rtc/console.h>  // read_positive_number
 
 
 namespace tmcppc::problem_4 {

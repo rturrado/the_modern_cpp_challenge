@@ -2,11 +2,10 @@
 
 #include "chapter_11_cryptography/crypt.h"
 
-#include "rtc/random.h"
-
 #include <algorithm>  // transform
 #include <cctype>  // isalpha, islower, tolower, toupper
 #include <iosfwd>
+#include <rtc/random.h>
 #include <string>
 #include <string_view>
 

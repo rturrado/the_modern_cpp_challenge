@@ -4,12 +4,12 @@
 #include "chapter_09_data_serialization/xml/pugixml_wrapper.h"
 #include "chapter_09_data_serialization/xml/movies.h"
 
-#include "pugixml.hpp"
-
-#include "fmt/ostream.h"
-
-#include <cassert>  // assert
+#include <fmt/ostream.h>
 #include <iostream>  // cout
+#include <pugixml.hpp>
+
+#undef NDEBUG
+#include <cassert>
 
 
 namespace tmcppc::problem_74 {

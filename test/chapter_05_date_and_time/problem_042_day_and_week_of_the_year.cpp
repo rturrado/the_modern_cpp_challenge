@@ -1,11 +1,9 @@
 #include "chapter_05_date_and_time/problem_042_day_and_week_of_the_year.h"
 
-#include "rtc/chrono.h"
-
-#include "date/date.h"
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <date/date.h>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+#include <rtc/chrono.h>
 #include <sstream>  // ostringstream
 
 using namespace date::literals;  // 2022_y

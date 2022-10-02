@@ -1,8 +1,7 @@
 #include "chapter_10_archives_images_and_databases/problem_080_zip_compression.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // istringstream, ostringstream
 
 

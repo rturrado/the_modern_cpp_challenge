@@ -1,8 +1,7 @@
 #include "chapter_10_archives_images_and_databases/problem_079_finding_files_in_a_zip_archive.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
 

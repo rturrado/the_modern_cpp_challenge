@@ -2,10 +2,8 @@
 #include "chapter_09_data_serialization/movies/samples.h"
 #include "chapter_09_data_serialization/json/movies.h"
 
-#include "nlohmann/json.hpp"
-
-#include "gtest/gtest.h"
-
+#include <gtest/gtest.h>
+#include <nlohmann/json.hpp>
 #include <sstream>  // ostringstream
 
 using namespace std::chrono_literals;

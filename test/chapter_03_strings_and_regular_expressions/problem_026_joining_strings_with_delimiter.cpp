@@ -1,9 +1,8 @@
 #include "chapter_03_strings_and_regular_expressions/problem_026_joining_strings_with_delimiter.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include <array>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <list>
 #include <string>
 #include <vector>

@@ -3,17 +3,14 @@
 #include "chapter_12_networking_and_services/faces.h"
 #include "chapter_12_networking_and_services/json/faces.h"
 
-#include "rtc/filesystem.h"
-
-#include "curl_easy.h"
-#include "curl_header.h"
-
-#include "fmt/format.h"
-#include "nlohmann/json.hpp"
-
+#include <curl_easy.h>
+#include <curl_header.h>
+#include <fmt/format.h>
 #include <filesystem>
 #include <memory>  // unique_ptr
+#include <nlohmann/json.hpp>
 #include <ostream>
+#include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 #include <stdexcept>  // runtime_error
 #include <string>
@@ -75,7 +72,7 @@ namespace tmcppc::face_detection {
                 header.add(content_type_header.data());
                 auto file_content{ rtc::filesystem::get_binary_file_content<char>(path) };
                 easy.add<CURLOPT_HTTPHEADER>(header.get());
-                easy.add<CURLOPT_POSTFIELDSIZE>(std::ssize(file_content));
+                easy.add<CURLOPT_POSTFIELDSIZE>(static_cast<long>(std::ssize(file_content)));
                 easy.add<CURLOPT_POSTFIELDS>(file_content.data());
 
                 easy.perform();

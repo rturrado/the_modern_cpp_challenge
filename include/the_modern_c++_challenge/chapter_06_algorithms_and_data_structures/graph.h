@@ -1,16 +1,15 @@
 #pragma once
 
-#include "fmt/format.h"
-#include "fmt/ostream.h"
-#include "range/v3/view/filter.hpp"
-
 #include <algorithm>  // minmax
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <functional>  // less
 #include <initializer_list>
 #include <iterator>  // inserter
 #include <limits>  // numeric_limits
 #include <map>
 #include <ostream>
+#include <range/v3/view/filter.hpp>
 #include <set>
 #include <string>
 #include <utility>  // initializer_list, make_pair, pair

@@ -126,7 +126,7 @@ namespace tmcppc::ean_13::barcode_png {
             static inline const int height{ bounding_box_height };
         };
         struct image {
-            [[maybe_unused]] static inline const point_2d start_position{ 1, 1 };
+            static inline const point_2d start_position{ 1, 1 };
             static inline const int width{ bounding_box::start_position.x + bounding_box::width + margin::right };
             static inline const int height{ bounding_box::start_position.y + bounding_box::height + margin::top };
         };

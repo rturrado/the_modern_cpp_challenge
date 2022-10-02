@@ -1,11 +1,9 @@
 #include "chapter_01_math/problem_003_least_common_multiple.h"
 
-#include "rtc/console.h"  // read_list_of_positive_numbers
-
-#include "fmt/ostream.h"
-
 #include <algorithm>  // all_of, any_of, sort
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
+#include <rtc/console.h>  // read_list_of_positive_numbers
 #include <stdexcept>  // runtime_error
 #include <vector>
 

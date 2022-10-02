@@ -3,9 +3,8 @@
 #include "imap/mock.h"
 #include "imap/samples.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <memory>  // make_unique, unique_ptr
 #include <string_view>
 #include <utility>  // move

@@ -1,12 +1,11 @@
 #pragma once
 
-#include "fmt/format.h"
-#include "fmt/ostream.h"
-
 #include <algorithm>  // for_each
 #include <array>
 #include <charconv>  // from_chars
 #include <cstdint>  // uint8_t, uint32_t
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <ios>  // ios_base
 #include <istream>
 #include <numeric>

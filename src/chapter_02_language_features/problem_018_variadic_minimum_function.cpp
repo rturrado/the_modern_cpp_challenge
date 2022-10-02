@@ -1,7 +1,6 @@
 #include "chapter_02_language_features/problem_018_variadic_minimum_function.h"
 
-#include "fmt/ostream.h"
-
+#include <fmt/ostream.h>
 #include <functional>  // greater
 #include <iostream>  // cout
 #include <string>

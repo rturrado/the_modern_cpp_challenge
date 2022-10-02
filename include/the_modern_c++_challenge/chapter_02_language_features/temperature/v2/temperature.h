@@ -1,6 +1,6 @@
 #pragma once
 
-#include "fmt/ostream.h"
+#include <fmt/ostream.h>
 #include <iostream>  // ostream
 #include <type_traits>  // common_type_t
 

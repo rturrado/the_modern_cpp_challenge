@@ -1,9 +1,8 @@
 #include "chapter_10_archives_images_and_databases/problem_085_reading_from_an_sqlite_db.h"
 #include "chapter_10_archives_images_and_databases/sql/movies.h"
 
-#include "fmt/ostream.h"
-
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
 #include <ostream>
 

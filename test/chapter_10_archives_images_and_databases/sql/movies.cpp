@@ -3,15 +3,14 @@
 #include "chapter_10_archives_images_and_databases/sql/movies.h"
 #include "env.h"
 
-#include "gtest/gtest.h"
-
 #include <chrono>
 #include <filesystem>
+#include <gtest/gtest.h>
 
+namespace fs = std::filesystem;
 using namespace std::chrono_literals;
 using namespace tmcppc::movies;
 using namespace tmcppc::movies::sql;
-namespace fs = std::filesystem;
 
 
 auto get_updated_catalog_sample() {

@@ -1,8 +1,7 @@
 #include "chapter_07_concurrency/quicksort.h"
 
-#include "gtest/gtest.h"
-
 #include <algorithm>  // generate, shuffle
+#include <gtest/gtest.h>
 #include <numeric>  // iota
 #include <random>  // mt19937, random_device
 #include <vector>

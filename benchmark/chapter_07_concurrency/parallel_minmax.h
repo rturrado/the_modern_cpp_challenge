@@ -1,20 +1,20 @@
 #pragma once
 
-#include "rtc/timer.h"
-
-#include "benchmark/benchmark.h"
-#include "fmt/core.h"
-
 #include <algorithm>  // max_element, min_element, shuffle
-#include <cassert>  // assert
+#include <benchmark/benchmark.h>
 #include <chrono>
 #include <cstdint>  // int64_t
 #include <execution>  // par
+#include <fmt/core.h>
 #include <numeric>  // iota
 #include <ostream>
 #include <random>  // mt19937, random_device
+#include <rtc/timer.h>
 #include <string_view>
 #include <vector>
+
+#undef NDEBUG
+#include <cassert>  // assert
 
 
 // Custom benchmark

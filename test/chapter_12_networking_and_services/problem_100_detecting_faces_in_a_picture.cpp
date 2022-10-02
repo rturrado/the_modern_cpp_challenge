@@ -5,10 +5,9 @@
 #include "face_detection/mock.h"
 #include "face_detection/samples.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include <filesystem>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 #include <utility>  // move
 #include <variant>

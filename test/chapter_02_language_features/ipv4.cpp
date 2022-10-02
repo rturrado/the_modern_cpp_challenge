@@ -1,8 +1,7 @@
 #include "chapter_02_language_features/ipv4.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <string>
 
 using namespace tmcppc::network;

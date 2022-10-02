@@ -1,8 +1,7 @@
 #include "chapter_12_networking_and_services/problem_096_fizz_buzz_client_server_application.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // istringstream, ostringstream
 
 

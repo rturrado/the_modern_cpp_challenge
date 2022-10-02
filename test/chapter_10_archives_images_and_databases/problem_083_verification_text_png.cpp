@@ -1,15 +1,14 @@
 #include "chapter_10_archives_images_and_databases/png/png_writer_wrapper.h"
 #include "chapter_10_archives_images_and_databases/problem_083_verification_text_png.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include <filesystem>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
+namespace fs = std::filesystem;
 using namespace tmcppc::png;
 using namespace tmcppc::problem_83;
-namespace fs = std::filesystem;
 
 
 TEST(paint_verification_text, png_file_creation) {

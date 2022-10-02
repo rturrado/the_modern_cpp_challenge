@@ -1,9 +1,8 @@
 #include "chapter_03_strings_and_regular_expressions/problem_025_capitalizing_an_article_title.h"
 
-#include "fmt/ostream.h"
-
 #include <algorithm>  // for_each
 #include <cctype>  // isalpha, tolower, toupper
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <string_view>
 

@@ -1,10 +1,9 @@
 #include "chapter_06_algorithms_and_data_structures/problem_050_filtering_a_list_of_phone_numbers.h"
 #include "chapter_06_algorithms_and_data_structures/phone_numbers.h"
 
-#include "fmt/ostream.h"
-#include "fmt/ranges.h"
-
 #include <algorithm>  // copy_if
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <regex>  // regex_match, smatch
 #include <string>  // stoi

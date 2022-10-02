@@ -1,9 +1,9 @@
 #include "chapter_07_concurrency/problem_063_parallel_minmax_with_async.h"
 #include "parallel_minmax.h"
 
-#include "benchmark/benchmark.h"
-#include "fmt/chrono.h"
-#include "fmt/core.h"
+#include <benchmark/benchmark.h>
+#include <fmt/chrono.h>
+#include <fmt/core.h>
 
 
 // Custom benchmark

@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "problem_039_measuring_function_execution_time.h"
 #include "problem_040_number_of_days_between_two_dates.h"
 #include "problem_041_day_of_the_week.h"

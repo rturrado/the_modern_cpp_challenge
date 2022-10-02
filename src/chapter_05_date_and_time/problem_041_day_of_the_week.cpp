@@ -1,15 +1,13 @@
 #include "chapter_05_date_and_time/problem_041_day_of_the_week.h"
 
-#include "rtc/chrono.h"
-
-#include "date/date.h"
-#include "fmt/chrono.h"
-#include "fmt/core.h"
-#include "fmt/ostream.h"
-
+#include <date/date.h>
 #include <exception>
+#include <fmt/chrono.h>
+#include <fmt/core.h>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <ostream>
+#include <rtc/chrono.h>
 
 
 namespace tmcppc::problem_41 {

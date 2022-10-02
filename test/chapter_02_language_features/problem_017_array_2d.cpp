@@ -1,8 +1,7 @@
 ﻿#include "chapter_02_language_features/problem_017_array_2d.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
 

@@ -1,9 +1,8 @@
 #include "chapter_06_algorithms_and_data_structures/problem_057_quicksort.h"
 #include "chapter_07_concurrency/quicksort.h"
 
-#include "fmt/ostream.h"
-#include "fmt/ranges.h"
-
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <iostream>  // cout
 #include <ostream>
 

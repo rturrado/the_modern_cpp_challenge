@@ -2,10 +2,9 @@
 #include "chapter_09_data_serialization/pdf/image_list_layouter.h"
 #include "chapter_09_data_serialization/problem_078_creating_a_pdf_from_a_collection_of_images.h"
 
-#include "fmt/ostream.h"
-
 #include <exception>
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 
 

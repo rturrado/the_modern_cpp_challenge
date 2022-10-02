@@ -1,10 +1,9 @@
 #include "chapter_02_language_features/array_2d.h"
 #include "chapter_02_language_features/problem_017_array_2d.h"
 
-#include "fmt/ostream.h"
-
 #include <algorithm>  // transform
 #include <exception>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <numeric>  // iota
 #include <utility>  // move

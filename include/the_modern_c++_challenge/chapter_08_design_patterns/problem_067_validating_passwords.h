@@ -2,7 +2,7 @@
 
 #include <algorithm>  // any_of
 #include <cctype>  // isdigit, islower, ispunct, isupper
-#include "fmt/format.h"
+#include <fmt/format.h>
 #include <iosfwd>
 #include <memory>  // unique_ptr
 #include <optional>

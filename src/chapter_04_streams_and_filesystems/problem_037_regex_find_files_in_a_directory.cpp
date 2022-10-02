@@ -1,15 +1,13 @@
 #include "chapter_04_streams_and_filesystems/problem_037_regex_find_files_in_a_directory.h"
 #include "env.h"
 
-#include "rtc/filesystem.h"
-
-#include "fmt/ostream.h"
-
 #include <algorithm>  // copy_if, sort
 #include <exception>
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <regex>  // regex_match
+#include <rtc/filesystem.h>
 #include <string>
 #include <vector>
 

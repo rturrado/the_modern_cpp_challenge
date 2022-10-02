@@ -1,7 +1,6 @@
 #include "chapter_08_design_patterns/problem_067_validating_passwords.h"
 
-#include "fmt/ostream.h"
-
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <memory>  // make_unique
 #include <ostream>

@@ -1,13 +1,11 @@
 #include "chapter_04_streams_and_filesystems/problem_037_regex_find_files_in_a_directory.h"
 #include "env.h"
 
-#include "rtc/filesystem.h"
-
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include <filesystem>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <regex>  // regex_error
+#include <rtc/filesystem.h>
 #include <sstream>  // ostringstream
 
 using namespace rtc::filesystem;

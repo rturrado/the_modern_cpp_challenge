@@ -2,12 +2,10 @@
 #include "chapter_10_archives_images_and_databases/ean_13/barcode_png_generator.h"
 #include "env.h"
 
-#include "metric.h"
-#include "rgba_image.h"
-
-#include "gtest/gtest.h"
-
 #include <filesystem>
+#include <gtest/gtest.h>
+#include <metric.h>  // pdiff
+#include <rgba_image.h>  // pdiff
 
 namespace fs = std::filesystem;
 

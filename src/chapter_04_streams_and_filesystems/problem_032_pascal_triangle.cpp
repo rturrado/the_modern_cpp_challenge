@@ -1,9 +1,8 @@
 #include "chapter_04_streams_and_filesystems/problem_032_pascal_triangle.h"
 
-#include "fmt/ostream.h"
-#include "fmt/ranges.h"
-
 #include <exception>
+#include <fmt/ostream.h>
+#include <fmt/ranges.h>
 #include <functional>  // plus
 #include <iostream>  // cout
 #include <numeric>  // adjacent_difference

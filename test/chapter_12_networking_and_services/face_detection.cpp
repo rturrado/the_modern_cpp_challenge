@@ -5,17 +5,15 @@
 #include "face_detection/mock.h"
 #include "face_detection/samples.h"
 
-#include "rtc/filesystem.h"
-
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
 #include <filesystem>
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+#include <rtc/filesystem.h>
 #include <utility>  // move
 #include <variant>  // get, holds_alternative
 
-using namespace tmcppc::face_detection;
 namespace fs = std::filesystem;
+using namespace tmcppc::face_detection;
 
 
 TEST(detector, provider_is_null) { EXPECT_THROW(detector{ nullptr }, detection_error); }

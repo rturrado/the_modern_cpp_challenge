@@ -1,8 +1,7 @@
 #include "chapter_01_math/problem_012_longest_collatz_sequence.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <vector>
 
 using namespace tmcppc::problem_12;

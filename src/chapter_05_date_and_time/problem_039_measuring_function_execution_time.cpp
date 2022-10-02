@@ -1,16 +1,17 @@
 #include "chapter_05_date_and_time/problem_039_measuring_function_execution_time.h"
 
-#include "fmt/chrono.h"
-#include "fmt/ostream.h"
-
 #include <algorithm>  // shuffle, sort
-#include <cassert>  // assert
 #include <chrono>
+#include <fmt/chrono.h>
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <numeric>  // iota
 #include <random>  // mt19937, random_device
 #include <utility>  // forward, pair
 #include <vector>
+
+#undef NDEBUG
+#include <cassert>
 
 
 namespace tmcppc::problem_39 {

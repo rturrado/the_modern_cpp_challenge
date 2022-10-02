@@ -2,9 +2,8 @@
 
 #include "tcp/connection.h"
 
-#include "fmt/ostream.h"
-
 #include <charconv>  // from_chars
+#include <fmt/ostream.h>
 #include <future>
 #include <mutex>  // lock_guard
 #include <iostream>  // cin, cout

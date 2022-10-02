@@ -1,8 +1,7 @@
 #include "chapter_07_concurrency/problem_064_parallel_sort_algorithm.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
 

@@ -1,8 +1,7 @@
 #include "chapter_06_algorithms_and_data_structures/problem_047_double_buffer.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // ostringstream
 
 
@@ -14,6 +13,21 @@ TEST(problem_47_main, output) {
         "\t\\(thread 1 writing\\).*\\(thread 2 reading\\).*\n"
     ));
     // Test 2:\n\(t\[\s*(\d+,\s+){9}\d+\]){10}
+#if defined(_WIN32)
+    EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
+        "Test 2:\n"
+        "\t\\[\\s*\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+\\]\n"
+        "\t\\[\\s*\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+\\]\n"
+        "\t\\[\\s*\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+\\]\n"
+        "\t\\[\\s*\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+\\]\n"
+        "\t\\[\\s*\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+\\]\n"
+        "\t\\[\\s*\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+\\]\n"
+        "\t\\[\\s*\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+\\]\n"
+        "\t\\[\\s*\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+\\]\n"
+        "\t\\[\\s*\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+\\]\n"
+        "\t\\[\\s*\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+,\\s+\\d+\\]\n"
+    ));
+#elif defined(__GNUC__)
     EXPECT_THAT(oss.str(), ::testing::ContainsRegex(
         "Test 2:\n"
         "\t\\[\\s*[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+\\]\n"
@@ -27,4 +41,5 @@ TEST(problem_47_main, output) {
         "\t\\[\\s*[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+\\]\n"
         "\t\\[\\s*[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+,\\s+[0-9]+\\]\n"
     ));
+#endif
 }

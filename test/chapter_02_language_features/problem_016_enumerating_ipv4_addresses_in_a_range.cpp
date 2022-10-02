@@ -1,8 +1,7 @@
 #include "chapter_02_language_features/problem_016_enumerating_ipv4_addresses_in_a_range.h"
 
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
-
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 #include <sstream>  // istringstream, ostringstream
 
 

@@ -1,23 +1,21 @@
 #pragma once
 
 #include "../sql/movies.h"
-
 #include "chapter_09_data_serialization/movies.h"
-
-#include "rtc/stream.h"  // get_unread
-#include "rtc/string.h"  // to_lowercase, trim_right
 
 #include <algorithm>  // find
 #include <cstdint>  // int64_t
 #include <exception>
 #include <filesystem>
-#include "fmt/format.h"
+#include <fmt/format.h>
 #include <istream>
 #include <map>
 #include <optional>
 #include <ostream>
 #include <ranges>
 #include <regex>  // regex_match, smatch
+#include <rtc/stream.h>  // get_unread
+#include <rtc/string.h>  // to_lowercase, trim_right
 #include <sstream>  // istringstream
 #include <string>  // getline, stoi
 #include <tuple>
@@ -277,7 +275,7 @@ namespace tmcppc::movies::command_line {
         }
 
         try {
-            auto media_file{ tmcppc::movies::media_file_t{movie_id, media_file_path, media_file_description } };
+            auto media_file{ tmcppc::movies::media_file_t{ movie_id, media_file_path, media_file_description } };
             movies_db.insert_media_file(movie_id, media_file);
             fmt::print(os, "{}\n", movies_db);
         } catch (const tmcppc::movies::sql::movie_id_not_found_error& ex) {

@@ -1,7 +1,6 @@
 #include "chapter_03_strings_and_regular_expressions/problem_028_longest_palindromic_substring.h"
 
-#include "fmt/ostream.h"
-
+#include <fmt/ostream.h>
 #include <iostream>  // cout
 #include <span>
 #include <string_view>

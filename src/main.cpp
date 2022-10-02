@@ -1,10 +1,9 @@
 #include "env.h"
 #include "problems.h"
 
-#include "fmt/ostream.h"
-
 #include <charconv>  // from_chars
 #include <filesystem>
+#include <fmt/ostream.h>
 #include <iostream>  // cin, cout
 #include <string>  // getline
 

@@ -1,16 +1,15 @@
 #pragma once
 
-#include "rtc/random.h"
-
 #include <algorithm>  // binary_search, sort
 #include <chrono>
-#include "fmt/chrono.h"
-#include "fmt/core.h"
-#include "fmt/format.h"
-#include "fmt/ostream.h"
+#include <fmt/chrono.h>
+#include <fmt/core.h>
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <initializer_list>
 #include <numeric>  // accumulate
 #include <ostream>
+#include <rtc/random.h>
 #include <sstream>  // ostringstream
 #include <string>  // to_string
 #include <unordered_map>
@@ -85,7 +84,7 @@ namespace tmcppc::ssn {
         }
         [[nodiscard]] std::string encode_crc(const std::string& str) const noexcept {
             auto str_sum{ std::accumulate(std::cbegin(str), std::cend(str), 0,
-                [pos = std::ssize(str) + 1](auto total, unsigned char c) mutable {
+                [pos = static_cast<int>(str.size() + 1)](auto total, unsigned char c) mutable {
                     return total + (c - '0') * pos--; }
             )};
             auto crc_modulo{ get_crc_modulo() };
