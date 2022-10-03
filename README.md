@@ -12,8 +12,13 @@ The goal behind The Modern C++ Challenge project is twofold. On one hand, let us
   - _Tests_ (google tests).
   - _Benchmarks_ (google benchmarks).
   - _Continuous integration_ (GitHub actions).
+  - _Static analysis tools_ (CLion's Inspect Code)
 
-And I plan to better it further by using clang-tidy and sanitizers. Note though that the `main` branch only builds on Windows/msvc. I'm working at the moment on the `unixlike-builds` branch to extend the use of the project to Unix-like systems and clang/gcc compilers. Once that's possible, I should be able to provide a docker with the project and all the software needed to build it and run it.
+And I plan to better it further by sanitizers.
+
+At the moment, the `main` branch only builds on Windows/msvc. There is though a `unixlike-builds` branch (release `unixlike-builds-v1.0.0`) that compiles on Unix-like systems, and provides the same functionality as `main` (release `v2.0.0`).
+
+The instructions below refer to Windows/msvc. For Unix, my intention is to provide a docker with the project and all the software needed to build it and run it.
 
 ## Installation
 
@@ -21,7 +26,7 @@ And I plan to better it further by using clang-tidy and sanitizers. Note though 
 
 - **Boost libraries**: this project has been tested with version 1.78.0. 
 - **Microsoft Visual C++ (MSVC) compiler toolset**.
-- **CMake**: required minimum version is 3.14.
+- **CMake**: required minimum version is 3.22.
 - **git**.
 
 Most of the required software can be installed from the [Visual Studio 2022 Installer](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false).
@@ -44,12 +49,12 @@ C:\projects> git clone --recurse-submodules https://github.com/rturrado/the_mode
 ### Config
 
 There are several options to run CMake from Visual Studio.
-- CMake should start automatically, with a `test` configuration preset and an `x64-Debug-test` build preset, when opening `the_modern_cpp_challenge` project.
-- CMake should also start automatically when choosing a *Configuration* and a *Build Preset* (e.g. `no-test` and `x64-Release-no-test`) in the tool bar.
+- CMake should start automatically, with a `msvc Debug` configuration preset and a `Build windows-msvc-debug` build preset, when opening `the_modern_cpp_challenge` project.
+- CMake should also start automatically when choosing a *Configuration* and a *Build Preset* (e.g. `msvc Debug` and `Build windows-msvc-debug`) in the tool bar.
 - CMake can be started manually from the *Configure Cache* option in the *Project* menu.
 - Finally, CMake can also be started manually from a *Developer Command Prompt* (*Tools* menu, *Command Line* option):
 ```bash
-C:\projects\the_modern_cpp_challenge> cmake --preset no-test
+C:\projects\the_modern_cpp_challenge> cmake --preset windows-msvc-debug
 ```
 
 ### Build
@@ -58,7 +63,7 @@ From Visual Studio, once CMake finishes, type CTRL+B or build from *Build > Buil
 
 Or, from the command line:
 ```bash
-C:\projects\the_modern_cpp_challenge> cmake --build --preset x64-Release-no-test
+C:\projects\the_modern_cpp_challenge> cmake --build --preset windows-msvc-debug
 ```
 
 #### Output binaries
@@ -99,50 +104,50 @@ Choose `the_modern_c++_challenge.exe` from *Select Startup Item*, and click the 
 
 Or, from the command line:
 ```bash
-C:\projects\the_modern_cpp_challenge> ./build/NinjaMultiConfig/test/src/Release/the_modern_c++_challenge.exe res
+C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug\src\Debug\the_modern_c++_challenge.exe res
 ```
 
 ### Tests
 
 Build with:
 ```bash
-cmake --preset test
-cmake --build --preset x64-Release-test
+cmake --preset windows-msvc-debug
+cmake --build --preset windows-msvc-debug
 ```
 
 You can run the test executable directly:
 ```bash
-C:\projects\the_modern_cpp_challenge> ./build/NinjaMultiConfig/test/test/Release/the_modern_c++_challenge_test.exe res
+C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug\test\Debug\the_modern_c++_challenge_test.exe res
 ```
 
 Or execute the tests via `ctest`:
 ```bash
-C:\projects\the_modern_cpp_challenge> cd build/NinjaMultiConfig/test
-C:\projects\the_modern_cpp_challenge\build\NinjaMultiConfig\test> ctest -C Release --output-on-failure
+C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug\test
+C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug\test> ctest -C Debug --output-on-failure
 ```
 
 Alternatively, if you want a less verbose ouptut:
 ```bash
-C:\projects\the_modern_cpp_challenge> ./build/NinjaMultiConfig/test/test/Release/the_modern_c++_challenge_test.exe res --gtest_brief=1
+C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug\test\Debug\the_modern_c++_challenge_test.exe res --gtest_brief=1
 ```
 
 Or:
 ```bash
-C:\projects\the_modern_cpp_challenge> cd build/NinjaMultiConfig/test
-C:\projects\the_modern_cpp_challenge\build\NinjaMultiConfig\test> ctest -C Release --output-on-failure --progress
+C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug\test
+C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug\test> ctest -C Debug --output-on-failure --progress
 ```
 
 ### Benchmarks
 
 Build with:
 ```bash
-C:\projects\the_modern_cpp_challenge> cmake --preset benchmark
-C:\projects\the_modern_cpp_challenge> cmake --build --preset x64-Release-benchmark
+C:\projects\the_modern_cpp_challenge> cmake --preset windows-msvc-release
+C:\projects\the_modern_cpp_challenge> cmake --build --preset windows-msvc-release
 ```
 
 And run with:
 ```bash
-C:\projects\the_modern_cpp_challenge> ./build/NinjaMultiConfig/benchmark/benchmark/Release/the_modern_c++_challenge_benchmark.exe res
+C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-release\benchmark\Release\the_modern_c++_challenge_benchmark.exe res
 ```
 
 ## Dependencies
