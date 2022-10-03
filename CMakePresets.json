@@ -85,7 +85,7 @@
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "cl",
                 "CMAKE_CXX_COMPILER": "cl",
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "CMAKE_BUILD_TYPE": "Release",
                 "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true,
                 "BUILD_TESTING": false
             }
@@ -111,7 +111,7 @@
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+                "CMAKE_BUILD_TYPE": "Release",
                 "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true,
                 "BUILD_TESTING": false
             }

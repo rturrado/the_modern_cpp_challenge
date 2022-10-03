@@ -41,3 +41,4 @@
 /build/NinjaMultiConfig/test
 /build/NinjaMultiConfig/test-asan
 /build/NinjaMultiConfig/no-test
+/Testing/Temporary
