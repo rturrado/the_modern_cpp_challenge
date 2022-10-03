@@ -160,7 +160,7 @@ The following libraries are used in this project, but are automatically download
 - [nlohmann/json](github.com/nlohmann/json): JSON support.
 - [range-v3](github.com/ericniebler/range-v3): range library with many more features than what have been added to C++20.
 - [rtc](github.com/rturrado/rtc): some utilities I use in different C++ projects.
-- [SQLite](sqlite.org/2022/sqlite-amalgamation-3380500.zip): in-process relational database management library. The link points to the SQLite amalgamation, a compact version containing only two files.
+- [SQLite3](github.com/algoritnl/sqlite-amalgamation.git): CMake support for the SQLite amalgamation.
 - [SQLite Modern CPP](github.com/SqliteModernCpp/sqlite_modern_cpp.git): modern C++ wrapper around SQLite C API.
 
 The same happens with the list below. I'm showing them apart because they are forks of my own. You can check their README files to see how I adapted the original libraries to use them in this project.
