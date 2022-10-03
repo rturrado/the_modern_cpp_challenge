@@ -41,3 +41,10 @@
 /build/NinjaMultiConfig/test
 /build/NinjaMultiConfig/test-asan
 /build/NinjaMultiConfig/no-test
+/.idea/.gitignore
+/.idea/.name
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/the_modern_cpp_challenge.iml
+/.idea/vcs.xml
