@@ -147,7 +147,7 @@ C:\projects\the_modern_cpp_challenge> cmake --build --preset windows-msvc-releas
 
 And run with:
 ```bash
-C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-release\benchmark\Release\the_modern_c++_challenge_benchmark.exe res
+C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-release\benchmark\Release\the_modern_c++_challenge_benchmark.exe
 ```
 
 ## Dependencies
