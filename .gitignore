@@ -41,6 +41,7 @@
 /build/NinjaMultiConfig/test
 /build/NinjaMultiConfig/test-asan
 /build/NinjaMultiConfig/no-test
+/Testing/Temporary
 /.idea/.gitignore
 /.idea/.name
 /.idea/codeStyles/codeStyleConfig.xml

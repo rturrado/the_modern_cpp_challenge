@@ -103,4 +103,7 @@ endif()
 
 
 include(GoogleTest)
-gtest_discover_tests(${PROJECT_NAME}_test)
+gtest_add_tests(TARGET ${PROJECT_NAME}_test
+    SOURCES ${test_sources}
+    EXTRA_ARGS ${PROJECT_SOURCE_DIR}/res
+)
