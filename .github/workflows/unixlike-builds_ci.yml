@@ -22,7 +22,7 @@ env:
 
 jobs:
   unixlike-gcc-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Install gcc-12 and g++-12, and linux-headers
         run: |
@@ -75,7 +75,7 @@ jobs:
         shell: bash
 
   unixlike-gcc-benchmark:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Install gcc-12 and g++-12, and linux-headers
         run: |
