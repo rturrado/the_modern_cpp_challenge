@@ -68,7 +68,7 @@ jobs:
           cmake --build --preset unixlike-gcc-debug
       - name: Run tests
         working-directory: ${{github.workspace}}
-        run: ./out/build/unixlike-gcc-debug/test/Debug/the_modern_c++_challenge_test.exe res --gtest_brief=1
+        run: ./out/build/unixlike-gcc-debug/test/Debug/the_modern_c++_challenge_test res --gtest_brief=1
         shell: bash
 
   unixlike-gcc-benchmark:
@@ -118,5 +118,5 @@ jobs:
           cmake --build --preset unixlike-gcc-release
       - name: Run benchmarks
         working-directory: ${{github.workspace}}
-        run: ./out/build/unixlike-gcc-release/benchmark/Release/the_modern_c++_challenge_benchmark.exe
+        run: ./out/build/unixlike-gcc-release/benchmark/Release/the_modern_c++_challenge_benchmark
         shell: bash
