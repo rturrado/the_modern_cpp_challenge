@@ -8,21 +8,21 @@
 #   It will be a no-op if those are restored from cache.
 # - Finally builds the sources with Ninja.
 
-name: main CI
+name: unixlike-builds CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ unixlike-builds ]
   pull_request:
-    branches: [ main ]
+    branches: [ unixlike-builds ]
 
 env:
   BOOST_ROOT: ${{github.workspace}}/3rdparty/boost
   BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download
 
 jobs:
-  windows-x64-Debug-test:
-    runs-on: windows-latest
+  unixlike-gcc-test:
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -53,24 +53,19 @@ jobs:
         id: runvcpkg
         with:
           vcpkgJsonGlob: 'vcpkg.json'
-
-      # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly
-      # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
-      - uses: ilammy/msvc-dev-cmd@v1
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build tests
         run: |
-          cmake --preset test
-          cmake --build --preset x64-Debug-test
-
+          cmake --preset unixlike-gcc-debug
+          cmake --build --preset unixlike-gcc-debug
       - name: Run tests
         working-directory: ${{github.workspace}}
-        run: ./build/NinjaMultiConfig/test/test/Debug/the_modern_c++_challenge_test.exe res --gtest_brief=1
+        run: ./out/build/unixlike-gcc-debug/test/Debug/the_modern_c++_challenge_test.exe res --gtest_brief=1
         shell: bash
 
-  windows-x64-Release-benchmark:
-    runs-on: windows-latest
+  unixlike-gcc-benchmark:
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -102,17 +97,12 @@ jobs:
         with:
           vcpkgJsonGlob: 'vcpkg.json'
 
-      # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly
-      # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
-      - uses: ilammy/msvc-dev-cmd@v1
-
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build benchmarks
         run: |
-          cmake --preset benchmark
-          cmake --build --preset x64-Release-benchmark
-
+          cmake --preset unixlike-gcc-release
+          cmake --build --preset unixlike-gcc-release
       - name: Run benchmarks
         working-directory: ${{github.workspace}}
-        run: ./build/NinjaMultiConfig/benchmark/benchmark/Release/the_modern_c++_challenge_benchmark.exe
+        run: ./out/build/unixlike-gcc-release/benchmark/Release/the_modern_c++_challenge_benchmark.exe
         shell: bash
