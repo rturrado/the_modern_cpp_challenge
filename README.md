@@ -1,4 +1,5 @@
 [![main CI](https://github.com/rturrado/the_modern_cpp_challenge/actions/workflows/main_ci.yml/badge.svg)](https://github.com/rturrado/the_modern_cpp_challenge/actions/workflows/main_ci.yml)
+[![unixlike-builds CI](https://github.com/rturrado/the_modern_cpp_challenge/actions/workflows/unixlike-builds_ci.yml/badge.svg)](https://github.com/rturrado/the_modern_cpp_challenge/actions/workflows/unixlike-builds_ci.yml)
 
 # The Modern C++ Challenge
 
