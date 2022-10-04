@@ -27,7 +27,19 @@ jobs:
       - name: Install gcc-12 and g++-12, and linux-headers
         run: |
           sudo apt update
+          sudo update-alternatives --remove-all gcc 
+          sudo update-alternatives --remove-all g++
           sudo apt install gcc-12 g++-12 linux-headers-$(uname -r)
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 10
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 20
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 10
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 20
+          sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30
+          sudo update-alternatives --set cc /usr/bin/gcc
+          sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30
+          sudo update-alternatives --set c++ /usr/bin/g++
+          sudo update-alternatives --config gcc
+          sudo update-alternatives --config g++
         shell: bash
 
       - uses: actions/checkout@v3
@@ -65,10 +77,6 @@ jobs:
         run: |
           cmake --preset unixlike-gcc-debug
           cmake --build --preset unixlike-gcc-debug
-        shell: bash
-        env:
-          CC: gcc-12
-          CXX: g++-12
       - name: Run tests
         working-directory: ${{github.workspace}}
         run: ./out/build/unixlike-gcc-debug/test/Debug/the_modern_c++_challenge_test.exe res --gtest_brief=1
@@ -80,7 +88,19 @@ jobs:
       - name: Install gcc-12 and g++-12, and linux-headers
         run: |
           sudo apt update
+          sudo update-alternatives --remove-all gcc 
+          sudo update-alternatives --remove-all g++
           sudo apt install gcc-12 g++-12 linux-headers-$(uname -r)
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 10
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 20
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 10
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 20
+          sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30
+          sudo update-alternatives --set cc /usr/bin/gcc
+          sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30
+          sudo update-alternatives --set c++ /usr/bin/g++
+          sudo update-alternatives --config gcc
+          sudo update-alternatives --config g++
         shell: bash
 
       - uses: actions/checkout@v3
@@ -118,10 +138,6 @@ jobs:
         run: |
           cmake --preset unixlike-gcc-release
           cmake --build --preset unixlike-gcc-release
-        shell: bash
-        env:
-          CC: gcc-12
-          CXX: g++-12
       - name: Run benchmarks
         working-directory: ${{github.workspace}}
         run: ./out/build/unixlike-gcc-release/benchmark/Release/the_modern_c++_challenge_benchmark.exe
