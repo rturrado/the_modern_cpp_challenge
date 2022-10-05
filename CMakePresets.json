@@ -101,7 +101,8 @@
                 "CMAKE_CXX_COMPILER": "g++",
                 "CMAKE_BUILD_TYPE": "Debug",
                 "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true,
-                "ASAN_ENABLED": true
+                "ASAN_ENABLED": true,
+                "CODE_COVERAGE": true
             }
         },
         {
