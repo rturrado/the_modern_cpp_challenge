@@ -1,5 +1,6 @@
 [![main CI](https://github.com/rturrado/the_modern_cpp_challenge/actions/workflows/main_ci.yml/badge.svg)](https://github.com/rturrado/the_modern_cpp_challenge/actions/workflows/main_ci.yml)
 [![unixlike-builds CI](https://github.com/rturrado/the_modern_cpp_challenge/actions/workflows/unixlike-builds_ci.yml/badge.svg)](https://github.com/rturrado/the_modern_cpp_challenge/actions/workflows/unixlike-builds_ci.yml)
+[![codecov](https://codecov.io/github/rturrado/the_modern_cpp_challenge/branch/unixlike-builds/graph/badge.svg?token=GAF6OX0ZVE)](https://codecov.io/github/rturrado/the_modern_cpp_challenge)
 
 # The Modern C++ Challenge
 
@@ -123,8 +124,8 @@ C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug\test\Debug\
 
 Or execute the tests via `ctest`:
 ```bash
-C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug\test
-C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug\test> ctest -C Debug --output-on-failure
+C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug
+C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug> ctest -C Debug --output-on-failure
 ```
 
 Alternatively, if you want a less verbose ouptut:
@@ -134,8 +135,8 @@ C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug\test\Debug\
 
 Or:
 ```bash
-C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug\test
-C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug\test> ctest -C Debug --output-on-failure --progress
+C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug
+C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug> ctest -C Debug --output-on-failure --progress
 ```
 
 ### Benchmarks
