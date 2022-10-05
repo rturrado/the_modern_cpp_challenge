@@ -84,6 +84,12 @@ elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STR
         # -Wconversion -Wsign-conversion -Wno-sign-conversion  # do not sort flags; order matters
     )
 endif()
+if(CODE_COVERAGE)
+    if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+        target_compile_options(${PROJECT_NAME}_test PRIVATE -fprofile-arcs -ftest-coverage)
+        target_link_options(${PROJECT_NAME}_test PRIVATE -fprofile-arcs -ftest-coverage)
+    endif()
+endif()
 
 
 # Shared libraries

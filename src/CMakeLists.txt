@@ -214,6 +214,12 @@ elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STR
     target_compile_options(lib_${PROJECT_NAME} PRIVATE ${unixlike_compile_options})
     target_compile_options(${PROJECT_NAME} PRIVATE ${unixlike_compile_options})
 endif()
+if(CODE_COVERAGE)
+    if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+        target_compile_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
+        target_link_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
+    endif()
+endif()
 
 
 # Link to sample_subfolder

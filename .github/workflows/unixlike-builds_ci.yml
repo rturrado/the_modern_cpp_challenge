@@ -70,14 +70,8 @@ jobs:
         working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug
         run: ctest -C Debug --output-on-failure -T Test
         shell: bash
-      - name: Run code coverage
-        working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug
-        continue-on-error: true
-        run: ctest -T Coverage
-        shell: bash
       - name: Collect code coverage
         working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug
-        continue-on-error: true
         run: bash <(curl -s https://codecov.io/bash)
         shell: bash
 
