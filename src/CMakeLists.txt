@@ -186,7 +186,7 @@ if(MSVC)
         /W3 /WX /w34996
         /D_CONSOLE /DCONSOLE
         /D_UNICODE /DUNICODE
-        /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /utf-8 /Zc:inline
+        /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /MP /sdl /utf-8 /Zc:inline
     )
     target_compile_options(lib_${PROJECT_NAME} PRIVATE ${msvc_compile_options})
     target_compile_options(${PROJECT_NAME} PRIVATE ${msvc_compile_options})

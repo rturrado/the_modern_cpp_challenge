@@ -24,6 +24,13 @@ project("the_modern_c++_challenge"
 )
 
 
+# Needed to avoid compiler errors when using sccache
+if(MSVC)
+    STRING(REGEX REPLACE "/Zi" "/Z7" CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG}")
+    STRING(REGEX REPLACE "/Zi" "/Z7" CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
+endif()
+
+
 # Address sanitizer
 #[[
 if(ASAN_ENABLED)
@@ -44,6 +51,7 @@ endif()
 add_subdirectory(src)
 
 if(THE_MODERN_C++_CHALLENGE_BUILD_TESTS)
+    include(CTest)
     enable_testing()
     add_subdirectory(test)
 endif()

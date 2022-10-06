@@ -58,15 +58,28 @@ jobs:
       # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
       - uses: ilammy/msvc-dev-cmd@v1
 
+      # Speed up builds by using ccache
+      - name: Install scoop and sccache
+        run: |
+          Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+          irm get.scoop.sh | iex
+          scoop install sccache
+        shell: pwsh
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: windows-msvc-test
+
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build tests
-        run: |
-          cmake --preset windows-msvc-debug
-          cmake --build --preset windows-msvc-debug
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'windows-msvc-debug'
+          buildPreset: 'windows-msvc-debug'
 
       - name: Run tests
-        working-directory: ${{github.workspace}}
-        run: ./out/build/windows-msvc-debug/test/Debug/the_modern_c++_challenge_test.exe res --gtest_brief=1
+        working-directory: ${{github.workspace}}/out/build/windows-msvc-debug
+        run: ctest -C Debug --output-on-failure
         shell: bash
 
   windows-msvc-benchmark:
@@ -106,11 +119,24 @@ jobs:
       # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
       - uses: ilammy/msvc-dev-cmd@v1
 
+      # Speed up builds by using ccache
+      - name: Install scoop and sccache
+        run: |
+          Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+          irm get.scoop.sh | iex
+          scoop install sccache
+        shell: pwsh
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: windows-msvc-benchmark
+
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build benchmarks
-        run: |
-          cmake --preset windows-msvc-release
-          cmake --build --preset windows-msvc-release
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'windows-msvc-release'
+          buildPreset: 'windows-msvc-release'
 
       - name: Run benchmarks
         working-directory: ${{github.workspace}}
