@@ -122,11 +122,18 @@ jobs:
         with:
           vcpkgJsonGlob: 'vcpkg.json'
 
+      # Speed up builds by using ccache
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: unixlike-gcc-benchmark
+
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build benchmarks
-        run: |
-          cmake --preset unixlike-gcc-release
-          cmake --build --preset unixlike-gcc-release
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'unixlike-gcc-release'
+          buildPreset: 'unixlike-gcc-release'
       - name: Run benchmarks
         working-directory: ${{github.workspace}}
         run: ./out/build/unixlike-gcc-release/benchmark/Release/the_modern_c++_challenge_benchmark
