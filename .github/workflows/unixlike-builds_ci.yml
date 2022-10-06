@@ -15,6 +15,7 @@ on:
     branches: [ unixlike-builds ]
   pull_request:
     branches: [ unixlike-builds ]
+  workflow_dispatch:
 
 env:
   BOOST_ROOT: ${{github.workspace}}/3rdparty/boost
@@ -61,11 +62,19 @@ jobs:
         with:
           vcpkgJsonGlob: 'vcpkg.json'
 
+      # Speed up builds by using ccache
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: unixlike-gcc-test
+
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build tests
-        run: |
-          cmake --preset unixlike-gcc-debug
-          cmake --build --preset unixlike-gcc-debug
+        uses: lukka/run-cmake@v10
+        with:
+          cmakeAppendedArgs: '-DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache'
+          configurePreset: 'unixlike-gcc-debug'
+          buildPreset: 'unixlike-gcc-debug'
       - name: Run tests
         working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug
         run: ctest -C Debug --output-on-failure -T Test
