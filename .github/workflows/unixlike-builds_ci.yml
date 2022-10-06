@@ -15,7 +15,6 @@ on:
     branches: [ unixlike-builds ]
   pull_request:
     branches: [ unixlike-builds ]
-  workflow_dispatch:
 
 env:
   BOOST_ROOT: ${{github.workspace}}/3rdparty/boost
