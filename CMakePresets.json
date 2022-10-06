@@ -102,7 +102,9 @@
                 "CMAKE_BUILD_TYPE": "Debug",
                 "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true,
                 "ASAN_ENABLED": true,
-                "CODE_COVERAGE": true
+                "CODE_COVERAGE": true,
+                "CMAKE_C_COMPILER_LAUNCHER": "ccache",
+                "CMAKE_CXX_COMPILER_LAUNCHER": "ccache"
             }
         },
         {

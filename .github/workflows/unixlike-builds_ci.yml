@@ -72,7 +72,6 @@ jobs:
       - name: Configure and build tests
         uses: lukka/run-cmake@v10
         with:
-          cmakeAppendedArgs: '-DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache'
           configurePreset: 'unixlike-gcc-debug'
           buildPreset: 'unixlike-gcc-debug'
       - name: Run tests
