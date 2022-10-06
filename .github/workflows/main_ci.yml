@@ -54,21 +54,22 @@ jobs:
         with:
           vcpkgJsonGlob: 'vcpkg.json'
 
-      # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly
-      # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
-      - uses: ilammy/msvc-dev-cmd@v1
-
       # Speed up builds by using ccache
-      - name: Install scoop and sccache
+      - name: Install scoop and sccache, and start sccache server
         run: |
           Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
           iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           scoop install sccache
+          sccache --start-server
         shell: pwsh
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: windows-msvc-test
+
+      # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly
+      # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
+      - uses: ilammy/msvc-dev-cmd@v1
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build tests
@@ -80,7 +81,13 @@ jobs:
       - name: Run tests
         working-directory: ${{github.workspace}}/out/build/windows-msvc-debug
         run: ctest -C Debug --output-on-failure
-        shell: bash
+        shell: pwsh
+
+      # ccache
+      - name: Stop sccache server
+        run: |
+          sccache --stop-server
+        shell: pwsh
 
   windows-msvc-benchmark:
     runs-on: windows-latest
@@ -115,21 +122,22 @@ jobs:
         with:
           vcpkgJsonGlob: 'vcpkg.json'
 
-      # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly
-      # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
-      - uses: ilammy/msvc-dev-cmd@v1
-
       # Speed up builds by using ccache
-      - name: Install scoop and sccache
+      - name: Install scoop and sccache, and start sccache server
         run: |
           Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
           iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           scoop install sccache
+          sccache --start-server
         shell: pwsh
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: windows-msvc-benchmark
+
+      # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly
+      # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
+      - uses: ilammy/msvc-dev-cmd@v1
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build benchmarks
@@ -141,4 +149,10 @@ jobs:
       - name: Run benchmarks
         working-directory: ${{github.workspace}}
         run: ./out/build/windows-msvc-release/benchmark/Release/the_modern_c++_challenge_benchmark.exe
-        shell: bash
+        shell: pwsh
+
+      # ccache
+      - name: Stop sccache server
+        run: |
+          sccache --stop-server
+        shell: pwsh
