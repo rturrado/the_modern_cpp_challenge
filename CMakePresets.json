@@ -117,7 +117,9 @@
                 "CMAKE_CXX_COMPILER": "g++",
                 "CMAKE_BUILD_TYPE": "Release",
                 "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true,
-                "BUILD_TESTING": false
+                "BUILD_TESTING": false,
+                "CMAKE_C_COMPILER_LAUNCHER": "ccache",
+                "CMAKE_CXX_COMPILER_LAUNCHER": "ccache"
             }
         }
     ],
