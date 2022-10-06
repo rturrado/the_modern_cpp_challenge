@@ -13,10 +13,11 @@ These exercises were initially implemented as a project within a bigger Visual S
 The goal behind The Modern C++ Challenge project is twofold. On one hand, let users download, build, and execute the code with a minimal effort (ideally without needing to install any library). On the personal side, get some hands-on experience with _CMake_ and other tools of the C++ ecosystem. I've also taken the chance to improve the original code with:
   - _Tests_ (google tests).
   - _Benchmarks_ (google benchmarks).
+  - _Static analysis_ (CLion's Inspect Code)
   - _Continuous integration_ (GitHub actions).
-  - _Static analysis tools_ (CLion's Inspect Code)
+  - _Code coverage_ (gcov).
 
-And I plan to better it further by sanitizers.
+And I plan to better it further by using _sanitizers_.
 
 At the moment, the `main` branch only builds on Windows/msvc. There is though a `unixlike-builds` branch (release `unixlike-builds-v1.0.0`) that compiles on Unix-like systems, and provides the same functionality as `main` (release `v2.0.0`).
 
