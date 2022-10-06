@@ -73,10 +73,10 @@ jobs:
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build tests
-        uses: lukka/run-cmake@v10
-        with:
-          configurePreset: 'windows-msvc-debug'
-          buildPreset: 'windows-msvc-debug'
+        run: |
+          cmake --preset windows-msvc-debug
+          cmake --build --preset windows-msvc-debug
+        shell: pwsh
 
       - name: Run tests
         working-directory: ${{github.workspace}}/out/build/windows-msvc-debug
@@ -141,10 +141,10 @@ jobs:
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build benchmarks
-        uses: lukka/run-cmake@v10
-        with:
-          configurePreset: 'windows-msvc-release'
-          buildPreset: 'windows-msvc-release'
+        run: |
+          cmake --preset windows-msvc-release
+          cmake --build --preset windows-msvc-release
+        shell: pwsh
 
       - name: Run benchmarks
         working-directory: ${{github.workspace}}
