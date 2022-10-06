@@ -55,12 +55,11 @@ jobs:
           vcpkgJsonGlob: 'vcpkg.json'
 
       # Speed up builds by using ccache
-      - name: Install scoop and sccache, and start sccache server
+      - name: Install scoop and sccache
         run: |
           Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
           iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           scoop install sccache
-          sccache --start-server
         shell: pwsh
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
@@ -73,21 +72,15 @@ jobs:
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build tests
+        working-directory: ${{github.workspace}}
         run: |
           cmake --preset windows-msvc-debug
           cmake --build --preset windows-msvc-debug
-        shell: pwsh
 
       - name: Run tests
         working-directory: ${{github.workspace}}/out/build/windows-msvc-debug
         run: ctest -C Debug --output-on-failure
-        shell: pwsh
-
-      # ccache
-      - name: Stop sccache server
-        run: |
-          sccache --stop-server
-        shell: pwsh
+        shell: bash
 
   windows-msvc-benchmark:
     runs-on: windows-latest
@@ -123,12 +116,11 @@ jobs:
           vcpkgJsonGlob: 'vcpkg.json'
 
       # Speed up builds by using ccache
-      - name: Install scoop and sccache, and start sccache server
+      - name: Install scoop and sccache
         run: |
           Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
           iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
           scoop install sccache
-          sccache --start-server
         shell: pwsh
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
@@ -141,18 +133,12 @@ jobs:
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build benchmarks
+        working-directory: ${{github.workspace}}
         run: |
           cmake --preset windows-msvc-release
           cmake --build --preset windows-msvc-release
-        shell: pwsh
 
       - name: Run benchmarks
         working-directory: ${{github.workspace}}
         run: ./out/build/windows-msvc-release/benchmark/Release/the_modern_c++_challenge_benchmark.exe
-        shell: pwsh
-
-      # ccache
-      - name: Stop sccache server
-        run: |
-          sccache --stop-server
-        shell: pwsh
+        shell: bash
