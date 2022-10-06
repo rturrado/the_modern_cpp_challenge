@@ -75,7 +75,7 @@ jobs:
           buildPreset: 'unixlike-gcc-debug'
       - name: Run tests
         working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug
-        run: ctest -C Debug --output-on-failure -T Test
+        run: ctest -C Debug --output-on-failure
         shell: bash
       - name: Collect code coverage
         working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug
