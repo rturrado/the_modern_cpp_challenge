@@ -220,19 +220,3 @@ if(CODE_COVERAGE)
         target_link_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
     endif()
 endif()
-
-
-# Link to sample_subfolder
-# Create a symbolic link from <source dir>/res/sample_folder/sample_subfolder to <source dir>/res/sample_subfolder
-add_custom_target(sample_subfolder)
-set(sample_subfolder_source_dir "${CMAKE_SOURCE_DIR}/res/sample_subfolder")
-set(sample_subfolder_destination_dir "${CMAKE_SOURCE_DIR}/res/sample_folder/sample_subfolder")
-cmake_path(NATIVE_PATH sample_subfolder_source_dir NORMALIZE sample_subfolder_native_source_dir)
-cmake_path(NATIVE_PATH sample_subfolder_destination_dir NORMALIZE sample_subfolder_native_destination_dir)
-add_custom_command(
-    TARGET sample_subfolder POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E create_symlink ${sample_subfolder_native_source_dir} ${sample_subfolder_native_destination_dir}
-    DEPENDS ${sample_subfolder_native_destination_dir}
-    COMMENT "symbolic link sample_subfolder from ${sample_subfolder_native_source_dir} to ${sample_subfolder_native_destination_dir}"
-)
-add_dependencies(${PROJECT_NAME} sample_subfolder)
