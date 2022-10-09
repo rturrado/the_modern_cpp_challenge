@@ -71,14 +71,14 @@ jobs:
       - name: Configure and build tests
         uses: lukka/run-cmake@v10
         with:
-          configurePreset: 'unixlike-gcc-debug'
-          buildPreset: 'unixlike-gcc-debug'
+          configurePreset: 'unixlike-gcc-debug-github'
+          buildPreset: 'unixlike-gcc-debug-github'
       - name: Run tests
-        working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug
+        working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug-github
         run: ctest -C Debug --output-on-failure
         shell: bash
       - name: Collect code coverage
-        working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug
+        working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug-github
         run: bash <(curl -s https://codecov.io/bash)
         shell: bash
 
@@ -132,9 +132,9 @@ jobs:
       - name: Configure and build benchmarks
         uses: lukka/run-cmake@v10
         with:
-          configurePreset: 'unixlike-gcc-release'
-          buildPreset: 'unixlike-gcc-release'
+          configurePreset: 'unixlike-gcc-release-github'
+          buildPreset: 'unixlike-gcc-release-github'
       - name: Run benchmarks
         working-directory: ${{github.workspace}}
-        run: ./out/build/unixlike-gcc-release/benchmark/Release/the_modern_c++_challenge_benchmark
+        run: ./out/build/unixlike-gcc-release-github/benchmark/Release/the_modern_c++_challenge_benchmark
         shell: bash

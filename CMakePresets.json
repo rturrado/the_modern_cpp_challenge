@@ -99,13 +99,55 @@
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_BUILD_TYPE": "Debug",
-                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true,
-                "ASAN_ENABLED": true,
-                "CODE_COVERAGE": true,
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "unixlike-gcc-debug-asan",
+            "displayName": "gcc Debug (ASAN)",
+            "description": "Target Unix-like OS with the gcc compiler, debug build type (address sanitizer)",
+            "inherits": "unixlike-gcc-debug",
+            "cacheVariables": {
+                "ASAN_ENABLED": true
+            }
+        },
+        {
+            "name": "unixlike-gcc-debug-ccache",
+            "displayName": "gcc Debug (ccache)",
+            "description": "Target Unix-like OS with the gcc compiler, debug build type (ccache)",
+            "inherits": "unixlike-gcc-debug",
+            "cacheVariables": {
                 "CMAKE_C_COMPILER_LAUNCHER": "ccache",
                 "CMAKE_CXX_COMPILER_LAUNCHER": "ccache"
             }
+        },
+        {
+            "name": "unixlike-gcc-debug-coverage",
+            "displayName": "gcc Debug (code coverage)",
+            "description": "Target Unix-like OS with the gcc compiler, debug build type (code coverage)",
+            "inherits": "unixlike-gcc-debug",
+            "cacheVariables": {
+                "CODE_COVERAGE": true
+            }
+        },
+        {
+            "name": "unixlike-gcc-debug-tests",
+            "displayName": "gcc Debug (tests)",
+            "description": "Target Unix-like OS with the gcc compiler, debug build type (tests)",
+            "inherits": "unixlike-gcc-debug",
+            "cacheVariables": {
+                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true
+            }
+        },
+        {
+            "name": "unixlike-gcc-debug-github",
+            "displayName": "gcc Debug (GitHub)",
+            "description": "Target Unix-like OS with the gcc compiler, debug build type (GitHub)",
+            "inherits": [
+                "unixlike-gcc-debug-ccache",
+                "unixlike-gcc-debug-coverage",
+                "unixlike-gcc-debug-tests"
+            ]
         },
         {
             "name": "unixlike-gcc-release",
@@ -113,14 +155,39 @@
             "description": "Target Unix-like OS with the gcc compiler, release build type",
             "inherits": "conf-unixlike-common",
             "cacheVariables": {
-                "CMAKE_C_COMPILER": "gcc",
-                "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_BUILD_TYPE": "Release",
-                "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true,
                 "BUILD_TESTING": false,
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++"
+            }
+        },
+        {
+            "name": "unixlike-gcc-release-benchmarks",
+            "displayName": "gcc Release (benchmarks)",
+            "description": "Target Unix-like OS with the gcc compiler, release build type (benchmarks)",
+            "inherits": "unixlike-gcc-release",
+            "cacheVariables": {
+                "THE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS": true
+            }
+        },
+        {
+            "name": "unixlike-gcc-release-ccache",
+            "displayName": "gcc Release (ccache)",
+            "description": "Target Unix-like OS with the gcc compiler, release build type (ccache)",
+            "inherits": "unixlike-gcc-release",
+            "cacheVariables": {
                 "CMAKE_C_COMPILER_LAUNCHER": "ccache",
                 "CMAKE_CXX_COMPILER_LAUNCHER": "ccache"
             }
+        },
+        {
+            "name": "unixlike-gcc-release-github",
+            "displayName": "gcc Release (GitHub)",
+            "description": "Target Unix-like OS with the gcc compiler, release build type (GitHub)",
+            "inherits": [
+                "unixlike-gcc-release-benchmarks",
+                "unixlike-gcc-release-ccache"
+            ]
         }
     ],
     "buildPresets": [
@@ -141,18 +208,34 @@
             "verbose": true
         },
         {
-            "name": "unixlike-gcc-debug",
-            "configurePreset": "unixlike-gcc-debug",
-            "displayName": "Build unixlike-gcc-debug",
-            "description": "Build x64 Unix-like OS gcc Debug",
+            "name": "unixlike-gcc-debug-github",
+            "configurePreset": "unixlike-gcc-debug-github",
+            "displayName": "Build unixlike-gcc-debug-github",
+            "description": "Build x64 Unix-like OS gcc Debug (GitHub)",
             "configuration": "Debug",
             "verbose": true
         },
         {
-            "name": "unixlike-gcc-release",
-            "configurePreset": "unixlike-gcc-release",
-            "displayName": "Build unixlike-gcc-release",
-            "description": "Build x64 Unix-like OS gcc Release",
+            "name": "unixlike-gcc-debug-tests",
+            "configurePreset": "unixlike-gcc-debug-tests",
+            "displayName": "Build unixlike-gcc-debug-tests",
+            "description": "Build x64 Unix-like OS gcc Debug (tests)",
+            "configuration": "Debug",
+            "verbose": true
+        },
+        {
+            "name": "unixlike-gcc-release-benchmarks",
+            "configurePreset": "unixlike-gcc-release-benchmarks",
+            "displayName": "Build unixlike-gcc-release-benchmarks",
+            "description": "Build x64 Unix-like OS gcc Release (benchmarks)",
+            "configuration": "Release",
+            "verbose": true
+        },
+        {
+            "name": "unixlike-gcc-release-github",
+            "configurePreset": "unixlike-gcc-release-github",
+            "displayName": "Build unixlike-gcc-release-github",
+            "description": "Build x64 Unix-like OS gcc Release (GitHub)",
             "configuration": "Release",
             "verbose": true
         }
