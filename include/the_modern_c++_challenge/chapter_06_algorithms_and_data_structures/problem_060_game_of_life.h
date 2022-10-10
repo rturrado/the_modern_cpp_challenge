@@ -142,4 +142,3 @@ namespace tmcppc::game_of_life {
 
 void problem_60_main(std::ostream& os, const tmcppc::system::console& console, const tmcppc::chrono::timer& timer,
     std::chrono::duration<double> timeout = {});
-void problem_60_main();

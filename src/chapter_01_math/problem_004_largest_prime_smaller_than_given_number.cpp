@@ -18,6 +18,10 @@ namespace tmcppc::problem_4 {
 }  // namespace tmcppc::problem_4
 
 
+// Largest prime smaller than given number
+//
+// Write a program that computes and prints the largest prime number
+// that is smaller than a number provided by the user, which must be a positive integer
 void problem_4_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::problem_4;
 
@@ -25,13 +29,4 @@ void problem_4_main(std::istream& is, std::ostream& os) {
 
     fmt::print(os, "Biggest prime number smaller than {} is: {}\n\n", limit,
                biggest_prime_smaller_than(static_cast<size_t>(limit)));
-}
-
-
-// Largest prime smaller than given number
-//
-// Write a program that computes and prints the largest prime number
-// that is smaller than a number provided by the user, which must be a positive integer
-void problem_4_main() {
-    problem_4_main(std::cin, std::cout);
 }

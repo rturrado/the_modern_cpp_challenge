@@ -23,6 +23,9 @@ namespace tmcppc::problem_5 {
 }  // namespace tmcppc::problem_5
 
 
+// Sexy prime pairs
+//
+// Write a program that prints all sexy prime pairs up to a limit entered by the user
 void problem_5_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::problem_5;
 
@@ -33,12 +36,4 @@ void problem_5_main(std::istream& is, std::ostream& os) {
         fmt::print(os, "\t{}\n", p);
     }
     fmt::print(os, "\n");
-}
-
-
-// Sexy prime pairs
-//
-// Write a program that prints all sexy prime pairs up to a limit entered by the user
-void problem_5_main() {
-    problem_5_main(std::cin, std::cout);
 }

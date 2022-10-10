@@ -35,6 +35,12 @@ namespace tmcppc::problem_100 {
 }  // namespace tmcppc::problem_100
 
 
+// Detecting faces in a picture
+//
+// Write a program that can identify people's faces from pictures.
+// At a minimum, the program must detect the face area and the gender of the person.
+// This information should be printed to the console.
+// The pictures must be loaded from the disk.
 void problem_100_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::problem_100;
 
@@ -43,15 +49,4 @@ void problem_100_main(std::istream& is, std::ostream& os) {
     std::getline(is, key);
     detector detector{ std::make_unique<provider_azure>(key) };
     test_face_detection(os, detector);
-}
-
-
-// Detecting faces in a picture
-//
-// Write a program that can identify people's faces from pictures.
-// At a minimum, the program must detect the face area and the gender of the person.
-// This information should be printed to the console.
-// The pictures must be loaded from the disk.
-void problem_100_main() {
-    problem_100_main(std::cin, std::cout);
 }

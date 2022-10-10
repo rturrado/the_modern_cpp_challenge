@@ -7,32 +7,6 @@
 #include <ostream>
 
 
-void problem_69_main(std::ostream& os) {
-    using namespace std::chrono_literals;
-    using namespace tmcppc::ssn;
-
-    auto ng{ northeria_ssn_generator::get_instance() };
-    auto sg{ southeria_ssn_generator::get_instance() };
-
-    for (auto&& p : std::initializer_list<person>{
-        { sex::female, 1970y / ch::January / 1 },
-        { sex::female, 1976y / ch::February / 3 },
-        { sex::female, 1982y / ch::March / 5 },
-        { sex::female, 1988y / ch::May / 8 },
-        { sex::female, 1994y / ch::July / 11 },
-        { sex::male, 2000y / ch::August / 14 },
-        { sex::male, 2006y / ch::September / 18 },
-        { sex::male, 2012y / ch::October / 22 },
-        { sex::male, 2018y / ch::November / 26 },
-        { sex::male, 2021y / ch::December / 31 } }) {
-
-        fmt::print(os, "SSNs for {}: Northerian = {}, and Southerian = {}\n", p, ng.generate(p), sg.generate(p));
-    }
-
-    fmt::print(os, "\n");
-}
-
-
 // Generating social security numbers
 //
 // Write a program that can generate social security numbers for two countries, Northeria and Southeria,
@@ -56,6 +30,27 @@ void problem_69_main(std::ostream& os) {
 // For example, the checksum for the Southerian number 12017120134895 is computed as follows:
 //
 //   crc = 14*1 + 13*2 + 12*0 + 11*1 + 10*7 + 9*1 + 8*2 + 7*0 + 6*1 + 5*3 + 4*4 + 3*8 + 2*9 + 1*5 = 230 = 23*10
-void problem_69_main() {
-    problem_69_main(std::cout);
+void problem_69_main(std::ostream& os) {
+    using namespace std::chrono_literals;
+    using namespace tmcppc::ssn;
+
+    auto ng{ northeria_ssn_generator::get_instance() };
+    auto sg{ southeria_ssn_generator::get_instance() };
+
+    for (auto&& p : std::initializer_list<person>{
+        { sex::female, 1970y / ch::January / 1 },
+        { sex::female, 1976y / ch::February / 3 },
+        { sex::female, 1982y / ch::March / 5 },
+        { sex::female, 1988y / ch::May / 8 },
+        { sex::female, 1994y / ch::July / 11 },
+        { sex::male, 2000y / ch::August / 14 },
+        { sex::male, 2006y / ch::September / 18 },
+        { sex::male, 2012y / ch::October / 22 },
+        { sex::male, 2018y / ch::November / 26 },
+        { sex::male, 2021y / ch::December / 31 } }) {
+
+        fmt::print(os, "SSNs for {}: Northerian = {}, and Southerian = {}\n", p, ng.generate(p), sg.generate(p));
+    }
+
+    fmt::print(os, "\n");
 }

@@ -220,4 +220,3 @@ namespace tmcppc::office {
 
 
 void problem_66_main(std::istream& is, std::ostream& os);
-void problem_66_main();

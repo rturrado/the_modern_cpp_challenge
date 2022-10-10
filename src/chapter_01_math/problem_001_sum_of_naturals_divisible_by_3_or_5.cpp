@@ -32,6 +32,10 @@ namespace tmcppc::problem_1 {
 }  // namespace tmcppc::problem_1
 
 
+// Sum of naturals divisible by 3 or 5
+//
+// Write a program that calculates and prints the sum of all natural numbers divisible by either 3 or 5,
+// up to a given limit entered by the user
 void problem_1_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::problem_1;
 
@@ -43,13 +47,4 @@ void problem_1_main(std::istream& is, std::ostream& os) {
         fmt::print(os, "The sum of all natural numbers divisible by either 3 or 5 and up to {} is:\n\t{} {}\n\n",
             n, std::accumulate(std::cbegin(v), std::cend(v), static_cast<size_t>(0)), v);
     }
-}
-
-
-// Sum of naturals divisible by 3 or 5
-//
-// Write a program that calculates and prints the sum of all natural numbers divisible by either 3 or 5,
-// up to a given limit entered by the user
-void problem_1_main() {
-    problem_1_main(std::cin, std::cout);
 }

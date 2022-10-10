@@ -97,6 +97,9 @@ namespace tmcppc::problem_8 {
 }  // namespace tmcppc::problem_8
 
 
+// Armstrong numbers
+//
+// Write a program that prints all Armstrong numbers with three digits
 void problem_8_main(std::ostream& os) {
     using namespace tmcppc::problem_8;
 
@@ -107,11 +110,4 @@ void problem_8_main(std::ostream& os) {
     }
 
     fmt::print(os, "\n");
-}
-
-// Armstrong numbers
-//
-// Write a program that prints all Armstrong numbers with three digits
-void problem_8_main() {
-    problem_8_main(std::cout);
 }

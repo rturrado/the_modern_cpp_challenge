@@ -66,6 +66,17 @@ namespace tmcppc::problem_98 {
 }  // namespace tmcppc::problem_98
 
 
+// Fetching emails using IMAP
+//
+// Write a program that can get information from an email server using IMAP.
+// The program should be able to:
+//   - Get a list of folders from the mailbox.
+//   - Get unread emails from a particular folder.
+//
+// Note: I tested this:
+//   - with my gmail account,
+//   - getting a third-party application password, and using it as a password, and
+//   - marking some emails as unread in the 'doctorado' folder (for some reason, I couldn't retrieve unread emails from the INBOX folder).
 void problem_98_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::problem_98;
 
@@ -88,20 +99,4 @@ void problem_98_main(std::istream& is, std::ostream& os) {
     }() };
 
     test_imap_connection(is, os, imap_connection{ std::make_unique<connector_curl>(provider, username, password) });
-}
-
-
-// Fetching emails using IMAP
-//
-// Write a program that can get information from an email server using IMAP.
-// The program should be able to:
-//   - Get a list of folders from the mailbox.
-//   - Get unread emails from a particular folder.
-//
-// Note: I tested this:
-//   - with my gmail account,
-//   - getting a third-party application password, and using it as a password, and
-//   - marking some emails as unread in the 'doctorado' folder (for some reason, I couldn't retrieve unread emails from the INBOX folder).
-void problem_98_main() {
-    problem_98_main(std::cin, std::cout);
 }

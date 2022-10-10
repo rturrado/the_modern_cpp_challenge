@@ -25,6 +25,12 @@ namespace tmcppc::problem_27 {
 }  // namespace tmcppc::problem_27
 
 
+// Splitting a string into tokens with a list of possible delimiters
+//
+// Write a function that, given a string and a list of possible delimiter characters,
+// splits the string into tokens separated by any of the delimiters and returns them in a std::vector.
+//
+// Example: "this,is.a sample!!" with delimiters ",.! ", output: { "this", "is", "a", "sample" }.
 void problem_27_main(std::ostream& os) {
     using namespace tmcppc::problem_27;
 
@@ -33,15 +39,4 @@ void problem_27_main(std::ostream& os) {
     const std::string d2{ "#" };
     fmt::print(os, "Splitting string \"{}\" using any delimiter of \"{}\" into: [{}]\n", s, d1, fmt::join(split(s, d1), ", "));
     fmt::print(os, "Splitting string \"{}\" using any delimiter of \"{}\" into: [{}]\n\n", s, d2, fmt::join(split(s, d2), ", "));
-}
-
-
-// Splitting a string into tokens with a list of possible delimiters
-//
-// Write a function that, given a string and a list of possible delimiter characters,
-// splits the string into tokens separated by any of the delimiters and returns them in a std::vector.
-//
-// Example: "this,is.a sample!!" with delimiters ",.! ", output: { "this", "is", "a", "sample" }.
-void problem_27_main() {
-    problem_27_main(std::cout);
 }

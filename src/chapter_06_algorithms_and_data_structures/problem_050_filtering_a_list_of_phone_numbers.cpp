@@ -27,6 +27,12 @@ namespace tmcppc::problem_50 {
 }  // namespace tmcppc::problem_50
 
 
+// Filtering a list of phone numbers
+//
+// Write a function that, given a list of phone numbers, returns only the numbers that are from a specified country.
+// The country is indicated by its phone country code, such as 44 for Great Britain.
+// Phone numbers may start with the country code, a + followed by the country code, or have no country code.
+// The ones from this last category must be ignored.
 void problem_50_main(std::ostream& os) {
     using namespace tmcppc::problem_50;
 
@@ -48,15 +54,4 @@ void problem_50_main(std::ostream& os) {
         fmt::print(os, "Filtering numbers from: {}\n\t", cc);
         fmt::print(os, "{}\n\n", filter_phone_numbers_by_country_code(phone_numbers, cc));
     }
-}
-
-
-// Filtering a list of phone numbers
-//
-// Write a function that, given a list of phone numbers, returns only the numbers that are from a specified country.
-// The country is indicated by its phone country code, such as 44 for Great Britain.
-// Phone numbers may start with the country code, a + followed by the country code, or have no country code.
-// The ones from this last category must be ignored.
-void problem_50_main() {
-    problem_50_main(std::cout);
 }

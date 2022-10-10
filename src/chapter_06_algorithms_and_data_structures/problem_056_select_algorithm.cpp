@@ -6,31 +6,6 @@
 #include <vector>
 
 
-void problem_56_main(std::ostream& os) {
-    using namespace tmcppc::problem_56;
-
-    const std::vector<book> books{
-        { 101, "The C++ Programming Language", "Bjarne Stroustrup" },
-        { 203, "Effective Modern C++", "Scott Meyers" },
-        { 404, "The Modern C++ Programming Cookbook", "Marius Bancila" }
-    };
-    fmt::print(os, "List of books:\n");
-    fmt::print(os, "\t[{}]\n\n", fmt::join(books, ",\n\t"));
-
-    const auto ids = select(books, [](const book& b) { return b.id; });
-    fmt::print(os, "Selecting IDs:\n");
-    fmt::print(os, "\t{}\n\n", ids);
-
-    const auto titles = select(books, [](const book& b) { return b.title; });
-    fmt::print(os, "Selecting titles:\n");
-    fmt::print(os, "\t{}\n\n", titles);
-
-    const auto authors = select(books, [](const book& b) { return b.author; });
-    fmt::print(os, "Selecting authors:\n");
-    fmt::print(os, "\t{}\n\n", authors);
-}
-
-
 // Select algorithm
 //
 // Write a function that, given a range of values and a projection function, transforms each value into a new one
@@ -53,6 +28,26 @@ void problem_56_main(std::ostream& os) {
 //     };
 //
 //     auto titles = select(books, [](const book& b) { return b.title; });
-void problem_56_main() {
-    problem_56_main(std::cout);
+void problem_56_main(std::ostream& os) {
+    using namespace tmcppc::problem_56;
+
+    const std::vector<book> books{
+        { 101, "The C++ Programming Language", "Bjarne Stroustrup" },
+        { 203, "Effective Modern C++", "Scott Meyers" },
+        { 404, "The Modern C++ Programming Cookbook", "Marius Bancila" }
+    };
+    fmt::print(os, "List of books:\n");
+    fmt::print(os, "\t[{}]\n\n", fmt::join(books, ",\n\t"));
+
+    const auto ids = select(books, [](const book& b) { return b.id; });
+    fmt::print(os, "Selecting IDs:\n");
+    fmt::print(os, "\t{}\n\n", ids);
+
+    const auto titles = select(books, [](const book& b) { return b.title; });
+    fmt::print(os, "Selecting titles:\n");
+    fmt::print(os, "\t{}\n\n", titles);
+
+    const auto authors = select(books, [](const book& b) { return b.author; });
+    fmt::print(os, "Selecting authors:\n");
+    fmt::print(os, "\t{}\n\n", authors);
 }

@@ -8,6 +8,22 @@
 #include <utility>  // move
 
 
+// Observable vector container
+//
+// Write a class template that behaves like a vector but can notify registered parties of internal state changes.
+// The class must provide at least the following operations:
+//
+//   - Various constructors for creating new instances of the class.
+//   - operator= to assign values to the container.
+//   - push_back() to add a new element at the end of the container.
+//   - pop_back() to remove the last element from the container.
+//   - clear() to remove all the elements from the container.
+//   - size() to return the number of elements from the container.
+//   - empty() to indicate whether the container is empty or has elements.
+//
+// operator=, push_back(), pop_back(), and clear() must notify others of the state changes.
+// The notification should include the type of the change, and, when the case,
+// the index of the element that was changed (such as added or removed).
 void problem_71_main(std::ostream& os) {
     using namespace tmcppc::data_structures;
 
@@ -75,25 +91,4 @@ void problem_71_main(std::ostream& os) {
     fmt::print(os, "Pushing back to ov_0:\n");
     sp_ov_0->push_back("That thou, Iago, who hast had my purse.");
     fmt::print(os, "\n");
-}
-
-
-// Observable vector container
-//
-// Write a class template that behaves like a vector but can notify registered parties of internal state changes.
-// The class must provide at least the following operations:
-//
-//   - Various constructors for creating new instances of the class.
-//   - operator= to assign values to the container.
-//   - push_back() to add a new element at the end of the container.
-//   - pop_back() to remove the last element from the container.
-//   - clear() to remove all the elements from the container.
-//   - size() to return the number of elements from the container.
-//   - empty() to indicate whether the container is empty or has elements.
-//
-// operator=, push_back(), pop_back(), and clear() must notify others of the state changes.
-// The notification should include the type of the change, and, when the case,
-// the index of the element that was changed (such as added or removed).
-void problem_71_main() {
-    problem_71_main(std::cout);
 }

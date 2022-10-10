@@ -57,6 +57,10 @@ namespace tmcppc::problem_35 {
 }  // namespace tmcppc::problem_35
 
 
+// Computing the size of a directory
+//
+// Write a function that computes the size of a directory, in bytes, recursively.
+// It should be possible to indicate whether symbolic links should be followed or not.
 void problem_35_main(std::ostream& os) {
     using namespace tmcppc::problem_35;
 
@@ -76,13 +80,4 @@ void problem_35_main(std::ostream& os) {
     }
 
     fmt::print(os, "\n");
-}
-
-
-// Computing the size of a directory
-//
-// Write a function that computes the size of a directory, in bytes, recursively.
-// It should be possible to indicate whether symbolic links should be followed or not.
-void problem_35_main() {
-    problem_35_main(std::cout);
 }

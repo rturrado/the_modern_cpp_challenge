@@ -43,6 +43,10 @@ namespace tmcppc::problem_39 {
 }  // namespace tmcppc::problem_39
 
 
+// Measuring function execution time
+//
+// Write a function that can measure the execution time of a function (with any number of arguments)
+// in any required duration (such as seconds, milliseconds, microseconds, and so on).
 void problem_39_main(std::ostream& os) {
     namespace ch = std::chrono;
     using namespace tmcppc::problem_39;
@@ -56,13 +60,4 @@ void problem_39_main(std::ostream& os) {
         fmt::print(os, "\tsort_iota_vector(num_elems = {}, num_reps = {}): {}\n", num_elems, num_reps, duration_1);
         fmt::print(os, "\tsort_shuffle_vector(num_elems = {}, num_reps = {}): {}\n\n", num_elems, num_reps, duration_2);
     }
-}
-
-
-// Measuring function execution time
-//
-// Write a function that can measure the execution time of a function (with any number of arguments)
-// in any required duration (such as seconds, milliseconds, microseconds, and so on).
-void problem_39_main() {
-    problem_39_main(std::cout);
 }

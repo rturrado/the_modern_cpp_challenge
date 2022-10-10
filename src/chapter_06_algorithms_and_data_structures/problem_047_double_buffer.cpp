@@ -124,18 +124,13 @@ void test_2(std::ostream& os) {
 }
 
 
-void problem_47_main(std::ostream& os) {
-    test_1(os);
-    test_2(os);
-}
-
-
 // Double buffer
 //
 // Write a class that represents a buffer that could be written and read at the same time
 // without the two operations colliding.
 // A read operation must provide access to the old data while a write operation is in progress.
 // Newly written data must be available for reading upon completion of the write operation.
-void problem_47_main() {
-    problem_47_main(std::cout);
+void problem_47_main(std::ostream& os) {
+    test_1(os);
+    test_2(os);
 }

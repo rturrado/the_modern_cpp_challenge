@@ -8,6 +8,17 @@
 #include <string_view>
 
 
+// Create a data structure that represents a circular buffer of a fixed size.
+// A circular buffer overwrites existing elements when the buffer is being filled beyond its fixed size.
+//
+// The class you must write should:
+//
+// - Prohibit default construction.
+// - Support the creation of objects with a specified size.
+// - Allow checking of the buffer capacity and status (empty(), full(), size(), capacity())
+// - Add a new element, an operation that could potentially overwrite the oldest element in the buffer.
+// - Remove the oldest element from the buffer.
+// - Support iteration through its elements.
 void problem_46_main(std::ostream& os) {
     using tmcppc::data_structures::circular_buffer;
 
@@ -56,20 +67,4 @@ void problem_46_main(std::ostream& os) {
     fmt::print(os, "cb_3.clear();\n");
     print_circular_buffer("cb_3", cb_3);
     fmt::print(os, "\n");
-}
-
-
-// Create a data structure that represents a circular buffer of a fixed size.
-// A circular buffer overwrites existing elements when the buffer is being filled beyond its fixed size.
-//
-// The class you must write should:
-//
-// - Prohibit default construction.
-// - Support the creation of objects with a specified size.
-// - Allow checking of the buffer capacity and status (empty(), full(), size(), capacity())
-// - Add a new element, an operation that could potentially overwrite the oldest element in the buffer.
-// - Remove the oldest element from the buffer.
-// - Support iteration through its elements.
-void problem_46_main() {
-    problem_46_main(std::cout);
 }

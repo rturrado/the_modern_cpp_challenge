@@ -6,6 +6,12 @@
 #include <string>
 
 
+// Minimum function with any number of arguments
+//
+// Write a function template that can take any number of arguments and returns the minimum value of them all,
+// using operator< for comparison.
+// Write a variant of the function template that can be parameterized with a binary comparison function
+// to use instead of operator<.
 void problem_18_main(std::ostream& os) {
     using namespace tmcppc::problem_18;
 
@@ -19,15 +25,4 @@ void problem_18_main(std::ostream& os) {
     test_compare_with(os, "std::greater", std::greater<std::string>{},
         std::string("un"), std::string("lugar"), std::string("de"), std::string("la"), std::string("Mancha"));
     fmt::print(os, "\n");
-}
-
-
-// Minimum function with any number of arguments
-//
-// Write a function template that can take any number of arguments and returns the minimum value of them all,
-// using operator< for comparison.
-// Write a variant of the function template that can be parameterized with a binary comparison function
-// to use instead of operator<.
-void problem_18_main() {
-    problem_18_main(std::cout);
 }

@@ -10,22 +10,6 @@
 #include <ostream>
 
 
-void problem_77_main(std::ostream& os) {
-    using namespace tmcppc::movies;
-    using namespace tmcppc::pdf;
-
-    const auto temp_file_path{ std::filesystem::temp_directory_path() / "list_of_movies.pdf" };
-
-    try {
-        fmt::print(os, "Writing PDF out to: {}\n\n", temp_file_path.generic_string());
-        movies_doc out_doc{ samples::catalog_of_50_movies };
-        out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(25));
-    } catch (const std::exception& err) {
-        fmt::print(os, "Error: {}\n\n", err.what());
-    }
-}
-
-
 // Printing a list of movies to a PDF
 //
 // Write a program that can print to a PDF file a list of movies in a tabular form, with the following requirements:
@@ -47,6 +31,17 @@ void problem_77_main(std::ostream& os) {
 //    The Pursuit of Happyness (2006)     1:57
 //    Fight Club (1999)                   2:19
 //    ----------------------------------------
-void problem_77_main() {
-    problem_77_main(std::cout);
+void problem_77_main(std::ostream& os) {
+    using namespace tmcppc::movies;
+    using namespace tmcppc::pdf;
+
+    const auto temp_file_path{ std::filesystem::temp_directory_path() / "list_of_movies.pdf" };
+
+    try {
+        fmt::print(os, "Writing PDF out to: {}\n\n", temp_file_path.generic_string());
+        movies_doc out_doc{ samples::catalog_of_50_movies };
+        out_doc.save_to(temp_file_path, std::make_unique<text_list_layouter>(25));
+    } catch (const std::exception& err) {
+        fmt::print(os, "Error: {}\n\n", err.what());
+    }
 }

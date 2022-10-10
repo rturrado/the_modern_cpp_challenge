@@ -71,6 +71,9 @@ namespace tmcppc::problem_14 {
 }  // namespace tmcppc::problem_14
 
 
+// Validating ISBNs
+// Write a program that validates that 10-digit values entered by the user,
+// as a string, represent valid ISBN-10 numbers
 void problem_14_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::problem_14;
 
@@ -81,12 +84,4 @@ void problem_14_main(std::istream& is, std::ostream& os) {
     str = read_n_digit_isbn(is, os, 13);
     valid = validate_13_digit_isbn(str);
     fmt::print(os, "\t{} {} a valid 13-digit ISBN\n\n", str, (valid ? "is" : "is NOT"));
-}
-
-
-// Validating ISBNs
-// Write a program that validates that 10-digit values entered by the user,
-// as a string, represent valid ISBN-10 numbers
-void problem_14_main() {
-    problem_14_main(std::cin, std::cout);
 }

@@ -7,6 +7,11 @@
 #include <vector>
 
 
+// The most frequent element in a range
+//
+// Write a function that, given a range, returns the most frequent element and the number of times it appears in the range.
+// If more than one element appears the same maximum number of times then the function should return all the elements.
+// For instance, for the range {1, 1, 3, 5, 8, 13, 3, 5, 8, 8, 5}, it should return {5, 3} and {8, 3}.
 void problem_48_main(std::ostream& os) {
     using namespace tmcppc::data_structures;
     using namespace tmcppc::problem_48;
@@ -25,14 +30,4 @@ void problem_48_main(std::ostream& os) {
     fmt::print(os, "\t{}\n", v_d);
     fmt::print(os, "\t\t(using v1): [{}]\n", fmt::join(most_frequent_elements_v1(v_d), ", "));
     fmt::print(os, "\t\t(using v2): [{}]\n\n", fmt::join(most_frequent_elements_v2(v_d), ", "));
-}
-
-
-// The most frequent element in a range
-//
-// Write a function that, given a range, returns the most frequent element and the number of times it appears in the range.
-// If more than one element appears the same maximum number of times then the function should return all the elements.
-// For instance, for the range {1, 1, 3, 5, 8, 13, 3, 5, 8, 8, 5}, it should return {5, 3} and {8, 3}.
-void problem_48_main() {
-    problem_48_main(std::cout);
 }

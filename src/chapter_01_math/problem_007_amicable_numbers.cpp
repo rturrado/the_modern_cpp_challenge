@@ -30,6 +30,9 @@ namespace tmcppc::problem_7 {
 }  // namespace tmcppc::problem_7
 
 
+// Amicable numbers
+//
+// Write a program that prints the list of all pairs of amicable numbers smaller than 1,000,000
 void problem_7_main(std::ostream& os) {
     using namespace tmcppc::problem_7;
 
@@ -39,14 +42,6 @@ void problem_7_main(std::ostream& os) {
         fmt::print(os, "\t{}\n", p);
     }
     fmt::print(os, "\n");
-}
-
-
-// Amicable numbers
-//
-// Write a program that prints the list of all pairs of amicable numbers smaller than 1,000,000
-void problem_7_main() {
-    problem_7_main(std::cout);
 }
 
 

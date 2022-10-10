@@ -28,6 +28,12 @@ namespace tmcppc::problem_53 {
 }  // namespace tmcppc::problem_53
 
 
+// Average rating of movies
+//
+// Write a program that calculates and prints the average rating of a list of movies.
+// Each movie has a list of ratings from 1 to 10 (where 1 is the lowest and 10 is the highest rating).
+// In order to compute the rating, you must remove 5% of the highest and lowest ratings before computing their average.
+// The result must be displayed with a single decimal point.
 void problem_53_main(std::ostream& os) {
     using namespace tmcppc::problem_53;
 
@@ -42,15 +48,4 @@ void problem_53_main(std::ostream& os) {
         fmt::print(os, "\t{}: {:.1f}\n", m.first, average_rating(m.second));
     }
     fmt::print(os, "\n");
-}
-
-
-// Average rating of movies
-//
-// Write a program that calculates and prints the average rating of a list of movies.
-// Each movie has a list of ratings from 1 to 10 (where 1 is the lowest and 10 is the highest rating).
-// In order to compute the rating, you must remove 5% of the highest and lowest ratings before computing their average.
-// The result must be displayed with a single decimal point.
-void problem_53_main() {
-    problem_53_main(std::cout);
 }

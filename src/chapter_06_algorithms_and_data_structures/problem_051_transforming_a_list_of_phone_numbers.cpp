@@ -43,6 +43,18 @@ namespace tmcppc::problem_51 {
 }  // namespace tmcppc::problem_51
 
 
+// Transforming a list of phone numbers
+//
+// Write a function that, given a list of phone numbers, transforms them so they all start with a specified country code,
+// preceded by the + sign.
+// Any whitespaces from a phone number should be removed.
+// The following is a list of input and output examples:
+//
+// 07555 123456    => +447555123456
+// 07555123456     => +447555123456
+// +44 7555 123456 => +447555123456
+// 44 7555 123456  => +447555123456
+// 7555 123456     => +447555123456
 void problem_51_main(std::ostream& os) {
     using namespace tmcppc::problem_51;
 
@@ -65,21 +77,4 @@ void problem_51_main(std::ostream& os) {
         format_phone_numbers(ph_nos.get(), country_code::UK);
         fmt::print(os, "List of UK phone numbers after formatting:\n\t{}\n\n", ph_nos.get());
     }
-}
-
-
-// Transforming a list of phone numbers
-//
-// Write a function that, given a list of phone numbers, transforms them so they all start with a specified country code,
-// preceded by the + sign.
-// Any whitespaces from a phone number should be removed.
-// The following is a list of input and output examples:
-//
-// 07555 123456    => +447555123456
-// 07555123456     => +447555123456
-// +44 7555 123456 => +447555123456
-// 44 7555 123456  => +447555123456
-// 7555 123456     => +447555123456
-void problem_51_main() {
-    problem_51_main(std::cout);
 }

@@ -24,6 +24,9 @@ namespace tmcppc::problem_6 {
 }  // namespace tmcppc::problem_6
 
 
+// Abundant numbers
+//
+// Write a program that prints all abundant numbers and their abundance, up to a number entered by the user
 void problem_6_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::problem_6;
 
@@ -39,12 +42,4 @@ void problem_6_main(std::istream& is, std::ostream& os) {
         }
     }
     fmt::print(os, "\n");
-}
-
-
-// Abundant numbers
-//
-// Write a program that prints all abundant numbers and their abundance, up to a number entered by the user
-void problem_6_main() {
-    problem_6_main(std::cin, std::cout);
 }

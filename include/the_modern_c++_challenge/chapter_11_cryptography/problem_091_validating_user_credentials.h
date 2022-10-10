@@ -89,4 +89,3 @@ namespace tmcppc::crypto {
 
 
 void problem_91_main(std::istream& is, std::ostream& os);
-void problem_91_main();

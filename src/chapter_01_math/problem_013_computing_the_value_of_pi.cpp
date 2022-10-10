@@ -35,6 +35,9 @@ namespace tmcppc::problem_13 {
 }  // namespace tmcppc::problem_13
 
 
+// Computing the value of Pi
+//
+// Write a program that computes the value of Pi with a precision of two decimal digits
 void problem_13_main(std::ostream& os) {
     using namespace tmcppc::problem_13;
 
@@ -42,12 +45,4 @@ void problem_13_main(std::ostream& os) {
         fmt::print(os, "Estimated value of pi: {}\n", compute_pi(static_cast<size_t>(number_of_iterations)));
     }
     fmt::print(os, "\n");
-}
-
-
-// Computing the value of Pi
-//
-// Write a program that computes the value of Pi with a precision of two decimal digits
-void problem_13_main() {
-    problem_13_main(std::cout);
 }

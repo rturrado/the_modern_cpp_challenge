@@ -48,4 +48,3 @@ inline std::ostream& operator<<(std::ostream& os, const tmcppc::problem_56::book
 
 
 void problem_56_main(std::ostream& os);
-void problem_56_main();

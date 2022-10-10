@@ -81,6 +81,14 @@ namespace tmcppc::problem_24 {
 }  // namespace tmcppc::problem_24
 
 
+// String to binary conversion
+//
+// Write a function that, given a string containing hexadecimal digits as the input argument,
+// returns a vector of 8-bit integers that represent the numerical deserialization of the string content.
+//
+// The following are examples:
+// Input: "BAADF00D" or "baadf00d", output: { 0xBA, 0xAD, 0xF0, 0x0D }
+// Input: "010203040506", output: { 1, 2, 3, 4, 5, 6 }
 void problem_24_main(std::ostream& os) {
     using namespace tmcppc::problem_24;
 
@@ -106,17 +114,4 @@ void problem_24_main(std::ostream& os) {
         fmt::print(os, "Error: {}\n", err.what());
     }
     fmt::print(os, "\n");
-}
-
-
-// String to binary conversion
-//
-// Write a function that, given a string containing hexadecimal digits as the input argument,
-// returns a vector of 8-bit integers that represent the numerical deserialization of the string content.
-//
-// The following are examples:
-// Input: "BAADF00D" or "baadf00d", output: { 0xBA, 0xAD, 0xF0, 0x0D }
-// Input: "010203040506", output: { 1, 2, 3, 4, 5, 6 }
-void problem_24_main() {
-    problem_24_main(std::cout);
 }

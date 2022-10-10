@@ -65,4 +65,3 @@ namespace tmcppc::algorithm {
 
 
 void problem_61_main(std::ostream& os);
-void problem_61_main();

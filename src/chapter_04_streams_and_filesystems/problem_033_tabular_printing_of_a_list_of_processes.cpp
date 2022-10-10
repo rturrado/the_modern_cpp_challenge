@@ -61,23 +61,6 @@ namespace tmcppc::problem_33 {
 }  // namespace tmcppc::problem_33
 
 
-void problem_33_main(std::ostream& os) {
-    using namespace tmcppc::problem_33;
-
-    std::vector<info> infos{
-       { 512, "cmd.exe", status_t::running, "SYSTEM", 148293, platform_t::x64 },
-       { 1044, "chrome.exe", status_t::running, "marius.bancila", 25180454, platform_t::x32 },
-       { 7108, "explorer.exe", status_t::running, "marius.bancila", 2952943, platform_t::x64 },
-       { 10100, "chrome.exe", status_t::running, "marius.bancila", 227756123, platform_t::x32 },
-       { 22456, "skype.exe", status_t::suspended, "marius.bancila", 16870123, platform_t::x64 },
-    };
-
-    print_process_infos(os, infos);
-
-    fmt::print(os, "\n\n");
-}
-
-
 // Tabular printing of a list of processes
 //
 // Suppose you have a snapshot of the list of all processes in a system.
@@ -93,6 +76,18 @@ void problem_33_main(std::ostream& os) {
 // cmd.exe       512    Running    SYSTEM              48  64-bit
 // explorer.exe  7108   Running    marius.bancila   29529  64-bit
 // skype.exe     22456  Suspended  marius.bancila     656  64-bit
-void problem_33_main() {
-    problem_33_main(std::cout);
+void problem_33_main(std::ostream& os) {
+    using namespace tmcppc::problem_33;
+
+    std::vector<info> infos{
+       { 512, "cmd.exe", status_t::running, "SYSTEM", 148293, platform_t::x64 },
+       { 1044, "chrome.exe", status_t::running, "marius.bancila", 25180454, platform_t::x32 },
+       { 7108, "explorer.exe", status_t::running, "marius.bancila", 2952943, platform_t::x64 },
+       { 10100, "chrome.exe", status_t::running, "marius.bancila", 227756123, platform_t::x32 },
+       { 22456, "skype.exe", status_t::suspended, "marius.bancila", 16870123, platform_t::x64 },
+    };
+
+    print_process_infos(os, infos);
+
+    fmt::print(os, "\n\n");
 }

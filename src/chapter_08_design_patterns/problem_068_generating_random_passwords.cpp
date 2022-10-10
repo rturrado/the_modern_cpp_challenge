@@ -6,6 +6,12 @@
 #include <ostream>
 
 
+// Generating random passwords
+//
+// Write a program that can generate random passwords according to some predefined rules.
+// Every password must have a configurable minimum length.
+// In addition, it should be possible to include in the generation rules such as the presence of at least one digit,
+// symbol, lower or uppercase character, and so on. These additional rules must be configurable and composable.
 void problem_68_main(std::ostream& os) {
     using namespace tmcppc::password;
 
@@ -17,15 +23,4 @@ void problem_68_main(std::ostream& os) {
     g->add_generator(std::make_unique<contains_generator<uppercase_range>>(2));
 
     fmt::print(os, "Creating a password with 2 symbols, 2 digits, 2 lowercase letters, and 2 uppercase letters: {}\n\n", g->generate());
-}
-
-
-// Generating random passwords
-//
-// Write a program that can generate random passwords according to some predefined rules.
-// Every password must have a configurable minimum length.
-// In addition, it should be possible to include in the generation rules such as the presence of at least one digit,
-// symbol, lower or uppercase character, and so on. These additional rules must be configurable and composable.
-void problem_68_main() {
-    problem_68_main(std::cout);
 }

@@ -6,6 +6,10 @@
 #include <iostream>  // cout
 
 
+// Extracting URL parts
+//
+// Write a function that, given a string that represents a URL, parses and extracts the parts of the URL
+// (protocol, domain, port, path, query, and fragment)
 void problem_30_main(std::ostream& os) {
     using namespace tmcppc::network;
 
@@ -19,13 +23,4 @@ void problem_30_main(std::ostream& os) {
             fmt::print(os, "Error: {}\n\n", err.what());
         }
     }
-}
-
-
-// Extracting URL parts
-//
-// Write a function that, given a string that represents a URL, parses and extracts the parts of the URL
-// (protocol, domain, port, path, query, and fragment)
-void problem_30_main() {
-    problem_30_main(std::cout);
 }
