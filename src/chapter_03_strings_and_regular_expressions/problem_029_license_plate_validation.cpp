@@ -24,6 +24,13 @@ namespace tmcppc::problem_29 {
 }  // namespace tmcppc::problem_29
 
 
+// License plate validation
+//
+// Considering license plates with the format "LLL-LL DDD" or "LLL-LL DDDD"
+// (where L is an uppercase letter from A to Z and D is a digit), write:
+//
+// - One function that validates that a license plate number is of the correct format
+// - One function that, given an input text, extracts and returns all the license plate numbers found in the text
 void problem_29_main(std::ostream& os) {
     using namespace tmcppc::problem_29;
 
@@ -36,16 +43,4 @@ void problem_29_main(std::ostream& os) {
 
     // Test extract_all_license_plates
     fmt::print(os, "List of valid license plates in \"{}\":\n\t{}\n\n", text, extract_all_license_plates(text));
-}
-
-
-// License plate validation
-//
-// Considering license plates with the format "LLL-LL DDD" or "LLL-LL DDDD"
-// (where L is an uppercase letter from A to Z and D is a digit), write:
-//
-// - One function that validates that a license plate number is of the correct format
-// - One function that, given an input text, extracts and returns all the license plate numbers found in the text
-void problem_29_main() {
-    problem_29_main(std::cout);
 }

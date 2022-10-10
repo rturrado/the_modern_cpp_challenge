@@ -54,6 +54,12 @@ namespace tmcppc::problem_49 {
 }  // namespace tmcppc::problem_49
 
 
+// Text histogram
+//
+// Write a program that, given a text, determines and prints a histogram with the frequency of each letter of the alphabet.
+// The frequency is the percentage of the number of appearances of each letter from the total count of letters.
+// The program should count only the appearances of letters and ignore digits, signs, and other possible characters.
+// The frequency must be determined based on the count of letters and not the text size.
 void problem_49_main(std::ostream& os) {
     namespace fs = std::filesystem;
     using namespace tmcppc::problem_49;
@@ -74,15 +80,4 @@ void problem_49_main(std::ostream& os) {
     }
 
     fmt::print(os, "\n");
-}
-
-
-// Text histogram
-//
-// Write a program that, given a text, determines and prints a histogram with the frequency of each letter of the alphabet.
-// The frequency is the percentage of the number of appearances of each letter from the total count of letters.
-// The program should count only the appearances of letters and ignore digits, signs, and other possible characters.
-// The frequency must be determined based on the count of letters and not the text size.
-void problem_49_main() {
-    problem_49_main(std::cout);
 }

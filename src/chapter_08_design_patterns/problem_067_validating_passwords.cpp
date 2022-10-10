@@ -62,17 +62,12 @@ namespace tmcppc::password::validator {
 
 
 
-void problem_67_main(std::ostream& os) {
-    tmcppc::password::validator::v1::test_validator(os);
-    tmcppc::password::validator::v2::test_validator(os);
-}
-
-
 // Validating passwords
 //
 // Write a program that validates password strength based on predefined rules, which may be selected in various combinations.
 // At a minimum, every password must meet a minimum length requirement.
 // In addition, other rules could be enforced, such as the presence of at least one symbol, digit, uppercase and lowercase letter, and so on.
-void problem_67_main() {
-    problem_67_main(std::cout);
+void problem_67_main(std::ostream& os) {
+    tmcppc::password::validator::v1::test_validator(os);
+    tmcppc::password::validator::v2::test_validator(os);
 }

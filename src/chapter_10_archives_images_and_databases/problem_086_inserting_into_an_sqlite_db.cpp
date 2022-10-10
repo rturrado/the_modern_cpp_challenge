@@ -17,6 +17,11 @@ using namespace tmcppc::movies;
 using namespace tmcppc::movies::sql;
 
 
+// Inserting movies into an SQLite database transactionally
+//
+// Extend the program written for the previous problem so that it can add new movies to the database.
+// The movies could be read from the console, or alternatively from a text file.
+// The insertion of movie data into several tables in the database must be performed transactionally.
 namespace tmcppc::problem_86 {
     [[nodiscard]] std::string remove_movie_id_line(const std::string& movie_str) {
         std::regex pattern{ R"(Movie:\n\s+id: \d+\n)" };
@@ -112,14 +117,4 @@ void problem_86_main(std::istream& is, std::ostream& os) {
     }
 
     fmt::print(os, "\n");
-}
-
-
-// Inserting movies into an SQLite database transactionally
-//
-// Extend the program written for the previous problem so that it can add new movies to the database.
-// The movies could be read from the console, or alternatively from a text file.
-// The insertion of movie data into several tables in the database must be performed transactionally.
-void problem_86_main() {
-    problem_86_main(std::cin, std::cout);
 }

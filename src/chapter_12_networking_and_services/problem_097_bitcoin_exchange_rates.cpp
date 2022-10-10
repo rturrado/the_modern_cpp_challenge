@@ -6,6 +6,10 @@
 #include <memory>  // make_unique
 
 
+// Bitcoin exchange rates
+//
+// Write a program that displays Bitcoin exchange rates for the most important currencies (such as USD, EUR, or GBP).
+// The exchange rates must be fetched from an online service, such as: https://blockchain.info
 void problem_97_main(std::ostream& os) {
     using namespace tmcppc::bitcoin;
 
@@ -17,13 +21,4 @@ void problem_97_main(std::ostream& os) {
     }
 
     fmt::print(os, "\n");
-}
-
-
-// Bitcoin exchange rates
-//
-// Write a program that displays Bitcoin exchange rates for the most important currencies (such as USD, EUR, or GBP).
-// The exchange rates must be fetched from an online service, such as: https://blockchain.info
-void problem_97_main() {
-    problem_97_main(std::cout);
 }

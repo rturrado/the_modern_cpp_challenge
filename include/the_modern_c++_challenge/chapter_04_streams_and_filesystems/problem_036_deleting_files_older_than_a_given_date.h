@@ -48,4 +48,3 @@ namespace tmcppc::problem_36 {
 }  // namespace tmcppc::problem_36
 
 void problem_36_main(std::ostream& os);
-void problem_36_main();

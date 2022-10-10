@@ -12,4 +12,3 @@ namespace tmcppc::problem_28 {
 
 
 void problem_28_main(std::ostream& os);
-void problem_28_main();

@@ -28,8 +28,3 @@ void problem_23_main(std::ostream& os) {
     std::iota(std::begin(a), std::end(a), 1);
     fmt::print(os, "Converting array [{:#02x}] to string \"{}\"\n\n", fmt::join(a, ", "), to_hex_string(a));
 }
-
-
-void problem_23_main() {
-    problem_23_main(std::cout);
-}

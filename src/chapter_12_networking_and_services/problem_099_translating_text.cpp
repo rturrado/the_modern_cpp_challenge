@@ -39,6 +39,11 @@ namespace tmcppc::problem_99 {
 }  // namespace tmcppc::problem_99
 
 
+// Translating text to any language
+//
+// Write a program that can translate text from one language to another using an online service.
+// It should be possible to specify the text that you wish to translate, the language of the text,
+// and the language to translate to.
 void problem_99_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::problem_99;
 
@@ -46,14 +51,4 @@ void problem_99_main(std::istream& is, std::ostream& os) {
     std::string key{};
     std::getline(is, key);
     test_text_translation(os, translator{ std::make_unique<provider_azure>(key) });
-}
-
-
-// Translating text to any language
-//
-// Write a program that can translate text from one language to another using an online service.
-// It should be possible to specify the text that you wish to translate, the language of the text,
-// and the language to translate to.
-void problem_99_main() {
-    problem_99_main(std::cin, std::cout);
 }

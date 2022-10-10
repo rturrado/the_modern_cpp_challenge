@@ -369,4 +369,3 @@ template <typename T>
 
 
 void problem_71_main(std::ostream& os);
-void problem_71_main();

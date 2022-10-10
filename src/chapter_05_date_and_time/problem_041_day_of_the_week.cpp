@@ -24,6 +24,10 @@ namespace tmcppc::problem_41 {
 }  // namespace tmcppc::problem_41
 
 
+// Day of the week
+//
+// Write a function that, given a date, determines the day of the week.
+// This function should return a value between 1 (for Monday) and 7 (for Sunday).
 void problem_41_main(std::ostream& os) {
     using namespace date::literals;  // 1946_y
     using namespace tmcppc::problem_41;
@@ -44,13 +48,4 @@ void problem_41_main(std::ostream& os) {
         }
     }
     os << "\n";
-}
-
-
-// Day of the week
-//
-// Write a function that, given a date, determines the day of the week.
-// This function should return a value between 1 (for Monday) and 7 (for Sunday).
-void problem_41_main() {
-    problem_41_main(std::cout);
 }

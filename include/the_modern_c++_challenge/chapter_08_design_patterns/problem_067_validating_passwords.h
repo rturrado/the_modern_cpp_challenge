@@ -238,4 +238,3 @@ namespace tmcppc::password {
 
 
 void problem_67_main(std::ostream& os);
-void problem_67_main();

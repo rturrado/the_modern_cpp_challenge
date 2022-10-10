@@ -43,6 +43,9 @@ namespace tmcppc::problem_32 {
 }  // namespace tmcppc::problem_32
 
 
+// Pascal's triangle
+//
+// Write a function that prints up to 10 rows of Pascal's triangle to the console
 void problem_32_main(std::ostream& os) {
     using namespace tmcppc::problem_32;
 
@@ -56,12 +59,4 @@ void problem_32_main(std::ostream& os) {
         }
     }
     fmt::print(os, "\n");
-}
-
-
-// Pascal's triangle
-//
-// Write a function that prints up to 10 rows of Pascal's triangle to the console
-void problem_32_main() {
-    problem_32_main(std::cout);
 }

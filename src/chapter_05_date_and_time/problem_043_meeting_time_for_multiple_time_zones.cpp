@@ -8,6 +8,10 @@
 #include <string_view>  // literals
 
 
+// Meeting time for multiple time zones
+//
+// Write a function that, given a list of meeting participants and their time zones,
+// displays the local meeting time for each participant.
 void problem_43_main(std::ostream& os) {
     namespace ch = std::chrono;
     using namespace date::literals;  // 2021_y
@@ -33,13 +37,4 @@ void problem_43_main(std::ostream& os) {
     display_local_meeting_times(os, meeting_zt, participants);
 
     fmt::print(os, "\n");
-}
-
-
-// Meeting time for multiple time zones
-//
-// Write a function that, given a list of meeting participants and their time zones,
-// displays the local meeting time for each participant.
-void problem_43_main() {
-    problem_43_main(std::cout);
 }

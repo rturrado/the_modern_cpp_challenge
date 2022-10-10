@@ -10,6 +10,18 @@
 #include <asio.hpp>
 
 
+// Write a client-server application that can be used for playing the Fizz-Buzz game.
+// The client sends numbers to the server that answers back with fizz, buzz, fizz-buzz, or the number itself, according to the game rules.
+// Communication between the client and the server must be done over TCP.
+// The server should run indefinitely.
+// The client should run as long as the user enters numbers between 1 and 99.
+//
+// Fizz-Buzz is a game for children, intended to teach them arithmetic division.
+// A player must say a number and another player should answer with:
+//   - Fizz, if the number is divisible by 3.
+//   - Buzz, if the number is divisible by 5.
+//   - Fizz-buzz, if the number is divisible by both 3 and 5.
+//   - The number itself in other cases.
 void problem_96_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::fizz_buzz;
     using namespace tmcppc::tcp;
@@ -25,21 +37,4 @@ void problem_96_main(std::istream& is, std::ostream& os) {
     server_future.get();
 
     fmt::print(os, "\n");
-}
-
-
-// Write a client-server application that can be used for playing the Fizz-Buzz game.
-// The client sends numbers to the server that answers back with fizz, buzz, fizz-buzz, or the number itself, according to the game rules.
-// Communication between the client and the server must be done over TCP.
-// The server should run indefinitely.
-// The client should run as long as the user enters numbers between 1 and 99.
-//
-// Fizz-Buzz is a game for children, intended to teach them arithmetic division.
-// A player must say a number and another player should answer with:
-//   - Fizz, if the number is divisible by 3.
-//   - Buzz, if the number is divisible by 5.
-//   - Fizz-buzz, if the number is divisible by both 3 and 5.
-//   - The number itself in other cases.
-void problem_96_main() {
-    problem_96_main(std::cin, std::cout);
 }

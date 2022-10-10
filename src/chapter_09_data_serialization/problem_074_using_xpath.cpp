@@ -48,6 +48,13 @@ namespace tmcppc::problem_74 {
 }  // namespace tmcppc::problem_74
 
 
+// Selecting data from XML using XPath
+//
+// Consider an XML file with a list of movies as described for the previous problem.
+// Write a program that can select and print the following:
+//
+//   - The title of all movies released after a given year.
+//   - The name of the last actor in the casting list for each movie in the file.
 void problem_74_main(std::ostream& os) {
     using namespace tmcppc::movies;
     using namespace tmcppc::problem_74;
@@ -77,16 +84,4 @@ void problem_74_main(std::ostream& os) {
     } catch (const std::exception& err) {
         fmt::print(os, "Error: {}\n\n", err.what());
     }
-}
-
-
-// Selecting data from XML using XPath
-//
-// Consider an XML file with a list of movies as described for the previous problem.
-// Write a program that can select and print the following:
-//
-//   - The title of all movies released after a given year.
-//   - The name of the last actor in the casting list for each movie in the file.
-void problem_74_main() {
-    problem_74_main(std::cout);
 }

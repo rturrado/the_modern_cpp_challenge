@@ -100,6 +100,15 @@ namespace tmcppc::crypto {
 }  // namespace tmcppc::problem_94
 
 
+// File signing
+//
+// Write a program that is able to sign files and verify that a signed file has not been tampered with, using RSA cryptography.
+// When signing a file, the signature should be written to a separate file and used later for the verification process.
+// The program should provide at least two functions:
+//   - one that signs a file (taking as arguments the path to the file, the path to the RSA private key, and
+//     the path to the file where the signature will be written) and
+//   - one that verifies a file (taking as arguments the path to the file, the path to the RSA public key, and
+//     the path to the signature file).
 void problem_94_main(std::ostream& os) {
     using namespace tmcppc::crypto;
 
@@ -123,18 +132,4 @@ void problem_94_main(std::ostream& os) {
         fmt::print(os, "\tError: input file verification returned false\n");
     }
     fmt::print(os, "\n");
-}
-
-
-// File signing
-//
-// Write a program that is able to sign files and verify that a signed file has not been tampered with, using RSA cryptography.
-// When signing a file, the signature should be written to a separate file and used later for the verification process.
-// The program should provide at least two functions:
-//   - one that signs a file (taking as arguments the path to the file, the path to the RSA private key, and
-//     the path to the file where the signature will be written) and
-//   - one that verifies a file (taking as arguments the path to the file, the path to the RSA public key, and
-//     the path to the signature file).
-void problem_94_main() {
-    problem_94_main(std::cout);
 }

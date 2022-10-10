@@ -43,6 +43,11 @@ namespace tmcppc::problem_28 {
 }  // namespace tmcppc::problem_28
 
 
+// Longest palindromic substring
+//
+// Write a function that, given an input string, locates and returns the longest sequence
+// in the string that is a palindrome.
+// If multiple palindromes of the same length exist, the first one should be returned
 void problem_28_main(std::ostream& os) {
     using namespace tmcppc::problem_28;
 
@@ -50,14 +55,4 @@ void problem_28_main(std::ostream& os) {
         fmt::print(os, "Longest palindromic substring in \"{}\" is: \"{}\"\n" , s, get_longest_palindromic_substring(s));
     }
     fmt::print(os, "\n");
-}
-
-
-// Longest palindromic substring
-//
-// Write a function that, given an input string, locates and returns the longest sequence
-// in the string that is a palindrome.
-// If multiple palindromes of the same length exist, the first one should be returned
-void problem_28_main() {
-    problem_28_main(std::cout);
 }

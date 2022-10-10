@@ -186,4 +186,3 @@ inline std::ostream& operator<<(std::ostream& os, const tmcppc::ssn::person& p) 
 
 
 void problem_69_main(std::ostream& os);
-void problem_69_main();

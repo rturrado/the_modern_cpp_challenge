@@ -22,6 +22,10 @@ namespace tmcppc::problem_40 {
 }  // namespace tmcppc::problem_40
 
 
+// Number of days between two dates
+//
+// Write a function that, given two dates, returns the number of days between the two dates.
+// The function should work regardless of the order of the input dates.
 void problem_40_main(std::ostream& os) {
     using namespace date::literals;  // 2012_y
     using namespace tmcppc::problem_40;
@@ -42,13 +46,4 @@ void problem_40_main(std::ostream& os) {
             os << "Error: " << ex.what() << "\n\n";
         }
     }
-}
-
-
-// Number of days between two dates
-//
-// Write a function that, given two dates, returns the number of days between the two dates.
-// The function should work regardless of the order of the input dates.
-void problem_40_main() {
-    problem_40_main(std::cout);
 }

@@ -35,6 +35,15 @@ namespace tmcppc::company {
 }  // namespace tmcppc::company
 
 
+// Approval system
+//
+// Write a program for a purchasing department of a company that allows employees to approve new purchases (or expenses).
+// However, based on their position, each employee may only approve expenses up to a predefined limit.
+// For instance:
+//   - regular employees can approve expenses up to 1,000 currency units,
+//   - team managers up to 10,000, and
+//   - the department manager up to 100,000.
+// Any expense greater than that must be explicitly approved by the company president.
 void problem_70_main(std::ostream& os) {
     auto p{ std::make_shared<employee>("Joe Biden", std::make_unique<president>()) };
     auto dm{ std::make_shared<employee>("Kamala Harris", std::make_unique<department_manager>()) };
@@ -52,18 +61,4 @@ void problem_70_main(std::ostream& os) {
     fmt::print(os, "After calling set_direct_manager...\n");
     test_approve_expense(os, *p);
     fmt::print(os, "\n");
-}
-
-
-// Approval system
-//
-// Write a program for a purchasing department of a company that allows employees to approve new purchases (or expenses).
-// However, based on their position, each employee may only approve expenses up to a predefined limit.
-// For instance:
-//   - regular employees can approve expenses up to 1,000 currency units,
-//   - team managers up to 10,000, and
-//   - the department manager up to 100,000.
-// Any expense greater than that must be explicitly approved by the company president.
-void problem_70_main() {
-    problem_70_main(std::cout);
 }

@@ -15,4 +15,3 @@ namespace tmcppc::problem_12 {
 
 
 void problem_12_main(std::ostream& os);
-void problem_12_main();

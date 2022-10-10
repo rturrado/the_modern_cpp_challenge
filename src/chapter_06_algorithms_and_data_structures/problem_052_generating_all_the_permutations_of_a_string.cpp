@@ -48,6 +48,10 @@ namespace tmcppc::problem_52 {
 }  // namespace tmcppc::problem_52
 
 
+// Generating all the permutations of a string
+//
+// Write a function that prints on the console all the possible permutations of a given string.
+// You should provide two versions of this function: one that uses recursion, and one that does not.
 void problem_52_main(std::ostream& os) {
     using namespace tmcppc::problem_52;
 
@@ -62,13 +66,4 @@ void problem_52_main(std::ostream& os) {
         permutations ap{ all_permutations(str) };
         fmt::print(os, "\t\t[{}]\n\n", fmt::join(ap, ", "));
     }
-}
-
-
-// Generating all the permutations of a string
-//
-// Write a function that prints on the console all the possible permutations of a given string.
-// You should provide two versions of this function: one that uses recursion, and one that does not.
-void problem_52_main() {
-    problem_52_main(std::cout);
 }

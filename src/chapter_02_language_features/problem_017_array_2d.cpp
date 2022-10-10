@@ -9,6 +9,11 @@
 #include <utility>  // move
 
 
+// Creating a 2D array with basic operations
+//
+// Write a class template that represents a two-dimensional array container with methods for
+// element access (at() and data()), capacity querying, iterators, filling, and swapping.
+// It should be possible to move objects of this type.
 void problem_17_main(std::ostream& os) {
     using namespace tmcppc::data_structures;
 
@@ -76,14 +81,4 @@ void problem_17_main(std::ostream& os) {
     } catch (const std::exception& err) {
         fmt::print(os, "Error: {}\n\n", err.what());
     }
-}
-
-
-// Creating a 2D array with basic operations
-//
-// Write a class template that represents a two-dimensional array container with methods for
-// element access (at() and data()), capacity querying, iterators, filling, and swapping.
-// It should be possible to move objects of this type.
-void problem_17_main() {
-    problem_17_main(std::cout);
 }

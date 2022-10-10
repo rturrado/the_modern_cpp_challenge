@@ -31,6 +31,10 @@ namespace tmcppc::problem_82 {
 }  // namespace tmcppc::problem_82
 
 
+// Creating a PNG that represents a national flag
+//
+// Write a program that generates a PNG file that represents the national flag of Romania.
+// The size of the image in pixels, as well as the path to the destination file, should be provided by the user.
 void problem_82_main(std::ostream& os) {
     using namespace tmcppc::problem_82;
 
@@ -41,13 +45,4 @@ void problem_82_main(std::ostream& os) {
     png_writer png_writer(300, 200, 0.0, image_file_path);
 
     paint_romania_flag(png_writer);
-}
-
-
-// Creating a PNG that represents a national flag
-//
-// Write a program that generates a PNG file that represents the national flag of Romania.
-// The size of the image in pixels, as well as the path to the destination file, should be provided by the user.
-void problem_82_main() {
-    problem_82_main(std::cout);
 }

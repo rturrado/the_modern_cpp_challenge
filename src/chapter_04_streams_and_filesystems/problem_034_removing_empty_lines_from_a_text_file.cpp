@@ -46,6 +46,10 @@ namespace tmcppc::problem_34 {
 }  // namespace tmcppc::problem_34
 
 
+// Removing empty lines from a text file
+//
+// Write a program that, given the path to a text file, modifies the file by removing all empty lines.
+// Lines containing only whitespaces are considered empty.
 void problem_34_main(std::ostream& os) {
     using namespace tmcppc::problem_34;
 
@@ -59,13 +63,4 @@ void problem_34_main(std::ostream& os) {
     } catch (const std::exception& ex) {
         fmt::print(os, "Error: {}\n\n", ex.what());
     }
-}
-
-
-// Removing empty lines from a text file
-//
-// Write a program that, given the path to a text file, modifies the file by removing all empty lines.
-// Lines containing only whitespaces are considered empty.
-void problem_34_main() {
-    problem_34_main(std::cout);
 }

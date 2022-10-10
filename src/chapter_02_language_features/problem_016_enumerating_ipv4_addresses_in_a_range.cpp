@@ -7,6 +7,10 @@
 #include <rtc/console.h>  // clear_istream
 
 
+// Enumerating IPv4 addresses in a range
+// Write a program tha allows the user to input two IPv4 addresses representing a range and
+// list all the addresses in that range.
+// Extend the structure defined for the previous problem to implement the requested functionality.
 void problem_16_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::network;
 
@@ -41,13 +45,4 @@ void problem_16_main(std::istream& is, std::ostream& os) {
         fmt::print(os, "\t{}\n", address);
     }
     fmt::print(os, "\n");
-}
-
-
-// Enumerating IPv4 addresses in a range
-// Write a program tha allows the user to input two IPv4 addresses representing a range and
-// list all the addresses in that range.
-// Extend the structure defined for the previous problem to implement the requested functionality.
-void problem_16_main() {
-    problem_16_main(std::cin, std::cout);
 }

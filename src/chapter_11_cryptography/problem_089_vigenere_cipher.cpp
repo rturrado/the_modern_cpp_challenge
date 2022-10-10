@@ -9,6 +9,10 @@
 #include <rtc/filesystem.h>
 
 
+// Vigenere cipher
+//
+// Write a program that can encrypt and decrypt messages using the Vigenere cipher.
+// For simplicity, the input plain-text messages for encryption should consist of only uppercase letters.
 void problem_89_main(std::ostream& os) {
     using namespace tmcppc::crypto;
     using crypt = tmcppc::crypto::crypt;
@@ -29,13 +33,4 @@ void problem_89_main(std::ostream& os) {
     }
 
     fmt::print(os, "\n");
-}
-
-
-// Vigenere cipher
-//
-// Write a program that can encrypt and decrypt messages using the Vigenere cipher.
-// For simplicity, the input plain-text messages for encryption should consist of only uppercase letters.
-void problem_89_main() {
-    problem_89_main(std::cout);
 }

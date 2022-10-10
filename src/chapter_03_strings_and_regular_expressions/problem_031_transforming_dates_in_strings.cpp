@@ -47,6 +47,10 @@ namespace tmcppc::problem_31 {
 }  // namespace tmcppc::problem_31
 
 
+// Transforming dates in strings
+//
+// Write a function that, given a text containing dates in the format dd.mm.yyyy or dd-mm-yyyy,
+// transforms the text so that it contains dates in the format yyyy-mm-dd
 void problem_31_main(std::ostream& os) {
     using namespace tmcppc::problem_31;
 
@@ -61,13 +65,4 @@ void problem_31_main(std::ostream& os) {
     }
 
     fmt::print(os, "\n");
-}
-
-
-// Transforming dates in strings
-//
-// Write a function that, given a text containing dates in the format dd.mm.yyyy or dd-mm-yyyy,
-// transforms the text so that it contains dates in the format yyyy-mm-dd
-void problem_31_main() {
-    problem_31_main(std::cout);
 }

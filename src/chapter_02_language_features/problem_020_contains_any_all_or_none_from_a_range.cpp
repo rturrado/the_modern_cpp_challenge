@@ -10,6 +10,10 @@
 #include <cassert>  // assert
 
 
+// Container any, all, none
+//
+// Write a set of general-purpose functions that enable checking whether any, all, or none
+// of the specified arguments are present in a given container.
 void problem_20_main(std::ostream& os) {
     using namespace tmcppc::problem_20;
 
@@ -26,13 +30,4 @@ void problem_20_main(std::ostream& os) {
     assert(not contains_none(l, 0, 6));
 
     fmt::print(os, "\n");
-}
-
-
-// Container any, all, none
-//
-// Write a set of general-purpose functions that enable checking whether any, all, or none
-// of the specified arguments are present in a given container.
-void problem_20_main() {
-    problem_20_main(std::cout);
 }

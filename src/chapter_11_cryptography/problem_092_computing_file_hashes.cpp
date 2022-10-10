@@ -9,6 +9,10 @@
 #include <ostream>
 
 
+// Computing file hashes
+//
+// Write a program that, given a path to a file, computes and prints to the console
+// the SHA1, SHA256, and MD5 hash values for the content of the file.
 void problem_92_main(std::ostream& os) {
     using namespace tmcppc::crypto;
 
@@ -21,13 +25,4 @@ void problem_92_main(std::ostream& os) {
     fmt::print(os, "\tMD5: '{}'\n", get_hash_as_hex_string<CryptoPP::Weak::MD5>(input_file_path));
 
     fmt::print(os, "\n");
-}
-
-
-// Computing file hashes
-//
-// Write a program that, given a path to a file, computes and prints to the console
-// the SHA1, SHA256, and MD5 hash values for the content of the file.
-void problem_92_main() {
-    problem_92_main(std::cout);
 }

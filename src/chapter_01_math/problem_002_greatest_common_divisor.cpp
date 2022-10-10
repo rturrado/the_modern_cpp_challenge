@@ -28,6 +28,9 @@ namespace tmcppc::problem_2 {
 }  // namespace tmcppc::problem_2
 
 
+// Greatest common divisor
+//
+// Write a program that, given two positive integers, will calculate and print the greatest common divisor of the two
 void problem_2_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::problem_2;
 
@@ -39,12 +42,4 @@ void problem_2_main(std::istream& is, std::ostream& os) {
     } catch (const std::exception& ex) {
         fmt::print(os, "Error: {}.\n\n", ex.what());
     }
-}
-
-
-// Greatest common divisor
-//
-// Write a program that, given two positive integers, will calculate and print the greatest common divisor of the two
-void problem_2_main() {
-    problem_2_main(std::cin, std::cout);
 }

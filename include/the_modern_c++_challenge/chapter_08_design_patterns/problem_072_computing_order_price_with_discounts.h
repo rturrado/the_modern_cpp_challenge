@@ -461,4 +461,3 @@ struct fmt::formatter<tmcppc::store::order_t> {
 
 
 void problem_72_main(std::ostream& os);
-void problem_72_main();

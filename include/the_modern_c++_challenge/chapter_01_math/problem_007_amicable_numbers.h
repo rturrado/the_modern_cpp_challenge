@@ -11,6 +11,5 @@ namespace tmcppc::problem_7 {
 
 
 void problem_7_main(std::ostream& os);
-void problem_7_main();
 
 void playing_with_tmp(std::ostream& os);

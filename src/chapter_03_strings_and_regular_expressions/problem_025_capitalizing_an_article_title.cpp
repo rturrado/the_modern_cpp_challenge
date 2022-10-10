@@ -34,6 +34,11 @@ namespace tmcppc::problem_25 {
 }  // namespace tmcppc::problem_25
 
 
+// Capitalizing an article title
+//
+// Write a function that transforms an input text into a capitalized version,
+// where every word starts with an uppercase letter and has all the other letters in lowercase.
+// For instance, the text "the c++ challenger" should be transformed to "The C++ Challenger".
 void problem_25_main(std::ostream& os) {
     using namespace tmcppc::problem_25;
 
@@ -41,14 +46,4 @@ void problem_25_main(std::ostream& os) {
     std::string s2{ "THIS IS an ExamplE, should wORk!" };
     fmt::print(os, "Capitalizing word \"{}\": \"{}\"\n", s1, capitalize(s1));
     fmt::print(os, "Capitalizing word \"{}\": \"{}\"\n\n", s2, capitalize(s2));
-}
-
-
-// Capitalizing an article title
-//
-// Write a function that transforms an input text into a capitalized version,
-// where every word starts with an uppercase letter and has all the other letters in lowercase.
-// For instance, the text "the c++ challenger" should be transformed to "The C++ Challenger".
-void problem_25_main() {
-    problem_25_main(std::cout);
 }

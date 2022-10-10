@@ -12,4 +12,3 @@ namespace tmcppc::problem_32 {
 }  // namespace tmcppc::problem_32
 
 void problem_32_main(std::ostream& os);
-void problem_32_main();

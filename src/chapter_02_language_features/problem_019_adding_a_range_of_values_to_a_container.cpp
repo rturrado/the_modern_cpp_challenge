@@ -7,6 +7,10 @@
 #include <vector>
 
 
+// Adding a range of values to a container
+//
+// Write a general-purpose function that can add any number of elements
+// to the end of a container that has a method push_back(T&& value).
 void problem_19_main(std::ostream& os) {
     using namespace tmcppc::problem_19;
 
@@ -21,13 +25,4 @@ void problem_19_main(std::ostream& os) {
     std::list<float> l_float{};
     push_back_list_v2(l_float, 3.14f, 0.99f, -273.0f);
     fmt::print(os, "Adding 3.14f, 0.99f, and -273.0f ot an empty list of floats: {}\n\n", l_float);
-}
-
-
-// Adding a range of values to a container
-//
-// Write a general-purpose function that can add any number of elements
-// to the end of a container that has a method push_back(T&& value).
-void problem_19_main() {
-    problem_19_main(std::cout);
 }

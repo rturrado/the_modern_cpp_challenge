@@ -39,6 +39,11 @@ namespace tmcppc::problem_79 {
 }  // namespace tmcppc::problem_79
 
 
+// Finding files in a ZIP archive
+//
+// Write a program that can search for and print all the files in a ZIP archive
+// whose name matches a user-provided regular expression
+// (for instance, use ^.*\.jpg$ to find all files with the extension .jpg).
 void problem_79_main(std::ostream& os) {
     using namespace tmcppc::problem_79;
 
@@ -49,14 +54,4 @@ void problem_79_main(std::ostream& os) {
         fmt::print(os, "\t{}\n", f);
     }
     fmt::print(os, "\n");
-}
-
-
-// Finding files in a ZIP archive
-//
-// Write a program that can search for and print all the files in a ZIP archive
-// whose name matches a user-provided regular expression
-// (for instance, use ^.*\.jpg$ to find all files with the extension .jpg).
-void problem_79_main() {
-    problem_79_main(std::cout);
 }

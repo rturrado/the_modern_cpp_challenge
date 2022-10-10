@@ -6,4 +6,3 @@
 
 
 void problem_57_main(std::ostream& os);
-void problem_57_main();

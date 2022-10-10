@@ -104,6 +104,10 @@ namespace tmcppc::problem_12 {
 }  // namespace tmcppc::problem_12
 
 
+// Largest Collatz sequence
+//
+// Write a program that determines and prints which number up to 1 million
+// produces the longest Collatz sequence and what length is
 void problem_12_main(std::ostream& os) {
     using namespace tmcppc::problem_12;
 
@@ -116,13 +120,4 @@ void problem_12_main(std::ostream& os) {
     // Print results
     fmt::print(os, "Number between 1 and {0} with longest Collatz sequence ({2} elements) is: {1}\n\n",
         limit, n, n_collatz_sequence_size);
-}
-
-
-// Largest Collatz sequence
-//
-// Write a program that determines and prints which number up to 1 million
-// produces the longest Collatz sequence and what length is
-void problem_12_main() {
-    problem_12_main(std::cout);
 }

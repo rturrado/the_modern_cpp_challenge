@@ -8,4 +8,3 @@ namespace tmcppc::problem_13 {
 }  // namespace tmcppc::problem_13
 
 void problem_13_main(std::ostream& os);
-void problem_13_main();

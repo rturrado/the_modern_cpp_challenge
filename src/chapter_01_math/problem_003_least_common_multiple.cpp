@@ -36,6 +36,9 @@ namespace tmcppc::problem_3 {
 }  // namespace tmcppc::problem_3
 
 
+// Least common multiple
+//
+// Write a program that will, given two or more positive integers, calculate and print the least common multiple of them all
 void problem_3_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::problem_3;
 
@@ -47,12 +50,4 @@ void problem_3_main(std::istream& is, std::ostream& os) {
     } catch (const std::exception& ex) {
         fmt::print(os, "Error: {}.\n", ex.what());
     }
-}
-
-
-// Least common multiple
-//
-// Write a program that will, given two or more positive integers, calculate and print the least common multiple of them all
-void problem_3_main() {
-    problem_3_main(std::cin, std::cout);
 }

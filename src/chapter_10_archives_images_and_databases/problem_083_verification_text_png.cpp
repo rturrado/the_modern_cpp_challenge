@@ -85,6 +85,13 @@ namespace tmcppc::problem_83 {
 }  // namespace tmcppc::problem_83
 
 
+// Creating verification text PNG images
+//
+// Write a program that can create Captcha-like PNG images for verifying human users to a system.
+// Such an images should have:
+//   - A gradient-coloured background.
+//   - A series of random letters displayed at different angles both to the right and left.
+//   - Several random lines of different colours across the image (on top of the text).
 void problem_83_main(std::ostream& os) {
     using namespace tmcppc::problem_83;
 
@@ -95,16 +102,4 @@ void problem_83_main(std::ostream& os) {
     png_writer png_writer(300, 200, 0.0, image_file_path);
 
     paint_verification_text(png_writer);
-}
-
-
-// Creating verification text PNG images
-//
-// Write a program that can create Captcha-like PNG images for verifying human users to a system.
-// Such an images should have:
-//   - A gradient-coloured background.
-//   - A series of random letters displayed at different angles both to the right and left.
-//   - Several random lines of different colours across the image (on top of the text).
-void problem_83_main() {
-    problem_83_main(std::cout);
 }

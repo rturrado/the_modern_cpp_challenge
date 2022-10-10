@@ -22,6 +22,10 @@ namespace tmcppc::problem_10 {
 }  // namespace tmcppc::problem_10
 
 
+// Gray code
+//
+// Write a program that displays the normal binary representations,
+// Gray code representations, and decoded Gray code values for all 5-bit numbers
 void problem_10_main(std::ostream& os) {
     using namespace tmcppc::problem_10;
 
@@ -33,13 +37,4 @@ void problem_10_main(std::ostream& os) {
             binary, std::bitset<5>{binary}.to_string(), std::bitset<5>{gray}.to_string(), decoded_gray);
     }
     fmt::print(os, "\n");
-}
-
-
-// Gray code
-//
-// Write a program that displays the normal binary representations,
-// Gray code representations, and decoded Gray code values for all 5-bit numbers
-void problem_10_main() {
-    problem_10_main(std::cout);
 }

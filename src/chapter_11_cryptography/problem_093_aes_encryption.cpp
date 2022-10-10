@@ -53,6 +53,10 @@ namespace tmcppc::crypto {
 }  // namespace tmcppc::crypto
 
 
+// Encrypting and decrypting files
+//
+// Write a program that can encrypt and decrypt files using the Advanced Encryption Standard (AES or Rijndael).
+// It should be possible to specify both a source file and a destination file path, as well as a password.
 void problem_93_main(std::ostream& os) {
     using namespace tmcppc::crypto;
 
@@ -76,13 +80,4 @@ void problem_93_main(std::ostream& os) {
     }
 
     fmt::print(os, "\n");
-}
-
-
-// Encrypting and decrypting files
-//
-// Write a program that can encrypt and decrypt files using the Advanced Encryption Standard (AES or Rijndael).
-// It should be possible to specify both a source file and a destination file path, as well as a password.
-void problem_93_main() {
-    problem_93_main(std::cout);
 }

@@ -6,6 +6,9 @@
 #include <rtc/console.h>  // read_positive_number
 
 
+// Converting numerical values to Roman
+//
+// Write a program that, given a number entered by the user, prints its Roman numeral equivalent
 void problem_11_main(std::istream& is, std::ostream& os) {
     using namespace tmcppc::date;
 
@@ -14,12 +17,4 @@ void problem_11_main(std::istream& is, std::ostream& os) {
 
     fmt::print(os, "Number\tRoman numeral equivalent\n");
     fmt::print(os, "{}\t{}\n\n", n, to_roman_v1(static_cast<size_t>(n)));
-}
-
-
-// Converting numerical values to Roman
-//
-// Write a program that, given a number entered by the user, prints its Roman numeral equivalent
-void problem_11_main() {
-    problem_11_main(std::cin, std::cout);
 }

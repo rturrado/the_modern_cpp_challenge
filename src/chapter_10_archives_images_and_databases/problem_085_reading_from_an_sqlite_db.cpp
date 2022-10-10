@@ -9,6 +9,26 @@
 namespace fs = std::filesystem;
 
 
+// Reading movies from an SQLite database
+//
+// Write a program that reads movies from an SQLite database and displays them on the console.
+// Each movie must have a numerical identifier, a title, release year, length in minutes, list of directors, list of writers,
+// and a cast that includes both the actor and the character names.
+// The following is a diagram of the database that should be used for this purpose:
+//
+//   movies                         persons
+//   ---------------------          ---------------------
+//   (key) rowid   integer          (key) rowid   integer
+//         title   text                   name    text
+//         year    integer
+//         length  integer
+//
+//   directors                        writers                          casting
+//   -----------------------          -----------------------          -----------------------
+//   (key) rowid     integer          (key) rowid     integer          (key) rowid     integer
+//         movieid   integer                movieid   integer                movieid   integer
+//         personid  integer                personid  integer                personid  integer
+//                                                                           role      text
 void problem_85_main(std::istream& is, std::ostream& os) {
     const auto db_file_path{ fs::temp_directory_path() / "movies.db" };
 
@@ -31,29 +51,4 @@ void problem_85_main(std::istream& is, std::ostream& os) {
     }
 
     fmt::print(os, "\n");
-}
-
-
-// Reading movies from an SQLite database
-//
-// Write a program that reads movies from an SQLite database and displays them on the console.
-// Each movie must have a numerical identifier, a title, release year, length in minutes, list of directors, list of writers,
-// and a cast that includes both the actor and the character names.
-// The following is a diagram of the database that should be used for this purpose:
-//
-//   movies                         persons
-//   ---------------------          ---------------------
-//   (key) rowid   integer          (key) rowid   integer
-//         title   text                   name    text
-//         year    integer
-//         length  integer
-//
-//   directors                        writers                          casting
-//   -----------------------          -----------------------          -----------------------
-//   (key) rowid     integer          (key) rowid     integer          (key) rowid     integer
-//         movieid   integer                movieid   integer                movieid   integer
-//         personid  integer                personid  integer                personid  integer
-//                                                                           role      text
-void problem_85_main() {
-    problem_85_main(std::cin, std::cout);
 }
