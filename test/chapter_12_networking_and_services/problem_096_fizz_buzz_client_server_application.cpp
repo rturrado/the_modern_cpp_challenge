@@ -22,13 +22,18 @@ TEST(problem_96_main, output) {
     problem_96_main(iss, oss);
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("[server] Starting\n"));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr("[client] Starting\n"));
+    // There is no guarantee for the order in which server and client start
+    // It may occur that the client starts first and the server starts anytime between the following lines are output
+    //
+    //   "[client] Please enter a number between 1 and 99 ('quit' to finish the game): "  // 0
+    //   "[client] Error: invalid input\n"
+    //   "[client] Please enter a number between 1 and 99 ('quit' to finish the game): "  // 100
+    //   "[client] Error: invalid input\n"
+    //   "[client] Please enter a number between 1 and 99 ('quit' to finish the game): "  // 1
+    //   "[client] Says '1'\n"
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("[client] Error: invalid input\n"));
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("[client] Says '1'\n"));
     EXPECT_THAT(oss.str(), ::testing::HasSubstr(
-        "[client] Please enter a number between 1 and 99 ('quit' to finish the game): "  // 0
-        "[client] Error: invalid input\n"
-        "[client] Please enter a number between 1 and 99 ('quit' to finish the game): "  // 100
-        "[client] Error: invalid input\n"
-        "[client] Please enter a number between 1 and 99 ('quit' to finish the game): "  // 1
-        "[client] Says '1'\n"
         "[server] Says '1'\n"
         "[client] Please enter a number between 1 and 99 ('quit' to finish the game): "  // 2
         "[client] Says '2'\n"
