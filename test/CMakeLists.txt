@@ -104,7 +104,13 @@ elseif(UNIX)
     if(APPLE)
         set(CMAKE_MACOSX_RPATH 1)
     endif()
-    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+    set_target_properties(${PROJECT_NAME}_test PROPERTIES
+        SKIP_BUILD_RPATH FALSE
+        BUILD_WITH_INSTALL_RPATH FALSE
+        INSTALL_RPATH ""
+        INSTALL_RPATH_USE_LINK_PATH FALSE
+        LINK_FLAGS "-Wl,-rpath,./"
+    )
 endif()
 
 

@@ -188,6 +188,15 @@
                 "unixlike-gcc-release-benchmarks",
                 "unixlike-gcc-release-ccache"
             ]
+        },
+        {
+            "name": "unixlike-gcc-release-tests",
+            "displayName": "gcc Release (tests)",
+            "description": "Target Unix-like OS with the gcc compiler, release build type (tests)",
+            "inherits": "unixlike-gcc-release",
+            "cacheVariables": {
+                "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true
+            }
         }
     ],
     "buildPresets": [
@@ -236,6 +245,14 @@
             "configurePreset": "unixlike-gcc-release-github",
             "displayName": "Build unixlike-gcc-release-github",
             "description": "Build x64 Unix-like OS gcc Release (GitHub)",
+            "configuration": "Release",
+            "verbose": true
+        },
+        {
+            "name": "unixlike-gcc-release-tests",
+            "configurePreset": "unixlike-gcc-release-tests",
+            "displayName": "Build unixlike-gcc-release-tests",
+            "description": "Build x64 Unix-like OS gcc Release (tests)",
             "configuration": "Release",
             "verbose": true
         }
