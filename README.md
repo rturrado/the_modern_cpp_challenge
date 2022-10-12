@@ -46,7 +46,8 @@ You can download the current version of the **Boost libraries** from https://www
 
 From a `cmd`, as administrator:
 ```bash
-C:\projects> git clone -c core.symlinks=true --recurse-submodules https://github.com/rturrado/the_modern_cpp_challenge
+C:\projects> git config core.symlinks true
+C:\projects> git clone --recurse-submodules https://github.com/rturrado/the_modern_cpp_challenge
 ```
 
 ### Config
@@ -193,9 +194,9 @@ Finally, this group of libraries is automatically managed via `vcpkg`:
 ## Notes
 
 - Windows builds with address sanitizer enabled have started to crash since updating to MSVC 14.33.31629.
-- `res\sample_folder\sample_subfolder` is a symbolic link to the `res\sample_subfolder` directory. If you experience failures in some tests that access `sample_subfolder`, it may happen that the symbolic link wasn't correctly created after a `git clone` or `git pull` operation. In that case, you may need to tell `git` to enable the use of symbolic links (and update your local checkout afterwards). You can do that by running the commands below as administrator:
+- `res\sample_folder\sample_subfolder` is a symbolic link to the `res\sample_subfolder` directory. If you experience failures in some tests that access `sample_subfolder`, it may happen that the symbolic link wasn't correctly created after a `git` operation. In that case, you may need to tell `git` to enable the use of symbolic links, and then update your local checkout. You can do that by running the commands below as administrator:
 
   ```bash
   C:\projects\the_modern_cpp_challenge> git config core.symlinks true
-  C:\projects\the_modern_cpp_challenge> git pull
+  C:\projects\the_modern_cpp_challenge> git reset --hard
   ```
