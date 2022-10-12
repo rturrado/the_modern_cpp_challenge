@@ -32,20 +32,14 @@
 *.app
 
 # Others
+/.idea
 /.vs
-/out/build
 /CMakeSettings.json
-/build/benchmark
-/build/test
+/Testing/Temporary
 /build/NinjaMultiConfig/benchmark
+/build/NinjaMultiConfig/no-test
 /build/NinjaMultiConfig/test
 /build/NinjaMultiConfig/test-asan
-/build/NinjaMultiConfig/no-test
-/Testing/Temporary
-/.idea/.gitignore
-/.idea/.name
-/.idea/codeStyles/codeStyleConfig.xml
-/.idea/misc.xml
-/.idea/modules.xml
-/.idea/the_modern_cpp_challenge.iml
-/.idea/vcs.xml
+/build/benchmark
+/build/test
+/out/build
