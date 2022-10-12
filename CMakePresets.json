@@ -18,7 +18,6 @@
                     "type": "PATH",
                     "value": "$env{BOOST_ROOT}"
                 },
-                "BUILD_TZ_LIB": true,
                 "RANGE_V3_DOCS": false,
                 "RANGE_V3_EXAMPLES": false,
                 "RANGE_V3_TESTS": false
@@ -51,6 +50,9 @@
             "description": "Unix-like OS settings for gcc and clang toolchains",
             "hidden": true,
             "inherits": "conf-common",
+            "cacheVariables": {
+                "BUILD_TZ_LIB": true
+            },
             "condition": {
                 "type": "inList",
                 "string": "${hostSystemName}",
@@ -95,6 +97,7 @@
             "name": "unixlike-gcc-debug",
             "displayName": "gcc Debug",
             "description": "Target Unix-like OS with the gcc compiler, debug build type",
+            "hidden": true,
             "inherits": "conf-unixlike-common",
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
@@ -153,6 +156,7 @@
             "name": "unixlike-gcc-release",
             "displayName": "gcc Release",
             "description": "Target Unix-like OS with the gcc compiler, release build type",
+            "hidden": true,
             "inherits": "conf-unixlike-common",
             "cacheVariables": {
                 "BUILD_TESTING": false,
