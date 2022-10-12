@@ -41,6 +41,7 @@ jobs:
         with:
           path: ${{env.BOOST_ROOT}}
           key: boost
+
       - name: Install Boost
         if: steps.cache-boost.outputs.cache-hit != 'true'
         run: |
@@ -73,10 +74,12 @@ jobs:
         with:
           configurePreset: 'unixlike-gcc-debug-github'
           buildPreset: 'unixlike-gcc-debug-github'
+
       - name: Run tests
         working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug-github
         run: ctest -C Debug --output-on-failure
         shell: bash
+
       - name: Collect code coverage
         working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug-github
         run: bash <(curl -s https://codecov.io/bash)
@@ -102,6 +105,7 @@ jobs:
         with:
           path: ${{env.BOOST_ROOT}}
           key: boost
+
       - name: Install Boost
         if: steps.cache-boost.outputs.cache-hit != 'true'
         run: |
@@ -134,6 +138,7 @@ jobs:
         with:
           configurePreset: 'unixlike-gcc-release-github'
           buildPreset: 'unixlike-gcc-release-github'
+
       - name: Run benchmarks
         working-directory: ${{github.workspace}}
         run: ./out/build/unixlike-gcc-release-github/benchmark/Release/the_modern_c++_challenge_benchmark
