@@ -53,7 +53,7 @@ namespace tmcppc::logging::v1 {
 
         void open_file(std::ios_base::openmode mode = std::ios_base::out) {
             file_.open(file_path_.string(), mode);
-            if (!file_) {
+            if (not file_) {
                 throw rtc::filesystem::could_not_open_file_error{ file_path_.generic_string() };
             }
         }
