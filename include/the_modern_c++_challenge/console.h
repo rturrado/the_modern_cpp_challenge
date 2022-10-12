@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>  // unique_ptr
-#include <rtc/console.h>
+#include "rtc/console.h"
 #include <stdexcept>  // runtime_error
 #include <string_view>
 #include <utility>  // move
@@ -16,10 +16,14 @@ namespace tmcppc::system {
 
     struct console_iface {
         virtual ~console_iface() = default;
+        virtual void clear_istream(std::istream& is) const = 0;
         virtual void clear_screen() const = 0;
     };
 
     struct console_impl : public console_iface {
+        void clear_istream(std::istream& is) const override {
+            rtc::console::clear_istream(is);
+        }
         void clear_screen() const override {
             rtc::console::clear_screen();
         }
@@ -33,6 +37,9 @@ namespace tmcppc::system {
             if (not impl_up_) {
                 throw console_error{ "console is null" };
             }
+        }
+        void clear_istream(std::istream& is) const {
+            impl_up_->clear_istream(is);
         }
         void clear_screen() const {
             impl_up_->clear_screen();
