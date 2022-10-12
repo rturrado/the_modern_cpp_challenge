@@ -2,8 +2,6 @@
 #include "chapter_10_archives_images_and_databases/problem_081_zip_compression_with_password.h"
 #include "chapter_10_archives_images_and_databases/zip/zip_lib_wrapper.h"
 
-#include <iostream>  // cin, cout
-
 
 // Compressing and decompressing files to/from a ZIP archive
 //

@@ -5,7 +5,6 @@
 #include <exception>
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <iostream>  // cin, cout
 
 namespace fs = std::filesystem;
 

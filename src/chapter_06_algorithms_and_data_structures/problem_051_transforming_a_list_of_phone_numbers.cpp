@@ -5,7 +5,6 @@
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
 #include <functional>  // reference_wrapper
-#include <iostream>  // cout
 #include <regex>  // regex_match, regex_replace, smatch
 #include <string>
 
@@ -21,7 +20,7 @@ namespace tmcppc::problem_51 {
             // - +, country code, 10-digit number
             // - country code, 10-digit number
             // - 0, and then a 10-digit number
-            // - 10 digit number
+            // - 10-digit number
             // Country codes and 10-digit numbers shouldn't start with 0
             std::regex ph_no_pattern{ R"((?:0?|([1-9][0-9]*)|\+([1-9][0-9]*))([1-9][0-9]{9}))" };
             std::smatch matches{};

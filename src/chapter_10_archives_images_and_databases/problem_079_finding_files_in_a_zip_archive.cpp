@@ -3,7 +3,6 @@
 
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <regex>  // regex_match
 #include <string>
 #include <ZipFile.h>

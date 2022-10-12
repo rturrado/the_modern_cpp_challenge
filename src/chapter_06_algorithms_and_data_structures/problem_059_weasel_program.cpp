@@ -2,7 +2,6 @@
 
 #include <algorithm>  // max_element
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <ostream>
 #include <vector>
 

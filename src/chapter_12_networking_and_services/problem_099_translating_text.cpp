@@ -3,7 +3,6 @@
 
 #include <exception>
 #include <fmt/ostream.h>
-#include <iostream>  // cin, cout
 #include <memory>  // make_unique
 #include <string_view>
 #include <string>  // getline

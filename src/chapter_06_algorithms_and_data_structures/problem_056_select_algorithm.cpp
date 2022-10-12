@@ -2,7 +2,7 @@
 
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <iostream>
+#include <ostream>
 #include <vector>
 
 

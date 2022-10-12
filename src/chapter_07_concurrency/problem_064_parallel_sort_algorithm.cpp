@@ -3,7 +3,6 @@
 #include <algorithm>  // shuffle, sort
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <iostream>  // cout
 #include <numeric>  // iota
 #include <random>  // default_random_engine, random_device
 #include <vector>

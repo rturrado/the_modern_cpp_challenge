@@ -1,7 +1,6 @@
 #include "chapter_07_concurrency/problem_066_customer_service_system.h"
 
 #include <fmt/ostream.h>
-#include <iostream>  // cin, cout
 #include <ostream>
 #include <rtc/console.h>  // read_positive_number
 

@@ -4,7 +4,6 @@
 
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 
 
 // EAN-13 barcode generator

@@ -3,7 +3,6 @@
 #include <date/date.h>
 #include <fmt/chrono.h>
 #include <fmt/format.h>
-#include <iostream>  // cout
 #include <ostream>
 #include <rtc/chrono.h>
 #include <utility>  // pair

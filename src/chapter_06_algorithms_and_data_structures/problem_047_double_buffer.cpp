@@ -4,7 +4,6 @@
 #include <algorithm>  // for_each
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <iostream>  // cout
 #include <numeric>  // iota
 #include <thread>  // sleep_for
 #include <vector>

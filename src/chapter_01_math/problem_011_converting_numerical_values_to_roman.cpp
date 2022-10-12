@@ -2,7 +2,6 @@
 #include "chapter_01_math/roman.h"
 
 #include <fmt/ostream.h>
-#include <iostream>  // cin, cout
 #include <rtc/console.h>  // read_positive_number
 
 

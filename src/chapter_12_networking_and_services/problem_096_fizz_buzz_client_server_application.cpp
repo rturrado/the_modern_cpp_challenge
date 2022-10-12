@@ -3,7 +3,6 @@
 
 #include <fmt/ostream.h>
 #include <future>  // async
-#include <iostream>  // cin, cout
 #include <memory>  // make_unique
 
 #define BOOST_ASIO_STANDALONE

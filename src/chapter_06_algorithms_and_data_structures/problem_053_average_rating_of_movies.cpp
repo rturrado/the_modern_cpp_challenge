@@ -3,7 +3,6 @@
 #include <algorithm>  // sort
 #include <cmath>  // lround
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <numeric>  // accumulate
 
 

@@ -5,7 +5,6 @@
 #include <exception>
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <regex>  // regex_match
 #include <rtc/filesystem.h>
 #include <string>

@@ -3,7 +3,7 @@
 #include <chrono>
 #include <date/date.h>
 #include <fmt/format.h>
-#include <iostream>  // cout
+#include <ostream>
 #include <rtc/chrono.h>
 
 using namespace date::literals;  // 2020_y

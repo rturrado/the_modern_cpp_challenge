@@ -5,7 +5,6 @@
 #include <fmt/chrono.h>
 #include <fmt/core.h>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <ostream>
 #include <rtc/chrono.h>
 

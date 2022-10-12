@@ -2,7 +2,6 @@
 
 #include <date/date.h>
 #include <exception>
-#include <iostream>  // cout
 #include <ostream>
 #include <rtc/chrono.h>
 #include <utility>  // pair

@@ -2,8 +2,8 @@
 
 #include <array>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <list>
+#include <ostream>
 #include <vector>
 
 #undef NDEBUG

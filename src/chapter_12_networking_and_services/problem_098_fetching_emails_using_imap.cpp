@@ -4,7 +4,6 @@
 #include <algorithm>  // transform
 #include <exception>
 #include <fmt/ostream.h>
-#include <iostream>  // cin, cout
 #include <memory>  // make_unique
 #include <rtc/console.h>  // read_positive_number
 #include <string>  // getline

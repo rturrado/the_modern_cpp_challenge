@@ -2,7 +2,6 @@
 
 #include <exception>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <regex>  // regex_match, regex_replace, smatch
 #include <string>  // stoi
 #include <string_view>

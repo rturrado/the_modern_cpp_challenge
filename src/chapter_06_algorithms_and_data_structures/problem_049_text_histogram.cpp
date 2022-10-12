@@ -6,7 +6,6 @@
 #include <exception>
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <map>
 #include <numeric>  // accumulate
 #include <rtc/filesystem.h>
