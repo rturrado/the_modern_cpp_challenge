@@ -5,7 +5,6 @@
 #include <exception>
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 
 
 // Creating a PDF from a collection of images

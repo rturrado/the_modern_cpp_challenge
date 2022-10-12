@@ -2,7 +2,6 @@
 #include "chapter_01_math/problem_006_abundant_numbers.h"
 
 #include <fmt/ostream.h>
-#include <iostream>  // cin, cout
 #include <numeric>  // accumulate
 #include <rtc/console.h>  // read_positive_number
 #include <utility>  // move

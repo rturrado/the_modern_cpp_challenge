@@ -2,7 +2,6 @@
 
 #include <fmt/format.h>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <memory>  // make_shared, make_unique
 #include <string>
 #include <utility>  // pair

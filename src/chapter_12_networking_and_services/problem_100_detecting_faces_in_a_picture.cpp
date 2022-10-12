@@ -5,7 +5,6 @@
 
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <iostream>  // cin, cout
 #include <rtc/pretty_print.h>
 #include <string>  // getline
 #include <variant>  // get, holds_alternative

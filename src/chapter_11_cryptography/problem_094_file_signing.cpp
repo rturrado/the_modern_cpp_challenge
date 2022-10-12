@@ -7,7 +7,6 @@
 #include <cryptopp/rsa.h>  // RSAES_OAEP_SHA_{Decryptor, Encryptor}, RSASSA_PKCS1v15_SHA_{Signer, Verifier}
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <ostream>
 #include <rtc/filesystem.h>
 

@@ -2,7 +2,6 @@
 
 #include <chrono>
 #include <format>
-#include <iostream>  // cout
 #include <ostream>
 #include <rtc/chrono.h>
 #include <utility>  // pair

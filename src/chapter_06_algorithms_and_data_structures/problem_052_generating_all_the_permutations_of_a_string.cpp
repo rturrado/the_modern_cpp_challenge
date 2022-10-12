@@ -3,7 +3,6 @@
 #include <algorithm>  // next_permutation, sort
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <iostream>  // cout
 #include <string>
 
 

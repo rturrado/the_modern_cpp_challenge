@@ -3,7 +3,6 @@
 
 #include <fmt/ostream.h>
 #include <future>  // async
-#include <iostream>  // cout
 #include <mutex>  // lock_guard
 #include <thread>  // sleep_for
 

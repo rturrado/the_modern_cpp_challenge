@@ -3,7 +3,6 @@
 #include <chrono>
 #include <exception>
 #include <format>
-#include <iostream>  // cout
 #include <ostream>
 #include <rtc/chrono.h>
 

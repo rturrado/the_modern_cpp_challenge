@@ -2,7 +2,6 @@
 
 #include <fmt/ostream.h>
 #include <functional>  // greater
-#include <iostream>  // cout
 #include <string>
 
 

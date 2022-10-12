@@ -1,7 +1,7 @@
 #include "chapter_02_language_features/problem_021_system_handle_wrapper.h"
 
 #include <fmt/ostream.h>
-#include <iostream>  // wcout
+#include <ostream>  // wcout
 #include <stdexcept>  // runtime_error
 
 #ifdef _WIN32

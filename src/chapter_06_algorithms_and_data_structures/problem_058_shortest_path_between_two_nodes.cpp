@@ -3,7 +3,6 @@
 
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <iostream>  // cout
 
 
 // The shortest path between two nodes

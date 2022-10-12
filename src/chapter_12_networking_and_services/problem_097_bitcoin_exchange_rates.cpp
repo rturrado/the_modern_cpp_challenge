@@ -2,8 +2,8 @@
 #include "chapter_12_networking_and_services/problem_097_bitcoin_exchange_rates.h"
 
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <memory>  // make_unique
+#include <ostream>
 
 
 // Bitcoin exchange rates

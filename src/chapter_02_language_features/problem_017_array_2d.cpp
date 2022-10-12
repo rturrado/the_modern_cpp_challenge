@@ -4,9 +4,7 @@
 #include <algorithm>  // transform
 #include <exception>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <numeric>  // iota
-#include <utility>  // move
 
 
 // Creating a 2D array with basic operations

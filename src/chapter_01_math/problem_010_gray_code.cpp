@@ -2,7 +2,6 @@
 
 #include <bitset>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 
 
 namespace tmcppc::problem_10 {

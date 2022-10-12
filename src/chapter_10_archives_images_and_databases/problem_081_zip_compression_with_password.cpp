@@ -4,7 +4,6 @@
 
 #include <filesystem>
 #include <fmt/format.h>
-#include <iostream>  // cin, cout
 #include <rtc/console.h>
 #include <rtc/filesystem.h>
 #include <string>

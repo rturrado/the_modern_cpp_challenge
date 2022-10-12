@@ -1,7 +1,6 @@
 #include "chapter_08_design_patterns/problem_072_computing_order_price_with_discounts.h"
 
 #include <cmath>  // abs
-#include <iostream>  // cout
 #include <limits>  // epsilon, numeric_limits
 #include <memory>  // make_shared
 #include <ostream>

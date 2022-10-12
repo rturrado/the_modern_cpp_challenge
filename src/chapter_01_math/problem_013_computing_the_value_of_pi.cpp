@@ -1,7 +1,6 @@
 #include "chapter_01_math/problem_013_computing_the_value_of_pi.h"
 
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <random>
 
 

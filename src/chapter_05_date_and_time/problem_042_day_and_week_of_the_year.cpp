@@ -2,7 +2,6 @@
 
 #include <chrono>
 #include <format>
-#include <iostream>  // cout
 #include <rtc/chrono.h>
 
 namespace ch = std::chrono;

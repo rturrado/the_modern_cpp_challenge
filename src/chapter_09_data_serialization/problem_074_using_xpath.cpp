@@ -5,7 +5,6 @@
 #include "chapter_09_data_serialization/xml/movies.h"
 
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <pugixml.hpp>
 
 #undef NDEBUG

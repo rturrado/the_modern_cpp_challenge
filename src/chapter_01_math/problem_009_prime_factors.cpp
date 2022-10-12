@@ -2,7 +2,6 @@
 #include "chapter_01_math/problem_009_prime_factors.h"
 
 #include <fmt/ostream.h>
-#include <iostream>  // cin, cout
 #include <rtc/console.h>  // read_positive_number
 
 

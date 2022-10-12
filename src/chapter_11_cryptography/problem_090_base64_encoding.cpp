@@ -4,7 +4,6 @@
 
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <rtc/filesystem.h>
 #include <string_view>
 

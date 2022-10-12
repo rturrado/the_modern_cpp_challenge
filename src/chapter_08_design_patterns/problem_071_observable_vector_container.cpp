@@ -2,7 +2,6 @@
 
 #include <algorithm>  // transform
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <memory>  // make_shared
 #include <string>
 #include <utility>  // move

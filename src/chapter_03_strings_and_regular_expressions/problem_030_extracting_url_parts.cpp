@@ -3,7 +3,6 @@
 
 #include <exception>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 
 
 // Extracting URL parts

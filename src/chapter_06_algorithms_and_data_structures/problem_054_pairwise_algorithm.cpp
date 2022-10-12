@@ -2,7 +2,6 @@
 
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <iostream>  // cout
 #include <numeric>  // adjacent_difference
 #include <vector>
 

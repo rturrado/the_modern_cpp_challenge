@@ -4,7 +4,6 @@
 
 #include <filesystem>
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <rtc/random.h>
 
 using namespace rtc::random;

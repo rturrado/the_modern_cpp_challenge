@@ -3,7 +3,6 @@
 
 #include <cmath>  // pow
 #include <fmt/ostream.h>
-#include <iostream>  // cout
 #include <numeric>  // accumulate
 #include <string>  // to_string
 #include <vector>

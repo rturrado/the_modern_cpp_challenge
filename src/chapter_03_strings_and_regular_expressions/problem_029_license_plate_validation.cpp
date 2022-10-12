@@ -2,7 +2,6 @@
 
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <iostream>  // cout
 #include <regex>  // regex_match, sregex_iterator
 #include <string>
 #include <vector>

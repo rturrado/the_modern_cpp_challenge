@@ -4,7 +4,6 @@
 #include <algorithm>  // copy_if
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
-#include <iostream>  // cout
 #include <regex>  // regex_match, smatch
 #include <string>  // stoi
 #include <vector>
