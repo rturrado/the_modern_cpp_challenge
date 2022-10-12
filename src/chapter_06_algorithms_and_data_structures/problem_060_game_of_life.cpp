@@ -1,11 +1,11 @@
-#include "chapter_06_algorithms_and_data_structures/console.h"
 #include "chapter_06_algorithms_and_data_structures/problem_060_game_of_life.h"
-#include "chapter_06_algorithms_and_data_structures/timer.h"
+#include "console.h"
+#include "timer.h"
 
 #include <chrono>
 #include <fmt/ostream.h>
 #include <future>  // async
-#include <iostream>  // cout
+#include <ostream>
 #include <thread>  // sleep_for
 
 using namespace tmcppc::chrono;

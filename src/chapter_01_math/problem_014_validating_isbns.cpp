@@ -1,24 +1,25 @@
 #include "chapter_01_math/problem_014_validating_isbns.h"
+#include "console.h"
 
 #include <algorithm>  // count_if, erase_if
 #include <fmt/ostream.h>
-#include <iostream>  // cin, cout
 #include <numeric>  // accumulate
-#include <rtc/console.h>  // clear_istream
 #include <string>  // getline
 
 #undef NDEBUG
 #include <cassert>  // assert
 
+using namespace tmcppc::system;
+
 
 namespace tmcppc::problem_14 {
-    std::string read_n_digit_isbn(std::istream& is, std::ostream& os, size_t n) {
+    std::string read_n_digit_isbn(std::istream& is, std::ostream& os, const console& console, size_t n) {
         std::string ret{};
 
         const std::string separators{ "- " };  // hyphens or spaces
 
         bool valid_input{ false };
-        while (!valid_input) {
+        while (not valid_input) {
             fmt::print(os, "Please enter a {}-digit ISBN (may include hyphens and/or spaces): ", n);
 
             std::getline(is, ret);
@@ -30,14 +31,12 @@ namespace tmcppc::problem_14 {
                 return separators.find(c) != std::string::npos;
             }) };
 
-            if (n != static_cast<size_t>(number_of_digits) or
-                ret.size() != static_cast<size_t>(number_of_digits + number_of_separators)) {
+            valid_input = (n == static_cast<size_t>(number_of_digits) and
+                ret.size() == static_cast<size_t>(number_of_digits + number_of_separators));
+
+            if (not valid_input) {
                 fmt::print(os, "\tError: invalid input.\n");
-            } else {
-                valid_input = true;
-            }
-            if (!valid_input) {
-                rtc::console::clear_istream(std::cin);
+                console.clear_istream(is);
             }
         }
         std::erase_if(ret, [&separators](char c) {
@@ -74,14 +73,14 @@ namespace tmcppc::problem_14 {
 // Validating ISBNs
 // Write a program that validates that 10-digit values entered by the user,
 // as a string, represent valid ISBN-10 numbers
-void problem_14_main(std::istream& is, std::ostream& os) {
+void problem_14_main(std::istream& is, std::ostream& os, const console& console) {
     using namespace tmcppc::problem_14;
 
-    auto str = read_n_digit_isbn(is, os, 10);
+    auto str = read_n_digit_isbn(is, os, console, 10);
     auto valid = validate_10_digit_isbn(str);
     fmt::print(os, "\t{} {} a valid 10-digit ISBN\n\n", str, (valid ? "is" : "is NOT"));
 
-    str = read_n_digit_isbn(is, os, 13);
+    str = read_n_digit_isbn(is, os, console, 13);
     valid = validate_13_digit_isbn(str);
     fmt::print(os, "\t{} {} a valid 13-digit ISBN\n\n", str, (valid ? "is" : "is NOT"));
 }

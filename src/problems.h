@@ -5,15 +5,15 @@
 #include "chapter_03_strings_and_regular_expressions/problems.h"
 #include "chapter_04_streams_and_filesystems/problems.h"
 #include "chapter_05_date_and_time/problems.h"
-#include "chapter_06_algorithms_and_data_structures/console.h"
 #include "chapter_06_algorithms_and_data_structures/problems.h"
-#include "chapter_06_algorithms_and_data_structures/timer.h"
 #include "chapter_07_concurrency/problems.h"
 #include "chapter_08_design_patterns/problems.h"
 #include "chapter_09_data_serialization/problems.h"
 #include "chapter_10_archives_images_and_databases/problems.h"
 #include "chapter_11_cryptography/problems.h"
 #include "chapter_12_networking_and_services/problems.h"
+#include "console.h"
+#include "timer.h"
 
 #include <chrono>
 #include <functional>  // function, invoke
@@ -58,12 +58,26 @@ private:
         []() { problem_11_main(std::cin, std::cout); },  // converting numerical values to Roman
         []() { problem_12_main(std::cout); },  // largest Collatz sequence
         []() { problem_13_main(std::cout); },  // computing the value of Pi
-        []() { problem_14_main(std::cin, std::cout); },  // validating ISBNs
+        []() {
+            using namespace tmcppc::system;
+
+            problem_14_main(
+                std::cin,
+                std::cout,
+                console{ std::make_unique<console_impl>() }
+            ); },  // validating ISBNs
 
         // Language features
         //
         []() { problem_15_main(std::cin, std::cout); },  // IPv4 data type
-        []() { problem_16_main(std::cin, std::cout); },  // enumerating IPv4 addresses in a range
+        []() {
+            using namespace tmcppc::system;
+
+            problem_16_main(
+                std::cin,
+                std::cout,
+                console{ std::make_unique<console_impl>() }
+            ); },  // enumerating IPv4 addresses in a range
         []() { problem_17_main(std::cout); },  // 2D array
         []() { problem_18_main(std::cout); },  // variadic minimum function
         []() { problem_19_main(std::cout); },  // adding a range of values to a container

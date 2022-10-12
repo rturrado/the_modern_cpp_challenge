@@ -1,6 +1,6 @@
 #pragma once
 
-#include "chapter_06_algorithms_and_data_structures/timer.h"
+#include "timer.h"
 
 #include <chrono>
 
