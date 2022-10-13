@@ -11,146 +11,174 @@ These exercises were initially implemented as a project within a bigger Visual S
 - And update the Visual Studio project properties containing absolute paths to those libraries (e.g., _C/C++ > General > Additional Include Directories, and Linker > Input > Additional Dependencies_).
 
 The goal behind The Modern C++ Challenge project is twofold. On one hand, let users download, build, and execute the code with a minimal effort (ideally without needing to install any library). On the personal side, get some hands-on experience with _CMake_ and other tools of the C++ ecosystem. I've also taken the chance to improve the original code with:
-  - _Tests_ (google tests).
-  - _Benchmarks_ (google benchmarks).
-  - _Static analysis_ (CLion's Inspect Code)
-  - _Continuous integration_ (GitHub actions).
-  - _Code coverage_ (gcov).
+- _Tests_ (google tests).
+- _Benchmarks_ (google benchmarks).
+- _Static analysis_ (CLion's Inspect Code)
+- _Continuous integration_ (GitHub actions).
+- _Code coverage_ (gcov).
 
 And I plan to better it further by using _sanitizers_.
 
-At the moment, the `main` branch only builds on Windows/msvc. There is though a `unixlike-builds` branch (release `unixlike-builds-v1.0.0`) that compiles on Unix-like systems, and provides the same functionality as `main` (release `v2.0.0`).
+## Branch status
 
-The instructions below refer to Windows/msvc. For Unix, my intention is to provide a docker with the project and all the software needed to build it and run it.
+- The `main` branch only builds on Windows/msvc.
+- The `unixlike-builds` branch only builds on Unix-like systems.
+- `main` release `v2.0.0` and `unixlike-builds` release `v1.0.0` provide the same functionality.
+
+Since the `unixlike-builds` branch uses gcc, which doesn't have support yet for all the C++20 features (especially the `<format>` library), a few problems are implemented differently in that branch. Basically, the date and time problems use Howard Hinnant's `<date>` library instead of the `<format>` library. This should be the only difference between `main` release `v2.0.0` `unixlike-builds` release `v1.0.0`.
+
+Once gcc will have support for all the C++20 features, the `main` branch should be suitable to be used in Unix-like systems, and the `unixlike-builds` branch should be dropped.
+
+The instructions below refer to Unix-like/gcc.
 
 ## Installation
 
 ### Requirements
 
-- **Boost libraries**: this project has been tested with version 1.78.0. 
-- **Microsoft Visual C++ (MSVC) compiler toolset**.
+- **Boost libraries**: this project has been tested with version 1.78.0.
 - **CMake**: required minimum version is 3.22.
+- **ninja**.
+- **gcc**: this project has been tested with version 12.
 - **git**.
+- **pkg-config**.
+- **curl**.
+- **tar**.
+- **zip**.
+- **unzip**.
+- **wget**.
 
-Most of the required software can be installed from the [Visual Studio 2022 Installer](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false).
-
-- **Microsoft Visual C++ (MSVC) compiler toolset**: *Workloads* tab, *Desktop development with C++* item.
-- **CMake**: *Individual components* tab, *Compilers, build tools, and runtimes* section, *C++ CMake tools for Windows* item.
-- **git**: *Individual components* tab, *Code tools* section, *Git for Windows* item.
+From a `terminal`, as administrator:
+```bash
+$> sudo apt-get -qq update
+$> sudo apt-get -qq upgrade
+$> sudo apt-get -qq -y install \
+       cmake \
+       curl \
+       g++-12 \
+       gcc-12 \
+       git \
+       ninja-build \
+       pkg-config \
+       tar \
+       unzip \
+       wget \
+       zip
+$> sudo update-alternatives \
+       --install /usr/bin/gcc gcc /usr/bin/gcc-12 100 \
+       --slave /usr/bin/g++ g++ /usr/bin/g++-12 \
+       --slave /usr/bin/gcov gcov /usr/bin/gcov-12
+```
 
 You can download the current version of the **Boost libraries** from https://www.boost.org/users/download/.
 - Notice it's not necessary to build them, since the code only uses headers.
-- Create a `BOOST_ROOT` environment variable, and set it to Boost libraries's root directory (e.g. C:\libraries\boost_1_78_0).
+- Create a `BOOST_ROOT` environment variable, and set it to Boost libraries's root directory (e.g. /libraries/boost_1_78_0).
+
+From a `terminal`:
+```bash
+$> mkdir /libraries
+$> cd /libraries
+$> wget https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.gz
+$> tar -xvzf boost_1_78_0.tar.gz
+$> rm -fr boost_1_78_0.tar.gz
+$> export BOOST_ROOT=/libraries/boost_1_78_0
+```
+
+Should you want to make use of **ccache**, you could install it from a `terminal` as administrator:
+```bash
+$> sudo apt-get -qq -y install ccache
+```
 
 ### Clone
 
-From a `cmd`, as administrator:
+From a `terminal`:
 ```bash
-C:\projects> git clone --recurse-submodules https://github.com/rturrado/the_modern_cpp_challenge
+~/projects> git config core.symlinks true
+~/projects> git clone --recurse-submodules https://github.com/rturrado/the_modern_cpp_challenge
 ```
 
 ### Config
 
-There are several options to run CMake from Visual Studio.
-- CMake should start automatically, with a `msvc Debug` configuration preset and a `Build windows-msvc-debug` build preset, when opening `the_modern_cpp_challenge` project.
-- CMake should also start automatically when choosing a *Configuration* and a *Build Preset* (e.g. `msvc Debug` and `Build windows-msvc-debug`) in the tool bar.
-- CMake can be started manually from the *Configure Cache* option in the *Project* menu.
-- Finally, CMake can also be started manually from a *Developer Command Prompt* (*Tools* menu, *Command Line* option):
+From a `terminal`:
 ```bash
-C:\projects\the_modern_cpp_challenge> cmake --preset windows-msvc-debug
+~/projects/the_modern_cpp_challenge> cmake --preset unixlike-gcc-debug-tests
 ```
 
 ### Build
 
-From Visual Studio, once CMake finishes, type CTRL+B or build from *Build > Build All* menu.
-
-Or, from the command line:
+From a `terminal`:
 ```bash
-C:\projects\the_modern_cpp_challenge> cmake --build --preset windows-msvc-debug
+~/projects/the_modern_cpp_challenge> cmake --build --preset unixlike-gcc-debug-tests
 ```
+
+#### Build presets
+
+The following build presets are available (the configuration presets have the same name):
+- Debug:
+    - **unixlike-gcc-debug-tests**: *tests* enabled.
+    - **unixlike-gcc-debug-github**: *tests*, *ccache*, and *code coverage* enabled. This is the Debug preset used in GitHub Actions.
+- Release:
+    - **unixlike-gcc-release-benchmarks**: *benchmarks* enabled.
+    - **unixlike-gcc-release-tests**: *tests* enabled.
+    - **unixlike-gcc-release-github**: *benchmarks* and *ccache* enabled. This is the Release preset used in GitHub Actions.
 
 #### Output binaries
 
 All successful builds will generate:
-- `the_modern_c++_challenge.exe`: the main binary, a console application that interacts with the user to execute the different problems from the book.
-- `the_modern_c++_challenge<MAJOR_VERSION>-<MINOR_VERSION>.lib`: a static library, used, for example, by the test and benchmark binaries.
+- `the_modern_c++_challenge`: the main binary, a console application that interacts with the user to execute the different problems from the book.
+- `the_modern_c++_challenge-<MAJOR_VERSION>_<MINOR_VERSION>.lib`: a static library, used, for example, by the test and benchmark binaries.
 
-Builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON` will also generate:
-- `the_modern_c++_challenge_test.exe`: a console application to test the code.
+Builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON` (*debug* build presets) will also generate:
+- `the_modern_c++_challenge_test`: a console application to test the code.
 
-Builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON` will also generate:
-- `the_modern_c++_challenge_benchmark.exe`: a console application to benchmark the code.
+Builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON` (*release-benchmarks* and *release-github* build presets) will also generate:
+- `the_modern_c++_challenge_benchmark`: a console application to benchmark the code.
 
 ### Run
 
-From Visual Studio: the main binary receives a `res` folder as an argument (a resource directory used by some of the problems). The way to set this parameter from within Visual Studio is via the `.vs\launch.vs.json`, which is not in the repository since it is a user file. The example below shows a possible `launch.vs.json` file. Notice `args` only contains the path of the `res` folder. Notice also that you should provide one configuration entry per output binary (not for the benchmark binary).
-
-```json
-{
-  "version": "0.2.1",
-  "defaults": {},
-    "configurations": [
-        {
-            "type": "default",
-            "project": "CMakeLists.txt",
-            "projectTarget": "the_modern_c++_challenge.exe (src\\Debug\\the_modern_c++_challenge.exe)",
-            "name": "the_modern_c++_challenge.exe (src\\Debug\\the_modern_c++_challenge.exe)",
-            "args": [
-                "C:\\projects\\the_modern_c++_challenge\\res"
-            ]
-        }
-    ]
-}
-```
-
-Choose `the_modern_c++_challenge.exe` from *Select Startup Item*, and click the green "play" button.
-
-Or, from the command line:
+From a `terminal`:
 ```bash
-C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug\src\Debug\the_modern_c++_challenge.exe res
+~/projects/the_modern_cpp_challenge> ./out/build/unixlike-gcc-debug-tests/src/Debug/the_modern_c++_challenge res
 ```
 
 ### Tests
 
 Build with:
 ```bash
-cmake --preset windows-msvc-debug
-cmake --build --preset windows-msvc-debug
+~/projects/the_modern_cpp_challenge> cmake --preset unixlike-gcc-debug-test
+~/projects/the_modern_cpp_challenge> cmake --build --preset unixlike-gcc-debug-tests
 ```
 
 You can run the test executable directly:
 ```bash
-C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug\test\Debug\the_modern_c++_challenge_test.exe res
+~/projects/the_modern_cpp_challenge> ./out/build/unixlike-gcc-debug-tests/src/Debug/the_modern_c++_challenge_test res
 ```
 
 Or execute the tests via `ctest`:
 ```bash
-C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug
-C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug> ctest -C Debug --output-on-failure
+~/projects/the_modern_cpp_challenge/out/build/unixlike-gcc-debug-tests> ctest -C Debug --output-on-failure
 ```
 
 Alternatively, if you want a less verbose ouptut:
 ```bash
-C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug\test\Debug\the_modern_c++_challenge_test.exe res --gtest_brief=1
+~/projects/the_modern_cpp_challenge> ./out/build/unixlike-gcc-debug-tests/test/Debug/the_modern_c++_challenge_test res --gtest_brief=1
 ```
 
 Or:
 ```bash
-C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug
-C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug> ctest -C Debug --output-on-failure --progress
+~/projects/the_modern_cpp_challenge/out/build/unixlike-gcc-debug-tests> ctest -C Debug --output-on-failure --progress
 ```
 
 ### Benchmarks
 
 Build with:
 ```bash
-C:\projects\the_modern_cpp_challenge> cmake --preset windows-msvc-release
-C:\projects\the_modern_cpp_challenge> cmake --build --preset windows-msvc-release
+~/projects/the_modern_cpp_challenge> cmake --preset unixlike-gcc-release-benchmarks
+~/projects/the_modern_cpp_challenge> cmake --build --preset unixlike-gcc-release-benchmarks
 ```
 
 And run with:
 ```bash
-C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-release\benchmark\Release\the_modern_c++_challenge_benchmark.exe
+~/projects/the_modern_cpp_challenge> ./out/build/unixlike-gcc-release-benchmarks/benchmark/Release/the_modern_c++_challenge_benchmark
 ```
 
 ## Dependencies
@@ -163,6 +191,7 @@ The following libraries are used in this project, but are automatically download
 
 - [asio](github.com/chriskohlhoff/asio.git): standalone version of the Boost Asio library, used here for networking.
 - [benchmark](github.com/google/benchmark.git): Google benchmarking.
+- [date](github.com/HowardHinnant/date.git): a date and time library based on the C++11/14/17 <chrono> header.
 - [fmt](github.com/fmtlib/fmt): formatting library with more features than C++ iostreams.
 - [googletest](github.com/google/googletest.git): GoogleTest and GoogleMock.
 - [nlohmann/json](github.com/nlohmann/json): JSON support.
@@ -192,4 +221,10 @@ Finally, this group of libraries is automatically managed via `vcpkg`:
 
 ## Notes
 
-- Windows builds with address sanitizer enabled have started to crash since updating to MSVC 14.33.31629.
+- Unix builds with address sanitizer enabled are not working at the moment.
+- `res/sample_folder/sample_subfolder` is a symbolic link to the `res/sample_subfolder` directory. If you experience failures in some tests that access `sample_subfolder`, it may happen that the symbolic link wasn't correctly created after a `git` operation. In that case, you may need to tell `git` to enable the use of symbolic links, and then update your local checkout. You can do that by running the commands below:
+
+  ```bash
+  ~/projects/the_modern_cpp_challenge> git config core.symlinks true
+  ~/projects/the_modern_cpp_challenge> git reset --hard
+  ```
