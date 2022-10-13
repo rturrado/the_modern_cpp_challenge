@@ -31,6 +31,7 @@ The instructions below refer to Windows/msvc. For Unix, my intention is to provi
 - **Microsoft Visual C++ (MSVC) compiler toolset**.
 - **CMake**: required minimum version is 3.22.
 - **git**.
+- **sccache**: only if you are going to use a *\*ccache* or *\*github* build preset.
 
 Most of the required software can be installed from the [Visual Studio 2022 Installer](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=2030&passive=false).
 
@@ -41,6 +42,15 @@ Most of the required software can be installed from the [Visual Studio 2022 Inst
 You can download the current version of the **Boost libraries** from https://www.boost.org/users/download/.
 - Notice it's not necessary to build them, since the code only uses headers.
 - Create a `BOOST_ROOT` environment variable, and set it to Boost libraries's root directory (e.g. C:\libraries\boost_1_78_0).
+
+Should you want to make use of **sccache** (https://github.com/mozilla/sccache), you can install it via *scoop*.
+
+From a `PowerShell` terminal, as non-administrator:
+```bash
+PS C:\> Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+PS C:\> irm get.scoop.sh | iex
+PS C:\> scoop install sccache
+```
 
 ### Clone
 
@@ -53,12 +63,11 @@ C:\projects> git clone --recurse-submodules https://github.com/rturrado/the_mode
 ### Config
 
 There are several options to run CMake from Visual Studio.
-- CMake should start automatically, with a `msvc Debug` configuration preset and a `Build windows-msvc-debug` build preset, when opening `the_modern_cpp_challenge` project.
-- CMake should also start automatically when choosing a *Configuration* and a *Build Preset* (e.g. `msvc Debug` and `Build windows-msvc-debug`) in the tool bar.
+- CMake should start automatically when choosing a *Configuration* and a *Build Preset* (e.g. `msvc Debug (tests)` and `Build windows-msvc-debug (tests)`) in the tool bar.
 - CMake can be started manually from the *Configure Cache* option in the *Project* menu.
 - Finally, CMake can also be started manually from a *Developer Command Prompt* (*Tools* menu, *Command Line* option):
 ```bash
-C:\projects\the_modern_cpp_challenge> cmake --preset windows-msvc-debug
+C:\projects\the_modern_cpp_challenge> cmake --preset windows-msvc-debug-tests
 ```
 
 ### Build
@@ -67,14 +76,22 @@ From Visual Studio, once CMake finishes, type CTRL+B or build from *Build > Buil
 
 Or, from the command line:
 ```bash
-C:\projects\the_modern_cpp_challenge> cmake --build --preset windows-msvc-debug
+C:\projects\the_modern_cpp_challenge> cmake --build --preset windows-msvc-debug-tests
 ```
+
+#### Build presets
+
+The following build presets are available (the configuration presets have the same name):
+- **windows-msvc-<Debug|Release>-asan**: *address sanitizer* enabled (see Notes as it is not working at the moment).
+- **windows-msvc-<Debug|Release>-ccache**: *ccache* enabled. ccache allows caching binaries between different builds, speeding up the compilation.
+- **windows-msvc-<Debug|Release>-github**: *ccache* and *tests* enabled. This is the preset used in GitHub Actions.
+- **windows-msvc-<Debug|Release>-tests**: *tests* enabled.
 
 #### Output binaries
 
 All successful builds will generate:
 - `the_modern_c++_challenge.exe`: the main binary, a console application that interacts with the user to execute the different problems from the book.
-- `the_modern_c++_challenge<MAJOR_VERSION>-<MINOR_VERSION>.lib`: a static library, used, for example, by the test and benchmark binaries.
+- `the_modern_c++_challenge-<MAJOR_VERSION>_<MINOR_VERSION>.lib`: a static library, used, for example, by the test and benchmark binaries.
 
 Builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON` will also generate:
 - `the_modern_c++_challenge_test.exe`: a console application to test the code.
@@ -108,50 +125,50 @@ Choose `the_modern_c++_challenge.exe` from *Select Startup Item*, and click the 
 
 Or, from the command line:
 ```bash
-C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug\src\Debug\the_modern_c++_challenge.exe res
+C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug-tests\src\Debug\the_modern_c++_challenge.exe res
 ```
 
 ### Tests
 
 Build with:
 ```bash
-cmake --preset windows-msvc-debug
-cmake --build --preset windows-msvc-debug
+cmake --preset windows-msvc-debug-tests
+cmake --build --preset windows-msvc-debug-tests
 ```
 
 You can run the test executable directly:
 ```bash
-C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug\test\Debug\the_modern_c++_challenge_test.exe res
+C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug-tests\test\Debug\the_modern_c++_challenge_test.exe res
 ```
 
 Or execute the tests via `ctest`:
 ```bash
-C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug
-C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug> ctest -C Debug --output-on-failure
+C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug-tests
+C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug-tests> ctest -C Debug --output-on-failure
 ```
 
 Alternatively, if you want a less verbose ouptut:
 ```bash
-C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug\test\Debug\the_modern_c++_challenge_test.exe res --gtest_brief=1
+C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug-tests\test\Debug\the_modern_c++_challenge_test.exe res --gtest_brief=1
 ```
 
 Or:
 ```bash
-C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug
-C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug> ctest -C Debug --output-on-failure --progress
+C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug-tests
+C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug-tests> ctest -C Debug --output-on-failure --progress
 ```
 
 ### Benchmarks
 
 Build with:
 ```bash
-C:\projects\the_modern_cpp_challenge> cmake --preset windows-msvc-release
-C:\projects\the_modern_cpp_challenge> cmake --build --preset windows-msvc-release
+C:\projects\the_modern_cpp_challenge> cmake --preset windows-msvc-release-benchmarks
+C:\projects\the_modern_cpp_challenge> cmake --build --preset windows-msvc-release-benchmarks
 ```
 
 And run with:
 ```bash
-C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-release\benchmark\Release\the_modern_c++_challenge_benchmark.exe
+C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-release-benchmarks\benchmark\Release\the_modern_c++_challenge_benchmark.exe
 ```
 
 ## Dependencies
