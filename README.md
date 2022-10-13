@@ -19,9 +19,17 @@ The goal behind The Modern C++ Challenge project is twofold. On one hand, let us
 
 And I plan to better it further by using _sanitizers_.
 
-At the moment, the `main` branch only builds on Windows/msvc. There is though a `unixlike-builds` branch (release `unixlike-builds-v1.0.0`) that compiles on Unix-like systems, and provides the same functionality as `main` (release `v2.0.0`).
+## Branch status
 
-The instructions below refer to Windows/msvc. For Unix, my intention is to provide a docker with the project and all the software needed to build it and run it.
+- The `main` branch only builds on Windows/msvc.
+- The `unixlike-builds` branch only builds on Unix-like systems.
+- `main` release `v2.0.0` and `unixlike-builds` release `v1.0.0` provide the same functionality.
+
+Since the `unixlike-builds` branch uses gcc, which doesn't have support yet for all the C++20 features (especially the `<format>` library), a few problems are implemented differently in that branch. Basically, the date and time problems use Howard Hinnant's `<date>` library instead of the `<format>` library. This should be the only difference between `main` release `v2.0.0` `unixlike-builds` release `v1.0.0`.
+
+Once gcc will have support for all the C++20 features, the `main` branch should be suitable to be used in Unix-like systems, and the `unixlike-builds` branch should be dropped.
+
+The instructions below refer to Windows/msvc.
 
 ## Installation
 
@@ -43,7 +51,7 @@ You can download the current version of the **Boost libraries** from https://www
 - Notice it's not necessary to build them, since the code only uses headers.
 - Create a `BOOST_ROOT` environment variable, and set it to Boost libraries's root directory (e.g. C:\libraries\boost_1_78_0).
 
-Should you want to make use of **sccache** (https://github.com/mozilla/sccache), you can install it via *scoop*.
+Should you want to make use of **sccache** (https://github.com/mozilla/sccache), you could install it via *scoop*.
 
 From a `PowerShell` terminal, as non-administrator:
 ```bash
@@ -54,7 +62,7 @@ PS C:\> scoop install sccache
 
 ### Clone
 
-From a `cmd`, as administrator:
+From a `cmd`:
 ```bash
 C:\projects> git config core.symlinks true
 C:\projects> git clone --recurse-submodules https://github.com/rturrado/the_modern_cpp_challenge
@@ -82,10 +90,13 @@ C:\projects\the_modern_cpp_challenge> cmake --build --preset windows-msvc-debug-
 #### Build presets
 
 The following build presets are available (the configuration presets have the same name):
-- **windows-msvc-<Debug|Release>-asan**: *address sanitizer* enabled (see Notes as it is not working at the moment).
-- **windows-msvc-<Debug|Release>-ccache**: *ccache* enabled. ccache allows caching binaries between different builds, speeding up the compilation.
-- **windows-msvc-<Debug|Release>-github**: *ccache* and *tests* enabled. This is the preset used in GitHub Actions.
-- **windows-msvc-<Debug|Release>-tests**: *tests* enabled.
+- Debug:
+  - **windows-msvc-debug-tests**: *tests* enabled.
+  - **windows-msvc-debug-github**: *tests* and *ccache* enabled. This is the Debug preset used in GitHub Actions.
+- Release:
+  - **windows-msvc-release-benchmarks**: *benchmarks* enabled.
+  - **windows-msvc-release-tests**: *tests* enabled.
+  - **windows-msvc-release-github**: *benchmarks* and *ccache* enabled. This is the Release preset used in GitHub Actions.
 
 #### Output binaries
 
@@ -93,10 +104,10 @@ All successful builds will generate:
 - `the_modern_c++_challenge.exe`: the main binary, a console application that interacts with the user to execute the different problems from the book.
 - `the_modern_c++_challenge-<MAJOR_VERSION>_<MINOR_VERSION>.lib`: a static library, used, for example, by the test and benchmark binaries.
 
-Builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON` will also generate:
+Builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_TESTS=ON` (*debug* build presets) will also generate:
 - `the_modern_c++_challenge_test.exe`: a console application to test the code.
 
-Builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON` will also generate:
+Builds with the option `-DTHE_MODERN_C++_CHALLENGE_BUILD_BENCHMARKS=ON` (*release-benchmarks* and *release-github* build presets) will also generate:
 - `the_modern_c++_challenge_benchmark.exe`: a console application to benchmark the code.
 
 ### Run
@@ -132,8 +143,8 @@ C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug-tests\src\D
 
 Build with:
 ```bash
-cmake --preset windows-msvc-debug-tests
-cmake --build --preset windows-msvc-debug-tests
+C:\projects\the_modern_cpp_challenge> cmake --preset windows-msvc-debug-tests
+C:\projects\the_modern_cpp_challenge> cmake --build --preset windows-msvc-debug-tests
 ```
 
 You can run the test executable directly:
@@ -143,7 +154,6 @@ C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug-tests\test\
 
 Or execute the tests via `ctest`:
 ```bash
-C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug-tests
 C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug-tests> ctest -C Debug --output-on-failure
 ```
 
@@ -154,7 +164,6 @@ C:\projects\the_modern_cpp_challenge> .\out\build\windows-msvc-debug-tests\test\
 
 Or:
 ```bash
-C:\projects\the_modern_cpp_challenge> cd out\build\windows-msvc-debug-tests
 C:\projects\the_modern_cpp_challenge\out\build\windows-msvc-debug-tests> ctest -C Debug --output-on-failure --progress
 ```
 
@@ -211,7 +220,7 @@ Finally, this group of libraries is automatically managed via `vcpkg`:
 ## Notes
 
 - Windows builds with address sanitizer enabled have started to crash since updating to MSVC 14.33.31629.
-- `res\sample_folder\sample_subfolder` is a symbolic link to the `res\sample_subfolder` directory. If you experience failures in some tests that access `sample_subfolder`, it may happen that the symbolic link wasn't correctly created after a `git` operation. In that case, you may need to tell `git` to enable the use of symbolic links, and then update your local checkout. You can do that by running the commands below as administrator:
+- `res\sample_folder\sample_subfolder` is a symbolic link to the `res\sample_subfolder` directory. If you experience failures in some tests that access `sample_subfolder`, it may happen that the symbolic link wasn't correctly created after a `git` operation. In that case, you may need to tell `git` to enable the use of symbolic links, and then update your local checkout. You can do that by running the commands below:
 
   ```bash
   C:\projects\the_modern_cpp_challenge> git config core.symlinks true
