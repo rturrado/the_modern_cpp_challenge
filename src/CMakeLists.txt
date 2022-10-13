@@ -152,7 +152,7 @@ message(STATUS
     "      ZipLib: ${ziplib_SOURCE_DIR}"
 )
 set_target_properties(lib_${PROJECT_NAME} PROPERTIES
-    OUTPUT_NAME ${PROJECT_NAME}-${PROJECT_VERSION}
+    OUTPUT_NAME ${PROJECT_NAME}-${PROJECT_VERSION_MAJOR}_${PROJECT_VERSION_MINOR}
 )
 target_compile_features(lib_${PROJECT_NAME} PRIVATE cxx_std_23)
 # PDFWriter (which uses zlib.lib) has link conflicts with curlcpp (which uses libcurl.dll, which uses zlib1.dll)
