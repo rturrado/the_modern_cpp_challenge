@@ -185,15 +185,6 @@
             }
         },
         {
-            "name": "unixlike-gcc-release-github",
-            "displayName": "gcc Release (GitHub)",
-            "description": "Target Unix-like OS with the gcc compiler, release build type (GitHub)",
-            "inherits": [
-                "unixlike-gcc-release-benchmarks",
-                "unixlike-gcc-release-ccache"
-            ]
-        },
-        {
             "name": "unixlike-gcc-release-tests",
             "displayName": "gcc Release (tests)",
             "description": "Target Unix-like OS with the gcc compiler, release build type (tests)",
@@ -201,6 +192,15 @@
             "cacheVariables": {
                 "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true
             }
+        },
+        {
+            "name": "unixlike-gcc-release-github",
+            "displayName": "gcc Release (GitHub)",
+            "description": "Target Unix-like OS with the gcc compiler, release build type (GitHub)",
+            "inherits": [
+                "unixlike-gcc-release-benchmarks",
+                "unixlike-gcc-release-ccache"
+            ]
         }
     ],
     "buildPresets": [
@@ -221,18 +221,18 @@
             "verbose": true
         },
         {
-            "name": "unixlike-gcc-debug-github",
-            "configurePreset": "unixlike-gcc-debug-github",
-            "displayName": "Build unixlike-gcc-debug-github",
-            "description": "Build x64 Unix-like OS gcc Debug (GitHub)",
-            "configuration": "Debug",
-            "verbose": true
-        },
-        {
             "name": "unixlike-gcc-debug-tests",
             "configurePreset": "unixlike-gcc-debug-tests",
             "displayName": "Build unixlike-gcc-debug-tests",
             "description": "Build x64 Unix-like OS gcc Debug (tests)",
+            "configuration": "Debug",
+            "verbose": true
+        },
+        {
+            "name": "unixlike-gcc-debug-github",
+            "configurePreset": "unixlike-gcc-debug-github",
+            "displayName": "Build unixlike-gcc-debug-github",
+            "description": "Build x64 Unix-like OS gcc Debug (GitHub)",
             "configuration": "Debug",
             "verbose": true
         },
@@ -245,18 +245,18 @@
             "verbose": true
         },
         {
-            "name": "unixlike-gcc-release-github",
-            "configurePreset": "unixlike-gcc-release-github",
-            "displayName": "Build unixlike-gcc-release-github",
-            "description": "Build x64 Unix-like OS gcc Release (GitHub)",
-            "configuration": "Release",
-            "verbose": true
-        },
-        {
             "name": "unixlike-gcc-release-tests",
             "configurePreset": "unixlike-gcc-release-tests",
             "displayName": "Build unixlike-gcc-release-tests",
             "description": "Build x64 Unix-like OS gcc Release (tests)",
+            "configuration": "Release",
+            "verbose": true
+        },
+        {
+            "name": "unixlike-gcc-release-github",
+            "configurePreset": "unixlike-gcc-release-github",
+            "displayName": "Build unixlike-gcc-release-github",
+            "description": "Build x64 Unix-like OS gcc Release (GitHub)",
             "configuration": "Release",
             "verbose": true
         }
