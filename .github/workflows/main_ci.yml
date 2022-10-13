@@ -34,6 +34,7 @@ jobs:
         with:
           path: ${{env.BOOST_ROOT}}
           key: boost
+
       - name: Install Boost
         if: steps.cache-boost.outputs.cache-hit != 'true'
         run: |
@@ -67,13 +68,13 @@ jobs:
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build tests
-        working-directory: ${{github.workspace}}
-        run: |
-          cmake --preset windows-msvc-debug
-          cmake --build --preset windows-msvc-debug
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'windows-msvc-debug-github'
+          buildPreset: 'windows-msvc-debug-github'
 
       - name: Run tests
-        working-directory: ${{github.workspace}}/out/build/windows-msvc-debug
+        working-directory: ${{github.workspace}}/out/build/windows-msvc-debug-github
         run: ctest -C Debug --output-on-failure
         shell: bash
 
@@ -90,6 +91,7 @@ jobs:
         with:
           path: ${{env.BOOST_ROOT}}
           key: boost
+
       - name: Install Boost
         if: steps.cache-boost.outputs.cache-hit != 'true'
         run: |
@@ -123,12 +125,12 @@ jobs:
 
       # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build benchmarks
-        working-directory: ${{github.workspace}}
-        run: |
-          cmake --preset windows-msvc-release
-          cmake --build --preset windows-msvc-release
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'windows-msvc-release-github'
+          buildPreset: 'windows-msvc-release-github'
 
       - name: Run benchmarks
         working-directory: ${{github.workspace}}
-        run: ./out/build/windows-msvc-release/benchmark/Release/the_modern_c++_challenge_benchmark.exe
+        run: ./out/build/windows-msvc-release-github/benchmark/Release/the_modern_c++_challenge_benchmark.exe
         shell: bash
