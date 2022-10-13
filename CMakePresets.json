@@ -148,15 +148,6 @@
             }
         },
         {
-            "name": "windows-msvc-release-github",
-            "displayName": "msvc Release (GitHub)",
-            "description": "Target Windows with the msvc compiler, release build type (GitHub)",
-            "inherits": [
-                "windows-msvc-release-benchmarks",
-                "windows-msvc-release-ccache"
-            ]
-        },
-        {
             "name": "windows-msvc-release-tests",
             "displayName": "msvc Release (tests)",
             "description": "Target Windows with the msvc compiler, release build type (tests)",
@@ -164,6 +155,15 @@
             "cacheVariables": {
                 "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true
             }
+        },
+        {
+            "name": "windows-msvc-release-github",
+            "displayName": "msvc Release (GitHub)",
+            "description": "Target Windows with the msvc compiler, release build type (GitHub)",
+            "inherits": [
+                "windows-msvc-release-benchmarks",
+                "windows-msvc-release-ccache"
+            ]
         },
         {
             "name": "unixlike-gcc-debug",
@@ -257,15 +257,6 @@
             }
         },
         {
-            "name": "unixlike-gcc-release-github",
-            "displayName": "gcc Release (GitHub)",
-            "description": "Target Unix-like OS with the gcc compiler, release build type (GitHub)",
-            "inherits": [
-                "unixlike-gcc-release-benchmarks",
-                "unixlike-gcc-release-ccache"
-            ]
-        },
-        {
             "name": "unixlike-gcc-release-tests",
             "displayName": "gcc Release (tests)",
             "description": "Target Unix-like OS with the gcc compiler, release build type (tests)",
@@ -273,22 +264,31 @@
             "cacheVariables": {
                 "THE_MODERN_C++_CHALLENGE_BUILD_TESTS": true
             }
+        },
+        {
+            "name": "unixlike-gcc-release-github",
+            "displayName": "gcc Release (GitHub)",
+            "description": "Target Unix-like OS with the gcc compiler, release build type (GitHub)",
+            "inherits": [
+                "unixlike-gcc-release-benchmarks",
+                "unixlike-gcc-release-ccache"
+            ]
         }
     ],
     "buildPresets": [
-        {
-            "name": "windows-msvc-debug-github",
-            "configurePreset": "windows-msvc-debug-github",
-            "displayName": "Build windows-msvc-debug-github",
-            "description": "Build x64 Windows MSVC Debug (GitHub)",
-            "configuration": "Debug",
-            "verbose": true
-        },
         {
             "name": "windows-msvc-debug-tests",
             "configurePreset": "windows-msvc-debug-tests",
             "displayName": "Build windows-msvc-debug-tests",
             "description": "Build x64 Windows MSVC Debug (tests)",
+            "configuration": "Debug",
+            "verbose": true
+        },
+        {
+            "name": "windows-msvc-debug-github",
+            "configurePreset": "windows-msvc-debug-github",
+            "displayName": "Build windows-msvc-debug-github",
+            "description": "Build x64 Windows MSVC Debug (GitHub)",
             "configuration": "Debug",
             "verbose": true
         },
@@ -301,14 +301,6 @@
             "verbose": true
         },
         {
-            "name": "windows-msvc-release-github",
-            "configurePreset": "windows-msvc-release-github",
-            "displayName": "Build windows-msvc-release-github",
-            "description": "Build x64 Windows MSVC Release (GitHub)",
-            "configuration": "Release",
-            "verbose": true
-        },
-        {
             "name": "windows-msvc-release-tests",
             "configurePreset": "windows-msvc-release-tests",
             "displayName": "Build windows-msvc-release-tests",
@@ -317,11 +309,11 @@
             "verbose": true
         },
         {
-            "name": "unixlike-gcc-debug-github",
-            "configurePreset": "unixlike-gcc-debug-github",
-            "displayName": "Build unixlike-gcc-debug-github",
-            "description": "Build x64 Unix-like OS gcc Debug (GitHub)",
-            "configuration": "Debug",
+            "name": "windows-msvc-release-github",
+            "configurePreset": "windows-msvc-release-github",
+            "displayName": "Build windows-msvc-release-github",
+            "description": "Build x64 Windows MSVC Release (GitHub)",
+            "configuration": "Release",
             "verbose": true
         },
         {
@@ -329,6 +321,14 @@
             "configurePreset": "unixlike-gcc-debug-tests",
             "displayName": "Build unixlike-gcc-debug-tests",
             "description": "Build x64 Unix-like OS gcc Debug (tests)",
+            "configuration": "Debug",
+            "verbose": true
+        },
+        {
+            "name": "unixlike-gcc-debug-github",
+            "configurePreset": "unixlike-gcc-debug-github",
+            "displayName": "Build unixlike-gcc-debug-github",
+            "description": "Build x64 Unix-like OS gcc Debug (GitHub)",
             "configuration": "Debug",
             "verbose": true
         },
@@ -341,18 +341,18 @@
             "verbose": true
         },
         {
-            "name": "unixlike-gcc-release-github",
-            "configurePreset": "unixlike-gcc-release-github",
-            "displayName": "Build unixlike-gcc-release-github",
-            "description": "Build x64 Unix-like OS gcc Release (GitHub)",
-            "configuration": "Release",
-            "verbose": true
-        },
-        {
             "name": "unixlike-gcc-release-tests",
             "configurePreset": "unixlike-gcc-release-tests",
             "displayName": "Build unixlike-gcc-release-tests",
             "description": "Build x64 Unix-like OS gcc Release (tests)",
+            "configuration": "Release",
+            "verbose": true
+        },
+        {
+            "name": "unixlike-gcc-release-github",
+            "configurePreset": "unixlike-gcc-release-github",
+            "displayName": "Build unixlike-gcc-release-github",
+            "description": "Build x64 Unix-like OS gcc Release (GitHub)",
             "configuration": "Release",
             "verbose": true
         }
