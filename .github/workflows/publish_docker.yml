@@ -1,9 +1,9 @@
-name: publish docker
+name: Publish docker
 
 on:
   push:
     tags:
-      - unixlike-builds-v**
+      - 'unixlike-builds-v**'
   workflow_dispatch:
 
 jobs:
@@ -14,19 +14,21 @@ jobs:
         id: download-debug-artifacts
         uses: dawidd6/action-download-artifact@v2
         with:
-          workflow_conclusion: success
-          run_id: ${{GITHUB_SHA}}
+          branch: unixlike-builds
           name: debug-binaries
           path: /tmcppc
+          run_id: ${{ GITHUB_SHA }}
+          workflow_conclusion: success
 
       - name: Download release artifacts
         id: download-release-artifacts
         uses: dawidd6/action-download-artifact@v2
         with:
-          workflow_conclusion: success
-          run_id: ${{GITHUB_SHA}}
+          branch: unixlike-builds
           name: release-binaries
           path: /tmcppc
+          run_id: ${{ GITHUB_SHA }}
+          workflow_conclusion: success
 
       - name: Display structure of downloaded files
         run: ls -R
