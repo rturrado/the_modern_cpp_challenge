@@ -28,7 +28,10 @@ jobs:
         run: |
           sudo apt update && sudo apt upgrade
           sudo apt install gcc-12 g++-12 linux-headers-$(uname -r)
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100 --slave /usr/bin/g++ g++ /usr/bin/g++-12 --slave /usr/bin/gcov gcov /usr/bin/gcov-12
+          sudo update-alternatives \
+              --install /usr/bin/gcc gcc /usr/bin/gcc-12 100 \
+              --slave /usr/bin/g++ g++ /usr/bin/g++-12 \
+              --slave /usr/bin/gcov gcov /usr/bin/gcov-12
         shell: bash
 
       - uses: actions/checkout@v3
@@ -68,7 +71,8 @@ jobs:
         with:
           key: unixlike-gcc-test
 
-      # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
+      # Run CMake to generate Ninja project files,
+      # using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build tests
         uses: lukka/run-cmake@v10
         with:
@@ -85,6 +89,16 @@ jobs:
         run: bash <(curl -s https://codecov.io/bash)
         shell: bash
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: debug-binaries
+          path: |
+            ${{github.workspace}}/Dockerfile
+            ${{github.workspace}}/out/build/unixlike-gcc-debug-github/_deps/freeimage-build/Debug/libFreeImage.so
+            ${{github.workspace}}/out/build/unixlike-gcc-debug-github/src/Debug/the_modern_c++_challenge
+            ${{github.workspace}}/out/build/unixlike-gcc-debug-github/test/Debug/the_modern_c++_challenge_test
+            ${{github.workspace}}/res
+
   unixlike-gcc-benchmark:
     runs-on: ubuntu-22.04
     steps:
@@ -92,7 +106,10 @@ jobs:
         run: |
           sudo apt update && sudo apt upgrade
           sudo apt install gcc-12 g++-12 linux-headers-$(uname -r)
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100 --slave /usr/bin/g++ g++ /usr/bin/g++-12 --slave /usr/bin/gcov gcov /usr/bin/gcov-12
+          sudo update-alternatives \
+              --install /usr/bin/gcc gcc /usr/bin/gcc-12 100 \
+              --slave /usr/bin/g++ g++ /usr/bin/g++-12 \
+              --slave /usr/bin/gcov gcov /usr/bin/gcov-12
         shell: bash
 
       - uses: actions/checkout@v3
@@ -132,7 +149,8 @@ jobs:
         with:
           key: unixlike-gcc-benchmark
 
-      # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
+      # Run CMake to generate Ninja project files,
+      # using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build benchmarks
         uses: lukka/run-cmake@v10
         with:
@@ -143,3 +161,9 @@ jobs:
         working-directory: ${{github.workspace}}
         run: ./out/build/unixlike-gcc-release-github/benchmark/Release/the_modern_c++_challenge_benchmark
         shell: bash
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: release-binaries
+          path: |
+            ${{github.workspace}}/out/build/unixlike-gcc-release-github/benchmark/Release/the_modern_c++_challenge_benchmark

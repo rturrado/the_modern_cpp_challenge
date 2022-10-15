@@ -1,0 +1,50 @@
+name: publish_docker.yml
+
+on:
+  push:
+    tags:
+      - unixlike-builds-v**
+
+jobs:
+  publish-docker:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Download debug artifacts
+        id: download-debug-artifacts
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow_conclusion: success
+          run_id: ${{GITHUB_SHA}}
+          name: debug-binaries
+          path: /tmcppc
+
+      - name: Download release artifacts
+        id: download-release-artifacts
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow_conclusion: success
+          run_id: ${{GITHUB_SHA}}
+          name: release-binaries
+          path: /tmcppc
+
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: /tmcppc
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: rturrado/tmcppc-binaries:latest
