@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - 'unixlike-builds-v**'
-  workflow_dispath:
 
 jobs:
   publish-docker:
