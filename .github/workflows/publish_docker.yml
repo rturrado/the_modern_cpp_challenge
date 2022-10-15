@@ -1,9 +1,10 @@
-name: Publish docker
+name: publish docker
 
 on:
   push:
     tags:
       - 'unixlike-builds-v**'
+  workflow_dispath:
 
 jobs:
   publish-docker:
@@ -16,7 +17,7 @@ jobs:
           branch: unixlike-builds
           name: debug-binaries
           path: /tmcppc
-          run_id: ${{ GITHUB_SHA }}
+          run_id: ${{ env.GITHUB_SHA }}
           workflow_conclusion: success
 
       - name: Download release artifacts
@@ -26,7 +27,7 @@ jobs:
           branch: unixlike-builds
           name: release-binaries
           path: /tmcppc
-          run_id: ${{ GITHUB_SHA }}
+          run_id: ${{ env.GITHUB_SHA }}
           workflow_conclusion: success
 
       - name: Display structure of downloaded files
