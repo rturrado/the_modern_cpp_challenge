@@ -5,33 +5,68 @@ on:
     tags:
       - 'unixlike-builds-v**'
 
+env:
+  BOOST_ROOT: ${{github.workspace}}/3rdparty/boost
+  BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download
+
 jobs:
   publish-docker:
     runs-on: ubuntu-22.04
     steps:
-      - name: Download debug artifacts
-        id: download-debug-artifacts
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          branch: unixlike-builds
-          name: debug-binaries
-          path: /tmcppc
-          run_id: ${{ env.GITHUB_SHA }}
-          workflow_conclusion: success
+      - name: Install gcc-12 and g++-12, and linux-headers
+        run: |
+          sudo apt update && sudo apt upgrade
+          sudo apt install gcc-12 g++-12 linux-headers-$(uname -r)
+          sudo update-alternatives \
+              --install /usr/bin/gcc gcc /usr/bin/gcc-12 100 \
+              --slave /usr/bin/g++ g++ /usr/bin/g++-12 \
+              --slave /usr/bin/gcov gcov /usr/bin/gcov-12
+        shell: bash
 
-      - name: Download release artifacts
-        id: download-release-artifacts
-        uses: dawidd6/action-download-artifact@v2
+      - uses: actions/checkout@v3
         with:
-          branch: unixlike-builds
-          name: release-binaries
-          path: /tmcppc
-          run_id: ${{ env.GITHUB_SHA }}
-          workflow_conclusion: success
+          submodules: true
 
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: /tmcppc
+      - name: Restore Boost cache
+        uses: actions/cache@v3
+        id: cache-boost
+        with:
+          path: ${{env.BOOST_ROOT}}
+          key: boost
+
+      - name: Install Boost
+        if: steps.cache-boost.outputs.cache-hit != 'true'
+        run: |
+          BOOST_ROOT=$(echo $BOOST_ROOT | sed 's/\\/\//g')
+          mkdir -p $BOOST_ROOT
+          curl --progress-bar --location --output $BOOST_ROOT/download.tar.bz2 $BOOST_URL
+          7z -o$BOOST_ROOT x $BOOST_ROOT/download.tar.bz2 -y -bd
+          7z -o$BOOST_ROOT x $BOOST_ROOT/download.tar -y -bd
+          cd $BOOST_ROOT && cp -r boost_*/* .
+          rm -rf boost_*/* download.tar.bz2 download.tar
+        shell: bash
+
+      - uses: lukka/get-cmake@latest
+
+      - name: Restore artifacts, or setup vcpkg for building artifacts
+        uses: lukka/run-vcpkg@v10
+        id: runvcpkg
+        with:
+          vcpkgJsonGlob: 'vcpkg.json'
+
+      # Speed up builds by using ccache
+      - name: ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: publish-docker
+
+      # Run CMake to generate Ninja project files,
+      # using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
+      - name: Configure and build benchmarks
+        uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'unixlike-gcc-release-docker'
+          buildPreset: 'unixlike-gcc-release-docker'
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -42,11 +77,14 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
 
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
+          context: .
+          build-args: |
+            GITHUB_WORKSPACE=${{github.workspace}}
           push: true
           tags: rturrado/tmcppc-binaries:latest

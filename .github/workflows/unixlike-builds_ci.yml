@@ -89,16 +89,6 @@ jobs:
         run: bash <(curl -s https://codecov.io/bash)
         shell: bash
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: debug-binaries
-          path: |
-            ${{github.workspace}}/Dockerfile
-            ${{github.workspace}}/out/build/unixlike-gcc-debug-github/_deps/freeimage-build/Debug/libFreeImage.so
-            ${{github.workspace}}/out/build/unixlike-gcc-debug-github/src/Debug/the_modern_c++_challenge
-            ${{github.workspace}}/out/build/unixlike-gcc-debug-github/test/Debug/the_modern_c++_challenge_test
-            ${{github.workspace}}/res
-
   unixlike-gcc-benchmark:
     runs-on: ubuntu-22.04
     steps:
@@ -161,9 +151,3 @@ jobs:
         working-directory: ${{github.workspace}}
         run: ./out/build/unixlike-gcc-release-github/benchmark/Release/the_modern_c++_challenge_benchmark
         shell: bash
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: release-binaries
-          path: |
-            ${{github.workspace}}/out/build/unixlike-gcc-release-github/benchmark/Release/the_modern_c++_challenge_benchmark

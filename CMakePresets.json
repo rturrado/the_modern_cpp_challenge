@@ -201,6 +201,16 @@
                 "unixlike-gcc-release-benchmarks",
                 "unixlike-gcc-release-ccache"
             ]
+        },
+        {
+            "name": "unixlike-gcc-release-docker",
+            "displayName": "gcc Release (docker)",
+            "description": "Target Unix-like OS with the gcc compiler, release build type (docker)",
+            "inherits": [
+                "unixlike-gcc-release-benchmarks",
+                "unixlike-gcc-release-ccache",
+                "unixlike-gcc-release-tests"
+            ]
         }
     ],
     "buildPresets": [
@@ -257,6 +267,14 @@
             "configurePreset": "unixlike-gcc-release-github",
             "displayName": "Build unixlike-gcc-release-github",
             "description": "Build x64 Unix-like OS gcc Release (GitHub)",
+            "configuration": "Release",
+            "verbose": true
+        },
+        {
+            "name": "unixlike-gcc-release-docker",
+            "configurePreset": "unixlike-gcc-release-docker",
+            "displayName": "Build unixlike-gcc-release-docker",
+            "description": "Build x64 Unix-like OS gcc Release (docker)",
             "configuration": "Release",
             "verbose": true
         }
