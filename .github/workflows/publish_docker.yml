@@ -84,7 +84,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          build-args: |
-            GITHUB_WORKSPACE=${{github.workspace}}
           push: true
           tags: rturrado/tmcppc-binaries:latest
