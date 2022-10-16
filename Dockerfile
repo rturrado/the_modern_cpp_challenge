@@ -8,8 +8,8 @@ RUN apt-get -qq update \
 WORKDIR /tmcppc
 
 COPY ./Dockerfile .
-COPY ./res .
 COPY ./out/build/unixlike-gcc-release-docker/benchmark/Release/the_modern_c++_challenge_benchmark .
 COPY ./out/build/unixlike-gcc-release-docker/src/Release/the_modern_c++_challenge .
 COPY ./out/build/unixlike-gcc-release-docker/test/Release/the_modern_c++_challenge_test .
 COPY ./out/build/unixlike-gcc-release-docker/_deps/freeimage-build/Release/libFreeImage.so .
+ADD ./res /tmcppc/res
