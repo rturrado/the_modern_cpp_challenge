@@ -22,7 +22,6 @@ env:
 
 jobs:
   unixlike-gcc-test:
-    if: startsWith(github.ref, 'refs/tags/unixlike-builds-v') == false
     runs-on: ubuntu-22.04
     steps:
       - name: Install gcc-12 and g++-12, and linux-headers
@@ -91,7 +90,6 @@ jobs:
         shell: bash
 
   unixlike-gcc-benchmark:
-    if: startsWith(github.ref, 'refs/tags/unixlike-builds-v') == false
     runs-on: ubuntu-22.04
     steps:
       - name: Install gcc-12 and g++-12, and linux-headers
