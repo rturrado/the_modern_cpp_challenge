@@ -85,4 +85,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: rturrado/tmcppc-binaries:latest
+          tags: rturrado/tmcppc-binaries:${{github.ref_name}}

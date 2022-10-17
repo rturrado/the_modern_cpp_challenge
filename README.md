@@ -181,6 +181,48 @@ And run with:
 ~/projects/the_modern_cpp_challenge> ./out/build/unixlike-gcc-release-benchmarks/benchmark/Release/the_modern_c++_challenge_benchmark
 ```
 
+## Docker
+
+There is a `rturrado/tmcppc-binaries` docker, based on an `ubuntu-22.04` image, with the following content:
+- `/tmcppc` folder.
+  - Dockerfile: the Dockerfile that was used when building the docker.
+  - `res` folder: the resource directory.
+  - `the_modern_c++_challenge`: the main executable.
+  - `the_modern_c++_challenge_test`: the test executable.
+  - `the_modern_c++_challenge_benchmark`: the benchmark executable.
+  - `libFreeImage.so`: a shared library needed by the test executable.
+
+All of the binaries are release builds.
+
+A new version of the docker is pushed for every new `unixlike-builds-v<VERSION>` tag.
+
+### Requirements
+
+- **dockerhub account**: https://hub.docker.com/.
+- **docker**.
+
+From a `terminal`, as administrator:
+```bash
+$> sudo apt-get -qq update
+$> sudo apt-get -qq upgrade
+$> sudo apt-get -qq -y install docker
+```
+
+### Run
+
+From a `terminal`:
+
+```bash
+$> docker login
+# Enter username and password
+$> docker pull rturrado/tmcppc-binaries
+# To download the latest image version
+# Otherwise, indicate a version. For example: rturrado/tmcppc-binaries:unixlike-builds-v1.1.15 
+$> docker run -it rturrado/tmcppc-binaries
+docker $ /tmcppc> ./the_modern_c++_challenge res
+# To run the main executable
+```
+
 ## Dependencies
 
 The Boost libraries have to be downloaded by the user before building the project:
