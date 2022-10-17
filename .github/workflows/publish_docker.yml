@@ -68,15 +68,6 @@ jobs:
           configurePreset: 'unixlike-gcc-release-docker'
           buildPreset: 'unixlike-gcc-release-docker'
 
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: |
-            ghcr.io/rturrado/tmcppc-binaries
-          tags: |
-            type=ref,event=tag
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
@@ -88,6 +79,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: |
+            rturrado/tmcppc-binaries
+          tags: |
+            type=ref,event=tag
 
       - name: Build and push
         uses: docker/build-push-action@v3
