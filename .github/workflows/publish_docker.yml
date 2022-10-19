@@ -14,11 +14,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Wait for 'unixlike-builds CI' workflow to succeed
-        uses: lewagon/wait-on-check-action@v1.1.2
+        uses: ArcticLampyrid/action-wait-for-workflow@v1
         with:
-          ref: ${{ github.ref }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          running-workflow-name: 'unixlike-builds CI'
+          workflow: unixlike-builds_ci.yml
 
       - name: Download unixlike-gcc-release-docker artifact
         id: download-unixlike-gcc-release-docker-artifact
@@ -27,7 +25,7 @@ jobs:
           branch: unixlike-builds
           name: unixlike-gcc-release-docker-artifact
           path: /artifact
-          run_id: ${{ env.GITHUB_SHA }}
+          run_id: ${{ github.sha }}
           workflow_conclusion: success
 
       - name: Display structure of downloaded files
