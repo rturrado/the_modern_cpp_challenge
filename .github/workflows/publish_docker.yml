@@ -16,6 +16,7 @@ jobs:
       - name: Wait for 'unixlike-builds CI' workflow to succeed
         uses: ArcticLampyrid/action-wait-for-workflow@v1.0.3
         with:
+          sha: ${{ github.sha }}
           workflow: unixlike-builds_ci.yml
 
       - name: Download unixlike-gcc-release-docker artifact
