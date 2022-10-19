@@ -13,12 +13,12 @@ jobs:
   publish-docker:
     runs-on: ubuntu-22.04
     steps:
-      - name: Wait for unixlike-gcc-release-docker job in unixlike-builds_ci workflow to succeed
+      - name: Wait for 'unixlike-builds CI' workflow to succeed
         uses: lewagon/wait-on-check-action@v1.1.2
         with:
-          check-name: unixlike-gcc-release-docker
           ref: ${{ github.ref }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          running-workflow-name: 'unixlike-builds CI'
 
       - name: Download unixlike-gcc-release-docker artifact
         id: download-unixlike-gcc-release-docker-artifact
