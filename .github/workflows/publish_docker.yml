@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Wait for 'unixlike-builds CI' workflow to succeed
-        uses: ArcticLampyrid/action-wait-for-workflow@v1
+        uses: ArcticLampyrid/action-wait-for-workflow@v1.0.3
         with:
           workflow: unixlike-builds_ci.yml
 
