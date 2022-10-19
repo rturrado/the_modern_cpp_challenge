@@ -69,6 +69,8 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: unixlike-gcc-debug-github
+          restore-keys: [ unixlike-gcc-debug-github ]
+          verbose: 2
 
       # Run CMake to generate Ninja project files,
       # using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
@@ -137,6 +139,8 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: unixlike-gcc-release-docker
+          restore-keys: [ unixlike-gcc-release-docker ]
+          verbose: 2
 
       # Run CMake to generate Ninja project files,
       # using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
