@@ -25,13 +25,13 @@ jobs:
         with:
           branch: unixlike-builds
           name: unixlike-gcc-release-docker-artifact
-          path: /artifact
+          path: artifact
           workflow: unixlike-builds_ci.yml
           workflow_conclusion: success
 
       - name: Display structure of downloaded files
         run: ls -R
-        working-directory: /artifact
+        working-directory: artifact
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
