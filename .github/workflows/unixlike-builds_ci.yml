@@ -12,16 +12,15 @@ name: unixlike-builds CI
 
 on:
   push:
-    branches: [ unixlike-builds ]
-  pull_request:
-    branches: [ unixlike-builds ]
+    branches:
+      - 'unixlike-builds'
 
 env:
-  BOOST_ROOT: ${{github.workspace}}/3rdparty/boost
+  BOOST_ROOT: ${{ github.workspace }}/3rdparty/boost
   BOOST_URL: https://sourceforge.net/projects/boost/files/boost/1.78.0/boost_1_78_0.tar.bz2/download
 
 jobs:
-  unixlike-gcc-test:
+  unixlike-gcc-debug-github:
     runs-on: ubuntu-22.04
     steps:
       - name: Install gcc-12 and g++-12, and linux-headers
@@ -42,7 +41,7 @@ jobs:
         uses: actions/cache@v3
         id: cache-boost
         with:
-          path: ${{env.BOOST_ROOT}}
+          path: ${{ env.BOOST_ROOT }}
           key: boost
 
       - name: Install Boost
@@ -69,27 +68,27 @@ jobs:
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
-          key: unixlike-gcc-test
+          key: unixlike-gcc-debug-github
 
       # Run CMake to generate Ninja project files,
       # using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
-      - name: Configure and build tests
+      - name: Configure and build tests in debug mode
         uses: lukka/run-cmake@v10
         with:
           configurePreset: 'unixlike-gcc-debug-github'
           buildPreset: 'unixlike-gcc-debug-github'
 
       - name: Run tests
-        working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug-github
+        working-directory: ${{ github.workspace }}/out/build/unixlike-gcc-debug-github
         run: ctest -C Debug --output-on-failure
         shell: bash
 
       - name: Collect code coverage
-        working-directory: ${{github.workspace}}/out/build/unixlike-gcc-debug-github
+        working-directory: ${{ github.workspace }}/out/build/unixlike-gcc-debug-github
         run: bash <(curl -s https://codecov.io/bash)
         shell: bash
 
-  unixlike-gcc-benchmark:
+  unixlike-gcc-release-docker:
     runs-on: ubuntu-22.04
     steps:
       - name: Install gcc-12 and g++-12, and linux-headers
@@ -110,7 +109,7 @@ jobs:
         uses: actions/cache@v3
         id: cache-boost
         with:
-          path: ${{env.BOOST_ROOT}}
+          path: ${{ env.BOOST_ROOT }}
           key: boost
 
       - name: Install Boost
@@ -137,17 +136,29 @@ jobs:
       - name: ccache
         uses: hendrikmuhs/ccache-action@v1.2
         with:
-          key: unixlike-gcc-benchmark
+          key: unixlike-gcc-release-docker
 
       # Run CMake to generate Ninja project files,
       # using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
-      - name: Configure and build benchmarks
+      - name: Configure and build tests and benchmarks in release mode
         uses: lukka/run-cmake@v10
         with:
-          configurePreset: 'unixlike-gcc-release-github'
-          buildPreset: 'unixlike-gcc-release-github'
+          configurePreset: 'unixlike-gcc-release-docker'
+          buildPreset: 'unixlike-gcc-release-docker'
 
+      # Run benchmakrs (only if we are not pushing a tag)
       - name: Run benchmarks
-        working-directory: ${{github.workspace}}
-        run: ./out/build/unixlike-gcc-release-github/benchmark/Release/the_modern_c++_challenge_benchmark
+        working-directory: ${{ github.workspace }}
+        run: ./out/build/unixlike-gcc-release-docker/benchmark/Release/the_modern_c++_challenge_benchmark
         shell: bash
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: unixlike-gcc-release-docker-artifact
+          path: |
+            ${{ github.workspace }}/Dockerfile
+            ${{ github.workspace }}/out/build/unixlike-gcc-release-docker/_deps/freeimage-build/Release/libFreeImage.so
+            ${{ github.workspace }}/out/build/unixlike-gcc-release-docker/benchmark/Release/the_modern_c++_challenge_benchmark
+            ${{ github.workspace }}/out/build/unixlike-gcc-release-docker/src/Release/the_modern_c++_challenge
+            ${{ github.workspace }}/out/build/unixlike-gcc-release-docker/test/Release/the_modern_c++_challenge_test
+            ${{ github.workspace }}/res
