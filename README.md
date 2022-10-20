@@ -13,9 +13,10 @@ These exercises were initially implemented as a project within a bigger Visual S
 The goal behind The Modern C++ Challenge project is twofold. On one hand, let users download, build, and execute the code with a minimal effort (ideally without needing to install any library). On the personal side, get some hands-on experience with _CMake_ and other tools of the C++ ecosystem. I've also taken the chance to improve the original code with:
 - _Tests_ (google tests).
 - _Benchmarks_ (google benchmarks).
-- _Static analysis_ (CLion's Inspect Code)
+- _Static analysis_ (CLion's Inspect Code).
 - _Continuous integration_ (GitHub actions).
 - _Code coverage_ (gcov).
+- _Compiler caching_ (ccache).
 
 And I plan to better it further by using _sanitizers_.
 
@@ -38,6 +39,7 @@ The instructions below refer to Unix-like/gcc.
 - **Boost libraries**: this project has been tested with version 1.78.0.
 - **CMake**: required minimum version is 3.22.
 - **ninja**.
+- **ccache**.
 - **gcc**: this project has been tested with version 12.
 - **git**.
 - **pkg-config**.
@@ -52,6 +54,7 @@ From a `terminal`, as administrator:
 $> sudo apt-get -qq update
 $> sudo apt-get -qq upgrade
 $> sudo apt-get -qq -y install \
+       ccache \
        cmake \
        curl \
        g++-12 \
@@ -81,11 +84,6 @@ $> wget https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1
 $> tar -xvzf boost_1_78_0.tar.gz
 $> rm -fr boost_1_78_0.tar.gz
 $> export BOOST_ROOT=/libraries/boost_1_78_0
-```
-
-Should you want to make use of **ccache**, you could install it from a `terminal` as administrator:
-```bash
-$> sudo apt-get -qq -y install ccache
 ```
 
 ### Clone
@@ -216,9 +214,10 @@ From a `terminal`:
 $> docker login
 # Enter username and password
 $> docker pull rturrado/tmcppc-binaries
-# To download the latest image version
-# Otherwise, indicate a version. For example: rturrado/tmcppc-binaries:unixlike-builds-v1.1.15 
+# To download the latest version of the docker
+# Otherwise, indicate a version. For example: docker pull rturrado/tmcppc-binaries:unixlike-builds-v1.2.0 
 $> docker run -it rturrado/tmcppc-binaries
+# To create a container and run it
 docker $ /tmcppc> ./the_modern_c++_challenge res
 # To run the main executable
 ```

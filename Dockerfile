@@ -35,3 +35,12 @@ COPY ./artifact/out/build/unixlike-gcc-release-docker/src/Release/the_modern_c++
 COPY ./artifact/out/build/unixlike-gcc-release-docker/test/Release/the_modern_c++_challenge_test .
 COPY ./artifact/out/build/unixlike-gcc-release-docker/_deps/freeimage-build/Release/libFreeImage.so .
 ADD ./artifact/res /tmcppc/res
+
+# upload-artifact action:
+# - turns the sample_subfolder symbolic link into a folder, and
+# - removes execution permission from binary files
+RUN chmod 755 the_modern_c++_challenge* libFreeImage.so \
+    && cd res/sample_folder \
+    && rm -fr sample_subfolder \
+    && ln -s ../sample_subfolder sample_subfolder \
+    && cd /tmcppc \
