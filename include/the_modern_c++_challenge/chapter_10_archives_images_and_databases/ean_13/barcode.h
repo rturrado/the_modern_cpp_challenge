@@ -97,6 +97,7 @@ namespace tmcppc::ean_13 {
                 case digit_type::r: return r_encoding.at(value);
             }
             assert("Error: trying to encode a digit of type other than l, g, or r, " and false);
+            return {};
         }
 
     private:

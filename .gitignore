@@ -35,11 +35,5 @@
 /.idea
 /.vs
 /CMakeSettings.json
-/Testing/Temporary
-/build/NinjaMultiConfig/benchmark
-/build/NinjaMultiConfig/no-test
-/build/NinjaMultiConfig/test
-/build/NinjaMultiConfig/test-asan
-/build/benchmark
-/build/test
 /out/build
+/Testing/Temporary

@@ -74,7 +74,7 @@ if(MSVC)
         /W3 /WX /w34996
         /D_CONSOLE /DCONSOLE
         /D_UNICODE /DUNICODE
-        /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /sdl /utf-8 /Zc:inline
+        /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /MP /sdl /utf-8 /Zc:inline
     )
 elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
     target_compile_options(${PROJECT_NAME}_test PRIVATE

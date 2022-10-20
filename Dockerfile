@@ -11,7 +11,7 @@ RUN apt-get -qq update \
 #    Dockerfile
 #    out/
 #    \- build/
-#       |- unixlike-gcc-release-docker/
+#       \- unixlike-gcc-release-docker/
 #          |- _deps/freeimage-build/Release/libFreeImage.so
 #          |- benchmark/Release/the_modern_c++_challenge_benchmark
 #          |- src/Release/the_modern_c++_challenge

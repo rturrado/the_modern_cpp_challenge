@@ -1,6 +1,6 @@
 #pragma once
 
-#include <algorithm>  // minmax
+#include <algorithm>  // for_each, minmax, transform
 #include <fmt/format.h>
 #include <fmt/ostream.h>
 #include <functional>  // less
