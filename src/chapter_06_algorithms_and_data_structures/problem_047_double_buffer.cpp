@@ -4,6 +4,7 @@
 #include <algorithm>  // for_each
 #include <fmt/ostream.h>
 #include <fmt/ranges.h>
+#include <mutex>
 #include <numeric>  // iota
 #include <thread>  // sleep_for
 #include <vector>
@@ -42,6 +43,10 @@ void test_1(std::ostream& os) {
     using namespace std::chrono_literals;
     using tmcppc::data_structures::double_buffer;
 
+    // fmt::ostream is not thread-safe
+    // https://github.com/fmtlib/fmt/issues/1872#issuecomment-693014704
+    std::mutex mtx{};
+
     fmt::print(os, "Test 1:\n\t");
 
     // We work over a double buffer of 10 elements, initially set to 0
@@ -49,19 +54,25 @@ void test_1(std::ostream& os) {
 
     // Thread 1 writes every 100ms
     // It writes a sequence of numbers starting from 1
-    auto thread_1_l = [&os, &db]() {
+    auto thread_1_l = [&os, &db, &mtx]() {
         fmt::print(os, "(thread 1 writing)");
         for (size_t i{ 0 }; i < db.size(); ++i) {
             db.write(i, i + 1);
-            fmt::print(os, " w_{}", i + 1);
+            {
+                std::lock_guard<std::mutex> lock{ mtx };
+                fmt::print(os, " w_{}", i + 1);
+            }
             std::this_thread::sleep_for(100ms);
         }
     };
     // Thread 2 reads every 100ms
-    auto thread_2_l = [&os, &db]() {
+    auto thread_2_l = [&os, &db, &mtx]() {
         fmt::print(os, " (thread 2 reading)");
         for (size_t i{ 0 }; i < db.size(); ++i) {
-            fmt::print(os, " r_{}", db.read(i));
+            {
+                std::lock_guard<std::mutex> lock{ mtx };
+                fmt::print(os, " r_{}", db.read(i));
+            }
             std::this_thread::sleep_for(100ms);
         }
     };

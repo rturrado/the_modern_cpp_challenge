@@ -168,6 +168,13 @@ target_link_libraries(lib_${PROJECT_NAME} PUBLIC
 target_link_libraries(lib_${PROJECT_NAME} PRIVATE
     curlcpp::curlcpp
 )
+if(CODE_COVERAGE)
+    if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+        target_compile_options(lib_${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
+        target_link_libraries(lib_${PROJECT_NAME} PRIVATE gcov)
+        target_link_options(lib_${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
+    endif()
+endif()
 
 
 # Main executable
@@ -177,7 +184,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
-target_link_libraries(${PROJECT_NAME} lib_${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} PRIVATE lib_${PROJECT_NAME})
 
 
 # Target compile options
@@ -199,4 +206,10 @@ elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STR
     )
     target_compile_options(lib_${PROJECT_NAME} PRIVATE ${unixlike_compile_options})
     target_compile_options(${PROJECT_NAME} PRIVATE ${unixlike_compile_options})
+endif()
+if(CODE_COVERAGE)
+    if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+        target_compile_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
+        target_link_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
+    endif()
 endif()

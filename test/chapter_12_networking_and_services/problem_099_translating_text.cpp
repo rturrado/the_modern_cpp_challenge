@@ -1,4 +1,4 @@
-﻿#include "chapter_12_networking_and_services/text_translation.h"
+#include "chapter_12_networking_and_services/text_translation.h"
 #include "chapter_12_networking_and_services/text_translation/samples.h"
 #include "chapter_12_networking_and_services/problem_099_translating_text.h"
 #include "text_translation/mock.h"

@@ -11,11 +11,12 @@ These exercises were initially implemented as a project within a bigger Visual S
 - And update the Visual Studio project properties containing absolute paths to those libraries (e.g., _C/C++ > General > Additional Include Directories, and Linker > Input > Additional Dependencies_).
 
 The goal behind The Modern C++ Challenge project is twofold. On one hand, let users download, build, and execute the code with a minimal effort (ideally without needing to install any library). On the personal side, get some hands-on experience with _CMake_ and other tools of the C++ ecosystem. I've also taken the chance to improve the original code with:
-  - _Tests_ (google tests).
-  - _Benchmarks_ (google benchmarks).
-  - _Static analysis_ (CLion's Inspect Code)
-  - _Continuous integration_ (GitHub actions).
-  - _Code coverage_ (gcov).
+- _Tests_ (google tests).
+- _Benchmarks_ (google benchmarks).
+- _Static analysis_ (CLion's Inspect Code).
+- _Continuous integration_ (GitHub actions).
+- _Code coverage_ (gcov).
+- _Compiler caching_ (sccache).
 
 And I plan to better it further by using _sanitizers_.
 

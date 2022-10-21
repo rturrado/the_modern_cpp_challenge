@@ -32,13 +32,8 @@
 *.app
 
 # Others
+/.idea
 /.vs
-/out/build
 /CMakeSettings.json
-/build/benchmark
-/build/test
-/build/NinjaMultiConfig/benchmark
-/build/NinjaMultiConfig/test
-/build/NinjaMultiConfig/test-asan
-/build/NinjaMultiConfig/no-test
+/out/build
 /Testing/Temporary
