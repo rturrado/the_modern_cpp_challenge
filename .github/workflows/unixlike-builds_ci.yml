@@ -84,7 +84,9 @@ jobs:
 
       - name: Run tests
         working-directory: ${{ github.workspace }}/out/build/unixlike-gcc-debug-github
-        run: ctest -C Debug --output-on-failure
+        run: |
+          export ASAN_OPTIONS=detect_odr_violation=0
+          ctest -C Debug --output-on-failure
         shell: bash
 
       - name: Collect code coverage
