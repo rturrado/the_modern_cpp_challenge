@@ -6,7 +6,7 @@
 #include <fmt/ranges.h>
 #include <list>
 #include <map>
-#include <memory>  // shared_ptr
+#include <memory>  // shared_ptr, weak_ptr
 #include <numeric>  // accumulate
 #include <ostream>
 #include <string>
