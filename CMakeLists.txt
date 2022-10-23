@@ -40,7 +40,6 @@ endif()
 
 
 # Address sanitizer
-#[[
 if(ASAN_ENABLED)
     string(REGEX REPLACE "/RTC(su|[1su])" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
     message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}\n")
@@ -51,7 +50,6 @@ if(ASAN_ENABLED)
         add_link_options(-fsanitize=address,undefined)
     endif()
 endif()
-]]#
 
 
 # Subdirectories

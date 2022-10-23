@@ -29,6 +29,7 @@ namespace tmcppc::data_structures {
         explicit notification(notification_type t)
             : id_{ id++ }
             , type_{ t }
+            , index_of_changed_element_{ 0 }
         {}
         notification(notification_type t, size_t i)
             : id_{ id++ }
@@ -42,9 +43,9 @@ namespace tmcppc::data_structures {
     private:
         static inline size_t id{};
 
-        size_t id_{};
-        notification_type type_{};
-        size_t index_of_changed_element_{};
+        size_t id_;
+        notification_type type_;
+        size_t index_of_changed_element_;
     };
 
 
@@ -60,7 +61,7 @@ namespace tmcppc::data_structures {
 
         using group_t = std::string;
         using id_t = size_t;
-        std::map<group_t, id_t> cache_{};
+        std::map<group_t, id_t> cache_;
     };
 
 
@@ -78,14 +79,18 @@ namespace tmcppc::data_structures {
         explicit observer(std::ostream& os, std::shared_ptr<observable_vector<T>> sp_ov) noexcept
             : id_{ id_generator_("observer") }
             , os_{ os }
-            , sp_ov_{ sp_ov }
+            , sp_ov_{ std::move(sp_ov) }
         {}
+        constexpr observer(const observer& other) = default;
+        constexpr observer(observer&& other) = default;
+        constexpr observer& operator=(const observer& other) = default;
+        constexpr observer& operator=(observer&& other) = default;
     private:
         static inline group_id_generator& id_generator_{ group_id_generator::get_instance() };
 
-        size_t id_{};
+        size_t id_;
         std::ostream& os_;
-        std::shared_ptr<observable_vector<T>> sp_ov_{};
+        std::shared_ptr<observable_vector<T>> sp_ov_;
     };
 
 
@@ -96,7 +101,12 @@ namespace tmcppc::data_structures {
     class concrete_observer_1 : public observer<T> {
     public:
         explicit concrete_observer_1(std::ostream& os, std::shared_ptr<observable_vector<T>> sp_ov) noexcept
-            : observer<T>::observer{ os, sp_ov } {}
+            : observer<T>::observer{ os, std::move(sp_ov) } {}
+        constexpr concrete_observer_1(const concrete_observer_1& other) = default;
+        constexpr concrete_observer_1(concrete_observer_1&& other) = default;
+        constexpr concrete_observer_1& operator=(const concrete_observer_1& other) = default;
+        constexpr concrete_observer_1& operator=(concrete_observer_1&& other) = default;
+        ~concrete_observer_1() = default;
     protected:
         void update(const notification& n) noexcept override {
             auto id{ observer<T>::get_id() };
@@ -112,7 +122,12 @@ namespace tmcppc::data_structures {
     class concrete_observer_2 : public observer<T> {
     public:
         explicit concrete_observer_2(std::ostream& os, std::shared_ptr<observable_vector<T>> sp_ov) noexcept
-            : observer<T>::observer{ os, sp_ov } {}
+            : observer<T>::observer{ os, std::move(sp_ov) } {}
+        constexpr concrete_observer_2(const concrete_observer_2& other) = default;
+        constexpr concrete_observer_2(concrete_observer_2&& other) = default;
+        constexpr concrete_observer_2& operator=(const concrete_observer_2& other) = default;
+        constexpr concrete_observer_2& operator=(concrete_observer_2&& other) = default;
+        ~concrete_observer_2() = default;
     protected:
         void update(const notification& n) noexcept override {
             auto id{ observer<T>::get_id() };
@@ -131,11 +146,14 @@ namespace tmcppc::data_structures {
 
         [[nodiscard]] size_t get_id() const noexcept { return id_; }
 
-        void attach(const std::shared_ptr<observer<T>> observer) noexcept {
-            observers_.insert(std::end(observers_), observer);
+        void attach(const std::shared_ptr<observer<T>>& observer_sp) noexcept {
+            observers_.insert(std::end(observers_), observer_sp);
         }
-        void detach(const std::shared_ptr<observer<T>> observer) noexcept {
-            observers_.remove_if([&observer](auto sp) { return sp->get_id() == observer->get_id(); });
+        void detach(const std::shared_ptr<observer<T>>& observer_sp) noexcept {
+            observers_.remove_if([&observer_sp](const auto& wp) {
+                auto sp{ wp.lock() };
+                return sp and sp->get_id() == observer_sp->get_id();
+            });
         }
 
     protected:
@@ -157,14 +175,19 @@ namespace tmcppc::data_structures {
         [[nodiscard]] bool is_observed() const noexcept { return not observers_.empty(); }
 
         void notify(const notification& n) const {
-            std::ranges::for_each(observers_, [&n](auto sp) { sp->update(n); });
+            std::ranges::for_each(observers_, [&n](const auto& wp) {
+                auto sp{ wp.lock() };
+                if (sp) {
+                    sp->update(n);
+                }
+            });
         }
 
     private:
         static inline group_id_generator& id_generator_{ group_id_generator::get_instance() };
 
-        size_t id_{};
-        std::list<std::shared_ptr<observer<T>>> observers_{};
+        size_t id_;
+        std::list<std::weak_ptr<observer<T>>> observers_;
     };
 
 
@@ -187,7 +210,7 @@ namespace tmcppc::data_structures {
         constexpr observable_vector(InputIt first, InputIt last)
             : v_(first, last) {}
         constexpr observable_vector(std::initializer_list<T> init)
-            : v_(init) {}
+            : v_{ init } {}
 
         constexpr observable_vector(const observable_vector& other)
             : subject<T>{ other }
