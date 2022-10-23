@@ -14,11 +14,10 @@ The goal behind The Modern C++ Challenge project is twofold. On one hand, let us
 - _Tests_ (google tests).
 - _Benchmarks_ (google benchmarks).
 - _Static analysis_ (CLion's Inspect Code).
+- _Memory error detection_ (address sanitizer).
 - _Continuous integration_ (GitHub actions).
 - _Code coverage_ (gcov).
 - _Compiler caching_ (sccache).
-
-And I plan to better it further by using _sanitizers_.
 
 ## Branch status
 
