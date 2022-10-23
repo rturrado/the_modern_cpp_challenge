@@ -219,6 +219,7 @@
             "displayName": "gcc Debug (GitHub)",
             "description": "Target Unix-like OS with the gcc compiler, debug build type (GitHub)",
             "inherits": [
+                "unixlike-gcc-debug-asan",
                 "unixlike-gcc-debug-ccache",
                 "unixlike-gcc-debug-coverage",
                 "unixlike-gcc-debug-tests"
