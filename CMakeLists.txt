@@ -9,7 +9,9 @@ if (POLICY CMP0126)
     cmake_policy(SET CMP0126 NEW)
 endif()
 cmake_policy(SET CMP0128 NEW)
-cmake_policy(SET CMP0135 NEW)
+if (POLICY CMP0135)
+    cmake_policy(SET CMP0135 NEW)
+endif()
 
 
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake"
