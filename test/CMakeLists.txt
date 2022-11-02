@@ -101,15 +101,12 @@ if(WIN32)
         COMMAND_EXPAND_LISTS
     )
 elseif(UNIX)
-    if(APPLE)
-        set(CMAKE_MACOSX_RPATH 1)
-    endif()
     set_target_properties(${PROJECT_NAME}_test PROPERTIES
         SKIP_BUILD_RPATH FALSE
         BUILD_WITH_INSTALL_RPATH FALSE
         INSTALL_RPATH ""
         INSTALL_RPATH_USE_LINK_PATH FALSE
-        LINK_FLAGS "-Wl,-rpath,./"
+        LINK_FLAGS "-Wl,-rpath,'$ORIGIN/'"
     )
 endif()
 
