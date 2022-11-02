@@ -19,7 +19,11 @@
 namespace tmcppc::fizz_buzz {
     // fmt::ostream is not thread-safe
     // https://github.com/fmtlib/fmt/issues/1872#issuecomment-693014704
-    inline static std::mutex mtx{};
+    inline void print(std::ostream& os, std::string_view text) {
+        static std::mutex mtx{};
+        std::lock_guard<std::mutex> lock{ mtx };
+        fmt::print(os, "{}", text);
+    }
 
 
     inline std::string remove_newline(std::string_view text) {
@@ -34,9 +38,8 @@ namespace tmcppc::fizz_buzz {
         std::string ret{};
         std::error_code ec{};
         auto length{ connector->read_until(ret, "\n", ec) };
-        if (ec) {
-            std::lock_guard<std::mutex> lock{ mtx };
-            fmt::print(os, "Error: reading: {}", ec.message());
+        if (ec) {            
+            print(os, fmt::format("Error: reading: {}", ec.message()));
         } else {
             ret = remove_newline({ ret.data(), length });
         }
@@ -48,8 +51,7 @@ namespace tmcppc::fizz_buzz {
         std::error_code ec{};
         connector->write(message + "\n", ec);
         if (ec) {
-            std::lock_guard<std::mutex> lock{ mtx };
-            fmt::print(os, "Error: writing: {}", ec.message());
+            print(os, fmt::format("Error: writing: {}", ec.message()));
         }
     }
 
@@ -62,7 +64,7 @@ namespace tmcppc::fizz_buzz {
         {}
 
         void run() {
-            print("[server] Starting\n");
+            print(os_, "[server] Starting\n");
             accept();
             for (;;) {
                 auto request_str{ read_line(os_, connector_.get()) };
@@ -73,7 +75,7 @@ namespace tmcppc::fizz_buzz {
                 auto response_str{ fizz_buzz(request_number) };
                 write_line(os_, connector_.get(), response_str);
             }
-            print("[server] Exiting\n");
+            print(os_, "[server] Exiting\n");
         }
 
     private:
@@ -88,11 +90,6 @@ namespace tmcppc::fizz_buzz {
             else if (number % 5 == 0) { ret = "buzz"; }
             else { ret = std::to_string(number); }
             return ret;
-        }
-
-        void print(std::string_view text) {
-            std::lock_guard<std::mutex> lock{ mtx };
-            fmt::print(os_, "{}", text);
         }
 
     private:
@@ -110,19 +107,19 @@ namespace tmcppc::fizz_buzz {
         {}
 
         void run() {
-            print("[client] Starting\n");
+            print(os_, "[client] Starting\n");
             connect();
             for (;;) {
                 auto request_str{ read_from_console() };
-                print(fmt::format("[client] Says '{}'\n", request_str));
+                print(os_, fmt::format("[client] Says '{}'\n", request_str));
                 write_line(os_, connector_.get(), request_str);
                 if (request_str == "quit") {
                     break;
                 }
                 auto response_str{ read_line(os_, connector_.get()) };
-                print(fmt::format("[server] Says '{}'\n", response_str));
+                print(os_, fmt::format("[server] Says '{}'\n", response_str));
             }
-            print("[client] Exiting\n");
+            print(os_, "[client] Exiting\n");
         }
 
     private:
@@ -134,7 +131,7 @@ namespace tmcppc::fizz_buzz {
             std::string ret{};
 
             for (;;) {
-                print("[client] Please enter a number between 1 and 99 ('quit' to finish the game): ");
+                print(os_, "[client] Please enter a number between 1 and 99 ('quit' to finish the game): ");
 
                 std::getline(is_, ret);
                 if (ret == "quit") {
@@ -146,17 +143,12 @@ namespace tmcppc::fizz_buzz {
                 if (ec == std::errc{} and 1 <= number and number <= 99) {
                     break;
                 } else {
-                    print("[client] Error: invalid input\n");
+                    print(os_, "[client] Error: invalid input\n");
                     continue;
                 }
             }
 
             return ret;
-        }
-
-        void print(std::string_view text) {
-            std::lock_guard<std::mutex> lock{ mtx };
-            fmt::print(os_, "{}", text);
         }
 
     private:

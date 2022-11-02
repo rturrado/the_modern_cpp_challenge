@@ -176,8 +176,7 @@ namespace tmcppc::data_structures {
 
         void notify(const notification& n) const {
             std::ranges::for_each(observers_, [&n](const auto& wp) {
-                auto sp{ wp.lock() };
-                if (sp) {
+                if (auto sp{ wp.lock() }; sp != nullptr) {
                     sp->update(n);
                 }
             });

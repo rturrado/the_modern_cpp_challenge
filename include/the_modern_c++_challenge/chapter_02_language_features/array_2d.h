@@ -408,7 +408,7 @@ namespace tmcppc::data_structures {
         friend auto get_column_width(const array_2d& arr, size_type column) {
             auto column_vector{ arr.column_as_vector(column) };
             std::ostringstream oss{};
-            std::for_each(column_vector.cbegin(), column_vector.cend(),
+            std::ranges::for_each(column_vector,
                 [&oss](const auto& val) { oss << val; oss.seekp(0); });
             return oss.str().size();
         }
