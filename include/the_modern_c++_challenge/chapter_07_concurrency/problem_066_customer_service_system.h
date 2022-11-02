@@ -68,16 +68,17 @@ namespace tmcppc::office {
         // Customers ready to be served
         auto desk_waits_until_customer_is_ready_to_be_served(std::stop_token stoken) {
             std::unique_lock<std::mutex> lock{ m_customers_ready_to_be_served_ };
-            cva_customers_ready_to_be_served_.wait(lock, stoken, [this] {
-                return not customers_ready_to_be_served_.empty();
-            });
-            if (stoken.stop_requested()) {
-                return size_t{};
+            if (customers_ready_to_be_served_.empty()) {
+                cva_customers_ready_to_be_served_.wait(lock, stoken, [this] {
+                    return not customers_ready_to_be_served_.empty();
+                });
+                if (stoken.stop_requested()) {
+                    return size_t{};
+                }
             }
-
-            lock.unlock();
+            lock.unlock();  // let us allow more customers in the queue
             increment_service_number();
-
+            lock.lock();  // lock back before modifying the queue
             auto ret{ customers_ready_to_be_served_.front() };
             customers_ready_to_be_served_.pop();
             return ret;
@@ -87,6 +88,7 @@ namespace tmcppc::office {
         void desk_notifies_a_customer_has_been_served(size_t customer_id) {
             std::unique_lock<std::mutex> lock{ m_customers_served_ };
             customers_served_.push_back(customer_id);
+            lock.unlock();
             cv_customers_served_.notify_all();  // notify all customers
         }
         void customer_waits_until_end_of_service(size_t customer_id) {
@@ -122,6 +124,7 @@ namespace tmcppc::office {
         void increment_service_number() {
             std::unique_lock<std::mutex> lock{ m_service_number_ };
             service_number_++;
+            lock.unlock();
             cv_service_number_.notify_all();  // notify all customers
         }
 
@@ -129,6 +132,7 @@ namespace tmcppc::office {
         void add_customer_ready_to_be_served(size_t customer_id) {
             std::unique_lock<std::mutex> lock{ m_customers_ready_to_be_served_ };
             customers_ready_to_be_served_.push(customer_id);
+            lock.unlock();
             cva_customers_ready_to_be_served_.notify_one();  // notify one desk
         }
     };
@@ -207,9 +211,9 @@ namespace tmcppc::office {
             for (size_t i{ 1 }; i <= office_.get_number_of_customers(); ++i) {
                 customers.emplace_back(customer, i, std::ref(office_), std::ref(logger_), std::ref(os));
             }
-            std::for_each(std::begin(customers), std::end(customers), [](auto& t) { t.join(); });
-            std::for_each(std::begin(desks), std::end(desks), [](auto& t) { t.request_stop(); });
-            std::for_each(std::begin(desks), std::end(desks), [](auto& t) { t.join(); });
+            std::ranges::for_each(customers, [](auto& t) { t.join(); });
+            std::ranges::for_each(desks, [](auto& t) { t.request_stop(); });
+            std::ranges::for_each(desks, [](auto& t) { t.join(); });
         }
 
     private:
