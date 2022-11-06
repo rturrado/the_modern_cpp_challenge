@@ -1,6 +1,7 @@
 #include "chapter_06_algorithms_and_data_structures/circular_buffer.h"
 
 #include <fmt/format.h>
+#include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <stdexcept>  // runtime_error
 #include <utility>  // as_const
@@ -217,6 +218,14 @@ TEST(circular_buffer, cend_free_function) {
     circular_buffer<int> cb{ 3 };
     cb.push_back(1);
     EXPECT_EQ(++cbegin(std::as_const(cb)), cend(std::as_const(cb)));
+}
+TEST(circular_buffer, operator_insertion) {
+    circular_buffer<int> cb{ 3 };
+    std::ostringstream oss;
+    cb.push_back(1);
+    cb.push_back(2);
+    oss << cb;
+    EXPECT_THAT(oss.str(), ::testing::HasSubstr("[1, 2, 0]"));
 }
 TEST(circular_buffer, fmt_format) {
     circular_buffer<int> cb{ 3 };

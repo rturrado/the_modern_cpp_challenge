@@ -55,18 +55,15 @@ namespace tmcppc::temperature::v2 {
     //
     template <typename Rep_>
     std::ostream& operator<<(std::ostream& os, const temperature<Rep_, scale_t::celsius>& t) {
-        fmt::print(os, "{:.2f} Celsius", t.value());
-        return os;
+        return os << fmt::format("{:.2f} Celsius", t.value());
     }
     template <typename Rep_>
     std::ostream& operator<<(std::ostream& os, const temperature<Rep_, scale_t::fahrenheit>& t) {
-        fmt::print(os, "{:.2f} Fahrenheit", t.value());
-        return os;
+        return os << fmt::format("{:.2f} Fahrenheit", t.value());
     }
     template <typename Rep_>
     std::ostream& operator<<(std::ostream& os, const temperature<Rep_, scale_t::kelvin>& t) {
-        fmt::print(os, "{:.2f} Kelvin", t.value());
-        return os;
+        return os << fmt::format("{:.2f} Kelvin", t.value());
     }
 
     // Conversions
@@ -192,47 +189,10 @@ namespace tmcppc::temperature::v2 {
 }  // namespace tmcppc::temperature::v2
 
 
+// fmt formatters
 template <typename Rep_>
-struct fmt::formatter<tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale_t::celsius>> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale_t::celsius>& t,
-        FormatContext& ctx) const -> decltype(ctx.out()) {
-
-        return fmt::format_to(ctx.out(), "{:.2f} Celsius", t.value());
-    }
-};
-
+struct fmt::formatter<tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale_t::celsius>> : fmt::ostream_formatter {};
 template <typename Rep_>
-struct fmt::formatter<tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale_t::fahrenheit>> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale_t::fahrenheit>& t,
-        FormatContext& ctx) const -> decltype(ctx.out()) {
-
-        return fmt::format_to(ctx.out(), "{:.2f} Fahrenheit", t.value());
-    }
-};
-
+struct fmt::formatter<tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale_t::fahrenheit>> : fmt::ostream_formatter {};
 template <typename Rep_>
-struct fmt::formatter<tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale_t::kelvin>> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale_t::kelvin>& t,
-        FormatContext& ctx) const -> decltype(ctx.out()) {
-
-        return fmt::format_to(ctx.out(), "{:.2f} Kelvin", t.value());
-    }
-};
+struct fmt::formatter<tmcppc::temperature::v2::temperature<Rep_, tmcppc::temperature::v2::scale_t::kelvin>> : fmt::ostream_formatter {};

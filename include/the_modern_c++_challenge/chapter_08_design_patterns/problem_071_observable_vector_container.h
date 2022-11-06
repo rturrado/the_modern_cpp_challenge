@@ -17,11 +17,35 @@
 
 
 namespace tmcppc::data_structures {
-    template <typename T>
-    class observable_vector;
+    enum class notification_type;
+    struct notification;
+    template <typename T> class observable_vector;
+}
+
+// fmt formatters
+template <>
+struct fmt::formatter<tmcppc::data_structures::notification_type> : fmt::ostream_formatter {};
+template <>
+struct fmt::formatter<tmcppc::data_structures::notification> : fmt::ostream_formatter {};
+template <typename T>
+struct fmt::is_range<tmcppc::data_structures::observable_vector<T>, char> : std::false_type {};
+template <typename T>
+struct fmt::formatter<tmcppc::data_structures::observable_vector<T>> : fmt::ostream_formatter {};
 
 
+namespace tmcppc::data_structures {
     enum class notification_type { copy_assignment, move_assignment, push_back, pop_back, clear };
+
+    inline std::ostream& operator<<(std::ostream& os, const notification_type& nt) {
+        switch (nt) {
+            case notification_type::copy_assignment: return os << fmt::format("copy_assignment");
+            case notification_type::move_assignment: return os << fmt::format("move_assignment");
+            case notification_type::push_back: return os << fmt::format("push_back");
+            case notification_type::pop_back: return os << fmt::format("pop_back");
+            case notification_type::clear: return os << fmt::format("clear");
+        }
+        return os << fmt::format("unknown notification type");
+    }
 
 
     struct notification {
@@ -40,6 +64,18 @@ namespace tmcppc::data_structures {
         [[nodiscard]] size_t get_id() const noexcept { return id_; }
         [[nodiscard]] notification_type get_type() const noexcept { return type_; }
         [[nodiscard]] size_t get_index_of_changed_element() const noexcept { return index_of_changed_element_; }
+
+        friend std::ostream& operator<<(std::ostream& os, const notification& n) {
+            tmcppc::data_structures::notification_type n_type{ n.get_type() };
+            return os << fmt::format("<id : {}, type : {}({})>",
+                n.get_id(),
+                n_type,
+                (n_type == notification_type::push_back or
+                 n_type == notification_type::pop_back)
+                    ? std::to_string(n.get_index_of_changed_element())
+                    : ""
+            );
+        }
     private:
         static inline size_t id{};
 
@@ -272,12 +308,25 @@ namespace tmcppc::data_structures {
         constexpr const_iterator end() const noexcept { return v_.end(); }
         constexpr const_iterator cend() const noexcept { return v_.cend(); }
 
-    private:
-        friend struct fmt::formatter<observable_vector>;
+        friend std::ostream& operator<<(std::ostream& os, const observable_vector<T>& v) {
+            return os << fmt::format("{}", v.v_);
+        }
 
+        friend std::ostream& operator<<(std::ostream& os, const observable_vector<T>& v)
+            requires std::is_convertible_v<std::vector<T>, std::string_view> {
+
+            os << fmt::format("[");
+            bool first{ true };
+            for (auto&& c : v.v_) {
+                os << fmt::format("{}'{}'", first ? "" : ", ", c);
+                first = false;
+            }
+            return os << fmt::format("]");
+        }
+
+    private:
         std::vector<T> v_{};
     };
-
 
     template <typename T>
     constexpr auto begin(observable_vector<T>& v) -> decltype(v.begin()) { return v.begin(); }
@@ -292,102 +341,6 @@ namespace tmcppc::data_structures {
     template <typename T>
     constexpr auto cend(const observable_vector<T>& v) -> decltype(end(v)) { return end(v); }
 }  // namespace tmcppc::data_structures
-
-
-template <>
-struct fmt::formatter<tmcppc::data_structures::notification_type> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::data_structures::notification_type& nt, FormatContext& ctx) const -> decltype(ctx.out()) {
-        switch (nt) {
-            case tmcppc::data_structures::notification_type::copy_assignment: return fmt::format_to(ctx.out(), "copy_assignment");
-            case tmcppc::data_structures::notification_type::move_assignment: return fmt::format_to(ctx.out(), "move_assignment");
-            case tmcppc::data_structures::notification_type::push_back: return fmt::format_to(ctx.out(), "push_back");
-            case tmcppc::data_structures::notification_type::pop_back: return fmt::format_to(ctx.out(), "pop_back");
-            case tmcppc::data_structures::notification_type::clear: return fmt::format_to(ctx.out(), "clear");
-        }
-        return fmt::format_to(ctx.out(), "unknown notification type");
-    }
-};
-
-inline std::ostream& operator<<(std::ostream& os, const tmcppc::data_structures::notification_type& nt) {
-    fmt::print(os, "{}", nt);
-    return os;
-}
-
-
-template <>
-struct fmt::formatter<tmcppc::data_structures::notification> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::data_structures::notification& n, FormatContext& ctx) const -> decltype(ctx.out()) {
-        tmcppc::data_structures::notification_type n_type{ n.get_type() };
-        return fmt::format_to(ctx.out(), "<id : {}, type : {}({})>",
-            n.get_id(),
-            n_type,
-            (n_type == tmcppc::data_structures::notification_type::push_back or
-             n_type == tmcppc::data_structures::notification_type::pop_back)
-                ? std::to_string(n.get_index_of_changed_element())
-                : ""
-        );
-    }
-};
-
-inline std::ostream& operator<<(std::ostream& os, const tmcppc::data_structures::notification& n) {
-    fmt::print(os, "{}", n);
-    return os;
-}
-
-
-template <typename T>
-struct fmt::is_range<tmcppc::data_structures::observable_vector<T>, char> : std::false_type {};
-
-template <typename T>
-struct fmt::formatter<tmcppc::data_structures::observable_vector<T>> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::data_structures::observable_vector<T>& v, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "{}", v.v_);
-    }
-};
-
-template <typename T>
-    requires std::is_convertible_v<std::vector<T>, std::string_view>
-struct fmt::formatter<tmcppc::data_structures::observable_vector<T>> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::data_structures::observable_vector<T>& v, FormatContext& ctx) const -> decltype(ctx.out()) {
-        fmt::format_to(ctx.out(), "[");
-        bool first{ true };
-        for (auto&& c : v.v_) {
-            fmt::format_to(ctx.out(), "{}'{}'", first ? "" : ", ", c);
-            first = false;
-        }
-        return fmt::format_to(ctx.out(), "]");
-    }
-};
-
-template <typename T>
-/* friend */ std::ostream& operator<<(std::ostream& os, const tmcppc::data_structures::observable_vector<T>& v) {
-    fmt::print(os, v);
-    return os;
-}
 
 
 void problem_71_main(std::ostream& os);

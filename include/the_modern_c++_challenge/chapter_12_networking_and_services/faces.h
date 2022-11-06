@@ -295,145 +295,22 @@ namespace tmcppc::face_detection {
 }  // namespace tmcppc::face_detection
 
 
+// fmt formatters
 template <>
-struct fmt::formatter<tmcppc::face_detection::error> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::face_detection::error& error, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        error.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::face_detection::error> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::face_detection::error_response> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::face_detection::error_response& error_response, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        error_response.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::face_detection::error_response> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::face_detection::point> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::face_detection::point& point, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        point.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::face_detection::point> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::face_detection::rectangle> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::face_detection::rectangle& rectangle, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        rectangle.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::face_detection::rectangle> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::face_detection::face_landmarks> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::face_detection::face_landmarks& face_landmarks, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        face_landmarks.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::face_detection::face_landmarks> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::face_detection::emotion> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::face_detection::emotion& emotion, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        emotion.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::face_detection::emotion> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::face_detection::face_attributes> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::face_detection::face_attributes& face_attributes, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        face_attributes.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::face_detection::face_attributes> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::face_detection::face> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::face_detection::face& face, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        face.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::face_detection::face> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::face_detection::faces_response> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::face_detection::faces_response& faces_response, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        faces_response.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
+struct fmt::formatter<tmcppc::face_detection::faces_response> : fmt::ostream_formatter {};

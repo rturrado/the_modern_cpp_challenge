@@ -19,12 +19,32 @@ namespace ch = std::chrono;
 
 
 namespace tmcppc::ssn {
+    enum class sex;
+    struct person;
+}
+
+// fmt formatters
+template <>
+struct fmt::formatter<tmcppc::ssn::sex> : fmt::ostream_formatter {};
+template <>
+struct fmt::formatter<tmcppc::ssn::person> : fmt::ostream_formatter {};
+
+
+namespace tmcppc::ssn {
     enum class sex { female, male };
+
+    inline std::ostream& operator<<(std::ostream& os, const sex& s) {
+        return os << fmt::format("{}", (s == sex::female) ? "Female" : "  Male");
+    }
 
 
     struct person {
         sex sex_{};
         ch::year_month_day birth_date_{};
+
+        friend std::ostream& operator<<(std::ostream& os, const tmcppc::ssn::person& p) {
+            return os << fmt::format("[{}, {:%Y/%b/%d}]", p.sex_, ch::sys_days(p.birth_date_));
+        }
     };
 
 
@@ -145,44 +165,6 @@ namespace tmcppc::ssn {
         static const int crc_modulo_{ 10 };
     };
 }  // namespace tmcppc::ssn
-
-
-template <>
-struct fmt::formatter<tmcppc::ssn::sex> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::ssn::sex& s, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "{}", (s == tmcppc::ssn::sex::female) ? "Female" : "  Male");
-    }
-};
-
-inline std::ostream& operator<<(std::ostream& os, const tmcppc::ssn::sex& s) {
-    fmt::print(os, "{}", s);
-    return os;
-}
-
-
-template <>
-struct fmt::formatter<tmcppc::ssn::person> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::ssn::person& p, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "[{}, {:%Y/%b/%d}]", p.sex_, ch::sys_days(p.birth_date_));
-    }
-};
-
-inline std::ostream& operator<<(std::ostream& os, const tmcppc::ssn::person& p) {
-    fmt::print(os, "{}", p);
-    return os;
-}
 
 
 void problem_69_main(std::ostream& os);

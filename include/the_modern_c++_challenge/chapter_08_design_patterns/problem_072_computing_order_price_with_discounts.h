@@ -369,95 +369,19 @@ namespace tmcppc::store {
 }  // namespace tmcppc::store
 
 
+// fmt formatters
 template <>
-struct fmt::formatter<tmcppc::store::discount> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::store::discount& d, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        d.print(oss, indentation{});
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
+struct fmt::formatter<tmcppc::store::discount> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::store::article_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::store::article_t& a, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        a.print(oss, indentation{});
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
+struct fmt::formatter<tmcppc::store::article_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::store::store> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::store::store& s, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        s.print(oss, indentation{});
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
+struct fmt::formatter<tmcppc::store::store> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::store::customer_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::store::customer_t& c, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        c.print(oss, indentation{});
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
+struct fmt::formatter<tmcppc::store::customer_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::store::order_line_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::store::order_line_t& order_line, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        order_line.print(oss, indentation{});
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
+struct fmt::formatter<tmcppc::store::order_line_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::store::order_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::store::order_t& order, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        order.print(oss, indentation{});
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
+struct fmt::formatter<tmcppc::store::order_t> : fmt::ostream_formatter {};
 
 
 void problem_72_main(std::ostream& os);

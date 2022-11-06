@@ -16,6 +16,10 @@ namespace tmcppc::problem_56 {
         int id{};
         std::string title;
         std::string author;
+
+        friend std::ostream& operator<<(std::ostream& os, const book& b) {
+            return os << fmt::format("(id = {}, title = {}, author = {})", b.id, b.title, b.author);
+        }
     };
 
     template <typename T, typename F>
@@ -28,23 +32,9 @@ namespace tmcppc::problem_56 {
 }  // namespace tmcppc::problem_56
 
 
+// fmt formatter
 template <>
-struct fmt::formatter<tmcppc::problem_56::book> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::problem_56::book& b, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "(id = {}, title = {}, author = {})", b.id, b.title, b.author);
-    }
-};
-
-inline std::ostream& operator<<(std::ostream& os, const tmcppc::problem_56::book& b) {
-    fmt::print(os, "{}", b);
-    return os;
-}
+struct fmt::formatter<tmcppc::problem_56::book> : fmt::ostream_formatter {};
 
 
 void problem_56_main(std::ostream& os);

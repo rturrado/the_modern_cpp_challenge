@@ -67,9 +67,29 @@ namespace tmcppc::network {
 
         auto operator<=>(const url& other) const = default;
 
-    private:
-        friend struct fmt::formatter<url>;
+        friend std::ostream& operator<<(std::ostream& os, const tmcppc::network::url& u) {
+            os << fmt::format("[\n");
+            os << fmt::format("\tProtocol: {}\n", u.protocol_);
+            if (u.login_.has_value()) {
+                os << fmt::format("\tLogin: {}\n", u.login_.value());
+            }
+            os << fmt::format("\tDomain: {}\n", u.domain_);
+            if (u.port_.has_value()) {
+                os << fmt::format("\tPort: {}\n", u.port_.value());
+            }
+            if (u.path_.has_value()) {
+                os << fmt::format("\tPath: {}\n", u.path_.value());
+            }
+            if (u.query_.has_value()) {
+                os << fmt::format("\tQuery: {}\n", u.query_.value());
+            }
+            if (u.fragment_.has_value()) {
+                os << fmt::format("\tFragment: {}\n", u.fragment_.value());
+            }
+            return os << fmt::format("]");
+        }
 
+    private:
         std::string protocol_;
         std::optional<std::string> login_;
         std::string domain_;
@@ -81,39 +101,6 @@ namespace tmcppc::network {
 }  // namespace tmcppc::network
 
 
+// fmt formatter
 template <>
-struct fmt::formatter<tmcppc::network::url> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::network::url& u, FormatContext& ctx) const -> decltype(ctx.out()) {
-        fmt::format_to(ctx.out(), "[\n");
-        fmt::format_to(ctx.out(), "\tProtocol: {}\n", u.protocol_);
-        if (u.login_.has_value()) {
-            fmt::format_to(ctx.out(), "\tLogin: {}\n", u.login_.value());
-        }
-        fmt::format_to(ctx.out(), "\tDomain: {}\n", u.domain_);
-        if (u.port_.has_value()) {
-            fmt::format_to(ctx.out(), "\tPort: {}\n", u.port_.value());
-        }
-        if (u.path_.has_value()) {
-            fmt::format_to(ctx.out(), "\tPath: {}\n", u.path_.value());
-        }
-        if (u.query_.has_value()) {
-            fmt::format_to(ctx.out(), "\tQuery: {}\n", u.query_.value());
-        }
-        if (u.fragment_.has_value()) {
-            fmt::format_to(ctx.out(), "\tFragment: {}\n", u.fragment_.value());
-        }
-        fmt::format_to(ctx.out(), "]");
-        return ctx.out();
-    }
-};
-
-inline std::ostream& operator<<(std::ostream& os, const tmcppc::network::url& u) {
-    fmt::print(os, "{}", u);
-    return os;
-}
+struct fmt::formatter<tmcppc::network::url> : fmt::ostream_formatter {};

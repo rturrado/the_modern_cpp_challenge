@@ -11,6 +11,18 @@
 
 
 namespace tmcppc::bitcoin {
+    struct exchange_rate;
+    struct exchange_rates;
+}
+
+// fmt formatters
+template <>
+struct fmt::formatter<tmcppc::bitcoin::exchange_rate> : fmt::ostream_formatter {};
+template <>
+struct fmt::formatter<tmcppc::bitcoin::exchange_rates> : fmt::ostream_formatter {};
+
+
+namespace tmcppc::bitcoin {
     using namespace rtc::pretty_print;
 
     struct exchange_rate {
@@ -24,32 +36,13 @@ namespace tmcppc::bitcoin {
             fmt::print(os, "{}{} symbol: {}, 15m: {:.2f}, last: {:.2f}, buy: {:.2f}, sell: {:.2f} {}",
                 indentation, '{', symbol, fifteen_minutes, last, buy, sell, '}');
         }
+        friend std::ostream& operator<<(std::ostream& os, const exchange_rate& er) {
+            er.print(os);
+            return os;
+        }
         auto operator<=>(const exchange_rate& other) const = default;
     };
-    inline std::ostream& operator<<(std::ostream& os, const exchange_rate& er) {
-        er.print(os);
-        return os;
-    }
-}  // namespace tmcppc::bitcoin
 
-
-template <>
-struct fmt::formatter<tmcppc::bitcoin::exchange_rate> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::bitcoin::exchange_rate& exchange_rate, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        exchange_rate.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
-namespace tmcppc::bitcoin {
     struct exchange_rates {
         std::map<std::string, exchange_rate> data{};
 
@@ -65,6 +58,10 @@ namespace tmcppc::bitcoin {
                 fmt::print(os, "\n{}{}", indentation, '}');
             }
         }
+        friend std::ostream& operator<<(std::ostream& os, const exchange_rates& ers) {
+            ers.print(os);
+            return os;
+        }
         auto operator==(const exchange_rates& other) const { return data == other.data; }
         auto operator!=(const exchange_rates& other) const { return not (data == other.data); }
         auto operator<(const exchange_rates& other) const { return data < other.data; }
@@ -72,25 +69,4 @@ namespace tmcppc::bitcoin {
         auto operator<=(const exchange_rates& other) const { return not (data > other.data); }
         auto operator>=(const exchange_rates& other) const { return not (data < other.data); }
     };
-
-    inline std::ostream& operator<<(std::ostream& os, const exchange_rates& ers) {
-        ers.print(os);
-        return os;
-    }
 }  // namespace tmcppc::bitcoin
-
-
-template <>
-struct fmt::formatter<tmcppc::bitcoin::exchange_rates> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::bitcoin::exchange_rates& exchange_rates, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        exchange_rates.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};

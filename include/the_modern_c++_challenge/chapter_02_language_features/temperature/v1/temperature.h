@@ -66,23 +66,21 @@ namespace tmcppc::temperature::v1 {
             return *this;
         }
 
+        friend std::ostream& operator<<(std::ostream& os, const temperature<Rep_>& t) {
+            const auto& s{ t.scale_ };
+            if (s == tmcppc::temperature::v1::scale_t::invalid) {
+                return os << fmt::format("{}", to_string(s));
+            }
+            return os << fmt::format("{:.2f} {}", t.value_, to_string(s));
+        }
+
         [[nodiscard]] Rep_ value() const noexcept { return value_; }
         [[nodiscard]] scale_t scale() const noexcept { return scale_; }
 
     private:
-        friend struct fmt::formatter<temperature>;
-
         Rep_ value_{ 0 };
         enum scale_t scale_{ scale_t::invalid };
     };
-
-    // Operator insertion
-    //
-    template <typename Rep_>
-    std::ostream& operator<<(std::ostream& os, const temperature<Rep_>& t) {
-        fmt::print(os, "{}", t);
-        return os;
-    }
 
     // Conversions
     //
@@ -217,19 +215,6 @@ namespace tmcppc::temperature::v1 {
 }  // namespace tmcppc::temperature::v1
 
 
+// fmt formatter
 template <typename Rep_>
-struct fmt::formatter<tmcppc::temperature::v1::temperature<Rep_>> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::temperature::v1::temperature<Rep_>& t, FormatContext& ctx) const -> decltype(ctx.out()) {
-        const auto& s{ t.scale() };
-        if (s == tmcppc::temperature::v1::scale_t::invalid) {
-            return fmt::format_to(ctx.out(), "{}", to_string(s));
-        }
-        return fmt::format_to(ctx.out(), "{:.2f} {}", t.value(), to_string(s));
-    }
-};
+struct fmt::formatter<tmcppc::temperature::v1::temperature<Rep_>> : fmt::ostream_formatter {};

@@ -424,9 +424,24 @@ namespace tmcppc::data_structures {
             return column_widths;
         }
 
-    private:
-        friend struct fmt::formatter<array_2d>;
+        friend std::ostream& operator<<(std::ostream& os, const array_2d<T>& arr) {
+            if (arr.empty()) {
+                os << fmt::format("{}", "[]");
+            } else {
+                auto column_widths{ get_column_widths(arr) };
 
+                for (size_t row{ 0 }; row < arr.height_; ++row) {
+                    os << fmt::format("{}{}", (row == 0 ? "" : "\n"), "[ ");
+                    for (size_t col{ 0 }; col < arr.width_; ++col) {
+                        os << fmt::format("{0}{2:>{1}}", (col == 0 ? "" : ", "), column_widths[col], arr.at(row, col));
+                    }
+                    os << fmt::format("{}", " ]");
+                }
+            }
+            return os;
+        }
+
+    private:
         std::vector<T> data_;
         size_type width_;
         size_type height_;
@@ -434,39 +449,8 @@ namespace tmcppc::data_structures {
 }  // namespace tmcppc::data_structures
 
 
+// fmt formatters
 template <rtc::print::printable T>
 struct fmt::is_range<tmcppc::data_structures::array_2d<T>, char> : std::false_type {};
-
-
 template <rtc::print::printable T>
-struct fmt::formatter<tmcppc::data_structures::array_2d<T>> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::data_structures::array_2d<T>& arr, FormatContext& ctx) const -> decltype(ctx.out()) {
-        if (arr.empty()) {
-            fmt::format_to(ctx.out(), "{}", "[]");
-        } else {
-            auto column_widths{ get_column_widths(arr) };
-
-            for (size_t row{ 0 }; row < arr.height_; ++row) {
-                fmt::format_to(ctx.out(), "{}{}", (row == 0 ? "" : "\n"), "[ ");
-                for (size_t col{ 0 }; col < arr.width_; ++col) {
-                    fmt::format_to(ctx.out(), "{0}{2:>{1}}", (col == 0 ? "" : ", "), column_widths[col], arr.at(row, col));
-                }
-                fmt::format_to(ctx.out(), "{}", " ]");
-            }
-        }
-        return ctx.out();
-    }
-};
-
-
-template <rtc::print::printable T>
-std::ostream& operator<<(std::ostream& os, const tmcppc::data_structures::array_2d<T>& arr) {
-    fmt::print(os, "{}", arr);
-    return os;
-}
+struct fmt::formatter<tmcppc::data_structures::array_2d<T>> : fmt::ostream_formatter {};

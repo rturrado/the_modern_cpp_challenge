@@ -10,8 +10,34 @@
 
 
 namespace tmcppc::process {
+    enum class status_t : bool;
+    enum class platform_t : bool;
+}
+
+// fmt formatters
+template <>
+struct fmt::formatter<tmcppc::process::status_t> : fmt::ostream_formatter {};
+template <>
+struct fmt::formatter<tmcppc::process::platform_t> : fmt::ostream_formatter {};
+
+
+namespace tmcppc::process {
     enum class status_t : bool { running, suspended };
     enum class platform_t : bool { x32, x64 };
+
+    inline std::ostream& operator<<(std::ostream& os, const status_t& status) {
+        return os << fmt::format("{}", status == status_t::running ? "Running" : "Suspended");
+    }
+    inline std::ostream& operator<<(std::ostream& os, const platform_t& platform) {
+        return os << fmt::format("{}", platform == platform_t::x32 ? "32-bit" : "64-bit");
+    }
+
+    [[nodiscard]] inline std::string to_string(const status_t& status) {
+        return fmt::format("{}", status);
+    }
+    [[nodiscard]] inline std::string to_string(const platform_t& platform) {
+        return fmt::format("{}", platform);
+    }
 
     class info {
     public:
@@ -56,52 +82,6 @@ namespace tmcppc::process {
         platform_t platform_{};
     };
 }  // namespace tmcppc::process
-
-
-template <>
-struct fmt::formatter<tmcppc::process::status_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::process::status_t& status, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "{}", status == tmcppc::process::status_t::running ? "Running" : "Suspended");
-    }
-};
-
-inline std::ostream& operator<<(std::ostream& os, const tmcppc::process::status_t& status) {
-    fmt::print(os, "{}", status);
-    return os;
-}
-
-inline std::string to_string(const tmcppc::process::status_t& status) {
-    return fmt::format("{}", status);
-}
-
-
-template <>
-struct fmt::formatter<tmcppc::process::platform_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::process::platform_t& platform, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "{}", platform == tmcppc::process::platform_t::x32 ? "32-bit" : "64-bit");
-    }
-};
-
-inline std::ostream& operator<<(std::ostream& os, const tmcppc::process::platform_t& platform) {
-    fmt::print(os, "{}", platform);
-    return os;
-}
-
-inline std::string to_string(const tmcppc::process::platform_t& platform) {
-    return fmt::format("{}", platform);
-}
 
 
 namespace tmcppc::problem_33 {
