@@ -18,6 +18,10 @@ namespace tmcppc::data_structures {
         size_t count{};
 
         auto operator<=>(const element_count& other) const = default;
+
+        friend std::ostream& operator<<(std::ostream& os, const element_count<T>& ec) {
+            return os << fmt::format("[e={}, c={}]", ec.element, ec.count);
+        }
     };
 
     template <typename T>
@@ -25,24 +29,9 @@ namespace tmcppc::data_structures {
 }  // namespace tmcppc::data_structures
 
 
+// fmt formatter
 template <typename T>
-struct fmt::formatter<tmcppc::data_structures::element_count<T>> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::data_structures::element_count<T>& ec, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "[e={}, c={}]", ec.element, ec.count);
-    }
-};
-
-template <typename T>
-std::ostream& operator<<(std::ostream& os, const tmcppc::data_structures::element_count<T>& ec) {
-    fmt::print(os, "{}", ec);
-    return os;
-}
+struct fmt::formatter<tmcppc::data_structures::element_count<T>> : fmt::ostream_formatter {};
 
 
 namespace tmcppc::problem_48 {

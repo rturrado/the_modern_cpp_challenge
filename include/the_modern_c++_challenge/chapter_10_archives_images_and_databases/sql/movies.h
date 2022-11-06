@@ -569,22 +569,16 @@ namespace tmcppc::movies::sql {
             }
         }
 
+        friend std::ostream& operator<<(std::ostream& os, const database& db) {
+            return os << db.catalog_;
+        }
+
     private:
         sqlite::database sqlite_db_;
     };
-    inline std::ostream& operator<<(std::ostream& os, const database& db) { return os << db.catalog_; }
 }  // namespace tmcppc::movies::sql
 
 
+// fmt formatter
 template <>
-struct fmt::formatter<tmcppc::movies::sql::database> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::movies::sql::database& database, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "{}", database.catalog_);
-    }
-};
+struct fmt::formatter<tmcppc::movies::sql::database> : fmt::ostream_formatter {};

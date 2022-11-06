@@ -15,29 +15,19 @@ namespace tmcppc::phone {
         Spain = 34,
         UK = 44
     };
+
+    inline std::ostream& operator<<(std::ostream& os, const country_code& cc) {
+        switch (cc) {
+            case country_code::US: return os << fmt::format("{}", "US");
+            case country_code::Spain: return os << fmt::format("{}", "Spain");
+            case country_code::UK: return os << fmt::format("{}", "UK");
+            default: return os << fmt::format("{}", "Unknown country code");
+        }
+        return os;
+    }
 }  // namespace tmcppc::phone
 
 
+// fmt formatter
 template <>
-struct fmt::formatter<tmcppc::phone::country_code> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::phone::country_code& cc, FormatContext& ctx) const -> decltype(ctx.out()) {
-        switch (cc) {
-            case tmcppc::phone::country_code::US: fmt::format_to(ctx.out(), "{}", "US"); break;
-            case tmcppc::phone::country_code::Spain: fmt::format_to(ctx.out(), "{}", "Spain"); break;
-            case tmcppc::phone::country_code::UK: fmt::format_to(ctx.out(), "{}", "UK"); break;
-            default: fmt::format_to(ctx.out(), "{}", "Unknown country code"); break;
-        }
-        return ctx.out();
-    }
-};
-
-inline std::ostream& operator<<(std::ostream& os, const tmcppc::phone::country_code& cc) {
-    fmt::print(os, "{}", cc);
-    return os;
-}
+struct fmt::formatter<tmcppc::phone::country_code> : fmt::ostream_formatter {};

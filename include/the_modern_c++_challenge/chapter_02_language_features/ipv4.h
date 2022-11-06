@@ -16,6 +16,12 @@
 #include <string>
 
 
+// fmt formatter
+namespace tmcppc::network { class ipv4; }
+template <>
+struct fmt::formatter<tmcppc::network::ipv4> : fmt::ostream_formatter {};
+
+
 namespace tmcppc::network {
     struct invalid_ipv4_address_error : public std::runtime_error {
         explicit invalid_ipv4_address_error(const std::string& address) : std::runtime_error{ "" } {
@@ -65,7 +71,9 @@ namespace tmcppc::network {
             : octets_{ o0, o1, o2, o3 }
         {}
 
-        [[nodiscard]] std::string to_string() const;
+        [[nodiscard]] std::string to_string() const {
+            return fmt::format("{}", *this);
+        }
 
         [[nodiscard]] constexpr unsigned long to_ulong() const noexcept {
             return static_cast<unsigned long>((octets_[0] << 24) | (octets_[1] << 16) | (octets_[2] << 8) | octets_[3]);
@@ -82,7 +90,7 @@ namespace tmcppc::network {
             return tmp;
         }
 
-    private:
+    public:
         friend bool operator==(const ipv4& lhs, const ipv4& rhs) {
             return lhs.octets_ == rhs.octets_;
         }
@@ -139,30 +147,6 @@ namespace tmcppc::network {
         }
 
     private:
-        friend struct fmt::formatter<ipv4>;
-
         std::array<std::uint8_t, 4> octets_{};
     };
-}  // namespace tmcppc::network
-
-
-template <>
-struct fmt::formatter<tmcppc::network::ipv4> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::network::ipv4& address, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "{}.{}.{}.{}",
-            address.octets_[0], address.octets_[1], address.octets_[2], address.octets_[3]);
-    }
-};
-
-
-namespace tmcppc::network {
-    [[nodiscard]] inline std::string ipv4::to_string() const {
-        return fmt::format("{}", *this);
-    }
 }  // namespace tmcppc::network

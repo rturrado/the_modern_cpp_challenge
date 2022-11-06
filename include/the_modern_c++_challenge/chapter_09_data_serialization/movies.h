@@ -7,7 +7,6 @@
 #include <optional>
 #include <ostream>
 #include <rtc/pretty_print.h>
-#include <sstream>  // ostringstream
 #include <string>
 #include <vector>
 
@@ -288,161 +287,24 @@ namespace tmcppc::movies {
 }  // namespace tmcppc::movies
 
 
+// fmt formatters
 template <>
-struct fmt::formatter<tmcppc::movies::role_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::movies::role_t& role, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        role.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::movies::role_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::movies::cast_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::movies::cast_t& cast, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        cast.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::movies::cast_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::movies::writer_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::movies::writer_t& writer, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        writer.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::movies::writer_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::movies::writers_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::movies::writers_t& writers, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        writers.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::movies::writers_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::movies::director_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::movies::director_t& director, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        director.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::movies::director_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::movies::directors_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::movies::directors_t& directors, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        directors.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::movies::directors_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::movies::media_file_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::movies::media_file_t& media_file, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        media_file.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::movies::media_file_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::movies::media_files_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::movies::media_files_t& media_files, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        media_files.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::movies::media_files_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::movies::movie_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::movies::movie_t& movie, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        movie.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
-
-
+struct fmt::formatter<tmcppc::movies::movie_t> : fmt::ostream_formatter {};
 template <>
-struct fmt::formatter<tmcppc::movies::catalog_t> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::movies::catalog_t& catalog, FormatContext& ctx) const -> decltype(ctx.out()) {
-        std::ostringstream oss{};
-        catalog.print(oss);
-        return fmt::format_to(ctx.out(), "{}", oss.str());
-    }
-};
+struct fmt::formatter<tmcppc::movies::catalog_t> : fmt::ostream_formatter {};

@@ -150,9 +150,11 @@ namespace tmcppc::data_structures {
 
         auto operator<=>(const circular_buffer& other) const noexcept = default;
 
-    private:
-        friend struct fmt::formatter<circular_buffer>;
+        friend std::ostream& operator<<(std::ostream& os, const circular_buffer<T>& cb) {
+            return os << fmt::format("[{}]", fmt::join(cb.container_, ", "));
+        }
 
+    private:
         circular_buffer() = default;
 
         [[nodiscard]] constexpr size_type next_pos(size_type pos) const noexcept { return (++pos % capacity_); }
@@ -186,19 +188,8 @@ namespace tmcppc::data_structures {
 }  // namespace tmcppc::data_structures
 
 
+// fmt formatter
 template <typename T>
 struct fmt::is_range<tmcppc::data_structures::circular_buffer<T>, char> : std::false_type {};
-
-
 template <typename T>
-struct fmt::formatter<tmcppc::data_structures::circular_buffer<T>> {
-    template <typename ParseContext>
-    constexpr auto parse(ParseContext& ctx) {
-        return ctx.begin();
-    }
-
-    template <typename FormatContext>
-    auto format(const tmcppc::data_structures::circular_buffer<T>& cb, FormatContext& ctx) const -> decltype(ctx.out()) {
-        return fmt::format_to(ctx.out(), "[{}]", fmt::join(cb.container_, ", "));
-    }
-};
+struct fmt::formatter<tmcppc::data_structures::circular_buffer<T>> : fmt::ostream_formatter {};
