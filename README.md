@@ -4,7 +4,7 @@
 
 # The Modern C++ Challenge
 
-My solutions to the 100 problems of The Modern C++ Challenge, a book by Marius Bancila's (published by Packt).
+My solutions to the 100 problems of The Modern C++ Challenge, a book by Marius Bancila (published by Packt).
 
 These exercises were initially implemented as a project within a bigger Visual Studio solution, [Catching up with modern C++](https://github.com/rturrado/CatchingUpWithModernCpp), as a way of practicing _modern C++ (11/14/17/20)_. However, anyone downloading that project would need to:
 - Make sure they have installed all the libraries used in the code.
