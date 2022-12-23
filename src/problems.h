@@ -27,11 +27,11 @@ class problems {
     using function_type = std::function<void()>;
 
 public:
-    static problems& get_instance() {
+    [[nodiscard]] static problems& get_instance() {
         static problems instance;
         return instance;
     }
-    constexpr size_t size() {
+    [[nodiscard]] constexpr size_t size() const {
         return data_.size();
     }
     void execute(size_t i) {

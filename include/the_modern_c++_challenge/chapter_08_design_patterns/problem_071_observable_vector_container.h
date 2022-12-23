@@ -87,11 +87,11 @@ namespace tmcppc::data_structures {
 
     class group_id_generator {
     public:
-        static group_id_generator& get_instance() {
+        [[nodiscard]] static group_id_generator& get_instance() {
             static group_id_generator instance;
             return instance;
         }
-        size_t operator()(const std::string& group) { return cache_[group]++; }
+        [[nodiscard]] size_t operator()(const std::string& group) { return cache_[group]++; }
     private:
         group_id_generator() = default;
 

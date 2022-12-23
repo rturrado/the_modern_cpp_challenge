@@ -53,7 +53,7 @@ int main_impl(int argc, char** argv, std::istream& is, std::ostream& os) {
             }
 
             size_t problem_number{};
-            auto [ptr, ec] { std::from_chars(input.data(), input.data() + input.size(), problem_number)};
+            auto [ptr, ec]{ std::from_chars(input.data(), input.data() + input.size(), problem_number) };
             if (ec == std::errc{}) {
                 if (1 <= problem_number and problem_number <= problems.size()) {
                     fmt::print(os, "\n[PROBLEM {}]\n", problem_number);
