@@ -6,7 +6,7 @@
 namespace tmcppc {
     class env {
     public:
-        static env& get_instance() {
+        [[nodiscard]] static env& get_instance() {
             static env instance;
             return instance;
         }

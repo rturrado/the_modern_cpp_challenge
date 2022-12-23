@@ -8,7 +8,7 @@
 namespace tmcppc::logging::v2 {
     class logger {
     public:
-        static logger& get_instance() {
+        [[nodiscard]] static logger& get_instance() {
             static logger instance;
             return instance;
         }

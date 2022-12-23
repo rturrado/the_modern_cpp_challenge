@@ -118,7 +118,7 @@ namespace tmcppc::ssn {
 
     class northeria_ssn_generator : public ssn_generator {
     public:
-        static northeria_ssn_generator& get_instance() {
+        [[nodiscard]] static northeria_ssn_generator& get_instance() {
             static northeria_ssn_generator instance;
             return instance;
         }
@@ -143,7 +143,7 @@ namespace tmcppc::ssn {
 
     class southeria_ssn_generator : public ssn_generator {
     public:
-        static southeria_ssn_generator& get_instance() {
+        [[nodiscard]] static southeria_ssn_generator& get_instance() {
             static southeria_ssn_generator instance;
             return instance;
         }
