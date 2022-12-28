@@ -232,7 +232,6 @@
             "hidden": true,
             "inherits": "conf-unixlike-common",
             "cacheVariables": {
-                "BUILD_TESTING": false,
                 "CMAKE_BUILD_TYPE": "Release",
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++"

@@ -70,19 +70,21 @@ target_link_libraries(${PROJECT_NAME}_test PRIVATE
     pdiff
 )
 if(MSVC)
-    target_compile_options(${PROJECT_NAME}_test PRIVATE
+    set(msvc_compile_options
         /W3 /WX /w34996
         /D_CONSOLE /DCONSOLE
         /D_UNICODE /DUNICODE
         /diagnostics:column /EHsc /FC /fp:precise /Gd /GS /MP /sdl /utf-8 /Zc:inline
     )
+    target_compile_options(${PROJECT_NAME} PRIVATE ${msvc_compile_options})
 elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
-    target_compile_options(${PROJECT_NAME}_test PRIVATE
+    set(unixlike_compile_options
         -pedantic-errors -Werror -Wall -Wextra
         -Wl,-z,defs
         -Wno-deprecated
         # -Wconversion -Wsign-conversion -Wno-sign-conversion  # do not sort flags; order matters
     )
+    target_compile_options(${PROJECT_NAME} PRIVATE ${unixlike_compile_options})
 endif()
 if(CODE_COVERAGE)
     if(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
