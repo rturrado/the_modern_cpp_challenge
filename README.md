@@ -141,13 +141,13 @@ From a `terminal`:
 
 Build with:
 ```bash
-~/projects/the_modern_cpp_challenge> cmake --preset unixlike-gcc-debug-test
+~/projects/the_modern_cpp_challenge> cmake --preset unixlike-gcc-debug-tests
 ~/projects/the_modern_cpp_challenge> cmake --build --preset unixlike-gcc-debug-tests
 ```
 
 You can run the test executable directly:
 ```bash
-~/projects/the_modern_cpp_challenge> ./out/build/unixlike-gcc-debug-tests/src/Debug/the_modern_c++_challenge_test res
+~/projects/the_modern_cpp_challenge> ./out/build/unixlike-gcc-debug-tests/test/Debug/the_modern_c++_challenge_test res
 ```
 
 Or execute the tests via `ctest`:
@@ -261,7 +261,6 @@ Finally, this group of libraries is automatically managed via `vcpkg`:
 
 ## Notes
 
-- Unix builds with address sanitizer enabled are not working at the moment.
 - `res/sample_folder/sample_subfolder` is a symbolic link to the `res/sample_subfolder` directory. If you experience failures in some tests that access `sample_subfolder`, it may happen that the symbolic link wasn't correctly created after a `git` operation. In that case, you may need to tell `git` to enable the use of symbolic links, and then update your local checkout. You can do that by running the commands below:
 
   ```bash
