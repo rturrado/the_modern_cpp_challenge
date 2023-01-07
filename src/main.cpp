@@ -21,7 +21,7 @@ void print_usage(std::ostream& os) {
 }
 
 
-int main_impl(int argc, char** argv, std::istream& is, std::ostream& os) {
+int main_impl(std::ostream& os, int argc, char** argv, std::istream& is) {
     if (argc != 2) {
         print_usage(os);
         return 1;
@@ -74,5 +74,5 @@ int main_impl(int argc, char** argv, std::istream& is, std::ostream& os) {
 
 
 int main(int argc, char** argv) {
-    return main_impl(argc, argv, std::cin, std::cout);
+    return main_impl(std::cout, argc, argv, std::cin);
 }

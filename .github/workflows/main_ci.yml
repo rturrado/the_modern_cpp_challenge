@@ -67,7 +67,8 @@ jobs:
       # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
       - uses: ilammy/msvc-dev-cmd@v1
 
-      # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
+      # Run CMake to generate Ninja project files,
+      # using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build tests
         uses: lukka/run-cmake@v10
         with:
@@ -124,7 +125,8 @@ jobs:
       # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
       - uses: ilammy/msvc-dev-cmd@v1
 
-      # Run CMake to generate Ninja project files, using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
+      # Run CMake to generate Ninja project files,
+      # using the vcpkg's toolchain file to resolve and install the dependencies as specified in vcpkg.json
       - name: Configure and build benchmarks
         uses: lukka/run-cmake@v10
         with:
