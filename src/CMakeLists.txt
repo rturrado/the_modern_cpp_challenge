@@ -109,7 +109,6 @@ set(app_sources
     "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/problems.h"
 )
-list(APPEND app_sources ${lib_sources})
 
 
 # asio library
