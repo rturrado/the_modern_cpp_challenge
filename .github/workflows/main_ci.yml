@@ -64,7 +64,7 @@ jobs:
           variant: sccache
 
       # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly
-      # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
+      # As used here, the Developer Command Prompt is targetting x64 and using the default Windows SDK
       - uses: ilammy/msvc-dev-cmd@v1
 
       # Run CMake to generate Ninja project files,
@@ -122,7 +122,7 @@ jobs:
           variant: sccache
 
       # On Windows runners, let's ensure to have the Developer Command Prompt environment setup correctly
-      # As used here, the Developer Command Prompt created is targeting x64 and using the default the Windows SDK
+      # As used here, the Developer Command Prompt is targetting x64 and using the default Windows SDK
       - uses: ilammy/msvc-dev-cmd@v1
 
       # Run CMake to generate Ninja project files,
