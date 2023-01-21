@@ -2,14 +2,14 @@ cmake_minimum_required(VERSION 3.22)
 
 
 # CMake policies
-if (POLICY CMP0102)
+if(POLICY CMP0102)
     cmake_policy(SET CMP0102 NEW)
 endif()
-if (POLICY CMP0126)
+if(POLICY CMP0126)
     cmake_policy(SET CMP0126 NEW)
 endif()
 cmake_policy(SET CMP0128 NEW)
-if (POLICY CMP0135)
+if(POLICY CMP0135)
     cmake_policy(SET CMP0135 NEW)
 endif()
 
