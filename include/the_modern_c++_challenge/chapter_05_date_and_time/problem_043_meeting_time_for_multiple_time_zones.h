@@ -18,7 +18,7 @@ namespace tmcppc::problem_43 {
 
         os << "Local meeting times:\n";
         for (size_t i{ 0 }; i < participants.size(); ++i) {
-            const auto& [p, tz] { participants[i] };
+            const auto& [p, tz]{ participants[i] };
             os << std::format("\t{:10} {:%F %R %z} {:20}\n", p, std::chrono::zoned_time{ tz, meeting_zt }, tz);
         }
     }
