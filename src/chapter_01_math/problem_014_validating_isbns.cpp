@@ -32,7 +32,7 @@ namespace tmcppc::problem_14 {
             }) };
 
             valid_input = (n == static_cast<size_t>(number_of_digits) and
-                ret.size() == static_cast<size_t>(number_of_digits + number_of_separators));
+                (ret.size() == static_cast<size_t>(number_of_digits + number_of_separators)));
 
             if (not valid_input) {
                 fmt::print(os, "\tError: invalid input.\n");
