@@ -22,8 +22,7 @@ namespace tmcppc::problem_43 {
 
         os << "Local meeting times:\n";
         for (size_t i{ 0 }; i < participants.size(); ++i) {
-            const auto& p{ participants[i].first };
-            const auto& tz{ participants[i].second };
+            const auto& [p, tz] { participants[i] };
             const auto& zt{ date::zoned_time<ch::minutes>{ tz, meeting_zt } };
 
             os << fmt::format("\t{:10} ", p) << date::format("%F %R %z", zt) << fmt::format(" {:20}\n", tz);
